@@ -402,20 +402,6 @@ class AppLocalizationsRu extends AppLocalizations {
       'Создатель I Don\'t Have Spotify (IDHS). Резервный резолвер ссылки';
 
   @override
-  String get aboutDabMusic => 'DAB Music';
-
-  @override
-  String get aboutDabMusicDesc =>
-      'Лучший API для стриминга Qobuz. Без него загрузка файлов в высоком разрешении была бы невозможна!';
-
-  @override
-  String get aboutSpotiSaver => 'SpotiSaver';
-
-  @override
-  String get aboutSpotiSaverDesc =>
-      'Потоковая передача Tidal Hi-Res FLAC. Ключевая часть lossless головоломки!';
-
-  @override
   String get aboutAppDescription =>
       'Скачивайте треки Spotify в lossless качестве с Tidal и Qobuz.';
 

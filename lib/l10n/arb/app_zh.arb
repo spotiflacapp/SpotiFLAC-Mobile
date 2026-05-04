@@ -398,14 +398,6 @@
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutDabMusic": "DAB Music",
-  "@aboutDabMusic": {
-    "description": "Name of Qobuz API service - DO NOT TRANSLATE"
-  },
-  "aboutDabMusicDesc": "The best Qobuz streaming API. Hi-Res downloads wouldn't be possible without this!",
-  "@aboutDabMusicDesc": {
-    "description": "Credit for DAB Music API"
-  },
   "aboutAppDescription": "Download Spotify tracks in lossless quality from Tidal and Qobuz.",
   "@aboutAppDescription": {
     "description": "App description in header card"
@@ -1828,14 +1820,6 @@
   "aboutSjdonadoDesc": "Creator of I Don't Have Spotify (IDHS). The fallback link resolver that saves the day!",
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
-  },
-  "aboutSpotiSaver": "SpotiSaver",
-  "@aboutSpotiSaver": {
-    "description": "Name of SpotiSaver API service - DO NOT TRANSLATE"
-  },
-  "aboutSpotiSaverDesc": "Tidal Hi-Res FLAC streaming endpoints. A key piece of the lossless puzzle!",
-  "@aboutSpotiSaverDesc": {
-    "description": "Credit for SpotiSaver API"
   },
   "artistPopular": "Popular",
   "@artistPopular": {

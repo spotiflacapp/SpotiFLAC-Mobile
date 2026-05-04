@@ -161,13 +161,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
             .toList();
         state = state.copyWith(
           lyricsProviders: updatedProviders.isEmpty
-              ? const [
-                  'lrclib',
-                  'musixmatch',
-                  'netease',
-                  'apple_music',
-                  'qqmusic',
-                ]
+              ? const ['lrclib', 'apple_music']
               : updatedProviders,
         );
       }

@@ -429,100 +429,6 @@
         </div>
       </div>
 
-      <!-- === TIDAL STREAM APIs === -->
-
-      <!-- hifi-api / Binimum (GitHub) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(255,255,255,.08); color: #e8e8e8;">
-          <svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .3z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">hifi-api / Binimum</div>
-          <div class="infra-desc">Primary Tidal lossless stream API. Accepts a track ID and quality parameter, returns hi-res download URLs and DASH manifests. Also deployed at music.binimum.org.</div>
-          <a class="infra-link" href="https://github.com/binimum/hifi-api" target="_blank">
-            binimum/hifi-api
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- QQDL (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(244,63,94,.1); color: #f43f5e;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">QQDL</div>
-          <div class="infra-desc">Redundant Tidal API mirror cluster. Operates five parallel endpoints (vogel, maus, hund, katze, wolf) for high-availability lossless track downloads across the API pool.</div>
-          <a class="infra-link" href="https://qqdl.site" target="_blank">
-            qqdl.site
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Squid (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(6,182,212,.1); color: #06b6d4;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">Squid</div>
-          <div class="infra-desc">Dual-purpose download API serving both Tidal and Qobuz streams. Supports multi-region retrieval (US/FR fallback for Qobuz) to maximize track availability across catalogs.</div>
-          <a class="infra-link" href="https://squid.wtf" target="_blank">
-            squid.wtf
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- SpotiSaver (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(245,158,11,.1); color: #f59e0b;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">SpotiSaver</div>
-          <div class="infra-desc">Tidal hi-fi download endpoints. Hosts two parallel instances (hifi-one, hifi-two) that provide additional redundancy in the 10-API parallel race pool.</div>
-          <a class="infra-link" href="https://spotisaver.net" target="_blank">
-            spotisaver.net
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- === QOBUZ STREAM APIs === -->
-
-      <!-- DabMusic (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(139,92,246,.1); color: #8b5cf6;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">DabMusic</div>
-          <div class="infra-desc">Primary Qobuz lossless stream API. Provides direct download URLs for FLAC audio at up to 24-bit/192kHz quality. Queried in parallel alongside squid.wtf for fastest response.</div>
-          <a class="infra-link" href="https://dabmusic.xyz" target="_blank">
-            dabmusic.xyz
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Jumo DL (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(56,189,248,.1); color: #38bdf8;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">Jumo DL</div>
-          <div class="infra-desc">Qobuz final fallback. A Cloudflare Pages worker tried after all standard Qobuz APIs fail, with automatic quality downgrade cascade (hi-res &rarr; CD &rarr; MP3) to maximize success rate.</div>
-          <a class="infra-link" href="https://jumo-dl.pages.dev" target="_blank">
-            jumo-dl.pages.dev
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
       <!-- === QOBUZ & DEEZER API (Ruubiiiii) === -->
 
       <!-- Ruubiiiii / MusicDL (GitHub) -->
@@ -532,26 +438,9 @@
         </div>
         <div class="infra-info">
           <div class="infra-name">Ruubiiiii</div>
-          <div class="infra-desc">Qobuz and Deezer download API provider. Hosts the MusicDL API that powers both Qobuz lossless (up to 24-bit/192kHz) and Deezer FLAC (CD Quality) downloads in SpotiFLAC.</div>
+          <div class="infra-desc">Qobuz and Deezer download API provider. Hosts the MusicDL API that powers both Qobuz lossless (up to 24-bit/192kHz) and Deezer FLAC (CD Quality) downloads in SpotiFLAC Mobile.</div>
           <a class="infra-link" href="https://github.com/Ruubiiiii" target="_blank">
             Ruubiiiii
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- === AMAZON === -->
-
-      <!-- AfkarXYZ (GitHub) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(255,255,255,.08); color: #e8e8e8;">
-          <svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .3z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">AfkarXYZ</div>
-          <div class="infra-desc">Sole Amazon Music download API with stream decryption support. Also provides a SpotFetch-compatible Spotify metadata proxy used when direct API access is blocked.</div>
-          <a class="infra-link" href="https://github.com/afkarxyz" target="_blank">
-            afkarxyz
             <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
           </a>
         </div>
@@ -569,36 +458,6 @@
           <div class="infra-desc">Privacy-focused media extraction tool. The core engine behind YouTube Music downloads &mdash; accepts a video URL and returns a tunnel URL to the audio stream in opus or mp3 format.</div>
           <a class="infra-link" href="https://github.com/imputnet/cobalt" target="_blank">
             imputnet/cobalt
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Qwkuns (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(16,185,129,.1); color: #10b981;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">Qwkuns</div>
-          <div class="infra-desc">Cobalt-compatible API for YouTube audio extraction. Serves as the fallback download engine when the primary SpotubeDL proxy is unavailable, using the standard Cobalt protocol.</div>
-          <a class="infra-link" href="https://qwkuns.me" target="_blank">
-            qwkuns.me
-            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- SpotubeDL (no GitHub — globe) -->
-      <div class="infra-card">
-        <div class="infra-icon" style="background: rgba(244,63,94,.1); color: #f43f5e;">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-        <div class="infra-info">
-          <div class="infra-name">SpotubeDL</div>
-          <div class="infra-desc">Primary YouTube download proxy. Handles authentication to Cobalt download instances and serves as the first-choice engine for YouTube Music audio extraction.</div>
-          <a class="infra-link" href="https://spotubedl.com" target="_blank">
-            spotubedl.com
             <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
           </a>
         </div>

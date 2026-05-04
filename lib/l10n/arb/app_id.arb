@@ -458,22 +458,6 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutDabMusic": "DAB Music",
-  "@aboutDabMusic": {
-    "description": "Name of Qobuz API service - DO NOT TRANSLATE"
-  },
-  "aboutDabMusicDesc": "API streaming Qobuz terbaik. Unduhan Hi-Res tidak akan mungkin tanpa ini!",
-  "@aboutDabMusicDesc": {
-    "description": "Credit for DAB Music API"
-  },
-  "aboutSpotiSaver": "SpotiSaver",
-  "@aboutSpotiSaver": {
-    "description": "Name of SpotiSaver API service - DO NOT TRANSLATE"
-  },
-  "aboutSpotiSaverDesc": "Tidal perangkat streaming FLAC resolusi tinggi. Bagian penting dari teka-teki tanpa kehilangan kualitas!",
-  "@aboutSpotiSaverDesc": {
-    "description": "Credit for SpotiSaver API"
-  },
   "aboutAppDescription": "Unduh lagu-lagu Spotify dalam kualitas lossless dari Tidal dan Qobuz.",
   "@aboutAppDescription": {
     "description": "App description in header card"

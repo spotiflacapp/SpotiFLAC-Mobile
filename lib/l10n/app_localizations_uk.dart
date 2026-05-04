@@ -406,20 +406,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Творець I Don\'t Have Spotify (IDHS). Резервний розв\'язувач посилань, який рятує становище!';
 
   @override
-  String get aboutDabMusic => 'DAB Music';
-
-  @override
-  String get aboutDabMusicDesc =>
-      'Найкращий API для потокової передачі Qobuz. Завантаження високої роздільної здатності було б неможливим без нього!';
-
-  @override
-  String get aboutSpotiSaver => 'SpotiSaver';
-
-  @override
-  String get aboutSpotiSaverDesc =>
-      'Кінцеві точки потокового передавання Tidal Hi-Res FLAC. Ключовий елемент пазлу музики без втрат!';
-
-  @override
   String get aboutAppDescription =>
       'Кінцеві точки потокового передавання Tidal Hi-Res FLAC. Ключовий елемент пазлу музики без втрат.';
 

@@ -30,10 +30,7 @@ const (
 
 var DefaultLyricsProviders = []string{
 	LyricsProviderLRCLIB,
-	LyricsProviderMusixmatch,
-	LyricsProviderNetease,
 	LyricsProviderAppleMusic,
-	LyricsProviderQQMusic,
 }
 
 var (

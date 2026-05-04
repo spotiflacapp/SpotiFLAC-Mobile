@@ -186,13 +186,7 @@ void main() {
       expect(settings.filenameFormat, '{title} - {artist}');
       expect(settings.artistTagMode, artistTagModeJoined);
       expect(settings.autoFallback, isTrue);
-      expect(settings.lyricsProviders, [
-        'lrclib',
-        'musixmatch',
-        'netease',
-        'apple_music',
-        'qqmusic',
-      ]);
+      expect(settings.lyricsProviders, ['lrclib', 'apple_music']);
       expect(settings.deduplicateDownloads, isTrue);
     });
 

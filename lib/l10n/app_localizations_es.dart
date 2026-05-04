@@ -396,20 +396,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Creator of I Don\'t Have Spotify (IDHS). The fallback link resolver that saves the day!';
 
   @override
-  String get aboutDabMusic => 'DAB Music';
-
-  @override
-  String get aboutDabMusicDesc =>
-      'The best Qobuz streaming API. Hi-Res downloads wouldn\'t be possible without this!';
-
-  @override
-  String get aboutSpotiSaver => 'SpotiSaver';
-
-  @override
-  String get aboutSpotiSaverDesc =>
-      'Tidal Hi-Res FLAC streaming endpoints. A key piece of the lossless puzzle!';
-
-  @override
   String get aboutAppDescription =>
       'Download Spotify tracks in lossless quality from Tidal and Qobuz.';
 
@@ -4176,20 +4162,6 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
   @override
   String get aboutSjdonadoDesc =>
       'Creador de I No tengo Spotify (IDHS). ¡La solución de enlace de reserva que salva el día!';
-
-  @override
-  String get aboutDabMusic => 'Música DAB';
-
-  @override
-  String get aboutDabMusicDesc =>
-      'La mejor API de streaming de Qobuz. ¡Las descargas de Hi-Res no serían posibles sin esto!';
-
-  @override
-  String get aboutSpotiSaver => 'SpotiSaver';
-
-  @override
-  String get aboutSpotiSaverDesc =>
-      'Tidal de transmisión Hi-Res FLAC. ¡Una pieza clave del rompecabezas sin pérdida!';
 
   @override
   String get aboutAppDescription =>

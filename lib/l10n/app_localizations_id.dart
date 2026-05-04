@@ -399,20 +399,6 @@ class AppLocalizationsId extends AppLocalizations {
       'Pencipta I Don\'t Have Spotify (IDHS). Penyelesai tautan cadangan yang menyelamatkan keadaan!';
 
   @override
-  String get aboutDabMusic => 'DAB Music';
-
-  @override
-  String get aboutDabMusicDesc =>
-      'API streaming Qobuz terbaik. Unduhan Hi-Res tidak akan mungkin tanpa ini!';
-
-  @override
-  String get aboutSpotiSaver => 'SpotiSaver';
-
-  @override
-  String get aboutSpotiSaverDesc =>
-      'Tidal perangkat streaming FLAC resolusi tinggi. Bagian penting dari teka-teki tanpa kehilangan kualitas!';
-
-  @override
   String get aboutAppDescription =>
       'Unduh lagu-lagu Spotify dalam kualitas lossless dari Tidal dan Qobuz.';
 

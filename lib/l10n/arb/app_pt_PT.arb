@@ -498,22 +498,6 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutDabMusic": "DAB Music",
-  "@aboutDabMusic": {
-    "description": "Name of Qobuz API service - DO NOT TRANSLATE"
-  },
-  "aboutDabMusicDesc": "A melhor API de streaming do Qobuz. Downloads de alta resolução não seriam possíveis sem isso!",
-  "@aboutDabMusicDesc": {
-    "description": "Credit for DAB Music API"
-  },
-  "aboutSpotiSaver": "SpotiSaver",
-  "@aboutSpotiSaver": {
-    "description": "Name of SpotiSaver API service - DO NOT TRANSLATE"
-  },
-  "aboutSpotiSaverDesc": "Tidal Hi-Res FLAC streaming endpoints. A key piece of the lossless puzzle!",
-  "@aboutSpotiSaverDesc": {
-    "description": "Credit for SpotiSaver API"
-  },
   "aboutAppDescription": "Download Spotify tracks in lossless quality from Tidal and Qobuz.",
   "@aboutAppDescription": {
     "description": "App description in header card"

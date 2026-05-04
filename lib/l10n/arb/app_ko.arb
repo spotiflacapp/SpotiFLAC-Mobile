@@ -498,22 +498,6 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutDabMusic": "DAB Music",
-  "@aboutDabMusic": {
-    "description": "Name of Qobuz API service - DO NOT TRANSLATE"
-  },
-  "aboutDabMusicDesc": "최고의 Qobuz 스트리밍 API입니다. 이 API가 없었다면 고해상도 다운로드는 불가능했을 겁니다!",
-  "@aboutDabMusicDesc": {
-    "description": "Credit for DAB Music API"
-  },
-  "aboutSpotiSaver": "SpotiSaver",
-  "@aboutSpotiSaver": {
-    "description": "Name of SpotiSaver API service - DO NOT TRANSLATE"
-  },
-  "aboutSpotiSaverDesc": "Tidal Hi-Res FLAC 스트리밍 엔드포인트. 무손실 음원 재생의 핵심 요소!",
-  "@aboutSpotiSaverDesc": {
-    "description": "Credit for SpotiSaver API"
-  },
   "aboutAppDescription": "Download Spotify tracks in lossless quality from Tidal and Qobuz.",
   "@aboutAppDescription": {
     "description": "App description in header card"

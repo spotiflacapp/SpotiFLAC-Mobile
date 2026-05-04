@@ -384,20 +384,6 @@ class AppLocalizationsKo extends AppLocalizations {
       'I Don\'t Have Spotify(IDHS) 개발자입니다. 위급 상황 발생 시 해결해 주는 대체 링크 해결 도구를 만들었습니다!';
 
   @override
-  String get aboutDabMusic => 'DAB Music';
-
-  @override
-  String get aboutDabMusicDesc =>
-      '최고의 Qobuz 스트리밍 API입니다. 이 API가 없었다면 고해상도 다운로드는 불가능했을 겁니다!';
-
-  @override
-  String get aboutSpotiSaver => 'SpotiSaver';
-
-  @override
-  String get aboutSpotiSaverDesc =>
-      'Tidal Hi-Res FLAC 스트리밍 엔드포인트. 무손실 음원 재생의 핵심 요소!';
-
-  @override
   String get aboutAppDescription =>
       'Download Spotify tracks in lossless quality from Tidal and Qobuz.';
 

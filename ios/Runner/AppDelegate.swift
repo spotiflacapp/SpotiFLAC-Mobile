@@ -1046,8 +1046,13 @@ import Gobackend  // Import Go framework
     private func createIosBookmarkFromPath(_ path: String) throws -> String {
         let url = URL(fileURLWithPath: path)
         do {
+            #if os(macOS)
+            let options: URL.BookmarkCreationOptions = .withSecurityScope
+            #else
+            let options: URL.BookmarkCreationOptions = []
+            #endif
             let bookmarkData = try url.bookmarkData(
-                options: .withSecurityScope,
+                options: options,
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
@@ -1075,9 +1080,14 @@ import Gobackend  // Import Go framework
         var isStale = false
         let url: URL
         do {
+            #if os(macOS)
+            let options: URL.BookmarkResolutionOptions = .withSecurityScope
+            #else
+            let options: URL.BookmarkResolutionOptions = []
+            #endif
             url = try URL(
                 resolvingBookmarkData: bookmarkData,
-                options: .withSecurityScope,
+                options: options,
                 relativeTo: nil,
                 bookmarkDataIsStale: &isStale
             )
@@ -1110,9 +1120,14 @@ import Gobackend  // Import Go framework
         var isStale = false
         let url: URL
         do {
+            #if os(macOS)
+            let options: URL.BookmarkResolutionOptions = .withSecurityScope
+            #else
+            let options: URL.BookmarkResolutionOptions = []
+            #endif
             url = try URL(
                 resolvingBookmarkData: bookmarkData,
-                options: .withSecurityScope,
+                options: options,
                 relativeTo: nil,
                 bookmarkDataIsStale: &isStale
             )

@@ -1189,8 +1189,7 @@ class _HomeTabState extends ConsumerState<HomeTab>
         !hasSearchProvider &&
         !hasHomeFeedExtension &&
         !hasExploreContent &&
-        !hasResults &&
-        !hasHistoryItems;
+        !hasResults;
 
     ref.listen<String>(settingsProvider.select((s) => s.defaultSearchTab), (
       previous,

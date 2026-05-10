@@ -340,6 +340,28 @@ func TestM4AMetadataAtomHelpers(t *testing.T) {
 	if quality, err := GetM4AQuality(aacQualityPath); err != nil || quality.BitDepth != 0 || quality.SampleRate != 44100 || quality.Duration != 180 {
 		t.Fatalf("GetM4AQuality AAC = %#v/%v", quality, err)
 	}
+	eac3QualityPath := filepath.Join(dir, "quality-eac3.m4a")
+	zeroMvhd := make([]byte, 20)
+	eac3SampleEntry := make([]byte, 32)
+	copy(eac3SampleEntry[0:4], "ec-3")
+	eac3SampleEntry[28] = 0xBB
+	eac3SampleEntry[29] = 0x80
+	mdhd := make([]byte, 20)
+	binary.BigEndian.PutUint32(mdhd[12:16], 48000)
+	binary.BigEndian.PutUint32(mdhd[16:20], 48000*123)
+	eac3QualityFile := append(
+		buildM4AAtom("ftyp", []byte("M4A \x00\x00\x00\x00")),
+		buildM4AAtom("moov", append(
+			append(buildM4AAtom("mvhd", zeroMvhd), buildM4AAtom("trak", buildM4AAtom("mdia", buildM4AAtom("mdhd", mdhd)))...),
+			eac3SampleEntry...,
+		))...,
+	)
+	if err := os.WriteFile(eac3QualityPath, eac3QualityFile, 0600); err != nil {
+		t.Fatal(err)
+	}
+	if quality, err := GetM4AQuality(eac3QualityPath); err != nil || quality.Codec != "eac3" || quality.Duration != 123 {
+		t.Fatalf("GetM4AQuality EAC3 mdhd fallback = %#v/%v", quality, err)
+	}
 	if _, _, ok := parseALACSpecificConfig(make([]byte, 4)); ok {
 		t.Fatal("short ALAC config should not parse")
 	}

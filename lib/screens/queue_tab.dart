@@ -1491,6 +1491,10 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     if (localFormat != null) {
       return localFormat.toLowerCase().replaceAll('-', '_');
     }
+    final historyFormat = normalizeOptionalString(item.historyItem?.format);
+    if (historyFormat != null) {
+      return historyFormat.toLowerCase().replaceAll('-', '_');
+    }
     return _fileExtLower(item.filePath);
   }
 

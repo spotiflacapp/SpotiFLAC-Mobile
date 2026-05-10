@@ -30,7 +30,7 @@ object NativeDownloadFinalizer {
     const val NATIVE_WORKER_CONTRACT_VERSION = 1
     // Native finalizer owns background-safe history writes while Flutter may be suspended.
     // Keep this schema contract in sync with Dart HistoryDatabase before bumping either side.
-    private const val HISTORY_SCHEMA_VERSION = 8
+    private const val HISTORY_SCHEMA_VERSION = 9
     private val activeFFmpegSessionIds = mutableSetOf<Long>()
     private val nativeFFmpegSessionIds = mutableSetOf<Long>()
     private val activeFFmpegSessionLock = Any()
@@ -73,6 +73,8 @@ object NativeDownloadFinalizer {
         "quality",
         "bit_depth",
         "sample_rate",
+        "bitrate",
+        "format",
         "genre",
         "composer",
         "label",
@@ -177,6 +179,9 @@ object NativeDownloadFinalizer {
             sampleRate = optPositiveInt(result, "actual_sample_rate"),
             bitrateKbps = optPositiveBitrateKbps(result, "bitrate")
                 ?: optPositiveBitrateKbps(result, "actual_bitrate"),
+            audioCodec = normalizeAudioCodec(
+                result.optString("audio_codec", "").ifBlank { result.optString("format", "") },
+            ),
         )
 
         try {
@@ -676,7 +681,7 @@ object NativeDownloadFinalizer {
             }
             val bitrateKbps = optPositiveBitrateKbps(metadata, "bitrate")
                 ?: optPositiveBitrateKbps(metadata, "bit_rate")
-            if (bitrateKbps != null) {
+            if (bitrateKbps != null && isLossyAudioCodec(state.audioCodec)) {
                 state.bitrateKbps = bitrateKbps
                 result.put("bitrate", bitrateKbps)
             }
@@ -737,7 +742,7 @@ object NativeDownloadFinalizer {
             format == "AC4" ||
             (format == "M4A" && (bitDepth == null || bitDepth <= 0))
         ) {
-            return if (bitrateKbps != null && bitrateKbps > 0) {
+            return if (bitrateKbps != null && bitrateKbps >= 16) {
                 "$format ${bitrateKbps}kbps"
             } else {
                 nonPlaceholderQuality(storedQuality) ?: format
@@ -767,6 +772,13 @@ object NativeDownloadFinalizer {
         }
     }
 
+    private fun isLossyAudioCodec(codec: String?): Boolean {
+        return when (normalizeAudioCodec(codec)) {
+            "aac", "eac3", "ac3", "ac4", "mp3", "opus", "m4a" -> true
+            else -> false
+        }
+    }
+
     private fun normalizeAudioCodec(codec: String?): String? {
         val normalized = normalizeOptional(codec)
             ?.lowercase(Locale.ROOT)
@@ -777,6 +789,8 @@ object NativeDownloadFinalizer {
             "ec_3" -> "eac3"
             "ac_3" -> "ac3"
             "ac_4" -> "ac4"
+            "mp4" -> "m4a"
+            "ogg" -> "opus"
             else -> normalized
         }
     }
@@ -796,6 +810,11 @@ object NativeDownloadFinalizer {
 
     private fun nonPlaceholderQuality(quality: String?): String? {
         val normalized = normalizeOptional(quality) ?: return null
+        val bitrateMatch = Regex("\\b(\\d+)\\s*kbps\\b", RegexOption.IGNORE_CASE).find(normalized)
+        if (bitrateMatch != null) {
+            val bitrate = bitrateMatch.groupValues.getOrNull(1)?.toIntOrNull()
+            if (bitrate != null && bitrate < 16) return null
+        }
         val key = normalized.lowercase(Locale.ROOT).replace(Regex("[^a-z0-9]+"), "_").trim('_')
         val placeholders = setOf(
             "best",
@@ -1654,6 +1673,10 @@ object NativeDownloadFinalizer {
         values.put("quality", state.quality)
         state.bitDepth?.let { values.put("bit_depth", it) }
         state.sampleRate?.let { values.put("sample_rate", it) }
+        state.bitrateKbps?.takeIf { it >= 16 && isLossyAudioCodec(state.audioCodec) }?.let {
+            values.put("bitrate", it)
+        }
+        normalizeAudioCodec(state.audioCodec)?.let { values.put("format", it) }
         values.put("genre", normalizeOptional(result.optString("genre", "").ifBlank { input.request.optString("genre", "") }))
         values.put("composer", normalizeOptional(resultString(input, "composer").ifBlank { trackString(input, "composer", requestString(input, "composer")) }))
         values.put("label", normalizeOptional(result.optString("label", "").ifBlank { input.request.optString("label", "") }))
@@ -1710,6 +1733,8 @@ object NativeDownloadFinalizer {
                       quality TEXT,
                       bit_depth INTEGER,
                       sample_rate INTEGER,
+                      bitrate INTEGER,
+                      format TEXT,
                       genre TEXT,
                       composer TEXT,
                       label TEXT,
@@ -1725,6 +1750,8 @@ object NativeDownloadFinalizer {
 	                ensureHistoryColumn(db, "composer", "ALTER TABLE history ADD COLUMN composer TEXT")
 	                ensureHistoryColumn(db, "total_tracks", "ALTER TABLE history ADD COLUMN total_tracks INTEGER")
 	                ensureHistoryColumn(db, "total_discs", "ALTER TABLE history ADD COLUMN total_discs INTEGER")
+	                ensureHistoryColumn(db, "bitrate", "ALTER TABLE history ADD COLUMN bitrate INTEGER")
+	                ensureHistoryColumn(db, "format", "ALTER TABLE history ADD COLUMN format TEXT")
 	                ensureHistoryColumn(db, "spotify_id_norm", "ALTER TABLE history ADD COLUMN spotify_id_norm TEXT")
 	                ensureHistoryColumn(db, "isrc_norm", "ALTER TABLE history ADD COLUMN isrc_norm TEXT")
 	                ensureHistoryColumn(db, "match_key", "ALTER TABLE history ADD COLUMN match_key TEXT")
@@ -2096,6 +2123,8 @@ object NativeDownloadFinalizer {
         putCamel("quality", "quality")
         putCamel("bit_depth", "bitDepth")
         putCamel("sample_rate", "sampleRate")
+        putCamel("bitrate", "bitrate")
+        putCamel("format", "format")
         putCamel("genre", "genre")
         putCamel("composer", "composer")
         putCamel("label", "label")
@@ -2127,11 +2156,12 @@ object NativeDownloadFinalizer {
 
     private fun optPositiveBitrateKbps(obj: JSONObject, key: String): Int? {
         val value = optPositiveInt(obj, key) ?: return null
-        return if (value >= 10000) {
+        val kbps = if (value >= 10000) {
             Math.round(value / 1000.0).toInt()
         } else {
             value
         }
+        return if (kbps >= 16) kbps else null
     }
 
     private fun positiveOrNull(primary: Int, fallback: Int): Int? {

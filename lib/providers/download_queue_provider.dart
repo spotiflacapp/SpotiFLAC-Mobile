@@ -38,7 +38,8 @@ final _multiUnderscoreRegex = RegExp(r'_+');
 int? _readPositiveBitrateKbps(dynamic value) {
   final parsed = readPositiveInt(value);
   if (parsed == null) return null;
-  return parsed >= 10000 ? (parsed / 1000).round() : parsed;
+  final kbps = parsed >= 10000 ? (parsed / 1000).round() : parsed;
+  return kbps >= 16 ? kbps : null;
 }
 
 String? _audioFormatForPath(String? filePath, {String? fileName}) {
@@ -58,6 +59,14 @@ String? _nonPlaceholderQuality(String? quality) {
   if (normalized == null || isPlaceholderQualityLabel(normalized)) {
     return null;
   }
+  final bitrateMatch = RegExp(
+    r'\b(\d+)\s*kbps\b',
+    caseSensitive: false,
+  ).firstMatch(normalized);
+  if (bitrateMatch != null) {
+    final bitrate = int.tryParse(bitrateMatch.group(1) ?? '');
+    if (bitrate != null && bitrate < 16) return null;
+  }
   final lower = normalized.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
   const requestedLosslessLabels = {
     'hi_res_lossless',
@@ -68,6 +77,36 @@ String? _nonPlaceholderQuality(String? quality) {
   };
   if (requestedLosslessLabels.contains(lower)) return null;
   return normalized;
+}
+
+String? _normalizeAudioFormatValue(String? value) {
+  final normalized = normalizeOptionalString(
+    value,
+  )?.toLowerCase().replaceAll('-', '_');
+  return switch (normalized) {
+    'flac' => 'flac',
+    'alac' => 'alac',
+    'aac' || 'mp4a' => 'aac',
+    'eac3' || 'ec_3' => 'eac3',
+    'ac3' || 'ac_3' => 'ac3',
+    'ac4' || 'ac_4' => 'ac4',
+    'mp3' => 'mp3',
+    'opus' || 'ogg' => 'opus',
+    'm4a' || 'mp4' => 'm4a',
+    _ => null,
+  };
+}
+
+bool _isLossyAudioFormat(String? value) {
+  return const {
+    'aac',
+    'eac3',
+    'ac3',
+    'ac4',
+    'mp3',
+    'opus',
+    'm4a',
+  }.contains(_normalizeAudioFormatValue(value));
 }
 
 String? _resolveDisplayQuality({
@@ -151,6 +190,8 @@ class DownloadHistoryItem {
   final String? quality;
   final int? bitDepth;
   final int? sampleRate;
+  final int? bitrate;
+  final String? format;
   final String? genre;
   final String? composer;
   final String? label;
@@ -182,6 +223,8 @@ class DownloadHistoryItem {
     this.quality,
     this.bitDepth,
     this.sampleRate,
+    this.bitrate,
+    this.format,
     this.genre,
     this.composer,
     this.label,
@@ -214,6 +257,8 @@ class DownloadHistoryItem {
     'quality': quality,
     'bitDepth': bitDepth,
     'sampleRate': sampleRate,
+    'bitrate': bitrate,
+    'format': format,
     'genre': genre,
     'composer': composer,
     'label': label,
@@ -247,6 +292,8 @@ class DownloadHistoryItem {
         quality: json['quality'] as String?,
         bitDepth: json['bitDepth'] as int?,
         sampleRate: json['sampleRate'] as int?,
+        bitrate: (json['bitrate'] as num?)?.toInt(),
+        format: json['format'] as String?,
         genre: json['genre'] as String?,
         composer: json['composer'] as String?,
         label: json['label'] as String?,
@@ -276,6 +323,8 @@ class DownloadHistoryItem {
     String? quality,
     int? bitDepth,
     int? sampleRate,
+    int? bitrate,
+    String? format,
     String? genre,
     String? composer,
     String? label,
@@ -307,6 +356,8 @@ class DownloadHistoryItem {
       quality: quality ?? this.quality,
       bitDepth: bitDepth ?? this.bitDepth,
       sampleRate: sampleRate ?? this.sampleRate,
+      bitrate: bitrate ?? this.bitrate,
+      format: format ?? this.format,
       genre: genre ?? this.genre,
       composer: composer ?? this.composer,
       label: label ?? this.label,
@@ -703,6 +754,7 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
         item.bitDepth! > 0 &&
         item.sampleRate != null &&
         item.sampleRate! > 0;
+    final needsFormatBackfill = normalizeOptionalString(item.format) == null;
     final needsLosslessSpecProbe =
         !hasResolvedSpecs &&
         (trimmedPath.endsWith('.flac') ||
@@ -720,6 +772,7 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
       final needsDiscNumberBackfill = item.discNumber == null;
       final needsTotalDiscsBackfill = item.totalDiscs == null;
       return needsComposerBackfill ||
+          needsFormatBackfill ||
           needsDurationBackfill ||
           needsTrackNumberBackfill ||
           needsTotalTracksBackfill ||
@@ -735,6 +788,7 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
     final needsDiscNumberBackfill = item.discNumber == null;
     final needsTotalDiscsBackfill = item.totalDiscs == null;
     return needsLosslessSpecProbe ||
+        needsFormatBackfill ||
         isPlaceholderQualityLabel(item.quality) ||
         normalizeOptionalString(item.quality) == null ||
         needsComposerBackfill ||
@@ -761,11 +815,16 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
 
       final bitDepth = readPositiveInt(result['bit_depth']);
       final sampleRate = readPositiveInt(result['sample_rate']);
-      final bitrateKbps = _readPositiveBitrateKbps(result['bitrate']);
+      final detectedFormat = _normalizeAudioFormatValue(
+        result['audio_codec']?.toString() ?? result['format']?.toString(),
+      );
+      final rawBitrateKbps = _readPositiveBitrateKbps(result['bitrate']);
+      final bitrateKbps = _isLossyAudioFormat(detectedFormat)
+          ? rawBitrateKbps
+          : null;
       final quality = _resolveDisplayQuality(
         filePath: filePath,
-        detectedFormat:
-            result['audio_codec']?.toString() ?? result['format']?.toString(),
+        detectedFormat: detectedFormat,
         bitDepth: bitDepth,
         sampleRate: sampleRate,
         bitrateKbps: bitrateKbps,
@@ -782,6 +841,7 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
           bitDepth == null &&
           sampleRate == null &&
           bitrateKbps == null &&
+          detectedFormat == null &&
           composer == null &&
           duration == null &&
           trackNumber == null &&
@@ -795,6 +855,8 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
         'quality': quality,
         'bitDepth': bitDepth,
         'sampleRate': sampleRate,
+        'bitrate': bitrateKbps,
+        'format': detectedFormat,
         'bitrateKbps': bitrateKbps,
         'composer': composer,
         'duration': duration,
@@ -868,6 +930,10 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
         );
         final resolvedBitDepth = probed['bitDepth'] as int?;
         final resolvedSampleRate = probed['sampleRate'] as int?;
+        final resolvedBitrate = probed['bitrate'] as int?;
+        final resolvedFormat = normalizeOptionalString(
+          probed['format'] as String?,
+        );
         final resolvedComposer = normalizeOptionalString(
           probed['composer'] as String?,
         );
@@ -883,6 +949,10 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
             resolvedBitDepth != null && resolvedBitDepth != item.bitDepth;
         final sampleRateChanged =
             resolvedSampleRate != null && resolvedSampleRate != item.sampleRate;
+        final bitrateChanged =
+            resolvedBitrate != null && resolvedBitrate != item.bitrate;
+        final formatChanged =
+            resolvedFormat != null && resolvedFormat != item.format;
         final composerChanged =
             resolvedComposer != null && resolvedComposer != item.composer;
         final durationChanged =
@@ -901,6 +971,8 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
         if (!qualityChanged &&
             !bitDepthChanged &&
             !sampleRateChanged &&
+            !bitrateChanged &&
+            !formatChanged &&
             !composerChanged &&
             !durationChanged &&
             !trackNumberChanged &&
@@ -914,6 +986,8 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
           quality: resolvedQuality,
           bitDepth: resolvedBitDepth,
           sampleRate: resolvedSampleRate,
+          bitrate: resolvedBitrate,
+          format: resolvedFormat,
           composer: resolvedComposer,
           duration: resolvedDuration,
           trackNumber: resolvedTrackNumber,
@@ -1197,6 +1271,8 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
     String? quality,
     int? bitDepth,
     int? sampleRate,
+    int? bitrate,
+    String? format,
     int? trackNumber,
     int? totalTracks,
     int? discNumber,
@@ -1217,6 +1293,8 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
       quality: quality,
       bitDepth: bitDepth,
       sampleRate: sampleRate,
+      bitrate: bitrate,
+      format: format,
       trackNumber: trackNumber,
       totalTracks: totalTracks,
       discNumber: discNumber,
@@ -1228,6 +1306,8 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
     if (updated.quality == current.quality &&
         updated.bitDepth == current.bitDepth &&
         updated.sampleRate == current.sampleRate &&
+        updated.bitrate == current.bitrate &&
+        updated.format == current.format &&
         updated.trackNumber == current.trackNumber &&
         updated.totalTracks == current.totalTracks &&
         updated.discNumber == current.discNumber &&
@@ -5706,10 +5786,22 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     var actualQuality = context.quality;
     final actualBitDepth = result['actual_bit_depth'] as int?;
     final actualSampleRate = result['actual_sample_rate'] as int?;
+    final actualFormat =
+        _normalizeAudioFormatValue(
+          result['audio_codec']?.toString() ?? result['format']?.toString(),
+        ) ??
+        _normalizeAudioFormatValue(_audioFormatForPath(filePath));
+    final actualBitrate = _isLossyAudioFormat(actualFormat)
+        ? _readPositiveBitrateKbps(
+            result['bitrate'] ?? result['actual_bitrate'],
+          )
+        : null;
     final resolvedQuality = _resolveDisplayQuality(
       filePath: filePath,
+      detectedFormat: actualFormat,
       bitDepth: actualBitDepth,
       sampleRate: actualSampleRate,
+      bitrateKbps: actualBitrate,
       storedQuality: actualQuality,
     );
     if (resolvedQuality != null) {
@@ -5818,7 +5910,13 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     final backendComposer = result['composer'] as String?;
     final resultSafFileName = result['file_name'] as String?;
     final lowerFilePath = filePath.toLowerCase();
+    final historyFormat =
+        _normalizeAudioFormatValue(
+          result['audio_codec']?.toString() ?? result['format']?.toString(),
+        ) ??
+        _normalizeAudioFormatValue(_audioFormatForPath(filePath));
     final isLossyOutput =
+        _isLossyAudioFormat(historyFormat) ||
         lowerFilePath.endsWith('.mp3') ||
         lowerFilePath.endsWith('.opus') ||
         lowerFilePath.endsWith('.ogg');
@@ -5896,6 +5994,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
             quality: actualQuality,
             bitDepth: isLossyOutput ? null : actualBitDepth,
             sampleRate: isLossyOutput ? null : actualSampleRate,
+            bitrate: isLossyOutput ? actualBitrate : null,
+            format: historyFormat,
             genre: normalizeOptionalString(backendGenre),
             composer: historyComposer,
             label: normalizeOptionalString(backendLabel),
@@ -8192,6 +8292,12 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           final backendTotalDiscs = _parsePositiveInt(result['total_discs']);
           final backendBitDepth = result['actual_bit_depth'] as int?;
           final backendSampleRate = result['actual_sample_rate'] as int?;
+          final backendFormat =
+              _normalizeAudioFormatValue(
+                result['audio_codec']?.toString() ??
+                    result['format']?.toString(),
+              ) ??
+              _normalizeAudioFormatValue(_audioFormatForPath(filePath));
           final backendBitrateKbps = _readPositiveBitrateKbps(
             result['bitrate'] ?? result['actual_bitrate'],
           );
@@ -8215,7 +8321,10 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
 
           int? finalBitDepth = backendBitDepth;
           int? finalSampleRate = backendSampleRate;
-          int? finalBitrateKbps = backendBitrateKbps;
+          String? finalFormat = backendFormat;
+          int? finalBitrateKbps = _isLossyAudioFormat(finalFormat)
+              ? backendBitrateKbps
+              : null;
           final lowerFilePath = filePath.toLowerCase();
           final canProbeFinalMetadata =
               filePath.startsWith('content://') ||
@@ -8244,16 +8353,25 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                 if (probedSampleRate != null && probedSampleRate > 0) {
                   finalSampleRate = probedSampleRate;
                 }
+                final probedFormat = _normalizeAudioFormatValue(
+                  metadata['audio_codec']?.toString() ??
+                      metadata['format']?.toString(),
+                );
+                if (probedFormat != null) {
+                  finalFormat = probedFormat;
+                }
                 final probedBitrateKbps = _readPositiveBitrateKbps(
                   metadata['bitrate'] ?? metadata['bit_rate'],
                 );
-                if (probedBitrateKbps != null && probedBitrateKbps > 0) {
+                if (probedBitrateKbps != null &&
+                    _isLossyAudioFormat(finalFormat)) {
                   finalBitrateKbps = probedBitrateKbps;
                 }
 
                 final resolvedQuality = _resolveDisplayQuality(
                   filePath: filePath,
                   fileName: finalSafFileName,
+                  detectedFormat: finalFormat,
                   bitDepth: finalBitDepth,
                   sampleRate: finalSampleRate,
                   bitrateKbps: finalBitrateKbps,
@@ -8275,11 +8393,13 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           );
 
           final isLossyOutput =
+              _isLossyAudioFormat(finalFormat) ||
               lowerFilePath.endsWith('.mp3') ||
               lowerFilePath.endsWith('.opus') ||
               lowerFilePath.endsWith('.ogg');
           final historyBitDepth = isLossyOutput ? null : finalBitDepth;
           final historySampleRate = isLossyOutput ? null : finalSampleRate;
+          final historyBitrate = isLossyOutput ? finalBitrateKbps : null;
           final historyTotalTracks = _resolvePositiveMetadataInt(
             trackToDownload.totalTracks,
             backendTotalTracks,
@@ -8353,6 +8473,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                   quality: actualQuality,
                   bitDepth: historyBitDepth,
                   sampleRate: historySampleRate,
+                  bitrate: historyBitrate,
+                  format: finalFormat,
                   genre: effectiveGenre,
                   composer: historyComposer,
                   label: effectiveLabel,

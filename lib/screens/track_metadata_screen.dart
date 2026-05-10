@@ -368,11 +368,21 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
 
       final resolvedBitDepth = readPositiveInt(metadata['bit_depth']);
       final resolvedSampleRate = readPositiveInt(metadata['sample_rate']);
+      final resolvedFormat = _normalizeAudioFormatValue(
+        metadata['audio_codec']?.toString() ?? metadata['format']?.toString(),
+      );
+      final resolvedBitrate = _isBitrateFormatValue(resolvedFormat)
+          ? _readPlausibleBitrateKbps(
+              metadata['bitrate'] ?? metadata['bit_rate'],
+            )
+          : null;
       final resolvedDuration = readPositiveInt(metadata['duration']);
       final resolvedAlbum = metadata['album']?.toString();
-      final resolvedQuality = buildDisplayAudioQuality(
+      final resolvedQuality = _displayQualityForValues(
+        format: resolvedFormat ?? _storedAudioFormat,
         bitDepth: resolvedBitDepth ?? bitDepth,
         sampleRate: resolvedSampleRate ?? sampleRate,
+        bitrateKbps: resolvedBitrate ?? _audioBitrate,
         storedQuality: _quality,
       );
 
@@ -427,6 +437,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
           !_isLocalItem &&
           (resolvedBitDepth != null ||
               resolvedSampleRate != null ||
+              resolvedBitrate != null ||
+              resolvedFormat != null ||
               needsTrackNumber ||
               needsTotalTracks ||
               needsDiscNumber ||
@@ -476,6 +488,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
               quality: resolvedQuality,
               bitDepth: resolvedBitDepth,
               sampleRate: resolvedSampleRate,
+              bitrate: resolvedBitrate,
+              format: resolvedFormat,
               trackNumber: needsTrackNumber ? resolvedTrackNumber : null,
               totalTracks: needsTotalTracks ? resolvedTotalTracks : null,
               discNumber: needsDiscNumber ? resolvedDiscNumber : null,
@@ -483,6 +497,23 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
               duration: needsDuration ? resolvedDuration : null,
               composer: needsComposer ? resolvedComposer : null,
             );
+        if (mounted && _downloadItem != null) {
+          setState(() {
+            _currentDownloadItem = _downloadItem!.copyWith(
+              quality: resolvedQuality,
+              bitDepth: resolvedBitDepth,
+              sampleRate: resolvedSampleRate,
+              bitrate: resolvedBitrate,
+              format: resolvedFormat,
+              trackNumber: needsTrackNumber ? resolvedTrackNumber : null,
+              totalTracks: needsTotalTracks ? resolvedTotalTracks : null,
+              discNumber: needsDiscNumber ? resolvedDiscNumber : null,
+              totalDiscs: needsTotalDiscs ? resolvedTotalDiscs : null,
+              duration: needsDuration ? resolvedDuration : null,
+              composer: needsComposer ? resolvedComposer : null,
+            );
+          });
+        }
       } else if (_isLocalItem && needsDuration) {
         await LibraryDatabase.instance.updateAudioMetadata(
           _localLibraryItem!.id,
@@ -681,7 +712,10 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
       (_isLocalItem
           ? _localLibraryItem!.sampleRate
           : _downloadItem!.sampleRate);
-  int? get _localBitrate => _isLocalItem ? _localLibraryItem!.bitrate : null;
+  int? get _audioBitrate =>
+      _isLocalItem ? _localLibraryItem!.bitrate : _downloadItem?.bitrate;
+  String? get _storedAudioFormat =>
+      _isLocalItem ? _localLibraryItem?.format : _downloadItem?.format;
 
   String get _filePath =>
       _isLocalItem ? _localLibraryItem!.filePath : _downloadItem!.filePath;
@@ -706,6 +740,85 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
   }
 
   String? get _quality => _isLocalItem ? null : _downloadItem!.quality;
+
+  String? _normalizeAudioFormatValue(String? value) {
+    final normalized = normalizeOptionalString(
+      value,
+    )?.toLowerCase().replaceAll('-', '_');
+    return switch (normalized) {
+      'flac' => 'flac',
+      'alac' => 'alac',
+      'aac' || 'mp4a' => 'aac',
+      'eac3' || 'ec_3' => 'eac3',
+      'ac3' || 'ac_3' => 'ac3',
+      'ac4' || 'ac_4' => 'ac4',
+      'mp3' => 'mp3',
+      'opus' || 'ogg' => 'opus',
+      'm4a' || 'mp4' => 'm4a',
+      _ => null,
+    };
+  }
+
+  int? _readPlausibleBitrateKbps(dynamic value) {
+    final parsed = readPositiveInt(value);
+    if (parsed == null) return null;
+    final kbps = parsed >= 10000 ? (parsed / 1000).round() : parsed;
+    return kbps >= 16 ? kbps : null;
+  }
+
+  bool _isBitrateFormatValue(String? value) {
+    return const {
+      'aac',
+      'eac3',
+      'ac3',
+      'ac4',
+      'mp3',
+      'opus',
+      'm4a',
+    }.contains(_normalizeAudioFormatValue(value));
+  }
+
+  String? _usableStoredQuality(String? quality) {
+    final normalized = normalizeOptionalString(quality);
+    if (normalized == null || isPlaceholderQualityLabel(normalized)) {
+      return null;
+    }
+    final bitrateMatch = RegExp(
+      r'\b(\d+)\s*kbps\b',
+      caseSensitive: false,
+    ).firstMatch(normalized);
+    if (bitrateMatch != null) {
+      final bitrate = int.tryParse(bitrateMatch.group(1) ?? '');
+      if (bitrate != null && bitrate < 16) return null;
+    }
+    return normalized;
+  }
+
+  String? _displayQualityForValues({
+    required String? format,
+    int? bitDepth,
+    int? sampleRate,
+    int? bitrateKbps,
+    String? storedQuality,
+  }) {
+    final normalizedFormat = _normalizeAudioFormatValue(format);
+    final formatLabel = normalizedFormat == null
+        ? normalizeOptionalString(format)?.toUpperCase()
+        : _formatLabelForRaw(normalizedFormat);
+    if (_isBitrateFormatValue(normalizedFormat)) {
+      return buildDisplayAudioQuality(
+            bitrateKbps: bitrateKbps,
+            format: formatLabel,
+          ) ??
+          _usableStoredQuality(storedQuality) ??
+          formatLabel;
+    }
+    return buildDisplayAudioQuality(
+      bitDepth: bitDepth,
+      sampleRate: sampleRate,
+      storedQuality: _usableStoredQuality(storedQuality),
+    );
+  }
 
   String _displayServiceTrackId(String value) {
     final raw = value.trim();
@@ -766,11 +879,11 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
         ? fileName.split('.').last.toUpperCase()
         : null;
 
-    return buildDisplayAudioQuality(
+    return _displayQualityForValues(
+      format: _storedAudioFormat ?? fileExt,
       bitDepth: bitDepth,
       sampleRate: sampleRate,
-      bitrateKbps: _isLocalItem ? _localBitrate : null,
-      format: _isLocalItem ? (_localLibraryItem!.format ?? fileExt) : fileExt,
+      bitrateKbps: _audioBitrate,
       storedQuality: _quality,
     );
   }
@@ -1611,13 +1724,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
     return '$minutes:${secs.toString().padLeft(2, '0')}';
   }
 
-  String _displayFormatLabelForFile(String fileName) {
-    final localFormat = _isLocalItem
-        ? normalizeOptionalString(_localLibraryItem?.format)
-        : null;
-    final raw =
-        localFormat ??
-        (fileName.contains('.') ? fileName.split('.').last : 'Unknown');
+  String _formatLabelForRaw(String raw) {
     final normalized = raw.toLowerCase().replaceAll('-', '_');
     return switch (normalized) {
       'flac' => 'FLAC',
@@ -1626,12 +1733,20 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
       'ac3' || 'ac_3' => 'AC3',
       'ac4' || 'ac_4' => 'AC4',
       'aac' || 'mp4a' => 'AAC',
-      'm4a' => 'M4A',
+      'm4a' || 'mp4' => 'M4A',
       'mp3' => 'MP3',
       'opus' => 'Opus',
       'ogg' => 'OGG',
       _ => raw.toUpperCase(),
     };
+  }
+
+  String _displayFormatLabelForFile(String fileName) {
+    final storedFormat = normalizeOptionalString(_storedAudioFormat);
+    final raw =
+        storedFormat ??
+        (fileName.contains('.') ? fileName.split('.').last : 'Unknown');
+    return _formatLabelForRaw(raw);
   }
 
   bool _isBitrateFormatLabel(String label) {
@@ -1748,9 +1863,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                       ),
                     ),
                   )
-                else if (_isLocalItem &&
-                    _localBitrate != null &&
-                    _localBitrate! > 0 &&
+                else if (_audioBitrate != null &&
+                    _audioBitrate! > 0 &&
                     _isBitrateFormatLabel(fileExtension))
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -1762,7 +1876,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      '${_localBitrate}kbps',
+                      '${_audioBitrate}kbps',
                       style: TextStyle(
                         color: colorScheme.onTertiaryContainer,
                         fontWeight: FontWeight.w600,

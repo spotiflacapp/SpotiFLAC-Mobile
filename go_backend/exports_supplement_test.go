@@ -85,6 +85,14 @@ func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	if response, err := EditFileMetadata(filepath.Join(dir, "edit.mp3"), editJSON); err != nil || !strings.Contains(response, "ffmpeg") {
 		t.Fatalf("EditFileMetadata ffmpeg = %q/%v", response, err)
 	}
+	misnamedM4APath := filepath.Join(dir, "misnamed.flac")
+	if err := os.WriteFile(misnamedM4APath, buildM4AFileWithIlst(buildM4ATextTag("\xa9nam", "Misnamed"), true), 0600); err != nil {
+		t.Fatal(err)
+	}
+	replayGainJSON := `{"replaygain_track_gain":"-1 dB","replaygain_track_peak":"0.9"}`
+	if response, err := EditFileMetadata(misnamedM4APath, replayGainJSON); err != nil || !strings.Contains(response, "native_m4a_replaygain") {
+		t.Fatalf("EditFileMetadata misnamed m4a replaygain = %q/%v", response, err)
+	}
 	if _, err := EditFileMetadata(apePath, `not-json`); err == nil {
 		t.Fatal("expected invalid metadata JSON")
 	}

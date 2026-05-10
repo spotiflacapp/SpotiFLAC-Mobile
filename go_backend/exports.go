@@ -1423,6 +1423,19 @@ func EditFileMetadata(filePath, metadataJSON string) (string, error) {
 	isM4AFile := strings.HasSuffix(lower, ".m4a") || strings.HasSuffix(lower, ".mp4") || strings.HasSuffix(lower, ".m4b")
 	coverPath := strings.TrimSpace(fields["cover_path"])
 
+	if hasOnlyM4AReplayGainFields(fields) && (isM4AFile || isMP4ContainerFile(filePath)) {
+		if err := EditM4AReplayGain(filePath, fields); err != nil {
+			return "", fmt.Errorf("failed to write M4A metadata: %w", err)
+		}
+
+		resp := map[string]any{
+			"success": true,
+			"method":  "native_m4a_replaygain",
+		}
+		jsonBytes, _ := json.Marshal(resp)
+		return string(jsonBytes), nil
+	}
+
 	if isFlac {
 		if err := EditFlacFields(filePath, fields); err != nil {
 			return "", fmt.Errorf("failed to write FLAC metadata: %w", err)
@@ -1533,19 +1546,6 @@ func EditFileMetadata(filePath, metadataJSON string) (string, error) {
 		return string(jsonBytes), nil
 	}
 
-	if isM4AFile && hasOnlyM4AReplayGainFields(fields) {
-		if err := EditM4AReplayGain(filePath, fields); err != nil {
-			return "", fmt.Errorf("failed to write M4A metadata: %w", err)
-		}
-
-		resp := map[string]any{
-			"success": true,
-			"method":  "native_m4a_replaygain",
-		}
-		jsonBytes, _ := json.Marshal(resp)
-		return string(jsonBytes), nil
-	}
-
 	resp := map[string]any{
 		"success": true,
 		"method":  "ffmpeg",
@@ -1553,6 +1553,21 @@ func EditFileMetadata(filePath, metadataJSON string) (string, error) {
 	}
 	jsonBytes, _ := json.Marshal(resp)
 	return string(jsonBytes), nil
+}
+
+func isMP4ContainerFile(filePath string) bool {
+	f, err := os.Open(filePath)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+
+	header := make([]byte, 12)
+	n, err := f.Read(header)
+	if err != nil || n < 8 {
+		return false
+	}
+	return string(header[4:8]) == "ftyp"
 }
 
 func hasOnlyM4AReplayGainFields(fields map[string]string) bool {

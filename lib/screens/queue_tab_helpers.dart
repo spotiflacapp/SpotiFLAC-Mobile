@@ -33,6 +33,21 @@ class UnifiedLibraryItem {
   });
 
   factory UnifiedLibraryItem.fromDownloadHistory(DownloadHistoryItem item) {
+    String? quality;
+    if (item.bitrate != null && item.bitrate! > 0) {
+      quality = buildDisplayAudioQuality(
+        bitrateKbps: item.bitrate,
+        format: item.format,
+      );
+    } else if (item.bitDepth != null &&
+        item.bitDepth! > 0 &&
+        item.sampleRate != null) {
+      quality = buildDisplayAudioQuality(
+        bitDepth: item.bitDepth,
+        sampleRate: item.sampleRate,
+      );
+    }
+    quality ??= item.quality;
     return UnifiedLibraryItem(
       id: 'dl_${item.id}',
       trackName: item.trackName,
@@ -40,11 +55,7 @@ class UnifiedLibraryItem {
       albumName: item.albumName,
       coverUrl: item.coverUrl,
       filePath: item.filePath,
-      quality: buildDisplayAudioQuality(
-        bitDepth: item.bitDepth,
-        sampleRate: item.sampleRate,
-        storedQuality: item.quality,
-      ),
+      quality: quality,
       addedAt: item.downloadedAt,
       source: LibraryItemSource.downloaded,
       historyItem: item,

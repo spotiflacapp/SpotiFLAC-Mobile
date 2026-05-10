@@ -1578,11 +1578,11 @@ func looksLikeEmbeddedLyrics(value string) bool {
 }
 
 type AudioQuality struct {
-	BitDepth     int   `json:"bit_depth"`
-	SampleRate   int   `json:"sample_rate"`
-	TotalSamples int64 `json:"total_samples"`
-	Duration     int   `json:"duration"`
-	Bitrate      int   `json:"bitrate,omitempty"` // kbps, estimated for compressed MP4-family streams
+	BitDepth     int    `json:"bit_depth"`
+	SampleRate   int    `json:"sample_rate"`
+	TotalSamples int64  `json:"total_samples"`
+	Duration     int    `json:"duration"`
+	Bitrate      int    `json:"bitrate,omitempty"` // kbps, estimated for compressed MP4-family streams
 	Codec        string `json:"codec,omitempty"`
 }
 
@@ -1727,6 +1727,9 @@ func GetM4AQuality(filePath string) (AudioQuality, error) {
 	}
 
 	bitrate := estimateAudioBitrateKbps(fileSize, duration)
+	if bitrate > 0 && bitrate < 16 {
+		bitrate = 0
+	}
 	return AudioQuality{
 		BitDepth:   bitDepth,
 		SampleRate: sampleRate,
@@ -1766,11 +1769,17 @@ func readM4ADurationSeconds(f *os.File, moovHeader atomHeader, fileSize int64) i
 	childStart := moovHeader.offset + moovHeader.headerSize
 	childSize := moovHeader.size - moovHeader.headerSize
 	mvhdHeader, found, err := findAtomInRange(f, childStart, childSize, "mvhd", fileSize)
-	if err != nil || !found {
-		return 0
+	if err == nil && found {
+		if duration := readMP4DurationAtomSeconds(f, mvhdHeader, fileSize); duration > 0 {
+			return duration
+		}
 	}
 
-	payloadOffset := mvhdHeader.offset + mvhdHeader.headerSize
+	return readM4ATrackDurationSeconds(f, moovHeader, fileSize)
+}
+
+func readMP4DurationAtomSeconds(f *os.File, header atomHeader, fileSize int64) int {
+	payloadOffset := header.offset + header.headerSize
 	versionBuf := make([]byte, 1)
 	if _, err := f.ReadAt(versionBuf, payloadOffset); err != nil {
 		return 0
@@ -1799,6 +1808,53 @@ func readM4ADurationSeconds(f *os.File, moovHeader atomHeader, fileSize int64) i
 		return 0
 	}
 	return int(math.Round(float64(duration) / float64(timescale)))
+}
+
+func readM4ATrackDurationSeconds(f *os.File, moovHeader atomHeader, fileSize int64) int {
+	childStart := moovHeader.offset + moovHeader.headerSize
+	childSize := moovHeader.size - moovHeader.headerSize
+	bestDuration := 0
+	_ = walkMP4AtomsInRange(f, childStart, childSize, fileSize, func(header atomHeader) bool {
+		if header.typ == "mdhd" {
+			if duration := readMP4DurationAtomSeconds(f, header, fileSize); duration > bestDuration {
+				bestDuration = duration
+			}
+			return false
+		}
+		return header.typ == "trak" || header.typ == "mdia"
+	})
+	return bestDuration
+}
+
+func walkMP4AtomsInRange(f *os.File, start, size, fileSize int64, visit func(atomHeader) bool) error {
+	if size <= 0 {
+		return nil
+	}
+
+	end := start + size
+	for pos := start; pos+8 <= end; {
+		header, err := readAtomHeaderAt(f, pos, fileSize)
+		if err != nil {
+			return err
+		}
+		atomSize := header.size
+		if atomSize == 0 {
+			atomSize = end - pos
+		}
+		if atomSize < header.headerSize {
+			return fmt.Errorf("invalid atom size for %s", header.typ)
+		}
+		header.size = atomSize
+		if visit(header) {
+			childStart := header.offset + header.headerSize
+			childSize := header.size - header.headerSize
+			if err := walkMP4AtomsInRange(f, childStart, childSize, fileSize, visit); err != nil {
+				return err
+			}
+		}
+		pos += atomSize
+	}
+	return nil
 }
 
 func readALACSpecificConfig(f *os.File, sampleOffset, fileSize int64) (int, int, bool) {

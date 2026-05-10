@@ -84,7 +84,7 @@ class HistoryDatabase {
 
     return await openDatabase(
       path,
-      version: 8,
+      version: 9,
       onConfigure: (db) async {
         await db.rawQuery('PRAGMA journal_mode = WAL');
         await db.execute('PRAGMA synchronous = NORMAL');
@@ -124,6 +124,8 @@ class HistoryDatabase {
         quality TEXT,
         bit_depth INTEGER,
         sample_rate INTEGER,
+        bitrate INTEGER,
+        format TEXT,
         genre TEXT,
         composer TEXT,
         label TEXT,
@@ -202,6 +204,10 @@ class HistoryDatabase {
       await _addColumnIfMissing(db, 'history', 'match_key', 'TEXT');
       await _backfillNormalizedColumns(db);
       await _createNormalizedIndexes(db);
+    }
+    if (oldVersion < 9) {
+      await _addColumnIfMissing(db, 'history', 'bitrate', 'INTEGER');
+      await _addColumnIfMissing(db, 'history', 'format', 'TEXT');
     }
   }
 
@@ -507,6 +513,8 @@ class HistoryDatabase {
       'quality': json['quality'],
       'bit_depth': json['bitDepth'],
       'sample_rate': json['sampleRate'],
+      'bitrate': json['bitrate'],
+      'format': json['format'],
       'genre': json['genre'],
       'composer': json['composer'],
       'label': json['label'],
@@ -550,6 +558,8 @@ class HistoryDatabase {
       'quality': row['quality'],
       'bitDepth': row['bit_depth'],
       'sampleRate': row['sample_rate'],
+      'bitrate': row['bitrate'],
+      'format': row['format'],
       'genre': row['genre'],
       'composer': row['composer'],
       'label': row['label'],

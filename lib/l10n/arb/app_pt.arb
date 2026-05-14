@@ -398,7 +398,7 @@
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutAppDescription": "Download Spotify tracks in lossless quality from Tidal and Qobuz.",
+  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },

@@ -26,6 +26,11 @@ const (
 	LyricsProviderMusixmatch = "musixmatch"
 	LyricsProviderAppleMusic = "apple_music"
 	LyricsProviderQQMusic    = "qqmusic"
+	LyricsProviderSpotify    = "spotify"
+	LyricsProviderDeezer     = "deezer"
+	LyricsProviderYouTube    = "youtube"
+	LyricsProviderKugou      = "kugou"
+	LyricsProviderGenius     = "genius"
 )
 
 var DefaultLyricsProviders = []string{
@@ -102,6 +107,11 @@ func SetLyricsProviderOrder(providers []string) {
 		LyricsProviderMusixmatch: true,
 		LyricsProviderAppleMusic: true,
 		LyricsProviderQQMusic:    true,
+		LyricsProviderSpotify:    true,
+		LyricsProviderDeezer:     true,
+		LyricsProviderYouTube:    true,
+		LyricsProviderKugou:      true,
+		LyricsProviderGenius:     true,
 	}
 
 	var valid []string
@@ -132,10 +142,15 @@ func GetLyricsProviderOrder() []string {
 func GetAvailableLyricsProviders() []map[string]interface{} {
 	return []map[string]interface{}{
 		{"id": LyricsProviderLRCLIB, "name": "LRCLIB", "has_proxy_dependency": false, "description": "Open-source synced lyrics database"},
-		{"id": LyricsProviderNetease, "name": "Netease", "has_proxy_dependency": true, "description": "NetEase Cloud Music lyrics via Paxsenix"},
-		{"id": LyricsProviderMusixmatch, "name": "Musixmatch", "has_proxy_dependency": true, "description": "Musixmatch lyrics via Paxsenix"},
-		{"id": LyricsProviderAppleMusic, "name": "Apple Music", "has_proxy_dependency": true, "description": "Apple Music synced lyrics via Paxsenix"},
-		{"id": LyricsProviderQQMusic, "name": "QQ Music", "has_proxy_dependency": true, "description": "QQ Music lyrics via Paxsenix"},
+		{"id": LyricsProviderNetease, "name": "Netease", "has_proxy_dependency": true, "description": "NetEase Cloud Music lyrics"},
+		{"id": LyricsProviderMusixmatch, "name": "Musixmatch", "has_proxy_dependency": true, "description": "Musixmatch lyrics"},
+		{"id": LyricsProviderAppleMusic, "name": "Apple Music", "has_proxy_dependency": true, "description": "Apple Music synced lyrics"},
+		{"id": LyricsProviderQQMusic, "name": "QQ Music", "has_proxy_dependency": true, "description": "QQ Music lyrics"},
+		{"id": LyricsProviderSpotify, "name": "Spotify", "has_proxy_dependency": true, "description": "Spotify synced lyrics"},
+		{"id": LyricsProviderDeezer, "name": "Deezer", "has_proxy_dependency": true, "description": "Deezer lyrics"},
+		{"id": LyricsProviderYouTube, "name": "YouTube", "has_proxy_dependency": true, "description": "YouTube lyrics"},
+		{"id": LyricsProviderKugou, "name": "Kugou", "has_proxy_dependency": true, "description": "Kugou lyrics"},
+		{"id": LyricsProviderGenius, "name": "Genius", "has_proxy_dependency": true, "description": "Genius lyrics"},
 	}
 }
 
@@ -548,6 +563,53 @@ func (c *LyricsClient) FetchLyricsAllSources(spotifyID, trackName, artistName st
 			lyrics, err = qqClient.FetchLyrics(trackName, primaryArtist, durationSec, fetchOptions.MultiPersonWordByWord)
 			if err != nil && primaryArtist != artistName {
 				lyrics, err = qqClient.FetchLyrics(trackName, artistName, durationSec, fetchOptions.MultiPersonWordByWord)
+			}
+
+		case LyricsProviderSpotify:
+			spotifyClient := NewSpotifyLyricsClient()
+			lyrics, err = spotifyClient.FetchLyrics(spotifyID, trackName, primaryArtist, durationSec)
+			if err != nil && primaryArtist != artistName {
+				lyrics, err = spotifyClient.FetchLyrics(spotifyID, trackName, artistName, durationSec)
+			}
+			if err != nil && simplifiedTrack != trackName {
+				lyrics, err = spotifyClient.FetchLyrics("", simplifiedTrack, primaryArtist, durationSec)
+			}
+
+		case LyricsProviderDeezer:
+			deezerClient := NewDeezerLyricsClient()
+			lyrics, err = deezerClient.FetchLyrics(spotifyID, trackName, primaryArtist, durationSec)
+			if err != nil && primaryArtist != artistName {
+				lyrics, err = deezerClient.FetchLyrics(spotifyID, trackName, artistName, durationSec)
+			}
+
+		case LyricsProviderYouTube:
+			youtubeClient := NewYouTubeLyricsClient()
+			lyrics, err = youtubeClient.FetchLyrics(trackName, primaryArtist, durationSec)
+			if err != nil && primaryArtist != artistName {
+				lyrics, err = youtubeClient.FetchLyrics(trackName, artistName, durationSec)
+			}
+			if err != nil && simplifiedTrack != trackName {
+				lyrics, err = youtubeClient.FetchLyrics(simplifiedTrack, primaryArtist, durationSec)
+			}
+
+		case LyricsProviderKugou:
+			kugouClient := NewKugouLyricsClient()
+			lyrics, err = kugouClient.FetchLyrics(trackName, primaryArtist, durationSec)
+			if err != nil && primaryArtist != artistName {
+				lyrics, err = kugouClient.FetchLyrics(trackName, artistName, durationSec)
+			}
+			if err != nil && simplifiedTrack != trackName {
+				lyrics, err = kugouClient.FetchLyrics(simplifiedTrack, primaryArtist, durationSec)
+			}
+
+		case LyricsProviderGenius:
+			geniusClient := NewGeniusLyricsClient()
+			lyrics, err = geniusClient.FetchLyrics(trackName, primaryArtist, durationSec)
+			if err != nil && primaryArtist != artistName {
+				lyrics, err = geniusClient.FetchLyrics(trackName, artistName, durationSec)
+			}
+			if err != nil && simplifiedTrack != trackName {
+				lyrics, err = geniusClient.FetchLyrics(simplifiedTrack, primaryArtist, durationSec)
 			}
 
 		default:

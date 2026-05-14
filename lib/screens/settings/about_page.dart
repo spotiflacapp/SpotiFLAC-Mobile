@@ -141,7 +141,8 @@ class AboutPage extends StatelessWidget {
                     icon: Icons.lyrics_outlined,
                     title: 'Paxsenix',
                     subtitle:
-                        'Partner lyrics proxy for Apple Music and QQ Music sources',
+                        'Lyrics proxy for Musixmatch, Netease, Apple Music, '
+                        'QQ Music, Spotify, Deezer, YouTube, Kugou, and Genius',
                     onTap: () => _launchUrl('https://lyrics.paxsenix.org'),
                     showDivider: false,
                   ),

@@ -397,7 +397,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Download Spotify tracks in lossless quality from Tidal and Qobuz.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Albums';
@@ -4585,7 +4585,7 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
 
   @override
   String get aboutAppDescription =>
-      'Descargar pistas de Spotify en alta calidad (sin pérdida) de Tidal y Qobuz.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Álbumes';

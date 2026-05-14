@@ -403,7 +403,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Скачивайте треки Spotify в lossless качестве с Tidal и Qobuz.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Альбомы';

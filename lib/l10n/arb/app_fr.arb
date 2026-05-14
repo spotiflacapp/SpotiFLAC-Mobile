@@ -498,7 +498,7 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "Download Spotify tracks in lossless quality from Tidal and Qobuz.",
+  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },

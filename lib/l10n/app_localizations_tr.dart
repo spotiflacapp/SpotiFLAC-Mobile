@@ -405,7 +405,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Spotify parçalarını Tidal ve Qobuz aracılığıyla kayıpsız kalitede indirin.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Albümler';

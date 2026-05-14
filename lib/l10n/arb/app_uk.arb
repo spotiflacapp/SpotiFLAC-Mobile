@@ -498,7 +498,7 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "Кінцеві точки потокового передавання Tidal Hi-Res FLAC. Ключовий елемент пазлу музики без втрат.",
+  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },

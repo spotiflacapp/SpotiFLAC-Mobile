@@ -400,7 +400,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Unduh lagu-lagu Spotify dalam kualitas lossless dari Tidal dan Qobuz.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Album';

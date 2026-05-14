@@ -458,7 +458,7 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "Unduh lagu-lagu Spotify dalam kualitas lossless dari Tidal dan Qobuz.",
+  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },

@@ -216,6 +216,11 @@ class LyricsSettingsPage extends ConsumerWidget {
     'musixmatch': 'Musixmatch',
     'apple_music': 'Apple Music',
     'qqmusic': 'QQ Music',
+    'spotify': 'Spotify',
+    'deezer': 'Deezer',
+    'youtube': 'YouTube',
+    'kugou': 'Kugou',
+    'genius': 'Genius',
   };
 
   String _getLyricsProvidersSubtitle(

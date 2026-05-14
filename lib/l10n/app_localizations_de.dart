@@ -405,7 +405,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Lade Spotify-Titel in verlustfreier Qualität von Tidal und Qobuz herunter.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Alben';

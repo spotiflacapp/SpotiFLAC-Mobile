@@ -407,7 +407,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Кінцеві точки потокового передавання Tidal Hi-Res FLAC. Ключовий елемент пазлу музики без втрат.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Альбоми';

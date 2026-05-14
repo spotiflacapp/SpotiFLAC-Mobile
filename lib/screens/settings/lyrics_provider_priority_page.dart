@@ -21,6 +21,11 @@ class _LyricsProviderPriorityPageState
     'musixmatch',
     'apple_music',
     'qqmusic',
+    'spotify',
+    'deezer',
+    'youtube',
+    'kugou',
+    'genius',
   ];
 
   late List<String> _enabledProviders;
@@ -210,6 +215,36 @@ class _LyricsProviderPriorityPageState
           name: 'QQ Music',
           description: context.l10n.lyricsProviderQqMusicDesc,
           icon: Icons.queue_music,
+        );
+      case 'spotify':
+        return _LyricsProviderInfo(
+          name: 'Spotify',
+          description: context.l10n.lyricsProviderExtensionDesc,
+          icon: Icons.graphic_eq,
+        );
+      case 'deezer':
+        return _LyricsProviderInfo(
+          name: 'Deezer',
+          description: context.l10n.lyricsProviderExtensionDesc,
+          icon: Icons.album_outlined,
+        );
+      case 'youtube':
+        return _LyricsProviderInfo(
+          name: 'YouTube',
+          description: context.l10n.lyricsProviderExtensionDesc,
+          icon: Icons.smart_display_outlined,
+        );
+      case 'kugou':
+        return _LyricsProviderInfo(
+          name: 'Kugou',
+          description: context.l10n.lyricsProviderExtensionDesc,
+          icon: Icons.library_music_outlined,
+        );
+      case 'genius':
+        return _LyricsProviderInfo(
+          name: 'Genius',
+          description: context.l10n.lyricsProviderExtensionDesc,
+          icon: Icons.auto_awesome_outlined,
         );
       default:
         return _LyricsProviderInfo(

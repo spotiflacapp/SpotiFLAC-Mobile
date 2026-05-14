@@ -837,7 +837,7 @@ abstract class AppLocalizations {
   /// App description in header card
   ///
   /// In en, this message translates to:
-  /// **'Download Spotify tracks in lossless quality from Tidal and Qobuz.'**
+  /// **'Search music metadata, manage extensions, and organize your library.'**
   String get aboutAppDescription;
 
   /// Section header for artist albums

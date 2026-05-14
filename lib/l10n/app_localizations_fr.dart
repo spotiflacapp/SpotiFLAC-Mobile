@@ -399,7 +399,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aboutAppDescription =>
-      'Download Spotify tracks in lossless quality from Tidal and Qobuz.';
+      'Search music metadata, manage extensions, and organize your library.';
 
   @override
   String get artistAlbums => 'Albums';

@@ -3529,6 +3529,13 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(response)
                         }
+                        "findCollectionAcrossExtensions" -> {
+                            val requestJson = call.arguments as? String ?: "{}"
+                            val response = withContext(Dispatchers.IO) {
+                                Gobackend.findCollectionAcrossExtensionsJSON(requestJson)
+                            }
+                            result.success(response)
+                        }
                         else -> result.notImplemented()
                     }
                 } catch (e: Exception) {

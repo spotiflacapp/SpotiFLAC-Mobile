@@ -31,6 +31,15 @@ class ShareIntentService {
     return url;
   }
 
+  /// Programmatically inject a URL into the shared-URL stream.
+  /// Used by [CrossExtensionShareSheet] to open a cross-service link
+  /// inside SpotiFLAC as if the user had shared it from another app.
+  void injectUrl(String url) {
+    if (url.isEmpty) return;
+    _log.i('Injecting URL into share stream: $url');
+    _sharedUrlController.add(url);
+  }
+
   Future<void> initialize() async {
     if (_initialized) return;
     _initialized = true;

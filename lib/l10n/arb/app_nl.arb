@@ -498,7 +498,7 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "Download Spotify tracks in lossless quality from Tidal and Qobuz.",
+  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },
@@ -1587,6 +1587,15 @@
   "@trackCopyLyrics": {
     "description": "Action - copy lyrics to clipboard"
   },
+  "trackLyricsSource": "Source: {source}",
+  "@trackLyricsSource": {
+    "description": "Label showing the lyrics source/provider",
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
   "trackLyricsNotAvailable": "Lyrics not available for this track",
   "@trackLyricsNotAvailable": {
     "description": "Message when lyrics not found"
@@ -2000,6 +2009,14 @@
   "downloadLossyMp3Subtitle": "Best compatibility, ~10MB per track",
   "@downloadLossyMp3Subtitle": {
     "description": "Subtitle for MP3 320kbps Tidal lossy option"
+  },
+  "downloadLossyAac": "AAC/M4A 320kbps",
+  "@downloadLossyAac": {
+    "description": "Tidal lossy format option - AAC in M4A container at 320kbps"
+  },
+  "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
+  "@downloadLossyAacSubtitle": {
+    "description": "Subtitle for AAC/M4A 320kbps Tidal lossy option"
   },
   "downloadLossyOpus256": "Opus 256kbps",
   "@downloadLossyOpus256": {
@@ -3170,7 +3187,7 @@
   "@trackConvertFormat": {
     "description": "Menu item - convert audio format"
   },
-  "trackConvertFormatSubtitle": "Convert to MP3, Opus, ALAC, or FLAC",
+  "trackConvertFormatSubtitle": "Convert to AAC/M4A, MP3, Opus, ALAC, or FLAC",
   "@trackConvertFormatSubtitle": {
     "description": "Subtitle for convert format menu item"
   },
@@ -3969,6 +3986,18 @@
   "@downloadAppleQqMultiPersonDisabled": {
     "description": "Subtitle when multi-person lyrics is off"
   },
+  "downloadAppleElrcWordSync": "Apple Music eLRC Word Sync",
+  "@downloadAppleElrcWordSync": {
+    "description": "Setting for preserving Apple Music word-by-word eLRC timestamps"
+  },
+  "downloadAppleElrcWordSyncEnabled": "Raw word-by-word timestamps preserved",
+  "@downloadAppleElrcWordSyncEnabled": {
+    "description": "Subtitle when Apple Music eLRC word sync is enabled"
+  },
+  "downloadAppleElrcWordSyncDisabled": "Safer line-by-line Apple Music lyrics",
+  "@downloadAppleElrcWordSyncDisabled": {
+    "description": "Subtitle when Apple Music eLRC word sync is disabled"
+  },
   "downloadMusixmatchLanguage": "Musixmatch Language",
   "@downloadMusixmatchLanguage": {
     "description": "Setting for Musixmatch lyrics translation language"
@@ -4243,6 +4272,18 @@
   "@audioAnalysisSampleRate": {
     "description": "Sample rate metric label"
   },
+  "audioAnalysisCodec": "Codec",
+  "@audioAnalysisCodec": {
+    "description": "Audio codec metric label"
+  },
+  "audioAnalysisContainer": "Container",
+  "@audioAnalysisContainer": {
+    "description": "Audio container metric label"
+  },
+  "audioAnalysisDecodedFormat": "Decoded Format",
+  "@audioAnalysisDecodedFormat": {
+    "description": "Decoded sample format metric label"
+  },
   "audioAnalysisBitDepth": "Bit Depth",
   "@audioAnalysisBitDepth": {
     "description": "Bit depth metric label"
@@ -4275,9 +4316,41 @@
   "@audioAnalysisRms": {
     "description": "RMS level metric label"
   },
+  "audioAnalysisLufs": "LUFS",
+  "@audioAnalysisLufs": {
+    "description": "Integrated loudness metric label"
+  },
+  "audioAnalysisTruePeak": "True Peak",
+  "@audioAnalysisTruePeak": {
+    "description": "True peak metric label"
+  },
+  "audioAnalysisClipping": "Clipping",
+  "@audioAnalysisClipping": {
+    "description": "Clipping metric label"
+  },
+  "audioAnalysisNoClipping": "No clipping",
+  "@audioAnalysisNoClipping": {
+    "description": "Displayed when no clipped samples were detected"
+  },
+  "audioAnalysisSpectralCutoff": "Spectral Cutoff",
+  "@audioAnalysisSpectralCutoff": {
+    "description": "Estimated spectral cutoff metric label"
+  },
+  "audioAnalysisChannelStats": "Per-channel Stats",
+  "@audioAnalysisChannelStats": {
+    "description": "Per-channel audio analysis section label"
+  },
   "audioAnalysisSamples": "Samples",
   "@audioAnalysisSamples": {
     "description": "Total samples metric label"
+  },
+  "audioAnalysisRescan": "Re-analyze",
+  "@audioAnalysisRescan": {
+    "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
+  },
+  "audioAnalysisRescanning": "Re-analyzing audio...",
+  "@audioAnalysisRescanning": {
+    "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
   "extensionsSearchWith": "Search with {providerName}",
   "@extensionsSearchWith": {
@@ -5001,5 +5074,417 @@
   "downloadFallbackExtensionsSubtitle": "Choose which extensions can be used as fallback",
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
+  },
+  "editMetadataFieldDateHint": "YYYY-MM-DD or YYYY",
+  "@editMetadataFieldDateHint": {
+    "description": "Hint text for the edit metadata date field"
+  },
+  "editMetadataFieldTrackTotal": "Track Total",
+  "@editMetadataFieldTrackTotal": {
+    "description": "Label for total tracks field in the edit metadata sheet"
+  },
+  "editMetadataFieldDiscTotal": "Disc Total",
+  "@editMetadataFieldDiscTotal": {
+    "description": "Label for total discs field in the edit metadata sheet"
+  },
+  "editMetadataFieldComposer": "Composer",
+  "@editMetadataFieldComposer": {
+    "description": "Label for composer field in the edit metadata sheet"
+  },
+  "editMetadataFieldComment": "Comment",
+  "@editMetadataFieldComment": {
+    "description": "Label for comment field in the edit metadata sheet"
+  },
+  "editMetadataAdvanced": "Advanced",
+  "@editMetadataAdvanced": {
+    "description": "Expandable section label for advanced metadata fields"
+  },
+  "libraryFilterMetadataMissingTrackNumber": "Missing track number",
+  "@libraryFilterMetadataMissingTrackNumber": {
+    "description": "Filter option - items missing track number"
+  },
+  "libraryFilterMetadataMissingDiscNumber": "Missing disc number",
+  "@libraryFilterMetadataMissingDiscNumber": {
+    "description": "Filter option - items missing disc number"
+  },
+  "libraryFilterMetadataMissingArtist": "Missing artist",
+  "@libraryFilterMetadataMissingArtist": {
+    "description": "Filter option - items missing artist"
+  },
+  "libraryFilterMetadataIncorrectIsrcFormat": "Incorrect ISRC format",
+  "@libraryFilterMetadataIncorrectIsrcFormat": {
+    "description": "Filter option - items with an invalid ISRC format"
+  },
+  "libraryFilterMetadataMissingLabel": "Missing label",
+  "@libraryFilterMetadataMissingLabel": {
+    "description": "Filter option - items missing record label"
+  },
+  "collectionDeletePlaylistsMessage": "Delete {count} {count, plural, =1{playlist} other{playlists}}?",
+  "@collectionDeletePlaylistsMessage": {
+    "description": "Confirmation message for deleting selected playlists",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "collectionPlaylistsDeleted": "{count} {count, plural, =1{playlist} other{playlists}} deleted",
+  "@collectionPlaylistsDeleted": {
+    "description": "Snackbar after deleting selected playlists",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "collectionAddedTracksToPlaylist": "Added {count} {count, plural, =1{track} other{tracks}} to {playlistName}",
+  "@collectionAddedTracksToPlaylist": {
+    "description": "Snackbar after adding multiple tracks to a playlist",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "playlistName": {
+        "type": "String"
+      }
+    }
+  },
+  "collectionAddedTracksToPlaylistWithExisting": "Added {count} {count, plural, =1{track} other{tracks}} to {playlistName} ({alreadyCount} already in playlist)",
+  "@collectionAddedTracksToPlaylistWithExisting": {
+    "description": "Snackbar after adding multiple tracks to a playlist when some were already present",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "playlistName": {
+        "type": "String"
+      },
+      "alreadyCount": {
+        "type": "int"
+      }
+    }
+  },
+  "itemCount": "{count} {count, plural, =1{item} other{items}}",
+  "@itemCount": {
+    "description": "Generic item count label",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trackReEnrichSuccessWithFailures": "Metadata re-enriched successfully ({successCount}/{total}) - Failed: {failedCount}",
+  "@trackReEnrichSuccessWithFailures": {
+    "description": "Snackbar summary after batch metadata re-enrichment finishes with failures",
+    "placeholders": {
+      "successCount": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "failedCount": {
+        "type": "int"
+      }
+    }
+  },
+  "selectionDeleteTracksCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "@selectionDeleteTracksCount": {
+    "description": "Button label for deleting selected tracks",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "queueDownloadSpeedStatus": "Downloading - {speed} MB/s",
+  "@queueDownloadSpeedStatus": {
+    "description": "Queue status while downloading with speed",
+    "placeholders": {
+      "speed": {
+        "type": "String"
+      }
+    }
+  },
+  "queueDownloadStarting": "Starting...",
+  "@queueDownloadStarting": {
+    "description": "Queue status before download progress is available"
+  },
+  "a11ySelectTrack": "Select track",
+  "@a11ySelectTrack": {
+    "description": "Accessibility label for selecting a track"
+  },
+  "a11yDeselectTrack": "Deselect track",
+  "@a11yDeselectTrack": {
+    "description": "Accessibility label for deselecting a track"
+  },
+  "a11yPlayTrackByArtist": "Play {trackName} by {artistName}",
+  "@a11yPlayTrackByArtist": {
+    "description": "Accessibility label for playing a local library track",
+    "placeholders": {
+      "trackName": {
+        "type": "String"
+      },
+      "artistName": {
+        "type": "String"
+      }
+    }
+  },
+  "storeExtensionsCount": "{count} {count, plural, =1{extension} other{extensions}}",
+  "@storeExtensionsCount": {
+    "description": "Store extension result count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storeRequiresVersion": "Requires v{version}+",
+  "@storeRequiresVersion": {
+    "description": "Store compatibility badge for minimum app version",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "actionGo": "Go",
+  "@actionGo": {
+    "description": "Generic action button label"
+  },
+  "logIssueSummary": "Issue Summary",
+  "@logIssueSummary": {
+    "description": "Header for log issue analysis summary"
+  },
+  "logTotalErrors": "Total errors: {count}",
+  "@logTotalErrors": {
+    "description": "Total error count in log issue analysis",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "logAffectedDomains": "Affected: {domains}",
+  "@logAffectedDomains": {
+    "description": "Affected domains in log issue analysis",
+    "placeholders": {
+      "domains": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryScanCancelled": "Scan cancelled",
+  "@libraryScanCancelled": {
+    "description": "Library scan status when a scan was cancelled"
+  },
+  "libraryScanCancelledSubtitle": "You can retry the scan when ready.",
+  "@libraryScanCancelledSubtitle": {
+    "description": "Library scan status subtitle after cancellation"
+  },
+  "libraryDownloadsHistoryExcluded": "{count} from Downloads history (excluded from list)",
+  "@libraryDownloadsHistoryExcluded": {
+    "description": "Library count note for downloaded history items excluded from the local list",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "downloadNativeWorker": "Native download worker",
+  "@downloadNativeWorker": {
+    "description": "Setting title for Android native download worker"
+  },
+  "downloadNativeWorkerSubtitle": "Beta Android service worker for extension downloads",
+  "@downloadNativeWorkerSubtitle": {
+    "description": "Setting subtitle for Android native download worker"
+  },
+  "badgeBeta": "BETA",
+  "@badgeBeta": {
+    "description": "Badge label for beta features"
+  },
+  "extensionServiceStatus": "Service Status",
+  "@extensionServiceStatus": {
+    "description": "Extension detail section header for service status"
+  },
+  "extensionServiceHealth": "Service health",
+  "@extensionServiceHealth": {
+    "description": "Extension capability label for service health checks"
+  },
+  "extensionHealthChecksConfigured": "{count} {count, plural, =1{check} other{checks}} configured",
+  "@extensionHealthChecksConfigured": {
+    "description": "Extension service health check count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extensionOauthConnectHint": "Tap Connect to Spotify to fill this field.",
+  "@extensionOauthConnectHint": {
+    "description": "Hint for an OAuth login link field before connecting Spotify"
+  },
+  "extensionLastChecked": "Last checked {time}",
+  "@extensionLastChecked": {
+    "description": "Timestamp for the latest extension service health check",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "extensionRefreshStatus": "Refresh status",
+  "@extensionRefreshStatus": {
+    "description": "Tooltip for refreshing extension service health status"
+  },
+  "extensionCustomUrlHandling": "Custom URL Handling",
+  "@extensionCustomUrlHandling": {
+    "description": "Extension detail section title for custom URL handling"
+  },
+  "extensionCustomUrlHandlingSubtitle": "This extension can handle links from these sites",
+  "@extensionCustomUrlHandlingSubtitle": {
+    "description": "Extension detail subtitle for custom URL handling"
+  },
+  "extensionCustomUrlHandlingShareHint": "Share links from these sites to SpotiFLAC Mobile and this extension will handle them.",
+  "@extensionCustomUrlHandlingShareHint": {
+    "description": "Extension detail hint explaining share-to-app URL handling"
+  },
+  "extensionSettingsCount": "{count} {count, plural, =1{setting} other{settings}}",
+  "@extensionSettingsCount": {
+    "description": "Count of settings exposed by an extension quality option",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "extensionHealthOnline": "Online",
+  "@extensionHealthOnline": {
+    "description": "Extension service health status - online"
+  },
+  "extensionHealthDegraded": "Degraded",
+  "@extensionHealthDegraded": {
+    "description": "Extension service health status - degraded"
+  },
+  "extensionHealthOffline": "Offline",
+  "@extensionHealthOffline": {
+    "description": "Extension service health status - offline"
+  },
+  "extensionHealthNotConfigured": "Not configured",
+  "@extensionHealthNotConfigured": {
+    "description": "Extension service health status - not configured"
+  },
+  "extensionHealthUnknown": "Unknown",
+  "@extensionHealthUnknown": {
+    "description": "Extension service health status - unknown"
+  },
+  "extensionHealthRequired": "required",
+  "@extensionHealthRequired": {
+    "description": "Label for a required extension service health check"
+  },
+  "extensionSettingNotSet": "Not set",
+  "@extensionSettingNotSet": {
+    "description": "Value shown when an extension setting has no value"
+  },
+  "extensionActionFailed": "Action failed",
+  "@extensionActionFailed": {
+    "description": "Fallback error when an extension action fails without details"
+  },
+  "extensionEnterValue": "Enter value",
+  "@extensionEnterValue": {
+    "description": "Hint for editing an extension setting value"
+  },
+  "extensionHealthServiceOnline": "Service online",
+  "@extensionHealthServiceOnline": {
+    "description": "Tooltip for online extension service"
+  },
+  "extensionHealthServiceDegraded": "Service degraded",
+  "@extensionHealthServiceDegraded": {
+    "description": "Tooltip for degraded extension service"
+  },
+  "extensionHealthServiceOffline": "Service offline",
+  "@extensionHealthServiceOffline": {
+    "description": "Tooltip for offline extension service"
+  },
+  "extensionHealthServiceUnknown": "Service status unknown",
+  "@extensionHealthServiceUnknown": {
+    "description": "Tooltip for unknown extension service health"
+  },
+  "audioAnalysisStereo": "Stereo",
+  "@audioAnalysisStereo": {
+    "description": "Audio channel layout label - stereo"
+  },
+  "audioAnalysisMono": "Mono",
+  "@audioAnalysisMono": {
+    "description": "Audio channel layout label - mono"
+  },
+  "trackOpenInService": "Open in {serviceName}",
+  "@trackOpenInService": {
+    "description": "Button label to open a track in a named music service",
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "trackLyricsEmbeddedSource": "Embedded",
+  "@trackLyricsEmbeddedSource": {
+    "description": "Lyrics source label for embedded lyrics"
+  },
+  "unknownAlbum": "Unknown Album",
+  "@unknownAlbum": {
+    "description": "Fallback album name when metadata is missing"
+  },
+  "unknownArtist": "Unknown Artist",
+  "@unknownArtist": {
+    "description": "Fallback artist name when metadata is missing"
+  },
+  "permissionAudio": "Audio",
+  "@permissionAudio": {
+    "description": "Audio permission type label"
+  },
+  "permissionStorage": "Storage",
+  "@permissionStorage": {
+    "description": "Storage permission type label"
+  },
+  "permissionNotification": "Notification",
+  "@permissionNotification": {
+    "description": "Notification permission type label"
+  },
+  "errorInvalidFolderSelected": "Invalid folder selected",
+  "@errorInvalidFolderSelected": {
+    "description": "Error when the selected folder is invalid"
+  },
+  "errorCouldNotKeepFolderAccess": "Could not keep access to the selected folder",
+  "@errorCouldNotKeepFolderAccess": {
+    "description": "Error when persistent folder access cannot be saved"
+  },
+  "storeAnyVersion": "Any",
+  "@storeAnyVersion": {
+    "description": "Store detail value when any app version is accepted"
+  },
+  "storeCategoryMetadata": "Metadata",
+  "@storeCategoryMetadata": {
+    "description": "Store extension category - metadata"
+  },
+  "storeCategoryDownload": "Download",
+  "@storeCategoryDownload": {
+    "description": "Store extension category - download"
+  },
+  "storeCategoryUtility": "Utility",
+  "@storeCategoryUtility": {
+    "description": "Store extension category - utility"
+  },
+  "storeCategoryLyrics": "Lyrics",
+  "@storeCategoryLyrics": {
+    "description": "Store extension category - lyrics"
+  },
+  "storeCategoryIntegration": "Integration",
+  "@storeCategoryIntegration": {
+    "description": "Store extension category - integration"
+  },
+  "artistReleases": "Releases",
+  "@artistReleases": {
+    "description": "Section header for all artist releases"
   }
 }

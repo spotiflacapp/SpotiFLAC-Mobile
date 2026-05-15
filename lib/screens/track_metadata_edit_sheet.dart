@@ -350,6 +350,12 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     });
   }
 
+  void _selectNoFields() {
+    setState(() {
+      _autoFillFields.clear();
+    });
+  }
+
   String _normalizeMetadataText(String value) {
     final collapsed = value
         .toLowerCase()
@@ -1403,6 +1409,12 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                     _quickSelectButton(
                       label: context.l10n.editMetadataSelectEmpty,
                       onTap: _selectEmptyFields,
+                      cs: cs,
+                    ),
+                    const SizedBox(width: 8),
+                    _quickSelectButton(
+                      label: context.l10n.editMetadataSelectNone,
+                      onTap: _selectNoFields,
                       cs: cs,
                     ),
                   ],

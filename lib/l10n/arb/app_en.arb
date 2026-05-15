@@ -4185,6 +4185,10 @@
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
+    "editMetadataSelectNone": "None",
+  "@editMetadataSelectNone": {
+    "description": "Button to deselect all fields for auto-fill"
+  },
   "queueDownloadingCount": "Downloading ({count})",
   "@queueDownloadingCount": {
     "description": "Header for active downloads section with count",

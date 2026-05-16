@@ -52,7 +52,7 @@ Extensions let the community add new music sources and features without waiting 
 ### Developing Extensions
 
 > [!NOTE]
-> Want to build your own extension? The [Extension Development Guide](https://zarzet.github.io/SpotiFLAC-Mobile/docs) has everything you need.
+> Want to build your own extension? The [Extension Development Guide](https://spotiflac.zarz.moe/docs) has everything you need.
 
 ---
 

@@ -4280,7 +4280,7 @@
   "@audioAnalysisContainer": {
     "description": "Audio container metric label"
   },
-  "audioAnalysisDecodedFormat": "Decoded Format",
+  "audioAnalysisDecodedFormat": "Dekodiertes Format",
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },
@@ -4328,15 +4328,15 @@
   "@audioAnalysisClipping": {
     "description": "Clipping metric label"
   },
-  "audioAnalysisNoClipping": "No clipping",
+  "audioAnalysisNoClipping": "Kein Clipping",
   "@audioAnalysisNoClipping": {
     "description": "Displayed when no clipped samples were detected"
   },
-  "audioAnalysisSpectralCutoff": "Spectral Cutoff",
+  "audioAnalysisSpectralCutoff": "Spektralschnitt",
   "@audioAnalysisSpectralCutoff": {
     "description": "Estimated spectral cutoff metric label"
   },
-  "audioAnalysisChannelStats": "Per-channel Stats",
+  "audioAnalysisChannelStats": "Pro Kanal Statistik",
   "@audioAnalysisChannelStats": {
     "description": "Per-channel audio analysis section label"
   },
@@ -4344,11 +4344,11 @@
   "@audioAnalysisSamples": {
     "description": "Total samples metric label"
   },
-  "audioAnalysisRescan": "Re-analyze",
+  "audioAnalysisRescan": "Neu analysieren",
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
-  "audioAnalysisRescanning": "Re-analyzing audio...",
+  "audioAnalysisRescanning": "Audio wird analysiert...",
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
@@ -5075,31 +5075,31 @@
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
   },
-  "editMetadataFieldDateHint": "YYYY-MM-DD or YYYY",
+  "editMetadataFieldDateHint": "JJJJ-MM-TT oder JJJJJ",
   "@editMetadataFieldDateHint": {
     "description": "Hint text for the edit metadata date field"
   },
-  "editMetadataFieldTrackTotal": "Track Total",
+  "editMetadataFieldTrackTotal": "Titel insgesamt",
   "@editMetadataFieldTrackTotal": {
     "description": "Label for total tracks field in the edit metadata sheet"
   },
-  "editMetadataFieldDiscTotal": "Disc Total",
+  "editMetadataFieldDiscTotal": "Disc gesamt",
   "@editMetadataFieldDiscTotal": {
     "description": "Label for total discs field in the edit metadata sheet"
   },
-  "editMetadataFieldComposer": "Composer",
+  "editMetadataFieldComposer": "Komponist",
   "@editMetadataFieldComposer": {
     "description": "Label for composer field in the edit metadata sheet"
   },
-  "editMetadataFieldComment": "Comment",
+  "editMetadataFieldComment": "Kommentar",
   "@editMetadataFieldComment": {
     "description": "Label for comment field in the edit metadata sheet"
   },
-  "editMetadataAdvanced": "Advanced",
+  "editMetadataAdvanced": "Erweitert",
   "@editMetadataAdvanced": {
     "description": "Expandable section label for advanced metadata fields"
   },
-  "libraryFilterMetadataMissingTrackNumber": "Missing track number",
+  "libraryFilterMetadataMissingTrackNumber": "Fehlende Tracknummer",
   "@libraryFilterMetadataMissingTrackNumber": {
     "description": "Filter option - items missing track number"
   },
@@ -5362,7 +5362,7 @@
   "@extensionHealthOnline": {
     "description": "Extension service health status - online"
   },
-  "extensionHealthDegraded": "Degraded",
+  "extensionHealthDegraded": "Eingeschränkt",
   "@extensionHealthDegraded": {
     "description": "Extension service health status - degraded"
   },
@@ -5370,19 +5370,19 @@
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
-  "extensionHealthNotConfigured": "Not configured",
+  "extensionHealthNotConfigured": "Nicht konfiguriert",
   "@extensionHealthNotConfigured": {
     "description": "Extension service health status - not configured"
   },
-  "extensionHealthUnknown": "Unknown",
+  "extensionHealthUnknown": "Unbekannt",
   "@extensionHealthUnknown": {
     "description": "Extension service health status - unknown"
   },
-  "extensionHealthRequired": "required",
+  "extensionHealthRequired": "benötigt",
   "@extensionHealthRequired": {
     "description": "Label for a required extension service health check"
   },
-  "extensionSettingNotSet": "Not set",
+  "extensionSettingNotSet": "Nicht eingestellt",
   "@extensionSettingNotSet": {
     "description": "Value shown when an extension setting has no value"
   },
@@ -5418,7 +5418,7 @@
   "@audioAnalysisMono": {
     "description": "Audio channel layout label - mono"
   },
-  "trackOpenInService": "Open in {serviceName}",
+  "trackOpenInService": "Öffne in {serviceName}",
   "@trackOpenInService": {
     "description": "Button label to open a track in a named music service",
     "placeholders": {
@@ -5427,15 +5427,15 @@
       }
     }
   },
-  "trackLyricsEmbeddedSource": "Embedded",
+  "trackLyricsEmbeddedSource": "Eingebettet",
   "@trackLyricsEmbeddedSource": {
     "description": "Lyrics source label for embedded lyrics"
   },
-  "unknownAlbum": "Unknown Album",
+  "unknownAlbum": "Unbekanntes Album",
   "@unknownAlbum": {
     "description": "Fallback album name when metadata is missing"
   },
-  "unknownArtist": "Unknown Artist",
+  "unknownArtist": "Unbekannter Künstler",
   "@unknownArtist": {
     "description": "Fallback artist name when metadata is missing"
   },
@@ -5443,11 +5443,11 @@
   "@permissionAudio": {
     "description": "Audio permission type label"
   },
-  "permissionStorage": "Storage",
+  "permissionStorage": "Speicher",
   "@permissionStorage": {
     "description": "Storage permission type label"
   },
-  "permissionNotification": "Notification",
+  "permissionNotification": "Benachrichtigung",
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
@@ -5459,15 +5459,15 @@
   "@errorCouldNotKeepFolderAccess": {
     "description": "Error when persistent folder access cannot be saved"
   },
-  "storeAnyVersion": "Any",
+  "storeAnyVersion": "Alle",
   "@storeAnyVersion": {
     "description": "Store detail value when any app version is accepted"
   },
-  "storeCategoryMetadata": "Metadata",
+  "storeCategoryMetadata": "Metadaten",
   "@storeCategoryMetadata": {
     "description": "Store extension category - metadata"
   },
-  "storeCategoryDownload": "Download",
+  "storeCategoryDownload": "Herunterladen",
   "@storeCategoryDownload": {
     "description": "Store extension category - download"
   },

@@ -1,22 +1,8 @@
-// lib/widgets/cross_extension_share_sheet.dart
-//
-// Usage example from album_screen.dart:
-//
-//   IconButton(
-//     icon: const Icon(Icons.open_in_new_rounded),
-//     tooltip: 'Open in other services',
-//     onPressed: () => CrossExtensionShareSheet.show(
-//       context,
-//       name: album.name,
-//       artists: album.artists,
-//       type: 'album',
-//       sourceExtensionId: album.providerId,
-//     ),
-//   )
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../services/cross_extension_share_service.dart';
+import '../services/share_intent_service.dart';
+import '../utils/extensions.dart';
 
 class CrossExtensionShareSheet extends StatefulWidget {
   final String name;
@@ -53,228 +39,167 @@ class CrossExtensionShareSheet extends StatefulWidget {
   }
 
   @override
-  State<CrossExtensionShareSheet> createState() =>
-      _CrossExtensionShareSheetState();
+  State<CrossExtensionShareSheet> createState() => _CrossExtensionShareSheetState();
 }
 
 class _CrossExtensionShareSheetState extends State<CrossExtensionShareSheet> {
-  late final Future<List<CrossExtensionShareResult>> _future;
+  final _shareService = CrossExtensionShareService();
+  bool _isLoading = true;
+  List<CrossShareResult> _results = [];
 
   @override
   void initState() {
     super.initState();
-    _future = CrossExtensionShareService.findAcrossExtensions(
-      name: widget.name,
-      artists: widget.artists,
-      type: widget.type,
-      sourceExtensionId: widget.sourceExtensionId,
-    );
+    _loadCrossLinks();
+  }
+
+  Future<void> _loadCrossLinks() async {
+    try {
+      final results = await _shareService.searchCrossExtension(
+        name: widget.name,
+        artists: widget.artists,
+        type: widget.type,
+        sourceExtensionId: widget.sourceExtensionId,
+      );
+      if (mounted) {
+        setState(() {
+          _results = results;
+          _isLoading = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      child: SafeArea(
-        top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Handle bar
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(top: 12, bottom: 4),
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colorScheme.onSurfaceVariant.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            // Title
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
-              child: Text(
-                'Open in other services',
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-              child: Text(
-                widget.name,
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Divider(height: 1),
-            // Results
-            FutureBuilder<List<CrossExtensionShareResult>>(
-              future: _future,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 32),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
-
-                final results = snapshot.data ?? [];
-
-                if (results.isEmpty) {
-                  return Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Center(
-                      child: Text(
-                        'No other extensions installed.',
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                  );
-                }
-
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  itemCount: results.length,
-                  separatorBuilder: (_, __) =>
-                      const Divider(height: 1, indent: 20, endIndent: 20),
-                  itemBuilder: (context, index) {
-                    final res = results[index];
-                    return _ResultTile(result: res);
-                  },
-                );
-              },
-            ),
-            const SizedBox(height: 8),
-          ],
-        ),
+      padding: EdgeInsets.only(
+        top: 16,
+        left: 16,
+        right: 16,
+        bottom: MediaQuery.of(context).padding.bottom + 16,
       ),
-    );
-  }
-}
-
-class _ResultTile extends StatelessWidget {
-  final CrossExtensionShareResult result;
-
-  const _ResultTile({required this.result});
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    if (!result.found) {
-      // Not found state
-      return ListTile(
-        leading: _ExtensionIcon(extensionId: result.extensionId),
-        title: Text(
-          result.displayName,
-          style: textTheme.bodyMedium?.copyWith(
-            color: colorScheme.onSurfaceVariant,
-          ),
-        ),
-        subtitle: Text(
-          result.error == 'cross-service playlist matching not supported'
-              ? 'Playlists can\'t be matched across services'
-              : 'Not found',
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant.withOpacity(0.6),
-          ),
-        ),
-        trailing: Icon(
-          Icons.close_rounded,
-          color: colorScheme.onSurfaceVariant.withOpacity(0.4),
-          size: 18,
-        ),
-      );
-    }
-
-    return ListTile(
-      leading: _ExtensionIcon(extensionId: result.extensionId),
-      title: Text(
-        result.displayName,
-        style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
-      ),
-      subtitle: result.itemName != null
-          ? Text(
-              result.itemName!,
-              style: textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          : null,
-      trailing: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Copy ID button
-          if (result.itemId != null)
-            IconButton(
-              icon: const Icon(Icons.copy_rounded, size: 18),
-              tooltip: 'Copy ID',
-              onPressed: () {
-                Clipboard.setData(ClipboardData(text: result.itemId!));
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('ID copied: ${result.itemId}'),
-                    duration: const Duration(seconds: 2),
-                  ),
-                );
-              },
+          Center(
+            child: Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: colorScheme.onSurfaceVariant.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
-          Icon(
-            Icons.check_circle_rounded,
-            color: colorScheme.primary,
-            size: 20,
           ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
+            child: Text(
+              context.l10n.openInOtherServices,
+              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (_isLoading)
+            const Padding(
+              padding: EdgeInsets.all(32),
+              child: Center(child: CircularProgressIndicator()),
+            )
+          else if (_results.isEmpty)
+            Padding(
+              padding: const EdgeInsets.all(32),
+              child: Center(
+                child: Text(
+                  context.l10n.shareSheetNoExtensions,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            )
+          else
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _results.length,
+                itemBuilder: (context, index) {
+                  final result = _results[index];
+                  final hasLink = result.itemId != null && result.itemId!.isNotEmpty;
+
+                  return ListTile(
+                    leading: _ExtensionIcon(extensionId: result.extensionId),
+                    title: Text(
+                      result.displayName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: hasLink
+                        ? null
+                        : Text(
+                            context.l10n.shareSheetNotFound,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant.withOpacity(0.6),
+                            ),
+                          ),
+                    trailing: hasLink
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.copy_rounded, size: 20),
+                                tooltip: context.l10n.shareSheetCopyLink,
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(text: result.itemId!));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('${result.displayName} ID copied'),
+                                    ),
+                                  );
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.open_in_new_rounded, size: 20),
+                                tooltip: context.l10n.shareSheetOpenInSpotiFlac,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  ShareIntentService.instance.injectUrl(result.itemId!);
+                                },
+                              ),
+                            ],
+                          )
+                        : null,
+                  );
+                },
+              ),
+            ),
         ],
       ),
-      onTap: result.itemId != null
-          ? () {
-              // Copy to clipboard as a simple sharing mechanism.
-              // You can extend this to open the extension's detail page instead.
-              Clipboard.setData(ClipboardData(text: result.itemId!));
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    '${result.displayName} ID copied — open in the app to navigate there.',
-                  ),
-                  duration: const Duration(seconds: 3),
-                ),
-              );
-            }
-          : null,
     );
   }
 }
 
-/// Simple colored circle with the first letter of the extension ID.
-/// Replace with actual extension icon loading if your app supports it.
 class _ExtensionIcon extends StatelessWidget {
   final String extensionId;
 
   const _ExtensionIcon({required this.extensionId});
 
   Color _colorFromId(String id) {
-    final colors = [
+    const colors = [
       Colors.deepPurple,
       Colors.teal,
       Colors.indigo,
@@ -289,8 +214,7 @@ class _ExtensionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final letter =
-        extensionId.isNotEmpty ? extensionId[0].toUpperCase() : '?';
+    final letter = extensionId.isNotEmpty ? extensionId[0].toUpperCase() : '?';
     return CircleAvatar(
       radius: 18,
       backgroundColor: _colorFromId(extensionId),

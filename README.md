@@ -20,8 +20,12 @@
 [![VirusTotal](https://img.shields.io/badge/VirusTotal-Safe-brightgreen?style=for-the-badge&logo=virustotal)](https://www.virustotal.com/gui/file/31d1bf3c3b2015c13e83c4f909a7c6093a9423e3e702f0c582a3e0035c849424)
 [![Crowdin](https://img.shields.io/badge/HELP%20TRANSLATE%20ON-CROWDIN-%2321252b?style=for-the-badge&logo=crowdin)](https://crowdin.com/project/spotiflac-mobile)
 
-[![Telegram Channel](https://img.shields.io/badge/CHANNEL-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/spotiflac)
-[![Telegram Community](https://img.shields.io/badge/COMMUNITY-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/spotiflac_chat)
+[![Telegram Channel](https://img.shields.io/badge/CHANNEL-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
+](https://t.me/spotiflac)
+[![Telegram Community](https://img.shields.io/badge/COMMUNITY-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
+](https://t.me/spotiflac_chat)
+[![Reddit](https://img.shields.io/badge/REDDIT-FF4500?style=for-the-badge&logo=reddit&logoColor=white)
+](https://www.reddit.com/r/SpotiFLAC)
 
 </div>
 
@@ -52,7 +56,7 @@ Extensions let the community add new music sources and features without waiting 
 ### Developing Extensions
 
 > [!NOTE]
-> Want to build your own extension? The [Extension Development Guide](https://zarzet.github.io/SpotiFLAC-Mobile/docs) has everything you need.
+> Want to build your own extension? The [Extension Development Guide](https://spotiflac.zarz.moe/docs) has everything you need.
 
 ---
 

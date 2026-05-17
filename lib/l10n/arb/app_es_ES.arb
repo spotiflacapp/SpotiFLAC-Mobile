@@ -1587,7 +1587,7 @@
   "@trackCopyLyrics": {
     "description": "Action - copy lyrics to clipboard"
   },
-  "trackLyricsSource": "Source: {source}",
+  "trackLyricsSource": "Fuente: {source}",
   "@trackLyricsSource": {
     "description": "Label showing the lyrics source/provider",
     "placeholders": {
@@ -1970,7 +1970,7 @@
   "@qualityFlacLosslessSubtitle": {
     "description": "Technical spec for lossless"
   },
-  "qualityHiResFlac": "Hi-Res FLAC",
+  "qualityHiResFlac": "FLAC de alta resolución",
   "@qualityHiResFlac": {
     "description": "Quality option - high resolution FLAC"
   },
@@ -2554,11 +2554,11 @@
   "@libraryScanning": {
     "description": "Status during scan"
   },
-  "libraryScanFinalizing": "Finalizing library...",
+  "libraryScanFinalizing": "Finalizando la biblioteca...",
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
-  "libraryScanProgress": "{progress}% of {total} files",
+  "libraryScanProgress": "{progress}% de {total} archivos",
   "@libraryScanProgress": {
     "description": "Scan progress display",
     "placeholders": {
@@ -2574,7 +2574,7 @@
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
-  "libraryRemovedMissingFiles": "Removed {count} missing files from library",
+  "libraryRemovedMissingFiles": "Eliminados {count} archivos faltantes de la biblioteca",
   "@libraryRemovedMissingFiles": {
     "description": "Snackbar after cleanup",
     "placeholders": {
@@ -2587,11 +2587,11 @@
   "@libraryCleared": {
     "description": "Snackbar after clearing library"
   },
-  "libraryStorageAccessRequired": "Storage Access Required",
+  "libraryStorageAccessRequired": "Permiso de acceso al almacenamiento requerido",
   "@libraryStorageAccessRequired": {
     "description": "Dialog title for storage permission"
   },
-  "libraryStorageAccessMessage": "SpotiFLAC needs storage access to scan your music library. Please grant permission in settings.",
+  "libraryStorageAccessMessage": "SpotiFLAC necesita acceso al almacenamiento para escanear tu biblioteca musical. Por favor, concede el permiso en los ajustes.",
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
@@ -2611,7 +2611,7 @@
   "@libraryFilterAll": {
     "description": "Filter chip - show all library items"
   },
-  "libraryFilterDownloaded": "Downloaded",
+  "libraryFilterDownloaded": "Descargado",
   "@libraryFilterDownloaded": {
     "description": "Filter chip - show only downloaded items"
   },
@@ -2623,7 +2623,7 @@
   "@libraryFilterTitle": {
     "description": "Filter bottom sheet title"
   },
-  "libraryFilterReset": "Reset",
+  "libraryFilterReset": "Restablecer",
   "@libraryFilterReset": {
     "description": "Reset all filters button"
   },
@@ -2659,7 +2659,7 @@
   "@libraryFilterMetadata": {
     "description": "Filter section - metadata completeness"
   },
-  "libraryFilterMetadataComplete": "Complete metadata",
+  "libraryFilterMetadataComplete": "Metadatos completos",
   "@libraryFilterMetadataComplete": {
     "description": "Filter option - items with complete metadata"
   },
@@ -2829,7 +2829,7 @@
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
-  "libraryForceFullScan": "Force Full Scan",
+  "libraryForceFullScan": "Forzar análisis completo",
   "@libraryForceFullScan": {
     "description": "Button to force a complete rescan of library"
   },
@@ -2858,7 +2858,7 @@
   "@cleanupOrphanedDownloadsNone": {
     "description": "Snackbar when no orphans found"
   },
-  "cacheTitle": "Storage & Cache",
+  "cacheTitle": "Almacenamiento y caché",
   "@cacheTitle": {
     "description": "Cache management page title"
   },
@@ -2870,7 +2870,7 @@
   "@cacheSummarySubtitle": {
     "description": "Helper text for cache summary card"
   },
-  "cacheEstimatedTotal": "Estimated cache usage: {size}",
+  "cacheEstimatedTotal": "Uso estimado de caché: {size}",
   "@cacheEstimatedTotal": {
     "description": "Total cache size shown in summary",
     "placeholders": {
@@ -2879,11 +2879,11 @@
       }
     }
   },
-  "cacheSectionStorage": "Cached Data",
+  "cacheSectionStorage": "Datos almacenados en caché",
   "@cacheSectionStorage": {
     "description": "Section header for cache entries"
   },
-  "cacheSectionMaintenance": "Maintenance",
+  "cacheSectionMaintenance": "Mantenimiento",
   "@cacheSectionMaintenance": {
     "description": "Section header for cleanup actions"
   },
@@ -3027,19 +3027,19 @@
       }
     }
   },
-  "cacheRefreshStats": "Refresh stats",
+  "cacheRefreshStats": "Actualizar estadisticas",
   "@cacheRefreshStats": {
     "description": "Button label to refresh cache statistics"
   },
-  "trackSaveCoverArt": "Save Cover Art",
+  "trackSaveCoverArt": "Guardar portada",
   "@trackSaveCoverArt": {
     "description": "Menu action - save album cover art as file"
   },
-  "trackSaveCoverArtSubtitle": "Save album art as .jpg file",
+  "trackSaveCoverArtSubtitle": "Guardar imagen del álbum como archivo .jpg",
   "@trackSaveCoverArtSubtitle": {
     "description": "Subtitle for save cover art action"
   },
-  "trackSaveLyrics": "Save Lyrics (.lrc)",
+  "trackSaveLyrics": "Guardar letra (.lrc)",
   "@trackSaveLyrics": {
     "description": "Menu action - save lyrics as .lrc file"
   },
@@ -3047,7 +3047,7 @@
   "@trackSaveLyricsSubtitle": {
     "description": "Subtitle for save lyrics action"
   },
-  "trackSaveLyricsProgress": "Saving lyrics...",
+  "trackSaveLyricsProgress": "Guardando letra...",
   "@trackSaveLyricsProgress": {
     "description": "Snackbar while saving lyrics to file"
   },
@@ -3059,19 +3059,19 @@
   "@trackReEnrichOnlineSubtitle": {
     "description": "Subtitle for re-enrich metadata action for local items"
   },
-  "trackReEnrichFieldsTitle": "Fields to update",
+  "trackReEnrichFieldsTitle": "Campos a actualizar",
   "@trackReEnrichFieldsTitle": {
     "description": "Section title for field selection in re-enrich dialog"
   },
-  "trackReEnrichFieldCover": "Cover Art",
+  "trackReEnrichFieldCover": "Carátula",
   "@trackReEnrichFieldCover": {
     "description": "Checkbox label for cover art field in re-enrich"
   },
-  "trackReEnrichFieldLyrics": "Lyrics",
+  "trackReEnrichFieldLyrics": "Letra",
   "@trackReEnrichFieldLyrics": {
     "description": "Checkbox label for lyrics field in re-enrich"
   },
-  "trackReEnrichFieldBasicTags": "Album, Album Artist",
+  "trackReEnrichFieldBasicTags": "Álbum, Artista del Álbum",
   "@trackReEnrichFieldBasicTags": {
     "description": "Checkbox label for basic tags in re-enrich (title/artist are never overwritten)"
   },
@@ -3079,23 +3079,23 @@
   "@trackReEnrichFieldTrackInfo": {
     "description": "Checkbox label for track info in re-enrich"
   },
-  "trackReEnrichFieldReleaseInfo": "Date & ISRC",
+  "trackReEnrichFieldReleaseInfo": "Fecha e ISRC",
   "@trackReEnrichFieldReleaseInfo": {
     "description": "Checkbox label for release info in re-enrich"
   },
-  "trackReEnrichFieldExtra": "Genre, Label, Copyright",
+  "trackReEnrichFieldExtra": "Género, etiqueta, derechos de autor",
   "@trackReEnrichFieldExtra": {
     "description": "Checkbox label for extra metadata in re-enrich"
   },
-  "trackReEnrichSelectAll": "Select All",
+  "trackReEnrichSelectAll": "Seleccionar todos",
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackEditMetadata": "Edit Metadata",
+  "trackEditMetadata": "Editar metadatos",
   "@trackEditMetadata": {
     "description": "Menu action - edit embedded metadata"
   },
-  "trackCoverSaved": "Cover art saved to {fileName}",
+  "trackCoverSaved": "Carátula guardada en {fileName}",
   "@trackCoverSaved": {
     "description": "Snackbar after cover art saved",
     "placeholders": {
@@ -3104,7 +3104,7 @@
       }
     }
   },
-  "trackCoverNoSource": "No cover art source available",
+  "trackCoverNoSource": "No hay fuente de portadas disponible",
   "@trackCoverNoSource": {
     "description": "Snackbar when no cover art URL or embedded cover"
   },
@@ -3121,7 +3121,7 @@
   "@trackReEnrichProgress": {
     "description": "Snackbar while re-enriching metadata"
   },
-  "trackReEnrichSearching": "Searching metadata online...",
+  "trackReEnrichSearching": "Buscando metadatos en línea...",
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
   },
@@ -3133,7 +3133,7 @@
   "@trackReEnrichFfmpegFailed": {
     "description": "Snackbar when FFmpeg embed fails for MP3/Opus"
   },
-  "queueFlacAction": "Queue FLAC",
+  "queueFlacAction": "Encolar FLAC",
   "@queueFlacAction": {
     "description": "Action/button label for queueing FLAC redownloads for local tracks"
   },
@@ -3191,19 +3191,19 @@
   "@trackConvertFormatSubtitle": {
     "description": "Subtitle for convert format menu item"
   },
-  "trackConvertTitle": "Convert Audio",
+  "trackConvertTitle": "Convertir audio",
   "@trackConvertTitle": {
     "description": "Title of convert bottom sheet"
   },
-  "trackConvertTargetFormat": "Target Format",
+  "trackConvertTargetFormat": "Formato de destino",
   "@trackConvertTargetFormat": {
     "description": "Label for format selection"
   },
-  "trackConvertBitrate": "Bitrate",
+  "trackConvertBitrate": "Tasa de bits",
   "@trackConvertBitrate": {
     "description": "Label for bitrate selection"
   },
-  "trackConvertConfirmTitle": "Confirm Conversion",
+  "trackConvertConfirmTitle": "Confirmar conversión",
   "@trackConvertConfirmTitle": {
     "description": "Confirmation dialog title"
   },
@@ -3234,15 +3234,15 @@
       }
     }
   },
-  "trackConvertLosslessHint": "Lossless conversion — no quality loss",
+  "trackConvertLosslessHint": "Conversión sin pérdidas — sin pérdida de calidad",
   "@trackConvertLosslessHint": {
     "description": "Hint shown when converting between lossless formats"
   },
-  "trackConvertConverting": "Converting audio...",
+  "trackConvertConverting": "Convirtiendo Audio...",
   "@trackConvertConverting": {
     "description": "Snackbar while converting"
   },
-  "trackConvertSuccess": "Converted to {format} successfully",
+  "trackConvertSuccess": "Convertido a {format} con éxito",
   "@trackConvertSuccess": {
     "description": "Snackbar after successful conversion",
     "placeholders": {
@@ -3419,11 +3419,11 @@
       }
     }
   },
-  "collectionPlaylistCreated": "Playlist created",
+  "collectionPlaylistCreated": "Lista de reproducción creada",
   "@collectionPlaylistCreated": {
     "description": "Snackbar after creating playlist"
   },
-  "collectionPlaylistNameHint": "Playlist name",
+  "collectionPlaylistNameHint": "Nombre de la lista de reproducción",
   "@collectionPlaylistNameHint": {
     "description": "Hint text for playlist name input"
   },
@@ -3431,11 +3431,11 @@
   "@collectionPlaylistNameRequired": {
     "description": "Validation error for empty playlist name"
   },
-  "collectionRenamePlaylist": "Rename playlist",
+  "collectionRenamePlaylist": "Renombrar lista de reproducción",
   "@collectionRenamePlaylist": {
     "description": "Action to rename playlist"
   },
-  "collectionDeletePlaylist": "Delete playlist",
+  "collectionDeletePlaylist": "Eliminar lista de reproducción",
   "@collectionDeletePlaylist": {
     "description": "Action to delete playlist"
   },
@@ -3448,7 +3448,7 @@
       }
     }
   },
-  "collectionPlaylistDeleted": "Playlist deleted",
+  "collectionPlaylistDeleted": "Lista de reproducción eliminada",
   "@collectionPlaylistDeleted": {
     "description": "Snackbar after deleting playlist"
   },
@@ -3456,7 +3456,7 @@
   "@collectionPlaylistRenamed": {
     "description": "Snackbar after renaming playlist"
   },
-  "collectionWishlistEmptyTitle": "Wishlist is empty",
+  "collectionWishlistEmptyTitle": "La lista de deseos está vacía",
   "@collectionWishlistEmptyTitle": {
     "description": "Wishlist empty state title"
   },
@@ -3480,7 +3480,7 @@
   "@collectionFavoriteArtistsEmptySubtitle": {
     "description": "Favorite artists empty state subtitle"
   },
-  "collectionPlaylistEmptyTitle": "Playlist is empty",
+  "collectionPlaylistEmptyTitle": "La lista de reproducción está vacía",
   "@collectionPlaylistEmptyTitle": {
     "description": "Playlist empty state title"
   },
@@ -3488,11 +3488,11 @@
   "@collectionPlaylistEmptySubtitle": {
     "description": "Playlist empty state subtitle"
   },
-  "collectionRemoveFromPlaylist": "Remove from playlist",
+  "collectionRemoveFromPlaylist": "Quitar de la lista de reproducción",
   "@collectionRemoveFromPlaylist": {
     "description": "Tooltip for removing track from playlist"
   },
-  "collectionRemoveFromFolder": "Remove from folder",
+  "collectionRemoveFromFolder": "Quitar de la carpeta",
   "@collectionRemoveFromFolder": {
     "description": "Tooltip for removing track from wishlist/loved folder"
   },
@@ -3587,7 +3587,7 @@
   "@collectionPlaylistChangeCover": {
     "description": "Bottom sheet action to pick a custom cover image for a playlist"
   },
-  "collectionPlaylistRemoveCover": "Remove cover image",
+  "collectionPlaylistRemoveCover": "Eliminar imagen de portada",
   "@collectionPlaylistRemoveCover": {
     "description": "Bottom sheet action to remove custom cover image from a playlist"
   },
@@ -3617,7 +3617,7 @@
   "@selectionConvertNoConvertible": {
     "description": "Snackbar when no selected tracks support conversion"
   },
-  "selectionBatchConvertConfirmTitle": "Batch Convert",
+  "selectionBatchConvertConfirmTitle": "Conversión por lotes",
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
@@ -3692,7 +3692,7 @@
   "@downloadUseAlbumArtistForFoldersTrackSubtitle": {
     "description": "Subtitle when track artist is used for folder names"
   },
-  "lyricsProvidersTitle": "Lyrics Provider Priority",
+  "lyricsProvidersTitle": "Prioridad de proveedores de letras",
   "@lyricsProvidersTitle": {
     "description": "Settings item title for lyrics provider order"
   },
@@ -3998,7 +3998,7 @@
   "@downloadAppleElrcWordSyncDisabled": {
     "description": "Subtitle when Apple Music eLRC word sync is disabled"
   },
-  "downloadMusixmatchLanguage": "Musixmatch Language",
+  "downloadMusixmatchLanguage": "Idioma de Musixmatch",
   "@downloadMusixmatchLanguage": {
     "description": "Setting for Musixmatch lyrics translation language"
   },
@@ -4018,11 +4018,11 @@
   "@downloadFilterContributingDisabled": {
     "description": "Subtitle when contributing artist filter is off"
   },
-  "downloadProvidersNoneEnabled": "No providers enabled",
+  "downloadProvidersNoneEnabled": "No hay proveedores activos",
   "@downloadProvidersNoneEnabled": {
     "description": "Shown when no lyrics providers are active"
   },
-  "downloadMusixmatchLanguageCode": "Language code",
+  "downloadMusixmatchLanguageCode": "Código de idioma",
   "@downloadMusixmatchLanguageCode": {
     "description": "Label for Musixmatch language input field"
   },
@@ -4054,7 +4054,7 @@
   "@snackbarUnsupportedAudioFormat": {
     "description": "Snackbar when the audio format is not supported for the requested operation"
   },
-  "cacheRefresh": "Refresh",
+  "cacheRefresh": "Actualizar",
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
@@ -4129,7 +4129,7 @@
   "@editMetadataAutoFillNoneSelected": {
     "description": "Snackbar when user taps Fetch without selecting any fields"
   },
-  "editMetadataFieldTitle": "Title",
+  "editMetadataFieldTitle": "Título",
   "@editMetadataFieldTitle": {
     "description": "Chip label for title field in auto-fill selector"
   },
@@ -4169,23 +4169,23 @@
   "@editMetadataFieldLabel": {
     "description": "Chip label for label field in auto-fill selector"
   },
-  "editMetadataFieldCopyright": "Copyright",
+  "editMetadataFieldCopyright": "Derechos de autor",
   "@editMetadataFieldCopyright": {
     "description": "Chip label for copyright field in auto-fill selector"
   },
-  "editMetadataFieldCover": "Cover Art",
+  "editMetadataFieldCover": "Carátula",
   "@editMetadataFieldCover": {
     "description": "Chip label for cover art field in auto-fill selector"
   },
-  "editMetadataSelectAll": "All",
+  "editMetadataSelectAll": "Todos",
   "@editMetadataSelectAll": {
     "description": "Button to select all fields for auto-fill"
   },
-  "editMetadataSelectEmpty": "Empty only",
+  "editMetadataSelectEmpty": "Solo vacíos",
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
-  "queueDownloadingCount": "Downloading ({count})",
+  "queueDownloadingCount": "Descargando ({count})",
   "@queueDownloadingCount": {
     "description": "Header for active downloads section with count",
     "placeholders": {
@@ -4236,7 +4236,7 @@
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
-  "queueEmptyHistory": "No download history",
+  "queueEmptyHistory": "No hay historial de descargas",
   "@queueEmptyHistory": {
     "description": "Empty state title when download history is empty"
   },
@@ -4244,7 +4244,7 @@
   "@queueEmptyHistorySubtitle": {
     "description": "Empty state subtitle for download history"
   },
-  "selectionAllPlaylistsSelected": "All playlists selected",
+  "selectionAllPlaylistsSelected": "Todas las listas seleccionadas",
   "@selectionAllPlaylistsSelected": {
     "description": "Shown when all playlists are selected in selection mode"
   },
@@ -4264,7 +4264,7 @@
   "@audioAnalysisDescription": {
     "description": "Description for audio analysis tap-to-analyze prompt"
   },
-  "audioAnalysisAnalyzing": "Analyzing audio...",
+  "audioAnalysisAnalyzing": "Analizando audio...",
   "@audioAnalysisAnalyzing": {
     "description": "Loading text while analyzing audio"
   },
@@ -4276,11 +4276,11 @@
   "@audioAnalysisCodec": {
     "description": "Audio codec metric label"
   },
-  "audioAnalysisContainer": "Container",
+  "audioAnalysisContainer": "Contenedor",
   "@audioAnalysisContainer": {
     "description": "Audio container metric label"
   },
-  "audioAnalysisDecodedFormat": "Decoded Format",
+  "audioAnalysisDecodedFormat": "Formato decodificado",
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },
@@ -4288,11 +4288,11 @@
   "@audioAnalysisBitDepth": {
     "description": "Bit depth metric label"
   },
-  "audioAnalysisChannels": "Channels",
+  "audioAnalysisChannels": "Canales",
   "@audioAnalysisChannels": {
     "description": "Channels metric label"
   },
-  "audioAnalysisDuration": "Duration",
+  "audioAnalysisDuration": "Duración",
   "@audioAnalysisDuration": {
     "description": "Duration metric label"
   },
@@ -4300,11 +4300,11 @@
   "@audioAnalysisNyquist": {
     "description": "Nyquist frequency metric label"
   },
-  "audioAnalysisFileSize": "Size",
+  "audioAnalysisFileSize": "Tamaño",
   "@audioAnalysisFileSize": {
     "description": "File size metric label"
   },
-  "audioAnalysisDynamicRange": "Dynamic Range",
+  "audioAnalysisDynamicRange": "Rango dinámico",
   "@audioAnalysisDynamicRange": {
     "description": "Dynamic range metric label"
   },
@@ -4340,19 +4340,19 @@
   "@audioAnalysisChannelStats": {
     "description": "Per-channel audio analysis section label"
   },
-  "audioAnalysisSamples": "Samples",
+  "audioAnalysisSamples": "Muestras",
   "@audioAnalysisSamples": {
     "description": "Total samples metric label"
   },
-  "audioAnalysisRescan": "Re-analyze",
+  "audioAnalysisRescan": "Volver a analizar",
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
-  "audioAnalysisRescanning": "Re-analyzing audio...",
+  "audioAnalysisRescanning": "Volviendo a analizar audio...",
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
-  "extensionsSearchWith": "Search with {providerName}",
+  "extensionsSearchWith": "Buscar con {providerName}",
   "@extensionsSearchWith": {
     "description": "Extensions page - subtitle for built-in search provider option",
     "placeholders": {
@@ -4373,11 +4373,11 @@
   "@extensionsHomeFeedAuto": {
     "description": "Label for auto-selected search provider"
   },
-  "extensionsHomeFeedAutoSubtitle": "Automatically select the best available",
+  "extensionsHomeFeedAutoSubtitle": "Seleccionar automáticamente la mejor disponible",
   "@extensionsHomeFeedAutoSubtitle": {
     "description": "Extensions page - subtitle for auto home feed option"
   },
-  "extensionsHomeFeedOff": "Off",
+  "extensionsHomeFeedOff": "Desactivado",
   "@extensionsHomeFeedOff": {
     "description": "Extensions page - home feed provider option: off"
   },
@@ -4406,7 +4406,7 @@
   "@sortAlphaDesc": {
     "description": "Sort option - alphabetical descending"
   },
-  "cancelDownloadTitle": "Cancel download?",
+  "cancelDownloadTitle": "¿Cancelar descarga?",
   "@cancelDownloadTitle": {
     "description": "Dialog title when confirming cancellation of an active download"
   },
@@ -5210,11 +5210,11 @@
   "@queueDownloadStarting": {
     "description": "Queue status before download progress is available"
   },
-  "a11ySelectTrack": "Select track",
+  "a11ySelectTrack": "Seleccionar pista",
   "@a11ySelectTrack": {
     "description": "Accessibility label for selecting a track"
   },
-  "a11yDeselectTrack": "Deselect track",
+  "a11yDeselectTrack": "Deseleccionar pista",
   "@a11yDeselectTrack": {
     "description": "Accessibility label for deselecting a track"
   },
@@ -5239,7 +5239,7 @@
       }
     }
   },
-  "storeRequiresVersion": "Requires v{version}+",
+  "storeRequiresVersion": "Requiere v{version}+",
   "@storeRequiresVersion": {
     "description": "Store compatibility badge for minimum app version",
     "placeholders": {
@@ -5303,7 +5303,7 @@
   "@badgeBeta": {
     "description": "Badge label for beta features"
   },
-  "extensionServiceStatus": "Service Status",
+  "extensionServiceStatus": "Estado del servicio",
   "@extensionServiceStatus": {
     "description": "Extension detail section header for service status"
   },
@@ -5358,19 +5358,19 @@
       }
     }
   },
-  "extensionHealthOnline": "Online",
+  "extensionHealthOnline": "En línea",
   "@extensionHealthOnline": {
     "description": "Extension service health status - online"
   },
-  "extensionHealthDegraded": "Degraded",
+  "extensionHealthDegraded": "Degradado",
   "@extensionHealthDegraded": {
     "description": "Extension service health status - degraded"
   },
-  "extensionHealthOffline": "Offline",
+  "extensionHealthOffline": "Sin conexión",
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
-  "extensionHealthNotConfigured": "Not configured",
+  "extensionHealthNotConfigured": "Sin configurar",
   "@extensionHealthNotConfigured": {
     "description": "Extension service health status - not configured"
   },
@@ -5443,11 +5443,11 @@
   "@permissionAudio": {
     "description": "Audio permission type label"
   },
-  "permissionStorage": "Storage",
+  "permissionStorage": "Almacenamiento",
   "@permissionStorage": {
     "description": "Storage permission type label"
   },
-  "permissionNotification": "Notification",
+  "permissionNotification": "Notificación",
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
@@ -5479,7 +5479,7 @@
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
-  "storeCategoryIntegration": "Integration",
+  "storeCategoryIntegration": "Integración",
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },

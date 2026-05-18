@@ -21,6 +21,7 @@ import 'package:spotiflac_android/services/notification_service.dart';
 import 'package:spotiflac_android/services/app_remote_config_service.dart';
 import 'package:spotiflac_android/services/update_checker.dart';
 import 'package:spotiflac_android/widgets/app_announcement_dialog.dart';
+import 'package:spotiflac_android/widgets/mini_player.dart';
 import 'package:spotiflac_android/widgets/update_dialog.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/utils/logger.dart';
@@ -570,20 +571,26 @@ class _MainShellState extends ConsumerState<MainShell>
             );
           },
         ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _currentIndex.clamp(0, maxIndex),
-          onDestinationSelected: _onNavTap,
-          animationDuration: const Duration(milliseconds: 500),
-          backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? Color.alphaBlend(
-                  Colors.white.withValues(alpha: 0.05),
-                  Theme.of(context).colorScheme.surface,
-                )
-              : Color.alphaBlend(
-                  Colors.black.withValues(alpha: 0.03),
-                  Theme.of(context).colorScheme.surface,
-                ),
-          destinations: destinations,
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const MiniPlayer(),
+            NavigationBar(
+              selectedIndex: _currentIndex.clamp(0, maxIndex),
+              onDestinationSelected: _onNavTap,
+              animationDuration: const Duration(milliseconds: 500),
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color.alphaBlend(
+                      Colors.white.withValues(alpha: 0.05),
+                      Theme.of(context).colorScheme.surface,
+                    )
+                  : Color.alphaBlend(
+                      Colors.black.withValues(alpha: 0.03),
+                      Theme.of(context).colorScheme.surface,
+                    ),
+              destinations: destinations,
+            ),
+          ],
         ),
       ),
     );

@@ -59,6 +59,9 @@ dependencies:
   ffmpeg_kit_flutter_new_full: ^2.0.0
   open_filex: ^4.7.0
 
+  # In-app audio playback
+  just_audio: ^0.9.40
+
   # Notifications
   flutter_local_notifications: 21.0.0
 

@@ -222,6 +222,21 @@ class _TrackOptionsSheet extends ConsumerWidget {
                   showAddTrackToPlaylistSheet(context, ref, track);
                 },
               ),
+              _OptionTile(
+                icon: Icons.album_outlined,
+                title: context.l10n.trackOptionGoToAlbum,
+                onTap: () {
+                  Navigator.pop(context);
+                  navigateToAlbum(
+                    context,
+                    albumName: track.albumName,
+                    albumId: track.albumId,
+                    artistName: track.artistName,
+                    coverUrl: track.coverUrl,
+                    extensionId: track.source,
+                  );
+                },
+              ),
 
               const SizedBox(height: 16),
             ],

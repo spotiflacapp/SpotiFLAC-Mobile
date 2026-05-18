@@ -2742,6 +2742,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get trackOptionRemoveFromWishlist => 'Удалить из списка желаний';
 
   @override
+  String get trackOptionGoToAlbum => 'Go to Album';
+
+  @override
   String get artistOptionAddToFavorites => 'Add to Favorite Artists';
 
   @override
@@ -3782,6 +3785,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clickableLookingUpArtist => 'Looking up artist...';
+
+  @override
+  String get clickableLookingUpAlbum => 'Looking up album...';
 
   @override
   String clickableInformationUnavailable(String type) {

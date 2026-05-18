@@ -230,7 +230,7 @@ Future<void> navigateToAlbum(
     return;
   }
 
-  _showLoadingSnackBar(context, 'Looking up album...');
+  _showLoadingSnackBar(context, context.l10n.clickableLookingUpAlbum);
   try {
     final query = artistName != null && artistName.isNotEmpty
         ? '$albumName $artistName'
@@ -248,7 +248,7 @@ Future<void> navigateToAlbum(
 
     final albumList = searchResult?.items ?? const <Map<String, dynamic>>[];
     if (albumList.isEmpty) {
-      _showUnavailable(context, 'Album');
+      _showUnavailable(context, context.l10n.trackAlbum);
       return;
     }
 
@@ -272,7 +272,7 @@ Future<void> navigateToAlbum(
     );
 
     if (resolvedId.isEmpty) {
-      _showUnavailable(context, 'Album');
+      _showUnavailable(context, context.l10n.trackAlbum);
       return;
     }
 
@@ -288,7 +288,7 @@ Future<void> navigateToAlbum(
     _log.e('Failed to look up album "$albumName": $e', e);
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    _showUnavailable(context, 'Album');
+    _showUnavailable(context, context.l10n.trackAlbum);
   }
 }
 

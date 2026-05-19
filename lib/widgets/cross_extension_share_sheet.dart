@@ -1,3 +1,5 @@
+// lib/widgets/cross_extension_share_sheet.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
@@ -39,166 +41,238 @@ class CrossExtensionShareSheet extends StatefulWidget {
   }
 
   @override
-  State<CrossExtensionShareSheet> createState() => _CrossExtensionShareSheetState();
+  State<CrossExtensionShareSheet> createState() =>
+      _CrossExtensionShareSheetState();
 }
 
 class _CrossExtensionShareSheetState extends State<CrossExtensionShareSheet> {
-  final _shareService = CrossExtensionShareService();
-  bool _isLoading = true;
-  List<CrossExtensionShareResult> _results = [];
+  late final Future<List<CrossExtensionShareResult>> _future;
 
   @override
   void initState() {
     super.initState();
-    _loadCrossLinks();
-  }
-
-  Future<void> _loadCrossLinks() async {
-    try {
-      final results = await _shareService.search(
-        name: widget.name,
-        artists: widget.artists,
-        type: widget.type,
-        sourceExtensionId: widget.sourceExtensionId,
-      );
-      if (mounted) {
-        setState(() {
-          _results = results;
-          _isLoading = false;
-        });
-      }
-    } catch (_) {
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
-    }
+    _future = CrossExtensionShareService.findAcrossExtensions(
+      name: widget.name,
+      artists: widget.artists,
+      type: widget.type,
+      sourceExtensionId: widget.sourceExtensionId,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      padding: EdgeInsets.only(
-        top: 16,
-        left: 16,
-        right: 16,
-        bottom: MediaQuery.of(context).padding.bottom + 16,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 36,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colorScheme.onSurfaceVariant.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
-            child: Text(
-              context.l10n.openInOtherServices,
-              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ),
-          const SizedBox(height: 8),
-          if (_isLoading)
-            const Padding(
-              padding: EdgeInsets.all(32),
-              child: Center(child: CircularProgressIndicator()),
-            )
-          else if (_results.isEmpty)
-            Padding(
-              padding: const EdgeInsets.all(32),
-              child: Center(
-                child: Text(
-                  context.l10n.shareSheetNoExtensions,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 12, bottom: 4),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: colorScheme.onSurfaceVariant.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(2),
                 ),
               ),
-            )
-          else
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _results.length,
-                itemBuilder: (context, index) {
-                  final result = _results[index];
-                  final hasLink = result.itemId != null && result.itemId!.isNotEmpty;
-
-                  return ListTile(
-                    leading: _ExtensionIcon(extensionId: result.extensionId),
-                    title: Text(
-                      result.displayName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: hasLink
-                        ? null
-                        : Text(
-                            context.l10n.shareSheetNotFound,
-                            style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant.withOpacity(0.6),
-                            ),
-                          ),
-                    trailing: hasLink
-                        ? Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.copy_rounded, size: 20),
-                                tooltip: context.l10n.shareSheetCopyLink,
-                                onPressed: () {
-                                  Clipboard.setData(ClipboardData(text: result.itemId!));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('${result.displayName} ID copied'),
-                                    ),
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.open_in_new_rounded, size: 20),
-                                tooltip: context.l10n.shareSheetOpenInSpotiFlac,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  ShareIntentService().injectUrl(result.itemId!);
-                                },
-                              ),
-                            ],
-                          )
-                        : null,
-                  );
-                },
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
+              child: Text(
+                context.l10n.openInOtherServices,
+                style: textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+              child: Text(
+                widget.artists.isNotEmpty
+                    ? '${widget.name} · ${widget.artists}'
+                    : widget.name,
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const Divider(height: 1),
+            FutureBuilder<List<CrossExtensionShareResult>>(
+              future: _future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
+
+                final results = snapshot.data ?? [];
+
+                if (results.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Center(
+                      child: Text(
+                        context.l10n.shareSheetNoExtensions,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                return ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.5,
+                  ),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    itemCount: results.length,
+                    separatorBuilder: (_, __) => const Divider(
+                      height: 1,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                    itemBuilder: (context, index) => _ResultTile(
+                      result: results[index],
+                      type: widget.type,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ResultTile extends StatelessWidget {
+  final CrossExtensionShareResult result;
+  final String type;
+
+  const _ResultTile({required this.result, required this.type});
+
+  void _copyLink(BuildContext context, String link) {
+    Clipboard.setData(ClipboardData(text: link));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(context.l10n.shareSheetCopyLink),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _openInApp(BuildContext context, String link) {
+    ShareIntentService().injectUrl(link);
+    Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    if (!result.found) {
+      return ListTile(
+        leading: _ExtensionAvatar(extensionId: result.extensionId),
+        title: Text(
+          result.displayName,
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
+        ),
+        subtitle: Text(
+          context.l10n.shareSheetNotFound,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant.withOpacity(0.6),
+          ),
+        ),
+        trailing: Icon(
+          Icons.close_rounded,
+          color: colorScheme.onSurfaceVariant.withOpacity(0.4),
+          size: 18,
+        ),
+      );
+    }
+
+    final link = result.resolveLink(type);
+
+    if (link == null || link.isEmpty) {
+      return ListTile(
+        leading: _ExtensionAvatar(extensionId: result.extensionId),
+        title: Text(
+          result.displayName,
+          style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        subtitle: Text(
+          result.itemName ?? context.l10n.shareSheetNotFound,
+          style: textTheme.bodySmall
+              ?.copyWith(color: colorScheme.onSurfaceVariant),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: Icon(
+          Icons.help_outline_rounded,
+          color: colorScheme.onSurfaceVariant.withOpacity(0.4),
+          size: 18,
+        ),
+      );
+    }
+
+    return ListTile(
+      leading: _ExtensionAvatar(extensionId: result.extensionId),
+      title: Text(
+        result.displayName,
+        style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+      ),
+      subtitle: Text(
+        link,
+        style: textTheme.bodySmall?.copyWith(color: colorScheme.primary),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.copy_rounded, size: 20),
+            tooltip: context.l10n.shareSheetCopyLink,
+            onPressed: () => _copyLink(context, link),
+          ),
+          IconButton(
+            icon: const Icon(Icons.open_in_new_rounded, size: 20),
+            tooltip: context.l10n.shareSheetOpenInSpotiFlac,
+            onPressed: () => _openInApp(context, link),
+          ),
         ],
       ),
     );
   }
 }
 
-class _ExtensionIcon extends StatelessWidget {
+class _ExtensionAvatar extends StatelessWidget {
   final String extensionId;
 
-  const _ExtensionIcon({required this.extensionId});
+  const _ExtensionAvatar({required this.extensionId});
 
-  Color _colorFromId(String id) {
+  Color _color() {
     const colors = [
       Colors.deepPurple,
       Colors.teal,
@@ -214,12 +288,11 @@ class _ExtensionIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final letter = extensionId.isNotEmpty ? extensionId[0].toUpperCase() : '?';
     return CircleAvatar(
       radius: 18,
-      backgroundColor: _colorFromId(extensionId),
+      backgroundColor: _color(),
       child: Text(
-        letter,
+        extensionId.isNotEmpty ? extensionId[0].toUpperCase() : '?',
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,

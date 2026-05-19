@@ -4035,7 +4035,7 @@
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
-  "audioAnalysisRescanning": "Re-analyzing audio...", 
+  "audioAnalysisRescanning": "Re-analyzing audio...",
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
@@ -4589,5 +4589,25 @@
   "downloadFallbackExtensionsSubtitle": "Choose which extensions can be used as fallback",
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
+  },
+  "openInOtherServices": "Open in Other Services",
+  "@openInOtherServices": {
+    "description": "Share sheet title – open item in other extensions"
+  },
+  "shareSheetNoExtensions": "No other extensions installed.",
+  "@shareSheetNoExtensions": {
+    "description": "Share sheet empty state – no other extensions available"
+  },
+  "shareSheetNotFound": "Not found",
+  "@shareSheetNotFound": {
+    "description": "Share sheet – item not found in this extension"
+  },
+  "shareSheetCopyLink": "Copy link",
+  "@shareSheetCopyLink": {
+    "description": "Share sheet tooltip – copy link to clipboard"
+  },
+  "shareSheetOpenInSpotiFlac": "Open in SpotiFLAC",
+  "@shareSheetOpenInSpotiFlac": {
+    "description": "Share sheet tooltip – open link in SpotiFLAC"
   }
 }

@@ -34,6 +34,20 @@ class CrossExtensionShareResult {
       error: json['error'] as String?,
     );
   }
+
+  /// Returns a usable link for [type] ("album" | "artist" | "playlist"),
+  /// or null if none is available.
+  ///
+  /// The backend may return a full URL or a bare ID in [itemId].
+  /// Full URLs are returned as-is; bare IDs are returned as-is so the
+  /// caller can construct a deep-link if needed.
+  String? resolveLink(String type) {
+    if (itemId == null || itemId!.isEmpty) return null;
+    if (itemId!.startsWith('http://') || itemId!.startsWith('https://')) {
+      return itemId;
+    }
+    return itemId;
+  }
 }
 
 class CrossExtensionShareService {

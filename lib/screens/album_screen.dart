@@ -16,6 +16,7 @@ import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/widgets/track_collection_quick_actions.dart';
 import 'package:spotiflac_android/widgets/download_service_picker.dart';
+import 'package:spotiflac_android/widgets/cross_extension_share_sheet.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/providers/library_collections_provider.dart';
 import 'package:spotiflac_android/widgets/playlist_picker_sheet.dart';
@@ -582,7 +583,7 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen> {
                                 ),
                               ),
                               const SizedBox(width: 12),
-                              _buildAddToPlaylistButton(context),
+                              _buildShareButton(context),
                             ],
                           ),
                         ],
@@ -785,6 +786,37 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Widget _buildShareButton(BuildContext context) {
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white.withValues(alpha: 0.15),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.3),
+          width: 1,
+        ),
+      ),
+      child: IconButton(
+        onPressed: () => CrossExtensionShareSheet.show(
+          context,
+          name: widget.albumName,
+          artists:
+              widget.artistName ??
+              _tracks?.firstOrNull?.albumArtist ??
+              _tracks?.firstOrNull?.artistName ??
+              '',
+          type: 'album',
+          sourceExtensionId: widget.extensionId ?? '',
+        ),
+        icon: const Icon(Icons.share_rounded, size: 22, color: Colors.white),
+        tooltip: 'In anderen Diensten öffnen',
+        padding: EdgeInsets.zero,
+      ),
+    );
   }
 
   Widget _buildLoveAllButton() {

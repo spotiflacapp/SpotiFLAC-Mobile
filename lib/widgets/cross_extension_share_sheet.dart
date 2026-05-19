@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../services/cross_extension_share_service.dart';
-import '../services/share_intent_service.dart';
-import '../utils/extensions.dart';
+import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/services/cross_extension_share_service.dart';
+import 'package:spotiflac_android/services/share_intent_service.dart';
 
 class CrossExtensionShareSheet extends StatefulWidget {
   final String name;
   final String artists;
-  final String type; // "album" | "artist" | "playlist"
+  final String type;
   final String sourceExtensionId;
 
   const CrossExtensionShareSheet({
@@ -45,7 +45,7 @@ class CrossExtensionShareSheet extends StatefulWidget {
 class _CrossExtensionShareSheetState extends State<CrossExtensionShareSheet> {
   final _shareService = CrossExtensionShareService();
   bool _isLoading = true;
-  List<CrossShareResult> _results = [];
+  List<CrossExtensionShareResult> _results = [];
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _CrossExtensionShareSheetState extends State<CrossExtensionShareSheet> {
 
   Future<void> _loadCrossLinks() async {
     try {
-      final results = await _shareService.searchCrossExtension(
+      final results = await _shareService.search(
         name: widget.name,
         artists: widget.artists,
         type: widget.type,
@@ -177,7 +177,7 @@ class _CrossExtensionShareSheetState extends State<CrossExtensionShareSheet> {
                                 tooltip: context.l10n.shareSheetOpenInSpotiFlac,
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  ShareIntentService.instance.injectUrl(result.itemId!);
+                                  ShareIntentService().injectUrl(result.itemId!);
                                 },
                               ),
                             ],

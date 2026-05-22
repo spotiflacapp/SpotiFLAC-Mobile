@@ -78,43 +78,50 @@ func levenshteinDistance(s1, s2 string) int {
 		return len(s1)
 	}
 
-	matrix := make([][]int, len(s1)+1)
-	for i := range matrix {
-		matrix[i] = make([]int, len(s2)+1)
-		matrix[i][0] = i
-	}
-	for j := range matrix[0] {
-		matrix[0][j] = j
+	// Two-row rolling array: O(m) space instead of O(n*m).
+	// prev holds the previous row, curr the current one; they are swapped
+	// each iteration so no extra allocation occurs inside the loop.
+	m := len(s2)
+	prev := make([]int, m+1)
+	curr := make([]int, m+1)
+
+	for j := 0; j <= m; j++ {
+		prev[j] = j
 	}
 
 	for i := 1; i <= len(s1); i++ {
-		for j := 1; j <= len(s2); j++ {
+		curr[0] = i
+		for j := 1; j <= m; j++ {
 			cost := 1
 			if s1[i-1] == s2[j-1] {
 				cost = 0
 			}
-			matrix[i][j] = min(
-				matrix[i-1][j]+1,
-				matrix[i][j-1]+1,
-				matrix[i-1][j-1]+cost,
+			curr[j] = min(
+				prev[j]+1,
+				curr[j-1]+1,
+				prev[j-1]+cost,
 			)
 		}
+		prev, curr = curr, prev
 	}
 
-	return matrix[len(s1)][len(s2)]
+	return prev[m]
+}
+
+// normalizeSuffixes is a package-level var so the slice is allocated once,
+// not on every call to normalizeStringForMatching.
+var normalizeSuffixes = []string{
+	" (remastered)", " (remaster)", " - remastered", " - remaster",
+	" (deluxe)", " (deluxe edition)", " - deluxe", " - deluxe edition",
+	" (explicit)", " (clean)", " [explicit]", " [clean]",
+	" (album version)", " (single version)", " (radio edit)",
+	" (feat.", " (ft.", " feat.", " ft.",
 }
 
 func normalizeStringForMatching(s string) string {
 	s = strings.ToLower(s)
 
-	suffixes := []string{
-		" (remastered)", " (remaster)", " - remastered", " - remaster",
-		" (deluxe)", " (deluxe edition)", " - deluxe", " - deluxe edition",
-		" (explicit)", " (clean)", " [explicit]", " [clean]",
-		" (album version)", " (single version)", " (radio edit)",
-		" (feat.", " (ft.", " feat.", " ft.",
-	}
-	for _, suffix := range suffixes {
+	for _, suffix := range normalizeSuffixes {
 		if idx := strings.Index(s, suffix); idx != -1 {
 			s = s[:idx]
 		}

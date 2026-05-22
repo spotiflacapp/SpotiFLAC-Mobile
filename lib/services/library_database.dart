@@ -886,6 +886,9 @@ class LibraryDatabase {
     final db = await database;
     await _ensureHistoryAttached(db);
 
+    // Build all three SQL strings and arg lists upfront (synchronous), then
+    // fire all three COUNT queries concurrently with Future.wait. Previously
+    // they ran sequentially, blocking each on the previous DB round-trip.
     final allArgs = <Object?>[];
     final allSql = _queueTrackUnionSql(
       QueueLibraryDbQuery(
@@ -900,10 +903,6 @@ class LibraryDatabase {
         sortMode: request.sortMode,
         includeLocal: request.includeLocal,
       ),
-      allArgs,
-    );
-    final allRows = await db.rawQuery(
-      'SELECT COUNT(*) AS count FROM ($allSql)',
       allArgs,
     );
 
@@ -923,22 +922,20 @@ class LibraryDatabase {
       ),
       singleArgs,
     );
-    final singleRows = await db.rawQuery(
-      'SELECT COUNT(*) AS count FROM ($singleSql)',
-      singleArgs,
-    );
 
     final albumArgs = <Object?>[];
     final albumSql = _queueAlbumUnionSql(request, albumArgs);
-    final albumRows = await db.rawQuery(
-      'SELECT COUNT(*) AS count FROM ($albumSql)',
-      albumArgs,
-    );
+
+    final results = await Future.wait([
+      db.rawQuery('SELECT COUNT(*) AS count FROM ($allSql)', allArgs),
+      db.rawQuery('SELECT COUNT(*) AS count FROM ($singleSql)', singleArgs),
+      db.rawQuery('SELECT COUNT(*) AS count FROM ($albumSql)', albumArgs),
+    ]);
 
     return QueueLibraryCounts(
-      allTrackCount: Sqflite.firstIntValue(allRows) ?? 0,
-      albumCount: Sqflite.firstIntValue(albumRows) ?? 0,
-      singleTrackCount: Sqflite.firstIntValue(singleRows) ?? 0,
+      allTrackCount: Sqflite.firstIntValue(results[0]) ?? 0,
+      singleTrackCount: Sqflite.firstIntValue(results[1]) ?? 0,
+      albumCount: Sqflite.firstIntValue(results[2]) ?? 0,
     );
   }
 
@@ -966,13 +963,15 @@ class LibraryDatabase {
     String artistName,
   ) async {
     final db = await database;
+    // Use the pre-computed album_key column (indexed) instead of applying
+    // LOWER() to bare columns at query time, which bypasses all indexes.
+    final key = albumKeyFor(albumName, null, artistName);
     final rows = await db.query(
       'library',
-      where:
-          'LOWER(album_name) = ? AND LOWER(COALESCE(album_artist, artist_name)) = ?',
-      whereArgs: [albumName.toLowerCase(), artistName.toLowerCase()],
+      where: 'album_key = ?',
+      whereArgs: [key],
       orderBy:
-          'COALESCE(disc_number, 0), COALESCE(track_number, 0), track_name',
+          'COALESCE(disc_number, 0), COALESCE(track_number, 0), track_name_norm',
     );
     return rows.map(_dbRowToJson).toList(growable: false);
   }

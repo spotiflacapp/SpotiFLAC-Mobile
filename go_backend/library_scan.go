@@ -6,9 +6,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -197,88 +199,130 @@ func ScanLibraryFolder(folderPath string) (string, error) {
 
 	GoLog("[LibraryScan] Found %d audio files to scan\n", totalFiles)
 
-	results := make([]LibraryScanResult, 0, totalFiles)
 	scanTime := time.Now().UTC().Format(time.RFC3339)
-	errorCount := 0
 
+	// Single-pass CUE pre-scan: build skip-set without a separate iteration.
 	cueReferencedAudioFiles := make(map[string]bool)
 	parsedCueFiles := make(map[string]scannedCueFileInfo)
-
 	for _, fileInfo := range audioFileInfos {
-		filePath := fileInfo.path
-		ext := strings.ToLower(filepath.Ext(filePath))
-		if ext == ".cue" {
-			sheet, err := ParseCueFile(filePath)
-			if err == nil && sheet.FileName != "" {
-				audioPath := ResolveCueAudioPath(filePath, sheet.FileName)
+		if strings.ToLower(filepath.Ext(fileInfo.path)) == ".cue" {
+			sheet, cerr := ParseCueFile(fileInfo.path)
+			if cerr == nil && sheet.FileName != "" {
+				audioPath := ResolveCueAudioPath(fileInfo.path, sheet.FileName)
 				if audioPath != "" {
-					parsedCueFiles[filePath] = scannedCueFileInfo{
-						sheet:     sheet,
-						audioPath: audioPath,
-					}
+					parsedCueFiles[fileInfo.path] = scannedCueFileInfo{sheet: sheet, audioPath: audioPath}
 					cueReferencedAudioFiles[audioPath] = true
 				}
 			}
 		}
 	}
 
-	for i, fileInfo := range audioFileInfos {
-		filePath := fileInfo.path
-		select {
-		case <-cancelCh:
-			return "[]", fmt.Errorf("scan cancelled")
-		default:
-		}
-
-		libraryScanProgressMu.Lock()
-		libraryScanProgress.ScannedFiles = i + 1
-		libraryScanProgress.CurrentFile = filepath.Base(filePath)
-		libraryScanProgress.ProgressPct = float64(i+1) / float64(totalFiles) * 100
-		libraryScanProgressMu.Unlock()
-
-		ext := strings.ToLower(filepath.Ext(filePath))
-
-		if ext == ".cue" {
-			var cueResults []LibraryScanResult
-			cueInfo, ok := parsedCueFiles[filePath]
-			if ok {
-				cueResults, err = scanCueSheetForLibrary(
-					filePath,
-					cueInfo.sheet,
-					cueInfo.audioPath,
-					"",
-					fileInfo.modTime,
-					"",
-					scanTime,
-				)
-			} else {
-				cueResults, err = ScanCueFileForLibrary(filePath, scanTime)
-			}
-			if err != nil {
-				errorCount++
-				GoLog("[LibraryScan] Error scanning cue %s: %v\n", filePath, err)
-				continue
-			}
-			results = append(results, cueResults...)
-			GoLog("[LibraryScan] CUE sheet %s: %d tracks\n", filepath.Base(filePath), len(cueResults))
-			continue
-		}
-
-		if cueReferencedAudioFiles[filePath] {
-			GoLog("[LibraryScan] Skipping %s (referenced by .cue sheet)\n", filepath.Base(filePath))
-			continue
-		}
-
-		result, err := scanAudioFileWithKnownModTime(filePath, scanTime, fileInfo.modTime)
-		if err != nil {
-			errorCount++
-			GoLog("[LibraryScan] Error scanning %s: %v\n", filePath, err)
-			continue
-		}
-
-		results = append(results, *result)
+	// Worker pool sized to available CPUs, capped at 4 on mobile to avoid
+	// thrashing the Android I/O scheduler with too many concurrent reads.
+	numWorkers := runtime.NumCPU()
+	if numWorkers > 4 {
+		numWorkers = 4
 	}
 
+	type scanJob struct{ fileInfo libraryAudioFileInfo }
+	type scanOutcome struct {
+		results []LibraryScanResult
+		err     error
+		skipped bool
+	}
+
+	jobs := make(chan scanJob, numWorkers*2)
+	outcomes := make(chan scanOutcome, numWorkers*2)
+	var atomicScanned, atomicErrors int64
+	var wg sync.WaitGroup
+
+	for w := 0; w < numWorkers; w++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for job := range jobs {
+				filePath := job.fileInfo.path
+				ext := strings.ToLower(filepath.Ext(filePath))
+
+				if ext == ".cue" {
+					var cueResults []LibraryScanResult
+					var cerr error
+					cueInfo, ok := parsedCueFiles[filePath]
+					if ok {
+						cueResults, cerr = scanCueSheetForLibrary(
+							filePath, cueInfo.sheet, cueInfo.audioPath,
+							"", job.fileInfo.modTime, "", scanTime,
+						)
+					} else {
+						cueResults, cerr = ScanCueFileForLibrary(filePath, scanTime)
+					}
+					if cerr != nil {
+						atomic.AddInt64(&atomicErrors, 1)
+						GoLog("[LibraryScan] Error scanning cue %s: %v\n", filePath, cerr)
+						outcomes <- scanOutcome{err: cerr}
+					} else {
+						GoLog("[LibraryScan] CUE sheet %s: %d tracks\n", filepath.Base(filePath), len(cueResults))
+						outcomes <- scanOutcome{results: cueResults}
+					}
+					continue
+				}
+
+				if cueReferencedAudioFiles[filePath] {
+					GoLog("[LibraryScan] Skipping %s (referenced by .cue sheet)\n", filepath.Base(filePath))
+					outcomes <- scanOutcome{skipped: true}
+					continue
+				}
+
+				r, rerr := scanAudioFileWithKnownModTime(filePath, scanTime, job.fileInfo.modTime)
+				if rerr != nil {
+					atomic.AddInt64(&atomicErrors, 1)
+					GoLog("[LibraryScan] Error scanning %s: %v\n", filePath, rerr)
+					outcomes <- scanOutcome{err: rerr}
+				} else {
+					outcomes <- scanOutcome{results: []LibraryScanResult{*r}}
+				}
+			}
+		}()
+	}
+
+	// Feed jobs and update progress from this goroutine (never contends workers).
+	go func() {
+		for _, fileInfo := range audioFileInfos {
+			select {
+			case <-cancelCh:
+				close(jobs)
+				return
+			case jobs <- scanJob{fileInfo}:
+				n := atomic.AddInt64(&atomicScanned, 1)
+				libraryScanProgressMu.Lock()
+				libraryScanProgress.ScannedFiles = int(n)
+				libraryScanProgress.CurrentFile = filepath.Base(fileInfo.path)
+				libraryScanProgress.ProgressPct = float64(n) / float64(totalFiles) * 100
+				libraryScanProgressMu.Unlock()
+			}
+		}
+		close(jobs)
+	}()
+
+	go func() {
+		wg.Wait()
+		close(outcomes)
+	}()
+
+	results := make([]LibraryScanResult, 0, totalFiles)
+	for outcome := range outcomes {
+		if outcome.err == nil && !outcome.skipped {
+			results = append(results, outcome.results...)
+		}
+	}
+
+	select {
+	case <-cancelCh:
+		return "[]", fmt.Errorf("scan cancelled")
+	default:
+	}
+
+	errorCount := int(atomic.LoadInt64(&atomicErrors))
 	libraryScanProgressMu.Lock()
 	libraryScanProgress.ErrorCount = errorCount
 	libraryScanProgress.IsComplete = true
@@ -647,9 +691,11 @@ func generateLibraryID(filePath string) string {
 }
 
 func hashString(s string) uint32 {
+	// Iterate bytes rather than runes: file paths are ASCII-safe and this
+	// avoids the UTF-8 decode overhead of a range loop over a string.
 	var hash uint32 = 5381
-	for _, c := range s {
-		hash = ((hash << 5) + hash) + uint32(c)
+	for i := 0; i < len(s); i++ {
+		hash = ((hash << 5) + hash) + uint32(s[i])
 	}
 	return hash
 }
@@ -867,60 +913,105 @@ func scanLibraryFolderIncrementalWithExistingFiles(folderPath string, existingFi
 		}
 	}
 
-	for i, f := range filesToScan {
-		select {
-		case <-cancelCh:
-			return "{}", fmt.Errorf("scan cancelled")
-		default:
-		}
-
-		libraryScanProgressMu.Lock()
-		libraryScanProgress.ScannedFiles = skippedCount + i + 1
-		libraryScanProgress.CurrentFile = filepath.Base(f.path)
-		libraryScanProgress.ProgressPct = float64(skippedCount+i+1) / float64(totalFiles) * 100
-		libraryScanProgressMu.Unlock()
-
-		ext := strings.ToLower(filepath.Ext(f.path))
-
-		if ext == ".cue" {
-			var cueResults []LibraryScanResult
-			cueInfo, ok := parsedCueFiles[f.path]
-			if ok {
-				cueResults, err = scanCueSheetForLibrary(
-					f.path,
-					cueInfo.sheet,
-					cueInfo.audioPath,
-					"",
-					f.modTime,
-					"",
-					scanTime,
-				)
-			} else {
-				cueResults, err = ScanCueFileForLibrary(f.path, scanTime)
-			}
-			if err != nil {
-				errorCount++
-				GoLog("[LibraryScan] Error scanning cue %s: %v\n", f.path, err)
-				continue
-			}
-			results = append(results, cueResults...)
-			continue
-		}
-
-		if cueReferencedAudioFilesInc[f.path] {
-			continue
-		}
-
-		result, err := scanAudioFileWithKnownModTime(f.path, scanTime, f.modTime)
-		if err != nil {
-			errorCount++
-			GoLog("[LibraryScan] Error scanning %s: %v\n", f.path, err)
-			continue
-		}
-
-		results = append(results, *result)
+	// Worker pool — same strategy as full scan.
+	numWorkersInc := runtime.NumCPU()
+	if numWorkersInc > 4 {
+		numWorkersInc = 4
 	}
 
+	type incJob struct{ f libraryAudioFileInfo }
+	type incOutcome struct {
+		results []LibraryScanResult
+		err     error
+	}
+
+	incJobs := make(chan incJob, numWorkersInc*2)
+	incOutcomes := make(chan incOutcome, numWorkersInc*2)
+	var atomicIncScanned, atomicIncErrors int64
+	var incWg sync.WaitGroup
+
+	for w := 0; w < numWorkersInc; w++ {
+		incWg.Add(1)
+		go func() {
+			defer incWg.Done()
+			for job := range incJobs {
+				ext := strings.ToLower(filepath.Ext(job.f.path))
+
+				if ext == ".cue" {
+					var cueResults []LibraryScanResult
+					var cerr error
+					cueInfo, ok := parsedCueFiles[job.f.path]
+					if ok {
+						cueResults, cerr = scanCueSheetForLibrary(
+							job.f.path, cueInfo.sheet, cueInfo.audioPath,
+							"", job.f.modTime, "", scanTime,
+						)
+					} else {
+						cueResults, cerr = ScanCueFileForLibrary(job.f.path, scanTime)
+					}
+					if cerr != nil {
+						atomic.AddInt64(&atomicIncErrors, 1)
+						GoLog("[LibraryScan] Error scanning cue %s: %v\n", job.f.path, cerr)
+						incOutcomes <- incOutcome{err: cerr}
+					} else {
+						incOutcomes <- incOutcome{results: cueResults}
+					}
+					continue
+				}
+
+				if cueReferencedAudioFilesInc[job.f.path] {
+					incOutcomes <- incOutcome{}
+					continue
+				}
+
+				r, rerr := scanAudioFileWithKnownModTime(job.f.path, scanTime, job.f.modTime)
+				if rerr != nil {
+					atomic.AddInt64(&atomicIncErrors, 1)
+					GoLog("[LibraryScan] Error scanning %s: %v\n", job.f.path, rerr)
+					incOutcomes <- incOutcome{err: rerr}
+				} else {
+					incOutcomes <- incOutcome{results: []LibraryScanResult{*r}}
+				}
+			}
+		}()
+	}
+
+	go func() {
+		for _, f := range filesToScan {
+			select {
+			case <-cancelCh:
+				close(incJobs)
+				return
+			case incJobs <- incJob{f}:
+				n := atomic.AddInt64(&atomicIncScanned, 1)
+				libraryScanProgressMu.Lock()
+				libraryScanProgress.ScannedFiles = skippedCount + int(n)
+				libraryScanProgress.CurrentFile = filepath.Base(f.path)
+				libraryScanProgress.ProgressPct = float64(skippedCount+int(n)) / float64(totalFiles) * 100
+				libraryScanProgressMu.Unlock()
+			}
+		}
+		close(incJobs)
+	}()
+
+	go func() {
+		incWg.Wait()
+		close(incOutcomes)
+	}()
+
+	for outcome := range incOutcomes {
+		if outcome.err == nil && len(outcome.results) > 0 {
+			results = append(results, outcome.results...)
+		}
+	}
+
+	select {
+	case <-cancelCh:
+		return "{}", fmt.Errorf("scan cancelled")
+	default:
+	}
+
+	errorCount = int(atomic.LoadInt64(&atomicIncErrors))
 	libraryScanProgressMu.Lock()
 	libraryScanProgress.ErrorCount = errorCount
 	libraryScanProgress.IsComplete = true

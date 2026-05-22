@@ -35,6 +35,28 @@ func readExtensionHTTPResponseBody(resp *http.Response) ([]byte, error) {
 	return body, nil
 }
 
+// buildHTTPResponseValue constructs the JS-visible response object returned
+// by every HTTP method. Extracted to avoid the same 8-key map literal being
+// duplicated across httpGet, httpPost, httpRequest, and httpMethodShortcut.
+func (r *extensionRuntime) buildHTTPResponseValue(resp *http.Response, body []byte) goja.Value {
+	respHeaders := make(map[string]interface{}, len(resp.Header))
+	for k, v := range resp.Header {
+		if len(v) == 1 {
+			respHeaders[k] = v[0]
+		} else {
+			respHeaders[k] = v
+		}
+	}
+	return r.vm.ToValue(map[string]interface{}{
+		"statusCode": resp.StatusCode,
+		"status":     resp.StatusCode,
+		"ok":         resp.StatusCode >= 200 && resp.StatusCode < 300,
+		"url":        resp.Request.URL.String(),
+		"body":       string(body),
+		"headers":    respHeaders,
+	})
+}
+
 func (r *extensionRuntime) validateDomain(urlStr string) error {
 	parsed, err := url.Parse(urlStr)
 	if err != nil {
@@ -125,23 +147,7 @@ func (r *extensionRuntime) httpGet(call goja.FunctionCall) goja.Value {
 		})
 	}
 
-	respHeaders := make(map[string]interface{})
-	for k, v := range resp.Header {
-		if len(v) == 1 {
-			respHeaders[k] = v[0]
-		} else {
-			respHeaders[k] = v
-		}
-	}
-
-	return r.vm.ToValue(map[string]interface{}{
-		"statusCode": resp.StatusCode,
-		"status":     resp.StatusCode,
-		"ok":         resp.StatusCode >= 200 && resp.StatusCode < 300,
-		"url":        resp.Request.URL.String(),
-		"body":       string(body),
-		"headers":    respHeaders,
-	})
+	return r.buildHTTPResponseValue(resp, body)
 }
 
 func (r *extensionRuntime) httpPost(call goja.FunctionCall) goja.Value {
@@ -223,23 +229,7 @@ func (r *extensionRuntime) httpPost(call goja.FunctionCall) goja.Value {
 		})
 	}
 
-	respHeaders := make(map[string]interface{})
-	for k, v := range resp.Header {
-		if len(v) == 1 {
-			respHeaders[k] = v[0]
-		} else {
-			respHeaders[k] = v
-		}
-	}
-
-	return r.vm.ToValue(map[string]interface{}{
-		"statusCode": resp.StatusCode,
-		"status":     resp.StatusCode,
-		"ok":         resp.StatusCode >= 200 && resp.StatusCode < 300,
-		"url":        resp.Request.URL.String(),
-		"body":       string(body),
-		"headers":    respHeaders,
-	})
+	return r.buildHTTPResponseValue(resp, body)
 }
 
 func (r *extensionRuntime) httpRequest(call goja.FunctionCall) goja.Value {
@@ -333,23 +323,7 @@ func (r *extensionRuntime) httpRequest(call goja.FunctionCall) goja.Value {
 		})
 	}
 
-	respHeaders := make(map[string]interface{})
-	for k, v := range resp.Header {
-		if len(v) == 1 {
-			respHeaders[k] = v[0]
-		} else {
-			respHeaders[k] = v
-		}
-	}
-
-	return r.vm.ToValue(map[string]interface{}{
-		"statusCode": resp.StatusCode,
-		"status":     resp.StatusCode,
-		"ok":         resp.StatusCode >= 200 && resp.StatusCode < 300,
-		"url":        resp.Request.URL.String(),
-		"body":       string(body),
-		"headers":    respHeaders,
-	})
+	return r.buildHTTPResponseValue(resp, body)
 }
 
 func (r *extensionRuntime) httpPut(call goja.FunctionCall) goja.Value {
@@ -459,23 +433,7 @@ func (r *extensionRuntime) httpMethodShortcut(method string, call goja.FunctionC
 		})
 	}
 
-	respHeaders := make(map[string]interface{})
-	for k, v := range resp.Header {
-		if len(v) == 1 {
-			respHeaders[k] = v[0]
-		} else {
-			respHeaders[k] = v
-		}
-	}
-
-	return r.vm.ToValue(map[string]interface{}{
-		"statusCode": resp.StatusCode,
-		"status":     resp.StatusCode,
-		"ok":         resp.StatusCode >= 200 && resp.StatusCode < 300,
-		"url":        resp.Request.URL.String(),
-		"body":       string(body),
-		"headers":    respHeaders,
-	})
+	return r.buildHTTPResponseValue(resp, body)
 }
 
 func (r *extensionRuntime) httpClearCookies(call goja.FunctionCall) goja.Value {

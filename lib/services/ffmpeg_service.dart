@@ -14,6 +14,17 @@ import 'package:spotiflac_android/utils/logger.dart';
 
 final _log = AppLogger('FFmpeg');
 
+// Package-level constants so these patterns are compiled once, not on every
+// call to _previewCommandForLog.
+final _lyricsRedactPattern = RegExp(
+  r'-metadata\s+lyrics="[^"]*"',
+  caseSensitive: false,
+);
+final _unsyncedLyricsRedactPattern = RegExp(
+  r'-metadata\s+unsyncedlyrics="[^"]*"',
+  caseSensitive: false,
+);
+
 class DownloadDecryptionDescriptor {
   final String strategy;
   final String key;
@@ -146,12 +157,9 @@ class FFmpegService {
 
   static String _previewCommandForLog(String command) {
     final redacted = command
+        .replaceAll(_lyricsRedactPattern, '-metadata lyrics="<redacted>"')
         .replaceAll(
-          RegExp(r'-metadata\s+lyrics="[^"]*"', caseSensitive: false),
-          '-metadata lyrics="<redacted>"',
-        )
-        .replaceAll(
-          RegExp(r'-metadata\s+unsyncedlyrics="[^"]*"', caseSensitive: false),
+          _unsyncedLyricsRedactPattern,
           '-metadata unsyncedlyrics="<redacted>"',
         )
         .replaceAll(RegExp(r'\s+'), ' ')

@@ -439,19 +439,20 @@ class _AudioAnalysisCardState extends State<AudioAnalysisCard> {
           '${tempDir.path}/analysis_pcm_${DateTime.now().millisecondsSinceEpoch}.raw';
 
       try {
-        await _decodeToPCM(workingPath, pcmPath, info.sampleRate);
+        // Run PCM decode (for FFT/spectrogram) concurrently with the combined
+        // astats+ebur128 pass. Previously these were three sequential FFmpeg
+        // invocations; now it is two concurrent ones.
+        final results = await Future.wait([
+          _decodeToPCMAndAnalyze(workingPath, pcmPath, info.sampleRate),
+          _runCombinedLevelAndLoudness(workingPath),
+        ]);
 
-        final pcmBytes = await File(pcmPath).readAsBytes();
-        final spectrumResult = await compute(
-          _analyzeInIsolate,
-          _AnalysisParams(
-            pcmBytes: pcmBytes,
-            sampleRate: info.sampleRate,
-            bitsPerSample: info.bitsPerSample,
-          ),
-        );
-        final levelMetrics = await _runFullStreamLevelAnalysis(workingPath);
-        final loudnessMetrics = await _runLoudnessAnalysis(workingPath);
+        final spectrumResult = results[0] as _AnalysisResult;
+        final combined = results[1] as _CombinedMetrics?;
+
+        final levelMetrics = combined?.level;
+        final loudnessMetrics = combined?.loudness;
+
         final peakAmplitude =
             levelMetrics?.peakDb ?? spectrumResult.peakAmplitude;
         final rmsLevel = levelMetrics?.rmsDb ?? spectrumResult.rmsLevel;
@@ -501,6 +502,106 @@ class _AudioAnalysisCardState extends State<AudioAnalysisCard> {
         } catch (_) {}
       }
       await FFmpegKitConfig.setLogLevel(Level.avLogInfo);
+    }
+  }
+
+  /// Decodes to PCM then runs the isolate analysis. Extracted so it can be
+  /// awaited concurrently alongside [_runCombinedLevelAndLoudness].
+  Future<_AnalysisResult> _decodeToPCMAndAnalyze(
+    String inputPath,
+    String pcmPath,
+    int sampleRate,
+  ) async {
+    await _decodeToPCM(inputPath, pcmPath, sampleRate);
+    final pcmBytes = await File(pcmPath).readAsBytes();
+    return compute(
+      _analyzeInIsolate,
+      _AnalysisParams(
+        pcmBytes: pcmBytes,
+        sampleRate: sampleRate,
+        bitsPerSample: 16,
+      ),
+    );
+  }
+
+  /// Runs astats and ebur128 in a single FFmpeg pass using asplit, replacing
+  /// the two previous sequential invocations of [_runFullStreamLevelAnalysis]
+  /// and [_runLoudnessAnalysis].
+  Future<_CombinedMetrics?> _runCombinedLevelAndLoudness(
+    String inputPath,
+  ) async {
+    await FFmpegKitConfig.setLogLevel(Level.avLogInfo);
+    try {
+      final session = await FFmpegKit.executeWithArguments([
+        '-v',
+        'info',
+        '-hide_banner',
+        '-nostats',
+        '-i',
+        inputPath,
+        '-map',
+        '0:a:0',
+        '-vn',
+        '-sn',
+        '-dn',
+        '-af',
+        'asplit=2[a][b],[a]astats=metadata=1:reset=0[astats_out],[b]ebur128=peak=true:framelog=quiet',
+        '-map',
+        '[astats_out]',
+        '-f',
+        'null',
+        '-',
+      ]);
+
+      final returnCode = await session.getReturnCode();
+      final logs = await session.getLogsAsString();
+
+      _LevelMetrics? level;
+      if (ReturnCode.isSuccess(returnCode)) {
+        final overallMatch = RegExp(r'Overall([\s\S]*)').firstMatch(logs);
+        final section = overallMatch?.group(1) ?? logs;
+        final peak = _parseLastAstatsValue(section, 'Peak level dB');
+        final rms = _parseLastAstatsValue(section, 'RMS level dB');
+        if (peak != null && rms != null) {
+          final channelStats = _parseChannelStats(logs);
+          final clippingSamples = channelStats.fold<int>(0, (sum, stats) {
+            if (stats.peakDb == null || stats.peakDb! < -0.1) return sum;
+            return sum + stats.peakCount;
+          });
+          level = _LevelMetrics(
+            peakDb: peak,
+            rmsDb: rms,
+            clippingSamples: clippingSamples,
+            channelStats: channelStats,
+          );
+        }
+      }
+
+      final integratedMatches = RegExp(
+        r'I:\s+(-?\d+\.?\d*)\s+LUFS',
+      ).allMatches(logs);
+      final integrated = integratedMatches.isEmpty
+          ? null
+          : double.tryParse(integratedMatches.last.group(1) ?? '');
+
+      double? truePeak;
+      for (final match in RegExp(
+        r'Peak:\s+(-?\d+\.?\d*)\s+dBFS',
+      ).allMatches(logs)) {
+        final value = double.tryParse(match.group(1) ?? '');
+        if (value != null && (truePeak == null || value > truePeak)) {
+          truePeak = value;
+        }
+      }
+
+      final loudness = (integrated != null || truePeak != null)
+          ? _LoudnessMetrics(integratedLufs: integrated, truePeakDb: truePeak)
+          : null;
+
+      if (level == null && loudness == null) return null;
+      return _CombinedMetrics(level: level, loudness: loudness);
+    } finally {
+      await FFmpegKitConfig.setLogLevel(Level.avLogError);
     }
   }
 
@@ -665,99 +766,6 @@ class _AudioAnalysisCardState extends State<AudioAnalysisCard> {
         codecName.startsWith('pcm_');
   }
 
-  Future<_LevelMetrics?> _runFullStreamLevelAnalysis(String inputPath) async {
-    await FFmpegKitConfig.setLogLevel(Level.avLogInfo);
-    try {
-      final session = await FFmpegKit.executeWithArguments([
-        '-v',
-        'info',
-        '-hide_banner',
-        '-nostats',
-        '-i',
-        inputPath,
-        '-map',
-        '0:a:0',
-        '-vn',
-        '-sn',
-        '-dn',
-        '-af',
-        'astats=metadata=1:reset=0',
-        '-f',
-        'null',
-        '-',
-      ]);
-
-      final returnCode = await session.getReturnCode();
-      if (!ReturnCode.isSuccess(returnCode)) {
-        return null;
-      }
-
-      final logs = await session.getLogsAsString();
-      final overallMatch = RegExp(r'Overall([\s\S]*)').firstMatch(logs);
-      final section = overallMatch?.group(1) ?? logs;
-      final peak = _parseLastAstatsValue(section, 'Peak level dB');
-      final rms = _parseLastAstatsValue(section, 'RMS level dB');
-      if (peak == null || rms == null) return null;
-      final channelStats = _parseChannelStats(logs);
-      final clippingSamples = channelStats.fold<int>(0, (sum, stats) {
-        if (stats.peakDb == null || stats.peakDb! < -0.1) return sum;
-        return sum + stats.peakCount;
-      });
-      return _LevelMetrics(
-        peakDb: peak,
-        rmsDb: rms,
-        clippingSamples: clippingSamples,
-        channelStats: channelStats,
-      );
-    } finally {
-      await FFmpegKitConfig.setLogLevel(Level.avLogError);
-    }
-  }
-
-  Future<_LoudnessMetrics?> _runLoudnessAnalysis(String inputPath) async {
-    await FFmpegKitConfig.setLogLevel(Level.avLogInfo);
-    try {
-      final session = await FFmpegKit.executeWithArguments([
-        '-hide_banner',
-        '-nostats',
-        '-i',
-        inputPath,
-        '-map',
-        '0:a:0',
-        '-vn',
-        '-sn',
-        '-dn',
-        '-af',
-        'ebur128=peak=true:framelog=quiet',
-        '-f',
-        'null',
-        '-',
-      ]);
-
-      final logs = await session.getLogsAsString();
-      final integratedMatches = RegExp(
-        r'I:\s+(-?\d+\.?\d*)\s+LUFS',
-      ).allMatches(logs);
-      final integrated = integratedMatches.isEmpty
-          ? null
-          : double.tryParse(integratedMatches.last.group(1) ?? '');
-
-      double? truePeak;
-      for (final match in RegExp(
-        r'Peak:\s+(-?\d+\.?\d*)\s+dBFS',
-      ).allMatches(logs)) {
-        final value = double.tryParse(match.group(1) ?? '');
-        if (value != null && (truePeak == null || value > truePeak)) {
-          truePeak = value;
-        }
-      }
-
-      if (integrated == null && truePeak == null) return null;
-      return _LoudnessMetrics(integratedLufs: integrated, truePeakDb: truePeak);
-    } finally {
-      await FFmpegKitConfig.setLogLevel(Level.avLogError);
-    }
-  }
 
   List<ChannelAnalysisStats> _parseChannelStats(String logs) {
     final stats = <ChannelAnalysisStats>[];
@@ -1056,6 +1064,14 @@ class _LoudnessMetrics {
   const _LoudnessMetrics({this.integratedLufs, this.truePeakDb});
 }
 
+/// Holds results from the single combined astats+ebur128 FFmpeg pass.
+class _CombinedMetrics {
+  final _LevelMetrics? level;
+  final _LoudnessMetrics? loudness;
+
+  const _CombinedMetrics({this.level, this.loudness});
+}
+
 class _AnalysisParams {
   final Uint8List pcmBytes;
   final int sampleRate;
@@ -1133,6 +1149,12 @@ SpectrogramData _computeSpectrum(Float64List samples, int sampleRate) {
     actualSlices = samples.length ~/ fftSize;
   }
 
+  // Precompute the Hann window once; reused across all slices.
+  final hannWindow = Float64List(fftSize);
+  for (int j = 0; j < fftSize; j++) {
+    hannWindow[j] = 0.5 * (1.0 - math.cos(2.0 * math.pi * j / (fftSize - 1)));
+  }
+
   final magnitudes = <Float64List>[];
 
   for (int i = 0; i < actualSlices; i++) {
@@ -1141,8 +1163,7 @@ SpectrogramData _computeSpectrum(Float64List samples, int sampleRate) {
 
     final windowed = Float64List(fftSize);
     for (int j = 0; j < fftSize; j++) {
-      final w = 0.5 * (1.0 - math.cos(2.0 * math.pi * j / (fftSize - 1)));
-      windowed[j] = samples[start + j] * w;
+      windowed[j] = samples[start + j] * hannWindow[j];
     }
 
     final spectrum = _fft(windowed);

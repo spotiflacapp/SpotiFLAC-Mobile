@@ -23,6 +23,25 @@ import (
 
 const artistTagModeSplitVorbis = "split_vorbis"
 
+// editFlacSimpleKeys is the fixed mapping from EditFlacFields field names to
+// Vorbis Comment keys. Declared at package level so the map is allocated once
+// rather than on every call to EditFlacFields.
+var editFlacSimpleKeys = map[string]string{
+	"title":                 "TITLE",
+	"album":                 "ALBUM",
+	"date":                  "DATE",
+	"isrc":                  "ISRC",
+	"genre":                 "GENRE",
+	"label":                 "ORGANIZATION",
+	"copyright":             "COPYRIGHT",
+	"composer":              "COMPOSER",
+	"comment":               "COMMENT",
+	"replaygain_track_gain": "REPLAYGAIN_TRACK_GAIN",
+	"replaygain_track_peak": "REPLAYGAIN_TRACK_PEAK",
+	"replaygain_album_gain": "REPLAYGAIN_ALBUM_GAIN",
+	"replaygain_album_peak": "REPLAYGAIN_ALBUM_PEAK",
+}
+
 var artistTagSplitPattern = regexp.MustCompile(`\s*(?:,|&|\bx\b)\s*|\s+\b(?:feat(?:uring)?|ft|with)\.?\s*`)
 
 func detectCoverMIME(coverPath string, coverData []byte) string {
@@ -353,25 +372,7 @@ func EditFlacFields(filePath string, fields map[string]string) error {
 
 	artistMode := fields["artist_tag_mode"]
 
-	// Mapping from fields-map key → one or more Vorbis Comment keys.
-	// Each entry is handled with set-or-clear semantics.
-	simpleKeys := map[string]string{
-		"title":                 "TITLE",
-		"album":                 "ALBUM",
-		"date":                  "DATE",
-		"isrc":                  "ISRC",
-		"genre":                 "GENRE",
-		"label":                 "ORGANIZATION",
-		"copyright":             "COPYRIGHT",
-		"composer":              "COMPOSER",
-		"comment":               "COMMENT",
-		"replaygain_track_gain": "REPLAYGAIN_TRACK_GAIN",
-		"replaygain_track_peak": "REPLAYGAIN_TRACK_PEAK",
-		"replaygain_album_gain": "REPLAYGAIN_ALBUM_GAIN",
-		"replaygain_album_peak": "REPLAYGAIN_ALBUM_PEAK",
-	}
-
-	for fieldKey, vorbisKey := range simpleKeys {
+	for fieldKey, vorbisKey := range editFlacSimpleKeys {
 		if v, ok := fields[fieldKey]; ok {
 			setOrClearComment(cmt, vorbisKey, v)
 		}
@@ -1999,23 +2000,25 @@ func readAtomHeaderAt(f *os.File, offset, fileSize int64) (atomHeader, error) {
 		return atomHeader{}, io.ErrUnexpectedEOF
 	}
 
-	headerBuf := make([]byte, 8)
-	if _, err := f.ReadAt(headerBuf, offset); err != nil {
+	// Use a stack-allocated [16]byte instead of heap-allocating slices on
+	// every call. readAtomHeaderAt is called in tight loops (findAtomInRange,
+	// walkMP4AtomsInRange) so eliminating the allocations reduces GC pressure.
+	var buf [16]byte
+	if _, err := f.ReadAt(buf[:8], offset); err != nil {
 		return atomHeader{}, err
 	}
 
-	size32 := binary.BigEndian.Uint32(headerBuf[0:4])
-	typ := string(headerBuf[4:8])
+	size32 := binary.BigEndian.Uint32(buf[0:4])
+	typ := string(buf[4:8])
 
 	if size32 == 1 {
 		if offset+16 > fileSize {
 			return atomHeader{}, io.ErrUnexpectedEOF
 		}
-		extBuf := make([]byte, 8)
-		if _, err := f.ReadAt(extBuf, offset+8); err != nil {
+		if _, err := f.ReadAt(buf[8:16], offset+8); err != nil {
 			return atomHeader{}, err
 		}
-		size64 := binary.BigEndian.Uint64(extBuf)
+		size64 := binary.BigEndian.Uint64(buf[8:16])
 		return atomHeader{offset: offset, size: int64(size64), headerSize: 16, typ: typ}, nil
 	}
 

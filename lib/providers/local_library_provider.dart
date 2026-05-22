@@ -210,10 +210,10 @@ class LocalLibraryNotifier extends Notifier<LocalLibraryState> {
     DateTime? lastScannedAt,
     int? excludedDownloadedCount,
   }) async {
-    final countFuture = _db.getCount();
-    final indexFuture = _db.getLookupIndex();
-    final count = await countFuture;
-    final index = await indexFuture;
+    // Run both queries concurrently — they are independent.
+    final results = await Future.wait([_db.getCount(), _db.getLookupIndex()]);
+    final count = results[0] as int;
+    final index = results[1] as LibraryLookupIndex;
     state = state.copyWith(
       totalCount: count,
       loadedIndexVersion: state.loadedIndexVersion + 1,
@@ -1210,17 +1210,23 @@ final localLibraryFirstCoverProvider =
       ref.watch(
         localLibraryProvider.select((state) => state.loadedIndexVersion),
       );
-      for (final track in request.tracks) {
-        final cover = _nonEmptyCoverPath(
-          await LibraryDatabase.instance.findExisting(
-            isrc: track.isrc,
-            trackName: track.trackName,
-            artistName: track.artistName,
-          ),
-        );
-        if (cover != null) return cover;
-      }
-      return null;
+      if (request.tracks.isEmpty) return null;
+
+      // Race all cover lookups concurrently instead of awaiting each one
+      // sequentially. For a 12-track album this replaces up to 12 serial
+      // DB round-trips with a single Future.wait, then picks the first hit.
+      final covers = await Future.wait(
+        request.tracks.map(
+          (track) => LibraryDatabase.instance
+              .findExisting(
+                isrc: track.isrc,
+                trackName: track.trackName,
+                artistName: track.artistName,
+              )
+              .then(_nonEmptyCoverPath),
+        ),
+      );
+      return covers.firstWhere((c) => c != null, orElse: () => null);
     });
 
 final localLibraryPageProvider =

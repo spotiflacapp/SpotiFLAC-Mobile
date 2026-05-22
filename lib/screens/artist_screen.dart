@@ -16,13 +16,14 @@ import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/screens/album_screen.dart';
-import 'package:spotiflac_android/screens/home_tab.dart' show ExtensionAlbumScreen;
+import 'package:spotiflac_android/screens/home_tab.dart'
+    show ExtensionAlbumScreen;
 import 'package:spotiflac_android/widgets/download_service_picker.dart';
 import 'package:spotiflac_android/widgets/track_collection_quick_actions.dart';
-import 'package:spotiflac_android/widgets/cross_extension_share_sheet.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/utils/clickable_metadata.dart';
 import 'package:spotiflac_android/widgets/cached_cover_image.dart';
+import 'package:spotiflac_android/widgets/cross_extension_share_sheet.dart';
 
 class _ArtistCache {
   static final Map<String, _CacheEntry> _cache = {};
@@ -507,7 +508,7 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
                   if (releases.isNotEmpty)
                     SliverToBoxAdapter(
                       child: _buildAlbumSection(
-                        'Releases',
+                        context.l10n.artistReleases,
                         releases,
                         colorScheme,
                       ),
@@ -1146,7 +1147,7 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
     );
 
     return SliverAppBar(
-      expandedHeight: hasDiscography ? 420 : 380,
+      expandedHeight: hasDiscography ? 460 : 420,
       pinned: true,
       stretch: true,
       backgroundColor: colorScheme.surface,
@@ -1217,124 +1218,118 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
               left: 16,
               right: 16,
               bottom: 16,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          widget.artistName,
-                          style: Theme.of(context).textTheme.headlineLarge
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    offset: const Offset(0, 1),
-                                    blurRadius: 4,
-                                    color: Colors.black.withValues(alpha: 0.5),
-                                  ),
-                                ],
-                              ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                  Text(
+                    widget.artistName,
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              offset: const Offset(0, 1),
+                              blurRadius: 4,
+                              color: Colors.black.withValues(alpha: 0.5),
+                            ),
+                          ],
                         ),
-                        if (listenersText != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            listenersText,
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      offset: const Offset(0, 1),
-                                      blurRadius: 2,
-                                      color: Colors.black.withValues(
-                                        alpha: 0.5,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                          ),
-                        ],
-                      ],
-                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  if (!_isSelectionMode) ...[
-                    const SizedBox(width: 12),
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: () => _toggleFavoriteArtist(context),
-                        icon: Icon(
-                          isFavoriteArtist
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          size: 26,
-                        ),
-                        color: isFavoriteArtist
-                            ? colorScheme.error
-                            : Colors.black87,
-                        tooltip: isFavoriteArtist
-                            ? context.l10n.artistOptionRemoveFromFavorites
-                            : context.l10n.artistOptionAddToFavorites,
-                      ),
+                  if (listenersText != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      listenersText,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                offset: const Offset(0, 1),
+                                blurRadius: 2,
+                                color: Colors.black.withValues(
+                                  alpha: 0.5,
+                                ),
+                              ),
+                            ],
+                          ),
                     ),
                   ],
-                  if (!_isSelectionMode) ...[
-                    const SizedBox(width: 12),
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: () => CrossExtensionShareSheet.show(
-                          context,
-                          name: widget.artistName,
-                          artists: '',
-                          type: 'artist',
-                          sourceExtensionId:
-                              _directMetadataProviderId() ?? '',
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      if (!_isSelectionMode) ...[
+                        Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.2),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            onPressed: () => _toggleFavoriteArtist(context),
+                            icon: Icon(
+                              isFavoriteArtist
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              size: 24,
+                            ),
+                            color: isFavoriteArtist
+                                ? colorScheme.error
+                                : Colors.white,
+                            tooltip: isFavoriteArtist
+                                ? context.l10n.artistOptionRemoveFromFavorites
+                                : context.l10n.artistOptionAddToFavorites,
+                          ),
                         ),
-                        icon: const Icon(Icons.share_rounded, size: 24),
-                        color: Colors.black87,
-                        tooltip: 'In anderen Diensten öffnen',
-                      ),
-                    ),
-                  ],
-                  if (hasDiscography && !_isSelectionMode) ...[
-                    const SizedBox(width: 12),
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: () => _showDiscographyOptions(
-                          context,
-                          colorScheme,
-                          albums,
+                        const SizedBox(width: 12),
+                        Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.2),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            onPressed: () => CrossExtensionShareSheet.show(
+                              context,
+                              name: widget.artistName,
+                              artists: '',
+                              type: 'artist',
+                              sourceExtensionId:
+                                  _directMetadataProviderId() ?? '',
+                            ),
+                            icon: const Icon(Icons.share_rounded, size: 22),
+                            color: Colors.white,
+                            tooltip: 'In anderen Diensten öffnen',
+                          ),
                         ),
-                        icon: const Icon(Icons.download_rounded, size: 26),
-                        color: Colors.black87,
-                        tooltip: context.l10n.discographyDownload,
-                      ),
-                    ),
-                  ],
+                      ],
+                      if (hasDiscography && !_isSelectionMode) ...[
+                        const SizedBox(width: 12),
+                        const Spacer(),
+                        Container(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: colorScheme.primary,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            onPressed: () => _showDiscographyOptions(
+                              context,
+                              colorScheme,
+                              albums,
+                            ),
+                            icon: const Icon(Icons.download_rounded, size: 28),
+                            color: colorScheme.onPrimary,
+                            tooltip: context.l10n.discographyDownload,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -1359,6 +1354,7 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
       ),
     );
   }
+
 
   Widget _buildPopularSection(ColorScheme colorScheme) {
     if (_topTracks == null || _topTracks!.isEmpty) {

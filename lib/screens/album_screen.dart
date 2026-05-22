@@ -16,12 +16,12 @@ import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/widgets/track_collection_quick_actions.dart';
 import 'package:spotiflac_android/widgets/download_service_picker.dart';
-import 'package:spotiflac_android/widgets/cross_extension_share_sheet.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/providers/library_collections_provider.dart';
 import 'package:spotiflac_android/widgets/playlist_picker_sheet.dart';
 import 'package:spotiflac_android/utils/clickable_metadata.dart';
 import 'package:spotiflac_android/widgets/audio_quality_badges.dart';
+import 'package:spotiflac_android/widgets/cross_extension_share_sheet.dart';
 
 class _AlbumCache {
   static final Map<String, _CacheEntry> _cache = {};
@@ -562,14 +562,24 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen> {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              _buildLoveAllButton(),
-                              const SizedBox(width: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildLoveAllButton(),
+                                  const SizedBox(width: 12),
+                                  _buildAddToPlaylistButton(context),
+                                  const SizedBox(width: 12),
+                                  _buildShareButton(context),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
                               FilledButton.icon(
                                 onPressed: () => _downloadAll(context),
-                                icon: Icon(Icons.download, size: 18),
+                                icon: const Icon(Icons.download, size: 18),
                                 label: Text(
                                   context.l10n.downloadAllCount(tracks.length),
                                 ),
@@ -582,8 +592,6 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 12),
-                              _buildShareButton(context),
                             ],
                           ),
                         ],

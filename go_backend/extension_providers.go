@@ -41,6 +41,11 @@ type ExtTrackMetadata struct {
 	SpotifyID     string            `json:"spotify_id,omitempty"`
 	ExternalLinks map[string]string `json:"external_links,omitempty"`
 
+	AlbumID      string `json:"album_id,omitempty"`
+	ArtistID     string `json:"artist_id,omitempty"`
+	AlbumURL     string `json:"album_url,omitempty"`
+	ExternalURLs string `json:"external_urls,omitempty"`
+
 	Label     string `json:"label,omitempty"`
 	Copyright string `json:"copyright,omitempty"`
 	Genre     string `json:"genre,omitempty"`
@@ -697,6 +702,10 @@ func parseExtensionTrackValue(vm *goja.Runtime, value goja.Value) ExtTrackMetada
 		DeezerID:      gojaObjectString(obj, "deezer_id", "deezerId"),
 		SpotifyID:     gojaObjectString(obj, "spotify_id", "spotifyId"),
 		ExternalLinks: gojaObjectStringMap(vm, obj, "external_links", "externalLinks"),
+		AlbumID:       gojaObjectString(obj, "album_id", "albumId"),
+		ArtistID:      gojaObjectString(obj, "artist_id", "artistId"),
+		AlbumURL:      gojaObjectString(obj, "album_url", "albumUrl"),
+		ExternalURLs:  gojaObjectString(obj, "external_urls", "externalUrls"),
 		Label:         gojaObjectString(obj, "label"),
 		Copyright:     gojaObjectString(obj, "copyright"),
 		Genre:         gojaObjectString(obj, "genre"),

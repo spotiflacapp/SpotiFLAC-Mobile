@@ -153,7 +153,7 @@
   "@optionsPrimaryProvider": {
     "description": "Main search provider setting"
   },
-  "optionsPrimaryProviderSubtitle": "Service used for searching by track or album name",
+  "optionsPrimaryProviderSubtitle": "用于按曲目或专辑名称搜索的服务",
   "@optionsPrimaryProviderSubtitle": {
     "description": "Subtitle for primary provider"
   },
@@ -166,11 +166,11 @@
       }
     }
   },
-  "optionsDefaultSearchTab": "Default Search Tab",
+  "optionsDefaultSearchTab": "默认搜索栏",
   "@optionsDefaultSearchTab": {
     "description": "Title for the preferred default search tab setting"
   },
-  "optionsDefaultSearchTabSubtitle": "在新的搜索结果页面选择哪个选项卡会先打开。",
+  "optionsDefaultSearchTabSubtitle": "选择新搜索结果首先打开的标签页。",
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
@@ -202,7 +202,7 @@
   "@optionsEmbedLyrics": {
     "description": "Embed lyrics in audio files"
   },
-  "optionsEmbedLyricsSubtitle": "Save synced lyrics alongside your downloaded tracks",
+  "optionsEmbedLyricsSubtitle": "将同步的歌词与你下载的音轨一起保存",
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
@@ -218,15 +218,15 @@
   "@optionsReplayGain": {
     "description": "Title for ReplayGain setting toggle"
   },
-  "optionsReplayGainSubtitleOn": "Scan loudness and embed ReplayGain tags (EBU R128)",
+  "optionsReplayGainSubtitleOn": "扫描响度并嵌入 ReplayGain 标签（EBU R128）",
   "@optionsReplayGainSubtitleOn": {
     "description": "Subtitle when ReplayGain is enabled"
   },
-  "optionsReplayGainSubtitleOff": "Disabled: no loudness normalization tags",
+  "optionsReplayGainSubtitleOff": "已禁用：不添加响度标准化标签",
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "optionsArtistTagMode": "Artist Tag Mode",
+  "optionsArtistTagMode": "艺术家标签模式",
   "@optionsArtistTagMode": {
     "description": "Setting title for how artist metadata is written into files"
   },

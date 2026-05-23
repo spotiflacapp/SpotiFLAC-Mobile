@@ -3911,6 +3911,16 @@
       }
     }
   },
+  "queueRetryAllFailed": "Retry failed ({count})",
+  "@queueRetryAllFailed": {
+    "description": "Button label in the download queue header to retry all failed downloads. {count} is the number of failed items.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
   "queueTrackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
   "@queueTrackCount": {
     "description": "Track count label with plural support",
@@ -4351,6 +4361,14 @@
   "settingsOptionsSubtitle": "Fallback, metadata, lyrics, cover art",
   "@settingsOptionsSubtitle": {
     "description": "Options settings description"
+  },
+  "settingsSaveDownloadHistory": "Save Download History",
+  "@settingsSaveDownloadHistory": {
+    "description": "Toggle label for enabling/disabling download history recording."
+  },
+  "settingsSaveDownloadHistorySubtitle": "Track completed downloads in history",
+  "@settingsSaveDownloadHistorySubtitle": {
+    "description": "Subtitle for the save download history toggle."
   },
   "settingsTitle": "Settings",
   "@settingsTitle": {

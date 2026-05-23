@@ -3035,6 +3035,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                 const Spacer(),
                 _buildPauseOrRetryButton(context, ref, colorScheme),
                 const SizedBox(width: 4),
+                _buildRetryAllFailedButton(context, ref, colorScheme),
+                const SizedBox(width: 4),
                 _buildClearAllButton(context, ref, colorScheme),
               ],
             ),
@@ -4012,6 +4014,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       ),
     );
   }
+
 
 
   Widget _buildClearAllButton(

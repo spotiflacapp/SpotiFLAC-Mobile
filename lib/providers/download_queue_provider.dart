@@ -4023,6 +4023,27 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     }
   }
 
+  void retryAllFailed() {
+    final failedIds = state.items
+        .where(
+          (item) =>
+              item.status == DownloadStatus.failed ||
+              item.status == DownloadStatus.skipped,
+        )
+        .map((item) => item.id)
+        .toList();
+
+    if (failedIds.isEmpty) {
+      _log.i('retryAllFailed: no failed items to retry');
+      return;
+    }
+
+    _log.i('retryAllFailed: retrying ${failedIds.length} item(s)');
+    for (final id in failedIds) {
+      retryItem(id);
+    }
+  }
+
   void removeItem(String id) {
     final removedItem = state.items.where((item) => item.id == id).firstOrNull;
     _locallyCancelledItemIds.remove(id);

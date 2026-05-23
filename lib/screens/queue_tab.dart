@@ -3033,7 +3033,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                   ),
                 ),
                 const Spacer(),
-                _buildPauseResumeButton(context, ref, colorScheme),
+                _buildPauseOrRetryButton(context, ref, colorScheme),
                 const SizedBox(width: 4),
                 _buildClearAllButton(context, ref, colorScheme),
               ],
@@ -3967,17 +3967,39 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     );
   }
 
-  Widget _buildPauseResumeButton(
+  Widget _buildPauseOrRetryButton(
     BuildContext context,
     WidgetRef ref,
     ColorScheme colorScheme,
   ) {
-    final isPaused = ref.watch(downloadQueueProvider.select((s) => s.isPaused));
+    final isProcessing = ref.watch(
+      downloadQueueProvider.select((s) => s.isProcessing),
+    );
+    final isPaused = ref.watch(
+      downloadQueueProvider.select((s) => s.isPaused),
+    );
+    final failedCount = ref.watch(
+      downloadQueueProvider.select((s) => s.failedCount),
+    );
+
+    // Show retry button only when nothing is actively downloading
+    // and there are failed items.
+    if (!isProcessing && failedCount > 0) {
+      return TextButton.icon(
+        onPressed: () =>
+            ref.read(downloadQueueProvider.notifier).retryAllFailed(),
+        icon: const Icon(Icons.replay_rounded, size: 18),
+        label: Text(context.l10n.queueRetryAllFailed(failedCount)),
+        style: TextButton.styleFrom(
+          visualDensity: VisualDensity.compact,
+          foregroundColor: colorScheme.error,
+        ),
+      );
+    }
 
     return TextButton.icon(
-      onPressed: () {
-        ref.read(downloadQueueProvider.notifier).togglePause();
-      },
+      onPressed: () =>
+          ref.read(downloadQueueProvider.notifier).togglePause(),
       icon: Icon(isPaused ? Icons.play_arrow : Icons.pause, size: 18),
       label: Text(
         isPaused ? context.l10n.actionResume : context.l10n.actionPause,
@@ -3990,6 +4012,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       ),
     );
   }
+
 
   Widget _buildClearAllButton(
     BuildContext context,

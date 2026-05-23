@@ -956,6 +956,18 @@
   "@dialogDeleteSelectedTitle": {
     "description": "Dialog title - delete selected items"
   },
+  "dialogDisableAndClear": "Disable & Clear",
+  "@dialogDisableAndClear": {
+    "description": "Confirm button in the disable history warning dialog. Disables the setting and clears all existing history."
+  },
+  "dialogDisableHistoryMessage": "Your existing download history will be permanently deleted.",
+  "@dialogDisableHistoryMessage": {
+    "description": "Body text of the warning dialog shown when disabling download history with existing entries."
+  },
+  "dialogDisableHistoryTitle": "Disable Download History?",
+  "@dialogDisableHistoryTitle": {
+    "description": "Title of the warning dialog shown when the user disables the save download history toggle while history exists."
+  },
   "dialogDiscard": "Отменить",
   "@dialogDiscard": {
     "description": "Dialog button - discard changes"

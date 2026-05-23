@@ -5989,7 +5989,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
       backendComposer,
     );
 
-    ref
+    if (ref.read(settingsProvider).saveDownloadHistory)
+      ref
         .read(downloadHistoryProvider.notifier)
         .addToHistory(
           DownloadHistoryItem(
@@ -8633,47 +8634,48 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
             backendComposer,
           );
 
-          ref
-              .read(downloadHistoryProvider.notifier)
-              .addToHistory(
-                DownloadHistoryItem(
-                  id: item.id,
-                  trackName: historyTitle,
-                  artistName: historyArtist,
-                  albumName: historyAlbum,
-                  albumArtist: historyAlbumArtist,
-                  coverUrl: normalizeCoverReference(trackToDownload.coverUrl),
-                  filePath: filePath,
-                  storageMode: effectiveSafMode ? 'saf' : 'app',
-                  downloadTreeUri: effectiveSafMode
-                      ? settings.downloadTreeUri
-                      : null,
-                  safRelativeDir: effectiveSafMode ? effectiveOutputDir : null,
-                  safFileName: effectiveSafMode
-                      ? (finalSafFileName ?? safFileName)
-                      : null,
-                  safRepaired: false,
-                  service: result['service'] as String? ?? item.service,
-                  downloadedAt: DateTime.now(),
-                  isrc: historyIsrc,
-                  spotifyId: trackToDownload.id,
-                  trackNumber: historyTrackNumber,
-                  totalTracks: historyTotalTracks,
-                  discNumber: historyDiscNumber,
-                  totalDiscs: historyTotalDiscs,
-                  duration: trackToDownload.duration,
-                  releaseDate: historyReleaseDate,
-                  quality: actualQuality,
-                  bitDepth: historyBitDepth,
-                  sampleRate: historySampleRate,
-                  bitrate: historyBitrate,
-                  format: finalFormat,
-                  genre: effectiveGenre,
-                  composer: historyComposer,
-                  label: effectiveLabel,
-                  copyright: effectiveCopyright,
-                ),
-              );
+          if (ref.read(settingsProvider).saveDownloadHistory)
+            ref
+                .read(downloadHistoryProvider.notifier)
+                .addToHistory(
+                  DownloadHistoryItem(
+                    id: item.id,
+                    trackName: historyTitle,
+                    artistName: historyArtist,
+                    albumName: historyAlbum,
+                    albumArtist: historyAlbumArtist,
+                    coverUrl: normalizeCoverReference(trackToDownload.coverUrl),
+                    filePath: filePath,
+                    storageMode: effectiveSafMode ? 'saf' : 'app',
+                    downloadTreeUri: effectiveSafMode
+                        ? settings.downloadTreeUri
+                        : null,
+                    safRelativeDir: effectiveSafMode ? effectiveOutputDir : null,
+                    safFileName: effectiveSafMode
+                        ? (finalSafFileName ?? safFileName)
+                        : null,
+                    safRepaired: false,
+                    service: result['service'] as String? ?? item.service,
+                    downloadedAt: DateTime.now(),
+                    isrc: historyIsrc,
+                    spotifyId: trackToDownload.id,
+                    trackNumber: historyTrackNumber,
+                    totalTracks: historyTotalTracks,
+                    discNumber: historyDiscNumber,
+                    totalDiscs: historyTotalDiscs,
+                    duration: trackToDownload.duration,
+                    releaseDate: historyReleaseDate,
+                    quality: actualQuality,
+                    bitDepth: historyBitDepth,
+                    sampleRate: historySampleRate,
+                    bitrate: historyBitrate,
+                    format: finalFormat,
+                    genre: effectiveGenre,
+                    composer: historyComposer,
+                    label: effectiveLabel,
+                    copyright: effectiveCopyright,
+                  ),
+                );
 
           removeItem(item.id);
         }

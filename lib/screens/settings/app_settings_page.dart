@@ -114,6 +114,31 @@ class AppSettingsPage extends ConsumerWidget {
                     subtitle: context.l10n.optionsClearHistorySubtitle,
                     onTap: () =>
                         _showClearHistoryDialog(context, ref, colorScheme),
+                  ),
+                  SettingsSwitchItem(
+                    icon: Icons.history_toggle_off_outlined,
+                    title: context.l10n.settingsSaveDownloadHistory,
+                    subtitle: context.l10n.settingsSaveDownloadHistorySubtitle,
+                    value: settings.saveDownloadHistory,
+                    onChanged: (v) {
+                      if (!v) {
+                        final hasHistory = ref
+                            .read(downloadHistoryProvider)
+                            .items
+                            .isNotEmpty;
+                        if (hasHistory) {
+                          _showDisableHistoryWarningDialog(
+                            context,
+                            ref,
+                            colorScheme,
+                          );
+                          return;
+                        }
+                      }
+                      ref
+                          .read(settingsProvider.notifier)
+                          .setSaveDownloadHistory(v);
+                    },
                     showDivider: false,
                   ),
                 ],
@@ -144,6 +169,46 @@ class AppSettingsPage extends ConsumerWidget {
             const SliverToBoxAdapter(child: SizedBox(height: 32)),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showDisableHistoryWarningDialog(
+    BuildContext context,
+    WidgetRef ref,
+    ColorScheme colorScheme,
+  ) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(context.l10n.dialogDisableHistoryTitle),
+        content: Text(context.l10n.dialogDisableHistoryMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(context.l10n.dialogCancel),
+          ),
+          TextButton(
+            onPressed: () {
+              ref
+                  .read(downloadHistoryProvider.notifier)
+                  .clearHistory();
+              ref
+                  .read(settingsProvider.notifier)
+                  .setSaveDownloadHistory(false);
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(context.l10n.snackbarHistoryCleared),
+                ),
+              );
+            },
+            child: Text(
+              context.l10n.dialogDisableAndClear,
+              style: TextStyle(color: colorScheme.error),
+            ),
+          ),
+        ],
       ),
     );
   }

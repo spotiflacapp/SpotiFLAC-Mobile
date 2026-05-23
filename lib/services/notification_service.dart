@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -236,6 +237,7 @@ class NotificationService {
     bool alreadyInLibrary = false,
   }) async {
     if (!_isInitialized) await initialize();
+    unawaited(HapticFeedback.mediumImpact());
 
     String title;
     if (alreadyInLibrary) {
@@ -286,6 +288,7 @@ class NotificationService {
   }) async {
     if (!_isInitialized) await initialize();
     if (completedCount <= 0 && failedCount <= 0) return;
+    unawaited(failedCount > 0 ? HapticFeedback.heavyImpact() : HapticFeedback.mediumImpact());
 
     final title = failedCount > 0
         ? (_l10n?.notifDownloadsFinished(completedCount, failedCount) ??
@@ -330,6 +333,7 @@ class NotificationService {
   Future<void> showQueueCanceled({required int canceledCount}) async {
     if (!_isInitialized) await initialize();
     if (canceledCount <= 0) return;
+    unawaited(HapticFeedback.lightImpact());
 
     final title = _l10n?.notifDownloadsCanceledTitle ?? 'Downloads canceled';
     final body =

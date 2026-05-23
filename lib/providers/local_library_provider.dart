@@ -213,7 +213,7 @@ class LocalLibraryNotifier extends Notifier<LocalLibraryState> {
     // Run both queries concurrently — they are independent.
     final results = await Future.wait([_db.getCount(), _db.getLookupIndex()]);
     final count = results[0] as int;
-    final index = results[1] as LibraryLookupIndex;
+    final index = results[1] as LocalLibraryLookupIndex;
     state = state.copyWith(
       totalCount: count,
       loadedIndexVersion: state.loadedIndexVersion + 1,

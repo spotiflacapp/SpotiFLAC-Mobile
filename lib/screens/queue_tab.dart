@@ -3024,20 +3024,24 @@ class _QueueTabState extends ConsumerState<QueueTab> {
         return SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  context.l10n.queueDownloadingCount(queueCount),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      context.l10n.queueDownloadingCount(queueCount),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    _buildPauseOrRetryButton(context, ref, colorScheme),
+                    const SizedBox(width: 4),
+                    _buildClearAllButton(context, ref, colorScheme),
+                  ],
                 ),
-                const Spacer(),
-                _buildPauseOrRetryButton(context, ref, colorScheme),
-                const SizedBox(width: 4),
-                _buildRetryAllFailedButton(context, ref, colorScheme),
-                const SizedBox(width: 4),
-                _buildClearAllButton(context, ref, colorScheme),
+                _buildRetryAllRow(context, ref, colorScheme),
               ],
             ),
           ),
@@ -3974,31 +3978,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     WidgetRef ref,
     ColorScheme colorScheme,
   ) {
-    final isProcessing = ref.watch(
-      downloadQueueProvider.select((s) => s.isProcessing),
-    );
     final isPaused = ref.watch(
       downloadQueueProvider.select((s) => s.isPaused),
     );
-    final failedCount = ref.watch(
-      downloadQueueProvider.select((s) => s.failedCount),
-    );
-
-    // Show retry button only when nothing is actively downloading
-    // and there are failed items.
-    if (!isProcessing && failedCount > 0) {
-      return TextButton.icon(
-        onPressed: () =>
-            ref.read(downloadQueueProvider.notifier).retryAllFailed(),
-        icon: const Icon(Icons.replay_rounded, size: 18),
-        label: Text(context.l10n.queueRetryAllFailed(failedCount)),
-        style: TextButton.styleFrom(
-          visualDensity: VisualDensity.compact,
-          foregroundColor: colorScheme.error,
-        ),
-      );
-    }
-
     return TextButton.icon(
       onPressed: () =>
           ref.read(downloadQueueProvider.notifier).togglePause(),
@@ -4011,6 +3993,32 @@ class _QueueTabState extends ConsumerState<QueueTab> {
         foregroundColor: isPaused
             ? colorScheme.primary
             : colorScheme.onSurfaceVariant,
+      ),
+    );
+  }
+
+  Widget _buildRetryAllRow(
+    BuildContext context,
+    WidgetRef ref,
+    ColorScheme colorScheme,
+  ) {
+    final isProcessing = ref.watch(
+      downloadQueueProvider.select((s) => s.isProcessing),
+    );
+    final failedCount = ref.watch(
+      downloadQueueProvider.select((s) => s.failedCount),
+    );
+    if (isProcessing || failedCount == 0) return const SizedBox.shrink();
+    return TextButton.icon(
+      onPressed: () =>
+          ref.read(downloadQueueProvider.notifier).retryAllFailed(),
+      icon: const Icon(Icons.replay_rounded, size: 18),
+      label: Text(context.l10n.queueRetryAllFailed(failedCount)),
+      style: TextButton.styleFrom(
+        visualDensity: VisualDensity.compact,
+        foregroundColor: colorScheme.error,
+        padding: EdgeInsets.zero,
+        alignment: Alignment.centerRight,
       ),
     );
   }

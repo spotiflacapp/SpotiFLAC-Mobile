@@ -3734,27 +3734,27 @@
   "@lyricsProvidersDiscardContent": {
     "description": "Body text of the discard-changes dialog on lyrics provider page"
   },
-  "lyricsProviderLrclibDesc": "Open-source synced lyrics database",
+  "lyricsProviderLrclibDesc": "Base de données open source de paroles synchronisées",
   "@lyricsProviderLrclibDesc": {
     "description": "Description for LRCLIB provider"
   },
-  "lyricsProviderNeteaseDesc": "NetEase Cloud Music (good for Asian songs)",
+  "lyricsProviderNeteaseDesc": "NetEase Cloud Music (idéal pour les titres asiatiques)",
   "@lyricsProviderNeteaseDesc": {
     "description": "Description for Netease provider"
   },
-  "lyricsProviderMusixmatchDesc": "Largest lyrics database (multi-language)",
+  "lyricsProviderMusixmatchDesc": "La plus grande base de données de paroles (multilingue)",
   "@lyricsProviderMusixmatchDesc": {
     "description": "Description for Musixmatch provider"
   },
-  "lyricsProviderAppleMusicDesc": "Word-by-word synced lyrics (via proxy)",
+  "lyricsProviderAppleMusicDesc": "Paroles synchronisées mot à mot (via un proxy)",
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, via proxy)",
+  "lyricsProviderQqMusicDesc": "QQ Music (idéal pour écouter des titres chinois, via un proxy)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
-  "lyricsProviderExtensionDesc": "Extension provider",
+  "lyricsProviderExtensionDesc": "Fournisseur d'extensions",
   "@lyricsProviderExtensionDesc": {
     "description": "Generic description for extension-based lyrics providers"
   },
@@ -3808,7 +3808,7 @@
       }
     }
   },
-  "dialogDownloadAllTitle": "Download All",
+  "dialogDownloadAllTitle": "Tout télécharger",
   "@dialogDownloadAllTitle": {
     "description": "Dialog title for bulk download confirmation"
   },
@@ -3833,7 +3833,7 @@
   "@homeAlbumInfoUnavailable": {
     "description": "Snackbar when album info cannot be loaded"
   },
-  "snackbarLoadingCueSheet": "Loading CUE sheet...",
+  "snackbarLoadingCueSheet": "Chargement de la liste CUE...",
   "@snackbarLoadingCueSheet": {
     "description": "Snackbar while loading a CUE sheet file"
   },
@@ -3922,7 +3922,7 @@
   "@downloadCreatePlaylistSourceFolderRedundant": {
     "description": "Subtitle when folder organization is already set to playlist"
   },
-  "downloadSongLinkRegion": "SongLink Region",
+  "downloadSongLinkRegion": "Région SongLink",
   "@downloadSongLinkRegion": {
     "description": "Setting for SongLink region used during fallback resolution"
   },
@@ -4173,7 +4173,7 @@
   "@editMetadataFieldCopyright": {
     "description": "Chip label for copyright field in auto-fill selector"
   },
-  "editMetadataFieldCover": "Cover Art",
+  "editMetadataFieldCover": "Illustration de couverture",
   "@editMetadataFieldCover": {
     "description": "Chip label for cover art field in auto-fill selector"
   },
@@ -4185,7 +4185,7 @@
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
-  "queueDownloadingCount": "Downloading ({count})",
+  "queueDownloadingCount": "Téléchargement ({count})",
   "@queueDownloadingCount": {
     "description": "Header for active downloads section with count",
     "placeholders": {
@@ -4194,7 +4194,7 @@
       }
     }
   },
-  "queueDownloadedHeader": "Downloaded",
+  "queueDownloadedHeader": "Téléchargé",
   "@queueDownloadedHeader": {
     "description": "Header label for downloaded items section in library"
   },
@@ -4280,7 +4280,7 @@
   "@audioAnalysisContainer": {
     "description": "Audio container metric label"
   },
-  "audioAnalysisDecodedFormat": "Decoded Format",
+  "audioAnalysisDecodedFormat": "Format décodé",
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },
@@ -4288,7 +4288,7 @@
   "@audioAnalysisBitDepth": {
     "description": "Bit depth metric label"
   },
-  "audioAnalysisChannels": "Channels",
+  "audioAnalysisChannels": "Chaînes",
   "@audioAnalysisChannels": {
     "description": "Channels metric label"
   },
@@ -4336,7 +4336,7 @@
   "@audioAnalysisSpectralCutoff": {
     "description": "Estimated spectral cutoff metric label"
   },
-  "audioAnalysisChannelStats": "Per-channel Stats",
+  "audioAnalysisChannelStats": "Statistiques par chaîne",
   "@audioAnalysisChannelStats": {
     "description": "Per-channel audio analysis section label"
   },
@@ -4361,7 +4361,7 @@
       }
     }
   },
-  "extensionsHomeFeedProvider": "Home Feed Provider",
+  "extensionsHomeFeedProvider": "Fournisseur de flux RSS",
   "@extensionsHomeFeedProvider": {
     "description": "Extensions page - label for home feed provider selector"
   },
@@ -4506,7 +4506,7 @@
   "@notifAlreadyInLibrary": {
     "description": "Notification title when track is already in library"
   },
-  "notifDownloadCompleteCount": "Download Complete ({completed}/{total})",
+  "notifDownloadCompleteCount": "Téléchargement terminé ({completed}/{total})",
   "@notifDownloadCompleteCount": {
     "description": "Notification title when download is complete, with count",
     "placeholders": {
@@ -4518,7 +4518,7 @@
       }
     }
   },
-  "notifDownloadComplete": "Download Complete",
+  "notifDownloadComplete": "Télécharger l'intégralité",
   "@notifDownloadComplete": {
     "description": "Notification title when a single download is complete"
   },
@@ -4926,7 +4926,7 @@
       }
     }
   },
-  "a11yOpenItem": "Open {itemType} {name}",
+  "a11yOpenItem": "Ouvrir {itemType} {name}",
   "@a11yOpenItem": {
     "description": "Accessibility label for opening a generic item",
     "placeholders": {
@@ -4977,7 +4977,7 @@
       }
     }
   },
-  "a11ySelectAlbum": "Select album {albumName}",
+  "a11ySelectAlbum": "Sélectionnez l'album {albumName}",
   "@a11ySelectAlbum": {
     "description": "Accessibility label for selecting an album",
     "placeholders": {
@@ -4986,7 +4986,7 @@
       }
     }
   },
-  "a11yOpenAlbum": "Open album {albumName}",
+  "a11yOpenAlbum": "Ouvrir l'album {albumName}",
   "@a11yOpenAlbum": {
     "description": "Accessibility label for opening an album",
     "placeholders": {

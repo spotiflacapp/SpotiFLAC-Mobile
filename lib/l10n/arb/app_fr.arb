@@ -2170,7 +2170,7 @@
   "@downloadedAlbumDeleteSelected": {
     "description": "Button - delete selected tracks"
   },
-  "downloadedAlbumDeleteMessage": "Delete {count} {count, plural, =1{track} other{tracks}} from this album?\n\nThis will also delete the files from storage.",
+  "downloadedAlbumDeleteMessage": "Souhaitez-vous supprimer {count} {count, plural, =1{piste} other {pistes}} de cet album ?\n\nCela supprimera également les fichiers de l'espace de stockage.",
   "@downloadedAlbumDeleteMessage": {
     "description": "Delete confirmation with count",
     "placeholders": {
@@ -2196,7 +2196,7 @@
   "@downloadedAlbumTapToSelect": {
     "description": "Selection hint"
   },
-  "downloadedAlbumDeleteCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "downloadedAlbumDeleteCount": "Supprimer {count} {count, plural, =1{piste} other{pistes}}",
   "@downloadedAlbumDeleteCount": {
     "description": "Delete button text with count",
     "placeholders": {
@@ -2519,7 +2519,7 @@
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },
-  "libraryTracksUnit": "{count, plural, =1{track} other{tracks}}",
+  "libraryTracksUnit": "{count, plural, =1{piste} other{pistes}}",
   "@libraryTracksUnit": {
     "description": "Unit label for tracks count (without the number itself)",
     "placeholders": {
@@ -2528,7 +2528,7 @@
       }
     }
   },
-  "libraryFilesUnit": "{count, plural, =1{file} other{files}}",
+  "libraryFilesUnit": "{count, plural, one {}=1{fichier} other{fichiers}}",
   "@libraryFilesUnit": {
     "description": "Unit label for files count during library scanning",
     "placeholders": {
@@ -4070,7 +4070,7 @@
       }
     }
   },
-  "bulkDownloadPlaylistsButton": "Download {count} {count, plural, =1{playlist} other{playlists}}",
+  "bulkDownloadPlaylistsButton": "Télécharger {count} {count, plural, =1{playlist} other{playlists}}",
   "@bulkDownloadPlaylistsButton": {
     "description": "Button label for bulk downloading selected playlists",
     "placeholders": {
@@ -4087,7 +4087,7 @@
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
-  "playlistsCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "playlistsCount": "{count, plural, one {}=1{1 playlist} other{{count} playlists}}",
   "@playlistsCount": {
     "description": "Playlist count display",
     "placeholders": {
@@ -4202,7 +4202,7 @@
   "@queueFilteringIndicator": {
     "description": "Shown while filter results are being computed"
   },
-  "queueTrackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
+  "queueTrackCount": "{count, plural, one {}=1{1 titre} other{{count} titres}}",
   "@queueTrackCount": {
     "description": "Track count label with plural support",
     "placeholders": {
@@ -4538,7 +4538,7 @@
   "@notifAllDownloadsComplete": {
     "description": "Notification title when all downloads finish successfully"
   },
-  "notifTracksDownloadedSuccess": "{count, plural, =1{1 track downloaded successfully} other{{count} tracks downloaded successfully}}",
+  "notifTracksDownloadedSuccess": "{count, plural, =1{1 piste téléchargée avec succès} other{{count} pistes téléchargées avec succès}}",
   "@notifTracksDownloadedSuccess": {
     "description": "Notification body for queue complete - how many tracks were downloaded",
     "placeholders": {
@@ -4655,7 +4655,7 @@
       }
     }
   },
-  "notifUpdateProgress": "{received} / {total} MB • {percentage}%",
+  "notifUpdateProgress": "{received} / {total} Mo • {percentage}%",
   "@notifUpdateProgress": {
     "description": "Notification body showing update download progress",
     "placeholders": {

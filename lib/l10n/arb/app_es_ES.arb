@@ -961,6 +961,10 @@
   "@errorNoTracksFound": {
     "description": "Error - search returned no results"
   },
+  "searchEmptyResultSubtitle": "Try another keyword",
+  "@searchEmptyResultSubtitle": {
+    "description": "Subtitle shown under the empty search result state on the home screen"
+  },
   "errorUrlNotRecognized": "Enlace no reconocido",
   "@errorUrlNotRecognized": {
     "description": "Error title - URL not handled by any extension or service"
@@ -4808,6 +4812,14 @@
   "@queueDownloadCompleted": {
     "description": "Accessibility label for completed download state in queue"
   },
+  "queueRateLimitTitle": "Service rate limited",
+  "@queueRateLimitTitle": {
+    "description": "Title shown on a failed queue item when the download service rate limits requests"
+  },
+  "queueRateLimitMessage": "This track may still be available. Wait a few minutes, reduce parallel downloads, then retry.",
+  "@queueRateLimitMessage": {
+    "description": "Explanation shown on a failed queue item when the download service rate limits requests"
+  },
   "appearanceSelectAccentColor": "Selecciona un color de contraste {hex}",
   "@appearanceSelectAccentColor": {
     "description": "Accessibility label for picking an accent color",
@@ -5486,5 +5498,61 @@
   "artistReleases": "Lanzamientos",
   "@artistReleases": {
     "description": "Section header for all artist releases"
+  },
+  "editMetadataSelectNone": "None",
+  "@editMetadataSelectNone": {
+    "description": "Button to clear selected fields for auto-fill"
+  },
+  "queueRetryAllFailed": "Retry {count} failed",
+  "@queueRetryAllFailed": {
+    "description": "Button to retry every failed download in the queue",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsSaveDownloadHistory": "Save download history",
+  "@settingsSaveDownloadHistory": {
+    "description": "Settings switch title for storing completed downloads in history"
+  },
+  "settingsSaveDownloadHistorySubtitle": "Keep completed downloads in history and library views",
+  "@settingsSaveDownloadHistorySubtitle": {
+    "description": "Settings switch subtitle for storing completed downloads in history"
+  },
+  "dialogDisableHistoryTitle": "Turn off download history?",
+  "@dialogDisableHistoryTitle": {
+    "description": "Confirmation dialog title shown before disabling download history"
+  },
+  "dialogDisableHistoryMessage": "Existing history will be cleared. Downloaded files will not be deleted.",
+  "@dialogDisableHistoryMessage": {
+    "description": "Confirmation dialog message shown before disabling download history"
+  },
+  "dialogDisableAndClear": "Turn off and clear",
+  "@dialogDisableAndClear": {
+    "description": "Confirmation action to disable download history and clear existing entries"
+  },
+  "openInOtherServices": "Open in Other Services",
+  "@openInOtherServices": {
+    "description": "Title and tooltip for finding the current collection in other services"
+  },
+  "shareSheetNoExtensions": "No other compatible services",
+  "@shareSheetNoExtensions": {
+    "description": "Empty state when no extensions can be searched for cross-service links"
+  },
+  "shareSheetNotFound": "Not found",
+  "@shareSheetNotFound": {
+    "description": "Cross-service share sheet row subtitle when a service has no match"
+  },
+  "shareSheetCopyLink": "Copy Link",
+  "@shareSheetCopyLink": {
+    "description": "Tooltip for copying a cross-service link"
+  },
+  "shareSheetLinkCopied": "{service} link copied",
+  "@shareSheetLinkCopied": {
+    "description": "Snackbar after copying a cross-service link",
+    "placeholders": {
+      "service": {}
+    }
   }
 }

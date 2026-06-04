@@ -21,7 +21,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get navSettings => 'Pengaturan';
 
   @override
-  String get navStore => 'Repo';
+  String get navStore => 'Repositori';
 
   @override
   String get homeTitle => 'Beranda';
@@ -30,10 +30,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get homeSubtitle => 'Paste a supported URL or search by name';
 
   @override
-  String get homeEmptyTitle => 'Belum ada provider pencarian';
+  String get homeEmptyTitle => 'Belum ada penyedia pencarian';
 
   @override
-  String get homeEmptySubtitle => 'Pasang ekstensi untuk melanjutkan.';
+  String get homeEmptySubtitle => 'Instal ekstensi untuk melanjutkan.';
 
   @override
   String get homeSupports => 'Mendukung: URL Track, Album, Playlist, Artis';
@@ -82,11 +82,11 @@ class AppLocalizationsId extends AppLocalizations {
   String get downloadFilenameFormat => 'Format Nama File';
 
   @override
-  String get downloadSingleFilenameFormat => 'Single Filename Format';
+  String get downloadSingleFilenameFormat => 'Format Nama Berkas Tunggal';
 
   @override
   String get downloadSingleFilenameFormatDescription =>
-      'Filename pattern for singles and EPs. Uses the same tags as the album format.';
+      'Pola nama file untuk single dan EP. Menggunakan tag yang sama dengan format album.';
 
   @override
   String get downloadFolderOrganization => 'Organisasi Folder';
@@ -127,7 +127,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get optionsPrimaryProviderSubtitle =>
-      'Layanan yang digunakan saat mencari berdasarkan nama lagu.';
+      'Layanan yang digunakan untuk mencari berdasarkan nama lagu atau album';
 
   @override
   String optionsUsingExtension(String extensionName) {
@@ -139,7 +139,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get optionsDefaultSearchTabSubtitle =>
-      'Choose which tab opens first for new search results.';
+      'Pilih tab mana yang terbuka terlebih dahulu untuk hasil pencarian baru.';
 
   @override
   String get optionsSwitchBack =>
@@ -168,7 +168,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get optionsEmbedLyricsSubtitle =>
-      'Sematkan lirik sinkron ke file FLAC';
+      'Simpan lirik yang disinkronkan bersama dengan lagu yang Anda unduh';
 
   @override
   String get optionsMaxQualityCover => 'Cover Kualitas Maksimal';
@@ -182,32 +182,32 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get optionsReplayGainSubtitleOn =>
-      'Scan loudness and embed ReplayGain tags (EBU R128)';
+      'Pindai kenyaringan dan sematkan tag ReplayGain (EBU R128)';
 
   @override
   String get optionsReplayGainSubtitleOff =>
-      'Disabled: no loudness normalization tags';
+      'Dinonaktifkan: tidak ada tag normalisasi kenyaringan';
 
   @override
-  String get optionsArtistTagMode => 'Artist Tag Mode';
+  String get optionsArtistTagMode => 'Mode Tag Artis';
 
   @override
   String get optionsArtistTagModeDescription =>
-      'Choose how multiple artists are written into embedded tags.';
+      'Pilih bagaimana beberapa artis dicantumkan dalam tag yang disematkan.';
 
   @override
-  String get optionsArtistTagModeJoined => 'Single joined value';
+  String get optionsArtistTagModeJoined => 'Nilai gabungan tunggal';
 
   @override
   String get optionsArtistTagModeJoinedSubtitle =>
-      'Write one ARTIST value like \"Artist A, Artist B\" for maximum player compatibility.';
+      'Tuliskan satu nilai ARTIS seperti \"Artis A, Artis B\" untuk kompatibilitas pemain maksimal.';
 
   @override
-  String get optionsArtistTagModeSplitVorbis => 'Split tags for FLAC/Opus';
+  String get optionsArtistTagModeSplitVorbis => 'Tag terpisah untuk FLAC/Opus';
 
   @override
   String get optionsArtistTagModeSplitVorbisSubtitle =>
-      'Write one artist tag per artist for FLAC and Opus; MP3 and M4A stay joined.';
+      'Tulis satu tag artis per artis untuk FLAC dan Opus; MP3 dan M4A tetap tergabung.';
 
   @override
   String get optionsConcurrentDownloads => 'Unduhan Bersamaan';
@@ -746,7 +746,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get errorNoTracksFound => 'Tidak ada lagu ditemukan';
 
   @override
-  String get searchEmptyResultSubtitle => 'Coba kata kunci lain';
+  String get searchEmptyResultSubtitle => 'Try another keyword';
 
   @override
   String get errorUrlNotRecognized => 'Tautan tidak dikenali';
@@ -1127,10 +1127,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsAppearanceSubtitle => 'Tema, warna, tampilan';
 
   @override
-  String get settingsDownloadSubtitle => 'Layanan, kualitas, format nama file';
+  String get settingsDownloadSubtitle => 'Service, quality, fallback';
 
   @override
-  String get settingsOptionsSubtitle => 'Fallback, lirik, cover art, pembaruan';
+  String get settingsOptionsSubtitle => 'Fallback, metadata, lyrics, cover art';
 
   @override
   String get settingsExtensionsSubtitle => 'Kelola provider unduhan';
@@ -2432,7 +2432,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get trackConvertFormatSubtitle =>
-      'Convert to MP3, Opus, ALAC, or FLAC';
+      'Convert to AAC/M4A, MP3, Opus, ALAC, or FLAC';
 
   @override
   String get trackConvertTitle => 'Convert Audio';
@@ -2785,14 +2785,14 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get downloadUseAlbumArtistForFoldersAlbumSubtitle =>
-      'Artist folders use Album Artist when available';
+      'Folder named after Album Artist tag';
 
   @override
   String get downloadUseAlbumArtistForFoldersTrackSubtitle =>
-      'Artist folders use Track Artist only';
+      'Folder named after Track Artist tag';
 
   @override
-  String get lyricsProvidersTitle => 'Lyrics Providers';
+  String get lyricsProvidersTitle => 'Lyrics Provider Priority';
 
   @override
   String get lyricsProvidersDescription =>
@@ -2860,10 +2860,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get safMigrationSuccess => 'Download folder updated to SAF mode';
 
   @override
-  String get settingsDonate => 'Donate';
+  String get settingsDonate => 'Support Development';
 
   @override
-  String get settingsDonateSubtitle => 'Support SpotiFLAC-Mobile development';
+  String get settingsDonateSubtitle => 'Buy the developer a coffee';
 
   @override
   String get tooltipLoveAll => 'Love All';
@@ -2923,20 +2923,20 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get downloadLocationSubtitle =>
-      'Choose storage mode for downloaded files.';
+      'Choose where to save your downloaded tracks';
 
   @override
-  String get storageModeAppFolder => 'App folder (non-SAF)';
+  String get storageModeAppFolder => 'App Folder (Recommended)';
 
   @override
-  String get storageModeAppFolderSubtitle => 'Use default Music/SpotiFLAC path';
+  String get storageModeAppFolderSubtitle =>
+      'Saves to Music/SpotiFLAC by default';
 
   @override
-  String get storageModeSaf => 'SAF folder';
+  String get storageModeSaf => 'Custom Folder (SAF)';
 
   @override
-  String get storageModeSafSubtitle =>
-      'Pick folder via Android Storage Access Framework';
+  String get storageModeSafSubtitle => 'Pick any folder, including SD card';
 
   @override
   String downloadFilenameDescription(
@@ -2948,62 +2948,62 @@ class AppLocalizationsId extends AppLocalizations {
     Object track,
     Object year,
   ) {
-    return 'Customize how your files are named.';
+    return 'Use $artist, $title, $album, $track, $year, $date, $disc as placeholders.';
   }
 
   @override
   String get downloadFilenameInsertTag => 'Tap to insert tag:';
 
   @override
-  String get downloadSeparateSinglesEnabled => 'Albums/ and Singles/ folders';
+  String get downloadSeparateSinglesEnabled =>
+      'Singles and EPs saved in a separate folder';
 
   @override
-  String get downloadSeparateSinglesDisabled => 'All files in same structure';
+  String get downloadSeparateSinglesDisabled =>
+      'Singles and albums saved in the same folder';
 
   @override
   String get downloadArtistNameFilters => 'Artist Name Filters';
 
   @override
-  String get downloadCreatePlaylistSourceFolder =>
-      'Create playlist source folder';
+  String get downloadCreatePlaylistSourceFolder => 'Playlist Source Folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderEnabled =>
-      'Playlist downloads use Playlist/ plus your normal folder structure.';
+      'A subfolder is created for each playlist';
 
   @override
   String get downloadCreatePlaylistSourceFolderDisabled =>
-      'Playlist downloads use the normal folder structure only.';
+      'All tracks saved directly to download folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderRedundant =>
-      'By Playlist already places downloads inside a playlist folder.';
+      'Handled by folder organization setting';
 
   @override
   String get downloadSongLinkRegion => 'SongLink Region';
 
   @override
-  String get downloadNetworkCompatibilityMode => 'Network compatibility mode';
+  String get downloadNetworkCompatibilityMode => 'Network Compatibility Mode';
 
   @override
   String get downloadNetworkCompatibilityModeEnabled =>
-      'Enabled: try HTTP + accept invalid TLS certificates (unsafe)';
+      'Using legacy TLS settings for older networks';
 
   @override
   String get downloadNetworkCompatibilityModeDisabled =>
-      'Off: strict HTTPS certificate validation (recommended)';
+      'Using standard network settings';
 
   @override
   String get downloadSelectServiceToEnable =>
-      'Select a built-in service to enable';
+      'Select Tidal or Qobuz to enable this option';
 
   @override
   String get downloadSelectTidalQobuz =>
-      'Select Tidal or Qobuz above to configure quality';
+      'Select Tidal or Qobuz to choose audio quality';
 
   @override
-  String get downloadEmbedLyricsDisabled =>
-      'Disabled while Embed Metadata is turned off';
+  String get downloadEmbedLyricsDisabled => 'Enable metadata embedding first';
 
   @override
   String get downloadNeteaseIncludeTranslation =>
@@ -3011,11 +3011,11 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get downloadNeteaseIncludeTranslationEnabled =>
-      'Append translated lyrics when available';
+      'Chinese translation lines included';
 
   @override
   String get downloadNeteaseIncludeTranslationDisabled =>
-      'Use original lyrics only';
+      'Original lyrics only';
 
   @override
   String get downloadNeteaseIncludeRomanization =>
@@ -3023,21 +3023,21 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get downloadNeteaseIncludeRomanizationEnabled =>
-      'Append romanized lyrics when available';
+      'Romanization lines included';
 
   @override
-  String get downloadNeteaseIncludeRomanizationDisabled => 'Disabled';
+  String get downloadNeteaseIncludeRomanizationDisabled => 'No romanization';
 
   @override
-  String get downloadAppleQqMultiPerson => 'Apple/QQ Multi-Person Word-by-Word';
+  String get downloadAppleQqMultiPerson => 'Apple / QQ: Multi-Person Lyrics';
 
   @override
   String get downloadAppleQqMultiPersonEnabled =>
-      'Enable v1/v2 speaker and [bg:] tags';
+      'Speaker labels included for duets and group tracks';
 
   @override
   String get downloadAppleQqMultiPersonDisabled =>
-      'Simplified word-by-word formatting';
+      'Standard lyrics without speaker labels';
 
   @override
   String get downloadAppleElrcWordSync => 'Apple Music eLRC Word Sync';
@@ -3054,46 +3054,45 @@ class AppLocalizationsId extends AppLocalizations {
   String get downloadMusixmatchLanguage => 'Musixmatch Language';
 
   @override
-  String get downloadMusixmatchLanguageAuto => 'Auto (original)';
+  String get downloadMusixmatchLanguageAuto => 'Auto (original language)';
 
   @override
-  String get downloadFilterContributing =>
-      'Filter contributing artists in Album Artist';
+  String get downloadFilterContributing => 'Filter Contributing Artists';
 
   @override
   String get downloadFilterContributingEnabled =>
-      'Album Artist metadata uses primary artist only';
+      'Contributing artists removed from Album Artist folder name';
 
   @override
   String get downloadFilterContributingDisabled =>
-      'Keep full Album Artist metadata value';
+      'Full Album Artist string used';
 
   @override
-  String get downloadProvidersNoneEnabled => 'None enabled';
+  String get downloadProvidersNoneEnabled => 'No providers enabled';
 
   @override
   String get downloadMusixmatchLanguageCode => 'Language code';
 
   @override
-  String get downloadMusixmatchLanguageHint => 'auto / en / es / ja';
+  String get downloadMusixmatchLanguageHint => 'e.g. en, de, ja';
 
   @override
   String get downloadMusixmatchLanguageDesc =>
-      'Set preferred language code (example: en, es, ja). Leave empty for auto.';
+      'Enter a BCP-47 language code (e.g. en, de, ja) to request translated lyrics from Musixmatch.';
 
   @override
   String get downloadMusixmatchAuto => 'Auto';
 
   @override
-  String get downloadNetworkAnySubtitle => 'WiFi + Mobile Data';
+  String get downloadNetworkAnySubtitle => 'Use WiFi or mobile data';
 
   @override
   String get downloadNetworkWifiOnlySubtitle =>
-      'Pause downloads on mobile data';
+      'Downloads pause when on mobile data';
 
   @override
   String get downloadSongLinkRegionDesc =>
-      'Used as userCountry for SongLink API lookup.';
+      'Region used when resolving track links via SongLink. Choose the country where your streaming services are available.';
 
   @override
   String get snackbarUnsupportedAudioFormat => 'Unsupported audio format';
@@ -3471,28 +3470,52 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String notifDownloadsFinished(int completed, int failed) {
-    return 'Unduhan Selesai ($completed selesai, $failed gagal)';
+    return 'Downloads Finished ($completed done, $failed failed)';
   }
 
   @override
-  String get notifAllDownloadsComplete => 'Semua Unduhan Selesai';
+  String get notifAllDownloadsComplete => 'All Downloads Complete';
 
   @override
   String notifTracksDownloadedSuccess(int count) {
-    return '$count lagu berhasil diunduh';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tracks downloaded successfully',
+      one: '1 track downloaded successfully',
+    );
+    return '$_temp0';
   }
 
   @override
   String notifDownloadsFinishedBody(int completed, int failed) {
-    return '$completed lagu diunduh, $failed gagal';
+    String _temp0 = intl.Intl.pluralLogic(
+      completed,
+      locale: localeName,
+      other: '$completed tracks downloaded',
+      one: '1 track downloaded',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      failed,
+      locale: localeName,
+      other: '$failed failed',
+      one: '1 failed',
+    );
+    return '$_temp0, $_temp1';
   }
 
   @override
-  String get notifDownloadsCanceledTitle => 'Unduhan dibatalkan';
+  String get notifDownloadsCanceledTitle => 'Downloads canceled';
 
   @override
   String notifDownloadsCanceledBody(int count) {
-    return '$count unduhan dibatalkan oleh pengguna';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads canceled by user',
+      one: '1 download canceled by user',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3657,11 +3680,11 @@ class AppLocalizationsId extends AppLocalizations {
   String get queueDownloadCompleted => 'Download completed';
 
   @override
-  String get queueRateLimitTitle => 'Layanan sedang membatasi permintaan';
+  String get queueRateLimitTitle => 'Service rate limited';
 
   @override
   String get queueRateLimitMessage =>
-      'Lagu ini mungkin masih tersedia. Tunggu beberapa menit, kurangi unduhan paralel, lalu coba lagi.';
+      'This track may still be available. Wait a few minutes, reduce parallel downloads, then retry.';
 
   @override
   String appearanceSelectAccentColor(String hex) {
@@ -4191,44 +4214,44 @@ class AppLocalizationsId extends AppLocalizations {
   String get artistReleases => 'Releases';
 
   @override
-  String get editMetadataSelectNone => 'Tidak ada';
+  String get editMetadataSelectNone => 'None';
 
   @override
   String queueRetryAllFailed(int count) {
-    return 'Coba ulang $count gagal';
+    return 'Retry $count failed';
   }
 
   @override
-  String get settingsSaveDownloadHistory => 'Simpan riwayat unduhan';
+  String get settingsSaveDownloadHistory => 'Save download history';
 
   @override
   String get settingsSaveDownloadHistorySubtitle =>
-      'Simpan unduhan selesai di riwayat dan tampilan pustaka';
+      'Keep completed downloads in history and library views';
 
   @override
-  String get dialogDisableHistoryTitle => 'Matikan riwayat unduhan?';
+  String get dialogDisableHistoryTitle => 'Turn off download history?';
 
   @override
   String get dialogDisableHistoryMessage =>
-      'Riwayat yang ada akan dihapus. File unduhan tidak akan dihapus.';
+      'Existing history will be cleared. Downloaded files will not be deleted.';
 
   @override
-  String get dialogDisableAndClear => 'Matikan dan hapus';
+  String get dialogDisableAndClear => 'Turn off and clear';
 
   @override
-  String get openInOtherServices => 'Buka di Layanan Lain';
+  String get openInOtherServices => 'Open in Other Services';
 
   @override
-  String get shareSheetNoExtensions => 'Tidak ada layanan lain yang kompatibel';
+  String get shareSheetNoExtensions => 'No other compatible services';
 
   @override
-  String get shareSheetNotFound => 'Tidak ditemukan';
+  String get shareSheetNotFound => 'Not found';
 
   @override
-  String get shareSheetCopyLink => 'Salin Tautan';
+  String get shareSheetCopyLink => 'Copy Link';
 
   @override
   String shareSheetLinkCopied(Object service) {
-    return 'Tautan $service disalin';
+    return '$service link copied';
   }
 }

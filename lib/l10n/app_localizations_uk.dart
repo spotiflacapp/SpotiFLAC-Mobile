@@ -129,7 +129,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get optionsPrimaryProviderSubtitle =>
-      'Розширення будуть випробувані першими';
+      'Service used for searching by track or album name';
 
   @override
   String optionsUsingExtension(String extensionName) {
@@ -137,11 +137,11 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get optionsDefaultSearchTab => 'Default Search Tab';
+  String get optionsDefaultSearchTab => 'Вкладка пошуку за замовчуванням';
 
   @override
   String get optionsDefaultSearchTabSubtitle =>
-      'Choose which tab opens first for new search results.';
+      'Виберіть, яка вкладка відкриється першою для нових результатів пошуку.';
 
   @override
   String get optionsSwitchBack =>
@@ -171,7 +171,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get optionsEmbedLyricsSubtitle =>
-      'Вбудовувати синхронізовані тексти пісень у файли FLAC';
+      'Save synced lyrics alongside your downloaded tracks';
 
   @override
   String get optionsMaxQualityCover => 'Максимальна якість обкладинки';
@@ -959,7 +959,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get providerPriorityFallbackExtensionsDescription =>
-      'Виберіть, які встановлені розширення завантаження можна використовувати під час автоматичного відновлення до попереднього режиму. Вбудовані постачальники все одно дотримуються порядку пріоритетності, зазначеного вище.';
+      'Choose which installed download extensions can be used during automatic fallback.';
 
   @override
   String get providerPriorityFallbackExtensionsHint =>
@@ -1137,11 +1137,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get settingsAppearanceSubtitle => 'Тема, кольори, дисплей';
 
   @override
-  String get settingsDownloadSubtitle => 'Сервіс, якість, формат назви файлу';
+  String get settingsDownloadSubtitle => 'Service, quality, fallback';
 
   @override
-  String get settingsOptionsSubtitle =>
-      'Резервний варіант, тексти пісень, обкладинка, оновлення';
+  String get settingsOptionsSubtitle => 'Fallback, metadata, lyrics, cover art';
 
   @override
   String get settingsExtensionsSubtitle =>
@@ -2464,7 +2463,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get trackConvertFormatSubtitle =>
-      'Конвертувати в MP3, Opus, ALAC або FLAC';
+      'Convert to AAC/M4A, MP3, Opus, ALAC, or FLAC';
 
   @override
   String get trackConvertTitle => 'Конвертувати аудіо';
@@ -2821,14 +2820,14 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get downloadUseAlbumArtistForFoldersAlbumSubtitle =>
-      'Папки виконавців використовують \"Виконавець альбому\", коли це можливо';
+      'Folder named after Album Artist tag';
 
   @override
   String get downloadUseAlbumArtistForFoldersTrackSubtitle =>
-      'Папки виконавців використовують лише виконавця доріжки';
+      'Folder named after Track Artist tag';
 
   @override
-  String get lyricsProvidersTitle => 'Постачальники текстів пісень';
+  String get lyricsProvidersTitle => 'Lyrics Provider Priority';
 
   @override
   String get lyricsProvidersDescription =>
@@ -2898,11 +2897,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get safMigrationSuccess => 'Папку завантажень оновлено до режиму SAF';
 
   @override
-  String get settingsDonate => 'Пожертвувати кошти';
+  String get settingsDonate => 'Support Development';
 
   @override
-  String get settingsDonateSubtitle =>
-      'Підтримка розробки SpotiFLAC для мобільних пристроїв';
+  String get settingsDonateSubtitle => 'Buy the developer a coffee';
 
   @override
   String get tooltipLoveAll => 'Уподобати всіх';
@@ -2965,21 +2963,20 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get downloadLocationSubtitle =>
-      'Виберіть режим зберігання для завантажених файлів.';
+      'Choose where to save your downloaded tracks';
 
   @override
-  String get storageModeAppFolder => 'Папка додатку (не SAF)';
+  String get storageModeAppFolder => 'App Folder (Recommended)';
 
   @override
   String get storageModeAppFolderSubtitle =>
-      'Використовувати шлях Music/SpotiFLAC за замовчуванням';
+      'Saves to Music/SpotiFLAC by default';
 
   @override
-  String get storageModeSaf => 'Папка SAF';
+  String get storageModeSaf => 'Custom Folder (SAF)';
 
   @override
-  String get storageModeSafSubtitle =>
-      'Вибрати папку через Android Storage Access Framework';
+  String get storageModeSafSubtitle => 'Pick any folder, including SD card';
 
   @override
   String downloadFilenameDescription(
@@ -2991,73 +2988,73 @@ class AppLocalizationsUk extends AppLocalizations {
     Object track,
     Object year,
   ) {
-    return 'Налаштувати спосіб іменування ваших файлів.';
+    return 'Use $artist, $title, $album, $track, $year, $date, $disc as placeholders.';
   }
 
   @override
   String get downloadFilenameInsertTag => 'Натисніть, щоб вставити тег:';
 
   @override
-  String get downloadSeparateSinglesEnabled => 'Папки «Альбоми» та «Сингли»';
+  String get downloadSeparateSinglesEnabled =>
+      'Singles and EPs saved in a separate folder';
 
   @override
-  String get downloadSeparateSinglesDisabled => 'Всі файли в одній структурі';
+  String get downloadSeparateSinglesDisabled =>
+      'Singles and albums saved in the same folder';
 
   @override
   String get downloadArtistNameFilters => 'Фільтри імені виконавця';
 
   @override
-  String get downloadCreatePlaylistSourceFolder =>
-      'Створити папку джерела списку відтворення';
+  String get downloadCreatePlaylistSourceFolder => 'Playlist Source Folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderEnabled =>
-      'Завантаження списків відтворення використовує Playlist/ плюс вашу звичайну структуру папок.';
+      'A subfolder is created for each playlist';
 
   @override
   String get downloadCreatePlaylistSourceFolderDisabled =>
-      'Завантаження списків відтворення використовують лише звичайну структуру папок.';
+      'All tracks saved directly to download folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderRedundant =>
-      'За допомогою списку відтворення завантаження вже розміщуються в папці зі списком відтворення.';
+      'Handled by folder organization setting';
 
   @override
   String get downloadSongLinkRegion => 'Регіон SongLink';
 
   @override
-  String get downloadNetworkCompatibilityMode => 'Режим сумісності з мережею';
+  String get downloadNetworkCompatibilityMode => 'Network Compatibility Mode';
 
   @override
   String get downloadNetworkCompatibilityModeEnabled =>
-      'Увімкнено: спробувати HTTP + прийняти недійсні сертифікати TLS (небезпечно)';
+      'Using legacy TLS settings for older networks';
 
   @override
   String get downloadNetworkCompatibilityModeDisabled =>
-      'Вимкнено: сувора перевірка сертифіката HTTPS (рекомендовано)';
+      'Using standard network settings';
 
   @override
   String get downloadSelectServiceToEnable =>
-      'Виберіть вбудовану службу, яку потрібно ввімкнути';
+      'Select Tidal or Qobuz to enable this option';
 
   @override
   String get downloadSelectTidalQobuz =>
-      'Виберіть Tidal або Qobuz вище, щоб налаштувати якість';
+      'Select Tidal or Qobuz to choose audio quality';
 
   @override
-  String get downloadEmbedLyricsDisabled =>
-      'Вимкнено, якщо вимкнено функцію «Вбудувати метадані»';
+  String get downloadEmbedLyricsDisabled => 'Enable metadata embedding first';
 
   @override
   String get downloadNeteaseIncludeTranslation => 'Netease: Включити переклад';
 
   @override
   String get downloadNeteaseIncludeTranslationEnabled =>
-      'Додати перекладені тексти пісень, коли вони доступні';
+      'Chinese translation lines included';
 
   @override
   String get downloadNeteaseIncludeTranslationDisabled =>
-      'Використовувати лише оригінальні тексти пісень';
+      'Original lyrics only';
 
   @override
   String get downloadNeteaseIncludeRomanization =>
@@ -3065,22 +3062,21 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get downloadNeteaseIncludeRomanizationEnabled =>
-      'Додати романізовані тексти пісень, коли це можливо';
+      'Romanization lines included';
 
   @override
-  String get downloadNeteaseIncludeRomanizationDisabled => 'Вимкнути';
+  String get downloadNeteaseIncludeRomanizationDisabled => 'No romanization';
 
   @override
-  String get downloadAppleQqMultiPerson =>
-      'Apple/QQ Багатокористувацький переклад слово за словом';
+  String get downloadAppleQqMultiPerson => 'Apple / QQ: Multi-Person Lyrics';
 
   @override
   String get downloadAppleQqMultiPersonEnabled =>
-      'Увімкнути теги динаміка v1/v2 та [bg:]';
+      'Speaker labels included for duets and group tracks';
 
   @override
   String get downloadAppleQqMultiPersonDisabled =>
-      'Спрощене послівне форматування';
+      'Standard lyrics without speaker labels';
 
   @override
   String get downloadAppleElrcWordSync => 'Apple Music eLRC Word Sync';
@@ -3097,46 +3093,45 @@ class AppLocalizationsUk extends AppLocalizations {
   String get downloadMusixmatchLanguage => 'Мова Musixmatch';
 
   @override
-  String get downloadMusixmatchLanguageAuto => 'Авто (оригінал)';
+  String get downloadMusixmatchLanguageAuto => 'Auto (original language)';
 
   @override
-  String get downloadFilterContributing =>
-      'Фільтрувати виконавців-учасників у розділі «Виконавець альбому»';
+  String get downloadFilterContributing => 'Filter Contributing Artists';
 
   @override
   String get downloadFilterContributingEnabled =>
-      'Метадані виконавця альбому використовують лише основного виконавця';
+      'Contributing artists removed from Album Artist folder name';
 
   @override
   String get downloadFilterContributingDisabled =>
-      'Зберегти повне значення метаданих виконавця альбому';
+      'Full Album Artist string used';
 
   @override
-  String get downloadProvidersNoneEnabled => 'Не ввімкнено';
+  String get downloadProvidersNoneEnabled => 'No providers enabled';
 
   @override
   String get downloadMusixmatchLanguageCode => 'Код мови';
 
   @override
-  String get downloadMusixmatchLanguageHint => 'авто / en / es / ja';
+  String get downloadMusixmatchLanguageHint => 'e.g. en, de, ja';
 
   @override
   String get downloadMusixmatchLanguageDesc =>
-      'Встановити потрібний код мови (наприклад: en, es, ja). Залиште поле порожнім для автоматичного вибору.';
+      'Enter a BCP-47 language code (e.g. en, de, ja) to request translated lyrics from Musixmatch.';
 
   @override
   String get downloadMusixmatchAuto => 'Авто';
 
   @override
-  String get downloadNetworkAnySubtitle => 'Wi-Fi + мобільний інтернет';
+  String get downloadNetworkAnySubtitle => 'Use WiFi or mobile data';
 
   @override
   String get downloadNetworkWifiOnlySubtitle =>
-      'Призупинити завантаження через мобільний інтернет';
+      'Downloads pause when on mobile data';
 
   @override
   String get downloadSongLinkRegionDesc =>
-      'Використовувати як userCountry для пошуку SongLink API.';
+      'Region used when resolving track links via SongLink. Choose the country where your streaming services are available.';
 
   @override
   String get snackbarUnsupportedAudioFormat => 'Непідтримуваний аудіоформат';
@@ -3529,7 +3524,13 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String notifTracksDownloadedSuccess(int count) {
-    return '$count треки успішно завантажено';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tracks downloaded successfully',
+      one: '1 track downloaded successfully',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3609,7 +3610,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String notifDownloadingUpdate(String version) {
-    return 'Завантаження SpotiFLAC Mobile v$version';
+    return 'Downloading SpotiFLAC Mobile v$version';
   }
 
   @override
@@ -3622,7 +3623,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String notifUpdateReadyBody(String version) {
-    return 'SpotiFLAC Mobile v$version завантажений. Натисніть щоб установити.';
+    return 'SpotiFLAC Mobile v$version downloaded. Tap to install.';
   }
 
   @override

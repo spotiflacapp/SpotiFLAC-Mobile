@@ -4,21 +4,21 @@ import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for Hindi (`hi`).
-class AppLocalizationsHi extends AppLocalizations {
-  AppLocalizationsHi([String locale = 'hi']) : super(locale);
+/// The translations for Arabic (`ar`).
+class AppLocalizationsAr extends AppLocalizations {
+  AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appName => 'SpotiFLAC Mobile';
 
   @override
-  String get navHome => 'होम';
+  String get navHome => 'Home';
 
   @override
   String get navLibrary => 'Library';
 
   @override
-  String get navSettings => 'विकल्प';
+  String get navSettings => 'Settings';
 
   @override
   String get navStore => 'Repo';
@@ -92,7 +92,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get downloadFolderOrganization => 'Folder Organization';
 
   @override
-  String get appearanceTitle => 'दिखावट';
+  String get appearanceTitle => 'Appearance';
 
   @override
   String get appearanceThemeSystem => 'System';
@@ -104,10 +104,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appearanceThemeDark => 'Dark';
 
   @override
-  String get appearanceDynamicColor => 'डायनेमिक रंग';
+  String get appearanceDynamicColor => 'Dynamic Color';
 
   @override
-  String get appearanceDynamicColorSubtitle => 'वॉलपेपर से रंग इस्तेमाल करें';
+  String get appearanceDynamicColorSubtitle => 'Use colors from your wallpaper';
 
   @override
   String get appearanceHistoryView => 'History View';
@@ -165,10 +165,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get optionsEmbedLyricsSubtitle =>
-      'Save synced lyrics alongside your downloaded tracks';
+      'حفظ كلمات الأغاني المتزامنة جنبا إلى جنب مع المسارات التي تم تنزيلها';
 
   @override
-  String get optionsMaxQualityCover => 'Max Quality Cover';
+  String get optionsMaxQualityCover => 'اختيار اعلى جودة للغلاف';
 
   @override
   String get optionsMaxQualityCoverSubtitle =>
@@ -510,7 +510,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'SpotiFLAC needs storage permission to save your downloaded music files.';
 
   @override
-  String get setupNotificationGranted => 'Notification Permission Granted!';
+  String get setupNotificationGranted => 'تم منح إذن الإشعارات!';
 
   @override
   String get setupNotificationEnable => 'Enable Notifications';

@@ -126,7 +126,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get optionsPrimaryProviderSubtitle =>
-      'Service used when searching by track name.';
+      'Service used for searching by track or album name';
 
   @override
   String optionsUsingExtension(String extensionName) {
@@ -164,7 +164,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get optionsEmbedLyrics => '歌詞を埋め込む';
 
   @override
-  String get optionsEmbedLyricsSubtitle => '同期する歌詞を FLAC ファイルに埋め込む';
+  String get optionsEmbedLyricsSubtitle =>
+      'Save synced lyrics alongside your downloaded tracks';
 
   @override
   String get optionsMaxQualityCover => '最大品質のカバー';
@@ -1115,10 +1116,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsAppearanceSubtitle => 'テーマ、カラー、画面';
 
   @override
-  String get settingsDownloadSubtitle => 'サービス、品質、ファイル名、形式';
+  String get settingsDownloadSubtitle => 'Service, quality, fallback';
 
   @override
-  String get settingsOptionsSubtitle => 'Fallback, lyrics, cover art, updates';
+  String get settingsOptionsSubtitle => 'Fallback, metadata, lyrics, cover art';
 
   @override
   String get settingsExtensionsSubtitle => 'ダウンロードプロバイダーを管理';
@@ -2410,7 +2411,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get trackConvertFormatSubtitle =>
-      'Convert to MP3, Opus, ALAC, or FLAC';
+      'Convert to AAC/M4A, MP3, Opus, ALAC, or FLAC';
 
   @override
   String get trackConvertTitle => 'オーディオを変換';
@@ -2763,14 +2764,14 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get downloadUseAlbumArtistForFoldersAlbumSubtitle =>
-      'Artist folders use Album Artist when available';
+      'Folder named after Album Artist tag';
 
   @override
   String get downloadUseAlbumArtistForFoldersTrackSubtitle =>
-      'Artist folders use Track Artist only';
+      'Folder named after Track Artist tag';
 
   @override
-  String get lyricsProvidersTitle => 'Lyrics Providers';
+  String get lyricsProvidersTitle => 'Lyrics Provider Priority';
 
   @override
   String get lyricsProvidersDescription =>
@@ -2838,10 +2839,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get safMigrationSuccess => 'Download folder updated to SAF mode';
 
   @override
-  String get settingsDonate => 'Donate';
+  String get settingsDonate => 'Support Development';
 
   @override
-  String get settingsDonateSubtitle => 'Support SpotiFLAC-Mobile development';
+  String get settingsDonateSubtitle => 'Buy the developer a coffee';
 
   @override
   String get tooltipLoveAll => 'Love All';
@@ -2901,20 +2902,20 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get downloadLocationSubtitle =>
-      'Choose storage mode for downloaded files.';
+      'Choose where to save your downloaded tracks';
 
   @override
-  String get storageModeAppFolder => 'App folder (non-SAF)';
+  String get storageModeAppFolder => 'App Folder (Recommended)';
 
   @override
-  String get storageModeAppFolderSubtitle => 'Use default Music/SpotiFLAC path';
+  String get storageModeAppFolderSubtitle =>
+      'Saves to Music/SpotiFLAC by default';
 
   @override
-  String get storageModeSaf => 'SAF folder';
+  String get storageModeSaf => 'Custom Folder (SAF)';
 
   @override
-  String get storageModeSafSubtitle =>
-      'Pick folder via Android Storage Access Framework';
+  String get storageModeSafSubtitle => 'Pick any folder, including SD card';
 
   @override
   String downloadFilenameDescription(
@@ -2926,62 +2927,62 @@ class AppLocalizationsJa extends AppLocalizations {
     Object track,
     Object year,
   ) {
-    return 'Customize how your files are named.';
+    return 'Use $artist, $title, $album, $track, $year, $date, $disc as placeholders.';
   }
 
   @override
   String get downloadFilenameInsertTag => 'Tap to insert tag:';
 
   @override
-  String get downloadSeparateSinglesEnabled => 'Albums/ and Singles/ folders';
+  String get downloadSeparateSinglesEnabled =>
+      'Singles and EPs saved in a separate folder';
 
   @override
-  String get downloadSeparateSinglesDisabled => 'All files in same structure';
+  String get downloadSeparateSinglesDisabled =>
+      'Singles and albums saved in the same folder';
 
   @override
   String get downloadArtistNameFilters => 'Artist Name Filters';
 
   @override
-  String get downloadCreatePlaylistSourceFolder =>
-      'Create playlist source folder';
+  String get downloadCreatePlaylistSourceFolder => 'Playlist Source Folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderEnabled =>
-      'Playlist downloads use Playlist/ plus your normal folder structure.';
+      'A subfolder is created for each playlist';
 
   @override
   String get downloadCreatePlaylistSourceFolderDisabled =>
-      'Playlist downloads use the normal folder structure only.';
+      'All tracks saved directly to download folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderRedundant =>
-      'By Playlist already places downloads inside a playlist folder.';
+      'Handled by folder organization setting';
 
   @override
   String get downloadSongLinkRegion => 'SongLink Region';
 
   @override
-  String get downloadNetworkCompatibilityMode => 'Network compatibility mode';
+  String get downloadNetworkCompatibilityMode => 'Network Compatibility Mode';
 
   @override
   String get downloadNetworkCompatibilityModeEnabled =>
-      'Enabled: try HTTP + accept invalid TLS certificates (unsafe)';
+      'Using legacy TLS settings for older networks';
 
   @override
   String get downloadNetworkCompatibilityModeDisabled =>
-      'Off: strict HTTPS certificate validation (recommended)';
+      'Using standard network settings';
 
   @override
   String get downloadSelectServiceToEnable =>
-      'Select a built-in service to enable';
+      'Select Tidal or Qobuz to enable this option';
 
   @override
   String get downloadSelectTidalQobuz =>
-      'Select Tidal or Qobuz above to configure quality';
+      'Select Tidal or Qobuz to choose audio quality';
 
   @override
-  String get downloadEmbedLyricsDisabled =>
-      'Disabled while Embed Metadata is turned off';
+  String get downloadEmbedLyricsDisabled => 'Enable metadata embedding first';
 
   @override
   String get downloadNeteaseIncludeTranslation =>
@@ -2989,11 +2990,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get downloadNeteaseIncludeTranslationEnabled =>
-      'Append translated lyrics when available';
+      'Chinese translation lines included';
 
   @override
   String get downloadNeteaseIncludeTranslationDisabled =>
-      'Use original lyrics only';
+      'Original lyrics only';
 
   @override
   String get downloadNeteaseIncludeRomanization =>
@@ -3001,21 +3002,21 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get downloadNeteaseIncludeRomanizationEnabled =>
-      'Append romanized lyrics when available';
+      'Romanization lines included';
 
   @override
-  String get downloadNeteaseIncludeRomanizationDisabled => 'Disabled';
+  String get downloadNeteaseIncludeRomanizationDisabled => 'No romanization';
 
   @override
-  String get downloadAppleQqMultiPerson => 'Apple/QQ Multi-Person Word-by-Word';
+  String get downloadAppleQqMultiPerson => 'Apple / QQ: Multi-Person Lyrics';
 
   @override
   String get downloadAppleQqMultiPersonEnabled =>
-      'Enable v1/v2 speaker and [bg:] tags';
+      'Speaker labels included for duets and group tracks';
 
   @override
   String get downloadAppleQqMultiPersonDisabled =>
-      'Simplified word-by-word formatting';
+      'Standard lyrics without speaker labels';
 
   @override
   String get downloadAppleElrcWordSync => 'Apple Music eLRC Word Sync';
@@ -3032,46 +3033,45 @@ class AppLocalizationsJa extends AppLocalizations {
   String get downloadMusixmatchLanguage => 'Musixmatch Language';
 
   @override
-  String get downloadMusixmatchLanguageAuto => 'Auto (original)';
+  String get downloadMusixmatchLanguageAuto => 'Auto (original language)';
 
   @override
-  String get downloadFilterContributing =>
-      'Filter contributing artists in Album Artist';
+  String get downloadFilterContributing => 'Filter Contributing Artists';
 
   @override
   String get downloadFilterContributingEnabled =>
-      'Album Artist metadata uses primary artist only';
+      'Contributing artists removed from Album Artist folder name';
 
   @override
   String get downloadFilterContributingDisabled =>
-      'Keep full Album Artist metadata value';
+      'Full Album Artist string used';
 
   @override
-  String get downloadProvidersNoneEnabled => 'None enabled';
+  String get downloadProvidersNoneEnabled => 'No providers enabled';
 
   @override
   String get downloadMusixmatchLanguageCode => 'Language code';
 
   @override
-  String get downloadMusixmatchLanguageHint => 'auto / en / es / ja';
+  String get downloadMusixmatchLanguageHint => 'e.g. en, de, ja';
 
   @override
   String get downloadMusixmatchLanguageDesc =>
-      'Set preferred language code (example: en, es, ja). Leave empty for auto.';
+      'Enter a BCP-47 language code (e.g. en, de, ja) to request translated lyrics from Musixmatch.';
 
   @override
   String get downloadMusixmatchAuto => 'Auto';
 
   @override
-  String get downloadNetworkAnySubtitle => 'WiFi + Mobile Data';
+  String get downloadNetworkAnySubtitle => 'Use WiFi or mobile data';
 
   @override
   String get downloadNetworkWifiOnlySubtitle =>
-      'Pause downloads on mobile data';
+      'Downloads pause when on mobile data';
 
   @override
   String get downloadSongLinkRegionDesc =>
-      'Used as userCountry for SongLink API lookup.';
+      'Region used when resolving track links via SongLink. Choose the country where your streaming services are available.';
 
   @override
   String get snackbarUnsupportedAudioFormat => 'Unsupported audio format';
@@ -3457,7 +3457,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String notifTracksDownloadedSuccess(int count) {
-    return '$count tracks downloaded successfully';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tracks downloaded successfully',
+      one: '1 track downloaded successfully',
+    );
+    return '$_temp0';
   }
 
   @override

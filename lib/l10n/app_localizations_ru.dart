@@ -9,7 +9,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appName => 'SpotiFLAC Mobile';
+  String get appName => 'Spotify';
 
   @override
   String get navHome => 'Главная';
@@ -21,13 +21,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get navSettings => 'Настройки';
 
   @override
-  String get navStore => 'Repo';
+  String get navStore => 'Репозиторий';
 
   @override
   String get homeTitle => 'Главная';
 
   @override
-  String get homeSubtitle => 'Paste a supported URL or search by name';
+  String get homeSubtitle => 'Вставьте URL или ищите по названию';
 
   @override
   String get homeEmptyTitle => 'No search providers yet';
@@ -83,11 +83,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get downloadFilenameFormat => 'Формат имени файла';
 
   @override
-  String get downloadSingleFilenameFormat => 'Single Filename Format';
+  String get downloadSingleFilenameFormat => 'Формат имени файла';
 
   @override
   String get downloadSingleFilenameFormatDescription =>
-      'Filename pattern for singles and EPs. Uses the same tags as the album format.';
+      'Формат имени файла для синглов и EP. Используются те же теги, что и для альбомов.';
 
   @override
   String get downloadFolderOrganization => 'Организация папок';
@@ -128,7 +128,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get optionsPrimaryProviderSubtitle =>
-      'Сервис, используемый при поиске по названию трека.';
+      'Сервис для поиска по названию трека или альбома';
 
   @override
   String optionsUsingExtension(String extensionName) {
@@ -136,7 +136,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get optionsDefaultSearchTab => 'Default Search Tab';
+  String get optionsDefaultSearchTab => 'Вкладка поиска по умолчанию';
 
   @override
   String get optionsDefaultSearchTabSubtitle =>
@@ -170,7 +170,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get optionsEmbedLyricsSubtitle =>
-      'Вписать синхронизированные тексты во FLAC файлы';
+      'Сохранять синхронизированный текст песни рядом с загруженным треком';
 
   @override
   String get optionsMaxQualityCover => 'Максимальное качество обложки';
@@ -227,7 +227,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Параллельные загрузки могут вызвать ограничение скорости';
 
   @override
-  String get optionsExtensionStore => 'Extension Repo';
+  String get optionsExtensionStore => 'Репозиторий расширения';
 
   @override
   String get optionsExtensionStoreSubtitle => 'Show Repo tab in navigation';
@@ -307,7 +307,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get extensionsUninstall => 'Удалить';
 
   @override
-  String get storeTitle => 'Extension Repo';
+  String get storeTitle => 'Репозиторий расширения';
 
   @override
   String get storeSearch => 'Поиск расширений...';
@@ -585,7 +585,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dialogImport => 'Импорт';
 
   @override
-  String get dialogDownload => 'Download';
+  String get dialogDownload => 'Скачать';
 
   @override
   String get dialogDiscard => 'Отменить';
@@ -637,9 +637,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return 'Удалить $count $_temp0 из истории?\n\nЭто также удалит файлы из хранилища.';
   }
@@ -692,9 +692,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return 'Удалено $count $_temp0';
   }
@@ -827,34 +827,34 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchPlaylists => 'Плейлисты';
 
   @override
-  String get searchSortTitle => 'Sort Results';
+  String get searchSortTitle => 'Упорядочить результаты';
 
   @override
-  String get searchSortDefault => 'Default';
+  String get searchSortDefault => 'По умолчанию';
 
   @override
-  String get searchSortTitleAZ => 'Title (A-Z)';
+  String get searchSortTitleAZ => 'Название (А-Я)';
 
   @override
-  String get searchSortTitleZA => 'Title (Z-A)';
+  String get searchSortTitleZA => 'Название (Я-А)';
 
   @override
-  String get searchSortArtistAZ => 'Artist (A-Z)';
+  String get searchSortArtistAZ => 'Исполнитель (А-Я)';
 
   @override
-  String get searchSortArtistZA => 'Artist (Z-A)';
+  String get searchSortArtistZA => 'Исполнитель (Я-А)';
 
   @override
-  String get searchSortDurationShort => 'Duration (Shortest)';
+  String get searchSortDurationShort => 'Продолжительность (наименьшая)';
 
   @override
-  String get searchSortDurationLong => 'Duration (Longest)';
+  String get searchSortDurationLong => 'Продолжительность (наибольшая)';
 
   @override
-  String get searchSortDateOldest => 'Release Date (Oldest)';
+  String get searchSortDateOldest => 'Дата релиза (старейшая)';
 
   @override
-  String get searchSortDateNewest => 'Release Date (Newest)';
+  String get searchSortDateNewest => 'Дата релиза (новейшая)';
 
   @override
   String get tooltipPlay => 'Воспроизвести';
@@ -955,7 +955,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Если трек не доступен у первого провайдера, приложение автоматически попробует следующий.';
 
   @override
-  String get providerPriorityFallbackExtensionsTitle => 'Extension Fallback';
+  String get providerPriorityFallbackExtensionsTitle => 'Резервное расширение';
 
   @override
   String get providerPriorityFallbackExtensionsDescription =>
@@ -1049,7 +1049,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get credentialsClientIdHint => 'Вставьте Client ID';
 
   @override
-  String get credentialsClientSecret => 'Client Secret';
+  String get credentialsClientSecret => 'Секретный код клиента';
 
   @override
   String get credentialsClientSecretHint => 'Вставьте Client Secret';
@@ -1135,12 +1135,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsAppearanceSubtitle => 'Тема, цвета, дисплей';
 
   @override
-  String get settingsDownloadSubtitle =>
-      'Сервисы, качество, формат имени файла';
+  String get settingsDownloadSubtitle => 'Service, quality, fallback';
 
   @override
-  String get settingsOptionsSubtitle =>
-      'Резерв. сервер, тексты песен, обложки, обновления';
+  String get settingsOptionsSubtitle => 'Fallback, metadata, lyrics, cover art';
 
   @override
   String get settingsExtensionsSubtitle => 'Управление провайдерами скачивания';
@@ -1165,9 +1163,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count треков',
+      one: '1 трек',
       many: '$count треков',
       few: '$count трека',
-      one: '$count трек',
     );
     return '$_temp0';
   }
@@ -1339,19 +1337,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storeRepoUrlHelper =>
-      'e.g. https://github.com/user/extensions-repo';
+      'например, https://github.com/user/extensions-repo';
 
   @override
-  String get storeAddRepoButton => 'Add Repository';
+  String get storeAddRepoButton => 'Добавить репозиторий';
 
   @override
-  String get storeChangeRepoTooltip => 'Change repository';
+  String get storeChangeRepoTooltip => 'Изменить репозиторий';
 
   @override
   String get storeRepoDialogTitle => 'Extension Repository';
 
   @override
-  String get storeRepoDialogCurrent => 'Current repository:';
+  String get storeRepoDialogCurrent => 'Текущий репозиторий:';
 
   @override
   String get storeNewRepoUrlLabel => 'New Repository URL';
@@ -1363,10 +1361,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get storeEmptyNoExtensions => 'No extensions available';
 
   @override
-  String get storeEmptyNoResults => 'No extensions found';
+  String get storeEmptyNoResults => 'Расширения не найдены';
 
   @override
-  String get extensionDefaultProvider => 'Default (Deezer)';
+  String get extensionDefaultProvider => 'По умолчанию (Deezer)';
 
   @override
   String get extensionDefaultProviderSubtitle =>
@@ -1537,23 +1535,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get qualityHiResFlacMaxSubtitle => '24-бит / до 192кГц';
 
   @override
-  String get downloadLossy320 => 'Lossy 320kbps';
+  String get downloadLossy320 => 'С потерями 320 кбит/с';
 
   @override
-  String get downloadLossyFormat => 'Lossy Format';
+  String get downloadLossyFormat => 'Формат с потерями';
 
   @override
-  String get downloadLossy320Format => 'Lossy 320kbps Format';
+  String get downloadLossy320Format => 'Формат с потерями 320 кбит/с';
 
   @override
   String get downloadLossy320FormatDesc =>
       'Choose the output format for Tidal 320kbps lossy downloads. The original AAC stream will be converted to your selected format.';
 
   @override
-  String get downloadLossyMp3 => 'MP3 320kbps';
+  String get downloadLossyMp3 => 'MP3 320 кбит/с';
 
   @override
-  String get downloadLossyMp3Subtitle => 'Best compatibility, ~10MB per track';
+  String get downloadLossyMp3Subtitle =>
+      'Наилучшая совместимость, ~10 Мб на трек';
 
   @override
   String get downloadLossyAac => 'AAC/M4A 320kbps';
@@ -1563,17 +1562,18 @@ class AppLocalizationsRu extends AppLocalizations {
       'Best mobile compatibility, M4A container';
 
   @override
-  String get downloadLossyOpus256 => 'Opus 256kbps';
+  String get downloadLossyOpus256 => 'Opus 256 кбит/с';
 
   @override
   String get downloadLossyOpus256Subtitle =>
       'Best quality Opus, ~8MB per track';
 
   @override
-  String get downloadLossyOpus128 => 'Opus 128kbps';
+  String get downloadLossyOpus128 => 'Opus 128 кбит/с';
 
   @override
-  String get downloadLossyOpus128Subtitle => 'Smallest size, ~4MB per track';
+  String get downloadLossyOpus128Subtitle =>
+      'Минимальный размер, ~4 Мб на трек';
 
   @override
   String get qualityNote =>
@@ -1696,9 +1696,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return 'Удалить $count $_temp0 из этого альбома?\n\nЭто также удалит файлы из хранилища.';
   }
@@ -1720,9 +1720,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return 'Удалить $count $_temp0';
   }
@@ -1890,7 +1890,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Показать при поиске существующих треков';
 
   @override
-  String get libraryAutoScan => 'Auto Scan';
+  String get libraryAutoScan => 'Автосканирование';
 
   @override
   String get libraryAutoScanSubtitle =>
@@ -1900,13 +1900,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get libraryAutoScanOff => 'Off';
 
   @override
-  String get libraryAutoScanOnOpen => 'Every app open';
+  String get libraryAutoScanOnOpen => 'Каждое открытие приложения';
 
   @override
-  String get libraryAutoScanDaily => 'Daily';
+  String get libraryAutoScanDaily => 'Ежедневно';
 
   @override
-  String get libraryAutoScanWeekly => 'Weekly';
+  String get libraryAutoScanWeekly => 'Еженедельно';
 
   @override
   String get libraryActions => 'Действия';
@@ -1953,9 +1953,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return '$_temp0';
   }
@@ -1983,7 +1983,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get libraryScanning => 'Сканирование...';
 
   @override
-  String get libraryScanFinalizing => 'Finalizing library...';
+  String get libraryScanFinalizing => 'Завершение работы с библиотекой...';
 
   @override
   String libraryScanProgress(String progress, int total) {
@@ -2056,25 +2056,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String get libraryFilterQualityCD => 'CD (16 бит)';
 
   @override
-  String get libraryFilterQualityLossy => 'Lossy';
+  String get libraryFilterQualityLossy => 'С потерями';
 
   @override
   String get libraryFilterFormat => 'Формат';
 
   @override
-  String get libraryFilterMetadata => 'Metadata';
+  String get libraryFilterMetadata => 'Метаданные';
 
   @override
   String get libraryFilterMetadataComplete => 'Complete metadata';
 
   @override
-  String get libraryFilterMetadataMissingAny => 'Missing any metadata';
+  String get libraryFilterMetadataMissingAny => 'Не хватает метаданных';
 
   @override
-  String get libraryFilterMetadataMissingYear => 'Missing year';
+  String get libraryFilterMetadataMissingYear => 'Отсутствует год';
 
   @override
-  String get libraryFilterMetadataMissingGenre => 'Missing genre';
+  String get libraryFilterMetadataMissingGenre => 'Отсутствует жанр';
 
   @override
   String get libraryFilterMetadataMissingAlbumArtist => 'Missing album artist';
@@ -2089,16 +2089,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get libraryFilterSortOldest => 'Старые';
 
   @override
-  String get libraryFilterSortAlbumAsc => 'Album (A-Z)';
+  String get libraryFilterSortAlbumAsc => 'Альбом (А-Я)';
 
   @override
-  String get libraryFilterSortAlbumDesc => 'Album (Z-A)';
+  String get libraryFilterSortAlbumDesc => 'Альбом (Я-А)';
 
   @override
-  String get libraryFilterSortGenreAsc => 'Genre (A-Z)';
+  String get libraryFilterSortGenreAsc => 'Жанр (А-Я)';
 
   @override
-  String get libraryFilterSortGenreDesc => 'Genre (Z-A)';
+  String get libraryFilterSortGenreDesc => 'Жанр (Я-А)';
 
   @override
   String get timeJustNow => 'Только что';
@@ -2109,9 +2109,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count минут',
+      one: '1 минуту',
       many: '$count минут',
       few: '$count минуты',
-      one: '$count минуту',
     );
     return '$_temp0 назад';
   }
@@ -2122,9 +2122,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count часов',
+      one: '1 час',
       many: '$count часов',
       few: '$count часа',
-      one: '$count час',
     );
     return '$_temp0 назад';
   }
@@ -2391,28 +2391,28 @@ class AppLocalizationsRu extends AppLocalizations {
       'Поиск в сети метаданных и встраивание в файл';
 
   @override
-  String get trackReEnrichFieldsTitle => 'Fields to update';
+  String get trackReEnrichFieldsTitle => 'Поля для обновления';
 
   @override
-  String get trackReEnrichFieldCover => 'Cover Art';
+  String get trackReEnrichFieldCover => 'Обложка';
 
   @override
-  String get trackReEnrichFieldLyrics => 'Lyrics';
+  String get trackReEnrichFieldLyrics => 'Текст песни';
 
   @override
-  String get trackReEnrichFieldBasicTags => 'Album, Album Artist';
+  String get trackReEnrichFieldBasicTags => 'Альбом, Исполнитель альбома';
 
   @override
-  String get trackReEnrichFieldTrackInfo => 'Track & Disc Number';
+  String get trackReEnrichFieldTrackInfo => 'Номер трека и диска';
 
   @override
-  String get trackReEnrichFieldReleaseInfo => 'Date & ISRC';
+  String get trackReEnrichFieldReleaseInfo => 'Дата и ISRC';
 
   @override
-  String get trackReEnrichFieldExtra => 'Genre, Label, Copyright';
+  String get trackReEnrichFieldExtra => 'Жанр, Название, Авторские права';
 
   @override
-  String get trackReEnrichSelectAll => 'Select All';
+  String get trackReEnrichSelectAll => 'Выбрать всё';
 
   @override
   String get trackEditMetadata => 'Редактировать метаданные';
@@ -2444,7 +2444,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Ошибка встраивания метаданных FFmpeg';
 
   @override
-  String get queueFlacAction => 'Queue FLAC';
+  String get queueFlacAction => 'Очередь FLAC';
 
   @override
   String queueFlacConfirmMessage(int count) {
@@ -2453,7 +2453,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String queueFlacFindingProgress(int current, int total) {
-    return 'Finding FLAC matches... ($current/$total)';
+    return 'Поиск совпадений FLAC... ($current/$total)';
   }
 
   @override
@@ -2475,7 +2475,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get trackConvertFormatSubtitle =>
-      'Convert to MP3, Opus, ALAC, or FLAC';
+      'Convert to AAC/M4A, MP3, Opus, ALAC, or FLAC';
 
   @override
   String get trackConvertTitle => 'Конвертировать аудио';
@@ -2507,8 +2507,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get trackConvertLosslessHint =>
-      'Lossless conversion — no quality loss';
+  String get trackConvertLosslessHint => 'Конвертация без потери качества';
 
   @override
   String get trackConvertConverting => 'Конвертация аудио...';
@@ -2609,9 +2608,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count треков',
+      one: '1 трек',
       many: '$count треков',
       few: '$count трека',
-      one: '$count трек',
     );
     return '$_temp0';
   }
@@ -2762,9 +2761,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return 'Отправить $count $_temp0';
   }
@@ -2779,9 +2778,9 @@ class AppLocalizationsRu extends AppLocalizations {
       count,
       locale: localeName,
       other: 'треков',
+      one: 'трек',
       many: 'треков',
       few: 'трека',
-      one: 'трек',
     );
     return 'Конвертировать $count $_temp0';
   }
@@ -2815,7 +2814,7 @@ class AppLocalizationsRu extends AppLocalizations {
       other: 'tracks',
       one: 'track',
     );
-    return 'Convert $count $_temp0 to $format? (Lossless — no quality loss)\n\nOriginal files will be deleted after conversion.';
+    return 'Конвертировать $count $_temp0 в $format? (Без потери качества)\n\nОригинальные файлы будут удалены после конвертации.';
   }
 
   @override
@@ -2835,18 +2834,18 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get downloadUseAlbumArtistForFoldersAlbumSubtitle =>
-      'Для папок исполнителей используется исполнитель альбома, если он указан';
+      'Папка названная в честь тега Альбома Артиста';
 
   @override
   String get downloadUseAlbumArtistForFoldersTrackSubtitle =>
-      'Папки исполнителя используют только трек исполнителя';
+      'Папка названная в честь тега Трека Артиста';
 
   @override
-  String get lyricsProvidersTitle => 'Lyrics Providers';
+  String get lyricsProvidersTitle => 'Приоритет к поставщику текста песни';
 
   @override
   String get lyricsProvidersDescription =>
-      'Enable, disable and reorder lyrics sources. Providers are tried top-to-bottom until lyrics are found.';
+      'Включайте, выключайте, переупорядочивайте источники текстов. Поставщики связаны сверху вниз пока проводится поиск текста.';
 
   @override
   String get lyricsProvidersInfoText =>
@@ -2854,12 +2853,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String lyricsProvidersEnabledSection(int count) {
-    return 'Enabled ($count)';
+    return 'Включено ($count)';
   }
 
   @override
   String lyricsProvidersDisabledSection(int count) {
-    return 'Disabled ($count)';
+    return 'Выключено ($count)';
   }
 
   @override
@@ -2871,14 +2870,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get lyricsProvidersDiscardContent =>
-      'You have unsaved changes that will be lost.';
+      'У вас есть несохранённые изменения, которые будут потеряны.';
 
   @override
   String get lyricsProviderLrclibDesc => 'Open-source synced lyrics database';
 
   @override
   String get lyricsProviderNeteaseDesc =>
-      'NetEase Cloud Music (good for Asian songs)';
+      'NetEase Cloud Music (хорош для азиатских песен)';
 
   @override
   String get lyricsProviderMusixmatchDesc =>
@@ -2890,10 +2889,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get lyricsProviderQqMusicDesc =>
-      'QQ Music (good for Chinese songs, via proxy)';
+      'QQ Музыка (хорошо подходит для китайских песен, через прокси)';
 
   @override
-  String get lyricsProviderExtensionDesc => 'Extension provider';
+  String get lyricsProviderExtensionDesc => 'Поставщик расширений';
 
   @override
   String get safMigrationTitle => 'Storage Update Required';
@@ -2910,16 +2909,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get safMigrationSuccess => 'Download folder updated to SAF mode';
 
   @override
-  String get settingsDonate => 'Donate';
+  String get settingsDonate => 'Support Development';
 
   @override
-  String get settingsDonateSubtitle => 'Support SpotiFLAC-Mobile development';
+  String get settingsDonateSubtitle => 'Buy the developer a coffee';
 
   @override
   String get tooltipLoveAll => 'Love All';
 
   @override
-  String get tooltipAddToPlaylist => 'Add to Playlist';
+  String get tooltipAddToPlaylist => 'Добавить в плейлист';
 
   @override
   String snackbarRemovedTracksFromLoved(int count) {
@@ -2932,7 +2931,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get dialogDownloadAllTitle => 'Download All';
+  String get dialogDownloadAllTitle => 'Скачать всё';
 
   @override
   String dialogDownloadAllMessage(int count) {
@@ -2943,16 +2942,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeSkipAlreadyDownloaded => 'Skip already downloaded songs';
 
   @override
-  String get homeGoToAlbum => 'Go to Album';
+  String get homeGoToAlbum => 'Перейти к альбому';
 
   @override
   String get homeAlbumInfoUnavailable => 'Album info not available';
 
   @override
-  String get snackbarLoadingCueSheet => 'Loading CUE sheet...';
+  String get snackbarLoadingCueSheet => 'Загрузка CUE разметки...';
 
   @override
-  String get snackbarMetadataSaved => 'Metadata saved successfully';
+  String get snackbarMetadataSaved => 'Метаданные успешно сохранены';
 
   @override
   String get snackbarFailedToEmbedLyrics => 'Failed to embed lyrics';
@@ -2962,7 +2961,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String snackbarError(String error) {
-    return 'Error: $error';
+    return 'Ошибка: $error';
   }
 
   @override
@@ -2973,20 +2972,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get downloadLocationSubtitle =>
-      'Choose storage mode for downloaded files.';
+      'Choose where to save your downloaded tracks';
 
   @override
-  String get storageModeAppFolder => 'App folder (non-SAF)';
+  String get storageModeAppFolder => 'App Folder (Recommended)';
 
   @override
-  String get storageModeAppFolderSubtitle => 'Use default Music/SpotiFLAC path';
+  String get storageModeAppFolderSubtitle =>
+      'Saves to Music/SpotiFLAC by default';
 
   @override
-  String get storageModeSaf => 'SAF folder';
+  String get storageModeSaf => 'Custom Folder (SAF)';
 
   @override
-  String get storageModeSafSubtitle =>
-      'Pick folder via Android Storage Access Framework';
+  String get storageModeSafSubtitle => 'Pick any folder, including SD card';
 
   @override
   String downloadFilenameDescription(
@@ -2998,74 +2997,73 @@ class AppLocalizationsRu extends AppLocalizations {
     Object track,
     Object year,
   ) {
-    return 'Customize how your files are named.';
+    return 'Use $artist, $title, $album, $track, $year, $date, $disc as placeholders.';
   }
 
   @override
-  String get downloadFilenameInsertTag => 'Tap to insert tag:';
+  String get downloadFilenameInsertTag => 'Нажмите для вставки тега:';
 
   @override
-  String get downloadSeparateSinglesEnabled => 'Albums/ and Singles/ folders';
+  String get downloadSeparateSinglesEnabled =>
+      'Singles and EPs saved in a separate folder';
 
   @override
-  String get downloadSeparateSinglesDisabled => 'All files in same structure';
+  String get downloadSeparateSinglesDisabled =>
+      'Singles and albums saved in the same folder';
 
   @override
   String get downloadArtistNameFilters => 'Artist Name Filters';
 
   @override
-  String get downloadCreatePlaylistSourceFolder =>
-      'Create playlist source folder';
+  String get downloadCreatePlaylistSourceFolder => 'Playlist Source Folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderEnabled =>
-      'Playlist downloads use Playlist/ plus your normal folder structure.';
+      'A subfolder is created for each playlist';
 
   @override
   String get downloadCreatePlaylistSourceFolderDisabled =>
-      'Playlist downloads use the normal folder structure only.';
+      'All tracks saved directly to download folder';
 
   @override
   String get downloadCreatePlaylistSourceFolderRedundant =>
-      'By Playlist already places downloads inside a playlist folder.';
+      'Handled by folder organization setting';
 
   @override
-  String get downloadSongLinkRegion => 'SongLink Region';
+  String get downloadSongLinkRegion => 'Регион SongLink';
 
   @override
-  String get downloadNetworkCompatibilityMode => 'Network compatibility mode';
+  String get downloadNetworkCompatibilityMode => 'Network Compatibility Mode';
 
   @override
   String get downloadNetworkCompatibilityModeEnabled =>
-      'Enabled: try HTTP + accept invalid TLS certificates (unsafe)';
+      'Using legacy TLS settings for older networks';
 
   @override
   String get downloadNetworkCompatibilityModeDisabled =>
-      'Off: strict HTTPS certificate validation (recommended)';
+      'Using standard network settings';
 
   @override
   String get downloadSelectServiceToEnable =>
-      'Select a built-in service to enable';
+      'Select Tidal or Qobuz to enable this option';
 
   @override
   String get downloadSelectTidalQobuz =>
-      'Select Tidal or Qobuz above to configure quality';
+      'Select Tidal or Qobuz to choose audio quality';
 
   @override
-  String get downloadEmbedLyricsDisabled =>
-      'Disabled while Embed Metadata is turned off';
+  String get downloadEmbedLyricsDisabled => 'Enable metadata embedding first';
 
   @override
-  String get downloadNeteaseIncludeTranslation =>
-      'Netease: Include Translation';
+  String get downloadNeteaseIncludeTranslation => 'Netease: включение перевода';
 
   @override
   String get downloadNeteaseIncludeTranslationEnabled =>
-      'Append translated lyrics when available';
+      'Chinese translation lines included';
 
   @override
   String get downloadNeteaseIncludeTranslationDisabled =>
-      'Use original lyrics only';
+      'Original lyrics only';
 
   @override
   String get downloadNeteaseIncludeRomanization =>
@@ -3073,21 +3071,21 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get downloadNeteaseIncludeRomanizationEnabled =>
-      'Append romanized lyrics when available';
+      'Romanization lines included';
 
   @override
-  String get downloadNeteaseIncludeRomanizationDisabled => 'Disabled';
+  String get downloadNeteaseIncludeRomanizationDisabled => 'No romanization';
 
   @override
-  String get downloadAppleQqMultiPerson => 'Apple/QQ Multi-Person Word-by-Word';
+  String get downloadAppleQqMultiPerson => 'Apple / QQ: Multi-Person Lyrics';
 
   @override
   String get downloadAppleQqMultiPersonEnabled =>
-      'Enable v1/v2 speaker and [bg:] tags';
+      'Speaker labels included for duets and group tracks';
 
   @override
   String get downloadAppleQqMultiPersonDisabled =>
-      'Simplified word-by-word formatting';
+      'Standard lyrics without speaker labels';
 
   @override
   String get downloadAppleElrcWordSync => 'Apple Music eLRC Word Sync';
@@ -3101,55 +3099,54 @@ class AppLocalizationsRu extends AppLocalizations {
       'Safer line-by-line Apple Music lyrics';
 
   @override
-  String get downloadMusixmatchLanguage => 'Musixmatch Language';
+  String get downloadMusixmatchLanguage => 'Язык Musixmatch';
 
   @override
-  String get downloadMusixmatchLanguageAuto => 'Auto (original)';
+  String get downloadMusixmatchLanguageAuto => 'Auto (original language)';
 
   @override
-  String get downloadFilterContributing =>
-      'Filter contributing artists in Album Artist';
+  String get downloadFilterContributing => 'Filter Contributing Artists';
 
   @override
   String get downloadFilterContributingEnabled =>
-      'Album Artist metadata uses primary artist only';
+      'Contributing artists removed from Album Artist folder name';
 
   @override
   String get downloadFilterContributingDisabled =>
-      'Keep full Album Artist metadata value';
+      'Full Album Artist string used';
 
   @override
-  String get downloadProvidersNoneEnabled => 'None enabled';
+  String get downloadProvidersNoneEnabled => 'No providers enabled';
 
   @override
-  String get downloadMusixmatchLanguageCode => 'Language code';
+  String get downloadMusixmatchLanguageCode => 'Код языка';
 
   @override
-  String get downloadMusixmatchLanguageHint => 'auto / en / es / ja';
+  String get downloadMusixmatchLanguageHint => 'e.g. en, de, ja';
 
   @override
   String get downloadMusixmatchLanguageDesc =>
-      'Set preferred language code (example: en, es, ja). Leave empty for auto.';
+      'Enter a BCP-47 language code (e.g. en, de, ja) to request translated lyrics from Musixmatch.';
 
   @override
-  String get downloadMusixmatchAuto => 'Auto';
+  String get downloadMusixmatchAuto => 'Авто';
 
   @override
-  String get downloadNetworkAnySubtitle => 'WiFi + Mobile Data';
+  String get downloadNetworkAnySubtitle => 'Use WiFi or mobile data';
 
   @override
   String get downloadNetworkWifiOnlySubtitle =>
-      'Pause downloads on mobile data';
+      'Downloads pause when on mobile data';
 
   @override
   String get downloadSongLinkRegionDesc =>
-      'Used as userCountry for SongLink API lookup.';
+      'Region used when resolving track links via SongLink. Choose the country where your streaming services are available.';
 
   @override
-  String get snackbarUnsupportedAudioFormat => 'Unsupported audio format';
+  String get snackbarUnsupportedAudioFormat => 'Неподдерживаемый аудио формат';
 
   @override
-  String get cacheRefresh => 'Refresh';
+  String get cacheRefresh => 'Обновить';
 
   @override
   String dialogDownloadPlaylistsMessage(int trackCount, int playlistCount) {
@@ -3205,10 +3202,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Select fields to fill automatically from online metadata';
 
   @override
-  String get editMetadataAutoFillFetch => 'Fetch & Fill';
+  String get editMetadataAutoFillFetch => 'Получить и заполнить';
 
   @override
-  String get editMetadataAutoFillSearching => 'Searching online...';
+  String get editMetadataAutoFillSearching => 'Поиск в сети...';
 
   @override
   String get editMetadataAutoFillNoResults =>
@@ -3230,57 +3227,57 @@ class AppLocalizationsRu extends AppLocalizations {
       'Select at least one field to auto-fill';
 
   @override
-  String get editMetadataFieldTitle => 'Title';
+  String get editMetadataFieldTitle => 'Название';
 
   @override
-  String get editMetadataFieldArtist => 'Artist';
+  String get editMetadataFieldArtist => 'Исполнитель';
 
   @override
-  String get editMetadataFieldAlbum => 'Album';
+  String get editMetadataFieldAlbum => 'Альбом';
 
   @override
-  String get editMetadataFieldAlbumArtist => 'Album Artist';
+  String get editMetadataFieldAlbumArtist => 'Исполнитель альбома';
 
   @override
-  String get editMetadataFieldDate => 'Date';
+  String get editMetadataFieldDate => 'Дата';
 
   @override
-  String get editMetadataFieldTrackNum => 'Track #';
+  String get editMetadataFieldTrackNum => 'Трек #';
 
   @override
-  String get editMetadataFieldDiscNum => 'Disc #';
+  String get editMetadataFieldDiscNum => 'Диск #';
 
   @override
-  String get editMetadataFieldGenre => 'Genre';
+  String get editMetadataFieldGenre => 'Жанр';
 
   @override
   String get editMetadataFieldIsrc => 'ISRC';
 
   @override
-  String get editMetadataFieldLabel => 'Label';
+  String get editMetadataFieldLabel => 'Заголовок';
 
   @override
-  String get editMetadataFieldCopyright => 'Copyright';
+  String get editMetadataFieldCopyright => 'Авторские права';
 
   @override
-  String get editMetadataFieldCover => 'Cover Art';
+  String get editMetadataFieldCover => 'Обложка';
 
   @override
-  String get editMetadataSelectAll => 'All';
+  String get editMetadataSelectAll => 'Все';
 
   @override
-  String get editMetadataSelectEmpty => 'Empty only';
+  String get editMetadataSelectEmpty => 'Только пустые';
 
   @override
   String queueDownloadingCount(int count) {
-    return 'Downloading ($count)';
+    return 'Скачивание ($count)';
   }
 
   @override
-  String get queueDownloadedHeader => 'Downloaded';
+  String get queueDownloadedHeader => 'Скачано';
 
   @override
-  String get queueFilteringIndicator => 'Filtering...';
+  String get queueFilteringIndicator => 'Фильтрация...';
 
   @override
   String queueTrackCount(int count) {
@@ -3319,13 +3316,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Single track downloads will appear here';
 
   @override
-  String get queueEmptyHistory => 'No download history';
+  String get queueEmptyHistory => 'Нет истории скачиваний';
 
   @override
-  String get queueEmptyHistorySubtitle => 'Downloaded tracks will appear here';
+  String get queueEmptyHistorySubtitle => 'Скачанные треки появятся здесь';
 
   @override
-  String get selectionAllPlaylistsSelected => 'All playlists selected';
+  String get selectionAllPlaylistsSelected => 'Выбраны все плейлисты';
 
   @override
   String get selectionTapPlaylistsToSelect => 'Tap playlists to select';
@@ -3344,7 +3341,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get audioAnalysisAnalyzing => 'Analyzing audio...';
 
   @override
-  String get audioAnalysisSampleRate => 'Sample Rate';
+  String get audioAnalysisSampleRate => 'Частота дискретизации';
 
   @override
   String get audioAnalysisCodec => 'Codec';
@@ -3356,22 +3353,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get audioAnalysisDecodedFormat => 'Decoded Format';
 
   @override
-  String get audioAnalysisBitDepth => 'Bit Depth';
+  String get audioAnalysisBitDepth => 'Разрядность';
 
   @override
-  String get audioAnalysisChannels => 'Channels';
+  String get audioAnalysisChannels => 'Каналы';
 
   @override
-  String get audioAnalysisDuration => 'Duration';
+  String get audioAnalysisDuration => 'Продолжительность';
 
   @override
   String get audioAnalysisNyquist => 'Nyquist';
 
   @override
-  String get audioAnalysisFileSize => 'Size';
+  String get audioAnalysisFileSize => 'Размер';
 
   @override
-  String get audioAnalysisDynamicRange => 'Dynamic Range';
+  String get audioAnalysisDynamicRange => 'Динамический диапазон';
 
   @override
   String get audioAnalysisPeak => 'Peak';
@@ -3398,7 +3395,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get audioAnalysisChannelStats => 'Per-channel Stats';
 
   @override
-  String get audioAnalysisSamples => 'Samples';
+  String get audioAnalysisSamples => 'Сэмплы';
 
   @override
   String get audioAnalysisRescan => 'Re-analyze';
@@ -3408,7 +3405,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String extensionsSearchWith(String providerName) {
-    return 'Search with $providerName';
+    return 'Искать с помощью $providerName';
   }
 
   @override
@@ -3419,7 +3416,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Choose which extension provides the home feed on the main screen';
 
   @override
-  String get extensionsHomeFeedAuto => 'Auto';
+  String get extensionsHomeFeedAuto => 'Авто';
 
   @override
   String get extensionsHomeFeedAutoSubtitle =>
@@ -3441,13 +3438,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get extensionsNoHomeFeedExtensions => 'No extensions with home feed';
 
   @override
-  String get sortAlphaAsc => 'A-Z';
+  String get sortAlphaAsc => 'А-Я';
 
   @override
-  String get sortAlphaDesc => 'Z-A';
+  String get sortAlphaDesc => 'Я-А';
 
   @override
-  String get cancelDownloadTitle => 'Cancel download?';
+  String get cancelDownloadTitle => 'Отменить скачивание?';
 
   @override
   String cancelDownloadContent(String trackName) {
@@ -3455,37 +3452,38 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get cancelDownloadKeep => 'Keep';
+  String get cancelDownloadKeep => 'Удерживать';
 
   @override
-  String get metadataSaveFailedFfmpeg => 'Failed to save metadata via FFmpeg';
+  String get metadataSaveFailedFfmpeg =>
+      'Не удалось сохранить метаданные через FFmpeg';
 
   @override
   String get metadataSaveFailedStorage =>
-      'Failed to write metadata back to storage';
+      'Не удалось записать метаданные обратно в хранилище';
 
   @override
   String snackbarFolderPickerFailed(String error) {
-    return 'Failed to open folder picker: $error';
+    return 'Не удалось открыть выбор папок: $error';
   }
 
   @override
-  String get errorLoadAlbum => 'Failed to load album';
+  String get errorLoadAlbum => 'Не удалось загрузить альбом';
 
   @override
-  String get errorLoadPlaylist => 'Failed to load playlist';
+  String get errorLoadPlaylist => 'Не удалось загрузить плейлист';
 
   @override
-  String get errorLoadArtist => 'Failed to load artist';
+  String get errorLoadArtist => 'Не удалось загрузить исполнителя';
 
   @override
-  String get notifChannelDownloadName => 'Download Progress';
+  String get notifChannelDownloadName => 'Прогресс скачивания';
 
   @override
   String get notifChannelDownloadDesc => 'Shows download progress for tracks';
 
   @override
-  String get notifChannelLibraryScanName => 'Library Scan';
+  String get notifChannelLibraryScanName => 'Сканирование библиотеки';
 
   @override
   String get notifChannelLibraryScanDesc => 'Shows local library scan progress';
@@ -3501,35 +3499,41 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get notifEmbeddingMetadata => 'Embedding metadata...';
+  String get notifEmbeddingMetadata => 'Встраивание метаданных...';
 
   @override
   String notifAlreadyInLibraryCount(int completed, int total) {
-    return 'Already in Library ($completed/$total)';
+    return 'Уже в библиотеке ($completed/$total)';
   }
 
   @override
-  String get notifAlreadyInLibrary => 'Already in Library';
+  String get notifAlreadyInLibrary => 'Уже в библиотеке';
 
   @override
   String notifDownloadCompleteCount(int completed, int total) {
-    return 'Download Complete ($completed/$total)';
+    return 'Загрузка завершена ($completed/$total)';
   }
 
   @override
-  String get notifDownloadComplete => 'Download Complete';
+  String get notifDownloadComplete => 'Скачивание завершено';
 
   @override
   String notifDownloadsFinished(int completed, int failed) {
-    return 'Downloads Finished ($completed done, $failed failed)';
+    return 'Загрузка завершена ($completed завершено, $failed не удалось)';
   }
 
   @override
-  String get notifAllDownloadsComplete => 'All Downloads Complete';
+  String get notifAllDownloadsComplete => 'Все загрузки завершены';
 
   @override
   String notifTracksDownloadedSuccess(int count) {
-    return '$count tracks downloaded successfully';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tracks downloaded successfully',
+      one: '1 track downloaded successfully',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3564,7 +3568,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get notifScanningLibrary => 'Scanning local library';
+  String get notifScanningLibrary => 'Сканирование локальной библиотеки';
 
   @override
   String notifLibraryScanProgressWithTotal(
@@ -3581,31 +3585,32 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get notifLibraryScanComplete => 'Library scan complete';
+  String get notifLibraryScanComplete => 'Сканирование библиотеки завершено';
 
   @override
   String notifLibraryScanCompleteBody(int count) {
-    return '$count tracks indexed';
+    return '$count треков индексировано';
   }
 
   @override
   String notifLibraryScanExcluded(int count) {
-    return '$count excluded';
+    return '$count исключено';
   }
 
   @override
   String notifLibraryScanErrors(int count) {
-    return '$count errors';
+    return '$count ошибок';
   }
 
   @override
-  String get notifLibraryScanFailed => 'Library scan failed';
+  String get notifLibraryScanFailed => 'Ошибка сканирования библиотеки';
 
   @override
-  String get notifLibraryScanCancelled => 'Library scan cancelled';
+  String get notifLibraryScanCancelled => 'Сканирование библиотеки отменено';
 
   @override
-  String get notifLibraryScanStopped => 'Scan stopped before completion.';
+  String get notifLibraryScanStopped =>
+      'Сканирование остановлено перед завершением.';
 
   @override
   String notifDownloadingUpdate(String version) {
@@ -3614,11 +3619,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String notifUpdateProgress(String received, String total, int percentage) {
-    return '$received / $total MB • $percentage%';
+    return '$received / $total МБ • $percentage%';
   }
 
   @override
-  String get notifUpdateReady => 'Update Ready';
+  String get notifUpdateReady => 'Обновление готово';
 
   @override
   String notifUpdateReadyBody(String version) {
@@ -3626,11 +3631,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get notifUpdateFailed => 'Update Failed';
+  String get notifUpdateFailed => 'Ошибка обновления';
 
   @override
   String get notifUpdateFailedBody =>
-      'Could not download update. Try again later.';
+      'Не удалось скачать обновление. Попробуйте позже.';
 
   @override
   String get searchTracks => 'Tracks';
@@ -3859,10 +3864,10 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get optionsDefaultSearchTabAlbums => 'Albums';
+  String get optionsDefaultSearchTabAlbums => 'Альбомы';
 
   @override
-  String get optionsDefaultSearchTabTracks => 'Tracks';
+  String get optionsDefaultSearchTabTracks => 'Треки';
 
   @override
   String get settingsFiles => 'Files & Folders';

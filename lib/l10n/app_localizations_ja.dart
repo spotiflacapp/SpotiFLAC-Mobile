@@ -2678,6 +2678,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get trackOptionRemoveFromWishlist => 'ウィッシュから削除';
 
   @override
+  String get trackOptionGoToAlbum => 'Go to Album';
+
+  @override
   String get artistOptionAddToFavorites => 'Add to Favorite Artists';
 
   @override
@@ -3720,6 +3723,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clickableLookingUpArtist => 'Looking up artist...';
+
+  @override
+  String get clickableLookingUpAlbum => 'Looking up album...';
 
   @override
   String clickableInformationUnavailable(String type) {

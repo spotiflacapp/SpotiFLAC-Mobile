@@ -4729,6 +4729,12 @@ abstract class AppLocalizations {
   /// **'Remove from Wishlist'**
   String get trackOptionRemoveFromWishlist;
 
+  /// Bottom sheet action label - navigate to the track's album page
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Album'**
+  String get trackOptionGoToAlbum;
+
   /// Action label - add artist to favorite artists
   ///
   /// In en, this message translates to:
@@ -6334,6 +6340,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Looking up artist...'**
   String get clickableLookingUpArtist;
+
+  /// Snackbar shown while album metadata is being resolved
+  ///
+  /// In en, this message translates to:
+  /// **'Looking up album...'**
+  String get clickableLookingUpAlbum;
 
   /// Snackbar shown when clickable metadata cannot open a destination
   ///

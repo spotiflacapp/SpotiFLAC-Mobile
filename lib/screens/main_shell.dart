@@ -23,6 +23,7 @@ import 'package:spotiflac_android/services/update_checker.dart';
 import 'package:spotiflac_android/widgets/app_announcement_dialog.dart';
 import 'package:spotiflac_android/widgets/update_dialog.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
+import 'package:spotiflac_android/widgets/settings_group.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 
 final _log = AppLogger('MainShell');
@@ -570,20 +571,24 @@ class _MainShellState extends ConsumerState<MainShell>
             );
           },
         ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _currentIndex.clamp(0, maxIndex),
-          onDestinationSelected: _onNavTap,
-          animationDuration: const Duration(milliseconds: 500),
-          backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? Color.alphaBlend(
-                  Colors.white.withValues(alpha: 0.05),
-                  Theme.of(context).colorScheme.surface,
-                )
-              : Color.alphaBlend(
-                  Colors.black.withValues(alpha: 0.03),
-                  Theme.of(context).colorScheme.surface,
-                ),
-          destinations: destinations,
+        bottomNavigationBar: DecoratedBox(
+          position: DecorationPosition.foreground,
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: Theme.of(
+                  context,
+                ).colorScheme.outlineVariant.withValues(alpha: 0.5),
+              ),
+            ),
+          ),
+          child: NavigationBar(
+            selectedIndex: _currentIndex.clamp(0, maxIndex),
+            onDestinationSelected: _onNavTap,
+            animationDuration: const Duration(milliseconds: 500),
+            backgroundColor: settingsGroupColor(context),
+            destinations: destinations,
+          ),
         ),
       ),
     );

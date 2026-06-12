@@ -474,9 +474,12 @@ class GridSkeleton extends StatelessWidget {
   }
 }
 
-/// Artist screen skeleton – mimics the artist page content below the header:
-/// an optional "Popular" section (rank + cover 48x48 + title + trailing) then
-/// a horizontal-scroll album section.
+/// Artist screen skeleton – shown *below* the SliverAppBar header while the
+/// discography loads. Renders a cover placeholder (only when the header image
+/// isn't available yet), the "Popular" section (rank + cover 48x48 + title +
+/// badge + trailing), and the horizontal album sections. The artist name and
+/// listeners are intentionally omitted here since the header already shows them
+/// overlaid on the cover.
 class ArtistScreenSkeleton extends StatelessWidget {
   final int popularCount;
   final int albumCount;
@@ -500,25 +503,16 @@ class ArtistScreenSkeleton extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (showCoverHeader) ...[
+            if (showCoverHeader)
               SkeletonBox(
                 width: screenWidth,
                 height: screenWidth * 0.75,
                 borderRadius: 0,
               ),
-            ],
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
-              child: SkeletonBox(width: 180, height: 24, borderRadius: 4),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-              child: SkeletonBox(width: 120, height: 14, borderRadius: 4),
-            ),
             if (showPopularSection) ...[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-                child: SkeletonBox(width: 90, height: 20, borderRadius: 4),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
+                child: SkeletonBox(width: 110, height: 22, borderRadius: 4),
               ),
               ...List.generate(popularCount, (index) {
                 return Padding(
@@ -528,7 +522,7 @@ class ArtistScreenSkeleton extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 24,
                         child: Center(
                           child: SkeletonBox(
@@ -546,33 +540,31 @@ class ArtistScreenSkeleton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SkeletonBox(
-                              width: 110 + (index % 4) * 30,
+                              width: 120 + (index % 4) * 30,
                               height: 14,
                               borderRadius: 4,
                             ),
-                            const SizedBox(height: 6),
-                            SkeletonBox(
-                              width: 70 + (index % 3) * 15,
-                              height: 11,
+                            const SizedBox(height: 8),
+                            // Mimics the small "In Library" badge pill.
+                            const SkeletonBox(
+                              width: 64,
+                              height: 14,
                               borderRadius: 4,
                             ),
                           ],
                         ),
                       ),
-                      const SkeletonBox(
-                        width: 20,
-                        height: 20,
-                        borderRadius: 10,
-                      ),
+                      const SizedBox(width: 8),
+                      const SkeletonBox(width: 18, height: 18, borderRadius: 4),
                     ],
                   ),
                 );
               }),
               const SizedBox(height: 16),
             ],
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              child: SkeletonBox(width: 80, height: 20, borderRadius: 4),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: SkeletonBox(width: 120, height: 22, borderRadius: 4),
             ),
             SizedBox(
               height: 190,
@@ -606,6 +598,7 @@ class ArtistScreenSkeleton extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 24),
           ],
         ),
       ),

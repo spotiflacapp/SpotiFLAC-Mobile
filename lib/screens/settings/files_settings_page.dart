@@ -708,53 +708,14 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
     String? title,
     String? description,
   }) {
-    final controller = TextEditingController(text: current);
     final colorScheme = Theme.of(context).colorScheme;
+    final save =
+        onSave ?? ref.read(settingsProvider.notifier).setFilenameFormat;
 
-    final basicTags = [
-      '{artist}',
-      '{title}',
-      '{album}',
-      '{track}',
-      '{year}',
-      '{date}',
-      '{disc}',
-    ];
-    final advancedTags = [
-      '{track_raw}',
-      '{track:02}',
-      '{track:1}',
-      '{date:%Y}',
-      '{date:%Y-%m-%d}',
-      '{disc_raw}',
-      '{disc:02}',
-    ];
-    var showAdvancedTags = RegExp(
-      r'\{(?:track_raw|disc_raw|track:\d+|disc:\d+|date:[^}]+)\}',
-      caseSensitive: false,
-    ).hasMatch(current);
-
-    void insertTag(String tag) {
-      final text = controller.text;
-      final selection = controller.selection;
-      final start = selection.start >= 0 ? selection.start : text.length;
-      final end = selection.end >= 0 ? selection.end : text.length;
-      String insertion = tag;
-      if (start > 0) {
-        final before = text.substring(0, start);
-        if (!before.trim().endsWith('-')) {
-          insertion = ' - $tag';
-        } else if (before.trim().endsWith('-') && !before.endsWith(' ')) {
-          insertion = ' $tag';
-        }
-      }
-      final newText = text.replaceRange(start, end, insertion);
-      controller.value = TextEditingValue(
-        text: newText,
-        selection: TextSelection.collapsed(offset: start + insertion.length),
-      );
-    }
-
+    // The controller is owned by a StatefulWidget so it is disposed in its
+    // State.dispose() (after the subtree is removed), instead of in
+    // whenComplete which fires while the closing/keyboard-hide animations can
+    // still rebuild the TextField and touch a disposed controller.
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -763,178 +724,13 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
-      builder: (context) => StatefulBuilder(
-        builder: (context, setModalState) => Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 32,
-                        height: 4,
-                        margin: const EdgeInsets.only(bottom: 24),
-                        decoration: BoxDecoration(
-                          color: colorScheme.outlineVariant,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      title ?? context.l10n.filenameFormat,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      description ??
-                          context.l10n.downloadFilenameDescription(
-                            '{album}',
-                            '{artist}',
-                            '{date}',
-                            '{disc}',
-                            '{title}',
-                            '{track}',
-                            '{year}',
-                          ),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 24),
-                    TextField(
-                      controller: controller,
-                      decoration: InputDecoration(
-                        hintText: '{artist} - {title}',
-                        filled: true,
-                        fillColor: colorScheme.surfaceContainerHighest
-                            .withValues(alpha: 0.3),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      autofocus: true,
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      context.l10n.downloadFilenameInsertTag,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: basicTags.map((tag) {
-                        return ActionChip(
-                          label: Text(tag),
-                          onPressed: () => insertTag(tag),
-                          backgroundColor: colorScheme.surfaceContainerHighest
-                              .withValues(alpha: 0.5),
-                          side: BorderSide.none,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          labelStyle: TextStyle(
-                            color: colorScheme.onSurface,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(height: 12),
-                    SwitchListTile(
-                      value: showAdvancedTags,
-                      onChanged: (value) =>
-                          setModalState(() => showAdvancedTags = value),
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(context.l10n.filenameShowAdvancedTags),
-                      subtitle: Text(
-                        context.l10n.filenameShowAdvancedTagsDescription,
-                      ),
-                    ),
-                    if (showAdvancedTags) ...[
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: advancedTags.map((tag) {
-                          return ActionChip(
-                            label: Text(tag),
-                            onPressed: () => insertTag(tag),
-                            backgroundColor: colorScheme.surfaceContainerHighest
-                                .withValues(alpha: 0.5),
-                            side: BorderSide.none,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            labelStyle: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                    const SizedBox(height: 32),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Text(context.l10n.dialogCancel),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          flex: 2,
-                          child: FilledButton(
-                            onPressed: () {
-                              final save =
-                                  onSave ??
-                                  ref
-                                      .read(settingsProvider.notifier)
-                                      .setFilenameFormat;
-                              save(controller.text);
-                              Navigator.pop(context);
-                            },
-                            style: FilledButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            child: Text(context.l10n.dialogSave),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
+      builder: (context) => _FilenameFormatEditorSheet(
+        initialText: current,
+        onSave: save,
+        title: title,
+        description: description,
       ),
-    ).whenComplete(controller.dispose);
+    );
   }
 
   void _showAlbumFolderStructurePicker(
@@ -1137,6 +933,252 @@ class _FolderOption extends StatelessWidget {
           ? Icon(Icons.check_circle, color: colorScheme.primary)
           : Icon(Icons.circle_outlined, color: colorScheme.outline),
       onTap: onTap,
+    );
+  }
+}
+
+
+/// Bottom sheet body for editing a filename format. Owns its
+/// [TextEditingController] and disposes it in [dispose], which runs only after
+/// the sheet's subtree has been removed from the tree. This avoids the
+/// "TextEditingController used after being disposed" crash that happens when
+/// the controller is torn down in `whenComplete` while the closing and
+/// keyboard-hide animations are still rebuilding the field.
+class _FilenameFormatEditorSheet extends StatefulWidget {
+  final String initialText;
+  final void Function(String) onSave;
+  final String? title;
+  final String? description;
+
+  const _FilenameFormatEditorSheet({
+    required this.initialText,
+    required this.onSave,
+    this.title,
+    this.description,
+  });
+
+  @override
+  State<_FilenameFormatEditorSheet> createState() =>
+      _FilenameFormatEditorSheetState();
+}
+
+class _FilenameFormatEditorSheetState
+    extends State<_FilenameFormatEditorSheet> {
+  static const _basicTags = [
+    '{artist}',
+    '{title}',
+    '{album}',
+    '{track}',
+    '{year}',
+    '{date}',
+    '{disc}',
+  ];
+  static const _advancedTags = [
+    '{track_raw}',
+    '{track:02}',
+    '{track:1}',
+    '{date:%Y}',
+    '{date:%Y-%m-%d}',
+    '{disc_raw}',
+    '{disc:02}',
+  ];
+
+  late final TextEditingController _controller;
+  late bool _showAdvancedTags;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialText);
+    _showAdvancedTags = RegExp(
+      r'\{(?:track_raw|disc_raw|track:\d+|disc:\d+|date:[^}]+)\}',
+      caseSensitive: false,
+    ).hasMatch(widget.initialText);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _insertTag(String tag) {
+    final text = _controller.text;
+    final selection = _controller.selection;
+    final start = selection.start >= 0 ? selection.start : text.length;
+    final end = selection.end >= 0 ? selection.end : text.length;
+    String insertion = tag;
+    if (start > 0) {
+      final before = text.substring(0, start);
+      if (!before.trim().endsWith('-')) {
+        insertion = ' - $tag';
+      } else if (before.trim().endsWith('-') && !before.endsWith(' ')) {
+        insertion = ' $tag';
+      }
+    }
+    final newText = text.replaceRange(start, end, insertion);
+    _controller.value = TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: start + insertion.length),
+    );
+  }
+
+  Widget _tagChip(ColorScheme colorScheme, String tag) {
+    return ActionChip(
+      label: Text(tag),
+      onPressed: () => _insertTag(tag),
+      backgroundColor: colorScheme.surfaceContainerHighest.withValues(
+        alpha: 0.5,
+      ),
+      side: BorderSide.none,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      labelStyle: TextStyle(
+        color: colorScheme.onSurface,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Container(
+                    width: 32,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 24),
+                    decoration: BoxDecoration(
+                      color: colorScheme.outlineVariant,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                Text(
+                  widget.title ?? context.l10n.filenameFormat,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  widget.description ??
+                      context.l10n.downloadFilenameDescription(
+                        '{album}',
+                        '{artist}',
+                        '{date}',
+                        '{disc}',
+                        '{title}',
+                        '{track}',
+                        '{year}',
+                      ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    hintText: '{artist} - {title}',
+                    filled: true,
+                    fillColor: colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  autofocus: true,
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  context.l10n.downloadFilenameInsertTag,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _basicTags
+                      .map((tag) => _tagChip(colorScheme, tag))
+                      .toList(),
+                ),
+                const SizedBox(height: 12),
+                SwitchListTile(
+                  value: _showAdvancedTags,
+                  onChanged: (value) =>
+                      setState(() => _showAdvancedTags = value),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(context.l10n.filenameShowAdvancedTags),
+                  subtitle: Text(
+                    context.l10n.filenameShowAdvancedTagsDescription,
+                  ),
+                ),
+                if (_showAdvancedTags) ...[
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: _advancedTags
+                        .map((tag) => _tagChip(colorScheme, tag))
+                        .toList(),
+                  ),
+                ],
+                const SizedBox(height: 32),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Text(context.l10n.dialogCancel),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      flex: 2,
+                      child: FilledButton(
+                        onPressed: () {
+                          widget.onSave(_controller.text);
+                          Navigator.pop(context);
+                        },
+                        style: FilledButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Text(context.l10n.dialogSave),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

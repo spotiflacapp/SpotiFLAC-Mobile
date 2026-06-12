@@ -2245,7 +2245,7 @@
   "@libraryAbout": {
     "description": "Section header for about info"
   },
-  "libraryAboutDescription": "Scans your existing music collection to detect duplicates when downloading. Supports FLAC, M4A, MP3, Opus, and OGG formats. Metadata is read from file tags when available.",
+  "libraryAboutDescription": "Memindai koleksi musik yang sudah ada untuk mendeteksi duplikat saat mengunduh. Mendukung format FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF, dan APE. Metadata dibaca dari tag file jika tersedia.",
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },

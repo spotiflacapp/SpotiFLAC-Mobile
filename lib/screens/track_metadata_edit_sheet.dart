@@ -1263,7 +1263,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
               child: Row(
                 children: [
                   Expanded(
@@ -1275,132 +1275,144 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                     ),
                   ),
                   if (_saving)
-                    const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
                     )
                   else
-                    FilledButton(
+                    FilledButton.icon(
                       onPressed: _save,
-                      child: Text(context.l10n.dialogSave),
+                      icon: const Icon(Icons.check, size: 18),
+                      label: Text(context.l10n.dialogSave),
+                      style: FilledButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
                     ),
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            Divider(
+              height: 1,
+              color: cs.outlineVariant.withValues(alpha: 0.5),
+            ),
             Expanded(
               child: ListView(
                 controller: scrollController,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.fromLTRB(20, 6, 20, 24),
                 children: [
-                  const SizedBox(height: 6),
                   _buildCoverEditor(cs),
                   _buildAutoFillSection(cs),
-                  _field(context.l10n.editMetadataFieldTitle, _titleCtrl),
-                  _field(context.l10n.editMetadataFieldArtist, _artistCtrl),
-                  _field(context.l10n.editMetadataFieldAlbum, _albumCtrl),
-                  _field(
-                    context.l10n.editMetadataFieldAlbumArtist,
-                    _albumArtistCtrl,
-                  ),
-                  _field(
-                    context.l10n.editMetadataFieldDate,
-                    _dateCtrl,
-                    hint: context.l10n.editMetadataFieldDateHint,
-                  ),
-                  Row(
+                  _sectionCard(
+                    icon: Icons.info_outline,
+                    title: context.l10n.trackMetadata,
                     children: [
-                      Expanded(
-                        child: _field(
-                          context.l10n.editMetadataFieldTrackNum,
-                          _trackNumCtrl,
-                          keyboard: TextInputType.number,
-                        ),
+                      _field(context.l10n.editMetadataFieldTitle, _titleCtrl),
+                      _field(
+                        context.l10n.editMetadataFieldArtist,
+                        _artistCtrl,
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _field(
-                          context.l10n.editMetadataFieldTrackTotal,
-                          _trackTotalCtrl,
-                          keyboard: TextInputType.number,
-                        ),
+                      _field(context.l10n.editMetadataFieldAlbum, _albumCtrl),
+                      _field(
+                        context.l10n.editMetadataFieldAlbumArtist,
+                        _albumArtistCtrl,
+                      ),
+                      _field(
+                        context.l10n.editMetadataFieldDate,
+                        _dateCtrl,
+                        hint: context.l10n.editMetadataFieldDateHint,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _field(
+                              context.l10n.editMetadataFieldTrackNum,
+                              _trackNumCtrl,
+                              keyboard: TextInputType.number,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _field(
+                              context.l10n.editMetadataFieldTrackTotal,
+                              _trackTotalCtrl,
+                              keyboard: TextInputType.number,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _field(
+                              context.l10n.editMetadataFieldDiscNum,
+                              _discNumCtrl,
+                              keyboard: TextInputType.number,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _field(
+                              context.l10n.editMetadataFieldDiscTotal,
+                              _discTotalCtrl,
+                              keyboard: TextInputType.number,
+                            ),
+                          ),
+                        ],
+                      ),
+                      _field(context.l10n.editMetadataFieldGenre, _genreCtrl),
+                      _field(context.l10n.editMetadataFieldIsrc, _isrcCtrl),
+                    ],
+                  ),
+                  _sectionCard(
+                    icon: Icons.lyrics_outlined,
+                    title: context.l10n.trackLyrics,
+                    children: [
+                      _field(
+                        context.l10n.trackLyrics,
+                        _lyricsCtrl,
+                        maxLines: 8,
+                        keyboard: TextInputType.multiline,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  Row(
+                  _sectionCard(
+                    icon: Icons.tune,
+                    title: context.l10n.editMetadataAdvanced,
+                    onHeaderTap: () =>
+                        setState(() => _showAdvanced = !_showAdvanced),
+                    expanded: _showAdvanced,
                     children: [
-                      Expanded(
-                        child: _field(
-                          context.l10n.editMetadataFieldDiscNum,
-                          _discNumCtrl,
-                          keyboard: TextInputType.number,
+                      if (_showAdvanced) ...[
+                        _field(
+                          context.l10n.editMetadataFieldLabel,
+                          _labelCtrl,
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _field(
-                          context.l10n.editMetadataFieldDiscTotal,
-                          _discTotalCtrl,
-                          keyboard: TextInputType.number,
+                        _field(
+                          context.l10n.editMetadataFieldCopyright,
+                          _copyrightCtrl,
                         ),
-                      ),
+                        _field(
+                          context.l10n.editMetadataFieldComposer,
+                          _composerCtrl,
+                        ),
+                        _field(
+                          context.l10n.editMetadataFieldComment,
+                          _commentCtrl,
+                          maxLines: 3,
+                        ),
+                      ],
                     ],
                   ),
-                  _field(context.l10n.editMetadataFieldGenre, _genreCtrl),
-                  _field(context.l10n.editMetadataFieldIsrc, _isrcCtrl),
-                  _field(
-                    context.l10n.trackLyrics,
-                    _lyricsCtrl,
-                    maxLines: 8,
-                    keyboard: TextInputType.multiline,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 4),
-                    child: InkWell(
-                      onTap: () =>
-                          setState(() => _showAdvanced = !_showAdvanced),
-                      borderRadius: BorderRadius.circular(8),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Row(
-                          children: [
-                            Icon(
-                              _showAdvanced
-                                  ? Icons.expand_less
-                                  : Icons.expand_more,
-                              size: 20,
-                              color: cs.onSurfaceVariant,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              context.l10n.editMetadataAdvanced,
-                              style: Theme.of(context).textTheme.labelLarge
-                                  ?.copyWith(color: cs.onSurfaceVariant),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (_showAdvanced) ...[
-                    _field(context.l10n.editMetadataFieldLabel, _labelCtrl),
-                    _field(
-                      context.l10n.editMetadataFieldCopyright,
-                      _copyrightCtrl,
-                    ),
-                    _field(
-                      context.l10n.editMetadataFieldComposer,
-                      _composerCtrl,
-                    ),
-                    _field(
-                      context.l10n.editMetadataFieldComment,
-                      _commentCtrl,
-                      maxLines: 3,
-                    ),
-                  ],
-                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -1411,149 +1423,104 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
   }
 
   Widget _buildAutoFillSection(ColorScheme cs) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Container(
-        decoration: BoxDecoration(
-          color: cs.surfaceContainerHighest.withValues(alpha: 0.5),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.5)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () => setState(() => _showAutoFill = !_showAutoFill),
-              borderRadius: BorderRadius.circular(12),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.travel_explore, size: 20, color: cs.primary),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        context.l10n.editMetadataAutoFill,
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: cs.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      _showAutoFill ? Icons.expand_less : Icons.expand_more,
-                      size: 20,
-                      color: cs.onSurfaceVariant,
-                    ),
-                  ],
-                ),
+    return _sectionCard(
+      icon: Icons.travel_explore,
+      title: context.l10n.editMetadataAutoFill,
+      onHeaderTap: () => setState(() => _showAutoFill = !_showAutoFill),
+      expanded: _showAutoFill,
+      children: [
+        if (_showAutoFill) ...[
+          Text(
+            context.l10n.editMetadataAutoFillDesc,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              _quickSelectButton(
+                label: context.l10n.editMetadataSelectAll,
+                onTap: _selectAllFields,
+                cs: cs,
               ),
-            ),
-            if (_showAutoFill) ...[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  context.l10n.editMetadataAutoFillDesc,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-                ),
+              const SizedBox(width: 8),
+              _quickSelectButton(
+                label: context.l10n.editMetadataSelectEmpty,
+                onTap: _selectEmptyFields,
+                cs: cs,
               ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Row(
-                  children: [
-                    _quickSelectButton(
-                      label: context.l10n.editMetadataSelectAll,
-                      onTap: _selectAllFields,
-                      cs: cs,
-                    ),
-                    const SizedBox(width: 8),
-                    _quickSelectButton(
-                      label: context.l10n.editMetadataSelectEmpty,
-                      onTap: _selectEmptyFields,
-                      cs: cs,
-                    ),
-                    const SizedBox(width: 8),
-                    _quickSelectButton(
-                      label: context.l10n.editMetadataSelectNone,
-                      onTap: _selectNoFields,
-                      cs: cs,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Wrap(
-                  spacing: 6,
-                  runSpacing: 4,
-                  children: _fieldDefs.keys.map((key) {
-                    final selected = _autoFillFields.contains(key);
-                    return FilterChip(
-                      label: Text(_fieldLabel(key)),
-                      selected: selected,
-                      onSelected: _fetching
-                          ? null
-                          : (val) {
-                              setState(() {
-                                if (val) {
-                                  _autoFillFields.add(key);
-                                } else {
-                                  _autoFillFields.remove(key);
-                                }
-                              });
-                            },
-                      selectedColor: cs.primaryContainer,
-                      checkmarkColor: cs.onPrimaryContainer,
-                      labelStyle: Theme.of(context).textTheme.labelSmall
-                          ?.copyWith(
-                            color: selected
-                                ? cs.onPrimaryContainer
-                                : cs.onSurfaceVariant,
-                          ),
-                      visualDensity: VisualDensity.compact,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    );
-                  }).toList(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FilledButton.icon(
-                    onPressed: (_fetching || _saving || _autoFillFields.isEmpty)
-                        ? null
-                        : _fetchAndFill,
-                    icon: _fetching
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Icon(Icons.auto_fix_high),
-                    label: Text(
-                      _fetching
-                          ? context.l10n.editMetadataAutoFillSearching
-                          : context.l10n.editMetadataAutoFillFetch,
-                    ),
-                  ),
-                ),
+              const SizedBox(width: 8),
+              _quickSelectButton(
+                label: context.l10n.editMetadataSelectNone,
+                onTap: _selectNoFields,
+                cs: cs,
               ),
             ],
-          ],
-        ),
-      ),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: _fieldDefs.keys.map((key) {
+              final selected = _autoFillFields.contains(key);
+              return FilterChip(
+                label: Text(_fieldLabel(key)),
+                selected: selected,
+                onSelected: _fetching
+                    ? null
+                    : (val) {
+                        setState(() {
+                          if (val) {
+                            _autoFillFields.add(key);
+                          } else {
+                            _autoFillFields.remove(key);
+                          }
+                        });
+                      },
+                selectedColor: cs.primaryContainer,
+                checkmarkColor: cs.onPrimaryContainer,
+                labelStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: selected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
+                ),
+                visualDensity: VisualDensity.compact,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: (_fetching || _saving || _autoFillFields.isEmpty)
+                  ? null
+                  : _fetchAndFill,
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              icon: _fetching
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(Icons.auto_fix_high),
+              label: Text(
+                _fetching
+                    ? context.l10n.editMetadataAutoFillSearching
+                    : context.l10n.editMetadataAutoFillFetch,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ],
     );
   }
 
@@ -1566,7 +1533,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
       onTap: _fetching ? null : onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: cs.outline.withValues(alpha: 0.5)),
@@ -1584,103 +1551,97 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
   Widget _buildCoverEditor(ColorScheme cs) {
     final hasSelectedCover = _hasValue(_selectedCoverPath);
     final hasCurrentCover = _hasValue(_currentCoverPath);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: cs.surfaceContainerHighest.withValues(alpha: 0.5),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.5)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.l10n.editMetadataFieldCover,
+    return _sectionCard(
+      icon: Icons.image_outlined,
+      title: context.l10n.editMetadataFieldCover,
+      children: [
+        if (_loadingCurrentCover)
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: LinearProgressIndicator(minHeight: 2),
+          )
+        else if (!hasCurrentCover && !hasSelectedCover)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              context.l10n.trackCoverNoEmbeddedArt,
               style: Theme.of(
                 context,
-              ).textTheme.labelLarge?.copyWith(color: cs.onSurface),
+              ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
             ),
-            const SizedBox(height: 6),
-            if (_loadingCurrentCover)
-              const LinearProgressIndicator(minHeight: 2)
-            else if (!hasCurrentCover)
-              Text(
-                context.l10n.trackCoverNoEmbeddedArt,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-              ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: _saving ? null : _pickCoverImage,
-                    icon: const Icon(Icons.image_outlined),
-                    label: Text(
-                      hasSelectedCover
-                          ? context.l10n.trackCoverReplace
-                          : context.l10n.trackCoverPick,
-                    ),
+          ),
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: _saving ? null : _pickCoverImage,
+                icon: const Icon(Icons.image_outlined),
+                label: Text(
+                  hasSelectedCover
+                      ? context.l10n.trackCoverReplace
+                      : context.l10n.trackCoverPick,
+                ),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                if (hasSelectedCover) ...[
-                  const SizedBox(width: 8),
-                  IconButton(
-                    tooltip: context.l10n.trackCoverClearSelected,
-                    onPressed: _saving
-                        ? null
-                        : () async {
-                            await _cleanupSelectedCoverTemp();
-                            if (!mounted) return;
-                            setState(() {});
-                          },
-                    icon: const Icon(Icons.close),
-                  ),
-                ],
-              ],
-            ),
-            if (hasCurrentCover || hasSelectedCover) ...[
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  if (hasCurrentCover)
-                    Expanded(
-                      child: _buildCoverPreviewTile(
-                        cs: cs,
-                        path: _currentCoverPath!,
-                        label: context.l10n.trackCoverCurrent,
-                      ),
-                    ),
-                  if (hasCurrentCover && hasSelectedCover)
-                    const SizedBox(width: 12),
-                  if (hasSelectedCover)
-                    Expanded(
-                      child: _buildCoverPreviewTile(
-                        cs: cs,
-                        path: _selectedCoverPath!,
-                        label:
-                            _selectedCoverName ??
-                            context.l10n.trackCoverSelected,
-                      ),
-                    ),
-                ],
               ),
-              if (hasSelectedCover) ...[
-                const SizedBox(height: 8),
-                Text(
-                  context.l10n.trackCoverReplaceNotice,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-                ),
-              ],
+            ),
+            if (hasSelectedCover) ...[
+              const SizedBox(width: 8),
+              IconButton(
+                tooltip: context.l10n.trackCoverClearSelected,
+                onPressed: _saving
+                    ? null
+                    : () async {
+                        await _cleanupSelectedCoverTemp();
+                        if (!mounted) return;
+                        setState(() {});
+                      },
+                icon: const Icon(Icons.close),
+              ),
             ],
           ],
         ),
-      ),
+        if (hasCurrentCover || hasSelectedCover) ...[
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              if (hasCurrentCover)
+                Expanded(
+                  child: _buildCoverPreviewTile(
+                    cs: cs,
+                    path: _currentCoverPath!,
+                    label: context.l10n.trackCoverCurrent,
+                  ),
+                ),
+              if (hasCurrentCover && hasSelectedCover)
+                const SizedBox(width: 12),
+              if (hasSelectedCover)
+                Expanded(
+                  child: _buildCoverPreviewTile(
+                    cs: cs,
+                    path: _selectedCoverPath!,
+                    label:
+                        _selectedCoverName ?? context.l10n.trackCoverSelected,
+                  ),
+                ),
+            ],
+          ),
+          if (hasSelectedCover) ...[
+            const SizedBox(height: 8),
+            Text(
+              context.l10n.trackCoverReplaceNotice,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+            ),
+          ],
+        ],
+        const SizedBox(height: 8),
+      ],
     );
   }
 
@@ -1738,6 +1699,16 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     );
   }
 
+  /// Fill for the modern input fields. Sits one elevation step apart from the
+  /// section card so each field reads as a distinct, recessed surface in both
+  /// light and dark (including AMOLED) themes.
+  Color _fieldFill(ColorScheme cs) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return isDark
+        ? Color.alphaBlend(Colors.white.withValues(alpha: 0.05), cs.surface)
+        : cs.surface;
+  }
+
   Widget _field(
     String label,
     TextEditingController controller, {
@@ -1746,36 +1717,147 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     int maxLines = 1,
   }) {
     final cs = widget.colorScheme;
+    final radius = BorderRadius.circular(14);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 4, bottom: 6),
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: cs.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.1,
+              ),
+            ),
+          ),
+          TextField(
+            controller: controller,
+            keyboardType: keyboard,
+            maxLines: maxLines,
+            cursorColor: cs.primary,
+            style: Theme.of(context).textTheme.bodyLarge,
+            decoration: InputDecoration(
+              hintText: hint,
+              filled: true,
+              fillColor: _fieldFill(cs),
+              isDense: true,
+              // Borderless by default; definition comes from the fill contrast.
+              // A soft primary ring appears only on focus for a clean look.
+              border: OutlineInputBorder(
+                borderRadius: radius,
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: radius,
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: radius,
+                borderSide: BorderSide(color: cs.primary, width: 1.5),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 15,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Shared shape for the edit sections, mirroring the bounded cards used on the
+  /// track metadata screen (rounded with a subtle outline).
+  RoundedRectangleBorder _sectionCardShape(ColorScheme cs) {
+    return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+      side: BorderSide(color: cs.outlineVariant.withValues(alpha: 0.5)),
+    );
+  }
+
+  /// A titled section card matching the track metadata screen layout. When
+  /// [onHeaderTap] is provided the header becomes a full-width tappable row so
+  /// the ink ripple follows the card's rounded shape (clipped to the card),
+  /// and a chevron is rendered automatically based on [expanded].
+  Widget _sectionCard({
+    required IconData icon,
+    required String title,
+    required List<Widget> children,
+    VoidCallback? onHeaderTap,
+    bool expanded = true,
+  }) {
+    final cs = widget.colorScheme;
+    final collapsible = onHeaderTap != null;
+
+    final headerRow = Row(
+      children: [
+        Icon(icon, size: 20, color: cs.primary),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: cs.onSurface,
+            ),
+          ),
+        ),
+        if (collapsible)
+          AnimatedRotation(
+            turns: expanded ? 0.5 : 0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+            child: Icon(
+              Icons.expand_more,
+              size: 22,
+              color: cs.onSurfaceVariant,
+            ),
+          ),
+      ],
+    );
+
+    final Widget header = collapsible
+        ? InkWell(
+            onTap: onHeaderTap,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child: headerRow,
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: headerRow,
+          );
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: TextField(
-        controller: controller,
-        keyboardType: keyboard,
-        maxLines: maxLines,
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          filled: true,
-          fillColor: cs.surfaceContainerHighest.withValues(alpha: 0.5),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: cs.outlineVariant.withValues(alpha: 0.5),
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: cs.outlineVariant.withValues(alpha: 0.5),
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: cs.primary, width: 2),
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
+      child: Card(
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        color: settingsGroupColor(context),
+        shape: _sectionCardShape(cs),
+        clipBehavior: Clip.antiAlias,
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 220),
+          curve: Curves.easeOutCubic,
+          alignment: Alignment.topCenter,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              header,
+              if (children.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: children,
+                  ),
+                ),
+            ],
           ),
         ),
       ),

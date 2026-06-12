@@ -1088,7 +1088,7 @@ class _AlbumTrackItem extends ConsumerWidget {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: colorScheme.tertiaryContainer,
+                    color: colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Row(
@@ -1097,7 +1097,7 @@ class _AlbumTrackItem extends ConsumerWidget {
                       Icon(
                         Icons.folder_outlined,
                         size: 10,
-                        color: colorScheme.onTertiaryContainer,
+                        color: colorScheme.onPrimaryContainer,
                       ),
                       const SizedBox(width: 3),
                       Text(
@@ -1105,7 +1105,7 @@ class _AlbumTrackItem extends ConsumerWidget {
                         style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w500,
-                          color: colorScheme.onTertiaryContainer,
+                          color: colorScheme.onPrimaryContainer,
                         ),
                       ),
                     ],

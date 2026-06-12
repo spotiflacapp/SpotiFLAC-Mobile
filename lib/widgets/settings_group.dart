@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
 
+/// Background fill for grouped cards, matching the Settings group look. Blends a
+/// translucent overlay over the surface so it stays visible on AMOLED (pure
+/// black) dark themes as well as normal light/dark themes.
+Color settingsGroupColor(BuildContext context) {
+  final colorScheme = Theme.of(context).colorScheme;
+  final isDark = Theme.of(context).brightness == Brightness.dark;
+  return isDark
+      ? Color.alphaBlend(
+          Colors.white.withValues(alpha: 0.08),
+          colorScheme.surface,
+        )
+      : Color.alphaBlend(
+          Colors.black.withValues(alpha: 0.04),
+          colorScheme.surface,
+        );
+}
+
 class SettingsGroup extends StatelessWidget {
   final List<Widget> children;
   final EdgeInsetsGeometry? margin;
@@ -8,24 +25,17 @@ class SettingsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = settingsGroupColor(context);
     final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final cardColor = isDark
-        ? Color.alphaBlend(
-            Colors.white.withValues(alpha: 0.08),
-            colorScheme.surface,
-          )
-        : Color.alphaBlend(
-            Colors.black.withValues(alpha: 0.04),
-            colorScheme.surface,
-          );
 
     return Container(
       margin: margin ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Material(

@@ -10,6 +10,7 @@ import 'package:ffmpeg_kit_flutter_new_full/level.dart';
 import 'package:ffmpeg_kit_flutter_new_full/return_code.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/settings_group.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
@@ -887,7 +888,12 @@ class _AudioAnalysisCardState extends State<AudioAnalysisCard> {
     if (_analyzing) {
       final isRescan = _data != null || _spectrogramImage != null;
       return Card(
-        color: cs.surfaceContainerLow,
+        elevation: 0,
+        color: settingsGroupColor(context),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: cs.outlineVariant.withValues(alpha: 0.5)),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Center(
@@ -945,10 +951,15 @@ class _AudioAnalysisCardState extends State<AudioAnalysisCard> {
 
     if (_data == null) {
       return Card(
-        color: cs.surfaceContainerLow,
+        elevation: 0,
+        color: settingsGroupColor(context),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: cs.outlineVariant.withValues(alpha: 0.5)),
+        ),
         child: InkWell(
           onTap: _analyze,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(20),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
@@ -1000,6 +1011,7 @@ class _AudioAnalysisCardState extends State<AudioAnalysisCard> {
             image: _spectrogramImage!,
             sampleRate: data.sampleRate,
             maxFreq: data.spectrum?.maxFreq ?? data.sampleRate / 2,
+            duration: data.spectrum?.duration ?? data.duration,
           ),
         ],
       ],
@@ -1272,7 +1284,12 @@ class _AudioInfoCard extends StatelessWidget {
     final nyquist = data.sampleRate / 2;
 
     return Card(
-      color: cs.surfaceContainerLow,
+      elevation: 0,
+      color: settingsGroupColor(context),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: cs.outlineVariant.withValues(alpha: 0.5)),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -1583,16 +1600,19 @@ class _SpectrogramView extends StatelessWidget {
   final ui.Image image;
   final int sampleRate;
   final double maxFreq;
+  final double duration;
 
   const _SpectrogramView({
     required this.image,
     required this.sampleRate,
     required this.maxFreq,
+    required this.duration,
   });
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    const labelColor = Color(0xFFB5B5B5);
 
     return Card(
       color: Colors.black,
@@ -1600,13 +1620,60 @@ class _SpectrogramView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AspectRatio(
-            aspectRatio: 2.0,
-            child: CustomPaint(
-              painter: _ImagePainter(image),
-              size: Size.infinite,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(6, 10, 10, 4),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                const leftGutter = 34.0;
+                const bottomGutter = 18.0;
+                final plotWidth = constraints.maxWidth - leftGutter;
+                final plotHeight = plotWidth / 2.0;
+                final totalHeight = plotHeight + bottomGutter;
+                return SizedBox(
+                  width: constraints.maxWidth,
+                  height: totalHeight,
+                  child: CustomPaint(
+                    painter: _SpectrogramPainter(
+                      image: image,
+                      maxFreqHz: maxFreq,
+                      durationSec: duration,
+                      labelColor: labelColor,
+                      gridColor: Colors.white.withValues(alpha: 0.10),
+                    ),
+                    size: Size(constraints.maxWidth, totalHeight),
+                  ),
+                );
+              },
             ),
           ),
+          // Intensity color legend (matches the spectrogram colormap).
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 0, 10, 8),
+            child: Row(
+              children: [
+                const Text(
+                  'Quiet',
+                  style: TextStyle(color: labelColor, fontSize: 10),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Container(
+                    height: 8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      gradient: LinearGradient(colors: _legendColors()),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  'Loud',
+                  style: TextStyle(color: labelColor, fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+          Divider(height: 1, color: cs.outlineVariant.withValues(alpha: 0.25)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
@@ -1627,26 +1694,148 @@ class _SpectrogramView extends StatelessWidget {
       ),
     );
   }
+
+  static List<Color> _legendColors() {
+    return List.generate(20, (i) {
+      final c = _spekColorRGB(i / 19.0);
+      return Color.fromARGB(255, c[0], c[1], c[2]);
+    });
+  }
 }
 
-class _ImagePainter extends CustomPainter {
+class _SpectrogramPainter extends CustomPainter {
   final ui.Image image;
-  _ImagePainter(this.image);
+  final double maxFreqHz;
+  final double durationSec;
+  final Color labelColor;
+  final Color gridColor;
+
+  static const double leftGutter = 34;
+  static const double bottomGutter = 18;
+
+  _SpectrogramPainter({
+    required this.image,
+    required this.maxFreqHz,
+    required this.durationSec,
+    required this.labelColor,
+    required this.gridColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    paintImage(
-      canvas: canvas,
-      rect: Offset.zero & size,
-      image: image,
-      fit: BoxFit.contain,
-      filterQuality: FilterQuality.medium,
+    final plot = Rect.fromLTWH(
+      leftGutter,
+      0,
+      size.width - leftGutter,
+      size.height - bottomGutter,
     );
+    if (plot.width <= 0 || plot.height <= 0) return;
+
+    // Spectrogram image.
+    canvas.drawImageRect(
+      image,
+      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+      plot,
+      Paint()..filterQuality = FilterQuality.medium,
+    );
+
+    final gridPaint = Paint()
+      ..color = gridColor
+      ..strokeWidth = 1;
+
+    // Frequency axis (Y): 0 Hz at the bottom, maxFreq at the top.
+    final maxKHz = maxFreqHz / 1000.0;
+    if (maxKHz > 0) {
+      final stepKHz = _niceStepKHz(maxKHz);
+      for (double fk = 0; fk <= maxKHz + 0.001; fk += stepKHz) {
+        final ratio = (fk * 1000) / maxFreqHz;
+        final y = plot.bottom - ratio * plot.height;
+        canvas.drawLine(Offset(plot.left, y), Offset(plot.right, y), gridPaint);
+        _drawText(
+          canvas,
+          fk == 0 ? '0' : '${fk.toStringAsFixed(0)}k',
+          Offset(plot.left - 5, y),
+          align: _TextAlignV.rightCenter,
+        );
+      }
+    }
+
+    // Time axis (X): 0 at the left, duration at the right.
+    if (durationSec > 0) {
+      final stepSec = _niceStepSec(durationSec);
+      for (double ts = 0; ts <= durationSec + 0.001; ts += stepSec) {
+        final ratio = ts / durationSec;
+        final x = plot.left + ratio * plot.width;
+        canvas.drawLine(Offset(x, plot.top), Offset(x, plot.bottom), gridPaint);
+        _drawText(
+          canvas,
+          _fmtTime(ts),
+          Offset(x, plot.bottom + 3),
+          align: _TextAlignV.topCenter,
+        );
+      }
+    }
+  }
+
+  void _drawText(
+    Canvas canvas,
+    String text,
+    Offset anchor, {
+    required _TextAlignV align,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: TextStyle(color: labelColor, fontSize: 10),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    double dx = anchor.dx;
+    double dy = anchor.dy;
+    switch (align) {
+      case _TextAlignV.rightCenter:
+        dx = anchor.dx - tp.width;
+        dy = anchor.dy - tp.height / 2;
+        break;
+      case _TextAlignV.topCenter:
+        dx = anchor.dx - tp.width / 2;
+        dy = anchor.dy;
+        break;
+    }
+    tp.paint(canvas, Offset(dx, dy));
+  }
+
+  static double _niceStepKHz(double maxKHz) {
+    const candidates = [1.0, 2.0, 5.0, 10.0, 20.0, 50.0];
+    for (final c in candidates) {
+      if (maxKHz / c <= 6) return c;
+    }
+    return 100.0;
+  }
+
+  static double _niceStepSec(double dur) {
+    const candidates = [5.0, 10.0, 15.0, 30.0, 60.0, 120.0, 300.0, 600.0];
+    for (final c in candidates) {
+      if (dur / c <= 6) return c;
+    }
+    return 1200.0;
+  }
+
+  static String _fmtTime(double sec) {
+    final s = sec.round();
+    final m = s ~/ 60;
+    final r = s % 60;
+    return '$m:${r.toString().padLeft(2, '0')}';
   }
 
   @override
-  bool shouldRepaint(covariant _ImagePainter old) => old.image != image;
+  bool shouldRepaint(covariant _SpectrogramPainter old) =>
+      old.image != image ||
+      old.maxFreqHz != maxFreqHz ||
+      old.durationSec != durationSec;
 }
+
+enum _TextAlignV { rightCenter, topCenter }
 
 class _SpectrogramRenderParams {
   final SpectrogramData spectrum;

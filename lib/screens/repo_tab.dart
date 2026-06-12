@@ -172,7 +172,7 @@ class _RepoTabState extends ConsumerState<RepoTab> {
                             ),
                           ),
                           filled: true,
-                          fillColor: colorScheme.surfaceContainerHighest,
+                          fillColor: settingsGroupColor(context),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20,
                             vertical: 16,
@@ -651,6 +651,7 @@ class _CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return FilterChip(
       label: Row(
         mainAxisSize: MainAxisSize.min,
@@ -659,6 +660,8 @@ class _CategoryChip extends StatelessWidget {
       selected: isSelected,
       onSelected: (_) => onTap(),
       showCheckmark: false,
+      backgroundColor: settingsGroupColor(context),
+      side: BorderSide(color: colorScheme.outlineVariant.withValues(alpha: 0.6)),
     );
   }
 }

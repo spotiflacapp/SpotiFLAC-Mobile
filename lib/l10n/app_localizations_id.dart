@@ -1942,7 +1942,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get libraryAboutDescription =>
-      'Scans your existing music collection to detect duplicates when downloading. Supports FLAC, M4A, MP3, Opus, and OGG formats. Metadata is read from file tags when available.';
+      'Memindai koleksi musik yang sudah ada untuk mendeteksi duplikat saat mengunduh. Mendukung format FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF, dan APE. Metadata dibaca dari tag file jika tersedia.';
 
   @override
   String libraryTracksUnit(int count) {

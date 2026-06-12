@@ -1117,6 +1117,16 @@ class MainActivity: FlutterFragmentActivity() {
         ".flac", ".wav", ".ape", ".mp3", ".ogg", ".wv", ".m4a", ".mp4", ".aac"
     )
 
+    // Audio file extensions that the local library scanner accepts. Must stay in
+    // sync with supportedAudioFormats in go_backend/library_scan.go so that every
+    // format the Go engine can read (FLAC, M4A/MP4/AAC, MP3, Opus/OGG, APE/WV/MPC,
+    // WAV, AIFF) is also enumerated here during the SAF folder walk. (.cue is
+    // handled separately.)
+    private val libraryScanAudioExtensions = setOf(
+        ".flac", ".m4a", ".mp4", ".aac", ".mp3", ".opus", ".ogg",
+        ".ape", ".wv", ".mpc", ".wav", ".aiff", ".aif"
+    )
+
     private fun getSafChildFileLookup(
         dir: DocumentFile,
         cache: MutableMap<String, Map<String, DocumentFile>>,
@@ -1186,7 +1196,7 @@ class MainActivity: FlutterFragmentActivity() {
             it.currentFile = "Scanning folders..."
         }
 
-        val supportedAudioExt = setOf(".flac", ".m4a", ".mp4", ".aac", ".mp3", ".opus", ".ogg")
+        val supportedAudioExt = libraryScanAudioExtensions
         val audioFiles = mutableListOf<Pair<DocumentFile, String>>()
         val cueFiles = mutableListOf<Pair<DocumentFile, DocumentFile>>()
         val visitedDirUris = mutableSetOf<String>()
@@ -1486,7 +1496,7 @@ class MainActivity: FlutterFragmentActivity() {
             it.currentFile = "Scanning folders..."
         }
 
-        val supportedAudioExt = setOf(".flac", ".m4a", ".mp4", ".aac", ".mp3", ".opus", ".ogg")
+        val supportedAudioExt = libraryScanAudioExtensions
         val audioFiles = mutableListOf<Triple<DocumentFile, String, Long>>()
         val cueFilesToScan = mutableListOf<Triple<DocumentFile, DocumentFile, Long>>()
         val unchangedCueFiles = mutableListOf<Pair<DocumentFile, DocumentFile>>()

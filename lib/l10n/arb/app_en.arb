@@ -2556,7 +2556,7 @@
   "@libraryAbout": {
     "description": "Section header for about info"
   },
-  "libraryAboutDescription": "Scans your existing music collection to detect duplicates when downloading. Supports FLAC, M4A, MP3, Opus, and OGG formats. Metadata is read from file tags when available.",
+  "libraryAboutDescription": "Scans your existing music collection to detect duplicates when downloading. Supports FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF, and APE formats. Metadata is read from file tags when available.",
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },

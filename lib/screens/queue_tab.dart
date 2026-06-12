@@ -12,6 +12,7 @@ import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/utils/app_bar_layout.dart';
 import 'package:spotiflac_android/utils/audio_conversion_utils.dart';
+import 'package:spotiflac_android/widgets/settings_group.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/lyrics_metadata_helper.dart';
 import 'package:spotiflac_android/models/download_item.dart';
@@ -31,6 +32,7 @@ import 'package:spotiflac_android/screens/favorite_artists_screen.dart';
 import 'package:spotiflac_android/screens/downloaded_album_screen.dart';
 import 'package:spotiflac_android/widgets/re_enrich_field_dialog.dart';
 import 'package:spotiflac_android/widgets/batch_progress_dialog.dart';
+import 'package:spotiflac_android/widgets/batch_convert_sheet.dart';
 import 'package:spotiflac_android/widgets/cached_cover_image.dart';
 import 'package:spotiflac_android/screens/library_tracks_folder_screen.dart';
 import 'package:spotiflac_android/screens/local_album_screen.dart';
@@ -120,6 +122,12 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   OverlayEntry? _selectionOverlayEntry;
   List<UnifiedLibraryItem> _selectionOverlayItems = const [];
   double _selectionOverlayBottomPadding = 0;
+
+  /// When true, the floating selection overlays are kept hidden even though
+  /// selection mode is still active. Used while a modal sheet/dialog launched
+  /// from the selection toolbar is open, so the overlay does not reappear on
+  /// top of (or behind) the modal's open/close animation.
+  bool _suppressSelectionOverlay = false;
 
   bool _isPlaylistSelectionMode = false;
   final Set<String> _selectedPlaylistIds = {};
@@ -809,7 +817,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     required double bottomPadding,
   }) {
     if (!mounted) return;
-    if (!_isSelectionMode || _isPlaylistSelectionMode) {
+    if (_suppressSelectionOverlay ||
+        !_isSelectionMode ||
+        _isPlaylistSelectionMode) {
       _hideSelectionOverlay();
       return;
     }
@@ -857,7 +867,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     required double bottomPadding,
   }) {
     if (!mounted) return;
-    if (!_isPlaylistSelectionMode || _isSelectionMode) {
+    if (_suppressSelectionOverlay ||
+        !_isPlaylistSelectionMode ||
+        _isSelectionMode) {
       _hidePlaylistSelectionOverlay();
       return;
     }
@@ -2775,7 +2787,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                                   )
                                 : null,
                             filled: true,
-                            fillColor: colorScheme.surfaceContainerHighest,
+                            fillColor: settingsGroupColor(context),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(28),
                               borderSide: BorderSide(
@@ -4835,19 +4847,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
     if (formats.isEmpty) return;
 
-    String selectedFormat = formats.first;
-    bool isLosslessTarget = isLosslessConversionTarget(selectedFormat);
-    String defaultBitrateForFormat(String format) {
-      if (format == 'Opus') return '128k';
-      if (format == 'AAC') return '256k';
-      return '320k';
-    }
-
-    String selectedBitrate = isLosslessTarget
-        ? '320k'
-        : defaultBitrateForFormat(selectedFormat);
     var didStartConversion = false;
 
+    _suppressSelectionOverlay = true;
     _hideSelectionOverlay();
     _hidePlaylistSelectionOverlay();
 
@@ -4857,150 +4859,33 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (sheetContext) {
-        return StatefulBuilder(
-          builder: (context, setSheetState) {
-            final colorScheme = Theme.of(context).colorScheme;
-            final bitrates = ['128k', '192k', '256k', '320k'];
-
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: colorScheme.onSurfaceVariant.withValues(
-                            alpha: 0.4,
-                          ),
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      context.l10n.selectionBatchConvertConfirmTitle,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      context.l10n.trackConvertTargetFormat,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      children: formats.map((format) {
-                        final isSelected = format == selectedFormat;
-                        return ChoiceChip(
-                          label: Text(format),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            if (selected) {
-                              setSheetState(() {
-                                selectedFormat = format;
-                                isLosslessTarget = isLosslessConversionTarget(
-                                  format,
-                                );
-                                if (!isLosslessTarget) {
-                                  selectedBitrate = defaultBitrateForFormat(
-                                    format,
-                                  );
-                                }
-                              });
-                            }
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    if (!isLosslessTarget) ...[
-                      const SizedBox(height: 16),
-                      Text(
-                        context.l10n.trackConvertBitrate,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        children: bitrates.map((br) {
-                          final isSelected = br == selectedBitrate;
-                          return ChoiceChip(
-                            label: Text(br),
-                            selected: isSelected,
-                            onSelected: (selected) {
-                              if (selected) {
-                                setSheetState(() => selectedBitrate = br);
-                              }
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                    if (isLosslessTarget) ...[
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.verified,
-                            size: 16,
-                            color: colorScheme.primary,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            context.l10n.trackConvertLosslessHint,
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(color: colorScheme.primary),
-                          ),
-                        ],
-                      ),
-                    ],
-                    const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        onPressed: () {
-                          didStartConversion = true;
-                          Navigator.pop(context);
-                          _performBatchConversion(
-                            allItems: allItems,
-                            targetFormat: selectedFormat,
-                            bitrate: selectedBitrate,
-                          );
-                        },
-                        style: FilledButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child: Text(
-                          context.l10n.selectionConvertCount(
-                            _selectedIds.length,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
+      builder: (sheetContext) => BatchConvertSheet(
+        formats: formats,
+        title: context.l10n.selectionBatchConvertConfirmTitle,
+        confirmLabel: context.l10n.selectionConvertCount(_selectedIds.length),
+        onConvert: (format, bitrate) {
+          didStartConversion = true;
+          Navigator.pop(sheetContext);
+          _performBatchConversion(
+            allItems: allItems,
+            targetFormat: format,
+            bitrate: bitrate,
+          );
+        },
+      ),
     );
 
-    if (!mounted || didStartConversion) return;
+    // The showModalBottomSheet future completes when the sheet begins closing,
+    // not when its exit animation finishes. Wait out the exit transition
+    // (~200ms) before restoring the selection toolbar so it does not pop in
+    // front of the still-animating sheet.
+    await Future<void>.delayed(const Duration(milliseconds: 260));
+    if (!mounted) {
+      _suppressSelectionOverlay = false;
+      return;
+    }
+    _suppressSelectionOverlay = false;
+    if (didStartConversion) return;
     if (_isSelectionMode) {
       _syncSelectionOverlay(
         items: allItems,
@@ -5399,6 +5284,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
     if (selectedItems.isEmpty) return;
 
+    _suppressSelectionOverlay = true;
     _hideSelectionOverlay();
     _hidePlaylistSelectionOverlay();
 
@@ -5422,8 +5308,16 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       ),
     );
 
-    if (!mounted) return;
+    if (!mounted) {
+      _suppressSelectionOverlay = false;
+      return;
+    }
     if (confirmed != true) {
+      // Restore after the dialog's exit animation so the toolbar does not
+      // appear in front of the closing dialog.
+      await Future<void>.delayed(const Duration(milliseconds: 220));
+      _suppressSelectionOverlay = false;
+      if (!mounted) return;
       if (_isSelectionMode) {
         _syncSelectionOverlay(
           items: allItems,
@@ -5432,6 +5326,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       }
       return;
     }
+    _suppressSelectionOverlay = false;
 
     var cancelled = false;
     int successCount = 0;
@@ -6360,7 +6255,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                               ),
                               decoration: BoxDecoration(
                                 color: item.quality!.startsWith('24')
-                                    ? colorScheme.tertiaryContainer
+                                    ? colorScheme.primaryContainer
                                     : colorScheme.surfaceContainerHighest,
                                 borderRadius: BorderRadius.circular(4),
                               ),
@@ -6369,7 +6264,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                                 style: Theme.of(context).textTheme.labelSmall
                                     ?.copyWith(
                                       color: item.quality!.startsWith('24')
-                                          ? colorScheme.onTertiaryContainer
+                                          ? colorScheme.onPrimaryContainer
                                           : colorScheme.onSurfaceVariant,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -6513,7 +6408,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                         ),
                         decoration: BoxDecoration(
                           color: item.quality!.startsWith('24')
-                              ? colorScheme.tertiary
+                              ? colorScheme.primary
                               : colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -6522,7 +6417,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                           style: Theme.of(context).textTheme.labelSmall
                               ?.copyWith(
                                 color: item.quality!.startsWith('24')
-                                    ? colorScheme.onTertiary
+                                    ? colorScheme.onPrimary
                                     : colorScheme.onSurfaceVariant,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,

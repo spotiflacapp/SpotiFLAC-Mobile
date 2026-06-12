@@ -1586,7 +1586,7 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: colorScheme.tertiaryContainer,
+                                  color: colorScheme.primaryContainer,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Row(
@@ -1595,7 +1595,7 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
                                     Icon(
                                       Icons.folder_outlined,
                                       size: 10,
-                                      color: colorScheme.onTertiaryContainer,
+                                      color: colorScheme.onPrimaryContainer,
                                     ),
                                     const SizedBox(width: 3),
                                     Text(
@@ -1603,7 +1603,7 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
                                       style: TextStyle(
                                         fontSize: 9,
                                         fontWeight: FontWeight.w500,
-                                        color: colorScheme.onTertiaryContainer,
+                                        color: colorScheme.onPrimaryContainer,
                                       ),
                                     ),
                                   ],

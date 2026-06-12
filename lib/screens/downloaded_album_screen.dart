@@ -17,6 +17,7 @@ import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/lyrics_metadata_helper.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
 import 'package:spotiflac_android/widgets/batch_progress_dialog.dart';
+import 'package:spotiflac_android/widgets/batch_convert_sheet.dart';
 import 'package:spotiflac_android/providers/playback_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/screens/track_metadata_screen.dart';
@@ -967,164 +968,25 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
 
     if (formats.isEmpty) return;
 
-    String selectedFormat = formats.first;
-    bool isLosslessTarget = isLosslessConversionTarget(selectedFormat);
-    String defaultBitrateForFormat(String format) {
-      if (format == 'Opus') return '128k';
-      if (format == 'AAC') return '256k';
-      return '320k';
-    }
-
-    String selectedBitrate = isLosslessTarget
-        ? '320k'
-        : defaultBitrateForFormat(selectedFormat);
-
     showModalBottomSheet<void>(
       context: context,
       useRootNavigator: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (sheetContext) {
-        return StatefulBuilder(
-          builder: (context, setSheetState) {
-            final colorScheme = Theme.of(context).colorScheme;
-            final bitrates = ['128k', '192k', '256k', '320k'];
-
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: colorScheme.onSurfaceVariant.withValues(
-                            alpha: 0.4,
-                          ),
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      context.l10n.selectionBatchConvertConfirmTitle,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      context.l10n.trackConvertTargetFormat,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      children: formats.map((format) {
-                        final isSelected = format == selectedFormat;
-                        return ChoiceChip(
-                          label: Text(format),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            if (selected) {
-                              setSheetState(() {
-                                selectedFormat = format;
-                                isLosslessTarget = isLosslessConversionTarget(
-                                  format,
-                                );
-                                if (!isLosslessTarget) {
-                                  selectedBitrate = defaultBitrateForFormat(
-                                    format,
-                                  );
-                                }
-                              });
-                            }
-                          },
-                        );
-                      }).toList(),
-                    ),
-                    if (!isLosslessTarget) ...[
-                      const SizedBox(height: 16),
-                      Text(
-                        context.l10n.trackConvertBitrate,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        children: bitrates.map((br) {
-                          final isSelected = br == selectedBitrate;
-                          return ChoiceChip(
-                            label: Text(br),
-                            selected: isSelected,
-                            onSelected: (selected) {
-                              if (selected) {
-                                setSheetState(() => selectedBitrate = br);
-                              }
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                    if (isLosslessTarget) ...[
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.verified,
-                            size: 16,
-                            color: colorScheme.primary,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            context.l10n.trackConvertLosslessHint,
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(color: colorScheme.primary),
-                          ),
-                        ],
-                      ),
-                    ],
-                    const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          _performBatchConversion(
-                            allTracks: allTracks,
-                            targetFormat: selectedFormat,
-                            bitrate: selectedBitrate,
-                          );
-                        },
-                        style: FilledButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child: Text(
-                          context.l10n.selectionConvertCount(
-                            _selectedIds.length,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
+      builder: (sheetContext) => BatchConvertSheet(
+        formats: formats,
+        title: context.l10n.selectionBatchConvertConfirmTitle,
+        confirmLabel: context.l10n.selectionConvertCount(_selectedIds.length),
+        onConvert: (format, bitrate) {
+          Navigator.pop(sheetContext);
+          _performBatchConversion(
+            allTracks: allTracks,
+            targetFormat: format,
+            bitrate: bitrate,
+          );
+        },
+      ),
     );
   }
 

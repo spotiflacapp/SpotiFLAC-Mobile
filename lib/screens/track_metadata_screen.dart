@@ -1468,6 +1468,17 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
     );
   }
 
+  /// Shared shape for the main section cards: rounded with a subtle outline so
+  /// each section (Metadata, File Info, Lyrics, Audio Analysis) is bounded.
+  RoundedRectangleBorder _sectionCardShape(ColorScheme colorScheme) {
+    return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+      side: BorderSide(
+        color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+      ),
+    );
+  }
+
   Widget _buildMetadataCard(
     BuildContext context,
     ColorScheme colorScheme,
@@ -1475,8 +1486,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
   ) {
     return Card(
       elevation: 0,
-      color: colorScheme.surfaceContainerLow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: settingsGroupColor(context),
+      shape: _sectionCardShape(colorScheme),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -1789,8 +1800,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
 
     return Card(
       elevation: 0,
-      color: colorScheme.surfaceContainerLow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: settingsGroupColor(context),
+      shape: _sectionCardShape(colorScheme),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -1997,8 +2008,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
   Widget _buildLyricsCard(BuildContext context, ColorScheme colorScheme) {
     return Card(
       elevation: 0,
-      color: colorScheme.surfaceContainerLow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: settingsGroupColor(context),
+      shape: _sectionCardShape(colorScheme),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -3451,6 +3462,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
         height: size,
         fit: BoxFit.cover,
         memCacheWidth: cacheWidth,
+        memCacheHeight: cacheWidth,
         errorWidget: (_, _, _) => placeholder(),
       );
     }
@@ -3728,9 +3740,84 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
             final colorScheme = Theme.of(context).colorScheme;
             final bitrates = ['128k', '192k', '256k', '320k'];
 
+            Widget card({required Widget child}) {
+              return Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: settingsGroupColor(context),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+                  ),
+                ),
+                child: child,
+              );
+            }
+
+            Widget sectionLabel(String text) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 2, bottom: 12),
+                child: Text(
+                  text,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.1,
+                  ),
+                ),
+              );
+            }
+
+            Widget choice({
+              required String label,
+              required bool selected,
+              required VoidCallback onTap,
+            }) {
+              return Material(
+                color: selected
+                    ? colorScheme.primaryContainer
+                    : colorScheme.surface,
+                borderRadius: BorderRadius.circular(14),
+                child: InkWell(
+                  onTap: onTap,
+                  borderRadius: BorderRadius.circular(14),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 150),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 11,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: selected
+                            ? Colors.transparent
+                            : colorScheme.outlineVariant.withValues(
+                                alpha: 0.6,
+                              ),
+                      ),
+                    ),
+                    child: Text(
+                      label,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: selected
+                            ? colorScheme.onPrimaryContainer
+                            : colorScheme.onSurface,
+                        fontWeight: selected
+                            ? FontWeight.w600
+                            : FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+
             return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -3747,97 +3834,112 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 18),
                     Text(
                       context.l10n.trackConvertTitle,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 20),
-
+                    const SizedBox(height: 4),
                     Text(
-                      context.l10n.trackConvertTargetFormat,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      currentFormat,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      children: formats.map((format) {
-                        final isSelected = format == selectedFormat;
-                        return ChoiceChip(
-                          label: Text(format),
-                          selected: isSelected,
-                          onSelected: (selected) {
-                            if (selected) {
-                              setSheetState(() {
-                                selectedFormat = format;
-                                isLosslessTarget = isLosslessConversionTarget(
-                                  format,
-                                );
-                                if (!isLosslessTarget) {
-                                  selectedBitrate = defaultBitrateForFormat(
-                                    format,
-                                  );
-                                }
-                              });
-                            }
-                          },
-                        );
-                      }).toList(),
-                    ),
+                    const SizedBox(height: 20),
 
-                    if (!isLosslessTarget) ...[
-                      const SizedBox(height: 16),
-                      Text(
-                        context.l10n.trackConvertBitrate,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        children: bitrates.map((br) {
-                          final isSelected = br == selectedBitrate;
-                          return ChoiceChip(
-                            label: Text(br),
-                            selected: isSelected,
-                            onSelected: (selected) {
-                              if (selected) {
-                                setSheetState(() => selectedBitrate = br);
-                              }
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-
-                    if (isLosslessTarget && isLosslessSource) ...[
-                      const SizedBox(height: 16),
-                      Row(
+                    card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.verified,
-                            size: 16,
-                            color: colorScheme.primary,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            context.l10n.trackConvertLosslessHint,
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(color: colorScheme.primary),
+                          sectionLabel(context.l10n.trackConvertTargetFormat),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: formats.map((format) {
+                              return choice(
+                                label: format,
+                                selected: format == selectedFormat,
+                                onTap: () {
+                                  setSheetState(() {
+                                    selectedFormat = format;
+                                    isLosslessTarget =
+                                        isLosslessConversionTarget(format);
+                                    if (!isLosslessTarget) {
+                                      selectedBitrate =
+                                          defaultBitrateForFormat(format);
+                                    }
+                                  });
+                                },
+                              );
+                            }).toList(),
                           ),
                         ],
                       ),
-                    ],
-                    const SizedBox(height: 24),
+                    ),
 
+                    if (!isLosslessTarget)
+                      card(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            sectionLabel(context.l10n.trackConvertBitrate),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: bitrates.map((br) {
+                                return choice(
+                                  label: br,
+                                  selected: br == selectedBitrate,
+                                  onTap: () => setSheetState(
+                                    () => selectedBitrate = br,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    if (isLosslessTarget && isLosslessSource)
+                      Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorScheme.primaryContainer.withValues(
+                            alpha: 0.4,
+                          ),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.verified,
+                              size: 18,
+                              color: colorScheme.primary,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                context.l10n.trackConvertLosslessHint,
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(color: colorScheme.primary),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    const SizedBox(height: 8),
                     SizedBox(
                       width: double.infinity,
-                      child: FilledButton(
+                      child: FilledButton.icon(
                         onPressed: () {
                           Navigator.pop(context);
                           _confirmAndConvert(
@@ -3847,20 +3949,20 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                             bitrate: selectedBitrate,
                           );
                         },
+                        icon: const Icon(Icons.swap_horiz),
                         style: FilledButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        child: Text(
+                        label: Text(
                           isLosslessTarget
-                              ? '$currentFormat  ->  $selectedFormat (Lossless)'
-                              : '$currentFormat  ->  $selectedFormat @ $selectedBitrate',
+                              ? '$currentFormat  →  $selectedFormat (Lossless)'
+                              : '$currentFormat  →  $selectedFormat @ $selectedBitrate',
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
                   ],
                 ),
               ),

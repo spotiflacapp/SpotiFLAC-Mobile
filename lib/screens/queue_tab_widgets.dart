@@ -89,6 +89,8 @@ class _FilterChip extends StatelessWidget {
       selected: isSelected,
       onSelected: (_) => onTap(),
       showCheckmark: false,
+      backgroundColor: settingsGroupColor(context),
+      side: BorderSide(color: colorScheme.outlineVariant.withValues(alpha: 0.6)),
     );
   }
 }

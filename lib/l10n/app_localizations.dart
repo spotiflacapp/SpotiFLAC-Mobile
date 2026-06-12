@@ -3533,7 +3533,7 @@ abstract class AppLocalizations {
   /// Description of local library feature
   ///
   /// In en, this message translates to:
-  /// **'Scans your existing music collection to detect duplicates when downloading. Supports FLAC, M4A, MP3, Opus, and OGG formats. Metadata is read from file tags when available.'**
+  /// **'Scans your existing music collection to detect duplicates when downloading. Supports FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF, and APE formats. Metadata is read from file tags when available.'**
   String get libraryAboutDescription;
 
   /// Unit label for tracks count (without the number itself)

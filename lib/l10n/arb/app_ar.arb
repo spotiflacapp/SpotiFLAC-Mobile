@@ -226,6 +226,64 @@
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
+  "trackReplayGain": "Rescan ReplayGain",
+  "@trackReplayGain": {
+    "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
+  },
+  "trackReplayGainSubtitle": "Analyze loudness and write ReplayGain tags",
+  "@trackReplayGainSubtitle": {
+    "description": "Subtitle for the rescan ReplayGain menu option"
+  },
+  "trackReplayGainScanning": "Analyzing loudness...",
+  "@trackReplayGainScanning": {
+    "description": "Snackbar/progress message while scanning ReplayGain for a single track"
+  },
+  "trackReplayGainSuccess": "ReplayGain tags added",
+  "@trackReplayGainSuccess": {
+    "description": "Snackbar message after ReplayGain tags written for a single track"
+  },
+  "trackReplayGainFailed": "Failed to add ReplayGain tags",
+  "@trackReplayGainFailed": {
+    "description": "Snackbar message when ReplayGain scan/write fails"
+  },
+  "selectionReplayGainCount": "ReplayGain ({count})",
+  "@selectionReplayGainCount": {
+    "description": "Batch selection action button label for ReplayGain",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "replayGainBatchConfirmTitle": "Add ReplayGain",
+  "@replayGainBatchConfirmTitle": {
+    "description": "Title of the batch ReplayGain confirmation dialog"
+  },
+  "replayGainBatchConfirmMessage": "Analyze loudness and write ReplayGain tags to {count} track(s)?",
+  "@replayGainBatchConfirmMessage": {
+    "description": "Message of the batch ReplayGain confirmation dialog",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "replayGainBatchAnalyzing": "Analyzing ReplayGain...",
+  "@replayGainBatchAnalyzing": {
+    "description": "Progress dialog title while batch scanning ReplayGain"
+  },
+  "replayGainBatchSuccess": "ReplayGain added to {success} of {total} tracks",
+  "@replayGainBatchSuccess": {
+    "description": "Snackbar after batch ReplayGain completes",
+    "placeholders": {
+      "success": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "optionsArtistTagMode": "Artist Tag Mode",
   "@optionsArtistTagMode": {
     "description": "Setting title for how artist metadata is written into files"
@@ -1987,7 +2045,7 @@
   },
   "downloadLossyMp3": "MP3 320kbps",
   "@downloadLossyMp3": {
-    "description": "lossy format option - MP3 320kbps"
+    "description": "Lossy format option - MP3 320kbps"
   },
   "downloadLossyMp3Subtitle": "Best compatibility, ~10MB per track",
   "@downloadLossyMp3Subtitle": {
@@ -1995,7 +2053,7 @@
   },
   "downloadLossyAac": "AAC/M4A 320kbps",
   "@downloadLossyAac": {
-    "description": "lossy format option - AAC in M4A container at 320kbps"
+    "description": "Lossy format option - AAC in M4A container at 320kbps"
   },
   "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
   "@downloadLossyAacSubtitle": {
@@ -2003,7 +2061,7 @@
   },
   "downloadLossyOpus256": "Opus 256kbps",
   "@downloadLossyOpus256": {
-    "description": "lossy format option - Opus 256kbps"
+    "description": "Lossy format option - Opus 256kbps"
   },
   "downloadLossyOpus256Subtitle": "Best quality Opus, ~8MB per track",
   "@downloadLossyOpus256Subtitle": {
@@ -2011,7 +2069,7 @@
   },
   "downloadLossyOpus128": "Opus 128kbps",
   "@downloadLossyOpus128": {
-    "description": "lossy format option - Opus 128kbps"
+    "description": "Lossy format option - Opus 128kbps"
   },
   "downloadLossyOpus128Subtitle": "Smallest size, ~4MB per track",
   "@downloadLossyOpus128Subtitle": {
@@ -3736,6 +3794,10 @@
   "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, via proxy)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
+  },
+  "lyricsProviderLyricsPlusDesc": "Word-by-word karaoke lyrics (Apple/Musixmatch/Spotify/QQ, via proxy)",
+  "@lyricsProviderLyricsPlusDesc": {
+    "description": "Description for LyricsPlus provider"
   },
   "lyricsProviderExtensionDesc": "Extension provider",
   "@lyricsProviderExtensionDesc": {

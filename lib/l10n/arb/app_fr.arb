@@ -174,7 +174,7 @@
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
-  "optionsSwitchBack": "Choose the default search provider to switch back from an extension",
+  "optionsSwitchBack": "Choisissez le moteur de recherche par défaut pour revenir à la configuration d'origine après avoir utilisé une extension",
   "@optionsSwitchBack": {
     "description": "Hint to switch back from extension search"
   },
@@ -190,11 +190,11 @@
   "@optionsUseExtensionProviders": {
     "description": "Legacy setting label for extension download providers"
   },
-  "optionsUseExtensionProvidersOn": "Extension providers are enabled",
+  "optionsUseExtensionProvidersOn": "Les fournisseurs d'extensions sont activés",
   "@optionsUseExtensionProvidersOn": {
     "description": "Status when extension providers enabled"
   },
-  "optionsUseExtensionProvidersOff": "Extension providers are required",
+  "optionsUseExtensionProvidersOff": "Les fournisseurs d'extensions sont requis",
   "@optionsUseExtensionProvidersOff": {
     "description": "Legacy status when extension providers would be disabled"
   },
@@ -226,23 +226,23 @@
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "trackReplayGain": "Rescan ReplayGain",
+  "trackReplayGain": "Réanalyser ReplayGain",
   "@trackReplayGain": {
     "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
   },
-  "trackReplayGainSubtitle": "Analyze loudness and write ReplayGain tags",
+  "trackReplayGainSubtitle": "Analyser le niveau sonore et créer des balises ReplayGain",
   "@trackReplayGainSubtitle": {
     "description": "Subtitle for the rescan ReplayGain menu option"
   },
-  "trackReplayGainScanning": "Analyzing loudness...",
+  "trackReplayGainScanning": "Analyse du volume sonore...",
   "@trackReplayGainScanning": {
     "description": "Snackbar/progress message while scanning ReplayGain for a single track"
   },
-  "trackReplayGainSuccess": "ReplayGain tags added",
+  "trackReplayGainSuccess": "Ajout des balises ReplayGain",
   "@trackReplayGainSuccess": {
     "description": "Snackbar message after ReplayGain tags written for a single track"
   },
-  "trackReplayGainFailed": "Failed to add ReplayGain tags",
+  "trackReplayGainFailed": "Impossible d'ajouter les balises ReplayGain",
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
@@ -255,11 +255,11 @@
       }
     }
   },
-  "replayGainBatchConfirmTitle": "Add ReplayGain",
+  "replayGainBatchConfirmTitle": "Ajouter ReplayGain",
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },
-  "replayGainBatchConfirmMessage": "Analyze loudness and write ReplayGain tags to {count} track(s)?",
+  "replayGainBatchConfirmMessage": "Analyser le niveau sonore et ajouter des balises ReplayGain à {count} piste(s) ?",
   "@replayGainBatchConfirmMessage": {
     "description": "Message of the batch ReplayGain confirmation dialog",
     "placeholders": {
@@ -268,11 +268,11 @@
       }
     }
   },
-  "replayGainBatchAnalyzing": "Analyzing ReplayGain...",
+  "replayGainBatchAnalyzing": "Analyse de ReplayGain...",
   "@replayGainBatchAnalyzing": {
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
-  "replayGainBatchSuccess": "ReplayGain added to {success} of {total} tracks",
+  "replayGainBatchSuccess": "ReplayGain ajouté à {success} de {total} pistes",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -523,11 +523,11 @@
   "@aboutVersion": {
     "description": "Version info label"
   },
-  "aboutBinimumDesc": "The creator of QQDL & HiFi API. This project helped shape lossless download support.",
+  "aboutBinimumDesc": "Créateur de QQDL et de l'API HiFi. Ce projet a contribué à mettre en place la prise en charge des téléchargements sans perte.",
   "@aboutBinimumDesc": {
     "description": "Credit description for binimum"
   },
-  "aboutSachinsenalDesc": "The original HiFi project creator. A foundation for lossless-source integration.",
+  "aboutSachinsenalDesc": "Le créateur du projet HiFi original. Une base pour l'intégration de sources sans perte.",
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
@@ -1272,7 +1272,7 @@
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
-  "providerBuiltIn": "Legacy",
+  "providerBuiltIn": "Héritage",
   "@providerBuiltIn": {
     "description": "Legacy label retained for old generated localization compatibility"
   },
@@ -1796,11 +1796,11 @@
   "@storeEmptyNoResults": {
     "description": "Message when search/filter returns no results"
   },
-  "extensionDefaultProvider": "Default Search",
+  "extensionDefaultProvider": "Recherche par défaut",
   "@extensionDefaultProvider": {
     "description": "Default search provider option"
   },
-  "extensionDefaultProviderSubtitle": "Use the default metadata search",
+  "extensionDefaultProviderSubtitle": "Utiliser la recherche par métadonnées par défaut",
   "@extensionDefaultProviderSubtitle": {
     "description": "Subtitle for default provider"
   },
@@ -1808,7 +1808,7 @@
   "@extensionAuthor": {
     "description": "Extension detail - author"
   },
-  "extensionId": "ID",
+  "extensionId": "Identifiant",
   "@extensionId": {
     "description": "Extension detail - unique ID"
   },
@@ -2039,7 +2039,7 @@
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
-  "downloadLossy320FormatDesc": "Choose the output format for 320kbps lossy downloads. The original stream will be converted to your selected format when needed.",
+  "downloadLossy320FormatDesc": "Choisissez le format de sortie pour les téléchargements avec perte à 320 kbps. Le flux d'origine sera converti au format que vous aurez sélectionné lorsque cela sera nécessaire.",
   "@downloadLossy320FormatDesc": {
     "description": "Description in the lossy format picker"
   },
@@ -2782,7 +2782,7 @@
   "@tutorialWelcomeTip1": {
     "description": "Tutorial welcome tip 1"
   },
-  "tutorialWelcomeTip2": "Get FLAC quality audio from installed download extensions",
+  "tutorialWelcomeTip2": "Obtenez un son de qualité FLAC grâce aux extensions de téléchargement installées",
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
@@ -3741,7 +3741,7 @@
   "@lyricsProvidersDescription": {
     "description": "Description on the lyrics provider priority page"
   },
-  "lyricsProvidersInfoText": "Extension lyrics providers run before built-in lyrics providers. At least one provider must remain enabled.",
+  "lyricsProvidersInfoText": "Les fournisseurs de paroles d'extension s'exécutent avant les fournisseurs de paroles intégrés. Au moins un fournisseur doit rester activé.",
   "@lyricsProvidersInfoText": {
     "description": "Info tip on lyrics provider priority page"
   },
@@ -3795,7 +3795,7 @@
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
-  "lyricsProviderLyricsPlusDesc": "Word-by-word karaoke lyrics (Apple/Musixmatch/Spotify/QQ, via proxy)",
+  "lyricsProviderLyricsPlusDesc": "Paroles de karaoké mot à mot (Apple/Musixmatch/Spotify/QQ, via un proxy)",
   "@lyricsProviderLyricsPlusDesc": {
     "description": "Description for LyricsPlus provider"
   },
@@ -3983,11 +3983,11 @@
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadSelectServiceToEnable": "Select a provider with quality options to enable this option",
+  "downloadSelectServiceToEnable": "Choisissez un fournisseur proposant des options de qualité pour activer cette fonctionnalité",
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
-  "downloadSelectTidalQobuz": "Select a provider with quality options to choose audio quality",
+  "downloadSelectTidalQobuz": "Choisissez un fournisseur proposant différentes options pour sélectionner la qualité audio",
   "@downloadSelectTidalQobuz": {
     "description": "Legacy info shown when a provider does not expose quality options"
   },
@@ -4132,7 +4132,7 @@
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
-  "playlistsCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "playlistsCount": "{count, plural, one {}=1{1 playlist} other{{count} playlists}}",
   "@playlistsCount": {
     "description": "Playlist count display",
     "placeholders": {
@@ -4256,7 +4256,7 @@
       }
     }
   },
-  "queueAlbumCount": "{count, plural, =1{1 album} other{{count} albums}}",
+  "queueAlbumCount": "{count, plural, one {}=1{1 album} other{{count} albums}}",
   "@queueAlbumCount": {
     "description": "Album count label with plural support",
     "placeholders": {

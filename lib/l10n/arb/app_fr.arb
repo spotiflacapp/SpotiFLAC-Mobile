@@ -4422,7 +4422,7 @@
   "@extensionsHomeFeedAutoSubtitle": {
     "description": "Extensions page - subtitle for auto home feed option"
   },
-  "extensionsHomeFeedOff": "Off",
+  "extensionsHomeFeedOff": "Désactivé",
   "@extensionsHomeFeedOff": {
     "description": "Extensions page - home feed provider option: off"
   },
@@ -5283,7 +5283,7 @@
       }
     }
   },
-  "storeExtensionsCount": "{count} {count, plural, =1{extension} other{extensions}}",
+  "storeExtensionsCount": "{count} {count, plural, one {}=1{extension} other{extensions}}",
   "@storeExtensionsCount": {
     "description": "Store extension result count",
     "placeholders": {

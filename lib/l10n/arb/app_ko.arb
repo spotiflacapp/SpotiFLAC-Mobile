@@ -728,7 +728,7 @@
   "@setupAllowAccessToManageFiles": {
     "description": "Instruction for file access permission"
   },
-  "setupLanguageTitle": "Choose Language",
+  "setupLanguageTitle": "언어 선택",
   "@setupLanguageTitle": {
     "description": "Title for the language selection step in setup"
   },
@@ -1002,7 +1002,7 @@
   "@searchEmptyResultSubtitle": {
     "description": "Subtitle shown under the empty search result state on the home screen"
   },
-  "errorUrlNotRecognized": "Link not recognized",
+  "errorUrlNotRecognized": "링크를 인식할 수 없습니다",
   "@errorUrlNotRecognized": {
     "description": "Error title - URL not handled by any extension or service"
   },
@@ -1208,7 +1208,7 @@
   "@updateLater": {
     "description": "Update button - dismiss"
   },
-  "updateStartingDownload": "Starting download...",
+  "updateStartingDownload": "다운로드를 시작하는 중...",
   "@updateStartingDownload": {
     "description": "Update status - initializing"
   },
@@ -1220,15 +1220,15 @@
   "@updateFailedMessage": {
     "description": "Update error message"
   },
-  "updateNewVersionReady": "A new version is ready",
+  "updateNewVersionReady": "새 버전이 준비되었습니다",
   "@updateNewVersionReady": {
     "description": "Update subtitle"
   },
-  "updateCurrent": "Current",
+  "updateCurrent": "현재",
   "@updateCurrent": {
     "description": "Label for current version"
   },
-  "updateNew": "New",
+  "updateNew": "신규",
   "@updateNew": {
     "description": "Label for new version"
   },
@@ -1236,7 +1236,7 @@
   "@updateDownloading": {
     "description": "Update status - downloading"
   },
-  "updateWhatsNew": "What's New",
+  "updateWhatsNew": "새로운 기능",
   "@updateWhatsNew": {
     "description": "Changelog section title"
   },
@@ -1244,11 +1244,11 @@
   "@updateDownloadInstall": {
     "description": "Update button - download and install"
   },
-  "updateDontRemind": "Don't remind",
+  "updateDontRemind": "알림 안 함",
   "@updateDontRemind": {
     "description": "Update button - skip this version"
   },
-  "providerPriorityTitle": "Provider Priority",
+  "providerPriorityTitle": "제공자 우선순위",
   "@providerPriorityTitle": {
     "description": "Provider priority page title"
   },
@@ -1260,19 +1260,19 @@
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
-  "providerPriorityFallbackExtensionsTitle": "Extension Fallback",
+  "providerPriorityFallbackExtensionsTitle": "확장 프로그램 대체",
   "@providerPriorityFallbackExtensionsTitle": {
     "description": "Section title for choosing which download extensions can be used as fallback providers"
   },
-  "providerPriorityFallbackExtensionsDescription": "Choose which installed download extensions can be used during automatic fallback.",
+  "providerPriorityFallbackExtensionsDescription": "자동 대체 중에 사용할 수 있는 설치된 다운로드 확장 프로그램을 선택하세요.",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
-  "providerPriorityFallbackExtensionsHint": "Only enabled extensions with download-provider capability are listed here.",
+  "providerPriorityFallbackExtensionsHint": "다운로드 공급자 기능이 활성화된 확장 프로그램만 여기에 나열됩니다.",
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
-  "providerBuiltIn": "Legacy",
+  "providerBuiltIn": "레거시",
   "@providerBuiltIn": {
     "description": "Legacy label retained for old generated localization compatibility"
   },
@@ -1292,11 +1292,11 @@
   "@metadataProviderPriorityInfo": {
     "description": "Info tip about rate limits"
   },
-  "metadataNoRateLimits": "No rate limits",
+  "metadataNoRateLimits": "속도 제한 없음",
   "@metadataNoRateLimits": {
     "description": "Deezer provider description"
   },
-  "metadataMayRateLimit": "May rate limit",
+  "metadataMayRateLimit": "속도 제한이 있을 수 있음",
   "@metadataMayRateLimit": {
     "description": "Spotify provider description"
   },
@@ -1308,7 +1308,7 @@
   "@logCopied": {
     "description": "Snackbar - logs copied"
   },
-  "logSearchHint": "Search logs...",
+  "logSearchHint": "로그를 검색하는 중...",
   "@logSearchHint": {
     "description": "Log search placeholder"
   },
@@ -1418,7 +1418,7 @@
   "@sectionData": {
     "description": "Settings section header"
   },
-  "sectionDebug": "Debug",
+  "sectionDebug": "디버그",
   "@sectionDebug": {
     "description": "Settings section header"
   },
@@ -1474,15 +1474,15 @@
   "@sectionColor": {
     "description": "Settings section header"
   },
-  "sectionTheme": "Theme",
+  "sectionTheme": "테마",
   "@sectionTheme": {
     "description": "Settings section header"
   },
-  "sectionLayout": "Layout",
+  "sectionLayout": "레이아웃",
   "@sectionLayout": {
     "description": "Settings section header"
   },
-  "sectionLanguage": "Language",
+  "sectionLanguage": "언어",
   "@sectionLanguage": {
     "description": "Settings section header for language"
   },
@@ -1840,19 +1840,19 @@
   "@extensionQualityOptions": {
     "description": "Capability - quality selection"
   },
-  "extensionPostProcessingHooks": "Post-Processing Hooks",
+  "extensionPostProcessingHooks": "후처리 후크",
   "@extensionPostProcessingHooks": {
     "description": "Capability - post-processing"
   },
-  "extensionPermissions": "Permissions",
+  "extensionPermissions": "권한",
   "@extensionPermissions": {
     "description": "Section header - required permissions"
   },
-  "extensionSettings": "Settings",
+  "extensionSettings": "설정",
   "@extensionSettings": {
     "description": "Section header - extension settings"
   },
-  "extensionRemoveButton": "Remove Extension",
+  "extensionRemoveButton": "확장 프로그램 제거",
   "@extensionRemoveButton": {
     "description": "Button to uninstall extension"
   },
@@ -1860,19 +1860,19 @@
   "@extensionUpdated": {
     "description": "Extension detail - last update"
   },
-  "extensionMinAppVersion": "Min App Version",
+  "extensionMinAppVersion": "최소 앱 버전",
   "@extensionMinAppVersion": {
     "description": "Extension detail - minimum app version"
   },
-  "extensionCustomTrackMatching": "Custom Track Matching",
+  "extensionCustomTrackMatching": "사용자 정의 트랙 매칭",
   "@extensionCustomTrackMatching": {
     "description": "Capability - custom track matching algorithm"
   },
-  "extensionPostProcessing": "Post-Processing",
+  "extensionPostProcessing": "후처리",
   "@extensionPostProcessing": {
     "description": "Capability - post-download processing"
   },
-  "extensionHooksAvailable": "{count} hook(s) available",
+  "extensionHooksAvailable": "{count} 개의 후크 사용 가능",
   "@extensionHooksAvailable": {
     "description": "Post-processing hooks count",
     "placeholders": {
@@ -1881,7 +1881,7 @@
       }
     }
   },
-  "extensionPatternsCount": "{count} pattern(s)",
+  "extensionPatternsCount": "{count} 개의 패턴",
   "@extensionPatternsCount": {
     "description": "URL patterns count",
     "placeholders": {
@@ -1890,7 +1890,7 @@
       }
     }
   },
-  "extensionStrategy": "Strategy: {strategy}",
+  "extensionStrategy": "전략: {strategy}",
   "@extensionStrategy": {
     "description": "Track matching strategy name",
     "placeholders": {
@@ -1899,35 +1899,35 @@
       }
     }
   },
-  "extensionsProviderPrioritySection": "Provider Priority",
+  "extensionsProviderPrioritySection": "제공자 우선순위",
   "@extensionsProviderPrioritySection": {
     "description": "Section header - provider priority"
   },
-  "extensionsInstalledSection": "Installed Extensions",
+  "extensionsInstalledSection": "설치된 확장 프로그램",
   "@extensionsInstalledSection": {
     "description": "Section header - installed extensions"
   },
-  "extensionsNoExtensions": "No extensions installed",
+  "extensionsNoExtensions": "설치된 확장 프로그램이 없습니다",
   "@extensionsNoExtensions": {
     "description": "Empty state - no extensions"
   },
-  "extensionsNoExtensionsSubtitle": "Install .spotiflac-ext files to add new providers",
+  "extensionsNoExtensionsSubtitle": "새 제공자를 추가하려면 .spotiflac-ext 파일을 설치하세요",
   "@extensionsNoExtensionsSubtitle": {
     "description": "Empty state subtitle"
   },
-  "extensionsInstallButton": "Install Extension",
+  "extensionsInstallButton": "확장 프로그램 설치",
   "@extensionsInstallButton": {
     "description": "Button to install extension from file"
   },
-  "extensionsInfoTip": "Extensions can add new metadata and download providers. Only install extensions from trusted sources.",
+  "extensionsInfoTip": "확장 프로그램은 새로운 메타데이터와 다운로드 제공자를 추가할 수 있습니다. 신뢰할 수 있는 출처에서만 확장 프로그램을 설치하세요.",
   "@extensionsInfoTip": {
     "description": "Security warning about extensions"
   },
-  "extensionsInstalledSuccess": "Extension installed successfully",
+  "extensionsInstalledSuccess": "확장 프로그램을 성공적으로 설치하였습니다",
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} extensions installed successfully",
+  "extensionsInstalledCount": "{count} 개의 확장 프로그램을 성공적으로 설치하였습니다",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -1951,15 +1951,15 @@
       }
     }
   },
-  "extensionsDownloadPriority": "Download Priority",
+  "extensionsDownloadPriority": "다운로드 우선순위",
   "@extensionsDownloadPriority": {
     "description": "Setting - download provider order"
   },
-  "extensionsDownloadPrioritySubtitle": "Set download service order",
+  "extensionsDownloadPrioritySubtitle": "다운로드 서비스 순서를 설정하세요",
   "@extensionsDownloadPrioritySubtitle": {
     "description": "Subtitle for download priority"
   },
-  "extensionsFallbackTitle": "Fallback Extensions",
+  "extensionsFallbackTitle": "대체 확장 프로그램",
   "@extensionsFallbackTitle": {
     "description": "Setting and page title for choosing which download extensions can be used during fallback"
   },
@@ -1971,7 +1971,7 @@
   "@extensionsNoDownloadProvider": {
     "description": "Empty state - no download providers"
   },
-  "extensionsMetadataPriority": "Metadata Priority",
+  "extensionsMetadataPriority": "메타데이터 우선순위",
   "@extensionsMetadataPriority": {
     "description": "Setting - metadata provider order"
   },
@@ -1983,7 +1983,7 @@
   "@extensionsNoMetadataProvider": {
     "description": "Empty state - no metadata providers"
   },
-  "extensionsSearchProvider": "Search Provider",
+  "extensionsSearchProvider": "검색 제공자",
   "@extensionsSearchProvider": {
     "description": "Setting - search provider selection"
   },
@@ -1999,11 +1999,11 @@
   "@extensionsCustomSearch": {
     "description": "Label for custom search provider"
   },
-  "extensionsErrorLoading": "Error loading extension",
+  "extensionsErrorLoading": "확장 프로그램 불러오기 오류",
   "@extensionsErrorLoading": {
     "description": "Error message when extension fails to load"
   },
-  "qualityFlacLossless": "FLAC Lossless",
+  "qualityFlacLossless": "FLAC 무손실",
   "@qualityFlacLossless": {
     "description": "Quality option - CD quality FLAC"
   },
@@ -2027,15 +2027,15 @@
   "@qualityHiResFlacMaxSubtitle": {
     "description": "Technical spec for hi-res max"
   },
-  "downloadLossy320": "Lossy 320kbps",
+  "downloadLossy320": "손실 압축 320kbps",
   "@downloadLossy320": {
     "description": "Quality option label for lossy 320kbps"
   },
-  "downloadLossyFormat": "Lossy Format",
+  "downloadLossyFormat": "손실 압축 형식",
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadLossy320Format": "Lossy 320kbps Format",
+  "downloadLossy320Format": "손실 압축 320kbps 형식",
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
@@ -2047,7 +2047,7 @@
   "@downloadLossyMp3": {
     "description": "Lossy format option - MP3 320kbps"
   },
-  "downloadLossyMp3Subtitle": "Best compatibility, ~10MB per track",
+  "downloadLossyMp3Subtitle": "최상의 호환성, 트랙당 약 10MB",
   "@downloadLossyMp3Subtitle": {
     "description": "Subtitle for MP3 320kbps lossy option"
   },
@@ -2055,7 +2055,7 @@
   "@downloadLossyAac": {
     "description": "Lossy format option - AAC in M4A container at 320kbps"
   },
-  "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
+  "downloadLossyAacSubtitle": "최상의 모바일 호환성, M4A 컨테이너",
   "@downloadLossyAacSubtitle": {
     "description": "Subtitle for AAC/M4A 320kbps lossy option"
   },
@@ -2063,7 +2063,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "Best quality Opus, ~8MB per track",
+  "downloadLossyOpus256Subtitle": "최고 음질 Opus, 트랙당 약 8MB",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2250,7 +2250,7 @@
   "@downloadedAlbumSelectToDelete": {
     "description": "Placeholder when nothing selected"
   },
-  "downloadedAlbumDiscHeader": "Disc {discNumber}",
+  "downloadedAlbumDiscHeader": "디스크 {discNumber}",
   "@downloadedAlbumDiscHeader": {
     "description": "Header for disc separator in multi-disc albums",
     "placeholders": {
@@ -2260,19 +2260,19 @@
       }
     }
   },
-  "recentTypeArtist": "Artist",
+  "recentTypeArtist": "아티스트",
   "@recentTypeArtist": {
     "description": "Recent access item type - artist"
   },
-  "recentTypeAlbum": "Album",
+  "recentTypeAlbum": "앨범",
   "@recentTypeAlbum": {
     "description": "Recent access item type - album"
   },
-  "recentTypeSong": "Song",
+  "recentTypeSong": "노래",
   "@recentTypeSong": {
     "description": "Recent access item type - song/track"
   },
-  "recentTypePlaylist": "Playlist",
+  "recentTypePlaylist": "재생목록",
   "@recentTypePlaylist": {
     "description": "Recent access item type - playlist"
   },
@@ -2280,11 +2280,11 @@
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
-  "recentShowAllDownloads": "Show All Downloads",
+  "recentShowAllDownloads": "모든 다운로드 표시",
   "@recentShowAllDownloads": {
     "description": "Button label to unhide hidden downloads in recent access"
   },
-  "recentPlaylistInfo": "Playlist: {name}",
+  "recentPlaylistInfo": "재생목록: {name}",
   "@recentPlaylistInfo": {
     "description": "Snackbar message when tapping playlist in recent access",
     "placeholders": {
@@ -2298,7 +2298,7 @@
   "@discographyDownload": {
     "description": "Button - download artist discography"
   },
-  "discographyDownloadAll": "Download All",
+  "discographyDownloadAll": "모두 다운로드",
   "@discographyDownloadAll": {
     "description": "Option - download entire discography"
   },
@@ -2314,7 +2314,7 @@
       }
     }
   },
-  "discographyAlbumsOnly": "Albums Only",
+  "discographyAlbumsOnly": "앨범만",
   "@discographyAlbumsOnly": {
     "description": "Option - download only albums"
   },
@@ -2330,7 +2330,7 @@
       }
     }
   },
-  "discographySinglesOnly": "Singles & EPs Only",
+  "discographySinglesOnly": "싱글 & EP만",
   "@discographySinglesOnly": {
     "description": "Option - download only singles"
   },
@@ -2346,7 +2346,7 @@
       }
     }
   },
-  "discographySelectAlbums": "Select Albums...",
+  "discographySelectAlbums": "앨범 검색...",
   "@discographySelectAlbums": {
     "description": "Option - manually select albums to download"
   },
@@ -2412,19 +2412,19 @@
   "@discographyFailedToFetch": {
     "description": "Error - some albums failed to load"
   },
-  "sectionStorageAccess": "Storage Access",
+  "sectionStorageAccess": "기기 저장소 접근",
   "@sectionStorageAccess": {
     "description": "Section header for storage access settings"
   },
-  "allFilesAccess": "All Files Access",
+  "allFilesAccess": "모든 파일 접근",
   "@allFilesAccess": {
     "description": "Toggle for MANAGE_EXTERNAL_STORAGE permission"
   },
-  "allFilesAccessEnabledSubtitle": "Can write to any folder",
+  "allFilesAccessEnabledSubtitle": "모든 폴더에 쓰기 가능",
   "@allFilesAccessEnabledSubtitle": {
     "description": "Subtitle when all files access is enabled"
   },
-  "allFilesAccessDisabledSubtitle": "Limited to media folders only",
+  "allFilesAccessDisabledSubtitle": "미디아 폴더에만 제한됨",
   "@allFilesAccessDisabledSubtitle": {
     "description": "Subtitle when all files access is disabled"
   },
@@ -2440,15 +2440,15 @@
   "@allFilesAccessDisabledMessage": {
     "description": "Snackbar message when user disables all files access"
   },
-  "settingsLocalLibrary": "Local Library",
+  "settingsLocalLibrary": "로컬 보관함",
   "@settingsLocalLibrary": {
     "description": "Settings menu item - local library"
   },
-  "settingsLocalLibrarySubtitle": "Scan music & detect duplicates",
+  "settingsLocalLibrarySubtitle": "음악 스캔 & 중복 감지",
   "@settingsLocalLibrarySubtitle": {
     "description": "Subtitle for local library settings"
   },
-  "settingsCache": "Storage & Cache",
+  "settingsCache": "기기 저장소 & 캐시",
   "@settingsCache": {
     "description": "Settings menu item - cache management"
   },
@@ -2456,15 +2456,15 @@
   "@settingsCacheSubtitle": {
     "description": "Subtitle for cache management menu"
   },
-  "libraryTitle": "Local Library",
+  "libraryTitle": "로컬 보관함",
   "@libraryTitle": {
     "description": "Library settings page title"
   },
-  "libraryScanSettings": "Scan Settings",
+  "libraryScanSettings": "스캔 설정",
   "@libraryScanSettings": {
     "description": "Section header for scan settings"
   },
-  "libraryEnableLocalLibrary": "Enable Local Library",
+  "libraryEnableLocalLibrary": "로컬 보관함 활성화",
   "@libraryEnableLocalLibrary": {
     "description": "Toggle to enable library scanning"
   },
@@ -2472,15 +2472,15 @@
   "@libraryEnableLocalLibrarySubtitle": {
     "description": "Subtitle for enable toggle"
   },
-  "libraryFolder": "Library Folder",
+  "libraryFolder": "보관함 폴더",
   "@libraryFolder": {
     "description": "Folder selection setting"
   },
-  "libraryFolderHint": "Tap to select folder",
+  "libraryFolderHint": "탭하여 폴더를 선택하세요",
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
-  "libraryShowDuplicateIndicator": "Show Duplicate Indicator",
+  "libraryShowDuplicateIndicator": "중복 표시기 표시",
   "@libraryShowDuplicateIndicator": {
     "description": "Toggle for duplicate indicator in search"
   },
@@ -2488,7 +2488,7 @@
   "@libraryShowDuplicateIndicatorSubtitle": {
     "description": "Subtitle for duplicate indicator toggle"
   },
-  "libraryAutoScan": "Auto Scan",
+  "libraryAutoScan": "자동 스캔",
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
@@ -2496,7 +2496,7 @@
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
-  "libraryAutoScanOff": "Off",
+  "libraryAutoScanOff": "끄기",
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
@@ -2504,7 +2504,7 @@
   "@libraryAutoScanOnOpen": {
     "description": "Auto scan when app opens"
   },
-  "libraryAutoScanDaily": "Daily",
+  "libraryAutoScanDaily": "매일",
   "@libraryAutoScanDaily": {
     "description": "Auto scan once per day"
   },
@@ -2648,7 +2648,7 @@
   "@librarySourceLocal": {
     "description": "Badge for tracks from local library scan"
   },
-  "libraryFilterAll": "All",
+  "libraryFilterAll": "모두",
   "@libraryFilterAll": {
     "description": "Filter chip - show all library items"
   },
@@ -2656,27 +2656,27 @@
   "@libraryFilterDownloaded": {
     "description": "Filter chip - show only downloaded items"
   },
-  "libraryFilterLocal": "Local",
+  "libraryFilterLocal": "로컬",
   "@libraryFilterLocal": {
     "description": "Filter chip - show only local library items"
   },
-  "libraryFilterTitle": "Filters",
+  "libraryFilterTitle": "필터",
   "@libraryFilterTitle": {
     "description": "Filter bottom sheet title"
   },
-  "libraryFilterReset": "Reset",
+  "libraryFilterReset": "초기화",
   "@libraryFilterReset": {
     "description": "Reset all filters button"
   },
-  "libraryFilterApply": "Apply",
+  "libraryFilterApply": "적용",
   "@libraryFilterApply": {
     "description": "Apply filters button"
   },
-  "libraryFilterSource": "Source",
+  "libraryFilterSource": "소스",
   "@libraryFilterSource": {
     "description": "Filter section - source type"
   },
-  "libraryFilterQuality": "Quality",
+  "libraryFilterQuality": "음질",
   "@libraryFilterQuality": {
     "description": "Filter section - audio quality"
   },
@@ -2688,7 +2688,7 @@
   "@libraryFilterQualityCD": {
     "description": "Filter option - CD quality audio"
   },
-  "libraryFilterQualityLossy": "Lossy",
+  "libraryFilterQualityLossy": "손실 압축",
   "@libraryFilterQualityLossy": {
     "description": "Filter option - lossy compressed audio"
   },

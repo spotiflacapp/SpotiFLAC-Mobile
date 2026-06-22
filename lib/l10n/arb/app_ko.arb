@@ -5,23 +5,23 @@
   "@appName": {
     "description": "App name - DO NOT TRANSLATE"
   },
-  "navHome": "Home",
+  "navHome": "홈",
   "@navHome": {
     "description": "Bottom navigation - Home tab"
   },
-  "navLibrary": "Library",
+  "navLibrary": "보관함",
   "@navLibrary": {
     "description": "Bottom navigation - Library tab"
   },
-  "navSettings": "Settings",
+  "navSettings": "설정",
   "@navSettings": {
     "description": "Bottom navigation - Settings tab"
   },
-  "navStore": "Repo",
+  "navStore": "저장소",
   "@navStore": {
     "description": "Bottom navigation - Extension store tab"
   },
-  "homeTitle": "Home",
+  "homeTitle": "홈",
   "@homeTitle": {
     "description": "Home screen title"
   },
@@ -29,7 +29,7 @@
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
-  "homeEmptyTitle": "No search providers yet",
+  "homeEmptyTitle": "아직 검색 공급자가 없습니다",
   "@homeEmptyTitle": {
     "description": "Title shown on home when no providers are available yet"
   },
@@ -49,11 +49,11 @@
   "@historyFilterAll": {
     "description": "Filter chip - show all items"
   },
-  "historyFilterAlbums": "Albums",
+  "historyFilterAlbums": "앨범",
   "@historyFilterAlbums": {
     "description": "Filter chip - show albums only"
   },
-  "historyFilterSingles": "Singles",
+  "historyFilterSingles": "싱글",
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
@@ -61,7 +61,7 @@
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
   },
-  "settingsTitle": "Settings",
+  "settingsTitle": "설정",
   "@settingsTitle": {
     "description": "Settings screen title"
   },
@@ -97,7 +97,7 @@
   "@downloadFilenameFormat": {
     "description": "Setting for output filename pattern"
   },
-  "downloadSingleFilenameFormat": "Single Filename Format",
+  "downloadSingleFilenameFormat": "싱글 파일 이름 형식",
   "@downloadSingleFilenameFormat": {
     "description": "Setting for output filename pattern for singles/EPs"
   },
@@ -125,7 +125,7 @@
   "@appearanceThemeDark": {
     "description": "Dark theme"
   },
-  "appearanceDynamicColor": "Dynamic Color",
+  "appearanceDynamicColor": "동적 색상",
   "@appearanceDynamicColor": {
     "description": "Material You dynamic colors"
   },
@@ -137,11 +137,11 @@
   "@appearanceHistoryView": {
     "description": "Layout style for history"
   },
-  "appearanceHistoryViewList": "List",
+  "appearanceHistoryViewList": "리스트",
   "@appearanceHistoryViewList": {
     "description": "List layout option"
   },
-  "appearanceHistoryViewGrid": "Grid",
+  "appearanceHistoryViewGrid": "그리드",
   "@appearanceHistoryViewGrid": {
     "description": "Grid layout option"
   },
@@ -166,7 +166,7 @@
       }
     }
   },
-  "optionsDefaultSearchTab": "Default Search Tab",
+  "optionsDefaultSearchTab": "기본 검색 탭",
   "@optionsDefaultSearchTab": {
     "description": "Title for the preferred default search tab setting"
   },
@@ -284,7 +284,7 @@
       }
     }
   },
-  "optionsArtistTagMode": "Artist Tag Mode",
+  "optionsArtistTagMode": "아티스트 태그 모드",
   "@optionsArtistTagMode": {
     "description": "Setting title for how artist metadata is written into files"
   },
@@ -300,7 +300,7 @@
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
-  "optionsArtistTagModeSplitVorbis": "Split tags for FLAC/Opus",
+  "optionsArtistTagModeSplitVorbis": "FLAC/Opus용 태그 분할",
   "@optionsArtistTagModeSplitVorbis": {
     "description": "Artist tag mode option that writes repeated ARTIST tags for Vorbis formats"
   },
@@ -308,7 +308,7 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "Extension Repo",
+  "optionsExtensionStore": "확장 프로그램 저장소",
   "@optionsExtensionStore": {
     "description": "Show/hide store tab"
   },
@@ -415,7 +415,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "Extension Repo",
+  "storeTitle": "확장 프로그램 저장소",
   "@storeTitle": {
     "description": "Store screen title"
   },
@@ -1108,19 +1108,19 @@
   "@searchSortDefault": {
     "description": "Sort option - default API order"
   },
-  "searchSortTitleAZ": "Title (A-Z)",
+  "searchSortTitleAZ": "제목 (오름차순)",
   "@searchSortTitleAZ": {
     "description": "Sort option - title ascending"
   },
-  "searchSortTitleZA": "Title (Z-A)",
+  "searchSortTitleZA": "제목 (내림차순)",
   "@searchSortTitleZA": {
     "description": "Sort option - title descending"
   },
-  "searchSortArtistAZ": "Artist (A-Z)",
+  "searchSortArtistAZ": "아티스트 (오름차순)",
   "@searchSortArtistAZ": {
     "description": "Sort option - artist ascending"
   },
-  "searchSortArtistZA": "Artist (Z-A)",
+  "searchSortArtistZA": "아티스트 (내림차순)",
   "@searchSortArtistZA": {
     "description": "Sort option - artist descending"
   },
@@ -1132,11 +1132,11 @@
   "@searchSortDurationLong": {
     "description": "Sort option - longest duration first"
   },
-  "searchSortDateOldest": "Release Date (Oldest)",
+  "searchSortDateOldest": "발매일자 (오래된순)",
   "@searchSortDateOldest": {
     "description": "Sort option - oldest release first"
   },
-  "searchSortDateNewest": "Release Date (Newest)",
+  "searchSortDateNewest": "발매일자 (최신순)",
   "@searchSortDateNewest": {
     "description": "Sort option - newest release first"
   },
@@ -1144,7 +1144,7 @@
   "@tooltipPlay": {
     "description": "Tooltip - play button"
   },
-  "filenameFormat": "Filename Format",
+  "filenameFormat": "파일 이름 형식",
   "@filenameFormat": {
     "description": "Setting title - filename pattern"
   },
@@ -1200,7 +1200,7 @@
   "@folderOrganizationByArtistAlbumSubtitle": {
     "description": "Subtitle for nested folder option"
   },
-  "updateAvailable": "Update Available",
+  "updateAvailable": "업데이트 사용 가능",
   "@updateAvailable": {
     "description": "Update dialog title"
   },
@@ -1240,7 +1240,7 @@
   "@updateWhatsNew": {
     "description": "Changelog section title"
   },
-  "updateDownloadInstall": "Download & Install",
+  "updateDownloadInstall": "다운로드 & 설치",
   "@updateDownloadInstall": {
     "description": "Update button - download and install"
   },
@@ -1494,27 +1494,27 @@
   "@settingsAppearanceSubtitle": {
     "description": "Appearance settings description"
   },
-  "settingsDownloadSubtitle": "Service, quality, fallback",
+  "settingsDownloadSubtitle": "서비스, 품질, 대체",
   "@settingsDownloadSubtitle": {
     "description": "Download settings description"
   },
-  "settingsOptionsSubtitle": "Fallback, metadata, lyrics, cover art",
+  "settingsOptionsSubtitle": "대체, 메타데이터, 가사, 표지 이미지",
   "@settingsOptionsSubtitle": {
     "description": "Options settings description"
   },
-  "settingsExtensionsSubtitle": "Manage download providers",
+  "settingsExtensionsSubtitle": "다운로드 제공자 관리",
   "@settingsExtensionsSubtitle": {
     "description": "Extensions settings description"
   },
-  "settingsLogsSubtitle": "View app logs for debugging",
+  "settingsLogsSubtitle": "디버깅을 위한 앱 로그 보기",
   "@settingsLogsSubtitle": {
     "description": "Logs settings description"
   },
-  "loadingSharedLink": "Loading shared link...",
+  "loadingSharedLink": "공유된 링크를 불러오는 중...",
   "@loadingSharedLink": {
     "description": "Status when opening shared URL"
   },
-  "pressBackAgainToExit": "Press back again to exit",
+  "pressBackAgainToExit": "종료하려면 뒤로가기 버튼을 다시 탭하세요",
   "@pressBackAgainToExit": {
     "description": "Exit confirmation message"
   },

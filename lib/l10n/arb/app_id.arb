@@ -25,7 +25,7 @@
   "@homeTitle": {
     "description": "Home screen title"
   },
-  "homeSubtitle": "Paste a supported URL or search by name",
+  "homeSubtitle": "Tempel URL yang didukung atau cari berdasarkan nama",
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
@@ -166,7 +166,7 @@
       }
     }
   },
-  "optionsDefaultSearchTab": "Default Search Tab",
+  "optionsDefaultSearchTab": "Tab Pencarian Default",
   "@optionsDefaultSearchTab": {
     "description": "Title for the preferred default search tab setting"
   },

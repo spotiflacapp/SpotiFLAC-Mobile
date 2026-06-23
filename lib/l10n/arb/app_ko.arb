@@ -1320,7 +1320,7 @@
   "@logFilterSection": {
     "description": "Filter section title"
   },
-  "logShareLogs": "Share logs",
+  "logShareLogs": "로그 공유",
   "@logShareLogs": {
     "description": "Share button tooltip"
   },
@@ -1374,7 +1374,7 @@
   "@credentialsDescription": {
     "description": "Credentials dialog explanation"
   },
-  "credentialsClientId": "Client ID",
+  "credentialsClientId": "클라이언트 ID",
   "@credentialsClientId": {
     "description": "Client ID field label - DO NOT TRANSLATE"
   },
@@ -1796,7 +1796,7 @@
   "@storeEmptyNoResults": {
     "description": "Message when search/filter returns no results"
   },
-  "extensionDefaultProvider": "Default Search",
+  "extensionDefaultProvider": "기본 검색",
   "@extensionDefaultProvider": {
     "description": "Default search provider option"
   },
@@ -1804,7 +1804,7 @@
   "@extensionDefaultProviderSubtitle": {
     "description": "Subtitle for default provider"
   },
-  "extensionAuthor": "Author",
+  "extensionAuthor": "작성자",
   "@extensionAuthor": {
     "description": "Extension detail - author"
   },
@@ -1812,31 +1812,31 @@
   "@extensionId": {
     "description": "Extension detail - unique ID"
   },
-  "extensionError": "Error",
+  "extensionError": "오류",
   "@extensionError": {
     "description": "Extension detail - error message"
   },
-  "extensionCapabilities": "Capabilities",
+  "extensionCapabilities": "기능",
   "@extensionCapabilities": {
     "description": "Section header - extension features"
   },
-  "extensionMetadataProvider": "Metadata Provider",
+  "extensionMetadataProvider": "메타데이터 제공자",
   "@extensionMetadataProvider": {
     "description": "Capability - provides metadata"
   },
-  "extensionDownloadProvider": "Download Provider",
+  "extensionDownloadProvider": "다운로드 제공자",
   "@extensionDownloadProvider": {
     "description": "Capability - provides downloads"
   },
-  "extensionLyricsProvider": "Lyrics Provider",
+  "extensionLyricsProvider": "가사 제공자",
   "@extensionLyricsProvider": {
     "description": "Capability - provides lyrics"
   },
-  "extensionUrlHandler": "URL Handler",
+  "extensionUrlHandler": "URL 핸들러",
   "@extensionUrlHandler": {
     "description": "Capability - handles URLs"
   },
-  "extensionQualityOptions": "Quality Options",
+  "extensionQualityOptions": "품질 옵션",
   "@extensionQualityOptions": {
     "description": "Capability - quality selection"
   },
@@ -2063,7 +2063,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "최고 음질 Opus, 트랙당 약 8MB",
+  "downloadLossyOpus256Subtitle": "최고 품질 Opus, 트랙당 약 8MB",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2079,27 +2079,27 @@
   "@qualityNote": {
     "description": "Note about quality availability"
   },
-  "downloadAskBeforeDownload": "Ask Before Download",
+  "downloadAskBeforeDownload": "다운로드 전 확인",
   "@downloadAskBeforeDownload": {
     "description": "Setting - show quality picker"
   },
-  "downloadDirectory": "Download Directory",
+  "downloadDirectory": "다운로드 디렉토리",
   "@downloadDirectory": {
     "description": "Setting - download folder"
   },
-  "downloadSeparateSinglesFolder": "Separate Singles Folder",
+  "downloadSeparateSinglesFolder": "싱글 폴더 별도 다운로드",
   "@downloadSeparateSinglesFolder": {
     "description": "Setting - separate folder for singles"
   },
-  "downloadAlbumFolderStructure": "Album Folder Structure",
+  "downloadAlbumFolderStructure": "앨범 폴더 구조",
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "downloadUseAlbumArtistForFolders": "Use Album Artist for folders",
+  "downloadUseAlbumArtistForFolders": "폴더에 앨범 아티스트 사용",
   "@downloadUseAlbumArtistForFolders": {
     "description": "Setting - choose whether artist folders use Album Artist or Track Artist"
   },
-  "downloadUsePrimaryArtistOnly": "Primary artist only for folders",
+  "downloadUsePrimaryArtistOnly": "폴더에 기본 아티스트만 사용",
   "@downloadUsePrimaryArtistOnly": {
     "description": "Setting - strip featured artists from folder name"
   },
@@ -2111,11 +2111,11 @@
   "@downloadUsePrimaryArtistOnlyDisabled": {
     "description": "Subtitle when primary artist only is disabled"
   },
-  "downloadSelectQuality": "Select Quality",
+  "downloadSelectQuality": "품질 선택",
   "@downloadSelectQuality": {
     "description": "Dialog title - choose audio quality"
   },
-  "downloadFrom": "Download From",
+  "downloadFrom": "다운로드 대상",
   "@downloadFrom": {
     "description": "Label - download source"
   },
@@ -2127,31 +2127,31 @@
   "@appearanceAmoledDarkSubtitle": {
     "description": "Subtitle for AMOLED dark"
   },
-  "queueClearAll": "Clear All",
+  "queueClearAll": "모두 지우기",
   "@queueClearAll": {
     "description": "Button - clear all queue items"
   },
-  "queueClearAllMessage": "Are you sure you want to clear all downloads?",
+  "queueClearAllMessage": "모든 다운로드를 지우시겠습니까?",
   "@queueClearAllMessage": {
     "description": "Clear queue confirmation"
   },
-  "settingsAutoExportFailed": "Auto-export failed downloads",
+  "settingsAutoExportFailed": "실패한 다운로드 자동 내보내기",
   "@settingsAutoExportFailed": {
     "description": "Setting toggle for auto-export"
   },
-  "settingsAutoExportFailedSubtitle": "Save failed downloads to TXT file automatically",
+  "settingsAutoExportFailedSubtitle": "실패한 다운로드를 TXT 파일으로 자동 저장합니다",
   "@settingsAutoExportFailedSubtitle": {
     "description": "Subtitle for auto-export setting"
   },
-  "settingsDownloadNetwork": "Download Network",
+  "settingsDownloadNetwork": "다운로드 네트워크",
   "@settingsDownloadNetwork": {
     "description": "Setting for network type preference"
   },
-  "settingsDownloadNetworkAny": "WiFi + Mobile Data",
+  "settingsDownloadNetworkAny": "WiFi + 모바일 네트워크",
   "@settingsDownloadNetworkAny": {
     "description": "Network option - use any connection"
   },
-  "settingsDownloadNetworkWifiOnly": "WiFi Only",
+  "settingsDownloadNetworkWifiOnly": "WiFi 전용",
   "@settingsDownloadNetworkWifiOnly": {
     "description": "Network option - only use WiFi"
   },
@@ -2159,31 +2159,31 @@
   "@settingsDownloadNetworkSubtitle": {
     "description": "Subtitle explaining network preference"
   },
-  "albumFolderArtistAlbum": "Artist / Album",
+  "albumFolderArtistAlbum": "아티스트 / 앨범",
   "@albumFolderArtistAlbum": {
     "description": "Album folder option"
   },
-  "albumFolderArtistAlbumSubtitle": "Albums/Artist Name/Album Name/",
+  "albumFolderArtistAlbumSubtitle": "앨범/아티스트 이름/앨범 이름/",
   "@albumFolderArtistAlbumSubtitle": {
     "description": "Folder structure example"
   },
-  "albumFolderArtistYearAlbum": "Artist / [Year] Album",
+  "albumFolderArtistYearAlbum": "아티스트 / [연도] 앨범",
   "@albumFolderArtistYearAlbum": {
     "description": "Album folder option with year"
   },
-  "albumFolderArtistYearAlbumSubtitle": "Albums/Artist Name/[2005] Album Name/",
+  "albumFolderArtistYearAlbumSubtitle": "앨범/아티스트 이름/[2005] 앨범 이름/",
   "@albumFolderArtistYearAlbumSubtitle": {
     "description": "Folder structure example"
   },
-  "albumFolderAlbumOnly": "Album Only",
+  "albumFolderAlbumOnly": "앨범만",
   "@albumFolderAlbumOnly": {
     "description": "Album folder option"
   },
-  "albumFolderAlbumOnlySubtitle": "Albums/Album Name/",
+  "albumFolderAlbumOnlySubtitle": "앨범/앨범 이름/",
   "@albumFolderAlbumOnlySubtitle": {
     "description": "Folder structure example"
   },
-  "albumFolderYearAlbum": "[Year] Album",
+  "albumFolderYearAlbum": "[연도] 앨범",
   "@albumFolderYearAlbum": {
     "description": "Album folder option with year"
   },
@@ -2246,7 +2246,7 @@
       }
     }
   },
-  "downloadedAlbumSelectToDelete": "Select tracks to delete",
+  "downloadedAlbumSelectToDelete": "삭제할 트랙 선택",
   "@downloadedAlbumSelectToDelete": {
     "description": "Placeholder when nothing selected"
   },
@@ -2276,7 +2276,7 @@
   "@recentTypePlaylist": {
     "description": "Recent access item type - playlist"
   },
-  "recentEmpty": "No recent items yet",
+  "recentEmpty": "최근 항목이 없습니다",
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
@@ -2294,7 +2294,7 @@
       }
     }
   },
-  "discographyDownload": "Download Discography",
+  "discographyDownload": "디스코그래피 다운로드",
   "@discographyDownload": {
     "description": "Button - download artist discography"
   },
@@ -2354,11 +2354,11 @@
   "@discographySelectAlbumsSubtitle": {
     "description": "Subtitle for select albums option"
   },
-  "discographyFetchingTracks": "Fetching tracks...",
+  "discographyFetchingTracks": "트랙을 가져오는 중...",
   "@discographyFetchingTracks": {
     "description": "Progress - fetching album tracks"
   },
-  "discographyFetchingAlbum": "Fetching {current} of {total}...",
+  "discographyFetchingAlbum": "{total} 개 중에 {current} 개를 가져오는 중...",
   "@discographyFetchingAlbum": {
     "description": "Progress - fetching specific album",
     "placeholders": {
@@ -2508,23 +2508,23 @@
   "@libraryAutoScanDaily": {
     "description": "Auto scan once per day"
   },
-  "libraryAutoScanWeekly": "Weekly",
+  "libraryAutoScanWeekly": "주간",
   "@libraryAutoScanWeekly": {
     "description": "Auto scan once per week"
   },
-  "libraryActions": "Actions",
+  "libraryActions": "작업",
   "@libraryActions": {
     "description": "Section header for library actions"
   },
-  "libraryScan": "Scan Library",
+  "libraryScan": "보관함 스캔",
   "@libraryScan": {
     "description": "Button to start library scan"
   },
-  "libraryScanSubtitle": "Scan for audio files",
+  "libraryScanSubtitle": "오디오 파일 스캔",
   "@libraryScanSubtitle": {
     "description": "Subtitle for scan button"
   },
-  "libraryScanSelectFolderFirst": "Select a folder first",
+  "libraryScanSelectFolderFirst": "먼저 폴더를 선택하세요",
   "@libraryScanSelectFolderFirst": {
     "description": "Message when trying to scan without folder"
   },
@@ -2676,7 +2676,7 @@
   "@libraryFilterSource": {
     "description": "Filter section - source type"
   },
-  "libraryFilterQuality": "음질",
+  "libraryFilterQuality": "품질",
   "@libraryFilterQuality": {
     "description": "Filter section - audio quality"
   },

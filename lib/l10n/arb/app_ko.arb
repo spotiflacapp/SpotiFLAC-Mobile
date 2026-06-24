@@ -1620,7 +1620,7 @@
   "@trackCopyright": {
     "description": "Metadata label - copyright information"
   },
-  "trackDownloaded": "다운로드 완료",
+  "trackDownloaded": "다운로드됨",
   "@trackDownloaded": {
     "description": "Metadata label - download date"
   },
@@ -1856,7 +1856,7 @@
   "@extensionRemoveButton": {
     "description": "Button to uninstall extension"
   },
-  "extensionUpdated": "업데이트 완료",
+  "extensionUpdated": "다운로드됨",
   "@extensionUpdated": {
     "description": "Extension detail - last update"
   },
@@ -2015,7 +2015,7 @@
   "@qualityHiResFlac": {
     "description": "Quality option - high resolution FLAC"
   },
-  "qualityHiResFlacSubtitle": "24-bit / up to 96kHz",
+  "qualityHiResFlacSubtitle": "24-bit / 최대 96kHz",
   "@qualityHiResFlacSubtitle": {
     "description": "Technical spec for hi-res"
   },
@@ -2023,7 +2023,7 @@
   "@qualityHiResFlacMax": {
     "description": "Quality option - maximum resolution FLAC"
   },
-  "qualityHiResFlacMaxSubtitle": "24-bit / up to 192kHz",
+  "qualityHiResFlacMaxSubtitle": "24-bit / 최대 192kHz",
   "@qualityHiResFlacMaxSubtitle": {
     "description": "Technical spec for hi-res max"
   },
@@ -2640,7 +2640,7 @@
   "@libraryFolderNotExist": {
     "description": "Error when folder doesn't exist"
   },
-  "librarySourceDownloaded": "다운로드 완료",
+  "librarySourceDownloaded": "다운로드됨",
   "@librarySourceDownloaded": {
     "description": "Badge for tracks downloaded via SpotiFLAC"
   },
@@ -2652,7 +2652,7 @@
   "@libraryFilterAll": {
     "description": "Filter chip - show all library items"
   },
-  "libraryFilterDownloaded": "다운로드 완료",
+  "libraryFilterDownloaded": "다운로드됨",
   "@libraryFilterDownloaded": {
     "description": "Filter chip - show only downloaded items"
   },
@@ -3716,7 +3716,7 @@
       }
     }
   },
-  "downloadedAlbumDownloadedCount": "{count} 다운로드 완료",
+  "downloadedAlbumDownloadedCount": "{count} 다운로드됨",
   "@downloadedAlbumDownloadedCount": {
     "description": "Downloaded tracks count badge",
     "placeholders": {
@@ -4239,7 +4239,7 @@
       }
     }
   },
-  "queueDownloadedHeader": "다운로드 완료",
+  "queueDownloadedHeader": "다운로드됨",
   "@queueDownloadedHeader": {
     "description": "Header label for downloaded items section in library"
   },

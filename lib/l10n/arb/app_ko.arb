@@ -153,7 +153,7 @@
   "@optionsPrimaryProvider": {
     "description": "Main search provider setting"
   },
-  "optionsPrimaryProviderSubtitle": "Service used for searching by track or album name",
+  "optionsPrimaryProviderSubtitle": "트랙 또는 앨범 이름으로 검색하는 데 사용되는 서비스",
   "@optionsPrimaryProviderSubtitle": {
     "description": "Subtitle for primary provider"
   },
@@ -174,7 +174,7 @@
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
-  "optionsSwitchBack": "Choose the default search provider to switch back from an extension",
+  "optionsSwitchBack": "확장 프로그램에서 기본 검색 제공자로 전환하려면 기본 검색 제공자를 선택하세요",
   "@optionsSwitchBack": {
     "description": "Hint to switch back from extension search"
   },
@@ -202,7 +202,7 @@
   "@optionsEmbedLyrics": {
     "description": "Embed lyrics in audio files"
   },
-  "optionsEmbedLyricsSubtitle": "Save synced lyrics alongside your downloaded tracks",
+  "optionsEmbedLyricsSubtitle": "다운로드한 트랙과 함께 동기화된 가사를 저장합니다",
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
@@ -214,23 +214,23 @@
   "@optionsMaxQualityCoverSubtitle": {
     "description": "Subtitle for max quality cover"
   },
-  "optionsReplayGain": "ReplayGain",
+  "optionsReplayGain": "리플레이게인",
   "@optionsReplayGain": {
     "description": "Title for ReplayGain setting toggle"
   },
-  "optionsReplayGainSubtitleOn": "Scan loudness and embed ReplayGain tags (EBU R128)",
+  "optionsReplayGainSubtitleOn": "음량 스캔 및 리플레이게인 태그 삽입 (EBU R128)",
   "@optionsReplayGainSubtitleOn": {
     "description": "Subtitle when ReplayGain is enabled"
   },
-  "optionsReplayGainSubtitleOff": "Disabled: no loudness normalization tags",
+  "optionsReplayGainSubtitleOff": "비활성화됨: 음량 정규화 태그 없음",
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "trackReplayGain": "ReplayGain 다시 스캔",
+  "trackReplayGain": "리플레이게인 다시 스캔",
   "@trackReplayGain": {
     "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
   },
-  "trackReplayGainSubtitle": "Analyze loudness and write ReplayGain tags",
+  "trackReplayGainSubtitle": "음량 분석 및 리플레이게인 태그 작성",
   "@trackReplayGainSubtitle": {
     "description": "Subtitle for the rescan ReplayGain menu option"
   },
@@ -246,7 +246,7 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "selectionReplayGainCount": "ReplayGain ({count})",
+  "selectionReplayGainCount": "리플레이게인 ({count})",
   "@selectionReplayGainCount": {
     "description": "Batch selection action button label for ReplayGain",
     "placeholders": {
@@ -255,11 +255,11 @@
       }
     }
   },
-  "replayGainBatchConfirmTitle": "ReplayGain 추가",
+  "replayGainBatchConfirmTitle": "리플레이게인 추가",
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },
-  "replayGainBatchConfirmMessage": "음량을 분석하고 {count} 개의 트랙에 ReplayGain 태그를 추가하시겠습니까?",
+  "replayGainBatchConfirmMessage": "음량을 분석하고 {count} 개의 트랙에 리플레이게인 태그를 추가하시겠습니까?",
   "@replayGainBatchConfirmMessage": {
     "description": "Message of the batch ReplayGain confirmation dialog",
     "placeholders": {
@@ -268,7 +268,7 @@
       }
     }
   },
-  "replayGainBatchAnalyzing": "ReplayGain을 분석하는 중...",
+  "replayGainBatchAnalyzing": "리플레이게인을 분석하는 중...",
   "@replayGainBatchAnalyzing": {
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
@@ -1620,7 +1620,7 @@
   "@trackCopyright": {
     "description": "Metadata label - copyright information"
   },
-  "trackDownloaded": "Downloaded",
+  "trackDownloaded": "다운로드 완료",
   "@trackDownloaded": {
     "description": "Metadata label - download date"
   },
@@ -1637,7 +1637,7 @@
       }
     }
   },
-  "trackLyricsNotAvailable": "Lyrics not available for this track",
+  "trackLyricsNotAvailable": "이 트랙의 가사를 사용할 수 없습니다",
   "@trackLyricsNotAvailable": {
     "description": "Message when lyrics not found"
   },
@@ -1649,7 +1649,7 @@
   "@trackFetchOnlineLyrics": {
     "description": "Action - fetch lyrics from online providers"
   },
-  "trackLyricsTimeout": "Request timed out. Try again later.",
+  "trackLyricsTimeout": "요청 시간이 초과되었습니다. 나중에 다시 시도하세요.",
   "@trackLyricsTimeout": {
     "description": "Message when lyrics request times out"
   },
@@ -1788,11 +1788,11 @@
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
-  "storeEmptyNoExtensions": "No extensions available",
+  "storeEmptyNoExtensions": "사용 가능한 확장 프로그램이 없습니다",
   "@storeEmptyNoExtensions": {
     "description": "Message when store has no extensions"
   },
-  "storeEmptyNoResults": "No extensions found",
+  "storeEmptyNoResults": "확장 프로그램을 찾을 수 없습니다",
   "@storeEmptyNoResults": {
     "description": "Message when search/filter returns no results"
   },
@@ -1800,7 +1800,7 @@
   "@extensionDefaultProvider": {
     "description": "Default search provider option"
   },
-  "extensionDefaultProviderSubtitle": "Use the default metadata search",
+  "extensionDefaultProviderSubtitle": "기본 메타데이터 검색 사용",
   "@extensionDefaultProviderSubtitle": {
     "description": "Subtitle for default provider"
   },
@@ -1856,7 +1856,7 @@
   "@extensionRemoveButton": {
     "description": "Button to uninstall extension"
   },
-  "extensionUpdated": "Updated",
+  "extensionUpdated": "업데이트 완료",
   "@extensionUpdated": {
     "description": "Extension detail - last update"
   },
@@ -1995,7 +1995,7 @@
   "@extensionsSearchProviderDescription": {
     "description": "Search provider setting description"
   },
-  "extensionsCustomSearch": "Custom search",
+  "extensionsCustomSearch": "사용자 정의 검색",
   "@extensionsCustomSearch": {
     "description": "Label for custom search provider"
   },
@@ -2071,7 +2071,7 @@
   "@downloadLossyOpus128": {
     "description": "Lossy format option - Opus 128kbps"
   },
-  "downloadLossyOpus128Subtitle": "Smallest size, ~4MB per track",
+  "downloadLossyOpus128Subtitle": "트랙당 최소 크기, 약 4MB",
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },
@@ -2103,11 +2103,11 @@
   "@downloadUsePrimaryArtistOnly": {
     "description": "Setting - strip featured artists from folder name"
   },
-  "downloadUsePrimaryArtistOnlyEnabled": "Featured artists removed from folder name (e.g. Justin Bieber, Quavo → Justin Bieber)",
+  "downloadUsePrimaryArtistOnlyEnabled": "폴더 이름에서 피처링 아티스트가 제거됩니다 (예: Justin Bieber, Quavo → Justin Bieber)",
   "@downloadUsePrimaryArtistOnlyEnabled": {
     "description": "Subtitle when primary artist only is enabled"
   },
-  "downloadUsePrimaryArtistOnlyDisabled": "Full artist string used for folder name",
+  "downloadUsePrimaryArtistOnlyDisabled": "폴더 이름에 전체 아티스트 문자열이 사용됩니다",
   "@downloadUsePrimaryArtistOnlyDisabled": {
     "description": "Subtitle when primary artist only is disabled"
   },
@@ -2187,23 +2187,23 @@
   "@albumFolderYearAlbum": {
     "description": "Album folder option with year"
   },
-  "albumFolderYearAlbumSubtitle": "Albums/[2005] Album Name/",
+  "albumFolderYearAlbumSubtitle": "앨범/[2005] 앨범 이름/",
   "@albumFolderYearAlbumSubtitle": {
     "description": "Folder structure example"
   },
-  "albumFolderArtistAlbumSingles": "Artist / Album + Singles",
+  "albumFolderArtistAlbumSingles": "아티스트 / 앨범 + 싱글",
   "@albumFolderArtistAlbumSingles": {
     "description": "Album folder option with singles inside artist"
   },
-  "albumFolderArtistAlbumSinglesSubtitle": "Artist/Album/ and Artist/Singles/",
+  "albumFolderArtistAlbumSinglesSubtitle": "아티스트/앨범/ 및 아티스트/싱글/",
   "@albumFolderArtistAlbumSinglesSubtitle": {
     "description": "Folder structure example"
   },
-  "albumFolderArtistAlbumFlat": "Artist / Album (Singles flat)",
+  "albumFolderArtistAlbumFlat": "아티스트 / 앨범 (싱글 플랫)",
   "@albumFolderArtistAlbumFlat": {
     "description": "Album folder option with singles directly in artist folder"
   },
-  "albumFolderArtistAlbumFlatSubtitle": "Artist/Album/ and Artist/song.flac",
+  "albumFolderArtistAlbumFlatSubtitle": "아티스트/앨범/ 및 아티스트/song.flac",
   "@albumFolderArtistAlbumFlatSubtitle": {
     "description": "Folder structure example for flat singles"
   },
@@ -2233,7 +2233,7 @@
   "@downloadedAlbumAllSelected": {
     "description": "Status - all items selected"
   },
-  "downloadedAlbumTapToSelect": "Tap tracks to select",
+  "downloadedAlbumTapToSelect": "트랙을 탭하여 선택하세요",
   "@downloadedAlbumTapToSelect": {
     "description": "Selection hint"
   },
@@ -2404,7 +2404,7 @@
       }
     }
   },
-  "discographyNoAlbums": "No albums available",
+  "discographyNoAlbums": "사용 가능한 앨범이 없습니다",
   "@discographyNoAlbums": {
     "description": "Error - no albums found for artist"
   },
@@ -2452,7 +2452,7 @@
   "@settingsCache": {
     "description": "Settings menu item - cache management"
   },
-  "settingsCacheSubtitle": "View size and clear cached data",
+  "settingsCacheSubtitle": "크기 보기 및 캐시된 데이터 지우기",
   "@settingsCacheSubtitle": {
     "description": "Subtitle for cache management menu"
   },
@@ -2468,7 +2468,7 @@
   "@libraryEnableLocalLibrary": {
     "description": "Toggle to enable library scanning"
   },
-  "libraryEnableLocalLibrarySubtitle": "Scan and track your existing music",
+  "libraryEnableLocalLibrarySubtitle": "기존 음악을 스캔하고 추적하세요",
   "@libraryEnableLocalLibrarySubtitle": {
     "description": "Subtitle for enable toggle"
   },
@@ -2528,7 +2528,7 @@
   "@libraryScanSelectFolderFirst": {
     "description": "Message when trying to scan without folder"
   },
-  "libraryCleanupMissingFiles": "Cleanup Missing Files",
+  "libraryCleanupMissingFiles": "누락된 파일 정리",
   "@libraryCleanupMissingFiles": {
     "description": "Button to remove entries for missing files"
   },
@@ -2536,15 +2536,15 @@
   "@libraryCleanupMissingFilesSubtitle": {
     "description": "Subtitle for cleanup button"
   },
-  "libraryClear": "Clear Library",
+  "libraryClear": "보관함 지우기",
   "@libraryClear": {
     "description": "Button to clear all library entries"
   },
-  "libraryClearSubtitle": "Remove all scanned tracks",
+  "libraryClearSubtitle": "스캔된 모든 트랙 제거",
   "@libraryClearSubtitle": {
     "description": "Subtitle for clear button"
   },
-  "libraryClearConfirmTitle": "Clear Library",
+  "libraryClearConfirmTitle": "보관함 지우기",
   "@libraryClearConfirmTitle": {
     "description": "Dialog title for clear confirmation"
   },
@@ -2552,7 +2552,7 @@
   "@libraryClearConfirmMessage": {
     "description": "Dialog message for clear confirmation"
   },
-  "libraryAbout": "About Local Library",
+  "libraryAbout": "로컬 저장소에 대한 정보",
   "@libraryAbout": {
     "description": "Section header for about info"
   },
@@ -2578,7 +2578,7 @@
       }
     }
   },
-  "libraryLastScanned": "Last scanned: {time}",
+  "libraryLastScanned": "마지막 스캔: {time}",
   "@libraryLastScanned": {
     "description": "Last scan time display",
     "placeholders": {
@@ -2587,15 +2587,15 @@
       }
     }
   },
-  "libraryLastScannedNever": "Never",
+  "libraryLastScannedNever": "절대 안 함",
   "@libraryLastScannedNever": {
     "description": "Shown when library has never been scanned"
   },
-  "libraryScanning": "Scanning...",
+  "libraryScanning": "스캔하는 중...",
   "@libraryScanning": {
     "description": "Status during scan"
   },
-  "libraryScanFinalizing": "Finalizing library...",
+  "libraryScanFinalizing": "보관함을 마무리하는 중...",
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
@@ -2628,7 +2628,7 @@
   "@libraryCleared": {
     "description": "Snackbar after clearing library"
   },
-  "libraryStorageAccessRequired": "Storage Access Required",
+  "libraryStorageAccessRequired": "저장소 접근 권한 필요",
   "@libraryStorageAccessRequired": {
     "description": "Dialog title for storage permission"
   },
@@ -2644,7 +2644,7 @@
   "@librarySourceDownloaded": {
     "description": "Badge for tracks downloaded via SpotiFLAC"
   },
-  "librarySourceLocal": "Local",
+  "librarySourceLocal": "로컬",
   "@librarySourceLocal": {
     "description": "Badge for tracks from local library scan"
   },
@@ -2692,11 +2692,11 @@
   "@libraryFilterQualityLossy": {
     "description": "Filter option - lossy compressed audio"
   },
-  "libraryFilterFormat": "Format",
+  "libraryFilterFormat": "형식",
   "@libraryFilterFormat": {
     "description": "Filter section - file format"
   },
-  "libraryFilterMetadata": "Metadata",
+  "libraryFilterMetadata": "메타데이터",
   "@libraryFilterMetadata": {
     "description": "Filter section - metadata completeness"
   },
@@ -2704,51 +2704,51 @@
   "@libraryFilterMetadataComplete": {
     "description": "Filter option - items with complete metadata"
   },
-  "libraryFilterMetadataMissingAny": "Missing any metadata",
+  "libraryFilterMetadataMissingAny": "메타데이터 누락",
   "@libraryFilterMetadataMissingAny": {
     "description": "Filter option - items missing any tracked metadata field"
   },
-  "libraryFilterMetadataMissingYear": "Missing year",
+  "libraryFilterMetadataMissingYear": "연도 누락",
   "@libraryFilterMetadataMissingYear": {
     "description": "Filter option - items missing release year/date"
   },
-  "libraryFilterMetadataMissingGenre": "Missing genre",
+  "libraryFilterMetadataMissingGenre": "장르 누락",
   "@libraryFilterMetadataMissingGenre": {
     "description": "Filter option - items missing genre"
   },
-  "libraryFilterMetadataMissingAlbumArtist": "Missing album artist",
+  "libraryFilterMetadataMissingAlbumArtist": "앨범 아티스트 누락",
   "@libraryFilterMetadataMissingAlbumArtist": {
     "description": "Filter option - items missing album artist"
   },
-  "libraryFilterSort": "Sort",
+  "libraryFilterSort": "정렬",
   "@libraryFilterSort": {
     "description": "Filter section - sort order"
   },
-  "libraryFilterSortLatest": "Latest",
+  "libraryFilterSortLatest": "최신순",
   "@libraryFilterSortLatest": {
     "description": "Sort option - newest first"
   },
-  "libraryFilterSortOldest": "Oldest",
+  "libraryFilterSortOldest": "오래된순",
   "@libraryFilterSortOldest": {
     "description": "Sort option - oldest first"
   },
-  "libraryFilterSortAlbumAsc": "Album (A-Z)",
+  "libraryFilterSortAlbumAsc": "앨범 (오름차순)",
   "@libraryFilterSortAlbumAsc": {
     "description": "Sort option - album ascending"
   },
-  "libraryFilterSortAlbumDesc": "Album (Z-A)",
+  "libraryFilterSortAlbumDesc": "앨범 (내림차순)",
   "@libraryFilterSortAlbumDesc": {
     "description": "Sort option - album descending"
   },
-  "libraryFilterSortGenreAsc": "Genre (A-Z)",
+  "libraryFilterSortGenreAsc": "장르 (오름차순)",
   "@libraryFilterSortGenreAsc": {
     "description": "Sort option - genre ascending"
   },
-  "libraryFilterSortGenreDesc": "Genre (Z-A)",
+  "libraryFilterSortGenreDesc": "장르 (내림차순)",
   "@libraryFilterSortGenreDesc": {
     "description": "Sort option - genre descending"
   },
-  "timeJustNow": "Just now",
+  "timeJustNow": "방금 전",
   "@timeJustNow": {
     "description": "Relative time - less than a minute ago"
   },
@@ -2790,7 +2790,7 @@
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },
-  "tutorialSearchTitle": "Finding Music",
+  "tutorialSearchTitle": "음악 찾기",
   "@tutorialSearchTitle": {
     "description": "Tutorial search page title"
   },
@@ -2798,7 +2798,7 @@
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
-  "tutorialDownloadTitle": "Downloading Music",
+  "tutorialDownloadTitle": "음악 다운로드",
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
@@ -2806,7 +2806,7 @@
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
-  "tutorialLibraryTitle": "Your Library",
+  "tutorialLibraryTitle": "내 보관함",
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
@@ -2826,7 +2826,7 @@
   "@tutorialLibraryTip3": {
     "description": "Tutorial library tip 3"
   },
-  "tutorialExtensionsTitle": "Extensions",
+  "tutorialExtensionsTitle": "확장 프로그램",
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
@@ -2846,7 +2846,7 @@
   "@tutorialExtensionsTip3": {
     "description": "Tutorial extensions tip 3"
   },
-  "tutorialSettingsTitle": "Customize Your Experience",
+  "tutorialSettingsTitle": "사용자 환경 맞춤 설정",
   "@tutorialSettingsTitle": {
     "description": "Tutorial settings page title"
   },
@@ -2870,7 +2870,7 @@
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
-  "libraryForceFullScan": "Force Full Scan",
+  "libraryForceFullScan": "전제 스캔 강제 실행",
   "@libraryForceFullScan": {
     "description": "Button to force a complete rescan of library"
   },
@@ -2878,7 +2878,7 @@
   "@libraryForceFullScanSubtitle": {
     "description": "Subtitle for force full scan button"
   },
-  "cleanupOrphanedDownloads": "Cleanup Orphaned Downloads",
+  "cleanupOrphanedDownloads": "불필요한 다운로드 파일 정리",
   "@cleanupOrphanedDownloads": {
     "description": "Button to remove history entries for deleted files"
   },
@@ -2899,7 +2899,7 @@
   "@cleanupOrphanedDownloadsNone": {
     "description": "Snackbar when no orphans found"
   },
-  "cacheTitle": "Storage & Cache",
+  "cacheTitle": "저장소 & 캐시",
   "@cacheTitle": {
     "description": "Cache management page title"
   },
@@ -2920,15 +2920,15 @@
       }
     }
   },
-  "cacheSectionStorage": "Cached Data",
+  "cacheSectionStorage": "캐시된 데이터",
   "@cacheSectionStorage": {
     "description": "Section header for cache entries"
   },
-  "cacheSectionMaintenance": "Maintenance",
+  "cacheSectionMaintenance": "유지 관리",
   "@cacheSectionMaintenance": {
     "description": "Section header for cleanup actions"
   },
-  "cacheAppDirectory": "App cache directory",
+  "cacheAppDirectory": "앱 캐시 디렉토리",
   "@cacheAppDirectory": {
     "description": "Cache item title for app cache directory"
   },
@@ -2936,7 +2936,7 @@
   "@cacheAppDirectoryDesc": {
     "description": "Description of what app cache directory contains"
   },
-  "cacheTempDirectory": "Temporary directory",
+  "cacheTempDirectory": "임시 디렉토리",
   "@cacheTempDirectory": {
     "description": "Cache item title for temporary files directory"
   },
@@ -2944,7 +2944,7 @@
   "@cacheTempDirectoryDesc": {
     "description": "Description of what temporary directory contains"
   },
-  "cacheCoverImage": "Cover image cache",
+  "cacheCoverImage": "표지 이미지 캐시",
   "@cacheCoverImage": {
     "description": "Cache item title for persistent cover images"
   },
@@ -2952,7 +2952,7 @@
   "@cacheCoverImageDesc": {
     "description": "Description of what cover image cache contains"
   },
-  "cacheLibraryCover": "Library cover cache",
+  "cacheLibraryCover": "보관함 표지 캐시",
   "@cacheLibraryCover": {
     "description": "Cache item title for local library cover art images"
   },
@@ -2960,7 +2960,7 @@
   "@cacheLibraryCoverDesc": {
     "description": "Description of what library cover cache contains"
   },
-  "cacheExploreFeed": "Explore feed cache",
+  "cacheExploreFeed": "탐색 피드 캐시",
   "@cacheExploreFeed": {
     "description": "Cache item title for explore home feed cache"
   },
@@ -2980,7 +2980,7 @@
   "@cacheCleanupUnusedDesc": {
     "description": "Description of what cleanup unused data does"
   },
-  "cacheNoData": "No cached data",
+  "cacheNoData": "캐시된 데이터가 없습니다",
   "@cacheNoData": {
     "description": "Label when cache category has no data"
   },
@@ -3380,15 +3380,15 @@
   "@cueSplitButton": {
     "description": "Button text to start CUE splitting"
   },
-  "actionCreate": "Create",
+  "actionCreate": "만들기",
   "@actionCreate": {
     "description": "Generic action button - create"
   },
-  "collectionFoldersTitle": "My folders",
+  "collectionFoldersTitle": "내 폴더",
   "@collectionFoldersTitle": {
     "description": "Library section title for custom folders"
   },
-  "collectionWishlist": "Wishlist",
+  "collectionWishlist": "위시리스트",
   "@collectionWishlist": {
     "description": "Custom folder for saved tracks to download later"
   },
@@ -3396,31 +3396,31 @@
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
-  "collectionFavoriteArtists": "Favorite Artists",
+  "collectionFavoriteArtists": "좋아하는 아티스트",
   "@collectionFavoriteArtists": {
     "description": "Custom folder for favorite artists"
   },
-  "collectionPlaylists": "Playlists",
+  "collectionPlaylists": "재생목록",
   "@collectionPlaylists": {
     "description": "Custom user playlists folder"
   },
-  "collectionPlaylist": "Playlist",
+  "collectionPlaylist": "재생목록",
   "@collectionPlaylist": {
     "description": "Single playlist label"
   },
-  "collectionAddToPlaylist": "Add to playlist",
+  "collectionAddToPlaylist": "재생목록에 추가",
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
   },
-  "collectionCreatePlaylist": "Create playlist",
+  "collectionCreatePlaylist": "재생목록 만들기",
   "@collectionCreatePlaylist": {
     "description": "Action to create a new playlist"
   },
-  "collectionNoPlaylistsYet": "No playlists yet",
+  "collectionNoPlaylistsYet": "아직 재생목록이 없습니다",
   "@collectionNoPlaylistsYet": {
     "description": "Empty state title when user has no playlists"
   },
-  "collectionNoPlaylistsSubtitle": "Create a playlist to start categorizing tracks",
+  "collectionNoPlaylistsSubtitle": "트랙 분류를 시작하려면 재생목록을 만드세요",
   "@collectionNoPlaylistsSubtitle": {
     "description": "Empty state subtitle when user has no playlists"
   },
@@ -3442,7 +3442,7 @@
       }
     }
   },
-  "collectionAddedToPlaylist": "Added to \"{playlistName}\"",
+  "collectionAddedToPlaylist": "\"{playlistName}\"에 추가하였습니다",
   "@collectionAddedToPlaylist": {
     "description": "Snackbar after adding track to playlist",
     "placeholders": {
@@ -3451,7 +3451,7 @@
       }
     }
   },
-  "collectionAlreadyInPlaylist": "Already in \"{playlistName}\"",
+  "collectionAlreadyInPlaylist": "이미 \"{playlistName}\"에 있습니다",
   "@collectionAlreadyInPlaylist": {
     "description": "Snackbar when track already exists in playlist",
     "placeholders": {
@@ -3464,7 +3464,7 @@
   "@collectionPlaylistCreated": {
     "description": "Snackbar after creating playlist"
   },
-  "collectionPlaylistNameHint": "Playlist name",
+  "collectionPlaylistNameHint": "재생목록 이름",
   "@collectionPlaylistNameHint": {
     "description": "Hint text for playlist name input"
   },
@@ -3472,11 +3472,11 @@
   "@collectionPlaylistNameRequired": {
     "description": "Validation error for empty playlist name"
   },
-  "collectionRenamePlaylist": "Rename playlist",
+  "collectionRenamePlaylist": "재생목록 이름 변경",
   "@collectionRenamePlaylist": {
     "description": "Action to rename playlist"
   },
-  "collectionDeletePlaylist": "Delete playlist",
+  "collectionDeletePlaylist": "재생목록 삭제",
   "@collectionDeletePlaylist": {
     "description": "Action to delete playlist"
   },
@@ -3803,7 +3803,7 @@
   "@lyricsProviderExtensionDesc": {
     "description": "Generic description for extension-based lyrics providers"
   },
-  "safMigrationTitle": "Storage Update Required",
+  "safMigrationTitle": "기기 저장소 업데이트 필요",
   "@safMigrationTitle": {
     "description": "Title of SAF migration dialog"
   },
@@ -4963,7 +4963,7 @@
   "@actionDismiss": {
     "description": "Generic action - dismiss"
   },
-  "setupChangeFolderTooltip": "Change folder",
+  "setupChangeFolderTooltip": "폴더 변경",
   "@setupChangeFolderTooltip": {
     "description": "Tooltip for editing the selected download folder"
   },
@@ -5068,7 +5068,7 @@
   "@settingsMetadata": {
     "description": "Settings menu item - metadata settings"
   },
-  "settingsMetadataSubtitle": "Cover art, tags, ReplayGain, providers",
+  "settingsMetadataSubtitle": "앨범 아트, 태그, 리플레이게인, 제공자",
   "@settingsMetadataSubtitle": {
     "description": "Subtitle for metadata settings"
   },
@@ -5108,7 +5108,7 @@
   "@metadataProvidersSubtitle": {
     "description": "Subtitle for metadata provider priority item"
   },
-  "downloadDeduplication": "Skip Duplicate Downloads",
+  "downloadDeduplication": "중복 다운로드 건너뛰기",
   "@downloadDeduplication": {
     "description": "Setting - skip tracks already in download history"
   },
@@ -5116,7 +5116,7 @@
   "@downloadDeduplicationEnabled": {
     "description": "Subtitle when deduplication is on"
   },
-  "downloadDeduplicationDisabled": "All tracks will be downloaded regardless of history",
+  "downloadDeduplicationDisabled": "기록과 관계없이 모든 트랙이 다운로드됩니다",
   "@downloadDeduplicationDisabled": {
     "description": "Subtitle when deduplication is off"
   },

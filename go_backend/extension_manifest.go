@@ -3,6 +3,7 @@ package gobackend
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"strings"
 )
 
@@ -113,28 +114,49 @@ type ExtensionHealthCheck struct {
 	Required        bool   `json:"required,omitempty"`
 }
 
+type SignedSessionEndpoints struct {
+	Bootstrap string `json:"bootstrap,omitempty"`
+	Challenge string `json:"challenge,omitempty"`
+	Exchange  string `json:"exchange,omitempty"`
+	Refresh   string `json:"refresh,omitempty"`
+}
+
+type SignedSessionConfig struct {
+	Namespace         string                 `json:"namespace"`
+	BaseURL           string                 `json:"baseUrl"`
+	AppVersion        string                 `json:"appVersion,omitempty"`
+	Platform          string                 `json:"platform,omitempty"`
+	CallbackURL       string                 `json:"callbackUrl,omitempty"`
+	SchemeLabel       string                 `json:"schemeLabel,omitempty"`
+	HeaderPrefix      string                 `json:"headerPrefix,omitempty"`
+	TimeWindowSeconds int                    `json:"timeWindowSeconds,omitempty"`
+	Endpoints         SignedSessionEndpoints `json:"endpoints,omitempty"`
+}
+
 type ExtensionManifest struct {
-	Name                   string                 `json:"name"`
-	DisplayName            string                 `json:"displayName"`
-	Version                string                 `json:"version"`
-	Description            string                 `json:"description"`
-	Homepage               string                 `json:"homepage,omitempty"`
-	Icon                   string                 `json:"icon,omitempty"`
-	Types                  []ExtensionType        `json:"type"`
-	Permissions            ExtensionPermissions   `json:"permissions"`
-	Settings               []ExtensionSetting     `json:"settings,omitempty"`
-	QualityOptions         []QualityOption        `json:"qualityOptions,omitempty"`
-	MinAppVersion          string                 `json:"minAppVersion,omitempty"`
-	SkipMetadataEnrichment bool                   `json:"skipMetadataEnrichment,omitempty"`
-	SkipLyrics             bool                   `json:"skipLyrics,omitempty"`
-	StopProviderFallback   bool                   `json:"stopProviderFallback,omitempty"`
-	SkipBuiltInFallback    bool                   `json:"skipBuiltInFallback,omitempty"`
-	SearchBehavior         *SearchBehaviorConfig  `json:"searchBehavior,omitempty"`
-	URLHandler             *URLHandlerConfig      `json:"urlHandler,omitempty"`
-	TrackMatching          *TrackMatchingConfig   `json:"trackMatching,omitempty"`
-	PostProcessing         *PostProcessingConfig  `json:"postProcessing,omitempty"`
-	ServiceHealth          []ExtensionHealthCheck `json:"serviceHealth,omitempty"`
-	Capabilities           map[string]interface{} `json:"capabilities,omitempty"`
+	Name                    string                 `json:"name"`
+	DisplayName             string                 `json:"displayName"`
+	Version                 string                 `json:"version"`
+	Description             string                 `json:"description"`
+	Homepage                string                 `json:"homepage,omitempty"`
+	Icon                    string                 `json:"icon,omitempty"`
+	Types                   []ExtensionType        `json:"type"`
+	Permissions             ExtensionPermissions   `json:"permissions"`
+	Settings                []ExtensionSetting     `json:"settings,omitempty"`
+	QualityOptions          []QualityOption        `json:"qualityOptions,omitempty"`
+	MinAppVersion           string                 `json:"minAppVersion,omitempty"`
+	SkipMetadataEnrichment  bool                   `json:"skipMetadataEnrichment,omitempty"`
+	SkipLyrics              bool                   `json:"skipLyrics,omitempty"`
+	StopProviderFallback    bool                   `json:"stopProviderFallback,omitempty"`
+	SkipBuiltInFallback     bool                   `json:"skipBuiltInFallback,omitempty"`
+	SearchBehavior          *SearchBehaviorConfig  `json:"searchBehavior,omitempty"`
+	URLHandler              *URLHandlerConfig      `json:"urlHandler,omitempty"`
+	TrackMatching           *TrackMatchingConfig   `json:"trackMatching,omitempty"`
+	PostProcessing          *PostProcessingConfig  `json:"postProcessing,omitempty"`
+	ServiceHealth           []ExtensionHealthCheck `json:"serviceHealth,omitempty"`
+	SignedSession           *SignedSessionConfig   `json:"signedSession,omitempty"`
+	RequiredRuntimeFeatures []string               `json:"requiredRuntimeFeatures,omitempty"`
+	Capabilities            map[string]interface{} `json:"capabilities,omitempty"`
 }
 
 type ManifestValidationError struct {
@@ -235,6 +257,26 @@ func (m *ExtensionManifest) Validate() error {
 				Field:   fmt.Sprintf("serviceHealth[%d].method", i),
 				Message: "health check method must be GET or HEAD",
 			}
+		}
+	}
+
+	if m.SignedSession != nil {
+		if strings.TrimSpace(m.SignedSession.Namespace) == "" {
+			return &ManifestValidationError{Field: "signedSession.namespace", Message: "namespace is required"}
+		}
+		baseURL := strings.TrimSpace(m.SignedSession.BaseURL)
+		if baseURL == "" {
+			return &ManifestValidationError{Field: "signedSession.baseUrl", Message: "baseUrl is required"}
+		}
+		if !strings.HasPrefix(strings.ToLower(baseURL), "https://") {
+			return &ManifestValidationError{Field: "signedSession.baseUrl", Message: "baseUrl must use https"}
+		}
+		parsed, err := url.Parse(baseURL)
+		if err != nil || parsed.Hostname() == "" {
+			return &ManifestValidationError{Field: "signedSession.baseUrl", Message: "baseUrl is invalid"}
+		}
+		if !m.IsDomainAllowed(parsed.Hostname()) {
+			return &ManifestValidationError{Field: "signedSession.baseUrl", Message: "baseUrl host must be listed in permissions.network"}
 		}
 	}
 

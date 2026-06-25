@@ -12,6 +12,16 @@ final _log = AppLogger('PlatformBridge');
 
 Object? _decodeJsonInBackground(String json) => jsonDecode(json);
 
+class ExtensionSessionGrantEvent {
+  final String extensionId;
+  final bool success;
+
+  const ExtensionSessionGrantEvent({
+    required this.extensionId,
+    required this.success,
+  });
+}
+
 class _BridgeCacheEntry {
   final Map<String, dynamic> value;
   final DateTime expiresAt;
@@ -76,11 +86,45 @@ class PlatformBridge {
   static Future<void>? _persistentLookupCacheLoadFuture;
   static int _lookupCacheGeneration = 0;
   static int _extensionRequestSequence = 0;
+  static final StreamController<ExtensionSessionGrantEvent>
+  _extensionSessionGrantEvents =
+      StreamController<ExtensionSessionGrantEvent>.broadcast();
+  static bool _backendEventHandlerInstalled = false;
 
   static bool get supportsCoreBackend => Platform.isAndroid || Platform.isIOS;
 
   static bool get supportsExtensionSystem =>
       Platform.isAndroid || Platform.isIOS;
+
+  static Stream<ExtensionSessionGrantEvent> extensionSessionGrantEvents() {
+    _ensureBackendEventHandler();
+    return _extensionSessionGrantEvents.stream;
+  }
+
+  static void _ensureBackendEventHandler() {
+    if (_backendEventHandlerInstalled) return;
+    _backendEventHandlerInstalled = true;
+    _channel.setMethodCallHandler((call) async {
+      switch (call.method) {
+        case 'extensionSessionGrantCompleted':
+          final args = call.arguments;
+          if (args is Map) {
+            final extensionId = args['extension_id']?.toString().trim() ?? '';
+            if (extensionId.isNotEmpty) {
+              _extensionSessionGrantEvents.add(
+                ExtensionSessionGrantEvent(
+                  extensionId: extensionId,
+                  success: args['success'] != false,
+                ),
+              );
+            }
+          }
+          return null;
+        default:
+          return null;
+      }
+    });
+  }
 
   static Future<Map<String, dynamic>> checkAvailability(
     String spotifyId,

@@ -12,7 +12,14 @@ enum DownloadStatus {
   skipped,
 }
 
-enum DownloadErrorType { unknown, notFound, rateLimit, network, permission }
+enum DownloadErrorType {
+  unknown,
+  notFound,
+  rateLimit,
+  network,
+  permission,
+  verificationRequired,
+}
 
 @JsonSerializable()
 class DownloadItem {
@@ -94,6 +101,8 @@ class DownloadItem {
         return 'Connection failed, check your internet';
       case DownloadErrorType.permission:
         return 'Cannot write to folder, check storage permission';
+      case DownloadErrorType.verificationRequired:
+        return 'Verification required. Open the extension and complete the security check.';
       default:
         return error ?? 'An error occurred';
     }

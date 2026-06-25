@@ -60,7 +60,9 @@ ios/Flutter/Flutter.framework/
 ios/Flutter/Flutter.podspec
 
 # Extension folder
-extension/
+extension/*
+extension/v2/
+extension/v2/**
 
 # Agent instructions
 AGENTS.md

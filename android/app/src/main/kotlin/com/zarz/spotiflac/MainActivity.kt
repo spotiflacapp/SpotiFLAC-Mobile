@@ -47,6 +47,8 @@ class MainActivity: FlutterFragmentActivity() {
     private val LARGE_JSON_RESULT_FILE_KEY = "__json_file"
     private val LARGE_JSON_RESULT_FILE_THRESHOLD_BYTES = 256 * 1024
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    private var backendChannel: MethodChannel? = null
+    private val pendingSessionGrantEvents = mutableListOf<Map<String, Any>>()
     private var pendingSafTreeResult: MethodChannel.Result? = null
     private val safScanLock = Any()
     private val safDirLock = Any()
@@ -2073,14 +2075,22 @@ class MainActivity: FlutterFragmentActivity() {
         }
         val host = (uri.host ?: "").lowercase(Locale.US)
         val path = (uri.path ?: "").lowercase(Locale.US)
+        val isSessionGrant = host == "session-grant"
         val isCallback =
-            host == "callback" ||
+            isSessionGrant ||
+                host == "callback" ||
                 host == "spotify-callback" ||
                 path.contains("callback")
         if (!isCallback) {
             return
         }
-        val code = uri.getQueryParameter("code")?.trim().orEmpty()
+        val code = (
+            if (isSessionGrant) {
+                uri.getQueryParameter("grant") ?: uri.getQueryParameter("code")
+            } else {
+                uri.getQueryParameter("code")
+            }
+        )?.trim().orEmpty()
         if (code.isEmpty()) {
             return
         }
@@ -2092,13 +2102,36 @@ class MainActivity: FlutterFragmentActivity() {
         intent.data = null
         scope.launch(Dispatchers.IO) {
             try {
-                Gobackend.setExtensionAuthCodeByID(extId, code)
-                val json = Gobackend.invokeExtensionActionJSON(extId, "completeSpotifyLogin")
-                android.util.Log.i("SpotiFLAC", "Extension OAuth complete for $extId: $json")
+                val json = if (isSessionGrant) {
+                    Gobackend.setExtensionSessionGrantByID(extId, code)
+                    Gobackend.invokeExtensionActionJSON(extId, "completeGrant")
+                } else {
+                    Gobackend.setExtensionAuthCodeByID(extId, code)
+                    Gobackend.invokeExtensionActionJSON(extId, "completeSpotifyLogin")
+                }
+                android.util.Log.i("SpotiFLAC", "Extension callback complete for $extId: $json")
+                if (isSessionGrant) {
+                    withContext(Dispatchers.Main) {
+                        notifySessionGrantCompleted(extId)
+                    }
+                }
             } catch (e: Exception) {
-                android.util.Log.w("SpotiFLAC", "Extension OAuth failed: ${e.message}")
+                android.util.Log.w("SpotiFLAC", "Extension callback failed: ${e.message}")
             }
         }
+    }
+
+    private fun notifySessionGrantCompleted(extensionId: String) {
+        val payload = mapOf(
+            "extension_id" to extensionId,
+            "success" to true,
+        )
+        val channel = backendChannel
+        if (channel == null) {
+            pendingSessionGrantEvents.add(payload)
+            return
+        }
+        channel.invokeMethod("extensionSessionGrantCompleted", payload)
     }
 
     override fun onDestroy() {
@@ -2164,7 +2197,17 @@ class MainActivity: FlutterFragmentActivity() {
             },
         )
 
-        MethodChannel(messenger, CHANNEL).setMethodCallHandler { call, result ->
+        val channel = MethodChannel(messenger, CHANNEL)
+        backendChannel = channel
+        if (pendingSessionGrantEvents.isNotEmpty()) {
+            val events = pendingSessionGrantEvents.toList()
+            pendingSessionGrantEvents.clear()
+            for (event in events) {
+                channel.invokeMethod("extensionSessionGrantCompleted", event)
+            }
+        }
+
+        channel.setMethodCallHandler { call, result ->
             scope.launch {
                 try {
                     when (call.method) {

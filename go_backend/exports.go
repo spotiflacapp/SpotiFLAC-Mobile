@@ -3263,6 +3263,10 @@ func SetExtensionAuthCodeByID(extensionID, authCode string) {
 	SetExtensionAuthCode(extensionID, authCode)
 }
 
+func SetExtensionSessionGrantByID(extensionID, grant string) {
+	setPendingSignedSessionGrant(extensionID, grant)
+}
+
 func SetExtensionTokensByID(extensionID, accessToken, refreshToken string, expiresIn int) {
 	var expiresAt time.Time
 	if expiresIn > 0 {
@@ -3935,9 +3939,12 @@ func callExtensionFunctionJSONWithRequestID(extensionID, functionName string, ti
 			if (typeof extension !== 'undefined' && typeof extension.%s === 'function') {
 				return extension.%s();
 			}
+			if (typeof %s === 'function') {
+				return %s();
+			}
 			return null;
 		})()
-	`, functionName, functionName)
+	`, functionName, functionName, functionName, functionName)
 
 	jsStartedAt := time.Now()
 	result, err := RunWithTimeoutContextAndRecover(requestCtx, vm, script, timeout)

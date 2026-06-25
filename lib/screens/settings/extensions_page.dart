@@ -293,9 +293,11 @@ class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
           .map((file) => file.path)
           .whereType<String>()
           .toList();
-      final extensionPaths = selectedPaths
-          .where((path) => path.toLowerCase().endsWith('.spotiflac-ext'))
-          .toList();
+      final extensionPaths = selectedPaths.where((path) {
+        final lowerPath = path.toLowerCase();
+        return lowerPath.endsWith('.spotiflac-ext') ||
+            lowerPath.endsWith('.sflx');
+      }).toList();
 
       if (extensionPaths.length != selectedPaths.length) {
         if (mounted) {

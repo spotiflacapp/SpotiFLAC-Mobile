@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/models/track.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
+import 'package:spotiflac_android/utils/extension_auth_launcher.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/providers/extension_provider.dart';
 
@@ -195,9 +198,20 @@ class SearchPlaylist {
 
 class TrackNotifier extends Notifier<TrackState> {
   int _currentRequestId = 0;
+  StreamSubscription<ExtensionSessionGrantEvent>? _sessionGrantSub;
+  _PendingVerificationSearch? _pendingVerificationSearch;
+  bool _retryingPendingVerificationSearch = false;
 
   @override
   TrackState build() {
+    _sessionGrantSub ??= PlatformBridge.extensionSessionGrantEvents().listen(
+      _handleExtensionSessionGrantCompleted,
+    );
+    ref.onDispose(() {
+      _sessionGrantSub?.cancel();
+      _sessionGrantSub = null;
+      _pendingVerificationSearch = null;
+    });
     return const TrackState();
   }
 
@@ -314,7 +328,8 @@ class TrackNotifier extends Notifier<TrackState> {
               .map((a) => _parseArtistAlbum(a as Map<String, dynamic>))
               .toList();
 
-          final topTracksList = artistData['top_tracks'] as List<dynamic>? ?? [];
+          final topTracksList =
+              artistData['top_tracks'] as List<dynamic>? ?? [];
           final topTracks = topTracksList
               .map(
                 (t) => _parseSearchTrack(
@@ -359,10 +374,7 @@ class TrackNotifier extends Notifier<TrackState> {
     }
   }
 
-  Future<void> search(
-    String query, {
-    String? filterOverride,
-  }) async {
+  Future<void> search(String query, {String? filterOverride}) async {
     final requestId = ++_currentRequestId;
     final currentFilter = filterOverride ?? state.selectedSearchFilter;
     final requestFilter = currentFilter == 'all' ? null : currentFilter;
@@ -601,6 +613,7 @@ class TrackNotifier extends Notifier<TrackState> {
       _log.i(
         'Custom search complete: ${tracks.length} tracks parsed (source=$extensionId)',
       );
+      _clearPendingVerificationSearch(extensionId, query, currentFilter);
 
       state = TrackState(
         tracks: tracks,
@@ -614,6 +627,18 @@ class TrackNotifier extends Notifier<TrackState> {
     } catch (e, stackTrace) {
       if (!_isRequestValid(requestId)) return;
       _log.e('Custom search failed: $e', e, stackTrace);
+      if (isExtensionVerificationRequired(e)) {
+        _pendingVerificationSearch = _PendingVerificationSearch(
+          extensionId: extensionId,
+          query: query,
+          options: Map<String, dynamic>.from(
+            options ?? const <String, dynamic>{},
+          ),
+          selectedFilter: currentFilter,
+          createdAt: DateTime.now(),
+        );
+        await openPendingExtensionVerification(extensionId);
+      }
       state = TrackState(
         isLoading: false,
         error: e.toString(),
@@ -622,6 +647,49 @@ class TrackNotifier extends Notifier<TrackState> {
         selectedSearchFilter: currentFilter,
       );
     }
+  }
+
+  void _clearPendingVerificationSearch(
+    String extensionId,
+    String query,
+    String? selectedFilter,
+  ) {
+    final pending = _pendingVerificationSearch;
+    if (pending == null) return;
+    if (pending.extensionId == extensionId &&
+        pending.query == query &&
+        pending.selectedFilter == selectedFilter) {
+      _pendingVerificationSearch = null;
+    }
+  }
+
+  void _handleExtensionSessionGrantCompleted(ExtensionSessionGrantEvent event) {
+    if (!event.success || _retryingPendingVerificationSearch) return;
+    final pending = _pendingVerificationSearch;
+    if (pending == null || pending.extensionId != event.extensionId) return;
+    if (DateTime.now().difference(pending.createdAt) >
+        const Duration(minutes: 10)) {
+      _pendingVerificationSearch = null;
+      return;
+    }
+
+    _pendingVerificationSearch = null;
+    _retryingPendingVerificationSearch = true;
+    Future<void>.delayed(const Duration(milliseconds: 300), () async {
+      try {
+        _log.i(
+          'Retrying custom search after verification: extension=${pending.extensionId}',
+        );
+        await customSearch(
+          pending.extensionId,
+          pending.query,
+          options: pending.options,
+          selectedFilter: pending.selectedFilter,
+        );
+      } finally {
+        _retryingPendingVerificationSearch = false;
+      }
+    });
   }
 
   Future<void> checkAvailability(int index) async {
@@ -826,7 +894,22 @@ class TrackNotifier extends Notifier<TrackState> {
       totalTracks: data['total_tracks'] as int? ?? 0,
     );
   }
+}
 
+class _PendingVerificationSearch {
+  final String extensionId;
+  final String query;
+  final Map<String, dynamic> options;
+  final String? selectedFilter;
+  final DateTime createdAt;
+
+  const _PendingVerificationSearch({
+    required this.extensionId,
+    required this.query,
+    required this.options,
+    required this.selectedFilter,
+    required this.createdAt,
+  });
 }
 
 final trackProvider = NotifierProvider<TrackNotifier, TrackState>(

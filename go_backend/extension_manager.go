@@ -44,6 +44,11 @@ func compareVersions(v1, v2 string) int {
 	return 0
 }
 
+func isExtensionPackagePath(filePath string) bool {
+	lowerPath := strings.ToLower(filePath)
+	return strings.HasSuffix(lowerPath, ".spotiflac-ext") || strings.HasSuffix(lowerPath, ".sflx")
+}
+
 type loadedExtension struct {
 	ID          string             `json:"id"`
 	Manifest    *ExtensionManifest `json:"manifest"`
@@ -166,8 +171,8 @@ func (m *extensionManager) LoadExtensionFromFile(filePath string) (*loadedExtens
 }
 
 func (m *extensionManager) loadExtensionFromFileLocked(filePath string) (*loadedExtension, error) {
-	if !strings.HasSuffix(strings.ToLower(filePath), ".spotiflac-ext") {
-		return nil, fmt.Errorf("invalid file format: please select a .spotiflac-ext file")
+	if !isExtensionPackagePath(filePath) {
+		return nil, fmt.Errorf("invalid file format: please select a .spotiflac-ext or .sflx file")
 	}
 
 	zipReader, err := zip.OpenReader(filePath)
@@ -673,7 +678,7 @@ func (m *extensionManager) LoadExtensionsFromDirectory(dirPath string) ([]string
 					loaded = append(loaded, ext.ID)
 				}
 			}
-		} else if strings.HasSuffix(strings.ToLower(entry.Name()), ".spotiflac-ext") {
+		} else if isExtensionPackagePath(entry.Name()) {
 			ext, err := m.LoadExtensionFromFile(filepath.Join(dirPath, entry.Name()))
 			if err != nil {
 				GoLog("[Extension] Failed to load %s: %v\n", entry.Name(), err)
@@ -775,8 +780,8 @@ func (m *extensionManager) UpgradeExtension(filePath string) (*loadedExtension, 
 }
 
 func (m *extensionManager) upgradeExtensionLocked(filePath string) (*loadedExtension, error) {
-	if !strings.HasSuffix(strings.ToLower(filePath), ".spotiflac-ext") {
-		return nil, fmt.Errorf("invalid file format: please select a .spotiflac-ext file")
+	if !isExtensionPackagePath(filePath) {
+		return nil, fmt.Errorf("invalid file format: please select a .spotiflac-ext or .sflx file")
 	}
 
 	zipReader, err := zip.OpenReader(filePath)
@@ -924,8 +929,8 @@ type ExtensionUpgradeInfo struct {
 }
 
 func (m *extensionManager) checkExtensionUpgradeInternal(filePath string) (*ExtensionUpgradeInfo, error) {
-	if !strings.HasSuffix(strings.ToLower(filePath), ".spotiflac-ext") {
-		return nil, fmt.Errorf("invalid file format: please select a .spotiflac-ext file")
+	if !isExtensionPackagePath(filePath) {
+		return nil, fmt.Errorf("invalid file format: please select a .spotiflac-ext or .sflx file")
 	}
 
 	zipReader, err := zip.OpenReader(filePath)

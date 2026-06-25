@@ -465,6 +465,15 @@ func (r *extensionRuntime) RegisterAPIs(vm *goja.Runtime) {
 	authObj.Set("exchangeCodeWithPKCE", r.authExchangeCodeWithPKCE)
 	vm.Set("auth", authObj)
 
+	if r.manifest != nil && r.manifest.SignedSession != nil {
+		sessionObj := vm.NewObject()
+		sessionObj.Set("signedFetch", r.signedSessionFetch)
+		sessionObj.Set("completeGrant", r.signedSessionCompleteGrant)
+		sessionObj.Set("status", r.signedSessionStatus)
+		sessionObj.Set("clear", r.signedSessionClear)
+		vm.Set("session", sessionObj)
+	}
+
 	fileObj := vm.NewObject()
 	fileObj.Set("download", r.fileDownload)
 	fileObj.Set("exists", r.fileExists)

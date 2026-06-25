@@ -17,6 +17,8 @@ import Gobackend  // Import Go framework
     private var libraryScanProgressTimer: DispatchSourceTimer?
     private var libraryScanProgressEventSink: FlutterEventSink?
     private var lastLibraryScanProgressPayload: String?
+    private var backendChannel: FlutterMethodChannel?
+    private var pendingSessionGrantEvents: [[String: Any]] = []
     
     /// Currently accessed security-scoped URL for library folder
     private var activeSecurityScopedURL: URL?
@@ -39,6 +41,14 @@ import Gobackend  // Import Go framework
             name: CHANNEL,
             binaryMessenger: controller.binaryMessenger
         )
+        backendChannel = channel
+        if !pendingSessionGrantEvents.isEmpty {
+            let events = pendingSessionGrantEvents
+            pendingSessionGrantEvents.removeAll()
+            for event in events {
+                channel.invokeMethod("extensionSessionGrantCompleted", arguments: event)
+            }
+        }
         let downloadProgressEvents = FlutterEventChannel(
             name: DOWNLOAD_PROGRESS_STREAM_CHANNEL,
             binaryMessenger: controller.binaryMessenger
@@ -83,20 +93,25 @@ import Gobackend  // Import Go framework
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 
-    /// PKCE OAuth return URL: spotiflac://callback?code=...&state=<extension_id>
+    /// Extension return URLs:
+    /// - OAuth: spotiflac://callback?code=...&state=<extension_id>
+    /// - Signed session: spotiflac://session-grant?grant=...&state=<extension_id>
     @discardableResult
     private func handleExtensionOAuthRedirect(url: URL) -> Bool {
         guard let scheme = url.scheme?.lowercased(), scheme == "spotiflac" else { return false }
         let host = (url.host ?? "").lowercased()
         let path = url.path.lowercased()
+        let isSessionGrant = host == "session-grant"
         let ok =
-            host == "callback" || host == "spotify-callback" || path.contains("callback")
+            isSessionGrant || host == "callback" || host == "spotify-callback" || path.contains("callback")
         guard ok else { return false }
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return false
         }
         let q = components.queryItems ?? []
         let code =
+            q.first { $0.name == (isSessionGrant ? "grant" : "code") }?.value?.trimmingCharacters(
+                in: .whitespacesAndNewlines) ??
             q.first { $0.name == "code" }?.value?.trimmingCharacters(
                 in: .whitespacesAndNewlines) ?? ""
         let state =
@@ -109,14 +124,35 @@ import Gobackend  // Import Go framework
         }
         streamQueue.async {
             var err: NSError?
-            GobackendSetExtensionAuthCodeByID(state, code)
-            _ = GobackendInvokeExtensionActionJSON(state, "completeSpotifyLogin", &err)
+            if isSessionGrant {
+                GobackendSetExtensionSessionGrantByID(state, code)
+                _ = GobackendInvokeExtensionActionJSON(state, "completeGrant", &err)
+            } else {
+                GobackendSetExtensionAuthCodeByID(state, code)
+                _ = GobackendInvokeExtensionActionJSON(state, "completeSpotifyLogin", &err)
+            }
             if let err = err {
                 NSLog(
-                    "SpotiFLAC: Extension OAuth complete failed: \(err.localizedDescription)")
+                    "SpotiFLAC: Extension callback complete failed: \(err.localizedDescription)")
+            } else if isSessionGrant {
+                DispatchQueue.main.async { [weak self] in
+                    self?.notifySessionGrantCompleted(extensionId: state)
+                }
             }
         }
         return true
+    }
+
+    private func notifySessionGrantCompleted(extensionId: String) {
+        let payload: [String: Any] = [
+            "extension_id": extensionId,
+            "success": true,
+        ]
+        if let channel = backendChannel {
+            channel.invokeMethod("extensionSessionGrantCompleted", arguments: payload)
+        } else {
+            pendingSessionGrantEvents.append(payload)
+        }
     }
 
     override func application(

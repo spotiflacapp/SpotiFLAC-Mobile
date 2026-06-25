@@ -22,6 +22,7 @@ import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/utils/artist_utils.dart';
 import 'package:spotiflac_android/utils/int_utils.dart';
+import 'package:spotiflac_android/utils/extension_auth_launcher.dart';
 
 export 'package:spotiflac_android/services/history_database.dart'
     show HistoryLookupRequest, HistoryBatchLookupRequest;
@@ -4902,7 +4903,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
               'totalDiscs': track.totalDiscs!.toString(),
             if (track.isrc != null) 'isrc': track.isrc!,
             if (label != null && label.isNotEmpty) 'label': label,
-            if (copyright != null && copyright.isNotEmpty) 'copyright': copyright,
+            if (copyright != null && copyright.isNotEmpty)
+              'copyright': copyright,
             if (shouldEmbedLyrics) 'lyrics': ?lrcContent,
           };
           final ac4Result = await PlatformBridge.writeAC4Metadata(
@@ -6636,6 +6638,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
         return DownloadErrorType.network;
       case 'permission':
         return DownloadErrorType.permission;
+      case 'verification_required':
+        return DownloadErrorType.verificationRequired;
       default:
         return DownloadErrorType.unknown;
     }
@@ -6643,6 +6647,9 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
 
   DownloadErrorType _downloadErrorTypeFromMessage(String errorMsg) {
     final lowerMsg = errorMsg.toLowerCase();
+    if (isExtensionVerificationRequired(errorMsg)) {
+      return DownloadErrorType.verificationRequired;
+    }
     if (errorMsg.contains('429') ||
         lowerMsg.contains('rate limit') ||
         lowerMsg.contains('too many requests')) {
@@ -7609,7 +7616,10 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
               // Repair AC-4 (dac4 + ISO MP4) using the still-present encrypted
               // source. No-op for other codecs.
               try {
-                await PlatformBridge.ensureAC4Config(decryptedTempPath, tempPath);
+                await PlatformBridge.ensureAC4Config(
+                  decryptedTempPath,
+                  tempPath,
+                );
               } catch (e) {
                 _log.w('AC-4 container repair skipped: $e');
               }
@@ -7688,7 +7698,10 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
             // Repair AC-4 (dac4 + ISO MP4) using the still-present encrypted
             // source before discarding it. No-op for other codecs.
             try {
-              await PlatformBridge.ensureAC4Config(decryptedPath, encryptedSource);
+              await PlatformBridge.ensureAC4Config(
+                decryptedPath,
+                encryptedSource,
+              );
             } catch (e) {
               _log.w('AC-4 container repair skipped: $e');
             }
@@ -8862,6 +8875,9 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           case 'permission':
             errorType = DownloadErrorType.permission;
             break;
+          case 'verification_required':
+            errorType = DownloadErrorType.verificationRequired;
+            break;
           default:
             errorType = _downloadErrorTypeFromMessage(errorMsg);
         }
@@ -8873,6 +8889,9 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           error: errorMsg,
           errorType: errorType,
         );
+        if (errorType == DownloadErrorType.verificationRequired) {
+          unawaited(openPendingExtensionVerification(item.service));
+        }
         _failedInSession++;
 
         try {
@@ -8927,6 +8946,9 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
         error: errorMsg,
         errorType: errorType,
       );
+      if (errorType == DownloadErrorType.verificationRequired) {
+        unawaited(openPendingExtensionVerification(item.service));
+      }
       _failedInSession++;
 
       try {

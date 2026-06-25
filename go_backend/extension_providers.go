@@ -2135,6 +2135,7 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 	}
 
 	var lastErr error
+	var lastErrType string
 	var stopProviderFallback bool
 	var sourceExtensionLocked bool
 	var sourceExtensionAvailability *ExtAvailabilityResult
@@ -2449,10 +2450,22 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 					}, nil
 				}
 				lastErr = err
+				lastErrType = ""
 			} else if result.ErrorMessage != "" {
 				lastErr = fmt.Errorf("%s", result.ErrorMessage)
+				lastErrType = strings.TrimSpace(result.ErrorType)
 			}
 			GoLog("[DownloadWithExtensionFallback] Source extension %s failed: %v\n", req.Source, lastErr)
+
+			if strings.EqualFold(lastErrType, "verification_required") {
+				GoLog("[DownloadWithExtensionFallback] Source extension %s requires verification, not trying other providers\n", req.Source)
+				return &DownloadResponse{
+					Success:   false,
+					Error:     "Download failed: " + lastErr.Error(),
+					ErrorType: "verification_required",
+					Service:   req.Source,
+				}, nil
+			}
 
 			if stopProviderFallback || sourceExtensionLocked {
 				if sourceExtensionLocked {
@@ -2463,7 +2476,7 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 				return &DownloadResponse{
 					Success:   false,
 					Error:     "Download failed: " + lastErr.Error(),
-					ErrorType: "extension_error",
+					ErrorType: firstNonEmptyString(lastErrType, "extension_error"),
 					Service:   req.Source,
 				}, nil
 			}
@@ -2632,8 +2645,10 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 					}, nil
 				}
 				lastErr = err
+				lastErrType = ""
 			} else if result.ErrorMessage != "" {
 				lastErr = fmt.Errorf("%s", result.ErrorMessage)
+				lastErrType = strings.TrimSpace(result.ErrorType)
 			}
 			GoLog("[DownloadWithExtensionFallback] %s failed: %v\n", providerID, lastErr)
 			if terminalAvailability {
@@ -2644,7 +2659,7 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 	}
 
 	if lastErr != nil {
-		errorType := classifyDownloadErrorType(lastErr.Error())
+		errorType := firstNonEmptyString(lastErrType, classifyDownloadErrorType(lastErr.Error()))
 		if errorType == "unknown" {
 			errorType = "not_found"
 		}

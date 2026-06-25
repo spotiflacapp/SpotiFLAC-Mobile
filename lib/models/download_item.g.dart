@@ -58,4 +58,5 @@ const _$DownloadErrorTypeEnumMap = {
   DownloadErrorType.rateLimit: 'rateLimit',
   DownloadErrorType.network: 'network',
   DownloadErrorType.permission: 'permission',
+  DownloadErrorType.verificationRequired: 'verificationRequired',
 };

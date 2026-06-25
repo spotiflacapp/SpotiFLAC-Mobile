@@ -3076,7 +3076,7 @@
   "@trackSaveCoverArt": {
     "description": "Menu action - save album cover art as file"
   },
-  "trackSaveCoverArtSubtitle": "Save album art as .jpg file",
+  "trackSaveCoverArtSubtitle": "앨범 아트를 .jpg 파일로 저장",
   "@trackSaveCoverArtSubtitle": {
     "description": "Subtitle for save cover art action"
   },
@@ -3392,7 +3392,7 @@
   "@collectionWishlist": {
     "description": "Custom folder for saved tracks to download later"
   },
-  "collectionLoved": "Loved",
+  "collectionLoved": "즐겨찾기",
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
@@ -3529,11 +3529,11 @@
   "@collectionPlaylistEmptySubtitle": {
     "description": "Playlist empty state subtitle"
   },
-  "collectionRemoveFromPlaylist": "Remove from playlist",
+  "collectionRemoveFromPlaylist": "재생목록에서 제거",
   "@collectionRemoveFromPlaylist": {
     "description": "Tooltip for removing track from playlist"
   },
-  "collectionRemoveFromFolder": "Remove from folder",
+  "collectionRemoveFromFolder": "폴더에서 제거",
   "@collectionRemoveFromFolder": {
     "description": "Tooltip for removing track from wishlist/loved folder"
   },
@@ -3987,11 +3987,11 @@
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
-  "downloadSelectTidalQobuz": "Select a provider with quality options to choose audio quality",
+  "downloadSelectTidalQobuz": "품질을 선택하려면 품질 옵션이 있는 제공자를 선택하세요",
   "@downloadSelectTidalQobuz": {
     "description": "Legacy info shown when a provider does not expose quality options"
   },
-  "downloadEmbedLyricsDisabled": "Enable metadata embedding first",
+  "downloadEmbedLyricsDisabled": "먼저 메타데이터 삽입을 활성화하세요",
   "@downloadEmbedLyricsDisabled": {
     "description": "Subtitle when lyrics embedding is blocked by metadata toggle"
   },
@@ -4075,7 +4075,7 @@
   "@downloadMusixmatchLanguageHint": {
     "description": "Placeholder for Musixmatch language input"
   },
-  "downloadMusixmatchLanguageDesc": "Enter a BCP-47 language code (e.g. en, de, ja) to request translated lyrics from Musixmatch.",
+  "downloadMusixmatchLanguageDesc": "Musixmatch에서 번역된 가사를 요청하려면 BCP-47 언어 코드(예: en, de, ja)를 입력하세요.",
   "@downloadMusixmatchLanguageDesc": {
     "description": "Description in Musixmatch language picker"
   },
@@ -4091,7 +4091,7 @@
   "@downloadNetworkWifiOnlySubtitle": {
     "description": "Subtitle for WiFi-only option in picker"
   },
-  "downloadSongLinkRegionDesc": "Region used when resolving track links via SongLink. Choose the country where your streaming services are available.",
+  "downloadSongLinkRegionDesc": "SongLink를 통해 트랙 링크를 해결할 경우에 사용되는 지역입니다. 스트리밍 서비스를 이용할 수 있는 국가를 선택하세요.",
   "@downloadSongLinkRegionDesc": {
     "description": "Description in SongLink region picker"
   },
@@ -4145,7 +4145,7 @@
   "@editMetadataAutoFill": {
     "description": "Section title for selective online metadata auto-fill in the edit metadata sheet"
   },
-  "editMetadataAutoFillDesc": "Select fields to fill automatically from online metadata",
+  "editMetadataAutoFillDesc": "온라인 메타데이터에서 자동으로 채워질 필드를 선택하세요",
   "@editMetadataAutoFillDesc": {
     "description": "Description for the auto-fill section"
   },
@@ -4297,7 +4297,7 @@
   "@selectionTapPlaylistsToSelect": {
     "description": "Hint shown in playlist selection mode"
   },
-  "selectionSelectPlaylistsToDelete": "Select playlists to delete",
+  "selectionSelectPlaylistsToDelete": "삭제할 재생 목록 선택",
   "@selectionSelectPlaylistsToDelete": {
     "description": "Hint shown when no playlists are selected for deletion"
   },
@@ -4410,7 +4410,7 @@
   "@extensionsHomeFeedProvider": {
     "description": "Extensions page - label for home feed provider selector"
   },
-  "extensionsHomeFeedDescription": "Choose which extension provides the home feed on the main screen",
+  "extensionsHomeFeedDescription": "메인 화면에 홈 피드를 제공하는 확장 프로그램을 선택하세요",
   "@extensionsHomeFeedDescription": {
     "description": "Extensions page - description for home feed provider picker"
   },
@@ -4535,7 +4535,7 @@
   "@notifEmbeddingMetadata": {
     "description": "Notification body while embedding metadata into a downloaded track"
   },
-  "notifAlreadyInLibraryCount": "Already in Library ({completed}/{total})",
+  "notifAlreadyInLibraryCount": "이미 라이브러리에 있음 ({completed}/{total})",
   "@notifAlreadyInLibraryCount": {
     "description": "Notification title when track is already in library, with count",
     "placeholders": {
@@ -4547,7 +4547,7 @@
       }
     }
   },
-  "notifAlreadyInLibrary": "Already in Library",
+  "notifAlreadyInLibrary": "이미 라이브러리에 있음",
   "@notifAlreadyInLibrary": {
     "description": "Notification title when track is already in library"
   },
@@ -4621,7 +4621,7 @@
   "@notifScanningLibrary": {
     "description": "Notification title while scanning local library"
   },
-  "notifLibraryScanProgressWithTotal": "{scanned}/{total} files • {percentage}%",
+  "notifLibraryScanProgressWithTotal": "{scanned}/{total} 파일 • {percentage}%",
   "@notifLibraryScanProgressWithTotal": {
     "description": "Notification body for library scan progress when total is known",
     "placeholders": {
@@ -4691,7 +4691,7 @@
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
   },
-  "notifDownloadingUpdate": "Downloading SpotiFLAC Mobile v{version}",
+  "notifDownloadingUpdate": "SpotiFLAC Mobile v{version}을 다운로드하는 중",
   "@notifDownloadingUpdate": {
     "description": "Notification title while downloading an app update",
     "placeholders": {
@@ -4736,11 +4736,11 @@
   "@notifUpdateFailedBody": {
     "description": "Notification body when app update download fails"
   },
-  "searchTracks": "Tracks",
+  "searchTracks": "트랙",
   "@searchTracks": {
     "description": "Search filter label - tracks"
   },
-  "homeSearchHintDefault": "Paste supported URL or search...",
+  "homeSearchHintDefault": "지원되는 URL을 붙여넣거나 검색...",
   "@homeSearchHintDefault": {
     "description": "Default placeholder for the main search field on Home"
   },
@@ -4753,11 +4753,11 @@
       }
     }
   },
-  "homeImportCsvTooltip": "Import CSV",
+  "homeImportCsvTooltip": "CSV 가져오기",
   "@homeImportCsvTooltip": {
     "description": "Tooltip for importing a CSV file into Home search"
   },
-  "homeChangeSearchProviderTooltip": "Change search provider",
+  "homeChangeSearchProviderTooltip": "검색 제공자 변경",
   "@homeChangeSearchProviderTooltip": {
     "description": "Tooltip for the Home search provider picker"
   },
@@ -4845,7 +4845,7 @@
   "@queueFinalizingDownload": {
     "description": "Accessibility label for a queue item that is finalizing"
   },
-  "queueDownloadedFileMissing": "Downloaded file missing",
+  "queueDownloadedFileMissing": "다운로드한 파일이 없습니다",
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
@@ -5459,19 +5459,19 @@
   "@extensionHealthServiceOffline": {
     "description": "Tooltip for offline extension service"
   },
-  "extensionHealthServiceUnknown": "Service status unknown",
+  "extensionHealthServiceUnknown": "서비스 상태 알 수 없음",
   "@extensionHealthServiceUnknown": {
     "description": "Tooltip for unknown extension service health"
   },
-  "audioAnalysisStereo": "Stereo",
+  "audioAnalysisStereo": "스테레오",
   "@audioAnalysisStereo": {
     "description": "Audio channel layout label - stereo"
   },
-  "audioAnalysisMono": "Mono",
+  "audioAnalysisMono": "모노",
   "@audioAnalysisMono": {
     "description": "Audio channel layout label - mono"
   },
-  "trackOpenInService": "Open in {serviceName}",
+  "trackOpenInService": "{serviceName}에서 열기",
   "@trackOpenInService": {
     "description": "Button label to open a track in a named music service",
     "placeholders": {

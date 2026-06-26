@@ -647,13 +647,10 @@ class _LibraryTracksFolderScreenState
                 color: Colors.black.withValues(alpha: 0.4),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.camera_alt_outlined,
-                color: Colors.white,
-                size: 20,
-              ),
+              child: const Icon(Icons.more_vert, color: Colors.white, size: 20),
             ),
-            onPressed: () => _showCoverOptionsSheet(context, hasCustomCover),
+            onPressed: () =>
+                _showPlaylistOptionsSheet(context, hasCustomCover, playlist),
           ),
       ],
       flexibleSpace: LayoutBuilder(
@@ -996,7 +993,11 @@ class _LibraryTracksFolderScreenState
     }
   }
 
-  void _showCoverOptionsSheet(BuildContext context, bool hasCustomCover) {
+  void _showPlaylistOptionsSheet(
+    BuildContext context,
+    bool hasCustomCover,
+    UserPlaylistCollection? playlist,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
 
     showModalBottomSheet<void>(
@@ -1020,6 +1021,34 @@ class _LibraryTracksFolderScreenState
               ),
             ),
             const SizedBox(height: 16),
+            if (playlist != null)
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 4,
+                ),
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.edit_outlined,
+                    color: colorScheme.onPrimaryContainer,
+                  ),
+                ),
+                title: Text(context.l10n.collectionRenamePlaylist),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _showRenamePlaylistDialog(
+                    context,
+                    playlist.id,
+                    playlist.name,
+                  );
+                },
+              ),
             ListTile(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 24,
@@ -1071,6 +1100,71 @@ class _LibraryTracksFolderScreenState
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showRenamePlaylistDialog(
+    BuildContext context,
+    String playlistId,
+    String currentName,
+  ) async {
+    final controller = TextEditingController(text: currentName);
+    final formKey = GlobalKey<FormState>();
+
+    final nextName = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: Text(dialogContext.l10n.collectionRenamePlaylist),
+          content: Form(
+            key: formKey,
+            child: TextFormField(
+              controller: controller,
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: dialogContext.l10n.collectionPlaylistNameHint,
+              ),
+              validator: (value) {
+                final trimmed = value?.trim() ?? '';
+                if (trimmed.isEmpty) {
+                  return dialogContext.l10n.collectionPlaylistNameRequired;
+                }
+                return null;
+              },
+              onFieldSubmitted: (_) {
+                if (formKey.currentState?.validate() != true) return;
+                Navigator.of(dialogContext).pop(controller.text.trim());
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(dialogContext.l10n.dialogCancel),
+            ),
+            FilledButton(
+              onPressed: () {
+                if (formKey.currentState?.validate() != true) return;
+                Navigator.of(dialogContext).pop(controller.text.trim());
+              },
+              child: Text(dialogContext.l10n.dialogSave),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (nextName == null || nextName.trim().isEmpty || !context.mounted) {
+      return;
+    }
+
+    await ref
+        .read(libraryCollectionsProvider.notifier)
+        .renamePlaylist(playlistId, nextName.trim());
+
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(context.l10n.collectionPlaylistRenamed)),
     );
   }
 }

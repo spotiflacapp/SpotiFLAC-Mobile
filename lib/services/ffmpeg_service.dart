@@ -2457,11 +2457,17 @@ class FFmpegService {
         : (use24 ? 'pcm_s24le' : 'pcm_s16le');
 
     final arguments = <String>[
-      '-v', 'error', '-hide_banner',
-      '-i', inputPath,
-      '-map', '0:a',
-      '-c:a', codec,
-      '-map_metadata', '-1',
+      '-v',
+      'error',
+      '-hide_banner',
+      '-i',
+      inputPath,
+      '-map',
+      '0:a',
+      '-c:a',
+      codec,
+      '-map_metadata',
+      '-1',
       outputPath,
       '-y',
     ];

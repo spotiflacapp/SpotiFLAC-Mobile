@@ -90,7 +90,9 @@ class _FilterChip extends StatelessWidget {
       onSelected: (_) => onTap(),
       showCheckmark: false,
       backgroundColor: settingsGroupColor(context),
-      side: BorderSide(color: colorScheme.outlineVariant.withValues(alpha: 0.6)),
+      side: BorderSide(
+        color: colorScheme.outlineVariant.withValues(alpha: 0.6),
+      ),
     );
   }
 }

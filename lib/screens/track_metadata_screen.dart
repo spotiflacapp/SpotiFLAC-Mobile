@@ -744,6 +744,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
     }
     return url;
   }
+
   String? get _localCoverPath =>
       _isLocalItem ? _localLibraryItem!.coverPath : null;
   String? get _spotifyId => _isLocalItem ? null : _downloadItem!.spotifyId;
@@ -3811,9 +3812,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                       border: Border.all(
                         color: selected
                             ? Colors.transparent
-                            : colorScheme.outlineVariant.withValues(
-                                alpha: 0.6,
-                              ),
+                            : colorScheme.outlineVariant.withValues(alpha: 0.6),
                       ),
                     ),
                     child: Text(
@@ -3885,8 +3884,9 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                                     isLosslessTarget =
                                         isLosslessConversionTarget(format);
                                     if (!isLosslessTarget) {
-                                      selectedBitrate =
-                                          defaultBitrateForFormat(format);
+                                      selectedBitrate = defaultBitrateForFormat(
+                                        format,
+                                      );
                                     }
                                   });
                                 },
@@ -3910,9 +3910,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                                 return choice(
                                   label: br,
                                   selected: br == selectedBitrate,
-                                  onTap: () => setSheetState(
-                                    () => selectedBitrate = br,
-                                  ),
+                                  onTap: () =>
+                                      setSheetState(() => selectedBitrate = br),
                                 );
                               }).toList(),
                             ),

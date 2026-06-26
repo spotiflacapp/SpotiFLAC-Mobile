@@ -54,9 +54,9 @@ class _CacheManagementPageState extends ConsumerState<CacheManagementPage> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.snackbarError(e.toString()))));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
+      );
     }
   }
 
@@ -280,9 +280,9 @@ class _CacheManagementPageState extends ConsumerState<CacheManagementPage> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.snackbarError(e.toString()))));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
+      );
     } finally {
       if (mounted) {
         setState(() => _busyAction = null);

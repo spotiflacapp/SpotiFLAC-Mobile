@@ -359,11 +359,8 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen> {
                           if (_coverUrl != null) ...[
                             Builder(
                               builder: (context) {
-                                final coverSize =
-                                    (constraints.maxWidth * 0.5).clamp(
-                                      140.0,
-                                      220.0,
-                                    );
+                                final coverSize = (constraints.maxWidth * 0.5)
+                                    .clamp(140.0, 220.0);
                                 return Container(
                                   width: coverSize,
                                   height: coverSize,

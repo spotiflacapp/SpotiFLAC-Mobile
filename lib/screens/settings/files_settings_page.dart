@@ -933,7 +933,6 @@ class _FolderOption extends StatelessWidget {
   }
 }
 
-
 /// Bottom sheet for editing a filename format. Owns its controller and disposes
 /// it in [dispose] to avoid use-after-dispose during the close animation.
 class _FilenameFormatEditorSheet extends StatefulWidget {
@@ -1035,7 +1034,9 @@ class _FilenameFormatEditorSheetState
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -1057,9 +1058,9 @@ class _FilenameFormatEditorSheetState
                 ),
                 Text(
                   widget.title ?? context.l10n.filenameFormat,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),

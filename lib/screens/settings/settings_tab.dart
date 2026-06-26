@@ -157,8 +157,7 @@ class SettingsTab extends ConsumerWidget {
                     icon: Icons.tune_outlined,
                     title: l10n.settingsApp,
                     subtitle: l10n.settingsAppSubtitle,
-                    onTap: () =>
-                        _navigateTo(context, const AppSettingsPage()),
+                    onTap: () => _navigateTo(context, const AppSettingsPage()),
                   ),
                   SettingsItem(
                     icon: Icons.article_outlined,

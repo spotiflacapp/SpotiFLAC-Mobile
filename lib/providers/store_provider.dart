@@ -273,10 +273,7 @@ class StoreNotifier extends Notifier<StoreState> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_registryUrlPrefKey, resolvedUrl);
 
-      state = state.copyWith(
-        registryUrl: resolvedUrl,
-        extensions: const [],
-      );
+      state = state.copyWith(registryUrl: resolvedUrl, extensions: const []);
 
       _log.i('Registry URL set to: $resolvedUrl');
       await refresh(forceRefresh: true);
@@ -393,9 +390,7 @@ class StoreNotifier extends Notifier<StoreState> {
   }
 
   Future<bool> updateExtension(String extensionId, String tempDir) {
-    return _runSerialized(
-      () => _updateExtensionInternal(extensionId, tempDir),
-    );
+    return _runSerialized(() => _updateExtensionInternal(extensionId, tempDir));
   }
 
   Future<bool> _updateExtensionInternal(

@@ -1549,9 +1549,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(ctx.l10n.replayGainBatchConfirmTitle),
-        content: Text(
-          ctx.l10n.replayGainBatchConfirmMessage(selected.length),
-        ),
+        content: Text(ctx.l10n.replayGainBatchConfirmMessage(selected.length)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
@@ -1601,9 +1599,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          context.l10n.replayGainBatchSuccess(successCount, total),
-        ),
+        content: Text(context.l10n.replayGainBatchSuccess(successCount, total)),
       ),
     );
   }

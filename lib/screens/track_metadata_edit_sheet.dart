@@ -1301,10 +1301,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                 ],
               ),
             ),
-            Divider(
-              height: 1,
-              color: cs.outlineVariant.withValues(alpha: 0.5),
-            ),
+            Divider(height: 1, color: cs.outlineVariant.withValues(alpha: 0.5)),
             Expanded(
               child: ListView(
                 controller: scrollController,
@@ -1317,10 +1314,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                     title: context.l10n.trackMetadata,
                     children: [
                       _field(context.l10n.editMetadataFieldTitle, _titleCtrl),
-                      _field(
-                        context.l10n.editMetadataFieldArtist,
-                        _artistCtrl,
-                      ),
+                      _field(context.l10n.editMetadataFieldArtist, _artistCtrl),
                       _field(context.l10n.editMetadataFieldAlbum, _albumCtrl),
                       _field(
                         context.l10n.editMetadataFieldAlbumArtist,
@@ -1393,10 +1387,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                     expanded: _showAdvanced,
                     children: [
                       if (_showAdvanced) ...[
-                        _field(
-                          context.l10n.editMetadataFieldLabel,
-                          _labelCtrl,
-                        ),
+                        _field(context.l10n.editMetadataFieldLabel, _labelCtrl),
                         _field(
                           context.l10n.editMetadataFieldCopyright,
                           _copyrightCtrl,

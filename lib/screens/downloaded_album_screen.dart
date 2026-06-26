@@ -1067,8 +1067,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
     int successCount = 0;
     final total = selected.length;
     final historyDb = HistoryDatabase.instance;
-    final newQuality =
-        isLosslessConversionTarget(targetFormat)
+    final newQuality = isLosslessConversionTarget(targetFormat)
         ? '${targetFormat.toUpperCase()} Lossless'
         : '${targetFormat.toUpperCase()} ${bitrate.trim().toLowerCase()}';
     final settings = ref.read(settingsProvider);
@@ -1279,9 +1278,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(ctx.l10n.replayGainBatchConfirmTitle),
-        content: Text(
-          ctx.l10n.replayGainBatchConfirmMessage(selected.length),
-        ),
+        content: Text(ctx.l10n.replayGainBatchConfirmMessage(selected.length)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
@@ -1331,9 +1328,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          context.l10n.replayGainBatchSuccess(successCount, total),
-        ),
+        content: Text(context.l10n.replayGainBatchSuccess(successCount, total)),
       ),
     );
   }

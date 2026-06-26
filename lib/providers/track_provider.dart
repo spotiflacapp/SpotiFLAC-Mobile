@@ -314,7 +314,8 @@ class TrackNotifier extends Notifier<TrackState> {
               .map((a) => _parseArtistAlbum(a as Map<String, dynamic>))
               .toList();
 
-          final topTracksList = artistData['top_tracks'] as List<dynamic>? ?? [];
+          final topTracksList =
+              artistData['top_tracks'] as List<dynamic>? ?? [];
           final topTracks = topTracksList
               .map(
                 (t) => _parseSearchTrack(
@@ -359,10 +360,7 @@ class TrackNotifier extends Notifier<TrackState> {
     }
   }
 
-  Future<void> search(
-    String query, {
-    String? filterOverride,
-  }) async {
+  Future<void> search(String query, {String? filterOverride}) async {
     final requestId = ++_currentRequestId;
     final currentFilter = filterOverride ?? state.selectedSearchFilter;
     final requestFilter = currentFilter == 'all' ? null : currentFilter;
@@ -826,7 +824,6 @@ class TrackNotifier extends Notifier<TrackState> {
       totalTracks: data['total_tracks'] as int? ?? 0,
     );
   }
-
 }
 
 final trackProvider = NotifierProvider<TrackNotifier, TrackState>(

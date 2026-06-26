@@ -3324,9 +3324,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
             item.track.artistName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(
-              context,
-            ).textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),
@@ -5403,8 +5403,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     int successCount = 0;
     final total = selectedItems.length;
     final historyDb = HistoryDatabase.instance;
-    final newQuality =
-        isLosslessConversionTarget(targetFormat)
+    final newQuality = isLosslessConversionTarget(targetFormat)
         ? '${targetFormat.toUpperCase()} Lossless'
         : '${targetFormat.toUpperCase()} ${bitrate.trim().toLowerCase()}';
     final settings = ref.read(settingsProvider);
@@ -5705,9 +5704,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   }
 
   /// Batch-scan loudness and write ReplayGain tags to the selected tracks.
-  Future<void> _runBatchReplayGain(
-    List<UnifiedLibraryItem> allItems,
-  ) async {
+  Future<void> _runBatchReplayGain(List<UnifiedLibraryItem> allItems) async {
     final itemsById = {for (final item in allItems) item.id: item};
     final selectedItems = <UnifiedLibraryItem>[];
     for (final id in _selectedIds) {
@@ -5795,9 +5792,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          context.l10n.replayGainBatchSuccess(successCount, total),
-        ),
+        content: Text(context.l10n.replayGainBatchSuccess(successCount, total)),
       ),
     );
   }
@@ -6097,75 +6092,79 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                  isCompleted
-                      ? Hero(
-                          tag: 'cover_${item.id}',
-                          child: _buildCoverArt(item, colorScheme),
-                        )
-                      : _buildCoverArt(item, colorScheme),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.track.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 2),
-                        ClickableArtistName(
-                          artistName: item.track.artistName,
-                          artistId: item.track.artistId,
-                          coverUrl: item.track.coverUrl,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: colorScheme.onSurfaceVariant),
-                        ),
-                        if (item.status == DownloadStatus.downloading) ...[
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.download_rounded,
-                                size: 12,
-                                color: colorScheme.primary,
-                              ),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  _formatDownloadStatusLine(context, item),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.labelSmall
-                                      ?.copyWith(
-                                        color: colorScheme.primary,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
+                      isCompleted
+                          ? Hero(
+                              tag: 'cover_${item.id}',
+                              child: _buildCoverArt(item, colorScheme),
+                            )
+                          : _buildCoverArt(item, colorScheme),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.track.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 2),
+                            ClickableArtistName(
+                              artistName: item.track.artistName,
+                              artistId: item.track.artistId,
+                              coverUrl: item.track.coverUrl,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                            ),
+                            if (item.status == DownloadStatus.downloading) ...[
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.download_rounded,
+                                    size: 12,
+                                    color: colorScheme.primary,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Expanded(
+                                    child: Text(
+                                      _formatDownloadStatusLine(context, item),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                            color: colorScheme.primary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                        ],
-                        if (item.status == DownloadStatus.failed) ...[
-                          const SizedBox(height: 4),
-                          _buildDownloadFailureMessage(
-                            context,
-                            item,
-                            colorScheme,
-                          ),
-                        ],
-                      ],
-                    ),
+                            if (item.status == DownloadStatus.failed) ...[
+                              const SizedBox(height: 4),
+                              _buildDownloadFailureMessage(
+                                context,
+                                item,
+                                colorScheme,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      _buildActionButtons(context, item, colorScheme),
+                    ],
                   ),
-                  const SizedBox(width: 8),
-                  _buildActionButtons(context, item, colorScheme),
-                ],
-              ),
-            ),
+                ),
               ],
             ),
           ),

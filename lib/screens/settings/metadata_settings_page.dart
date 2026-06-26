@@ -86,8 +86,11 @@ class MetadataSettingsPage extends ConsumerWidget {
                         context,
                         settings.artistTagMode,
                       ),
-                      onTap: () =>
-                          _showArtistTagModePicker(context, ref, settings.artistTagMode),
+                      onTap: () => _showArtistTagModePicker(
+                        context,
+                        ref,
+                        settings.artistTagMode,
+                      ),
                     ),
                     SettingsSwitchItem(
                       icon: Icons.image,
@@ -201,16 +204,18 @@ class MetadataSettingsPage extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
               child: Text(
                 context.l10n.optionsArtistTagMode,
-                style: Theme.of(context).textTheme.titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
               child: Text(
                 context.l10n.optionsArtistTagModeDescription,
-                style: Theme.of(context).textTheme.bodyMedium
-                    ?.copyWith(color: colorScheme.onSurfaceVariant),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ),
             ListTile(
@@ -230,7 +235,9 @@ class MetadataSettingsPage extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.library_music_outlined),
               title: Text(context.l10n.optionsArtistTagModeSplitVorbis),
-              subtitle: Text(context.l10n.optionsArtistTagModeSplitVorbisSubtitle),
+              subtitle: Text(
+                context.l10n.optionsArtistTagModeSplitVorbisSubtitle,
+              ),
               trailing: currentMode == artistTagModeSplitVorbis
                   ? const Icon(Icons.check)
                   : null,

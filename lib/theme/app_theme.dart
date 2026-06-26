@@ -14,7 +14,8 @@ class AppTheme {
   // regression introduced by the Flutter upgrade. Forcing a non-predictive
   // builder restores the correct back order (close modal, then pop page), at the
   // cost of the predictive-back preview animation.
-  static const PageTransitionsTheme _pageTransitionsTheme = PageTransitionsTheme(
+  static const PageTransitionsTheme
+  _pageTransitionsTheme = PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       // Android default is PredictiveBackPageTransitionsBuilder, whose
       // _PredictiveBackGestureDetector mis-routes the back gesture to a nested

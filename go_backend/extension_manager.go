@@ -1175,14 +1175,16 @@ func (m *extensionManager) InvokeAction(extensionID string, actionName string) (
 
 	// Merge extension return values onto the top-level JSON object so Flutter can read
 	// message, open_auth_url, setting_updates without unwrapping a nested "result" key.
+	actionNameLiteral := strconv.Quote(actionName)
 	script := fmt.Sprintf(`
-		(function() {
-			if (typeof extension !== 'undefined' && typeof extension.%s === 'function') {
-				try {
-					var result = extension.%s();
-					if (result && typeof result.then === 'function') {
-						return { success: true, pending: true, message: 'Action started' };
-					}
+			(function() {
+				var actionName = %s;
+				function runAction(fn) {
+					try {
+						var result = fn();
+						if (result && typeof result.then === 'function') {
+							return { success: true, pending: true, message: 'Action started' };
+						}
 					if (result !== null && result !== undefined && typeof result === 'object') {
 						var isArr = false;
 						if (typeof Array !== 'undefined' && Array.isArray) {
@@ -1197,13 +1199,19 @@ func (m *extensionManager) InvokeAction(extensionID string, actionName string) (
 						}
 					}
 					return { success: true, result: result };
-				} catch (e) {
-					return { success: false, error: e.toString() };
+					} catch (e) {
+						return { success: false, error: e.toString() };
+					}
 				}
-			}
-			return { success: false, error: 'Action function not found: %s' };
-		})()
-	`, actionName, actionName, actionName)
+				if (typeof extension !== 'undefined' && extension && typeof extension[actionName] === 'function') {
+					return runAction(function() { return extension[actionName](); });
+				}
+				if (actionName === 'completeGrant' && typeof session !== 'undefined' && session && typeof session.completeGrant === 'function') {
+					return runAction(function() { return session.completeGrant(); });
+				}
+				return { success: false, error: 'Action function not found: ' + actionName };
+			})()
+		`, actionNameLiteral)
 
 	result, err := RunWithTimeoutAndRecover(vm, script, DefaultJSTimeout)
 	if err != nil {

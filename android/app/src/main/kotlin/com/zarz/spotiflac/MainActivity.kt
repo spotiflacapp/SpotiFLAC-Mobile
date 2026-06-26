@@ -2112,19 +2112,24 @@ class MainActivity: FlutterFragmentActivity() {
                 android.util.Log.i("SpotiFLAC", "Extension callback complete for $extId: $json")
                 if (isSessionGrant) {
                     withContext(Dispatchers.Main) {
-                        notifySessionGrantCompleted(extId)
+                        notifySessionGrantCompleted(extId, true)
                     }
                 }
             } catch (e: Exception) {
                 android.util.Log.w("SpotiFLAC", "Extension callback failed: ${e.message}")
+                if (isSessionGrant) {
+                    withContext(Dispatchers.Main) {
+                        notifySessionGrantCompleted(extId, false)
+                    }
+                }
             }
         }
     }
 
-    private fun notifySessionGrantCompleted(extensionId: String) {
+    private fun notifySessionGrantCompleted(extensionId: String, success: Boolean) {
         val payload = mapOf(
             "extension_id" to extensionId,
-            "success" to true,
+            "success" to success,
         )
         val channel = backendChannel
         if (channel == null) {

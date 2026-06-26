@@ -310,6 +310,7 @@ type DownloadResponse struct {
 	FilePath                    string                  `json:"file_path,omitempty"`
 	Error                       string                  `json:"error,omitempty"`
 	ErrorType                   string                  `json:"error_type,omitempty"`
+	RetryAfterSeconds           int                     `json:"retry_after_seconds,omitempty"`
 	AlreadyExists               bool                    `json:"already_exists,omitempty"`
 	ActualBitDepth              int                     `json:"actual_bit_depth,omitempty"`
 	ActualSampleRate            int                     `json:"actual_sample_rate,omitempty"`
@@ -2512,8 +2513,17 @@ func classifyDownloadErrorType(msg string) string {
 		return "isp_blocked"
 	} else if strings.Contains(lowerMsg, "cancel") {
 		return "cancelled"
+	} else if strings.Contains(lowerMsg, "verify_required") ||
+		strings.Contains(lowerMsg, "verification_required") ||
+		strings.Contains(lowerMsg, "verification required") ||
+		strings.Contains(lowerMsg, "needs verification") ||
+		strings.Contains(lowerMsg, "unauthorized") ||
+		strings.Contains(lowerMsg, "precondition required") ||
+		messageHasHTTPStatusCode(lowerMsg, "401") ||
+		messageHasHTTPStatusCode(lowerMsg, "428") {
+		return "verification_required"
 	} else if strings.Contains(lowerMsg, "rate limit") ||
-		strings.Contains(lowerMsg, "429") ||
+		messageHasHTTPStatusCode(lowerMsg, "429") ||
 		strings.Contains(lowerMsg, "too many requests") {
 		return "rate_limit"
 	} else if strings.Contains(lowerMsg, "permission") ||
@@ -2536,6 +2546,15 @@ func classifyDownloadErrorType(msg string) string {
 	}
 
 	return "unknown"
+}
+
+func messageHasHTTPStatusCode(lowerMsg, code string) bool {
+	return strings.Contains(lowerMsg, "http "+code) ||
+		strings.Contains(lowerMsg, "http status "+code) ||
+		strings.Contains(lowerMsg, "status "+code) ||
+		strings.Contains(lowerMsg, code+" for ") ||
+		strings.Contains(lowerMsg, code+":") ||
+		strings.Contains(lowerMsg, code+";")
 }
 
 func DownloadCoverToFile(coverURL string, outputPath string, maxQuality bool) error {

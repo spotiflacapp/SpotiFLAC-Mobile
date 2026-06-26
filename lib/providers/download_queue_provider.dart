@@ -1906,6 +1906,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
   int _lastNotifQueueCount = -1;
   final Set<String> _locallyCancelledItemIds = {};
   final Set<String> _pausePendingItemIds = {};
+  final Set<String> _verificationRetriedItemIds = {};
+  final Set<String> _rateLimitRetriedItemIds = {};
   String? _activeNativeWorkerRunId;
 
   // Album ReplayGain accumulator: keyed by album identifier.
@@ -2046,6 +2048,143 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     } catch (e) {
       _log.e('Failed to load queue from storage: $e');
     }
+  }
+
+  Future<bool> _openVerificationAndWait(String extensionId) async {
+    final normalizedExtensionId = extensionId.trim();
+    if (normalizedExtensionId.isEmpty) return false;
+
+    final grantEventFuture = PlatformBridge.extensionSessionGrantEvents()
+        .where((event) => event.extensionId == normalizedExtensionId)
+        .first
+        .timeout(
+          const Duration(minutes: 5),
+          onTimeout: () => ExtensionSessionGrantEvent(
+            extensionId: normalizedExtensionId,
+            success: false,
+          ),
+        );
+
+    final opened = await openPendingExtensionVerification(
+      normalizedExtensionId,
+    );
+    if (!opened) return false;
+
+    final event = await grantEventFuture;
+    return event.success;
+  }
+
+  Future<bool> _handleVerificationRequiredDownload(
+    DownloadItem item,
+    String errorMsg,
+  ) async {
+    if (_verificationRetriedItemIds.contains(item.id)) {
+      _log.e(
+        'Verification was already completed once for ${item.track.name}; not opening another challenge',
+      );
+      updateItemStatus(
+        item.id,
+        DownloadStatus.failed,
+        error: errorMsg,
+        errorType: DownloadErrorType.verificationRequired,
+      );
+      _failedInSession++;
+      return true;
+    }
+    _verificationRetriedItemIds.add(item.id);
+
+    _log.i(
+      'Download for ${item.track.name} requires verification; waiting for ${item.service} grant',
+    );
+    updateItemStatus(
+      item.id,
+      DownloadStatus.downloading,
+      error: 'Waiting for verification',
+      errorType: DownloadErrorType.verificationRequired,
+    );
+
+    final verified = await _openVerificationAndWait(item.service);
+    final current = _findItemById(item.id);
+    if (current == null || _isLocallyCancelled(item.id, item: current)) {
+      _log.i('Verification completed after item was removed or cancelled');
+      return true;
+    }
+
+    if (verified) {
+      _log.i(
+        'Verification complete for ${item.service}; retrying ${item.track.name}',
+      );
+      updateItemStatus(
+        item.id,
+        DownloadStatus.queued,
+        progress: 0,
+        speedMBps: 0,
+        error: 'Retrying after verification',
+        errorType: DownloadErrorType.verificationRequired,
+      );
+      _saveQueueToStorage();
+      return true;
+    }
+
+    _log.e('Verification did not complete for ${item.service}');
+    updateItemStatus(
+      item.id,
+      DownloadStatus.failed,
+      error: errorMsg,
+      errorType: DownloadErrorType.verificationRequired,
+    );
+    _failedInSession++;
+    return true;
+  }
+
+  Duration _rateLimitBackoffDelay(String errorMsg) {
+    final lower = errorMsg.toLowerCase();
+    final retryAfterMatch = RegExp(
+      r'retry[- ]?after(?: seconds)?[:= ]+(\d+)',
+      caseSensitive: false,
+    ).firstMatch(lower);
+    final parsedSeconds = retryAfterMatch == null
+        ? null
+        : int.tryParse(retryAfterMatch.group(1) ?? '');
+    final seconds = (parsedSeconds ?? 30).clamp(5, 300).toInt();
+    return Duration(seconds: seconds);
+  }
+
+  Future<bool> _handleRateLimitedDownload(
+    DownloadItem item,
+    String errorMsg,
+  ) async {
+    if (_rateLimitRetriedItemIds.contains(item.id)) {
+      return false;
+    }
+    _rateLimitRetriedItemIds.add(item.id);
+
+    final delay = _rateLimitBackoffDelay(errorMsg);
+    _log.i(
+      'Rate limited while downloading ${item.track.name}; retrying after ${delay.inSeconds}s',
+    );
+    updateItemStatus(
+      item.id,
+      DownloadStatus.downloading,
+      error: 'Rate limited, retrying after ${delay.inSeconds}s',
+      errorType: DownloadErrorType.rateLimit,
+    );
+
+    await Future<void>.delayed(delay);
+    final current = _findItemById(item.id);
+    if (current == null || _isLocallyCancelled(item.id, item: current)) {
+      return true;
+    }
+    updateItemStatus(
+      item.id,
+      DownloadStatus.queued,
+      progress: 0,
+      speedMBps: 0,
+      error: 'Retrying after rate limit',
+      errorType: DownloadErrorType.rateLimit,
+    );
+    _saveQueueToStorage();
+    return true;
   }
 
   void _saveQueueToStorage() {
@@ -3978,6 +4117,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
 
     _log.i('Retrying item: ${item.track.name} (id: $id)');
     _locallyCancelledItemIds.remove(id);
+    _verificationRetriedItemIds.remove(id);
+    _rateLimitRetriedItemIds.remove(id);
 
     // Purge stale ReplayGain entry for this track so a re-scan doesn't
     // produce duplicate entries that bias album gain.
@@ -6974,6 +7115,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     final remainingIds = state.items.map((item) => item.id).toSet();
     _locallyCancelledItemIds.removeWhere((id) => !remainingIds.contains(id));
     _pausePendingItemIds.removeWhere((id) => !remainingIds.contains(id));
+    _verificationRetriedItemIds.removeWhere((id) => !remainingIds.contains(id));
+    _rateLimitRetriedItemIds.removeWhere((id) => !remainingIds.contains(id));
   }
 
   Future<void> _downloadSingleItem(DownloadItem item) async {
@@ -8845,8 +8988,14 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           return;
         }
 
-        final errorMsg = result['error'] as String? ?? 'Download failed';
+        var errorMsg = result['error'] as String? ?? 'Download failed';
         final errorTypeStr = result['error_type'] as String? ?? 'unknown';
+        final retryAfterSeconds = readPositiveInt(
+          result['retry_after_seconds'],
+        );
+        if (retryAfterSeconds != null && retryAfterSeconds > 0) {
+          errorMsg = '$errorMsg retry-after: $retryAfterSeconds';
+        }
         if (errorTypeStr == 'cancelled') {
           if (_isPausePending(item.id)) {
             pausedDuringThisRun = true;
@@ -8882,6 +9031,15 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
             errorType = _downloadErrorTypeFromMessage(errorMsg);
         }
 
+        if (errorType == DownloadErrorType.verificationRequired) {
+          await _handleVerificationRequiredDownload(item, errorMsg);
+          return;
+        }
+        if (errorType == DownloadErrorType.rateLimit &&
+            await _handleRateLimitedDownload(item, errorMsg)) {
+          return;
+        }
+
         _log.e('Download failed: $errorMsg (type: $errorTypeStr)');
         updateItemStatus(
           item.id,
@@ -8889,9 +9047,6 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           error: errorMsg,
           errorType: errorType,
         );
-        if (errorType == DownloadErrorType.verificationRequired) {
-          unawaited(openPendingExtensionVerification(item.service));
-        }
         _failedInSession++;
 
         try {
@@ -8940,15 +9095,21 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
         errorType = _downloadErrorTypeFromMessage(errorMsg);
       }
 
+      if (errorType == DownloadErrorType.verificationRequired) {
+        await _handleVerificationRequiredDownload(item, errorMsg);
+        return;
+      }
+      if (errorType == DownloadErrorType.rateLimit &&
+          await _handleRateLimitedDownload(item, errorMsg)) {
+        return;
+      }
+
       updateItemStatus(
         item.id,
         DownloadStatus.failed,
         error: errorMsg,
         errorType: errorType,
       );
-      if (errorType == DownloadErrorType.verificationRequired) {
-        unawaited(openPendingExtensionVerification(item.service));
-      }
       _failedInSession++;
 
       try {

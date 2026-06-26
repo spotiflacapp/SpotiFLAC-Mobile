@@ -473,6 +473,18 @@ func shouldAbortCancelledFallback(itemID string, err error) bool {
 	return itemID != "" && isDownloadCancelled(itemID)
 }
 
+func normalizeExtensionDownloadErrorType(errorType, message string) string {
+	normalized := strings.TrimSpace(errorType)
+	classified := classifyDownloadErrorType(message)
+	if classified != "" && classified != "unknown" {
+		switch strings.ToLower(normalized) {
+		case "", "unknown", "runtime_error", "api_error", "download_error", "extension_error":
+			return classified
+		}
+	}
+	return normalized
+}
+
 type DownloadDecryptionInfo struct {
 	Strategy        string                 `json:"strategy,omitempty"`
 	Key             string                 `json:"key,omitempty"`
@@ -483,14 +495,15 @@ type DownloadDecryptionInfo struct {
 }
 
 type ExtDownloadResult struct {
-	Success       bool   `json:"success"`
-	FilePath      string `json:"file_path,omitempty"`
-	AlreadyExists bool   `json:"already_exists,omitempty"`
-	BitDepth      int    `json:"bit_depth,omitempty"`
-	SampleRate    int    `json:"sample_rate,omitempty"`
-	AudioCodec    string `json:"audio_codec,omitempty"`
-	ErrorMessage  string `json:"error_message,omitempty"`
-	ErrorType     string `json:"error_type,omitempty"`
+	Success           bool   `json:"success"`
+	FilePath          string `json:"file_path,omitempty"`
+	AlreadyExists     bool   `json:"already_exists,omitempty"`
+	BitDepth          int    `json:"bit_depth,omitempty"`
+	SampleRate        int    `json:"sample_rate,omitempty"`
+	AudioCodec        string `json:"audio_codec,omitempty"`
+	ErrorMessage      string `json:"error_message,omitempty"`
+	ErrorType         string `json:"error_type,omitempty"`
+	RetryAfterSeconds int    `json:"retry_after_seconds,omitempty"`
 
 	Title                       string                  `json:"title,omitempty"`
 	Artist                      string                  `json:"artist,omitempty"`
@@ -942,35 +955,36 @@ func parseExtensionDownloadDecryptionValue(vm *goja.Runtime, value goja.Value) *
 func parseExtensionDownloadResultValue(vm *goja.Runtime, value goja.Value) ExtDownloadResult {
 	obj := value.ToObject(vm)
 	return ExtDownloadResult{
-		Success:         gojaObjectBool(obj, "success"),
-		FilePath:        gojaObjectString(obj, "file_path", "filePath", "path"),
-		AlreadyExists:   gojaObjectBool(obj, "already_exists", "alreadyExists"),
-		BitDepth:        gojaObjectInt(obj, "bit_depth", "bitDepth"),
-		SampleRate:      gojaObjectInt(obj, "sample_rate", "sampleRate"),
-		AudioCodec:      gojaObjectString(obj, "audio_codec", "audioCodec", "codec"),
-		ErrorMessage:    gojaObjectString(obj, "error_message", "errorMessage", "error"),
-		ErrorType:       gojaObjectString(obj, "error_type", "errorType"),
-		Title:           gojaObjectString(obj, "title"),
-		Artist:          gojaObjectString(obj, "artist"),
-		Album:           gojaObjectString(obj, "album"),
-		AlbumArtist:     gojaObjectString(obj, "album_artist", "albumArtist"),
-		TrackNumber:     gojaObjectInt(obj, "track_number", "trackNumber"),
-		DiscNumber:      gojaObjectInt(obj, "disc_number", "discNumber"),
-		TotalTracks:     gojaObjectInt(obj, "total_tracks", "totalTracks"),
-		TotalDiscs:      gojaObjectInt(obj, "total_discs", "totalDiscs"),
-		ReleaseDate:     gojaObjectString(obj, "release_date", "releaseDate"),
-		CoverURL:        gojaObjectString(obj, "cover_url", "coverUrl"),
-		ISRC:            gojaObjectString(obj, "isrc"),
-		Genre:           gojaObjectString(obj, "genre"),
-		Label:           gojaObjectString(obj, "label"),
-		Copyright:       gojaObjectString(obj, "copyright"),
-		Composer:        gojaObjectString(obj, "composer"),
-		LyricsLRC:       gojaObjectString(obj, "lyrics_lrc", "lyricsLrc"),
-		DecryptionKey:   gojaObjectString(obj, "decryption_key", "decryptionKey"),
-		Decryption:      parseExtensionDownloadDecryptionValue(vm, gojaObjectValue(obj, "decryption")),
-		ActualExtension: gojaObjectString(obj, "actual_extension", "actualExtension"),
-		OutputExtension: gojaObjectString(obj, "output_extension", "outputExtension"),
-		ActualContainer: gojaObjectString(obj, "actual_container", "actualContainer", "container"),
+		Success:           gojaObjectBool(obj, "success"),
+		FilePath:          gojaObjectString(obj, "file_path", "filePath", "path"),
+		AlreadyExists:     gojaObjectBool(obj, "already_exists", "alreadyExists"),
+		BitDepth:          gojaObjectInt(obj, "bit_depth", "bitDepth"),
+		SampleRate:        gojaObjectInt(obj, "sample_rate", "sampleRate"),
+		AudioCodec:        gojaObjectString(obj, "audio_codec", "audioCodec", "codec"),
+		ErrorMessage:      gojaObjectString(obj, "error_message", "errorMessage", "error"),
+		ErrorType:         gojaObjectString(obj, "error_type", "errorType"),
+		RetryAfterSeconds: gojaObjectInt(obj, "retry_after_seconds", "retryAfterSeconds"),
+		Title:             gojaObjectString(obj, "title"),
+		Artist:            gojaObjectString(obj, "artist"),
+		Album:             gojaObjectString(obj, "album"),
+		AlbumArtist:       gojaObjectString(obj, "album_artist", "albumArtist"),
+		TrackNumber:       gojaObjectInt(obj, "track_number", "trackNumber"),
+		DiscNumber:        gojaObjectInt(obj, "disc_number", "discNumber"),
+		TotalTracks:       gojaObjectInt(obj, "total_tracks", "totalTracks"),
+		TotalDiscs:        gojaObjectInt(obj, "total_discs", "totalDiscs"),
+		ReleaseDate:       gojaObjectString(obj, "release_date", "releaseDate"),
+		CoverURL:          gojaObjectString(obj, "cover_url", "coverUrl"),
+		ISRC:              gojaObjectString(obj, "isrc"),
+		Genre:             gojaObjectString(obj, "genre"),
+		Label:             gojaObjectString(obj, "label"),
+		Copyright:         gojaObjectString(obj, "copyright"),
+		Composer:          gojaObjectString(obj, "composer"),
+		LyricsLRC:         gojaObjectString(obj, "lyrics_lrc", "lyricsLrc"),
+		DecryptionKey:     gojaObjectString(obj, "decryption_key", "decryptionKey"),
+		Decryption:        parseExtensionDownloadDecryptionValue(vm, gojaObjectValue(obj, "decryption")),
+		ActualExtension:   gojaObjectString(obj, "actual_extension", "actualExtension"),
+		OutputExtension:   gojaObjectString(obj, "output_extension", "outputExtension"),
+		ActualContainer:   gojaObjectString(obj, "actual_container", "actualContainer", "container"),
 		RequiresContainerConversion: gojaObjectBool(
 			obj,
 			"requires_container_conversion",
@@ -2136,6 +2150,7 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 
 	var lastErr error
 	var lastErrType string
+	var lastRetryAfterSeconds int
 	var stopProviderFallback bool
 	var sourceExtensionLocked bool
 	var sourceExtensionAvailability *ExtAvailabilityResult
@@ -2453,7 +2468,8 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 				lastErrType = ""
 			} else if result.ErrorMessage != "" {
 				lastErr = fmt.Errorf("%s", result.ErrorMessage)
-				lastErrType = strings.TrimSpace(result.ErrorType)
+				lastErrType = normalizeExtensionDownloadErrorType(result.ErrorType, result.ErrorMessage)
+				lastRetryAfterSeconds = result.RetryAfterSeconds
 			}
 			GoLog("[DownloadWithExtensionFallback] Source extension %s failed: %v\n", req.Source, lastErr)
 
@@ -2474,10 +2490,11 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 				}
 				GoLog("[DownloadWithExtensionFallback] stopProviderFallback is true, not trying other providers\n")
 				return &DownloadResponse{
-					Success:   false,
-					Error:     "Download failed: " + lastErr.Error(),
-					ErrorType: firstNonEmptyString(lastErrType, "extension_error"),
-					Service:   req.Source,
+					Success:           false,
+					Error:             "Download failed: " + lastErr.Error(),
+					ErrorType:         firstNonEmptyString(lastErrType, "extension_error"),
+					RetryAfterSeconds: lastRetryAfterSeconds,
+					Service:           req.Source,
 				}, nil
 			}
 		} else {
@@ -2648,7 +2665,8 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 				lastErrType = ""
 			} else if result.ErrorMessage != "" {
 				lastErr = fmt.Errorf("%s", result.ErrorMessage)
-				lastErrType = strings.TrimSpace(result.ErrorType)
+				lastErrType = normalizeExtensionDownloadErrorType(result.ErrorType, result.ErrorMessage)
+				lastRetryAfterSeconds = result.RetryAfterSeconds
 			}
 			GoLog("[DownloadWithExtensionFallback] %s failed: %v\n", providerID, lastErr)
 			if terminalAvailability {
@@ -2664,9 +2682,10 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 			errorType = "not_found"
 		}
 		return &DownloadResponse{
-			Success:   false,
-			Error:     "All providers failed. Last error: " + lastErr.Error(),
-			ErrorType: errorType,
+			Success:           false,
+			Error:             "All providers failed. Last error: " + lastErr.Error(),
+			ErrorType:         errorType,
+			RetryAfterSeconds: lastRetryAfterSeconds,
 		}, nil
 	}
 

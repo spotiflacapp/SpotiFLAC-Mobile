@@ -31,6 +31,19 @@ func TestDownloadErrorClassificationPrioritizesRateLimit(t *testing.T) {
 	}
 }
 
+func TestDownloadErrorClassificationDetectsVerificationRequired(t *testing.T) {
+	cases := []string{
+		"HTTP 401 for /tickets",
+		"HTTP status 428: precondition required",
+		"Verification required",
+	}
+	for _, tc := range cases {
+		if got := classifyDownloadErrorType(tc); got != "verification_required" {
+			t.Fatalf("classifyDownloadErrorType(%q) = %q, want verification_required", tc, got)
+		}
+	}
+}
+
 func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	dir := t.TempDir()
 	dataDir := filepath.Join(dir, "data")

@@ -14,6 +14,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -322,12 +323,13 @@ func (r *extensionRuntime) signedSessionFetch(call goja.FunctionCall) goja.Value
 		}
 	}
 	return r.vm.ToValue(map[string]interface{}{
-		"statusCode": resp.StatusCode,
-		"status":     resp.StatusCode,
-		"ok":         resp.StatusCode >= 200 && resp.StatusCode < 300,
-		"url":        resp.Request.URL.String(),
-		"body":       string(respBody),
-		"headers":    respHeaders,
+		"statusCode":        resp.StatusCode,
+		"status":            resp.StatusCode,
+		"ok":                resp.StatusCode >= 200 && resp.StatusCode < 300,
+		"url":               resp.Request.URL.String(),
+		"body":              string(respBody),
+		"headers":           respHeaders,
+		"retryAfterSeconds": signedSessionRetryAfterSeconds(resp),
 	})
 }
 
@@ -575,6 +577,30 @@ func (r *extensionRuntime) doSignedSessionRequest(
 		}
 	}
 	return resp, respBody, headers, nil
+}
+
+func signedSessionRetryAfterSeconds(resp *http.Response) int {
+	if resp == nil {
+		return 0
+	}
+	value := strings.TrimSpace(resp.Header.Get("Retry-After"))
+	if value == "" {
+		return 0
+	}
+	if seconds, err := strconv.Atoi(value); err == nil {
+		if seconds < 0 {
+			return 0
+		}
+		return seconds
+	}
+	if retryAt, err := http.ParseTime(value); err == nil {
+		seconds := int(time.Until(retryAt).Seconds())
+		if seconds < 0 {
+			return 0
+		}
+		return seconds
+	}
+	return 0
 }
 
 func hmacSHA256Bytes(key, message []byte) []byte {

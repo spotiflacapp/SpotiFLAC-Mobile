@@ -201,15 +201,19 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
   Future<void> _pickCoverImage() async {
     try {
-      final picked = await FilePicker.pickFile(type: FileType.image);
-      if (picked == null) return;
+      final result = await FilePicker.pickFiles(
+        type: FileType.image,
+        withData: true,
+      );
+      if (result == null || result.files.isEmpty) return;
+      final picked = result.files.first;
 
       final sourcePath = picked.path;
       Uint8List? bytes;
       final needsByteFallback =
           !_hasValue(sourcePath) && !_hasValue(picked.extension);
       if (needsByteFallback) {
-        bytes = await picked.readAsBytes();
+        bytes = picked.bytes;
       }
       final extension = _resolveImageExtension(picked.extension, bytes);
 

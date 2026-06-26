@@ -24,13 +24,13 @@ dependencies:
 # Storage & Persistence
   shared_preferences: ^2.5.3
   flutter_secure_storage: ^10.3.1
-  path_provider: ^2.1.5
+  path_provider: ^2.1.6
   path: ^1.9.0
   sqflite: ^2.4.3
 
 # HTTP & Network
   http: ^1.6.0
-  connectivity_plus: ^7.1.1
+  connectivity_plus: ^7.2.0
 
   # UI Components
   cached_network_image: ^3.4.1
@@ -43,16 +43,16 @@ dependencies:
   permission_handler: ^12.0.3
 
   # File Picker
-  file_picker: ^12.0.0-beta.5
+  file_picker: ^11.0.2
 
   # JSON Serialization
   json_annotation: ^4.12.0
 
   # Utils
   url_launcher: ^6.3.1
-  device_info_plus: ^13.1.0
-  share_plus: ^13.1.0
-  receive_sharing_intent: ^1.8.1
+  device_info_plus: ^13.2.0
+  share_plus: ^13.2.0
+  receive_sharing_intent: ^1.9.0
   logger: ^2.5.0
 
   # FFmpeg for audio conversion
@@ -60,7 +60,7 @@ dependencies:
   open_filex: ^4.7.0
 
   # Notifications
-  flutter_local_notifications: ^22.0.0
+  flutter_local_notifications: ^22.0.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +71,13 @@ dev_dependencies:
   riverpod_lint: ^3.1.4
   json_serializable: ^6.14.0
   flutter_launcher_icons: ^0.14.3
+
+# file_picker (stable 11.x) pins win32 ^5.9.0, while device_info_plus and
+# other *_plus plugins require win32 ^6.x. win32 is a Windows-desktop-only
+# transitive dependency and is never compiled for the Android/iOS targets, so
+# we override it to satisfy resolution without affecting mobile builds.
+dependency_overrides:
+  win32: ^6.0.1
 
 flutter_launcher_icons:
   android: true

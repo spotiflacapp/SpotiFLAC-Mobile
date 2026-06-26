@@ -571,8 +571,9 @@ class _LibraryTracksFolderScreenState
     final playlistId = widget.playlistId;
     if (playlistId == null) return;
 
-    final picked = await FilePicker.pickFile(type: FileType.image);
-    if (picked == null) return;
+    final result = await FilePicker.pickFiles(type: FileType.image);
+    if (result == null || result.files.isEmpty) return;
+    final picked = result.files.first;
 
     final path = picked.path;
     if (path == null || path.isEmpty) return;

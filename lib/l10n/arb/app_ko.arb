@@ -3392,7 +3392,7 @@
   "@collectionWishlist": {
     "description": "Custom folder for saved tracks to download later"
   },
-  "collectionLoved": "좋아요 표시한 음악",
+  "collectionLoved": "좋아요 표시한 곡",
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
@@ -3505,7 +3505,7 @@
   "@collectionWishlistEmptySubtitle": {
     "description": "Wishlist empty state subtitle"
   },
-  "collectionLovedEmptyTitle": "'좋아요 표시한 음악' 폴더가 비워져 있습니다",
+  "collectionLovedEmptyTitle": "'좋아요 표시한 곡' 폴더가 비워져 있습니다",
   "@collectionLovedEmptyTitle": {
     "description": "Loved empty state title"
   },
@@ -3546,7 +3546,7 @@
       }
     }
   },
-  "collectionAddedToLoved": "'{trackName}'이 '좋아요 표시한 음악'에 추가됨",
+  "collectionAddedToLoved": "'{trackName}'이 '좋아요 표시한 곡'에 추가됨",
   "@collectionAddedToLoved": {
     "description": "Snackbar after adding track to loved folder",
     "placeholders": {
@@ -3555,7 +3555,7 @@
       }
     }
   },
-  "collectionRemovedFromLoved": "'{trackName}'이 '좋아요 표시한 음악'에서 제거됨",
+  "collectionRemovedFromLoved": "'{trackName}'이 '좋아요 표시한 곡'에서 제거됨",
   "@collectionRemovedFromLoved": {
     "description": "Snackbar after removing track from loved folder",
     "placeholders": {
@@ -3600,11 +3600,11 @@
       }
     }
   },
-  "trackOptionAddToLoved": "'좋아요 표시한 음악'에 추가",
+  "trackOptionAddToLoved": "'좋아요 표시한 곡'에 추가",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
-  "trackOptionRemoveFromLoved": "'좋아요 표시한 음악'에서 제거",
+  "trackOptionRemoveFromLoved": "'좋아요 표시한 곡'에서 제거",
   "@trackOptionRemoveFromLoved": {
     "description": "Bottom sheet action label - remove track from loved folder"
   },
@@ -3835,7 +3835,7 @@
   "@tooltipAddToPlaylist": {
     "description": "Tooltip for the Add to Playlist button"
   },
-  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 음악'에서 {count} 트랙이 제거 됨",
+  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 곡'에서 {count} 트랙이 제거됨",
   "@snackbarRemovedTracksFromLoved": {
     "description": "Snackbar after removing multiple tracks from Loved folder",
     "placeholders": {
@@ -3844,7 +3844,7 @@
       }
     }
   },
-  "snackbarAddedTracksToLoved": "'좋아요 표시한 음악'에 {count} 트랙이 추가됨",
+  "snackbarAddedTracksToLoved": "'좋아요 표시한 곡'에 {count} 트랙이 추가됨",
   "@snackbarAddedTracksToLoved": {
     "description": "Snackbar after adding multiple tracks to Loved folder",
     "placeholders": {
@@ -3857,7 +3857,7 @@
   "@dialogDownloadAllTitle": {
     "description": "Dialog title for bulk download confirmation"
   },
-  "dialogDownloadAllMessage": "Download {count} tracks?",
+  "dialogDownloadAllMessage": "{count} 트랙을 다운로드하시겠습니까?",
   "@dialogDownloadAllMessage": {
     "description": "Body of the Download All confirmation dialog",
     "placeholders": {
@@ -4063,7 +4063,7 @@
   "@downloadFilterContributingDisabled": {
     "description": "Subtitle when contributing artist filter is off"
   },
-  "downloadProvidersNoneEnabled": "No providers enabled",
+  "downloadProvidersNoneEnabled": "활성화된 제공자가 없습니다",
   "@downloadProvidersNoneEnabled": {
     "description": "Shown when no lyrics providers are active"
   },
@@ -4115,7 +4115,7 @@
       }
     }
   },
-  "bulkDownloadPlaylistsButton": "Download {count} {count, plural, =1{playlist} other{playlists}}",
+  "bulkDownloadPlaylistsButton": "{count} {count, plural, =1{재생목록} other{재생목록}} 다운로드",
   "@bulkDownloadPlaylistsButton": {
     "description": "Button label for bulk downloading selected playlists",
     "placeholders": {
@@ -4230,7 +4230,7 @@
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
-  "queueDownloadingCount": "Downloading ({count})",
+  "queueDownloadingCount": "({count}) 다운로드하는 중",
   "@queueDownloadingCount": {
     "description": "Header for active downloads section with count",
     "placeholders": {
@@ -4247,7 +4247,7 @@
   "@queueFilteringIndicator": {
     "description": "Shown while filter results are being computed"
   },
-  "queueTrackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
+  "queueTrackCount": "{count, plural, =1{1 트랙} other{{count} 트랙}}",
   "@queueTrackCount": {
     "description": "Track count label with plural support",
     "placeholders": {
@@ -4256,7 +4256,7 @@
       }
     }
   },
-  "queueAlbumCount": "{count, plural, =1{1 album} other{{count} albums}}",
+  "queueAlbumCount": "{count, plural, =1{1 앨범} other{{count} 앨범}}",
   "@queueAlbumCount": {
     "description": "Album count label with plural support",
     "placeholders": {
@@ -4397,7 +4397,7 @@
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
-  "extensionsSearchWith": "Search with {providerName}",
+  "extensionsSearchWith": "{providerName}으로 검색",
   "@extensionsSearchWith": {
     "description": "Extensions page - subtitle for default metadata search provider option",
     "placeholders": {
@@ -4715,11 +4715,11 @@
       }
     }
   },
-  "notifUpdateReady": "Update Ready",
+  "notifUpdateReady": "업데이트 준비 완료",
   "@notifUpdateReady": {
     "description": "Notification title when app update download is complete"
   },
-  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} downloaded. Tap to install.",
+  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} 다운로드 완료. 설치하려면 탭하세요.",
   "@notifUpdateReadyBody": {
     "description": "Notification body when app update is ready to install",
     "placeholders": {
@@ -4744,7 +4744,7 @@
   "@homeSearchHintDefault": {
     "description": "Default placeholder for the main search field on Home"
   },
-  "homeSearchHintProvider": "Search with {providerName}...",
+  "homeSearchHintProvider": "{providerName}으로 검색...",
   "@homeSearchHintProvider": {
     "description": "Placeholder for the main search field when a provider is selected",
     "placeholders": {
@@ -4886,7 +4886,7 @@
   "@logClearSearch": {
     "description": "Tooltip for clearing the log search field"
   },
-  "logIssueIspBlockingLabel": "ISP BLOCKING DETECTED",
+  "logIssueIspBlockingLabel": "ISP 차단 감지됨",
   "@logIssueIspBlockingLabel": {
     "description": "Diagnostic badge label when ISP blocking is detected"
   },
@@ -4922,7 +4922,7 @@
   "@logIssueNetworkErrorSuggestion": {
     "description": "Diagnostic badge suggestion for generic network errors"
   },
-  "logIssueTrackNotFoundLabel": "TRACK NOT FOUND",
+  "logIssueTrackNotFoundLabel": "트랙을 찾을 수 없음",
   "@logIssueTrackNotFoundLabel": {
     "description": "Diagnostic badge label when a track is unavailable"
   },
@@ -4934,7 +4934,7 @@
   "@logIssueTrackNotFoundSuggestion": {
     "description": "Diagnostic badge suggestion when a track is unavailable"
   },
-  "clickableLookingUpArtist": "Looking up artist...",
+  "clickableLookingUpArtist": "아티스트를 검색하는 중...",
   "@clickableLookingUpArtist": {
     "description": "Snackbar shown while clickable artist metadata is being resolved"
   },
@@ -5292,7 +5292,7 @@
       }
     }
   },
-  "storeRequiresVersion": "Requires v{version}+",
+  "storeRequiresVersion": "v{version} 이상 필요",
   "@storeRequiresVersion": {
     "description": "Store compatibility badge for minimum app version",
     "placeholders": {
@@ -5309,7 +5309,7 @@
   "@logIssueSummary": {
     "description": "Header for log issue analysis summary"
   },
-  "logTotalErrors": "Total errors: {count}",
+  "logTotalErrors": "총 오류 수: {count}",
   "@logTotalErrors": {
     "description": "Total error count in log issue analysis",
     "placeholders": {
@@ -5318,7 +5318,7 @@
       }
     }
   },
-  "logAffectedDomains": "Affected: {domains}",
+  "logAffectedDomains": "영향받은 도메인: {domains}",
   "@logAffectedDomains": {
     "description": "Affected domains in log issue analysis",
     "placeholders": {
@@ -5398,11 +5398,11 @@
   "@extensionCustomUrlHandlingSubtitle": {
     "description": "Extension detail subtitle for custom URL handling"
   },
-  "extensionCustomUrlHandlingShareHint": "Share links from these sites to SpotiFLAC Mobile and this extension will handle them.",
+  "extensionCustomUrlHandlingShareHint": "이 사이트의 링크를 SpotiFLAC Mobile로 공유하면 이 확장 프로그램이 처리합니다.",
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
-  "extensionSettingsCount": "{count} {count, plural, =1{setting} other{settings}}",
+  "extensionSettingsCount": "{count} {count, plural, =1{설정} other{설정}}",
   "@extensionSettingsCount": {
     "description": "Count of settings exposed by an extension quality option",
     "placeholders": {
@@ -5557,7 +5557,7 @@
   "@settingsSaveDownloadHistory": {
     "description": "Settings switch title for storing completed downloads in history"
   },
-  "settingsSaveDownloadHistorySubtitle": "Keep completed downloads in history and library views",
+  "settingsSaveDownloadHistorySubtitle": "완료된 다운로드를 기록 및 보관함 보기에 유지합니다",
   "@settingsSaveDownloadHistorySubtitle": {
     "description": "Settings switch subtitle for storing completed downloads in history"
   },
@@ -5565,7 +5565,7 @@
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
-  "dialogDisableHistoryMessage": "Existing history will be cleared. Downloaded files will not be deleted.",
+  "dialogDisableHistoryMessage": "기존 기록이 삭제됩니다. 다운로드한 파일은 삭제되지 않습니다.",
   "@dialogDisableHistoryMessage": {
     "description": "Confirmation dialog message shown before disabling download history"
   },
@@ -5581,7 +5581,7 @@
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
-  "shareSheetNotFound": "Not found",
+  "shareSheetNotFound": "찾을 수 없습니다",
   "@shareSheetNotFound": {
     "description": "Cross-service share sheet row subtitle when a service has no match"
   },

@@ -2668,15 +2668,15 @@
   "@libraryFilterReset": {
     "description": "Reset all filters button"
   },
-  "libraryFilterApply": "Apply",
+  "libraryFilterApply": "Uygula",
   "@libraryFilterApply": {
     "description": "Apply filters button"
   },
-  "libraryFilterSource": "Source",
+  "libraryFilterSource": "Kaynak",
   "@libraryFilterSource": {
     "description": "Filter section - source type"
   },
-  "libraryFilterQuality": "Quality",
+  "libraryFilterQuality": "Kalite",
   "@libraryFilterQuality": {
     "description": "Filter section - audio quality"
   },
@@ -3128,7 +3128,7 @@
   "@trackReEnrichFieldExtra": {
     "description": "Checkbox label for extra metadata in re-enrich"
   },
-  "trackReEnrichSelectAll": "Select All",
+  "trackReEnrichSelectAll": "Tümünü Seç",
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
@@ -3380,11 +3380,11 @@
   "@cueSplitButton": {
     "description": "Button text to start CUE splitting"
   },
-  "actionCreate": "Create",
+  "actionCreate": "Oluştur",
   "@actionCreate": {
     "description": "Generic action button - create"
   },
-  "collectionFoldersTitle": "My folders",
+  "collectionFoldersTitle": "Klasörlerim",
   "@collectionFoldersTitle": {
     "description": "Library section title for custom folders"
   },
@@ -3853,7 +3853,7 @@
       }
     }
   },
-  "dialogDownloadAllTitle": "Download All",
+  "dialogDownloadAllTitle": "Tümünü İndir",
   "@dialogDownloadAllTitle": {
     "description": "Dialog title for bulk download confirmation"
   },
@@ -3870,7 +3870,7 @@
   "@homeSkipAlreadyDownloaded": {
     "description": "Checkbox label in import dialog to skip already-downloaded songs"
   },
-  "homeGoToAlbum": "Go to Album",
+  "homeGoToAlbum": "Albüme Git",
   "@homeGoToAlbum": {
     "description": "Context menu item to navigate to the album page"
   },
@@ -3894,7 +3894,7 @@
   "@snackbarFailedToWriteStorage": {
     "description": "Snackbar when writing metadata back to file fails"
   },
-  "snackbarError": "Error: {error}",
+  "snackbarError": "Hata: {error}",
   "@snackbarError": {
     "description": "Generic error snackbar with error detail",
     "placeholders": {
@@ -4099,7 +4099,7 @@
   "@snackbarUnsupportedAudioFormat": {
     "description": "Snackbar when the audio format is not supported for the requested operation"
   },
-  "cacheRefresh": "Refresh",
+  "cacheRefresh": "Yenile",
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
@@ -4174,7 +4174,7 @@
   "@editMetadataAutoFillNoneSelected": {
     "description": "Snackbar when user taps Fetch without selecting any fields"
   },
-  "editMetadataFieldTitle": "Title",
+  "editMetadataFieldTitle": "Başlık",
   "@editMetadataFieldTitle": {
     "description": "Chip label for title field in auto-fill selector"
   },
@@ -4670,7 +4670,7 @@
       }
     }
   },
-  "notifLibraryScanErrors": "{count} errors",
+  "notifLibraryScanErrors": "{count} hata",
   "@notifLibraryScanErrors": {
     "description": "Library scan complete suffix - error count",
     "placeholders": {
@@ -4715,7 +4715,7 @@
       }
     }
   },
-  "notifUpdateReady": "Update Ready",
+  "notifUpdateReady": "Güncelleme Hazır",
   "@notifUpdateReady": {
     "description": "Notification title when app update download is complete"
   },
@@ -4761,7 +4761,7 @@
   "@homeChangeSearchProviderTooltip": {
     "description": "Tooltip for the Home search provider picker"
   },
-  "actionPaste": "Paste",
+  "actionPaste": "Yapıştır",
   "@actionPaste": {
     "description": "Generic action - paste from clipboard"
   },
@@ -4777,7 +4777,7 @@
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
-  "tutorialDownloadCompletedSemantics": "Download completed",
+  "tutorialDownloadCompletedSemantics": "İndirme tamamlandı",
   "@tutorialDownloadCompletedSemantics": {
     "description": "Accessibility label for completed download state in tutorial demo"
   },
@@ -4785,7 +4785,7 @@
   "@tutorialDownloadInProgressSemantics": {
     "description": "Accessibility label for active download state in tutorial demo"
   },
-  "tutorialStartDownloadSemantics": "Start download",
+  "tutorialStartDownloadSemantics": "İndirmeyi başlat",
   "@tutorialStartDownloadSemantics": {
     "description": "Accessibility label for idle download button in tutorial demo"
   },
@@ -4817,7 +4817,7 @@
   "@trackCoverReplace": {
     "description": "Button label for replacing selected cover art"
   },
-  "trackCoverPick": "Pick Cover",
+  "trackCoverPick": "Kapak Seç",
   "@trackCoverPick": {
     "description": "Button label for selecting cover art"
   },
@@ -4829,7 +4829,7 @@
   "@trackCoverCurrent": {
     "description": "Label for the currently embedded cover preview"
   },
-  "trackCoverSelected": "Selected cover",
+  "trackCoverSelected": "Seçili kapak",
   "@trackCoverSelected": {
     "description": "Label for the newly selected cover preview"
   },
@@ -4947,7 +4947,7 @@
       }
     }
   },
-  "extensionDetailsTags": "Tags",
+  "extensionDetailsTags": "Etiketler",
   "@extensionDetailsTags": {
     "description": "Section title for extension tags"
   },
@@ -5048,7 +5048,7 @@
       }
     }
   },
-  "optionsDefaultSearchTabAlbums": "Albums",
+  "optionsDefaultSearchTabAlbums": "Albümler",
   "@optionsDefaultSearchTabAlbums": {
     "description": "Default search tab option - Albums tab"
   },
@@ -5080,7 +5080,7 @@
   "@settingsLyricsSubtitle": {
     "description": "Subtitle for lyrics settings"
   },
-  "settingsApp": "App",
+  "settingsApp": "Uygulama",
   "@settingsApp": {
     "description": "Settings menu item - app settings"
   },
@@ -5092,7 +5092,7 @@
   "@sectionMetadataProviders": {
     "description": "Settings section header for metadata providers"
   },
-  "sectionDuplicates": "Duplicates",
+  "sectionDuplicates": "Yinelenenler",
   "@sectionDuplicates": {
     "description": "Settings section header for deduplication"
   },
@@ -5140,15 +5140,15 @@
   "@editMetadataFieldDiscTotal": {
     "description": "Label for total discs field in the edit metadata sheet"
   },
-  "editMetadataFieldComposer": "Composer",
+  "editMetadataFieldComposer": "Besteci",
   "@editMetadataFieldComposer": {
     "description": "Label for composer field in the edit metadata sheet"
   },
-  "editMetadataFieldComment": "Comment",
+  "editMetadataFieldComment": "Yorum",
   "@editMetadataFieldComment": {
     "description": "Label for comment field in the edit metadata sheet"
   },
-  "editMetadataAdvanced": "Advanced",
+  "editMetadataAdvanced": "Gelişmiş",
   "@editMetadataAdvanced": {
     "description": "Expandable section label for advanced metadata fields"
   },
@@ -5411,7 +5411,7 @@
       }
     }
   },
-  "extensionHealthOnline": "Online",
+  "extensionHealthOnline": "Çevrimiçi",
   "@extensionHealthOnline": {
     "description": "Extension service health status - online"
   },
@@ -5419,7 +5419,7 @@
   "@extensionHealthDegraded": {
     "description": "Extension service health status - degraded"
   },
-  "extensionHealthOffline": "Offline",
+  "extensionHealthOffline": "Çevrimdışı",
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
@@ -5431,7 +5431,7 @@
   "@extensionHealthUnknown": {
     "description": "Extension service health status - unknown"
   },
-  "extensionHealthRequired": "required",
+  "extensionHealthRequired": "gerekli",
   "@extensionHealthRequired": {
     "description": "Label for a required extension service health check"
   },
@@ -5492,15 +5492,15 @@
   "@unknownArtist": {
     "description": "Fallback artist name when metadata is missing"
   },
-  "permissionAudio": "Audio",
+  "permissionAudio": "Ses",
   "@permissionAudio": {
     "description": "Audio permission type label"
   },
-  "permissionStorage": "Storage",
+  "permissionStorage": "Depolama",
   "@permissionStorage": {
     "description": "Storage permission type label"
   },
-  "permissionNotification": "Notification",
+  "permissionNotification": "Bildirim",
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
@@ -5536,7 +5536,7 @@
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
-  "artistReleases": "Releases",
+  "artistReleases": "Sürümler",
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },

@@ -5161,6 +5161,30 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 favorite artist} other{{count} favorite artists}}'**
   String backupContentsArtists(int count);
 
+  /// Backup contents row for installed extensions count
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 extension} other{{count} extensions}}'**
+  String backupContentsExtensions(int count);
+
+  /// Toggle to include secret extension settings (tokens, API keys) in the backup
+  ///
+  /// In en, this message translates to:
+  /// **'Include extension credentials'**
+  String get backupIncludeSecrets;
+
+  /// Explanation for the include-credentials toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.'**
+  String get backupIncludeSecretsDescription;
+
+  /// Snackbar/hint when some extensions failed to reinstall during restore
+  ///
+  /// In en, this message translates to:
+  /// **'{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the store.'**
+  String backupExtensionsRestoreFailed(int count);
+
   /// Tooltip for the Love All button on album/playlist screens
   ///
   /// In en, this message translates to:
@@ -5372,6 +5396,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Using standard network settings'**
   String get downloadNetworkCompatibilityModeDisabled;
+
+  /// Setting title for allowing requests to private/local network targets
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Local Network Access'**
+  String get downloadAllowLocalNetwork;
+
+  /// Subtitle when allow local network access is on
+  ///
+  /// In en, this message translates to:
+  /// **'Requests to local/private addresses are allowed (for local proxy or custom DNS)'**
+  String get downloadAllowLocalNetworkEnabled;
+
+  /// Subtitle when allow local network access is off
+  ///
+  /// In en, this message translates to:
+  /// **'Local/private addresses are blocked for security'**
+  String get downloadAllowLocalNetworkDisabled;
 
   /// Subtitle when quality picker is disabled due to extension service
   ///

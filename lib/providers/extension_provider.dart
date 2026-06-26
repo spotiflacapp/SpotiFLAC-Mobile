@@ -14,6 +14,22 @@ final _log = AppLogger('ExtensionProvider');
 const _metadataProviderPriorityKey = 'metadata_provider_priority';
 const _providerPriorityKey = 'provider_priority';
 const _spotifyWebExtensionId = 'spotify-web';
+const _storeRegistryUrlPrefKey = 'store_registry_url';
+
+/// Result of restoring extensions from a backup.
+class ExtensionRestoreResult {
+  final int installed;
+  final int alreadyPresent;
+  final int failed;
+  final List<String> failedIds;
+
+  const ExtensionRestoreResult({
+    this.installed = 0,
+    this.alreadyPresent = 0,
+    this.failed = 0,
+    this.failedIds = const [],
+  });
+}
 
 bool _stringListEquals(List<String> a, List<String> b) {
   if (identical(a, b)) return true;
@@ -1721,6 +1737,205 @@ class ExtensionNotifier extends Notifier<ExtensionState> {
     return state.extensions
         .where((ext) => ext.enabled && ext.hasCustomSearch)
         .toList();
+  }
+
+  /// Collects the keys flagged as `secret` in an extension's manifest schema
+  /// (top-level settings and quality-specific settings).
+  Set<String> _secretKeysFromManifest(Map<String, dynamic> raw) {
+    final keys = <String>{};
+
+    void scan(Object? settingsList) {
+      if (settingsList is! List) return;
+      for (final entry in settingsList) {
+        if (entry is Map &&
+            entry['secret'] == true &&
+            entry['key'] is String) {
+          keys.add(entry['key'] as String);
+        }
+      }
+    }
+
+    scan(raw['settings']);
+    final quality = raw['quality_options'];
+    if (quality is List) {
+      for (final option in quality) {
+        if (option is Map) {
+          scan(option['settings']);
+        }
+      }
+    }
+    return keys;
+  }
+
+  /// Builds the extensions section of a backup: the store registry URL plus the
+  /// installed extensions with their id, version, enabled flag and settings.
+  /// Secret-flagged settings (tokens, API keys) are only included when
+  /// [includeSecrets] is true.
+  Future<Map<String, dynamic>> exportBackup({
+    required bool includeSecrets,
+  }) async {
+    if (!PlatformBridge.supportsExtensionSystem) {
+      return {'registry_url': '', 'items': const <Map<String, dynamic>>[]};
+    }
+
+    String registryUrl = '';
+    try {
+      registryUrl = await PlatformBridge.getStoreRegistryUrl();
+    } catch (_) {}
+
+    List<Map<String, dynamic>> installed;
+    try {
+      installed = await PlatformBridge.getInstalledExtensions();
+    } catch (e) {
+      _log.w('Backup: failed to list extensions: $e');
+      installed = const [];
+    }
+
+    final items = <Map<String, dynamic>>[];
+    for (final raw in installed) {
+      final id = raw['id'] as String?;
+      if (id == null || id.isEmpty) continue;
+      final secretKeys = _secretKeysFromManifest(raw);
+
+      Map<String, dynamic> settings = {};
+      try {
+        settings = await PlatformBridge.getExtensionSettings(id);
+      } catch (_) {}
+
+      final filtered = <String, dynamic>{};
+      var omittedSecret = false;
+      settings.forEach((key, value) {
+        if (secretKeys.contains(key)) {
+          if (!includeSecrets) {
+            omittedSecret = true;
+            return;
+          }
+        }
+        filtered[key] = value;
+      });
+
+      items.add({
+        'id': id,
+        'version': raw['version']?.toString() ?? '',
+        'enabled': raw['enabled'] == true,
+        'settings': filtered,
+        if (omittedSecret) 'secrets_omitted': true,
+      });
+    }
+
+    return {'registry_url': registryUrl, 'items': items};
+  }
+
+  /// Restores extensions from a backup section produced by [exportBackup]:
+  /// re-applies the store registry URL, reinstalls each extension from the
+  /// store when missing, then merges settings and restores the enabled flag.
+  /// Missing settings (e.g. omitted secrets) are merged with the current values
+  /// so they are not wiped.
+  Future<ExtensionRestoreResult> restoreFromBackup(
+    Map<String, dynamic> data,
+  ) async {
+    if (!PlatformBridge.supportsExtensionSystem) {
+      return const ExtensionRestoreResult();
+    }
+
+    final registryUrl = (data['registry_url'] as String?)?.trim() ?? '';
+    final itemsRaw = data['items'];
+    final items = itemsRaw is List
+        ? itemsRaw
+              .whereType<Map<Object?, Object?>>()
+              .map((e) => Map<String, dynamic>.from(e))
+              .toList()
+        : <Map<String, dynamic>>[];
+
+    Directory? destDir;
+    try {
+      final tmp = await getTemporaryDirectory();
+      destDir = await Directory(
+        '${tmp.path}/spotiflac_restore_ext',
+      ).create(recursive: true);
+      await PlatformBridge.initExtensionStore(destDir.path);
+      if (registryUrl.isNotEmpty) {
+        await PlatformBridge.setStoreRegistryUrl(registryUrl);
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(_storeRegistryUrlPrefKey, registryUrl);
+      }
+    } catch (e) {
+      _log.w('Restore: failed to prepare extension store: $e');
+    }
+
+    await refreshExtensions();
+    final installedIds = state.extensions
+        .map((e) => e.id.toLowerCase())
+        .toSet();
+
+    var installedCount = 0;
+    var alreadyPresent = 0;
+    var failed = 0;
+    final failedIds = <String>[];
+
+    for (final item in items) {
+      final id = item['id'] as String?;
+      if (id == null || id.isEmpty) continue;
+      final enabled = item['enabled'] != false;
+      var present = installedIds.contains(id.toLowerCase());
+
+      if (!present) {
+        if (destDir == null) {
+          failed++;
+          failedIds.add(id);
+          continue;
+        }
+        try {
+          final path = await PlatformBridge.downloadStoreExtension(
+            id,
+            destDir.path,
+          );
+          final ok = await installExtension(path);
+          if (ok) {
+            installedCount++;
+            present = true;
+          } else {
+            failed++;
+            failedIds.add(id);
+          }
+        } catch (e) {
+          _log.w('Restore: failed to install extension $id: $e');
+          failed++;
+          failedIds.add(id);
+        }
+      } else {
+        alreadyPresent++;
+      }
+
+      if (!present) continue;
+
+      final settings = item['settings'];
+      if (settings is Map && settings.isNotEmpty) {
+        try {
+          final current = await PlatformBridge.getExtensionSettings(id);
+          final merged = <String, dynamic>{
+            ...current,
+            ...Map<String, dynamic>.from(settings),
+          };
+          await PlatformBridge.setExtensionSettings(id, merged);
+        } catch (e) {
+          _log.w('Restore: failed to apply settings for $id: $e');
+        }
+      }
+
+      try {
+        await setExtensionEnabled(id, enabled);
+      } catch (_) {}
+    }
+
+    await refreshExtensions();
+
+    return ExtensionRestoreResult(
+      installed: installedCount,
+      alreadyPresent: alreadyPresent,
+      failed: failed,
+      failedIds: failedIds,
+    );
   }
 }
 

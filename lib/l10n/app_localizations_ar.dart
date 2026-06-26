@@ -3015,6 +3015,35 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String backupContentsExtensions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count extensions',
+      one: '1 extension',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get backupIncludeSecrets => 'Include extension credentials';
+
+  @override
+  String get backupIncludeSecretsDescription =>
+      'Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.';
+
+  @override
+  String backupExtensionsRestoreFailed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'extensions',
+      one: 'extension',
+    );
+    return '$count $_temp0 could not be reinstalled. Install them manually from the store.';
+  }
+
+  @override
   String get tooltipLoveAll => 'Love All';
 
   @override
@@ -3142,6 +3171,17 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get downloadNetworkCompatibilityModeDisabled =>
       'Using standard network settings';
+
+  @override
+  String get downloadAllowLocalNetwork => 'Allow Local Network Access';
+
+  @override
+  String get downloadAllowLocalNetworkEnabled =>
+      'Requests to local/private addresses are allowed (for local proxy or custom DNS)';
+
+  @override
+  String get downloadAllowLocalNetworkDisabled =>
+      'Local/private addresses are blocked for security';
 
   @override
   String get downloadSelectServiceToEnable =>

@@ -3752,6 +3752,24 @@
       }
     }
   },
+  "backupContentsExtensions": "{count, plural, =1{1 extension} other{{count} extension}}",
+  "@backupContentsExtensions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupIncludeSecrets": "Sertakan kredensial extension",
+  "backupIncludeSecretsDescription": "Token dan API key dari extension akan ikut disimpan ke file cadangan. Jaga kerahasiaan file-nya. Jika dimatikan, kamu perlu memasukkannya lagi setelah pemulihan.",
+  "backupExtensionsRestoreFailed": "{count} extension gagal dipasang ulang. Pasang manual dari store.",
+  "@backupExtensionsRestoreFailed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tooltipLoveAll": "Love All",
   "@tooltipLoveAll": {
     "description": "Tooltip for the Love All button on album/playlist screens"
@@ -3891,6 +3909,18 @@
   "downloadNetworkCompatibilityModeDisabled": "Using standard network settings",
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is disabled"
+  },
+  "downloadAllowLocalNetwork": "Izinkan Akses Jaringan Lokal",
+  "@downloadAllowLocalNetwork": {
+    "description": "Setting title for allowing requests to private/local network targets"
+  },
+  "downloadAllowLocalNetworkEnabled": "Permintaan ke alamat lokal/privat diizinkan (untuk proxy lokal atau DNS kustom)",
+  "@downloadAllowLocalNetworkEnabled": {
+    "description": "Subtitle when allow local network access is on"
+  },
+  "downloadAllowLocalNetworkDisabled": "Alamat lokal/privat diblokir demi keamanan",
+  "@downloadAllowLocalNetworkDisabled": {
+    "description": "Subtitle when allow local network access is off"
   },
   "downloadSelectServiceToEnable": "Select a provider with quality options to enable this option",
   "@downloadSelectServiceToEnable": {

@@ -25,6 +25,9 @@ class BackupBundle {
   /// Playlist cover images keyed by playlist id: `{ id: { ext, data } }`.
   final Map<String, dynamic> playlistCovers;
 
+  /// Extensions section: `{ registry_url, items: [ {id, version, enabled, settings} ] }`.
+  final Map<String, dynamic> extensions;
+
   const BackupBundle({
     required this.formatVersion,
     required this.appVersion,
@@ -33,6 +36,7 @@ class BackupBundle {
     required this.history,
     required this.collections,
     required this.playlistCovers,
+    required this.extensions,
   });
 
   bool get hasSettings => settings != null && settings!.isNotEmpty;
@@ -49,13 +53,21 @@ class BackupBundle {
   int get playlistCount => _collectionListCount('playlists');
   int get favoriteArtistCount => _collectionListCount('favoriteArtists');
 
+  int get extensionCount {
+    final items = extensions['items'];
+    return items is List ? items.length : 0;
+  }
+
+  bool get hasExtensions => extensionCount > 0;
+
   bool get isEmpty =>
       !hasSettings &&
       historyCount == 0 &&
       likedCount == 0 &&
       wishlistCount == 0 &&
       playlistCount == 0 &&
-      favoriteArtistCount == 0;
+      favoriteArtistCount == 0 &&
+      extensionCount == 0;
 }
 
 /// Builds and parses SpotiFLAC backup files (a single JSON document containing
@@ -73,6 +85,7 @@ class BackupService {
     required List<Map<String, dynamic>> history,
     required Map<String, dynamic> collections,
     required Map<String, dynamic> playlistCovers,
+    required Map<String, dynamic> extensions,
   }) {
     return {
       'magic': magic,
@@ -85,6 +98,7 @@ class BackupService {
         'history': history,
         'collections': collections,
         'playlist_covers': playlistCovers,
+        'extensions': extensions,
       },
     };
   }
@@ -165,6 +179,11 @@ class BackupService {
         ? Map<String, dynamic>.from(coversRaw)
         : <String, dynamic>{};
 
+    final extensionsRaw = data['extensions'];
+    final extensions = extensionsRaw is Map
+        ? Map<String, dynamic>.from(extensionsRaw)
+        : <String, dynamic>{};
+
     return BackupBundle(
       formatVersion: (root['format_version'] as num?)?.toInt() ?? 1,
       appVersion: root['app_version'] as String? ?? '',
@@ -173,6 +192,7 @@ class BackupService {
       history: history,
       collections: collections,
       playlistCovers: playlistCovers,
+      extensions: extensions,
     );
   }
 }

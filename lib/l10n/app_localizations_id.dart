@@ -3005,6 +3005,29 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String backupContentsExtensions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count extension',
+      one: '1 extension',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get backupIncludeSecrets => 'Sertakan kredensial extension';
+
+  @override
+  String get backupIncludeSecretsDescription =>
+      'Token dan API key dari extension akan ikut disimpan ke file cadangan. Jaga kerahasiaan file-nya. Jika dimatikan, kamu perlu memasukkannya lagi setelah pemulihan.';
+
+  @override
+  String backupExtensionsRestoreFailed(int count) {
+    return '$count extension gagal dipasang ulang. Pasang manual dari store.';
+  }
+
+  @override
   String get tooltipLoveAll => 'Love All';
 
   @override
@@ -3132,6 +3155,17 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get downloadNetworkCompatibilityModeDisabled =>
       'Using standard network settings';
+
+  @override
+  String get downloadAllowLocalNetwork => 'Izinkan Akses Jaringan Lokal';
+
+  @override
+  String get downloadAllowLocalNetworkEnabled =>
+      'Permintaan ke alamat lokal/privat diizinkan (untuk proxy lokal atau DNS kustom)';
+
+  @override
+  String get downloadAllowLocalNetworkDisabled =>
+      'Alamat lokal/privat diblokir demi keamanan';
 
   @override
   String get downloadSelectServiceToEnable =>

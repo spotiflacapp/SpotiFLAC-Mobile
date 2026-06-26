@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart' show ShareParams, SharePlus, XFile;
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
+import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/providers/library_collections_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/services/backup_service.dart';
@@ -25,6 +26,7 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
 
   bool _isExporting = false;
   bool _isImporting = false;
+  bool _includeSecrets = false;
 
   bool get _isBusy => _isExporting || _isImporting;
 
@@ -41,12 +43,16 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
       );
       final collections = await collectionsNotifier.exportCollections();
       final covers = await collectionsNotifier.exportPlaylistCovers();
+      final extensions = await ref
+          .read(extensionProvider.notifier)
+          .exportBackup(includeSecrets: _includeSecrets);
 
       final envelope = BackupService.buildEnvelope(
         settings: settings,
         history: history,
         collections: collections,
         playlistCovers: covers,
+        extensions: extensions,
       );
 
       final file = await BackupService.writeBackupFile(envelope);
@@ -117,10 +123,26 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
             coverImages: bundle.playlistCovers,
           );
 
+      ExtensionRestoreResult? extResult;
+      if (bundle.hasExtensions) {
+        extResult = await ref
+            .read(extensionProvider.notifier)
+            .restoreFromBackup(bundle.extensions);
+      }
+
+      final message = StringBuffer(l10n.backupRestored)
+        ..write('\n')
+        ..write(l10n.backupRestoreRestartHint);
+      if (extResult != null && extResult.failed > 0) {
+        message
+          ..write('\n')
+          ..write(l10n.backupExtensionsRestoreFailed(extResult.failed));
+      }
+
       messenger.showSnackBar(
         SnackBar(
-          content: Text('${l10n.backupRestored}\n${l10n.backupRestoreRestartHint}'),
-          duration: const Duration(seconds: 5),
+          content: Text(message.toString()),
+          duration: const Duration(seconds: 6),
         ),
       );
     } catch (e, stack) {
@@ -180,6 +202,13 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
                   icon: Icons.person_outline,
                   label: l10n.backupContentsArtists(
                     bundle.favoriteArtistCount,
+                  ),
+                ),
+              if (bundle.extensionCount > 0)
+                _ContentRow(
+                  icon: Icons.extension_outlined,
+                  label: l10n.backupContentsExtensions(
+                    bundle.extensionCount,
                   ),
                 ),
             ],
@@ -259,6 +288,20 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
                     buttonIcon: Icons.ios_share,
                     isBusy: _isExporting,
                     onPressed: _isBusy ? null : _createBackup,
+                    extra: Padding(
+                      padding: const EdgeInsets.only(top: 4, bottom: 4),
+                      child: SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        value: _includeSecrets,
+                        onChanged: _isBusy
+                            ? null
+                            : (value) =>
+                                  setState(() => _includeSecrets = value),
+                        title: Text(l10n.backupIncludeSecrets),
+                        subtitle: Text(l10n.backupIncludeSecretsDescription),
+                        isThreeLine: true,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   _ActionCard(
@@ -288,6 +331,7 @@ class _ActionCard extends StatelessWidget {
   final IconData buttonIcon;
   final bool isBusy;
   final VoidCallback? onPressed;
+  final Widget? extra;
 
   const _ActionCard({
     required this.icon,
@@ -297,6 +341,7 @@ class _ActionCard extends StatelessWidget {
     required this.buttonIcon,
     required this.isBusy,
     required this.onPressed,
+    this.extra,
   });
 
   @override
@@ -333,8 +378,8 @@ class _ActionCard extends StatelessWidget {
               color: colorScheme.onSurfaceVariant,
             ),
           ),
-          const SizedBox(height: 16),
-          FilledButton.icon(
+          ?extra,
+          const SizedBox(height: 16),          FilledButton.icon(
             onPressed: onPressed,
             icon: isBusy
                 ? const SizedBox(

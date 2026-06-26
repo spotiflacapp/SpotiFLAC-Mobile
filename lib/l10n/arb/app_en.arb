@@ -3964,6 +3964,32 @@
       }
     }
   },
+  "backupContentsExtensions": "{count, plural, =1{1 extension} other{{count} extensions}}",
+  "@backupContentsExtensions": {
+    "description": "Backup contents row for installed extensions count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupIncludeSecrets": "Include extension credentials",
+  "@backupIncludeSecrets": {
+    "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
+  },
+  "backupIncludeSecretsDescription": "Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.",
+  "@backupIncludeSecretsDescription": {
+    "description": "Explanation for the include-credentials toggle"
+  },
+  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the store.",
+  "@backupExtensionsRestoreFailed": {
+    "description": "Snackbar/hint when some extensions failed to reinstall during restore",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tooltipLoveAll": "Love All",
   "@tooltipLoveAll": {
     "description": "Tooltip for the Love All button on album/playlist screens"
@@ -4119,6 +4145,18 @@
   "downloadNetworkCompatibilityModeDisabled": "Using standard network settings",
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
+  },
+  "downloadAllowLocalNetwork": "Allow Local Network Access",
+  "@downloadAllowLocalNetwork": {
+    "description": "Setting title for allowing requests to private/local network targets"
+  },
+  "downloadAllowLocalNetworkEnabled": "Requests to local/private addresses are allowed (for local proxy or custom DNS)",
+  "@downloadAllowLocalNetworkEnabled": {
+    "description": "Subtitle when allow local network access is on"
+  },
+  "downloadAllowLocalNetworkDisabled": "Local/private addresses are blocked for security",
+  "@downloadAllowLocalNetworkDisabled": {
+    "description": "Subtitle when allow local network access is off"
   },
   "downloadSelectServiceToEnable": "Select a provider with quality options to enable this option",
   "@downloadSelectServiceToEnable": {

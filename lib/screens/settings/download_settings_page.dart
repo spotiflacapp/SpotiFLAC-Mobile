@@ -221,6 +221,17 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
                     onChanged: (value) => ref
                         .read(settingsProvider.notifier)
                         .setNetworkCompatibilityMode(value),
+                  ),
+                  SettingsSwitchItem(
+                    icon: Icons.lan_outlined,
+                    title: context.l10n.downloadAllowLocalNetwork,
+                    subtitle: settings.allowLocalNetwork
+                        ? context.l10n.downloadAllowLocalNetworkEnabled
+                        : context.l10n.downloadAllowLocalNetworkDisabled,
+                    value: settings.allowLocalNetwork,
+                    onChanged: (value) => ref
+                        .read(settingsProvider.notifier)
+                        .setAllowLocalNetwork(value),
                     showDivider: false,
                   ),
                 ],

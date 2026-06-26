@@ -546,6 +546,12 @@ class PlatformBridge {
     });
   }
 
+  static Future<void> setAllowPrivateNetwork(bool allowed) async {
+    await _channel.invokeMethod('setAllowPrivateNetwork', {
+      'allowed': allowed,
+    });
+  }
+
   static Future<Map<String, dynamic>> checkDuplicate(
     String outputDir,
     String isrc,

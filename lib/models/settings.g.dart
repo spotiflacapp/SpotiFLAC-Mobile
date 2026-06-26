@@ -56,6 +56,7 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
       json['autoExportFailedDownloads'] as bool? ?? false,
   downloadNetworkMode: json['downloadNetworkMode'] as String? ?? 'any',
   networkCompatibilityMode: json['networkCompatibilityMode'] as bool? ?? false,
+  allowLocalNetwork: json['allowLocalNetwork'] as bool? ?? false,
   songLinkRegion: json['songLinkRegion'] as String? ?? 'US',
   nativeDownloadWorkerEnabled:
       json['nativeDownloadWorkerEnabled'] as bool? ?? false,
@@ -130,6 +131,7 @@ Map<String, dynamic> _$AppSettingsToJson(
   'autoExportFailedDownloads': instance.autoExportFailedDownloads,
   'downloadNetworkMode': instance.downloadNetworkMode,
   'networkCompatibilityMode': instance.networkCompatibilityMode,
+  'allowLocalNetwork': instance.allowLocalNetwork,
   'songLinkRegion': instance.songLinkRegion,
   'nativeDownloadWorkerEnabled': instance.nativeDownloadWorkerEnabled,
   'localLibraryEnabled': instance.localLibraryEnabled,

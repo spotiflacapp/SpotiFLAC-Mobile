@@ -393,6 +393,12 @@ import Gobackend  // Import Go framework
             let insecureTLS = args["insecure_tls"] as? Bool ?? false
             GobackendSetNetworkCompatibilityOptions(allowHTTP, insecureTLS)
             return nil
+
+        case "setAllowPrivateNetwork":
+            let args = call.arguments as! [String: Any]
+            let allowed = args["allowed"] as? Bool ?? false
+            GobackendSetAllowPrivateNetwork(allowed)
+            return nil
             
         case "checkDuplicate":
             let args = call.arguments as! [String: Any]

@@ -2297,6 +2297,13 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(null)
                         }
+                        "setAllowPrivateNetwork" -> {
+                            val allowed = call.argument<Boolean>("allowed") ?: false
+                            withContext(Dispatchers.IO) {
+                                Gobackend.setAllowPrivateNetwork(allowed)
+                            }
+                            result.success(null)
+                        }
                         "checkDuplicate" -> {
                             val outputDir = call.argument<String>("output_dir") ?: ""
                             val isrc = call.argument<String>("isrc") ?: ""

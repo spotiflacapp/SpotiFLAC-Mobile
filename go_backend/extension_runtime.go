@@ -8,10 +8,34 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/dop251/goja"
 )
+
+// allowPrivateNetworkAccess, when enabled, disables the SSRF guard that blocks
+// requests resolving to private/local/loopback addresses. This is opt-in and
+// intended for users who route the app's traffic through a local proxy or
+// custom DNS (e.g. a local mirror of api.zarz.moe). Disabled by default.
+var allowPrivateNetworkAccess atomic.Bool
+
+// SetAllowPrivateNetwork toggles whether extensions and built-in network code
+// are permitted to reach private/local network targets. Exposed to the Flutter
+// layer via the platform bridge.
+func SetAllowPrivateNetwork(allowed bool) {
+	allowPrivateNetworkAccess.Store(allowed)
+	if allowed {
+		GoLog("[HTTP] Private/local network access ENABLED (SSRF guard relaxed)\n")
+	} else {
+		GoLog("[HTTP] Private/local network access disabled (default)\n")
+	}
+}
+
+// IsPrivateNetworkAllowed reports the current state of the private-network guard.
+func IsPrivateNetworkAllowed() bool {
+	return allowPrivateNetworkAccess.Load()
+}
 
 const DefaultJSTimeout = 30 * time.Second
 
@@ -303,6 +327,12 @@ func (e *RedirectBlockedError) Error() string {
 }
 
 func isPrivateIP(host string) bool {
+	// Opt-in escape hatch: when the user has enabled private/local network
+	// access, treat every host as public so local proxies / custom DNS work.
+	if allowPrivateNetworkAccess.Load() {
+		return false
+	}
+
 	hostLower := strings.ToLower(strings.TrimSpace(host))
 	if hostLower == "" {
 		return false

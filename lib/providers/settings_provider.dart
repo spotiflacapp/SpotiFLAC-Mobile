@@ -125,6 +125,12 @@ class SettingsNotifier extends Notifier<AppSettings> {
     ).catchError((Object e) {
       _log.w('Failed to sync network compatibility options to backend: $e');
     });
+
+    PlatformBridge.setAllowPrivateNetwork(state.allowLocalNetwork).catchError((
+      Object e,
+    ) {
+      _log.w('Failed to sync allow local network option to backend: $e');
+    });
   }
 
   void _syncExtensionFallbackSettingsToBackend() {
@@ -571,6 +577,12 @@ class SettingsNotifier extends Notifier<AppSettings> {
 
   void setNetworkCompatibilityMode(bool enabled) {
     state = state.copyWith(networkCompatibilityMode: enabled);
+    _saveSettings();
+    _syncNetworkCompatibilitySettingsToBackend();
+  }
+
+  void setAllowLocalNetwork(bool enabled) {
+    state = state.copyWith(allowLocalNetwork: enabled);
     _saveSettings();
     _syncNetworkCompatibilitySettingsToBackend();
   }

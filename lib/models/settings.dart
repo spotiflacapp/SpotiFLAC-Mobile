@@ -55,6 +55,8 @@ class AppSettings {
   downloadNetworkMode; // 'any' = WiFi + Mobile, 'wifi_only' = WiFi only
   final bool
   networkCompatibilityMode; // Try HTTP + allow invalid TLS cert for API requests
+  final bool
+  allowLocalNetwork; // Allow requests to private/local network targets (local proxy / custom DNS)
   final String
   songLinkRegion; // SongLink userCountry region code used for platform lookup
   final bool
@@ -135,6 +137,7 @@ class AppSettings {
     this.autoExportFailedDownloads = false,
     this.downloadNetworkMode = 'any',
     this.networkCompatibilityMode = false,
+    this.allowLocalNetwork = false,
     this.songLinkRegion = 'US',
     this.nativeDownloadWorkerEnabled = false,
     this.localLibraryEnabled = false,
@@ -200,6 +203,7 @@ class AppSettings {
     bool? autoExportFailedDownloads,
     String? downloadNetworkMode,
     bool? networkCompatibilityMode,
+    bool? allowLocalNetwork,
     String? songLinkRegion,
     bool? nativeDownloadWorkerEnabled,
     bool? localLibraryEnabled,
@@ -275,6 +279,7 @@ class AppSettings {
       downloadNetworkMode: downloadNetworkMode ?? this.downloadNetworkMode,
       networkCompatibilityMode:
           networkCompatibilityMode ?? this.networkCompatibilityMode,
+      allowLocalNetwork: allowLocalNetwork ?? this.allowLocalNetwork,
       songLinkRegion: songLinkRegion ?? this.songLinkRegion,
       nativeDownloadWorkerEnabled:
           nativeDownloadWorkerEnabled ?? this.nativeDownloadWorkerEnabled,

@@ -17,7 +17,7 @@
   "@navSettings": {
     "description": "Bottom navigation - Settings tab"
   },
-  "navStore": "리포지토리",
+  "navStore": "리포",
   "@navStore": {
     "description": "Bottom navigation - Extension store tab"
   },
@@ -308,11 +308,11 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "확장 프로그램 리포지토리",
+  "optionsExtensionStore": "확장 프로그램 리포",
   "@optionsExtensionStore": {
     "description": "Show/hide store tab"
   },
-  "optionsExtensionStoreSubtitle": "하단바에서 리포지토리 탭 표시",
+  "optionsExtensionStoreSubtitle": "하단바에서 리포 탭 표시",
   "@optionsExtensionStoreSubtitle": {
     "description": "Subtitle for extension store toggle"
   },
@@ -415,7 +415,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "확장 프로그램 리포지토리",
+  "storeTitle": "확장 프로그램 리포",
   "@storeTitle": {
     "description": "Store screen title"
   },
@@ -792,7 +792,7 @@
   "@dialogUnsavedChanges": {
     "description": "Dialog message - unsaved changes"
   },
-  "dialogClearAll": "모두 제거:",
+  "dialogClearAll": "모두 지우기",
   "@dialogClearAll": {
     "description": "Dialog title - clear all items"
   },
@@ -2834,7 +2834,7 @@
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
-  "tutorialExtensionsTip1": "유용한 확장 프로그램을 찾으려면 리포지토리 탭을 탐색하세요",
+  "tutorialExtensionsTip1": "유용한 확장 프로그램을 찾으려면 리포 탭을 탐색하세요",
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
@@ -5084,7 +5084,7 @@
   "@settingsApp": {
     "description": "Settings menu item - app settings"
   },
-  "settingsAppSubtitle": "업데이트, 데이터, 확장프로그램 리포지토리, 디버그",
+  "settingsAppSubtitle": "업데이트, 데이터, 확장프로그램 리포, 디버그",
   "@settingsAppSubtitle": {
     "description": "Subtitle for app settings"
   },

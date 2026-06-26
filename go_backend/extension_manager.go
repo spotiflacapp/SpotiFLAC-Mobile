@@ -50,17 +50,18 @@ func isExtensionPackagePath(filePath string) bool {
 }
 
 type loadedExtension struct {
-	ID          string             `json:"id"`
-	Manifest    *ExtensionManifest `json:"manifest"`
-	VM          *goja.Runtime      `json:"-"`
-	VMMu        sync.Mutex         `json:"-"`
-	runtime     *extensionRuntime
-	initialized bool
-	Enabled     bool   `json:"enabled"`
-	Error       string `json:"error,omitempty"`
-	DataDir     string `json:"data_dir"`
-	SourceDir   string `json:"source_dir"`
-	IconPath    string `json:"icon_path"`
+	ID           string             `json:"id"`
+	Manifest     *ExtensionManifest `json:"manifest"`
+	VM           *goja.Runtime      `json:"-"`
+	VMMu         sync.Mutex         `json:"-"`
+	runtime      *extensionRuntime
+	indexProgram *goja.Program
+	initialized  bool
+	Enabled      bool   `json:"enabled"`
+	Error        string `json:"error,omitempty"`
+	DataDir      string `json:"data_dir"`
+	SourceDir    string `json:"source_dir"`
+	IconPath     string `json:"icon_path"`
 }
 
 func getExtensionInitSettings(extensionID string) map[string]interface{} {
@@ -311,6 +312,7 @@ func (m *extensionManager) loadExtensionFromFileLocked(filePath string) (*loaded
 func initializeVMLocked(ext *loadedExtension) error {
 	ext.VM = nil
 	ext.runtime = nil
+	ext.indexProgram = nil
 	ext.initialized = false
 	vm := goja.New()
 	ext.VM = vm
@@ -320,6 +322,11 @@ func initializeVMLocked(ext *loadedExtension) error {
 	if err != nil {
 		return fmt.Errorf("failed to read index.js: %w", err)
 	}
+	indexProgram, err := goja.Compile(indexPath, string(jsCode), false)
+	if err != nil {
+		return fmt.Errorf("failed to compile extension code: %w", err)
+	}
+	ext.indexProgram = indexProgram
 
 	runtime := newExtensionRuntime(ext)
 	ext.runtime = runtime
@@ -346,7 +353,7 @@ func initializeVMLocked(ext *loadedExtension) error {
 		return goja.Undefined()
 	})
 
-	_, err = vm.RunString(string(jsCode))
+	_, err = vm.RunProgram(indexProgram)
 	if err != nil {
 		return fmt.Errorf("failed to execute extension code: %w", err)
 	}
@@ -361,10 +368,17 @@ func initializeVMLocked(ext *loadedExtension) error {
 func newIsolatedExtensionRuntime(ext *loadedExtension) (*goja.Runtime, *extensionRuntime, error) {
 	vm := goja.New()
 
-	indexPath := filepath.Join(ext.SourceDir, "index.js")
-	jsCode, err := os.ReadFile(indexPath)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to read index.js: %w", err)
+	indexProgram := ext.indexProgram
+	if indexProgram == nil {
+		indexPath := filepath.Join(ext.SourceDir, "index.js")
+		jsCode, err := os.ReadFile(indexPath)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to read index.js: %w", err)
+		}
+		indexProgram, err = goja.Compile(indexPath, string(jsCode), false)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to compile extension code: %w", err)
+		}
 	}
 
 	runtime := &extensionRuntime{
@@ -407,7 +421,7 @@ func newIsolatedExtensionRuntime(ext *loadedExtension) (*goja.Runtime, *extensio
 		return goja.Undefined()
 	})
 
-	if _, err := vm.RunString(string(jsCode)); err != nil {
+	if _, err := vm.RunProgram(indexProgram); err != nil {
 		runtime.closeStorageFlusher()
 		return nil, nil, fmt.Errorf("failed to execute extension code: %w", err)
 	}

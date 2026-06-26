@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"sync"
@@ -92,6 +93,18 @@ type scannedCueFileInfo struct {
 	audioPath string
 }
 
+type libraryScanTask struct {
+	index int
+	info  libraryAudioFileInfo
+}
+
+type libraryScanTaskResult struct {
+	index   int
+	path    string
+	results []LibraryScanResult
+	err     error
+}
+
 func isLibraryStagingFile(path string) bool {
 	name := strings.ToLower(filepath.Base(path))
 	if strings.HasSuffix(name, ".partial") {
@@ -148,6 +161,129 @@ func collectLibraryAudioFiles(folderPath string, cancelCh <-chan struct{}) ([]li
 	}
 
 	return files, nil
+}
+
+func libraryScanWorkerCount(taskCount int) int {
+	if taskCount < 16 {
+		return 1
+	}
+	workers := runtime.NumCPU()
+	if workers > 4 {
+		workers = 4
+	}
+	if workers < 2 {
+		workers = 2
+	}
+	if workers > taskCount {
+		workers = taskCount
+	}
+	return workers
+}
+
+func updateLibraryScanProgress(scannedFiles, totalFiles int, currentPath string) {
+	libraryScanProgressMu.Lock()
+	libraryScanProgress.ScannedFiles = scannedFiles
+	libraryScanProgress.CurrentFile = filepath.Base(currentPath)
+	if totalFiles > 0 {
+		libraryScanProgress.ProgressPct = float64(scannedFiles) / float64(totalFiles) * 100
+	}
+	libraryScanProgressMu.Unlock()
+}
+
+func scanLibraryAudioTasksParallel(tasks []libraryScanTask, scanTime string, cancelCh <-chan struct{}, totalFiles int, completed *int) (map[int][]LibraryScanResult, int, error) {
+	resultsByIndex := make(map[int][]LibraryScanResult, len(tasks))
+	if len(tasks) == 0 {
+		return resultsByIndex, 0, nil
+	}
+
+	workers := libraryScanWorkerCount(len(tasks))
+	if workers <= 1 {
+		errorCount := 0
+		for _, task := range tasks {
+			select {
+			case <-cancelCh:
+				return resultsByIndex, errorCount, fmt.Errorf("scan cancelled")
+			default:
+			}
+			result, err := scanAudioFileWithKnownModTime(task.info.path, scanTime, task.info.modTime)
+			*completed++
+			updateLibraryScanProgress(*completed, totalFiles, task.info.path)
+			if err != nil {
+				errorCount++
+				GoLog("[LibraryScan] Error scanning %s: %v\n", task.info.path, err)
+				continue
+			}
+			resultsByIndex[task.index] = []LibraryScanResult{*result}
+		}
+		return resultsByIndex, errorCount, nil
+	}
+
+	taskCh := make(chan libraryScanTask)
+	resultCh := make(chan libraryScanTaskResult, workers)
+	var wg sync.WaitGroup
+
+	for i := 0; i < workers; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for task := range taskCh {
+				select {
+				case <-cancelCh:
+					return
+				default:
+				}
+				result, err := scanAudioFileWithKnownModTime(task.info.path, scanTime, task.info.modTime)
+				taskResult := libraryScanTaskResult{
+					index: task.index,
+					path:  task.info.path,
+					err:   err,
+				}
+				if err == nil && result != nil {
+					taskResult.results = []LibraryScanResult{*result}
+				}
+				select {
+				case <-cancelCh:
+					return
+				case resultCh <- taskResult:
+				}
+			}
+		}()
+	}
+
+	go func() {
+		defer close(taskCh)
+		for _, task := range tasks {
+			select {
+			case <-cancelCh:
+				return
+			case taskCh <- task:
+			}
+		}
+	}()
+
+	go func() {
+		wg.Wait()
+		close(resultCh)
+	}()
+
+	errorCount := 0
+	for taskResult := range resultCh {
+		*completed++
+		updateLibraryScanProgress(*completed, totalFiles, taskResult.path)
+		if taskResult.err != nil {
+			errorCount++
+			GoLog("[LibraryScan] Error scanning %s: %v\n", taskResult.path, taskResult.err)
+			continue
+		}
+		resultsByIndex[taskResult.index] = taskResult.results
+	}
+
+	select {
+	case <-cancelCh:
+		return resultsByIndex, errorCount, fmt.Errorf("scan cancelled")
+	default:
+	}
+	return resultsByIndex, errorCount, nil
 }
 
 func SetLibraryCoverCacheDir(cacheDir string) {
@@ -225,6 +361,10 @@ func ScanLibraryFolder(folderPath string) (string, error) {
 		}
 	}
 
+	resultsByIndex := make(map[int][]LibraryScanResult, totalFiles)
+	audioTasks := make([]libraryScanTask, 0, totalFiles)
+	completedFiles := 0
+
 	for i, fileInfo := range audioFileInfos {
 		filePath := fileInfo.path
 		select {
@@ -232,12 +372,6 @@ func ScanLibraryFolder(folderPath string) (string, error) {
 			return "[]", fmt.Errorf("scan cancelled")
 		default:
 		}
-
-		libraryScanProgressMu.Lock()
-		libraryScanProgress.ScannedFiles = i + 1
-		libraryScanProgress.CurrentFile = filepath.Base(filePath)
-		libraryScanProgress.ProgressPct = float64(i+1) / float64(totalFiles) * 100
-		libraryScanProgressMu.Unlock()
 
 		ext := strings.ToLower(filepath.Ext(filePath))
 
@@ -260,26 +394,44 @@ func ScanLibraryFolder(folderPath string) (string, error) {
 			if err != nil {
 				errorCount++
 				GoLog("[LibraryScan] Error scanning cue %s: %v\n", filePath, err)
+				completedFiles++
+				updateLibraryScanProgress(completedFiles, totalFiles, filePath)
 				continue
 			}
-			results = append(results, cueResults...)
+			resultsByIndex[i] = cueResults
+			completedFiles++
+			updateLibraryScanProgress(completedFiles, totalFiles, filePath)
 			GoLog("[LibraryScan] CUE sheet %s: %d tracks\n", filepath.Base(filePath), len(cueResults))
 			continue
 		}
 
 		if cueReferencedAudioFiles[filePath] {
+			completedFiles++
+			updateLibraryScanProgress(completedFiles, totalFiles, filePath)
 			GoLog("[LibraryScan] Skipping %s (referenced by .cue sheet)\n", filepath.Base(filePath))
 			continue
 		}
 
-		result, err := scanAudioFileWithKnownModTime(filePath, scanTime, fileInfo.modTime)
-		if err != nil {
-			errorCount++
-			GoLog("[LibraryScan] Error scanning %s: %v\n", filePath, err)
-			continue
-		}
+		audioTasks = append(audioTasks, libraryScanTask{index: i, info: fileInfo})
+	}
 
-		results = append(results, *result)
+	audioResults, audioErrors, err := scanLibraryAudioTasksParallel(
+		audioTasks,
+		scanTime,
+		cancelCh,
+		totalFiles,
+		&completedFiles,
+	)
+	if err != nil {
+		return "[]", err
+	}
+	errorCount += audioErrors
+	for index, scanResults := range audioResults {
+		resultsByIndex[index] = scanResults
+	}
+
+	for i := range audioFileInfos {
+		results = append(results, resultsByIndex[i]...)
 	}
 
 	libraryScanProgressMu.Lock()
@@ -874,18 +1026,16 @@ func scanLibraryFolderIncrementalWithExistingFiles(folderPath string, existingFi
 		}
 	}
 
+	resultsByIndex := make(map[int][]LibraryScanResult, len(filesToScan))
+	audioTasks := make([]libraryScanTask, 0, len(filesToScan))
+	completedFiles := skippedCount
+
 	for i, f := range filesToScan {
 		select {
 		case <-cancelCh:
 			return "{}", fmt.Errorf("scan cancelled")
 		default:
 		}
-
-		libraryScanProgressMu.Lock()
-		libraryScanProgress.ScannedFiles = skippedCount + i + 1
-		libraryScanProgress.CurrentFile = filepath.Base(f.path)
-		libraryScanProgress.ProgressPct = float64(skippedCount+i+1) / float64(totalFiles) * 100
-		libraryScanProgressMu.Unlock()
 
 		ext := strings.ToLower(filepath.Ext(f.path))
 
@@ -908,24 +1058,42 @@ func scanLibraryFolderIncrementalWithExistingFiles(folderPath string, existingFi
 			if err != nil {
 				errorCount++
 				GoLog("[LibraryScan] Error scanning cue %s: %v\n", f.path, err)
+				completedFiles++
+				updateLibraryScanProgress(completedFiles, totalFiles, f.path)
 				continue
 			}
-			results = append(results, cueResults...)
+			resultsByIndex[i] = cueResults
+			completedFiles++
+			updateLibraryScanProgress(completedFiles, totalFiles, f.path)
 			continue
 		}
 
 		if cueReferencedAudioFilesInc[f.path] {
+			completedFiles++
+			updateLibraryScanProgress(completedFiles, totalFiles, f.path)
 			continue
 		}
 
-		result, err := scanAudioFileWithKnownModTime(f.path, scanTime, f.modTime)
-		if err != nil {
-			errorCount++
-			GoLog("[LibraryScan] Error scanning %s: %v\n", f.path, err)
-			continue
-		}
+		audioTasks = append(audioTasks, libraryScanTask{index: i, info: f})
+	}
 
-		results = append(results, *result)
+	audioResults, audioErrors, err := scanLibraryAudioTasksParallel(
+		audioTasks,
+		scanTime,
+		cancelCh,
+		totalFiles,
+		&completedFiles,
+	)
+	if err != nil {
+		return "{}", err
+	}
+	errorCount += audioErrors
+	for index, scanResults := range audioResults {
+		resultsByIndex[index] = scanResults
+	}
+
+	for i := range filesToScan {
+		results = append(results, resultsByIndex[i]...)
 	}
 
 	libraryScanProgressMu.Lock()

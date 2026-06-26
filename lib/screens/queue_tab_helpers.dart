@@ -276,6 +276,7 @@ class _FilterContentData {
 class _QueueLibraryPageRequest {
   final String filterMode;
   final int limit;
+  final int offset;
   final String searchQuery;
   final String? filterSource;
   final String? filterQuality;
@@ -287,6 +288,7 @@ class _QueueLibraryPageRequest {
   const _QueueLibraryPageRequest({
     required this.filterMode,
     required this.limit,
+    required this.offset,
     required this.searchQuery,
     required this.filterSource,
     required this.filterQuality,
@@ -298,6 +300,7 @@ class _QueueLibraryPageRequest {
 
   QueueLibraryDbQuery toDbQuery() => QueueLibraryDbQuery(
     limit: limit,
+    offset: offset,
     filterMode: filterMode,
     searchQuery: searchQuery,
     source: filterSource,
@@ -314,6 +317,7 @@ class _QueueLibraryPageRequest {
       other is _QueueLibraryPageRequest &&
           filterMode == other.filterMode &&
           limit == other.limit &&
+          offset == other.offset &&
           searchQuery == other.searchQuery &&
           filterSource == other.filterSource &&
           filterQuality == other.filterQuality &&
@@ -326,6 +330,7 @@ class _QueueLibraryPageRequest {
   int get hashCode => Object.hash(
     filterMode,
     limit,
+    offset,
     searchQuery,
     filterSource,
     filterQuality,
@@ -398,6 +403,33 @@ class _QueueLibraryPageData {
     this.groupedAlbums = const [],
     this.groupedLocalAlbums = const [],
   });
+
+  factory _QueueLibraryPageData.combine(List<_QueueLibraryPageData> pages) {
+    if (pages.isEmpty) return const _QueueLibraryPageData();
+    if (pages.length == 1) return pages.first;
+
+    final items = <UnifiedLibraryItem>[];
+    final historyItems = <DownloadHistoryItem>[];
+    final localItems = <LocalLibraryItem>[];
+    final groupedAlbums = <_GroupedAlbum>[];
+    final groupedLocalAlbums = <_GroupedLocalAlbum>[];
+
+    for (final page in pages) {
+      items.addAll(page.items);
+      historyItems.addAll(page.historyItems);
+      localItems.addAll(page.localItems);
+      groupedAlbums.addAll(page.groupedAlbums);
+      groupedLocalAlbums.addAll(page.groupedLocalAlbums);
+    }
+
+    return _QueueLibraryPageData(
+      items: items,
+      historyItems: historyItems,
+      localItems: localItems,
+      groupedAlbums: groupedAlbums,
+      groupedLocalAlbums: groupedLocalAlbums,
+    );
+  }
 
   _FilterContentData toFilterContentData(
     LibraryCollectionsState collectionState, {

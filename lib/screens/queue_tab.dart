@@ -227,7 +227,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   String _sortMode = 'latest';
   double _libraryGridExtent = _libraryGridDefaultExtent;
   double? _libraryGridScaleStartExtent;
-  int _libraryPageLimit = _libraryPageSize;
+  final Map<String, int> _libraryPageOffsetByFilter = {};
   bool _libraryPageLoadScheduled = false;
   final Map<_QueueLibraryCountsRequest, QueueLibraryCounts>
   _queueLibraryCountsCache = {};
@@ -305,7 +305,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       if (!mounted || _searchQuery == normalized) return;
       setState(() {
         _searchQuery = normalized;
-        _libraryPageLimit = _libraryPageSize;
+        _resetLibraryPaging();
       });
       _requestFilterRefresh();
     });
@@ -316,16 +316,30 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     if (_searchQuery.isEmpty) return;
     setState(() {
       _searchQuery = '';
-      _libraryPageLimit = _libraryPageSize;
+      _resetLibraryPaging();
     });
     _requestFilterRefresh();
   }
 
-  void _loadMoreLibraryItems({required bool hasMoreLibrary}) {
+  int _libraryPageOffsetFor(String filterMode) =>
+      _libraryPageOffsetByFilter[filterMode] ?? 0;
+
+  void _resetLibraryPaging() {
+    _libraryPageOffsetByFilter.clear();
+    _queueLibraryPageDataCache.clear();
+  }
+
+  void _loadMoreLibraryItems({
+    required String filterMode,
+    required bool hasMoreLibrary,
+  }) {
     if (_libraryPageLoadScheduled) return;
     _libraryPageLoadScheduled = true;
     setState(() {
-      if (hasMoreLibrary) _libraryPageLimit += _libraryPageSize;
+      if (hasMoreLibrary) {
+        _libraryPageOffsetByFilter[filterMode] =
+            _libraryPageOffsetFor(filterMode) + _libraryPageSize;
+      }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _libraryPageLoadScheduled = false;
@@ -339,7 +353,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     return value.maybeWhen(
       data: (counts) {
         _queueLibraryCountsCache[request] = counts;
-        _trimQueueLibraryCaches();
+        _trimQueueLibraryCountsCache();
         return counts;
       },
       orElse: () =>
@@ -356,28 +370,72 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     AsyncValue<_QueueLibraryPageData>? value,
     _QueueLibraryPageRequest request,
   ) {
-    if (value == null) {
-      return _queueLibraryPageDataCache[request] ??
-          const _QueueLibraryPageData();
+    if (value != null) {
+      value.whenOrNull(
+        data: (data) {
+          _queueLibraryPageDataCache[request] = data;
+          _trimQueueLibraryPageDataCache(protectedRequest: request);
+        },
+      );
     }
-    return value.maybeWhen(
-      data: (data) {
-        _queueLibraryPageDataCache[request] = data;
-        _trimQueueLibraryCaches();
-        return data;
-      },
-      orElse: () =>
-          _queueLibraryPageDataCache[request] ?? const _QueueLibraryPageData(),
-    );
+
+    final pages = <_QueueLibraryPageData>[];
+    for (var offset = 0; offset <= request.offset; offset += _libraryPageSize) {
+      final page =
+          _queueLibraryPageDataCache[_QueueLibraryPageRequest(
+            filterMode: request.filterMode,
+            limit: request.limit,
+            offset: offset,
+            searchQuery: request.searchQuery,
+            filterSource: request.filterSource,
+            filterQuality: request.filterQuality,
+            filterFormat: request.filterFormat,
+            filterMetadata: request.filterMetadata,
+            sortMode: request.sortMode,
+            localLibraryEnabled: request.localLibraryEnabled,
+          )];
+      if (page != null) pages.add(page);
+    }
+
+    return _QueueLibraryPageData.combine(pages);
   }
 
-  void _trimQueueLibraryCaches() {
-    const maxEntries = 24;
-    while (_queueLibraryCountsCache.length > maxEntries) {
+  void _trimQueueLibraryCountsCache() {
+    const maxCountEntries = 24;
+    while (_queueLibraryCountsCache.length > maxCountEntries) {
       _queueLibraryCountsCache.remove(_queueLibraryCountsCache.keys.first);
     }
-    while (_queueLibraryPageDataCache.length > maxEntries) {
-      _queueLibraryPageDataCache.remove(_queueLibraryPageDataCache.keys.first);
+  }
+
+  bool _isProtectedQueueLibraryPage(
+    _QueueLibraryPageRequest request,
+    _QueueLibraryPageRequest protectedRequest,
+  ) {
+    return request.filterMode == protectedRequest.filterMode &&
+        request.limit == protectedRequest.limit &&
+        request.offset <= protectedRequest.offset &&
+        request.searchQuery == protectedRequest.searchQuery &&
+        request.filterSource == protectedRequest.filterSource &&
+        request.filterQuality == protectedRequest.filterQuality &&
+        request.filterFormat == protectedRequest.filterFormat &&
+        request.filterMetadata == protectedRequest.filterMetadata &&
+        request.sortMode == protectedRequest.sortMode &&
+        request.localLibraryEnabled == protectedRequest.localLibraryEnabled;
+  }
+
+  void _trimQueueLibraryPageDataCache({
+    required _QueueLibraryPageRequest protectedRequest,
+  }) {
+    const maxPageEntries = 96;
+    while (_queueLibraryPageDataCache.length > maxPageEntries) {
+      final removableKey = _queueLibraryPageDataCache.keys
+          .where(
+            (request) =>
+                !_isProtectedQueueLibraryPage(request, protectedRequest),
+          )
+          .firstOrNull;
+      if (removableKey == null) break;
+      _queueLibraryPageDataCache.remove(removableKey);
     }
   }
 
@@ -399,7 +457,10 @@ class _QueueTabState extends ConsumerState<QueueTab> {
         metrics.extentAfter <= metrics.viewportDimension * 1.5;
     if (!nearEnd) return false;
 
-    _loadMoreLibraryItems(hasMoreLibrary: hasMoreLibrary);
+    _loadMoreLibraryItems(
+      filterMode: filterMode,
+      hasMoreLibrary: hasMoreLibrary,
+    );
     return false;
   }
 
@@ -783,6 +844,12 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   }
 
   void _animateToFilterPage(int index) {
+    if (index >= 0 && index < _filterModes.length) {
+      final filterMode = _filterModes[index];
+      if (ref.read(settingsProvider).historyFilterMode != filterMode) {
+        ref.read(settingsProvider.notifier).setHistoryFilterMode(filterMode);
+      }
+    }
     _filterPageController?.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),
@@ -1379,8 +1446,6 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _embeddedCoverRefreshScheduled = false;
       if (mounted) {
-        // Increment version to trigger ValueListenableBuilder rebuilds
-        // on cover images only, instead of rebuilding the entire widget tree.
         _embeddedCoverVersion.value++;
       }
     });
@@ -1426,7 +1491,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       _filterFormat = null;
       _filterMetadata = null;
       _sortMode = 'latest';
-      _libraryPageLimit = _libraryPageSize;
+      _resetLibraryPaging();
       _unifiedItemsCache.clear();
       _invalidateFilterContentCache();
     });
@@ -2064,7 +2129,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                                   _filterFormat = tempFormat;
                                   _filterMetadata = tempMetadata;
                                   _sortMode = tempSortMode;
-                                  _libraryPageLimit = _libraryPageSize;
+                                  _resetLibraryPaging();
                                   _unifiedItemsCache.clear();
                                   _invalidateFilterContentCache();
                                 });
@@ -2668,7 +2733,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     _QueueLibraryPageRequest pageRequest(String filterMode) =>
         _QueueLibraryPageRequest(
           filterMode: filterMode,
-          limit: _libraryPageLimit,
+          limit: _libraryPageSize,
+          offset: _libraryPageOffsetFor(filterMode),
           searchQuery: _searchQuery,
           filterSource: _filterSource,
           filterQuality: _filterQuality,
@@ -2678,19 +2744,20 @@ class _QueueTabState extends ConsumerState<QueueTab> {
           localLibraryEnabled: localLibraryEnabled,
         );
 
-    final pageRequests = <String, _QueueLibraryPageRequest>{
-      for (final mode in _filterModes) mode: pageRequest(mode),
-    };
-    final pageValues = <String, AsyncValue<_QueueLibraryPageData>>{
-      for (final entry in pageRequests.entries)
-        entry.key: ref.watch(_queueLibraryPageProvider(entry.value)),
-    };
+    final activePageRequest = pageRequest(historyFilterMode);
+    final activePageValue = ref.watch(
+      _queueLibraryPageProvider(activePageRequest),
+    );
 
-    _QueueLibraryPageData pageData(String filterMode) =>
-        _resolveQueueLibraryPageData(
-          pageValues[filterMode],
-          pageRequests[filterMode]!,
-        );
+    _QueueLibraryPageData pageData(String filterMode) {
+      final request = filterMode == historyFilterMode
+          ? activePageRequest
+          : pageRequest(filterMode);
+      return _resolveQueueLibraryPageData(
+        filterMode == historyFilterMode ? activePageValue : null,
+        request,
+      );
+    }
 
     _FilterContentData getFilterData(String filterMode) {
       return pageData(filterMode).toFilterContentData(
@@ -2716,8 +2783,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     };
     final hasMoreLibrary = currentLoadedCount < currentTotalCount;
     final isLibraryPageLoading =
-        countsValue.isLoading ||
-        (pageValues[historyFilterMode]?.isLoading ?? false);
+        countsValue.isLoading || activePageValue.isLoading;
     final hasAnyLibraryItems =
         queueCounts.allTrackCount > 0 || queueCounts.albumCount > 0;
     final hasLibraryContent =
@@ -3388,9 +3454,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
             item.track.artistName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(
-              context,
-            ).textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),
@@ -4048,6 +4114,10 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     }
 
     final leadCount = activeDownloadIds.length + bridgeIds.length;
+    final collectionEntries = filterMode == 'all'
+        ? _getVisibleCollectionEntries(collectionState)
+        : const <_CollectionEntry>[];
+    final collectionCount = collectionEntries.length;
 
     Widget leadGridCell(int index) {
       if (index < activeDownloadIds.length) {
@@ -4270,10 +4340,6 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                 childAspectRatio: 0.66,
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    final collectionEntries = _getVisibleCollectionEntries(
-                      collectionState,
-                    );
-                    final collectionCount = collectionEntries.length;
                     if (index < collectionCount) {
                       return _buildAllTabGridCollectionItem(
                         context: context,
@@ -4332,9 +4398,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                     return const SizedBox.shrink();
                   },
                   childCount:
-                      leadCount +
-                      _getVisibleCollectionEntries(collectionState).length +
-                      filteredUnifiedItems.length,
+                      leadCount + collectionCount + filteredUnifiedItems.length,
                 ),
               ),
             )
@@ -4342,10 +4406,6 @@ class _QueueTabState extends ConsumerState<QueueTab> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  final collectionEntries = _getVisibleCollectionEntries(
-                    collectionState,
-                  );
-                  final collectionCount = collectionEntries.length;
                   if (index < collectionCount) {
                     return _buildAllTabListCollectionItem(
                       context: context,
@@ -4403,9 +4463,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                   return const SizedBox.shrink();
                 },
                 childCount:
-                    leadCount +
-                    _getVisibleCollectionEntries(collectionState).length +
-                    filteredUnifiedItems.length,
+                    leadCount + collectionCount + filteredUnifiedItems.length,
               ),
             ),
         ],
@@ -5467,8 +5525,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     int successCount = 0;
     final total = selectedItems.length;
     final historyDb = HistoryDatabase.instance;
-    final newQuality =
-        isLosslessConversionTarget(targetFormat)
+    final newQuality = isLosslessConversionTarget(targetFormat)
         ? '${targetFormat.toUpperCase()} Lossless'
         : '${targetFormat.toUpperCase()} ${bitrate.trim().toLowerCase()}';
     final settings = ref.read(settingsProvider);
@@ -5769,9 +5826,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   }
 
   /// Batch-scan loudness and write ReplayGain tags to the selected tracks.
-  Future<void> _runBatchReplayGain(
-    List<UnifiedLibraryItem> allItems,
-  ) async {
+  Future<void> _runBatchReplayGain(List<UnifiedLibraryItem> allItems) async {
     final itemsById = {for (final item in allItems) item.id: item};
     final selectedItems = <UnifiedLibraryItem>[];
     for (final id in _selectedIds) {
@@ -5859,9 +5914,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          context.l10n.replayGainBatchSuccess(successCount, total),
-        ),
+        content: Text(context.l10n.replayGainBatchSuccess(successCount, total)),
       ),
     );
   }
@@ -6165,76 +6218,80 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                  isCompleted
-                      ? Hero(
-                          tag: 'cover_${item.id}',
-                          child: _buildCoverArt(item, colorScheme),
-                        )
-                      : _buildCoverArt(item, colorScheme),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.track.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 2),
-                        ClickableArtistName(
-                          artistName: item.track.artistName,
-                          artistId: item.track.artistId,
-                          coverUrl: item.track.coverUrl,
-                          extensionId: item.track.source,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: colorScheme.onSurfaceVariant),
-                        ),
-                        if (item.status == DownloadStatus.downloading) ...[
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.download_rounded,
-                                size: 12,
-                                color: colorScheme.primary,
-                              ),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  _formatDownloadStatusLine(context, item),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.labelSmall
-                                      ?.copyWith(
-                                        color: colorScheme.primary,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
+                      isCompleted
+                          ? Hero(
+                              tag: 'cover_${item.id}',
+                              child: _buildCoverArt(item, colorScheme),
+                            )
+                          : _buildCoverArt(item, colorScheme),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.track.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 2),
+                            ClickableArtistName(
+                              artistName: item.track.artistName,
+                              artistId: item.track.artistId,
+                              coverUrl: item.track.coverUrl,
+                              extensionId: item.track.source,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                            ),
+                            if (item.status == DownloadStatus.downloading) ...[
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.download_rounded,
+                                    size: 12,
+                                    color: colorScheme.primary,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Expanded(
+                                    child: Text(
+                                      _formatDownloadStatusLine(context, item),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                            color: colorScheme.primary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                        ],
-                        if (item.status == DownloadStatus.failed) ...[
-                          const SizedBox(height: 4),
-                          _buildDownloadFailureMessage(
-                            context,
-                            item,
-                            colorScheme,
-                          ),
-                        ],
-                      ],
-                    ),
+                            if (item.status == DownloadStatus.failed) ...[
+                              const SizedBox(height: 4),
+                              _buildDownloadFailureMessage(
+                                context,
+                                item,
+                                colorScheme,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      _buildActionButtons(context, item, colorScheme),
+                    ],
                   ),
-                  const SizedBox(width: 8),
-                  _buildActionButtons(context, item, colorScheme),
-                ],
-              ),
-            ),
+                ),
               ],
             ),
           ),

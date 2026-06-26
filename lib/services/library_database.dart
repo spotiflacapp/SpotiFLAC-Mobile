@@ -902,11 +902,6 @@ class LibraryDatabase {
       ),
       allArgs,
     );
-    final allRows = await db.rawQuery(
-      'SELECT COUNT(*) AS count FROM ($allSql)',
-      allArgs,
-    );
-
     final singleArgs = <Object?>[];
     final singleSql = _queueTrackUnionSql(
       QueueLibraryDbQuery(
@@ -923,22 +918,25 @@ class LibraryDatabase {
       ),
       singleArgs,
     );
-    final singleRows = await db.rawQuery(
-      'SELECT COUNT(*) AS count FROM ($singleSql)',
-      singleArgs,
-    );
 
     final albumArgs = <Object?>[];
     final albumSql = _queueAlbumUnionSql(request, albumArgs);
-    final albumRows = await db.rawQuery(
-      'SELECT COUNT(*) AS count FROM ($albumSql)',
-      albumArgs,
+
+    final rows = await db.rawQuery(
+      '''
+      SELECT
+        (SELECT COUNT(*) FROM ($allSql)) AS all_count,
+        (SELECT COUNT(*) FROM ($singleSql)) AS single_count,
+        (SELECT COUNT(*) FROM ($albumSql)) AS album_count
+      ''',
+      [...allArgs, ...singleArgs, ...albumArgs],
     );
+    final row = rows.isNotEmpty ? rows.first : const <String, Object?>{};
 
     return QueueLibraryCounts(
-      allTrackCount: Sqflite.firstIntValue(allRows) ?? 0,
-      albumCount: Sqflite.firstIntValue(albumRows) ?? 0,
-      singleTrackCount: Sqflite.firstIntValue(singleRows) ?? 0,
+      allTrackCount: (row['all_count'] as num?)?.toInt() ?? 0,
+      albumCount: (row['album_count'] as num?)?.toInt() ?? 0,
+      singleTrackCount: (row['single_count'] as num?)?.toInt() ?? 0,
     );
   }
 

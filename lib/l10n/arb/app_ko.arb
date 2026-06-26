@@ -3392,7 +3392,7 @@
   "@collectionWishlist": {
     "description": "Custom folder for saved tracks to download later"
   },
-  "collectionLoved": "즐겨찾기",
+  "collectionLoved": "좋아요 표시한 음악",
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
@@ -3505,11 +3505,11 @@
   "@collectionWishlistEmptySubtitle": {
     "description": "Wishlist empty state subtitle"
   },
-  "collectionLovedEmptyTitle": "즐겨찾기 폴더가 비워져 있습니다",
+  "collectionLovedEmptyTitle": "'좋아요 표시한 음악' 폴더가 비워져 있습니다",
   "@collectionLovedEmptyTitle": {
     "description": "Loved empty state title"
   },
-  "collectionLovedEmptySubtitle": "트랙에 하트를 탭하여 즐겨찾기를 저장하세요",
+  "collectionLovedEmptySubtitle": "트랙에 하트를 탭하여 '좋아요'를 유지하세요",
   "@collectionLovedEmptySubtitle": {
     "description": "Loved empty state subtitle"
   },
@@ -3546,7 +3546,7 @@
       }
     }
   },
-  "collectionAddedToLoved": "\"{trackName}\" added to Loved",
+  "collectionAddedToLoved": "'{trackName}'을 '좋아요 표시한 음악'에 추가하였습니다",
   "@collectionAddedToLoved": {
     "description": "Snackbar after adding track to loved folder",
     "placeholders": {
@@ -3555,7 +3555,7 @@
       }
     }
   },
-  "collectionRemovedFromLoved": "\"{trackName}\" removed from Loved",
+  "collectionRemovedFromLoved": "'{trackName}'을 '좋아요 표시한 음악'에 제거하였습니다",
   "@collectionRemovedFromLoved": {
     "description": "Snackbar after removing track from loved folder",
     "placeholders": {
@@ -3600,11 +3600,11 @@
       }
     }
   },
-  "trackOptionAddToLoved": "즐겨찾기에 추가",
+  "trackOptionAddToLoved": "'좋아요 표시한 음악'에 추가",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
-  "trackOptionRemoveFromLoved": "즐겨찾기에서 제거",
+  "trackOptionRemoveFromLoved": "'좋아요 표시한 음악'에서 제거",
   "@trackOptionRemoveFromLoved": {
     "description": "Bottom sheet action label - remove track from loved folder"
   },
@@ -3835,7 +3835,7 @@
   "@tooltipAddToPlaylist": {
     "description": "Tooltip for the Add to Playlist button"
   },
-  "snackbarRemovedTracksFromLoved": "Removed {count} tracks from Loved",
+  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 음악'에서 {count} 트랙을 제거하였습니다",
   "@snackbarRemovedTracksFromLoved": {
     "description": "Snackbar after removing multiple tracks from Loved folder",
     "placeholders": {
@@ -3844,7 +3844,7 @@
       }
     }
   },
-  "snackbarAddedTracksToLoved": "Added {count} tracks to Loved",
+  "snackbarAddedTracksToLoved": "'좋아요 표시한 음악'에 {count} 트랙을 추가하였습니다",
   "@snackbarAddedTracksToLoved": {
     "description": "Snackbar after adding multiple tracks to Loved folder",
     "placeholders": {

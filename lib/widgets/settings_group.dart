@@ -49,6 +49,7 @@ class SettingsGroup extends StatelessWidget {
 class SettingsItem extends StatelessWidget {
   final IconData? icon;
   final String title;
+  final Widget? titleTrailing;
   final String? subtitle;
   final Widget? trailing;
   final VoidCallback? onTap;
@@ -58,6 +59,7 @@ class SettingsItem extends StatelessWidget {
     super.key,
     this.icon,
     required this.title,
+    this.titleTrailing,
     this.subtitle,
     this.trailing,
     this.onTap,
@@ -87,7 +89,21 @@ class SettingsItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: Theme.of(context).textTheme.bodyLarge),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              title,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          if (titleTrailing != null) ...[
+                            const SizedBox(width: 8),
+                            titleTrailing!,
+                          ],
+                        ],
+                      ),
                       if (subtitle != null) ...[
                         const SizedBox(height: 2),
                         Text(
@@ -252,6 +268,33 @@ class SettingsSectionHeader extends StatelessWidget {
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
           color: Theme.of(context).colorScheme.primary,
           fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+}
+
+/// Small "BETA" pill, used as a [SettingsItem.titleTrailing] /
+/// [SettingsSwitchItem.titleTrailing] marker for experimental features.
+class BetaBadge extends StatelessWidget {
+  final String label;
+
+  const BetaBadge({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: colorScheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          color: colorScheme.onTertiaryContainer,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );

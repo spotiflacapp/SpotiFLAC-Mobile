@@ -199,7 +199,7 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
                     SettingsSwitchItem(
                       icon: Icons.downloading_outlined,
                       title: context.l10n.downloadNativeWorker,
-                      titleTrailing: const _BetaBadge(),
+                      titleTrailing: BetaBadge(label: context.l10n.badgeBeta),
                       subtitle: hasDownloadExtensions
                           ? context.l10n.downloadNativeWorkerSubtitle
                           : context.l10n.extensionsNoDownloadProvider,
@@ -839,29 +839,6 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BetaBadge extends StatelessWidget {
-  const _BetaBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: colorScheme.tertiaryContainer,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Text(
-        context.l10n.badgeBeta,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: colorScheme.onTertiaryContainer,
-          fontWeight: FontWeight.w700,
         ),
       ),
     );

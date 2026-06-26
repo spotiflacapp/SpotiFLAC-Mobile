@@ -57,7 +57,7 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "historySearchHint": "검색 기록...",
+  "historySearchHint": "기록 검색...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
   },

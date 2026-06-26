@@ -3331,6 +3331,29 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
         if (lower.endsWith(ext)) return ext;
       }
     }
+
+    // Generic safety net: when neither an explicit extension field nor a
+    // recognizable path suffix is available (e.g. SAF content URIs that drop
+    // the suffix), fall back to the actual audio codec reported by the backend
+    // probe. This keeps any extension that returns a non-FLAC container (Opus,
+    // MP3, AAC) from being mislabeled as FLAC.
+    final codec = _normalizeAudioFormatValue(
+      result['audio_codec']?.toString() ??
+          result['actual_audio_codec']?.toString() ??
+          result['format']?.toString(),
+    );
+    switch (codec) {
+      case 'opus':
+        return '.opus';
+      case 'mp3':
+        return '.mp3';
+      case 'aac':
+      case 'alac':
+      case 'm4a':
+        return '.m4a';
+      case 'flac':
+        return '.flac';
+    }
     return null;
   }
 

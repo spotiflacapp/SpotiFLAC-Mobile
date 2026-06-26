@@ -11,8 +11,8 @@ subprojects {
             project.extensions.configure<com.android.build.gradle.BaseExtension>("android") {
                 compileOptions {
                     isCoreLibraryDesugaringEnabled = true
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
+                    sourceCompatibility = JavaVersion.VERSION_25
+                    targetCompatibility = JavaVersion.VERSION_25
                 }
                 
                 // Enable multidex for all subprojects
@@ -27,7 +27,7 @@ subprojects {
         
         tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
             compilerOptions {
-                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
             }
         }
     }

@@ -616,18 +616,22 @@ class HomeSearchSkeleton extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                SkeletonBox(width: 48, height: 32, borderRadius: 16),
-                const SizedBox(width: 8),
-                SkeletonBox(width: 64, height: 32, borderRadius: 16),
-                const SizedBox(width: 8),
-                SkeletonBox(width: 72, height: 32, borderRadius: 16),
-                const SizedBox(width: 8),
-                SkeletonBox(width: 60, height: 32, borderRadius: 16),
-                const SizedBox(width: 8),
-                SkeletonBox(width: 70, height: 32, borderRadius: 16),
-              ],
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const NeverScrollableScrollPhysics(),
+              child: Row(
+                children: [
+                  SkeletonBox(width: 48, height: 32, borderRadius: 16),
+                  const SizedBox(width: 8),
+                  SkeletonBox(width: 64, height: 32, borderRadius: 16),
+                  const SizedBox(width: 8),
+                  SkeletonBox(width: 72, height: 32, borderRadius: 16),
+                  const SizedBox(width: 8),
+                  SkeletonBox(width: 60, height: 32, borderRadius: 16),
+                  const SizedBox(width: 8),
+                  SkeletonBox(width: 70, height: 32, borderRadius: 16),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 8),

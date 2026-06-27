@@ -3815,7 +3815,7 @@
   "@safMigrationMessage2": {
     "description": "Second paragraph of SAF migration dialog"
   },
-  "safMigrationSuccess": "Download folder updated to SAF mode",
+  "safMigrationSuccess": "다운로드 폴더를 SAF 모드로 업데이트하였습니다",
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
@@ -3886,7 +3886,7 @@
   "@snackbarMetadataSaved": {
     "description": "Snackbar after successfully saving track metadata"
   },
-  "snackbarFailedToEmbedLyrics": "Failed to embed lyrics",
+  "snackbarFailedToEmbedLyrics": "가사를 삽입할 수 없습니다",
   "@snackbarFailedToEmbedLyrics": {
     "description": "Snackbar when lyrics embedding fails"
   },
@@ -4103,7 +4103,7 @@
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
-  "dialogDownloadPlaylistsMessage": "Download {trackCount} {trackCount, plural, =1{track} other{tracks}} from {playlistCount} {playlistCount, plural, =1{playlist} other{playlists}}?",
+  "dialogDownloadPlaylistsMessage": "{playlistCount} {playlistCount, plural, =1{재생목록} other{재생록록}}에서 {trackCount} {trackCount, plural, =1{트랙} other{트랙}}을 다운로드하시겠습니까?",
   "@dialogDownloadPlaylistsMessage": {
     "description": "Dialog message for bulk playlist download confirmation",
     "placeholders": {
@@ -4124,7 +4124,7 @@
       }
     }
   },
-  "bulkDownloadSelectPlaylists": "Select playlists to download",
+  "bulkDownloadSelectPlaylists": "다운로드할 재생목록 선택",
   "@bulkDownloadSelectPlaylists": {
     "description": "Button label when no playlists are selected for download"
   },
@@ -4161,7 +4161,7 @@
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
-  "editMetadataAutoFillDone": "Filled {count} {count, plural, =1{field} other{fields}} from online metadata",
+  "editMetadataAutoFillDone": "온라인 메타데이터로부터 {count} {count, plural, =1{필드} other{필드}}가 채워졌습니다",
   "@editMetadataAutoFillDone": {
     "description": "Snackbar confirming how many fields were auto-filled",
     "placeholders": {
@@ -4313,7 +4313,7 @@
   "@audioAnalysisAnalyzing": {
     "description": "Loading text while analyzing audio"
   },
-  "audioAnalysisSampleRate": "Sample Rate",
+  "audioAnalysisSampleRate": "샘플링 레이트",
   "@audioAnalysisSampleRate": {
     "description": "Sample rate metric label"
   },
@@ -4329,7 +4329,7 @@
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },
-  "audioAnalysisBitDepth": "Bit Depth",
+  "audioAnalysisBitDepth": "비트 심도",
   "@audioAnalysisBitDepth": {
     "description": "Bit depth metric label"
   },
@@ -4353,7 +4353,7 @@
   "@audioAnalysisDynamicRange": {
     "description": "Dynamic range metric label"
   },
-  "audioAnalysisPeak": "Peak",
+  "audioAnalysisPeak": "최대 피크",
   "@audioAnalysisPeak": {
     "description": "Peak amplitude metric label"
   },
@@ -4377,11 +4377,11 @@
   "@audioAnalysisNoClipping": {
     "description": "Displayed when no clipped samples were detected"
   },
-  "audioAnalysisSpectralCutoff": "Spectral Cutoff",
+  "audioAnalysisSpectralCutoff": "주파수 컷오프",
   "@audioAnalysisSpectralCutoff": {
     "description": "Estimated spectral cutoff metric label"
   },
-  "audioAnalysisChannelStats": "Per-channel Stats",
+  "audioAnalysisChannelStats": "채널별 통계",
   "@audioAnalysisChannelStats": {
     "description": "Per-channel audio analysis section label"
   },
@@ -4636,7 +4636,7 @@
       }
     }
   },
-  "notifLibraryScanProgressNoTotal": "{scanned} files scanned • {percentage}%",
+  "notifLibraryScanProgressNoTotal": "{scanned} 파일 스캔됨 • {percentage}%",
   "@notifLibraryScanProgressNoTotal": {
     "description": "Notification body for library scan progress when total is unknown",
     "placeholders": {
@@ -4652,7 +4652,7 @@
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },
-  "notifLibraryScanCompleteBody": "{count} tracks indexed",
+  "notifLibraryScanCompleteBody": "{count} 개의 파일이 색인됨",
   "@notifLibraryScanCompleteBody": {
     "description": "Notification body for library scan complete - number of indexed tracks",
     "placeholders": {
@@ -4661,7 +4661,7 @@
       }
     }
   },
-  "notifLibraryScanExcluded": "{count} excluded",
+  "notifLibraryScanExcluded": "{count} 개가 제외됨",
   "@notifLibraryScanExcluded": {
     "description": "Library scan complete suffix - excluded track count",
     "placeholders": {
@@ -4670,7 +4670,7 @@
       }
     }
   },
-  "notifLibraryScanErrors": "{count} errors",
+  "notifLibraryScanErrors": "{count} 개의 오류",
   "@notifLibraryScanErrors": {
     "description": "Library scan complete suffix - error count",
     "placeholders": {
@@ -4813,15 +4813,15 @@
   "@trackCoverNoEmbeddedArt": {
     "description": "Message shown when a track file has no embedded cover art"
   },
-  "trackCoverReplace": "Replace Cover",
+  "trackCoverReplace": "커버 교체",
   "@trackCoverReplace": {
     "description": "Button label for replacing selected cover art"
   },
-  "trackCoverPick": "Pick Cover",
+  "trackCoverPick": "커버 선택",
   "@trackCoverPick": {
     "description": "Button label for selecting cover art"
   },
-  "trackCoverClearSelected": "Clear selected cover",
+  "trackCoverClearSelected": "선택된 커버 지우기",
   "@trackCoverClearSelected": {
     "description": "Tooltip for clearing the newly selected cover art"
   },
@@ -4861,7 +4861,7 @@
   "@queueRateLimitMessage": {
     "description": "Explanation shown on a failed queue item when the download service rate limits requests"
   },
-  "appearanceSelectAccentColor": "Select accent color {hex}",
+  "appearanceSelectAccentColor": "강조 색상 {hex} 선택",
   "@appearanceSelectAccentColor": {
     "description": "Accessibility label for picking an accent color",
     "placeholders": {
@@ -4890,7 +4890,7 @@
   "@logIssueIspBlockingLabel": {
     "description": "Diagnostic badge label when ISP blocking is detected"
   },
-  "logIssueIspBlockingDescription": "Your ISP may be blocking access to download services",
+  "logIssueIspBlockingDescription": "ISP에서 다운로드 서비스 접속을 차단했을 수 있습니다",
   "@logIssueIspBlockingDescription": {
     "description": "Diagnostic badge description for ISP blocking"
   },
@@ -4914,7 +4914,7 @@
   "@logIssueNetworkErrorLabel": {
     "description": "Diagnostic badge label for generic network errors"
   },
-  "logIssueNetworkErrorDescription": "Connection issues detected",
+  "logIssueNetworkErrorDescription": "연결 문제가 감지됨",
   "@logIssueNetworkErrorDescription": {
     "description": "Diagnostic badge description for generic network errors"
   },
@@ -5267,7 +5267,7 @@
   "@a11ySelectTrack": {
     "description": "Accessibility label for selecting a track"
   },
-  "a11yDeselectTrack": "Deselect track",
+  "a11yDeselectTrack": "트랙 선택 해제",
   "@a11yDeselectTrack": {
     "description": "Accessibility label for deselecting a track"
   },
@@ -5331,7 +5331,7 @@
   "@libraryScanCancelled": {
     "description": "Library scan status when a scan was cancelled"
   },
-  "libraryScanCancelledSubtitle": "You can retry the scan when ready.",
+  "libraryScanCancelledSubtitle": "준비가 되면 스캔을 다시 시도할 수 있습니다",
   "@libraryScanCancelledSubtitle": {
     "description": "Library scan status subtitle after cancellation"
   },
@@ -5344,7 +5344,7 @@
       }
     }
   },
-  "downloadNativeWorker": "Native download worker",
+  "downloadNativeWorker": "네이티브 다운로드 워커",
   "@downloadNativeWorker": {
     "description": "Setting title for Android native download worker"
   },
@@ -5360,11 +5360,11 @@
   "@extensionServiceStatus": {
     "description": "Extension detail section header for service status"
   },
-  "extensionServiceHealth": "Service health",
+  "extensionServiceHealth": "서비스 상태",
   "@extensionServiceHealth": {
     "description": "Extension capability label for service health checks"
   },
-  "extensionHealthChecksConfigured": "{count} {count, plural, =1{check} other{checks}} configured",
+  "extensionHealthChecksConfigured": "{count} {count, plural, =1{검사} other{검사}}가 설정됨",
   "@extensionHealthChecksConfigured": {
     "description": "Extension service health check count",
     "placeholders": {
@@ -5373,7 +5373,7 @@
       }
     }
   },
-  "extensionOauthConnectHint": "Tap Connect to Spotify to fill this field.",
+  "extensionOauthConnectHint": "Spotify에 연결을 탭하여 이 필드를 채우세요",
   "@extensionOauthConnectHint": {
     "description": "Hint for an OAuth login link field before connecting Spotify"
   },
@@ -5390,7 +5390,7 @@
   "@extensionRefreshStatus": {
     "description": "Tooltip for refreshing extension service health status"
   },
-  "extensionCustomUrlHandling": "Custom URL Handling",
+  "extensionCustomUrlHandling": "사용자 정의 URL 처리",
   "@extensionCustomUrlHandling": {
     "description": "Extension detail section title for custom URL handling"
   },

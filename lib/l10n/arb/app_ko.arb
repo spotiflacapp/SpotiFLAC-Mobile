@@ -2211,7 +2211,7 @@
   "@downloadedAlbumDeleteSelected": {
     "description": "Button - delete selected tracks"
   },
-  "downloadedAlbumDeleteMessage": "Delete {count} {count, plural, =1{track} other{tracks}} from this album?\n\nThis will also delete the files from storage.",
+  "downloadedAlbumDeleteMessage": "앨범에서 {count} {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n이렇게 하면 저장소에서 파일도 삭제됩니다",
   "@downloadedAlbumDeleteMessage": {
     "description": "Delete confirmation with count",
     "placeholders": {
@@ -2383,7 +2383,7 @@
   "@discographyDownloadSelected": {
     "description": "Button - download selected albums"
   },
-  "discographyAddedToQueue": "Added {count} tracks to queue",
+  "discographyAddedToQueue": "대기목록에 {count} 트랙이 추가됨",
   "@discographyAddedToQueue": {
     "description": "Snackbar - tracks added from discography",
     "placeholders": {
@@ -2569,7 +2569,7 @@
       }
     }
   },
-  "libraryFilesUnit": "{count, plural, =1{file} other{files}}",
+  "libraryFilesUnit": "{count, plural, =1{파일} other{파일}}",
   "@libraryFilesUnit": {
     "description": "Unit label for files count during library scanning",
     "placeholders": {
@@ -2874,7 +2874,7 @@
   "@libraryForceFullScan": {
     "description": "Button to force a complete rescan of library"
   },
-  "libraryForceFullScanSubtitle": "Rescan all files, ignoring cache",
+  "libraryForceFullScanSubtitle": "캐시를 무시하고 모든 파일을 다시 스캔합니다",
   "@libraryForceFullScanSubtitle": {
     "description": "Subtitle for force full scan button"
   },
@@ -3027,7 +3027,7 @@
   "@cacheClearConfirmTitle": {
     "description": "Dialog title before clearing one cache category"
   },
-  "cacheClearConfirmMessage": "This will clear cached data for {target}. Downloaded music files will not be deleted.",
+  "cacheClearConfirmMessage": "'{target}'의 캐시된 데이터를 지웁니다. 다운로드한 음악 파일은 삭제되지 않습니다",
   "@cacheClearConfirmMessage": {
     "description": "Dialog message before clearing selected cache",
     "placeholders": {
@@ -3040,7 +3040,7 @@
   "@cacheClearAllConfirmTitle": {
     "description": "Dialog title before clearing all caches"
   },
-  "cacheClearAllConfirmMessage": "This will clear all cache categories on this page. Downloaded music files will not be deleted.",
+  "cacheClearAllConfirmMessage": "이 페이지의 모든 캐시 카테고리가 지워집니다. 다운로드한 음악 파일은 삭제되지 않습니다",
   "@cacheClearAllConfirmMessage": {
     "description": "Dialog message before clearing all caches"
   },
@@ -3178,7 +3178,7 @@
   "@queueFlacAction": {
     "description": "Action/button label for queueing FLAC redownloads for local tracks"
   },
-  "queueFlacConfirmMessage": "Search online matches for the selected tracks and queue FLAC downloads.\n\nExisting files will not be modified or deleted.\n\nOnly high-confidence matches are queued automatically.\n\n{count} selected",
+  "queueFlacConfirmMessage": "선택한 트랙에 대한 온라인 일치 항목을 검색하고 FLAC 다운로드를 대기목록에 추가합니다\n\n기존 파일은 수정되거나 삭제되지 않습니다\n\n신뢰도가 높은 일치 항목만 자동으로 대기열에 추가됩니다\n\n{count} 개가 선택되었습니다",
   "@queueFlacConfirmMessage": {
     "description": "Confirmation dialog body before queueing FLAC redownloads for local tracks",
     "placeholders": {
@@ -3203,7 +3203,7 @@
   "@queueFlacNoReliableMatches": {
     "description": "Snackbar when no safe FLAC redownload matches were found"
   },
-  "queueFlacQueuedWithSkipped": "Added {addedCount} tracks to queue, skipped {skippedCount}",
+  "queueFlacQueuedWithSkipped": "대기목록에 {addedCount} 개의 트랙을 추가하고 {skippedCount} 개의 트랙을 건너뛰었습니다",
   "@queueFlacQueuedWithSkipped": {
     "description": "Snackbar when some selected local tracks were queued for FLAC redownload and some were skipped",
     "placeholders": {
@@ -3368,7 +3368,7 @@
       }
     }
   },
-  "cueSplitFailed": "CUE split failed",
+  "cueSplitFailed": "CUE 분할 실패",
   "@cueSplitFailed": {
     "description": "Snackbar when CUE split fails"
   },
@@ -3537,7 +3537,7 @@
   "@collectionRemoveFromFolder": {
     "description": "Tooltip for removing track from wishlist/loved folder"
   },
-  "collectionRemoved": "\"{trackName}\" removed",
+  "collectionRemoved": "\"{trackName}\"가 제거됨",
   "@collectionRemoved": {
     "description": "Snackbar after removing a track from a collection",
     "placeholders": {
@@ -3564,7 +3564,7 @@
       }
     }
   },
-  "collectionAddedToWishlist": "\"{trackName}\" added to Wishlist",
+  "collectionAddedToWishlist": "\"{trackName}\"가 위시리스트에 추가됨",
   "@collectionAddedToWishlist": {
     "description": "Snackbar after adding track to wishlist",
     "placeholders": {
@@ -3573,7 +3573,7 @@
       }
     }
   },
-  "collectionRemovedFromWishlist": "\"{trackName}\" removed from Wishlist",
+  "collectionRemovedFromWishlist": "\"{trackName}\"가 위시리스트에서 제거됨",
   "@collectionRemovedFromWishlist": {
     "description": "Snackbar after removing track from wishlist",
     "placeholders": {
@@ -3582,7 +3582,7 @@
       }
     }
   },
-  "collectionAddedToFavoriteArtists": "\"{artistName}\" added to Favorite Artists",
+  "collectionAddedToFavoriteArtists": "\"{artistName}\"가 좋아하는 아티스트에 추가됨",
   "@collectionAddedToFavoriteArtists": {
     "description": "Snackbar after adding artist to favorite artists",
     "placeholders": {
@@ -3591,7 +3591,7 @@
       }
     }
   },
-  "collectionRemovedFromFavoriteArtists": "\"{artistName}\" removed from Favorite Artists",
+  "collectionRemovedFromFavoriteArtists": "\"{artistName}\"가 좋아하는 아티스트에서 제거됨",
   "@collectionRemovedFromFavoriteArtists": {
     "description": "Snackbar after removing artist from favorite artists",
     "placeholders": {
@@ -4337,7 +4337,7 @@
   "@audioAnalysisChannels": {
     "description": "Channels metric label"
   },
-  "audioAnalysisDuration": "Duration",
+  "audioAnalysisDuration": "재생시간",
   "@audioAnalysisDuration": {
     "description": "Duration metric label"
   },

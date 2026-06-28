@@ -10,6 +10,15 @@ import 'package:spotiflac_android/utils/logger.dart';
 
 final _log = AppLogger('MusicPlayer');
 
+final AudioContext _musicAudioContext = AudioContext(
+  android: const AudioContextAndroid(
+    audioFocus: AndroidAudioFocus.none,
+    contentType: AndroidContentType.music,
+    usageType: AndroidUsageType.media,
+    stayAwake: true,
+  ),
+);
+
 class PlayableMedia {
   final String id;
   final String source;
@@ -72,7 +81,6 @@ class MusicPlayerHandler extends BaseAudioHandler
   bool _interruptionActive = false;
   bool _userPaused = false;
   bool _switchingTrack = false;
-  DateTime _ignoreCompleteUntil = DateTime.fromMillisecondsSinceEpoch(0);
   Duration _lastBroadcastPosition = Duration.zero;
   DateTime? _lastPositionBroadcastAt;
   static const Duration _positionBroadcastInterval = Duration(
@@ -88,10 +96,24 @@ class MusicPlayerHandler extends BaseAudioHandler
     if (_initialized) return;
     _initialized = true;
     _player.setReleaseMode(ReleaseMode.stop);
+    unawaited(_player.setAudioContext(_musicAudioContext));
     unawaited(_configureAudioSession());
 
     _subscriptions.addAll([
       _player.onPlayerStateChanged.listen((state) {
+        if (_switchingTrack &&
+            (state == PlayerState.stopped ||
+                state == PlayerState.completed ||
+                state == PlayerState.disposed)) {
+          _log.d('Ignoring transient $state event while switching tracks');
+          return;
+        }
+        if (state == PlayerState.completed && _shouldIgnoreComplete) {
+          if (_userPaused || _interruptionActive) {
+            _broadcastState(playerState: PlayerState.paused);
+          }
+          return;
+        }
         _broadcastState(playerState: state);
       }),
       _player.onPositionChanged.listen(_broadcastPosition),
@@ -120,14 +142,21 @@ class MusicPlayerHandler extends BaseAudioHandler
       _subscriptions.add(
         session.interruptionEventStream.listen((event) {
           if (event.begin) {
+            if (event.type == AudioInterruptionType.duck) {
+              return;
+            }
+
             // Another app took focus or a transient interruption began.
             _interruptionActive = true;
             _pausedByInterruption =
                 _player.state == PlayerState.playing ||
                 playbackState.value.playing;
-            _ignoreCompleteFor(const Duration(seconds: 3));
             unawaited(_pauseForFocusLoss());
           } else {
+            if (event.type == AudioInterruptionType.duck) {
+              return;
+            }
+
             // Focus returned; resume only if we paused due to a transient
             // (duck/pause) interruption.
             _interruptionActive = false;
@@ -145,7 +174,6 @@ class MusicPlayerHandler extends BaseAudioHandler
       _subscriptions.add(
         session.becomingNoisyEventStream.listen((_) {
           // Headphones unplugged / output route lost.
-          _ignoreCompleteFor(const Duration(seconds: 3));
           unawaited(_pauseForFocusLoss());
         }),
       );
@@ -154,18 +182,8 @@ class MusicPlayerHandler extends BaseAudioHandler
     }
   }
 
-  void _ignoreCompleteFor(Duration duration) {
-    final until = DateTime.now().add(duration);
-    if (until.isAfter(_ignoreCompleteUntil)) {
-      _ignoreCompleteUntil = until;
-    }
-  }
-
   bool get _shouldIgnoreComplete =>
-      _switchingTrack ||
-      _interruptionActive ||
-      _userPaused ||
-      DateTime.now().isBefore(_ignoreCompleteUntil);
+      _switchingTrack || _interruptionActive || _userPaused;
 
   Future<void> _pauseForFocusLoss() async {
     try {
@@ -180,7 +198,12 @@ class MusicPlayerHandler extends BaseAudioHandler
 
   Future<void> _activateAudioSession() async {
     try {
-      await _audioSession?.setActive(true);
+      final session = _audioSession ?? await AudioSession.instance;
+      _audioSession = session;
+      final granted = await session.setActive(true);
+      if (!granted) {
+        _log.w('Audio focus request was not granted');
+      }
     } catch (e) {
       _log.w('Failed to activate audio session: $e');
     }
@@ -332,6 +355,36 @@ class MusicPlayerHandler extends BaseAudioHandler
     _broadcastState();
   }
 
+  void moveQueueItem(int oldIndex, int newIndex) {
+    if (oldIndex < 0 ||
+        oldIndex >= _media.length ||
+        newIndex < 0 ||
+        newIndex >= _media.length ||
+        oldIndex == newIndex) {
+      return;
+    }
+    final media = _media.removeAt(oldIndex);
+    final qi = _queueItems.removeAt(oldIndex);
+    _media.insert(newIndex, media);
+    _queueItems.insert(newIndex, qi);
+
+    if (_index == oldIndex) {
+      _index = newIndex;
+    } else {
+      if (oldIndex < _index && newIndex >= _index) {
+        _index--;
+      } else if (oldIndex > _index && newIndex <= _index) {
+        _index++;
+      }
+    }
+
+    _recent.clear();
+    _playHistory.clear();
+
+    queue.add(List<MediaItem>.unmodifiable(_queueItems));
+    _broadcastState();
+  }
+
   Future<void> _playIndex(int index, {bool recordHistory = true}) async {
     if (index < 0 || index >= _media.length) return;
     _index = index;
@@ -373,8 +426,8 @@ class MusicPlayerHandler extends BaseAudioHandler
     } catch (_) {}
 
     _switchingTrack = true;
-    _ignoreCompleteFor(const Duration(seconds: 3));
     try {
+      await _player.setAudioContext(_musicAudioContext);
       await _activateAudioSession();
       await _player.stop();
       await _player.play(DeviceFileSource(resolved));
@@ -453,22 +506,9 @@ class MusicPlayerHandler extends BaseAudioHandler
   Future<void> _handlePlayerComplete() async {
     if (_shouldIgnoreComplete) {
       _log.d('Ignoring non-terminal player complete event');
-      return;
-    }
-
-    final duration = mediaItem.value?.duration ?? await _player.getDuration();
-    final position =
-        await _player.getCurrentPosition() ?? playbackState.value.position;
-    if (duration != null &&
-        duration > Duration.zero &&
-        position < duration - const Duration(milliseconds: 1500)) {
-      _log.d('Ignoring early player complete at $position / $duration');
-      final state = _player.state;
-      _broadcastState(
-        playerState: state == PlayerState.playing
-            ? PlayerState.playing
-            : PlayerState.paused,
-      );
+      if (_userPaused || _interruptionActive) {
+        _broadcastState(playerState: PlayerState.paused);
+      }
       return;
     }
 
@@ -480,6 +520,13 @@ class MusicPlayerHandler extends BaseAudioHandler
     _pausedByInterruption = false;
     _interruptionActive = false;
     _userPaused = false;
+    if ((_player.state == PlayerState.stopped ||
+            _player.state == PlayerState.completed) &&
+        _index >= 0 &&
+        _index < _media.length) {
+      await _playIndex(_index, recordHistory: false);
+      return;
+    }
     await _activateAudioSession();
     await _player.resume();
     _broadcastState(playerState: PlayerState.playing);
@@ -489,7 +536,6 @@ class MusicPlayerHandler extends BaseAudioHandler
   Future<void> pause() async {
     _userPaused = true;
     _pausedByInterruption = false;
-    _ignoreCompleteFor(const Duration(seconds: 3));
     await _player.pause();
     _broadcastState(playerState: PlayerState.paused);
   }
@@ -508,7 +554,7 @@ class MusicPlayerHandler extends BaseAudioHandler
 
   @override
   Future<void> stop() async {
-    _ignoreCompleteFor(const Duration(seconds: 3));
+    _userPaused = true;
     await _player.stop();
     _index = -1;
     _pausedByInterruption = false;

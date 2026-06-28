@@ -505,56 +505,46 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                     AudioServiceShuffleMode.all;
                 final textTheme = Theme.of(context).textTheme;
 
-                const headerCount = 2;
-                final emptyCount = queue.isEmpty ? 1 : 0;
-                return ListView.builder(
-                  controller: scrollController,
-                  padding: const EdgeInsets.fromLTRB(20, 4, 12, 24),
-                  itemCount: headerCount + emptyCount + queue.length,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 4, right: 4),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Up next',
-                              style: textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: colorScheme.onSurface,
-                              ),
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 4, 16, 8),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Up next',
+                            style: textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.onSurface,
                             ),
-                            const Spacer(),
-                            IconButton(
-                              tooltip: shuffleOn
-                                  ? 'Shuffle on'
-                                  : 'Play in order',
-                              isSelected: shuffleOn,
-                              icon: const Icon(Icons.shuffle),
-                              color: shuffleOn ? colorScheme.primary : null,
-                              onPressed: () =>
-                                  controller.setShuffle(!shuffleOn),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                    if (index == 1) {
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: FilledButton.tonalIcon(
-                            onPressed: () => _shuffleLibrary(controller),
-                            icon: const Icon(Icons.shuffle, size: 18),
-                            label: const Text('Shuffle library'),
                           ),
+                          const Spacer(),
+                          IconButton(
+                            tooltip: shuffleOn
+                                ? 'Shuffle on'
+                                : 'Play in order',
+                            isSelected: shuffleOn,
+                            icon: const Icon(Icons.shuffle),
+                            color: shuffleOn ? colorScheme.primary : null,
+                            onPressed: () =>
+                                controller.setShuffle(!shuffleOn),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: FilledButton.tonalIcon(
+                          onPressed: () => _shuffleLibrary(controller),
+                          icon: const Icon(Icons.shuffle, size: 18),
+                          label: const Text('Shuffle library'),
                         ),
-                      );
-                    }
-                    if (queue.isEmpty) {
-                      return Padding(
-                        padding: const EdgeInsets.all(24),
+                      ),
+                    ),
+                    if (queue.isEmpty)
+                      Expanded(
                         child: Center(
                           child: Text(
                             'Queue is empty',
@@ -563,44 +553,76 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                             ),
                           ),
                         ),
-                      );
-                    }
-
-                    final i = index - headerCount;
-                    final item = queue[i];
-                    final isCurrent = current?.id == item.id;
-                    return ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
-                      leading: Icon(
-                        isCurrent ? Icons.equalizer : Icons.music_note,
-                        color: isCurrent
-                            ? colorScheme.primary
-                            : colorScheme.onSurfaceVariant,
-                      ),
-                      title: Text(
-                        item.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: textTheme.bodyLarge?.copyWith(
-                          fontWeight: isCurrent
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: isCurrent
-                              ? colorScheme.primary
-                              : colorScheme.onSurface,
+                      )
+                    else
+                      Expanded(
+                        child: ReorderableListView.builder(
+                          scrollController: scrollController,
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 24),
+                          itemCount: queue.length,
+                          onReorderItem: (oldIndex, newIndex) {
+                            controller.moveQueueItem(oldIndex, newIndex);
+                          },
+                          proxyDecorator: (child, index, animation) {
+                            return Material(
+                              elevation: 4,
+                              color: colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(12),
+                              child: child,
+                            );
+                          },
+                          itemBuilder: (context, i) {
+                            final item = queue[i];
+                            final isCurrent = current?.id == item.id;
+                            return ListTile(
+                              key: ValueKey('${item.id}_$i'),
+                              contentPadding:
+                                  const EdgeInsets.only(left: 16, right: 4),
+                              leading: Icon(
+                                isCurrent
+                                    ? Icons.equalizer
+                                    : Icons.music_note,
+                                color: isCurrent
+                                    ? colorScheme.primary
+                                    : colorScheme.onSurfaceVariant,
+                              ),
+                              title: Text(
+                                item.title,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: textTheme.bodyLarge?.copyWith(
+                                  fontWeight: isCurrent
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: isCurrent
+                                      ? colorScheme.primary
+                                      : colorScheme.onSurface,
+                                ),
+                              ),
+                              subtitle: Text(
+                                item.artist ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                              trailing: ReorderableDragStartListener(
+                                index: i,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Icon(
+                                    Icons.drag_handle,
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                              onTap: () => controller.jumpTo(i),
+                            );
+                          },
                         ),
                       ),
-                      subtitle: Text(
-                        item.artist ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      onTap: () => controller.jumpTo(i),
-                    );
-                  },
+                  ],
                 );
               },
             );
@@ -676,7 +698,7 @@ class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
     final position = _scroll.position;
     final target =
         (index * _estimatedLyricExtent) -
-        (position.viewportDimension * 0.42) +
+        (position.viewportDimension * 0.35) +
         24;
     final clamped = target.clamp(
       position.minScrollExtent,

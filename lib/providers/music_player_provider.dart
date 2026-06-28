@@ -105,6 +105,10 @@ class MusicPlayerController {
       addToQueue(playableFromLocal(item));
 
   Future<void> jumpTo(int index) async => _handler?.skipToQueueItem(index);
+
+  void moveQueueItem(int oldIndex, int newIndex) {
+    _handler?.moveQueueItem(oldIndex, newIndex);
+  }
 }
 
 final musicPlayerControllerProvider = Provider<MusicPlayerController>(

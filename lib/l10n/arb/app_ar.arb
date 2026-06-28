@@ -1552,7 +1552,7 @@
   "@trackMetadata": {
     "description": "Tab title - track metadata"
   },
-  "trackFileInfo": "File Info",
+  "trackFileInfo": "معلومات الملف",
   "@trackFileInfo": {
     "description": "Tab title - file information"
   },

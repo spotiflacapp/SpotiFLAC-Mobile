@@ -1084,19 +1084,19 @@
   "@progressReadingCsv": {
     "description": "Progress indicator - parsing CSV file"
   },
-  "searchSongs": "곡들",
+  "searchSongs": "곡",
   "@searchSongs": {
     "description": "Search result category - songs"
   },
-  "searchArtists": "아티스트들",
+  "searchArtists": "아티스트",
   "@searchArtists": {
     "description": "Search result category - artists"
   },
-  "searchAlbums": "앨범들",
+  "searchAlbums": "앨범",
   "@searchAlbums": {
     "description": "Search result category - albums"
   },
-  "searchPlaylists": "재생목록들",
+  "searchPlaylists": "재생목록",
   "@searchPlaylists": {
     "description": "Search result category - playlists"
   },

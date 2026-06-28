@@ -5377,7 +5377,7 @@
   "@extensionOauthConnectHint": {
     "description": "Hint for an OAuth login link field before connecting Spotify"
   },
-  "extensionLastChecked": "Last checked {time}",
+  "extensionLastChecked": "마지막 확인 시간: {time}",
   "@extensionLastChecked": {
     "description": "Timestamp for the latest extension service health check",
     "placeholders": {

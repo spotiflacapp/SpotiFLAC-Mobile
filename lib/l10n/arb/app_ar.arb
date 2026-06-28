@@ -447,7 +447,7 @@
   "@aboutMobileDeveloper": {
     "description": "Role description for mobile dev"
   },
-  "aboutOriginalCreator": "مطور SpotiFLAC الأصلي",
+  "aboutOriginalCreator": "منشئ SpotiFLAC",
   "@aboutOriginalCreator": {
     "description": "Role description for original creator"
   },
@@ -821,7 +821,7 @@
   "@dialogClearHistoryTitle": {
     "description": "Dialog title - clear download history"
   },
-  "dialogClearHistoryMessage": "هل أنت متأكد من أنك تريد مسح كل سجل التنزيلات؟ لا يمكن التراجع عن هذا!",
+  "dialogClearHistoryMessage": "هل أنت متأكد من أنك تريد مسح كل سجل التنزيلات؟ لا يمكن التراجع عن هذا.",
   "@dialogClearHistoryMessage": {
     "description": "Dialog message - clear history confirmation"
   },
@@ -829,7 +829,7 @@
   "@dialogDeleteSelectedTitle": {
     "description": "Dialog title - delete selected items"
   },
-  "dialogDeleteSelectedMessage": "حذف {count} {count, plural, zero {} one {الأغاني} two {أغنيتان} few {أغانٍ} many {أغانٍ}=1{أغنية} other{أغانٍ}} من التاريخ؟\n\nسيؤدي هذا أيضا إلى حذف الملفات من وحدة التخزين.",
+  "dialogDeleteSelectedMessage": "حذف {count} {count, plural, zero {} one {المسارات} two {أغنيتين} few {أغانٍ} many {أغنية}=1{أغنية} other{الأغاني}} من التاريخ؟\n\nسيؤدي هذا أيضا إلى حذف الملفات من وحدة التخزين.",
   "@dialogDeleteSelectedMessage": {
     "description": "Dialog message - delete selected tracks",
     "placeholders": {
@@ -860,7 +860,7 @@
       }
     }
   },
-  "snackbarAddedToQueue": "تمت إضافة \"{trackName}إلى قائمة الانتظار",
+  "snackbarAddedToQueue": "تمت إضافة {trackName} إلى قائمة الانتظار",
   "@snackbarAddedToQueue": {
     "description": "Snackbar - track added to download queue",
     "placeholders": {
@@ -869,7 +869,7 @@
       }
     }
   },
-  "snackbarAddedTracksToQueue": "تم إضافة {count} أغاني إلى قائمة الانتظار",
+  "snackbarAddedTracksToQueue": "تم إضافة {count} أغانٍ إلى قائمة الانتظار",
   "@snackbarAddedTracksToQueue": {
     "description": "Snackbar - multiple tracks added to queue",
     "placeholders": {
@@ -878,7 +878,7 @@
       }
     }
   },
-  "snackbarAlreadyDownloaded": "تم تنزيل \"{trackName}بالفعل",
+  "snackbarAlreadyDownloaded": "تم تنزيل {trackName} بالفعل",
   "@snackbarAlreadyDownloaded": {
     "description": "Snackbar - track already exists",
     "placeholders": {
@@ -887,7 +887,7 @@
       }
     }
   },
-  "snackbarAlreadyInLibrary": "\"{trackName}\" موجود بالفعل في مكتبتك",
+  "snackbarAlreadyInLibrary": "{trackName} موجود بالفعل في مكتبتك",
   "@snackbarAlreadyInLibrary": {
     "description": "Snackbar - track already exists in local library",
     "placeholders": {
@@ -908,7 +908,7 @@
   "@snackbarCredentialsCleared": {
     "description": "Snackbar - Spotify credentials removed"
   },
-  "snackbarDeletedTracks": "تم حذف {count} {count, plural, zero {} one {أغنيتين} two {أغنيتين} few {أغانٍ} many {أغانٍ}=1{أغنية} other{أغانٍ}}",
+  "snackbarDeletedTracks": "تم حذف {count} {count, plural, zero {} one {أغنيتين} two {أغنيتين} few {أغانٍ} many {أغنية}=1{أغنية} other{أغانٍ}}",
   "@snackbarDeletedTracks": {
     "description": "Snackbar - tracks deleted",
     "placeholders": {
@@ -956,7 +956,7 @@
   "@snackbarProviderPrioritySaved": {
     "description": "Snackbar - provider order saved"
   },
-  "snackbarMetadataProviderSaved": "تم حفظ أولوية مزود البيانات الوصفية",
+  "snackbarMetadataProviderSaved": "تم حفظ أولوية مزود البيانات الوصفية (metadata)",
   "@snackbarMetadataProviderSaved": {
     "description": "Snackbar - metadata provider order saved"
   },
@@ -1068,7 +1068,7 @@
   "@selectionSelectToDelete": {
     "description": "Placeholder when nothing selected"
   },
-  "progressFetchingMetadata": "جلب البيانات الوصفية... {current}/{total}",
+  "progressFetchingMetadata": "جلب البيانات الوصفية (metadata)... {current}/{total}",
   "@progressFetchingMetadata": {
     "description": "Progress indicator - loading track info",
     "placeholders": {
@@ -1280,11 +1280,11 @@
   "@providerExtension": {
     "description": "Label for extension-provided providers"
   },
-  "metadataProviderPriorityTitle": "أولوية البيانات الوصفية",
+  "metadataProviderPriorityTitle": "أولوية البيانات الوصفية (metadata)",
   "@metadataProviderPriorityTitle": {
     "description": "Metadata priority page title"
   },
-  "metadataProviderPriorityDescription": "اسحب لإعادة ترتيب موفري البيانات الوصفية. سيحاول التطبيق موفري البيانات الوصفية من الأعلى إلى الأسفل عند البحث عن المسارات وجلب البيانات الوصفية.",
+  "metadataProviderPriorityDescription": "اسحب لإعادة ترتيب موفري البيانات الوصفية (metadata). سيحاول التطبيق موفري البيانات الوصفية (metadata) من الأعلى إلى الأسفل عند البحث عن المسارات وجلب البيانات الوصفية (metadata).",
   "@metadataProviderPriorityDescription": {
     "description": "Metadata priority page description"
   },
@@ -1498,7 +1498,7 @@
   "@settingsDownloadSubtitle": {
     "description": "Download settings description"
   },
-  "settingsOptionsSubtitle": "الإحتياطات، البيانات الوصفية، كلمات الأغاني، غلاف الأغنية",
+  "settingsOptionsSubtitle": "الإحتياطات، البيانات الوصفية (metadata)، كلمات الأغاني، غلاف الأغنية",
   "@settingsOptionsSubtitle": {
     "description": "Options settings description"
   },
@@ -1536,19 +1536,19 @@
       }
     }
   },
-  "trackCopyFilePath": "Copy file path",
+  "trackCopyFilePath": "نسخ مسار الملف",
   "@trackCopyFilePath": {
     "description": "Action - copy file path"
   },
-  "trackRemoveFromDevice": "Remove from device",
+  "trackRemoveFromDevice": "حذف من الجهاز",
   "@trackRemoveFromDevice": {
     "description": "Action - delete downloaded file"
   },
-  "trackLoadLyrics": "Load Lyrics",
+  "trackLoadLyrics": "تحميل كلمات الأغاني",
   "@trackLoadLyrics": {
     "description": "Action - fetch lyrics"
   },
-  "trackMetadata": "Metadata",
+  "trackMetadata": "البيانات الوصفية (Metadata)",
   "@trackMetadata": {
     "description": "Tab title - track metadata"
   },

@@ -23,7 +23,7 @@ const (
 const (
 	lyricsProviderUnavailableCooldown = 10 * time.Minute
 	lyricsProviderParallelism         = 3
-	lyricsProviderPriorityGrace       = 1200 * time.Millisecond
+	lyricsProviderPriorityGrace       = 5000 * time.Millisecond
 )
 
 const (

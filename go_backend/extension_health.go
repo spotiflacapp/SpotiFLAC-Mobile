@@ -312,6 +312,9 @@ func classifyExtensionHealthBody(body []byte, serviceKey string) (string, string
 	case "degraded", "partial", "warning", "warn":
 		return "degraded", rawStatus
 	case "down", "offline", "error", "failed", "fail", "unhealthy":
+		if isTransientHealthStatusMessage(string(body)) {
+			return "unknown", rawStatus
+		}
 		return "offline", rawStatus
 	default:
 		return "online", rawStatus
@@ -352,48 +355,85 @@ func classifyExtensionHealthService(payload map[string]interface{}, serviceKey s
 
 	rawStatus, hasStatus := service["status"]
 	okValue, hasOK := service["ok"].(bool)
+	joinedMessage := strings.Join(messageParts, ": ")
+	transient := isTransientHealthStatusMessage(detail) ||
+		isTransientHealthStatusMessage(errText) ||
+		isTransientHealthStatusMessage(label)
+
 	if statusCode, ok := healthNumber(rawStatus); ok {
 		if statusCode >= 200 && statusCode < 300 {
-			return "online", strings.Join(messageParts, ": "), true
+			return "online", joinedMessage, true
 		}
 		if statusCode == http.StatusUnauthorized || statusCode == http.StatusForbidden {
-			return "degraded", strings.Join(messageParts, ": "), true
+			return "degraded", joinedMessage, true
 		}
 		if statusCode == http.StatusInternalServerError && hasOK && okValue {
-			return "online", strings.Join(messageParts, ": "), true
+			return "online", joinedMessage, true
 		}
-		return "offline", strings.Join(messageParts, ": "), true
+		if transient || isTransientHealthStatusCode(statusCode) {
+			return "unknown", joinedMessage, true
+		}
+		return "offline", joinedMessage, true
 	}
 
 	if isExtensionHealthAuthRequired(detail) {
-		return "degraded", strings.Join(messageParts, ": "), true
+		return "degraded", joinedMessage, true
+	}
+	if transient {
+		return "unknown", joinedMessage, true
 	}
 	if hasOK {
 		if okValue {
-			return "online", strings.Join(messageParts, ": "), true
+			return "online", joinedMessage, true
 		}
-		return "offline", strings.Join(messageParts, ": "), true
+		return "offline", joinedMessage, true
 	}
 	if !hasStatus {
-		return "unknown", strings.Join(messageParts, ": "), true
+		return "unknown", joinedMessage, true
 	}
 
 	statusString := strings.ToLower(strings.TrimSpace(fmt.Sprintf("%v", rawStatus)))
 	switch statusString {
 	case "ok", "up", "online", "healthy", "operational":
-		return "online", strings.Join(messageParts, ": "), true
+		return "online", joinedMessage, true
 	case "degraded", "partial", "warning", "warn":
-		return "degraded", strings.Join(messageParts, ": "), true
+		return "degraded", joinedMessage, true
 	case "down", "offline", "error", "failed", "fail", "unhealthy":
-		return "offline", strings.Join(messageParts, ": "), true
+		return "offline", joinedMessage, true
 	default:
-		return "unknown", strings.Join(messageParts, ": "), true
+		return "unknown", joinedMessage, true
 	}
 }
 
 func isExtensionHealthAuthRequired(detail string) bool {
 	switch strings.ToLower(strings.TrimSpace(detail)) {
 	case "auth_required", "authorization_required", "login_required", "unauthorized":
+		return true
+	default:
+		return false
+	}
+}
+
+func isTransientHealthStatusMessage(text string) bool {
+	t := strings.ToLower(strings.TrimSpace(text))
+	if t == "" {
+		return false
+	}
+	return strings.Contains(t, "context deadline exceeded") ||
+		strings.Contains(t, "deadline exceeded") ||
+		strings.Contains(t, "timeout") ||
+		strings.Contains(t, "timed out") ||
+		strings.Contains(t, "temporarily unavailable") ||
+		strings.Contains(t, "try again")
+}
+
+func isTransientHealthStatusCode(code int) bool {
+	switch code {
+	case http.StatusRequestTimeout,
+		http.StatusTooManyRequests,
+		http.StatusBadGateway,
+		http.StatusServiceUnavailable,
+		http.StatusGatewayTimeout:
 		return true
 	default:
 		return false

@@ -281,7 +281,10 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
                   SettingsItem(
                     icon: Icons.public,
                     title: context.l10n.downloadSongLinkRegion,
-                    subtitle: _getSongLinkRegionLabel(settings.songLinkRegion),
+                    subtitle: _getSongLinkRegionLabel(
+                      context,
+                      settings.songLinkRegion,
+                    ),
                     onTap: () => _showSongLinkRegionPicker(
                       context,
                       ref,
@@ -309,26 +312,45 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
     );
   }
 
-  String _getSongLinkRegionLabel(String code) {
-    const names = <String, String>{
-      'US': 'United States',
-      'GB': 'United Kingdom',
-      'FR': 'France',
-      'DE': 'Germany',
-      'JP': 'Japan',
-      'KR': 'South Korea',
-      'IN': 'India',
-      'ID': 'Indonesia',
-      'BR': 'Brazil',
-      'MX': 'Mexico',
-      'AU': 'Australia',
-      'CA': 'Canada',
-      'XK': 'Kosovo',
-    };
+  String _regionCountryName(BuildContext context, String code) {
+    final l10n = context.l10n;
+    switch (code) {
+      case 'US':
+        return l10n.regionCountryUS;
+      case 'GB':
+        return l10n.regionCountryGB;
+      case 'FR':
+        return l10n.regionCountryFR;
+      case 'DE':
+        return l10n.regionCountryDE;
+      case 'JP':
+        return l10n.regionCountryJP;
+      case 'KR':
+        return l10n.regionCountryKR;
+      case 'IN':
+        return l10n.regionCountryIN;
+      case 'ID':
+        return l10n.regionCountryID;
+      case 'BR':
+        return l10n.regionCountryBR;
+      case 'MX':
+        return l10n.regionCountryMX;
+      case 'AU':
+        return l10n.regionCountryAU;
+      case 'CA':
+        return l10n.regionCountryCA;
+      case 'XK':
+        return l10n.regionCountryXK;
+      default:
+        return code;
+    }
+  }
+
+  String _getSongLinkRegionLabel(BuildContext context, String code) {
     final normalized = code.trim().toUpperCase();
     final effective = normalized.isEmpty ? 'US' : normalized;
-    final name = names[effective];
-    return name == null ? effective : '$effective - $name';
+    final name = _regionCountryName(context, effective);
+    return name == effective ? effective : '$effective - $name';
   }
 
   IconData _qualityIcon(String qualityId) {
@@ -766,21 +788,6 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
       'ZM',
       'ZW',
     ];
-    const names = <String, String>{
-      'US': 'United States',
-      'GB': 'United Kingdom',
-      'FR': 'France',
-      'DE': 'Germany',
-      'JP': 'Japan',
-      'KR': 'South Korea',
-      'IN': 'India',
-      'ID': 'Indonesia',
-      'BR': 'Brazil',
-      'MX': 'Mexico',
-      'AU': 'Australia',
-      'CA': 'Canada',
-      'XK': 'Kosovo',
-    };
     final colorScheme = Theme.of(context).colorScheme;
     final normalizedCurrent = current.trim().toUpperCase();
     showModalBottomSheet<void>(
@@ -821,9 +828,12 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
                   itemBuilder: (context, index) {
                     final code = regions[index];
                     final isSelected = code == normalizedCurrent;
+                    final countryName = _regionCountryName(context, code);
                     return ListTile(
                       title: Text(code),
-                      subtitle: names[code] != null ? Text(names[code]!) : null,
+                      subtitle: countryName != code
+                          ? Text(countryName)
+                          : null,
                       trailing: isSelected
                           ? Icon(Icons.check, color: colorScheme.primary)
                           : null,

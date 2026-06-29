@@ -424,11 +424,14 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
     required bool usePrimaryArtistOnly,
     required bool filterAlbumArtistContributors,
   }) {
+    final l10n = context.l10n;
     final statuses = <String>[
-      usePrimaryArtistOnly ? 'Primary only: On' : 'Primary only: Off',
+      usePrimaryArtistOnly
+          ? l10n.downloadPrimaryArtistOnlyOn
+          : l10n.downloadPrimaryArtistOnlyOff,
       filterAlbumArtistContributors
-          ? 'Album Artist metadata: Primary only'
-          : 'Album Artist metadata: Full',
+          ? l10n.downloadAlbumArtistMetadataPrimaryOnly
+          : l10n.downloadAlbumArtistMetadataFull,
     ];
     return statuses.join(' | ');
   }

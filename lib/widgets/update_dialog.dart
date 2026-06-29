@@ -223,7 +223,10 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    _formatChangelog(widget.updateInfo.changelog),
+                    _formatChangelog(
+                      widget.updateInfo.changelog,
+                      context.l10n.updateSeeReleaseNotes,
+                    ),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(height: 1.5),
                   ),
                 ),
@@ -299,7 +302,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   }
 
   /// Format changelog - clean up markdown and extract relevant content
-  String _formatChangelog(String changelog) {
+  String _formatChangelog(String changelog, String emptyFallback) {
     var content = changelog;
     
     final whatsNewMatch = _whatsNewPattern.firstMatch(content);
@@ -352,7 +355,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       formatted = '${formatted.substring(0, 2000)}...';
     }
     
-    return formatted.isEmpty ? 'See release notes for details.' : formatted;
+    return formatted.isEmpty ? emptyFallback : formatted;
   }
 }
 

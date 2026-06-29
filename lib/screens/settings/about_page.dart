@@ -140,9 +140,7 @@ class AboutPage extends StatelessWidget {
                   _AboutSettingsItem(
                     icon: Icons.lyrics_outlined,
                     title: 'Paxsenix',
-                    subtitle:
-                        'Lyrics proxy for Musixmatch, Netease, Apple Music, '
-                        'QQ Music, Spotify, Deezer, YouTube, Kugou, and Genius',
+                    subtitle: context.l10n.aboutPaxsenixSubtitle,
                     onTap: () => _launchUrl('https://lyrics.paxsenix.org'),
                     showDivider: false,
                   ),

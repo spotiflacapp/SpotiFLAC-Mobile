@@ -1967,7 +1967,9 @@ class _ArtistScreenState extends ConsumerState<ArtistScreen> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            album.albumType == 'ep' ? 'EP' : 'Single',
+                            album.albumType == 'ep'
+                                ? context.l10n.releaseTypeEp
+                                : context.l10n.releaseTypeSingle,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 10,

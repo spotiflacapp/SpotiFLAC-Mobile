@@ -608,8 +608,8 @@ class _RepoTabState extends ConsumerState<RepoTab> {
         SnackBar(
           content: Text(
             success
-                ? '${ext.displayName} installed. Enable it in Settings > Extensions'
-                : 'Failed to install ${ext.displayName}',
+                ? context.l10n.snackbarExtensionInstalledEnable(ext.displayName)
+                : context.l10n.snackbarFailedToInstallNamed(ext.displayName),
           ),
           behavior: SnackBarBehavior.floating,
         ),
@@ -629,8 +629,11 @@ class _RepoTabState extends ConsumerState<RepoTab> {
         SnackBar(
           content: Text(
             success
-                ? '${ext.displayName} updated to v${ext.version}'
-                : 'Failed to update ${ext.displayName}',
+                ? context.l10n.snackbarExtensionUpdatedVersion(
+                    ext.displayName,
+                    ext.version,
+                  )
+                : context.l10n.snackbarFailedToUpdateNamed(ext.displayName),
           ),
           behavior: SnackBarBehavior.floating,
         ),

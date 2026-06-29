@@ -8,6 +8,7 @@ class _ResolvedAutoFillTrack {
 }
 
 class _EditMetadataSheet extends StatefulWidget {
+  static const _onlineCoverSentinel = '__online_cover__';
   final ColorScheme colorScheme;
   final Map<String, String> initialValues;
   final String filePath;
@@ -941,7 +942,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                 setState(() {
                   _selectedCoverPath = coverOutput;
                   _selectedCoverTempDir = tempDir.path;
-                  _selectedCoverName = 'Online cover';
+                  _selectedCoverName = _EditMetadataSheet._onlineCoverSentinel;
                 });
                 filledCount++;
               }
@@ -1623,8 +1624,11 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                   child: _buildCoverPreviewTile(
                     cs: cs,
                     path: _selectedCoverPath!,
-                    label:
-                        _selectedCoverName ?? context.l10n.trackCoverSelected,
+                    label: _selectedCoverName ==
+                            _EditMetadataSheet._onlineCoverSentinel
+                        ? context.l10n.trackCoverOnline
+                        : (_selectedCoverName ??
+                              context.l10n.trackCoverSelected),
                   ),
                 ),
             ],

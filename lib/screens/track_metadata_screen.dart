@@ -4105,17 +4105,20 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                                 selectedMaxBitDepth == null &&
                                         selectedMaxSampleRate == null
                                     ? context.l10n.trackConvertLosslessHint
-                                    : context.l10n.trackConvertLosslessOutputWithCap(
-                                        losslessQualityLabel(
-                                          LosslessConversionQuality(
-                                            maxBitDepth: selectedMaxBitDepth,
-                                            maxSampleRate: selectedMaxSampleRate,
+                                    : context.l10n
+                                          .trackConvertLosslessOutputWithCap(
+                                            losslessQualityLabel(
+                                              LosslessConversionQuality(
+                                                maxBitDepth:
+                                                    selectedMaxBitDepth,
+                                                maxSampleRate:
+                                                    selectedMaxSampleRate,
+                                              ),
+                                              originalLabel: labels.original,
+                                              originalQualityLabel:
+                                                  labels.originalQuality,
+                                            ),
                                           ),
-                                          originalLabel: labels.original,
-                                          originalQualityLabel:
-                                              labels.originalQuality,
-                                        ),
-                                      ),
                                 style: Theme.of(context).textTheme.bodySmall
                                     ?.copyWith(color: colorScheme.primary),
                               ),
@@ -4159,7 +4162,8 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
                                       maxSampleRate: selectedMaxSampleRate,
                                     ),
                                     originalLabel: labels.original,
-                                    originalQualityLabel: labels.originalQuality,
+                                    originalQualityLabel:
+                                        labels.originalQuality,
                                   ),
                                 )
                               : context.l10n.trackConvertActionLabelLossy(
@@ -4701,6 +4705,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
   }) async {
     if (_isConverting) return;
     setState(() => _isConverting = true);
+    final losslessLabels = context.l10n.losslessConversionLabels;
 
     try {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -4819,7 +4824,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
       final newQuality = convertedAudioQualityLabel(
         targetFormat: targetFormat,
         bitrate: bitrate,
-        labels: context.l10n.losslessConversionLabels,
+        labels: losslessLabels,
         losslessQuality: losslessQuality,
         actualBitDepth: convertedBitDepth,
         actualSampleRate: convertedSampleRate,

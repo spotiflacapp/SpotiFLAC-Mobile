@@ -5642,6 +5642,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     }
 
     final isLossless = isLosslessConversionTarget(targetFormat);
+    final losslessLabels = context.l10n.losslessConversionLabels;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -5653,10 +5654,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                   targetFormat,
                   losslessQualityLabel(
                     losslessQuality,
-                    originalLabel:
-                        context.l10n.losslessConversionLabels.original,
-                    originalQualityLabel:
-                        context.l10n.losslessConversionLabels.originalQuality,
+                    originalLabel: losslessLabels.original,
+                    originalQualityLabel: losslessLabels.originalQuality,
                   ),
                 )
               : isLossless
@@ -5819,7 +5818,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
         final newQuality = convertedAudioQualityLabel(
           targetFormat: targetFormat,
           bitrate: bitrate,
-          labels: context.l10n.losslessConversionLabels,
+          labels: losslessLabels,
           losslessQuality: losslessQuality,
           actualBitDepth: convertedBitDepth,
           actualSampleRate: convertedSampleRate,

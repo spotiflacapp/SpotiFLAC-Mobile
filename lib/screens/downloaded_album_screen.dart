@@ -1199,6 +1199,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
     }
 
     final isLossless = isLosslessConversionTarget(targetFormat);
+    final losslessLabels = context.l10n.losslessConversionLabels;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -1210,10 +1211,8 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
                   targetFormat,
                   losslessQualityLabel(
                     losslessQuality,
-                    originalLabel:
-                        context.l10n.losslessConversionLabels.original,
-                    originalQualityLabel:
-                        context.l10n.losslessConversionLabels.originalQuality,
+                    originalLabel: losslessLabels.original,
+                    originalQualityLabel: losslessLabels.originalQuality,
                   ),
                 )
               : isLossless
@@ -1367,7 +1366,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen> {
         final newQuality = convertedAudioQualityLabel(
           targetFormat: targetFormat,
           bitrate: bitrate,
-          labels: context.l10n.losslessConversionLabels,
+          labels: losslessLabels,
           losslessQuality: losslessQuality,
           actualBitDepth: convertedBitDepth,
           actualSampleRate: convertedSampleRate,

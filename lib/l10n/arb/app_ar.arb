@@ -2075,67 +2075,67 @@
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },
-  "qualityNote": "Actual quality depends on track availability from the service",
+  "qualityNote": "الجودة الفعلية تعتمد على المسار المتوفر من الخدمة",
   "@qualityNote": {
     "description": "Note about quality availability"
   },
-  "downloadAskBeforeDownload": "Ask Before Download",
+  "downloadAskBeforeDownload": "اسأل قبل التحميل",
   "@downloadAskBeforeDownload": {
     "description": "Setting - show quality picker"
   },
-  "downloadDirectory": "Download Directory",
+  "downloadDirectory": "مسار التنزيل",
   "@downloadDirectory": {
     "description": "Setting - download folder"
   },
-  "downloadSeparateSinglesFolder": "Separate Singles Folder",
+  "downloadSeparateSinglesFolder": "فصل مجلد الفرديات",
   "@downloadSeparateSinglesFolder": {
     "description": "Setting - separate folder for singles"
   },
-  "downloadAlbumFolderStructure": "Album Folder Structure",
+  "downloadAlbumFolderStructure": "هيكل مجلد الألبوم",
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "downloadUseAlbumArtistForFolders": "Use Album Artist for folders",
+  "downloadUseAlbumArtistForFolders": "استخدام فنان الألبوم للمجلدات",
   "@downloadUseAlbumArtistForFolders": {
     "description": "Setting - choose whether artist folders use Album Artist or Track Artist"
   },
-  "downloadUsePrimaryArtistOnly": "Primary artist only for folders",
+  "downloadUsePrimaryArtistOnly": "الفنان الأساسي فقط للمجلدات",
   "@downloadUsePrimaryArtistOnly": {
     "description": "Setting - strip featured artists from folder name"
   },
-  "downloadUsePrimaryArtistOnlyEnabled": "Featured artists removed from folder name (e.g. Justin Bieber, Quavo → Justin Bieber)",
+  "downloadUsePrimaryArtistOnlyEnabled": "الفنانين المتميزين الذين تمت إزالتهم من اسم المجلد (على سبيل المثال جاستين بيبر، كويفو -> جاستين بيبر)",
   "@downloadUsePrimaryArtistOnlyEnabled": {
     "description": "Subtitle when primary artist only is enabled"
   },
-  "downloadUsePrimaryArtistOnlyDisabled": "Full artist string used for folder name",
+  "downloadUsePrimaryArtistOnlyDisabled": "اسم الفنان الكامل المستخدمة لاسم المجلد",
   "@downloadUsePrimaryArtistOnlyDisabled": {
     "description": "Subtitle when primary artist only is disabled"
   },
-  "downloadSelectQuality": "Select Quality",
+  "downloadSelectQuality": "تحديد الجودة",
   "@downloadSelectQuality": {
     "description": "Dialog title - choose audio quality"
   },
-  "downloadFrom": "Download From",
+  "downloadFrom": "تحميل من",
   "@downloadFrom": {
     "description": "Label - download source"
   },
-  "appearanceAmoledDark": "AMOLED Dark",
+  "appearanceAmoledDark": "الوضع الداكن AMOLED",
   "@appearanceAmoledDark": {
     "description": "Theme option - pure black"
   },
-  "appearanceAmoledDarkSubtitle": "Pure black background",
+  "appearanceAmoledDarkSubtitle": "خلفية سوداء تامة",
   "@appearanceAmoledDarkSubtitle": {
     "description": "Subtitle for AMOLED dark"
   },
-  "queueClearAll": "Clear All",
+  "queueClearAll": "مسح الكل",
   "@queueClearAll": {
     "description": "Button - clear all queue items"
   },
-  "queueClearAllMessage": "Are you sure you want to clear all downloads?",
+  "queueClearAllMessage": "هل أنت متأكد من أنك تريد مسح جميع التنزيلات؟",
   "@queueClearAllMessage": {
     "description": "Clear queue confirmation"
   },
-  "settingsAutoExportFailed": "Auto-export failed downloads",
+  "settingsAutoExportFailed": "فشل التصدير التلقائي للتنزيلات",
   "@settingsAutoExportFailed": {
     "description": "Setting toggle for auto-export"
   },

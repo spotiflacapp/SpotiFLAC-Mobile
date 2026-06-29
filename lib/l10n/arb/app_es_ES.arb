@@ -3335,7 +3335,7 @@
   "@cueSplitConfirmTitle": {
     "description": "CUE split confirmation dialog title"
   },
-  "cueSplitConfirmMessage": "Split \"{album}\" into {count} individual FLAC files?\n\nFiles will be saved to the same directory.",
+  "cueSplitConfirmMessage": "¿Dividir \"{album}\" en archivos FLAC individuales {count}?\n\nLos archivos se guardarán en el mismo directorio.",
   "@cueSplitConfirmMessage": {
     "description": "CUE split confirmation dialog message",
     "placeholders": {
@@ -3347,7 +3347,7 @@
       }
     }
   },
-  "cueSplitSplitting": "Splitting CUE sheet... ({current}/{total})",
+  "cueSplitSplitting": "¿Dividir \"{album}\" en archivos FLAC individuales {count} ?\n\nLos archivos se guardarán en el mismo directorio.",
   "@cueSplitSplitting": {
     "description": "Snackbar while splitting CUE",
     "placeholders": {

@@ -439,7 +439,7 @@
   "@aboutTitle": {
     "description": "About page title"
   },
-  "aboutContributors": "기여자",
+  "aboutContributors": "개발에 힘써주신 분들",
   "@aboutContributors": {
     "description": "Section for contributors"
   },
@@ -455,15 +455,15 @@
   "@aboutLogoArtist": {
     "description": "Role description for logo artist"
   },
-  "aboutTranslators": "번역가들",
+  "aboutTranslators": "번역에 도움주신 분들",
   "@aboutTranslators": {
     "description": "Section for translators"
   },
-  "aboutSpecialThanks": "특별 감사",
+  "aboutSpecialThanks": "특별히 감사드리는 분들",
   "@aboutSpecialThanks": {
     "description": "Section for special thanks"
   },
-  "aboutLinks": "바로가기",
+  "aboutLinks": "링크",
   "@aboutLinks": {
     "description": "Section for external links"
   },
@@ -511,11 +511,11 @@
   "@aboutTelegramChatSubtitle": {
     "description": "Subtitle for Telegram chat"
   },
-  "aboutSocial": "소셜",
+  "aboutSocial": "소셜 네트워크",
   "@aboutSocial": {
     "description": "Section for social links"
   },
-  "aboutApp": "앱",
+  "aboutApp": "앱 정보",
   "@aboutApp": {
     "description": "Section for app info"
   },

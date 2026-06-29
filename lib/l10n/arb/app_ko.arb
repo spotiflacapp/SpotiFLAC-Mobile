@@ -986,7 +986,7 @@
   "@snackbarFailedToUpdate": {
     "description": "Snackbar - extension update error"
   },
-  "errorRateLimited": "속도 제한됨",
+  "errorRateLimited": "사용 제한됨",
   "@errorRateLimited": {
     "description": "Error title - too many requests"
   },
@@ -1292,11 +1292,11 @@
   "@metadataProviderPriorityInfo": {
     "description": "Info tip about rate limits"
   },
-  "metadataNoRateLimits": "속도 제한 없음",
+  "metadataNoRateLimits": "사용 제한 없음",
   "@metadataNoRateLimits": {
     "description": "Deezer provider description"
   },
-  "metadataMayRateLimit": "속도 제한이 있을 수 있음",
+  "metadataMayRateLimit": "사용 제한이 있을 수 있음",
   "@metadataMayRateLimit": {
     "description": "Spotify provider description"
   },
@@ -4853,7 +4853,7 @@
   "@queueDownloadCompleted": {
     "description": "Accessibility label for completed download state in queue"
   },
-  "queueRateLimitTitle": "서비스 속도 제한",
+  "queueRateLimitTitle": "서비스 사용 제한",
   "@queueRateLimitTitle": {
     "description": "Title shown on a failed queue item when the download service rate limits requests"
   },
@@ -4898,7 +4898,7 @@
   "@logIssueIspBlockingSuggestion": {
     "description": "Diagnostic badge suggestion for ISP blocking"
   },
-  "logIssueRateLimitedLabel": "속도 제한",
+  "logIssueRateLimitedLabel": "사용 제한",
   "@logIssueRateLimitedLabel": {
     "description": "Diagnostic badge label when the service rate limits requests"
   },

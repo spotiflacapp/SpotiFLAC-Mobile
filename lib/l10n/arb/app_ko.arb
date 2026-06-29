@@ -4853,7 +4853,7 @@
   "@queueDownloadCompleted": {
     "description": "Accessibility label for completed download state in queue"
   },
-  "queueRateLimitTitle": "서비스 사용 제한",
+  "queueRateLimitTitle": "서비스 사용 제한됨",
   "@queueRateLimitTitle": {
     "description": "Title shown on a failed queue item when the download service rate limits requests"
   },

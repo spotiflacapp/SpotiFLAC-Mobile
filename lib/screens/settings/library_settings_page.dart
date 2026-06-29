@@ -452,73 +452,6 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
             ),
           ),
 
-          SliverToBoxAdapter(
-            child: SettingsSectionHeader(title: 'Playback'),
-          ),
-          SliverToBoxAdapter(
-            child: SettingsGroup(
-              children: [
-                SettingsItem(
-                  icon: Icons.open_in_new,
-                  title: 'External player',
-                  subtitle:
-                      'Open tracks in another music app (recommended for best quality)',
-                  trailing: settings.playerMode == 'external'
-                      ? Icon(Icons.check, color: colorScheme.primary)
-                      : null,
-                  onTap: () =>
-                      ref.read(settingsProvider.notifier).setPlayerMode('external'),
-                ),
-                SettingsItem(
-                  icon: Icons.play_circle_outline,
-                  title: 'Built-in player',
-                  subtitle:
-                      'Play inside SpotiFLAC with a notification and synced lyrics',
-                  trailing: settings.playerMode == 'internal'
-                      ? Icon(Icons.check, color: colorScheme.primary)
-                      : null,
-                  onTap: () =>
-                      ref.read(settingsProvider.notifier).setPlayerMode('internal'),
-                  showDivider: false,
-                ),
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 20,
-                      color: colorScheme.tertiary,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'The built-in player is intentionally simple (local files '
-                        'only, basic playback). For higher quality, gapless audio, '
-                        'equalizer and format support, a dedicated external player '
-                        'is more capable and recommended.',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
           if (settings.localLibraryEnabled) ...[
             SliverToBoxAdapter(
               child: SettingsSectionHeader(title: context.l10n.libraryActions),
@@ -679,6 +612,70 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
                                 ),
                           ),
                         ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          SliverToBoxAdapter(
+            child: SettingsSectionHeader(title: context.l10n.libraryPlayback),
+          ),
+          SliverToBoxAdapter(
+            child: SettingsGroup(
+              children: [
+                SettingsItem(
+                  icon: Icons.open_in_new,
+                  title: context.l10n.libraryExternalPlayer,
+                  subtitle: context.l10n.libraryExternalPlayerSubtitle,
+                  trailing: settings.playerMode == 'external'
+                      ? Icon(Icons.check, color: colorScheme.primary)
+                      : null,
+                  onTap: () => ref
+                      .read(settingsProvider.notifier)
+                      .setPlayerMode('external'),
+                ),
+                SettingsItem(
+                  icon: Icons.play_circle_outline,
+                  title: context.l10n.libraryBuiltInPreviewPlayer,
+                  subtitle: context.l10n.libraryBuiltInPreviewPlayerSubtitle,
+                  trailing: settings.playerMode == 'internal'
+                      ? Icon(Icons.check, color: colorScheme.primary)
+                      : null,
+                  onTap: () => ref
+                      .read(settingsProvider.notifier)
+                      .setPlayerMode('internal'),
+                  showDivider: false,
+                ),
+              ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      size: 20,
+                      color: colorScheme.tertiary,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        context.l10n.libraryBuiltInPlayerInfo,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
                       ),
                     ),
                   ],

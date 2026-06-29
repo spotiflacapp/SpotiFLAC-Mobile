@@ -19,6 +19,7 @@ import 'package:spotiflac_android/screens/settings/settings_tab.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/services/shell_navigation_service.dart';
 import 'package:spotiflac_android/services/share_intent_service.dart';
+import 'package:spotiflac_android/services/music_player_service.dart';
 import 'package:spotiflac_android/services/notification_service.dart';
 import 'package:spotiflac_android/services/app_remote_config_service.dart';
 import 'package:spotiflac_android/services/update_checker.dart';
@@ -61,7 +62,12 @@ class _MainShellState extends ConsumerState<MainShell>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    NotificationService().updateStrings(context.l10n);
+    final l10n = context.l10n;
+    NotificationService().updateStrings(l10n);
+    updateMusicPlayerStrings(
+      unknownTitle: l10n.unknownTitle,
+      unknownArtist: l10n.unknownArtist,
+    );
   }
 
   @override

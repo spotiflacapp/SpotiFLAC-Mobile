@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/services/app_remote_config_service.dart';
 
 class AppAnnouncementDialog extends StatelessWidget {
@@ -49,7 +50,7 @@ class AppAnnouncementDialog extends StatelessWidget {
   void _showCtaOpenFailed(BuildContext context) {
     if (!context.mounted) return;
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-      const SnackBar(content: Text('Unable to open link. Please try again.')),
+      SnackBar(content: Text(context.l10n.announcementUnableToOpenLink)),
     );
   }
 

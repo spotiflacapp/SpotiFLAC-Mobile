@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/providers/music_player_provider.dart';
 import 'package:spotiflac_android/services/library_database.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
@@ -147,7 +148,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
             onPressed: () => Navigator.of(context).maybePop(),
           ),
         ),
-        body: const Center(child: Text('Nothing is playing')),
+        body: Center(child: Text(context.l10n.nowPlayingNothingPlaying)),
       );
     }
 
@@ -158,16 +159,16 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
         surfaceTintColor: Colors.transparent,
-        title: const Text('Now Playing'),
+        title: Text(context.l10n.nowPlayingTitle),
         centerTitle: true,
         leading: IconButton(
-          tooltip: 'Minimize',
+          tooltip: context.l10n.nowPlayingMinimize,
           icon: const Icon(Icons.keyboard_arrow_down),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         actions: [
           IconButton(
-            tooltip: 'Up next',
+            tooltip: context.l10n.nowPlayingUpNext,
             icon: const Icon(Icons.queue_music),
             onPressed: () => _showQueueSheet(colorScheme),
           ),
@@ -183,20 +184,20 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                   break;
               }
             },
-            itemBuilder: (context) => const [
+            itemBuilder: (menuContext) => [
               PopupMenuItem(
                 value: 'details',
                 child: ListTile(
-                  leading: Icon(Icons.info_outline),
-                  title: Text('Details'),
+                  leading: const Icon(Icons.info_outline),
+                  title: Text(menuContext.l10n.nowPlayingDetails),
                   contentPadding: EdgeInsets.zero,
                 ),
               ),
               PopupMenuItem(
                 value: 'external',
                 child: ListTile(
-                  leading: Icon(Icons.open_in_new),
-                  title: Text('Open in external player'),
+                  leading: const Icon(Icons.open_in_new),
+                  title: Text(menuContext.l10n.nowPlayingOpenInExternalPlayer),
                   contentPadding: EdgeInsets.zero,
                 ),
               ),
@@ -219,7 +220,10 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
             _PageTabBar(
               controller: _pageController,
               colorScheme: colorScheme,
-              labels: const ['Player', 'Lyrics'],
+              labels: [
+                context.l10n.nowPlayingTabPlayer,
+                context.l10n.nowPlayingTabLyrics,
+              ],
             ),
             const SizedBox(height: 8),
           ],
@@ -415,7 +419,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              'No lyrics in this file',
+              context.l10n.nowPlayingNoLyrics,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -448,7 +452,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Cannot open file: $e')));
+      ).showSnackBar(SnackBar(content: Text(context.l10n.snackbarCannotOpenFile(e.toString()))));
     }
   }
 
@@ -464,7 +468,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
         if (!mounted) return;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Your library is empty')));
+        ).showSnackBar(SnackBar(content: Text(context.l10n.nowPlayingLibraryEmpty)));
         return;
       }
       media.shuffle();
@@ -475,7 +479,9 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Could not shuffle library: $e')));
+      ).showSnackBar(
+        SnackBar(content: Text(context.l10n.nowPlayingShuffleLibraryFailed(e.toString()))),
+      );
     }
   }
 
@@ -512,7 +518,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                       child: Row(
                         children: [
                           Text(
-                            'Up next',
+                            context.l10n.nowPlayingUpNext,
                             style: textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                               color: colorScheme.onSurface,
@@ -521,8 +527,8 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                           const Spacer(),
                           IconButton(
                             tooltip: shuffleOn
-                                ? 'Shuffle on'
-                                : 'Play in order',
+                                ? context.l10n.nowPlayingShuffleOn
+                                : context.l10n.nowPlayingPlayInOrder,
                             isSelected: shuffleOn,
                             icon: const Icon(Icons.shuffle),
                             color: shuffleOn ? colorScheme.primary : null,
@@ -539,7 +545,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                         child: FilledButton.tonalIcon(
                           onPressed: () => _shuffleLibrary(controller),
                           icon: const Icon(Icons.shuffle, size: 18),
-                          label: const Text('Shuffle library'),
+                          label: Text(context.l10n.nowPlayingShuffleLibrary),
                         ),
                       ),
                     ),
@@ -547,7 +553,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                       Expanded(
                         child: Center(
                           child: Text(
-                            'Queue is empty',
+                            context.l10n.nowPlayingQueueEmpty,
                             style: textTheme.bodyMedium?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                             ),
@@ -652,7 +658,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
             if (meta == null) {
               return Center(
                 child: Text(
-                  'No metadata available',
+                  context.l10n.nowPlayingNoMetadata,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
@@ -840,29 +846,30 @@ class _MetadataList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String s(Object? v) => (v ?? '').toString();
+    final l10n = context.l10n;
     final rows = <(String, String)>[
-      ('Title', s(meta['title'])),
-      ('Artist', s(meta['artist'])),
-      ('Album', s(meta['album'])),
-      ('Album artist', s(meta['album_artist'])),
-      ('Genre', s(meta['genre'])),
-      ('Composer', s(meta['composer'])),
-      ('Date', s(meta['date'])),
-      ('Track', s(meta['track_number'])),
-      ('Disc', s(meta['disc_number'])),
-      ('ISRC', s(meta['isrc'])),
-      ('Label', s(meta['label'])),
-      ('Copyright', s(meta['copyright'])),
-      ('Format', s(meta['format']).toUpperCase()),
-      ('Codec', s(meta['audio_codec'])),
+      (l10n.editMetadataFieldTitle, s(meta['title'])),
+      (l10n.editMetadataFieldArtist, s(meta['artist'])),
+      (l10n.editMetadataFieldAlbum, s(meta['album'])),
+      (l10n.editMetadataFieldAlbumArtist, s(meta['album_artist'])),
+      (l10n.editMetadataFieldGenre, s(meta['genre'])),
+      (l10n.editMetadataFieldComposer, s(meta['composer'])),
+      (l10n.editMetadataFieldDate, s(meta['date'])),
+      (l10n.editMetadataFieldTrackNum, s(meta['track_number'])),
+      (l10n.editMetadataFieldDiscNum, s(meta['disc_number'])),
+      (l10n.editMetadataFieldIsrc, s(meta['isrc'])),
+      (l10n.editMetadataFieldLabel, s(meta['label'])),
+      (l10n.editMetadataFieldCopyright, s(meta['copyright'])),
+      (l10n.libraryFilterFormat, s(meta['format']).toUpperCase()),
+      (l10n.audioAnalysisCodec, s(meta['audio_codec'])),
       (
-        'Sample rate',
+        l10n.audioAnalysisSampleRate,
         meta['sample_rate'] != null && (meta['sample_rate'] as num? ?? 0) > 0
             ? '${((meta['sample_rate'] as num) / 1000).toStringAsFixed(1)} kHz'
             : '',
       ),
       (
-        'Bit depth',
+        l10n.audioAnalysisBitDepth,
         (meta['bit_depth'] as num? ?? 0) > 0 ? '${meta['bit_depth']}-bit' : '',
       ),
     ].where((r) => r.$2.trim().isNotEmpty && r.$2 != '0').toList();
@@ -896,7 +903,7 @@ class _MetadataList extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Details',
+                      context.l10n.nowPlayingDetails,
                       style: textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onSurface,

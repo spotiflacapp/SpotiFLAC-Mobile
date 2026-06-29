@@ -10,6 +10,17 @@ import 'package:spotiflac_android/utils/logger.dart';
 
 final _log = AppLogger('MusicPlayer');
 
+String _playbackUnknownTitle = 'Unknown title';
+String _playbackUnknownArtist = 'Unknown artist';
+
+void updateMusicPlayerStrings({
+  required String unknownTitle,
+  required String unknownArtist,
+}) {
+  _playbackUnknownTitle = unknownTitle;
+  _playbackUnknownArtist = unknownArtist;
+}
+
 final AudioContext _musicAudioContext = AudioContext(
   android: const AudioContextAndroid(
     audioFocus: AndroidAudioFocus.none,
@@ -43,8 +54,8 @@ class PlayableMedia {
   MediaItem toMediaItem({String? resolvedSource}) {
     return MediaItem(
       id: id,
-      title: title.isEmpty ? 'Unknown title' : title,
-      artist: artist.isEmpty ? 'Unknown artist' : artist,
+      title: title.isEmpty ? _playbackUnknownTitle : title,
+      artist: artist.isEmpty ? _playbackUnknownArtist : artist,
       album: album.isEmpty ? null : album,
       duration: duration,
       artUri: (artUri != null && artUri!.isNotEmpty)

@@ -3745,7 +3745,7 @@
   "@lyricsProvidersInfoText": {
     "description": "Info tip on lyrics provider priority page"
   },
-  "lyricsProvidersEnabledSection": "Enabled ({count})",
+  "lyricsProvidersEnabledSection": "활성화됨 ({count})",
   "@lyricsProvidersEnabledSection": {
     "description": "Section header for enabled providers",
     "placeholders": {
@@ -3754,7 +3754,7 @@
       }
     }
   },
-  "lyricsProvidersDisabledSection": "Disabled ({count})",
+  "lyricsProvidersDisabledSection": "비활성화됨 ({count})",
   "@lyricsProvidersDisabledSection": {
     "description": "Section header for disabled providers",
     "placeholders": {
@@ -3931,7 +3931,7 @@
   "@storageModeSafSubtitle": {
     "description": "Subtitle for SAF storage mode"
   },
-  "downloadFilenameDescription": "Use {artist}, {title}, {album}, {track}, {year}, {date}, {disc} as placeholders.",
+  "downloadFilenameDescription": "{artist}, {title}, {album}, {track}, {year}, {date}, {disc}를 자리표시자로 사용하세요",
   "@downloadFilenameDescription": {
     "description": "Description shown in filename format editor"
   },
@@ -3939,11 +3939,11 @@
   "@downloadFilenameInsertTag": {
     "description": "Label above filename tag chips"
   },
-  "downloadSeparateSinglesEnabled": "Singles and EPs saved in a separate folder",
+  "downloadSeparateSinglesEnabled": "싱글과 EP를 별도의 폴더에 저장합니다",
   "@downloadSeparateSinglesEnabled": {
     "description": "Subtitle when separate singles folder is on"
   },
-  "downloadSeparateSinglesDisabled": "Singles and albums saved in the same folder",
+  "downloadSeparateSinglesDisabled": "싱글과 앨범을 같은 폴더에 저장합니다",
   "@downloadSeparateSinglesDisabled": {
     "description": "Subtitle when separate singles folder is off"
   },
@@ -3955,11 +3955,11 @@
   "@downloadCreatePlaylistSourceFolder": {
     "description": "Setting to create a subfolder per playlist source"
   },
-  "downloadCreatePlaylistSourceFolderEnabled": "A subfolder is created for each playlist",
+  "downloadCreatePlaylistSourceFolderEnabled": "각 재생 목록에 대한 하위 폴더를 생성합니다.",
   "@downloadCreatePlaylistSourceFolderEnabled": {
     "description": "Subtitle when playlist folder is enabled"
   },
-  "downloadCreatePlaylistSourceFolderDisabled": "All tracks saved directly to download folder",
+  "downloadCreatePlaylistSourceFolderDisabled": "모든 트랙을 다운로드 폴더에 직접 저장합니다",
   "@downloadCreatePlaylistSourceFolderDisabled": {
     "description": "Subtitle when playlist folder is disabled"
   },
@@ -3983,7 +3983,7 @@
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadSelectServiceToEnable": "Select a provider with quality options to enable this option",
+  "downloadSelectServiceToEnable": "이 옵션을 활성화하려면 품질 옵션이 있는 공급자를 선택하세요",
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
@@ -4059,7 +4059,7 @@
   "@downloadFilterContributingEnabled": {
     "description": "Subtitle when contributing artist filter is on"
   },
-  "downloadFilterContributingDisabled": "Full Album Artist string used",
+  "downloadFilterContributingDisabled": "전체 앨범 아티스트 문자열 사용",
   "@downloadFilterContributingDisabled": {
     "description": "Subtitle when contributing artist filter is off"
   },
@@ -4132,7 +4132,7 @@
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
-  "playlistsCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "playlistsCount": "{count, plural, =1{1 재생목록} other{{count} 재생목록}}",
   "@playlistsCount": {
     "description": "Playlist count display",
     "placeholders": {
@@ -4583,7 +4583,7 @@
   "@notifAllDownloadsComplete": {
     "description": "Notification title when all downloads finish successfully"
   },
-  "notifTracksDownloadedSuccess": "{count, plural, =1{1 track downloaded successfully} other{{count} tracks downloaded successfully}}",
+  "notifTracksDownloadedSuccess": "{count, plural, =1{1 트랙 다운로드 성공} other{{count} 트랙 다운로드 성공}}",
   "@notifTracksDownloadedSuccess": {
     "description": "Notification body for queue complete - how many tracks were downloaded",
     "placeholders": {
@@ -4592,7 +4592,7 @@
       }
     }
   },
-  "notifDownloadsFinishedBody": "{completed, plural, =1{1 track downloaded} other{{completed} tracks downloaded}}, {failed, plural, =1{1 failed} other{{failed} failed}}",
+  "notifDownloadsFinishedBody": "{completed, plural, =1{1 트랙 다운로드 성공} other{{completed} 트랙 다운로드 성공}}, {failed, plural, =1{1 실패} other{{failed} 실패}}",
   "@notifDownloadsFinishedBody": {
     "description": "Notification body when queue finishes with failures",
     "placeholders": {
@@ -4608,7 +4608,7 @@
   "@notifDownloadsCanceledTitle": {
     "description": "Notification title when downloads are canceled by the user"
   },
-  "notifDownloadsCanceledBody": "{count, plural, =1{1 download canceled by user} other{{count} downloads canceled by user}}",
+  "notifDownloadsCanceledBody": "{count, plural, =1{1 다운로드가 사용자에 의해 취소됨} other{{count} 다운로드가 사용자에 의해 취소됨}}",
   "@notifDownloadsCanceledBody": {
     "description": "Notification body when downloads are canceled by the user",
     "placeholders": {
@@ -4679,15 +4679,15 @@
       }
     }
   },
-  "notifLibraryScanFailed": "Library scan failed",
+  "notifLibraryScanFailed": "보관함 스캔 실패",
   "@notifLibraryScanFailed": {
     "description": "Notification title when library scan fails"
   },
-  "notifLibraryScanCancelled": "Library scan cancelled",
+  "notifLibraryScanCancelled": "보관함 스캔 취소됨",
   "@notifLibraryScanCancelled": {
     "description": "Notification title when library scan is cancelled by the user"
   },
-  "notifLibraryScanStopped": "Scan stopped before completion.",
+  "notifLibraryScanStopped": "스캔이 완료되기 전에 중단되었습니다",
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
   },
@@ -4728,11 +4728,11 @@
       }
     }
   },
-  "notifUpdateFailed": "Update Failed",
+  "notifUpdateFailed": "업데이트 실패",
   "@notifUpdateFailed": {
     "description": "Notification title when app update download fails"
   },
-  "notifUpdateFailedBody": "Could not download update. Try again later.",
+  "notifUpdateFailedBody": "업데이트를 다운로드할 수 없습니다. 나중에 다시 시도하세요",
   "@notifUpdateFailedBody": {
     "description": "Notification body when app update download fails"
   },
@@ -4777,7 +4777,7 @@
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
-  "tutorialDownloadCompletedSemantics": "Download completed",
+  "tutorialDownloadCompletedSemantics": "다운로드 완료",
   "@tutorialDownloadCompletedSemantics": {
     "description": "Accessibility label for completed download state in tutorial demo"
   },
@@ -4801,7 +4801,7 @@
   "@optionsEmbedMetadataSubtitleOff": {
     "description": "Subtitle when metadata embedding is disabled"
   },
-  "optionsMaxQualityCoverSubtitleDisabled": "Disabled when metadata embedding is off",
+  "optionsMaxQualityCoverSubtitleDisabled": "메타데이터 삽입이 꺼져 있을 때 비활성화됨",
   "@optionsMaxQualityCoverSubtitleDisabled": {
     "description": "Subtitle for max quality cover when metadata embedding is disabled"
   },
@@ -4938,7 +4938,7 @@
   "@clickableLookingUpArtist": {
     "description": "Snackbar shown while clickable artist metadata is being resolved"
   },
-  "clickableInformationUnavailable": "{type} information not available",
+  "clickableInformationUnavailable": "{type} 정보를 사용할 수 없음",
   "@clickableInformationUnavailable": {
     "description": "Snackbar shown when clickable metadata cannot open a destination",
     "placeholders": {
@@ -4991,7 +4991,7 @@
       }
     }
   },
-  "a11yOpenItemCount": "Open {title}, {count} {count, plural, =1{item} other{items}}",
+  "a11yOpenItemCount": "{title}, {count} {count, plural, =1{항목} other{항목}} 열기",
   "@a11yOpenItemCount": {
     "description": "Accessibility label for opening a grouped item with count",
     "placeholders": {
@@ -5003,7 +5003,7 @@
       }
     }
   },
-  "a11yOpenAlbumByArtistTrackCount": "Open album {albumName} by {artistName}, {trackCount} tracks",
+  "a11yOpenAlbumByArtistTrackCount": "{artistName} 의 앨범 {albumName} 열기 ({trackCount} 곡)",
   "@a11yOpenAlbumByArtistTrackCount": {
     "description": "Accessibility label for opening an album item with track count",
     "placeholders": {
@@ -5018,7 +5018,7 @@
       }
     }
   },
-  "a11yTrackByArtist": "{trackName} by {artistName}",
+  "a11yTrackByArtist": "{artistName} 의 {trackName}",
   "@a11yTrackByArtist": {
     "description": "Accessibility label for a queue or list track item",
     "placeholders": {
@@ -5030,7 +5030,7 @@
       }
     }
   },
-  "a11ySelectAlbum": "Select album {albumName}",
+  "a11ySelectAlbum": "앨범 {albumName} 선택",
   "@a11ySelectAlbum": {
     "description": "Accessibility label for selecting an album",
     "placeholders": {
@@ -5039,7 +5039,7 @@
       }
     }
   },
-  "a11yOpenAlbum": "Open album {albumName}",
+  "a11yOpenAlbum": "앨범 {albumName} 열기",
   "@a11yOpenAlbum": {
     "description": "Accessibility label for opening an album",
     "placeholders": {
@@ -5181,7 +5181,7 @@
       }
     }
   },
-  "collectionPlaylistsDeleted": "{count} {count, plural, =1{playlist} other{playlists}} deleted",
+  "collectionPlaylistsDeleted": "{count} {count, plural, =1{재생목록} other{재생목록}} 삭제됨",
   "@collectionPlaylistsDeleted": {
     "description": "Snackbar after deleting selected playlists",
     "placeholders": {
@@ -5190,7 +5190,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylist": "Added {count} {count, plural, =1{track} other{tracks}} to {playlistName}",
+  "collectionAddedTracksToPlaylist": "{playlistName} 에 {count} {count, plural, =1{트랙} other{트랙}}이 추가됨",
   "@collectionAddedTracksToPlaylist": {
     "description": "Snackbar after adding multiple tracks to a playlist",
     "placeholders": {
@@ -5217,7 +5217,7 @@
       }
     }
   },
-  "itemCount": "{count} {count, plural, =1{item} other{items}}",
+  "itemCount": "{count} {count, plural, =1{항목} other{항목}}",
   "@itemCount": {
     "description": "Generic item count label",
     "placeholders": {
@@ -5241,7 +5241,7 @@
       }
     }
   },
-  "selectionDeleteTracksCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "selectionDeleteTracksCount": "{count} {count, plural, =1{트랙} other{트랙}} 삭제",
   "@selectionDeleteTracksCount": {
     "description": "Button label for deleting selected tracks",
     "placeholders": {
@@ -5263,7 +5263,7 @@
   "@queueDownloadStarting": {
     "description": "Queue status before download progress is available"
   },
-  "a11ySelectTrack": "Select track",
+  "a11ySelectTrack": "트랙 선택",
   "@a11ySelectTrack": {
     "description": "Accessibility label for selecting a track"
   },
@@ -5283,7 +5283,7 @@
       }
     }
   },
-  "storeExtensionsCount": "{count} {count, plural, =1{extension} other{extensions}}",
+  "storeExtensionsCount": "{count} {count, plural, =1{확장 프로그램} other{확장 프로그램}}",
   "@storeExtensionsCount": {
     "description": "Store extension result count",
     "placeholders": {

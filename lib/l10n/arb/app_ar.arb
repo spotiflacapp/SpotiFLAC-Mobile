@@ -2035,11 +2035,11 @@
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadLossy320Format": "Lossy 320kbps Format",
+  "downloadLossy320Format": "تنسيق 320kbps مضغوط",
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
-  "downloadLossy320FormatDesc": "Choose the output format for 320kbps lossy downloads. The original stream will be converted to your selected format when needed.",
+  "downloadLossy320FormatDesc": "اختر التنسيق النهائي للتنزيلات المضغوطة 320kbps. سيتم تحويل البث الأصلي إلى التنسيق المحدد عند الحاجة.",
   "@downloadLossy320FormatDesc": {
     "description": "Description in the lossy format picker"
   },
@@ -2047,7 +2047,7 @@
   "@downloadLossyMp3": {
     "description": "Lossy format option - MP3 320kbps"
   },
-  "downloadLossyMp3Subtitle": "Best compatibility, ~10MB per track",
+  "downloadLossyMp3Subtitle": "أفضل توافق، ~10 ميغابايت لكل أغنية",
   "@downloadLossyMp3Subtitle": {
     "description": "Subtitle for MP3 320kbps lossy option"
   },
@@ -2055,7 +2055,7 @@
   "@downloadLossyAac": {
     "description": "Lossy format option - AAC in M4A container at 320kbps"
   },
-  "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
+  "downloadLossyAacSubtitle": "أفضل توافق للجوال، صيغة M4A",
   "@downloadLossyAacSubtitle": {
     "description": "Subtitle for AAC/M4A 320kbps lossy option"
   },
@@ -2063,7 +2063,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "Best quality Opus, ~8MB per track",
+  "downloadLossyOpus256Subtitle": "أفضل جودة Opus, حوالي 8 ميغابايت لكل أغنية",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2071,7 +2071,7 @@
   "@downloadLossyOpus128": {
     "description": "Lossy format option - Opus 128kbps"
   },
-  "downloadLossyOpus128Subtitle": "Smallest size, ~4MB per track",
+  "downloadLossyOpus128Subtitle": "أصغر حجم, ~4 ميغابايت لكل مسار",
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },

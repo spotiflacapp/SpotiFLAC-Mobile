@@ -967,8 +967,22 @@ class LibraryDatabase {
     final rows = await db.query(
       'library',
       where:
-          'LOWER(album_name) = ? AND LOWER(COALESCE(album_artist, artist_name)) = ?',
+          "LOWER(album_name) = ? AND LOWER(COALESCE(NULLIF(album_artist, ''), artist_name)) = ?",
       whereArgs: [albumName.toLowerCase(), artistName.toLowerCase()],
+      orderBy:
+          'COALESCE(disc_number, 0), COALESCE(track_number, 0), track_name',
+    );
+    return rows.map(_dbRowToJson).toList(growable: false);
+  }
+
+  Future<List<Map<String, dynamic>>> getQueueLocalAlbumTracksByKey(
+    String albumKey,
+  ) async {
+    final db = await database;
+    final rows = await db.query(
+      'library',
+      where: 'album_key = ?',
+      whereArgs: [albumKey],
       orderBy:
           'COALESCE(disc_number, 0), COALESCE(track_number, 0), track_name',
     );

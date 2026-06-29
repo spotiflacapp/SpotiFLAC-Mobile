@@ -209,6 +209,7 @@ class _GroupedAlbum {
 }
 
 class _GroupedLocalAlbum {
+  final String albumKey;
   final String albumName;
   final String artistName;
   final String? coverPath;
@@ -218,6 +219,7 @@ class _GroupedLocalAlbum {
   final String searchKey;
 
   _GroupedLocalAlbum({
+    required this.albumKey,
     required this.albumName,
     required this.artistName,
     this.coverPath,
@@ -226,7 +228,7 @@ class _GroupedLocalAlbum {
     required this.latestScanned,
   }) : searchKey = '${albumName.toLowerCase()}|${artistName.toLowerCase()}';
 
-  String get key => '$albumName|$artistName';
+  String get key => albumKey;
 
   int get displayTrackCount => trackCount ?? tracks.length;
 }
@@ -480,6 +482,7 @@ final _queueLibraryPageProvider =
           if (source == 'local') {
             groupedLocalAlbums.add(
               _GroupedLocalAlbum(
+                albumKey: row['album_key'] as String? ?? '',
                 albumName: row['album_name'] as String? ?? '',
                 artistName: row['artist_name'] as String? ?? '',
                 coverPath: row['cover_path'] as String?,

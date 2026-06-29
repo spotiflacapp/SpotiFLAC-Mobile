@@ -2456,10 +2456,20 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   Future<void> _navigateToLocalAlbum(_GroupedLocalAlbum album) async {
     var tracks = album.tracks;
     if (tracks.isEmpty && album.displayTrackCount > 0) {
-      final rows = await LibraryDatabase.instance.getQueueLocalAlbumTracks(
-        album.albumName,
-        album.artistName,
-      );
+      var rows = album.albumKey.isNotEmpty
+          ? await LibraryDatabase.instance.getQueueLocalAlbumTracksByKey(
+              album.albumKey,
+            )
+          : await LibraryDatabase.instance.getQueueLocalAlbumTracks(
+              album.albumName,
+              album.artistName,
+            );
+      if (rows.isEmpty && album.albumKey.isNotEmpty) {
+        rows = await LibraryDatabase.instance.getQueueLocalAlbumTracks(
+          album.albumName,
+          album.artistName,
+        );
+      }
       tracks = rows.map(LocalLibraryItem.fromJson).toList(growable: false);
       if (!mounted) return;
     }

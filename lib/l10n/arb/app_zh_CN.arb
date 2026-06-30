@@ -1,7 +1,7 @@
 {
   "@@locale": "zh-CN",
   "@@last_modified": "2026-04-28",
-  "appName": "SpotiFLAC Mobile",
+  "appName": "SpotiFLAC 移动版",
   "@appName": {
     "description": "App name - DO NOT TRANSLATE"
   },
@@ -174,7 +174,7 @@
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
-  "optionsSwitchBack": "Choose the default search provider to switch back from an extension",
+  "optionsSwitchBack": "选择要从扩展中返回的默认搜索服务器",
   "@optionsSwitchBack": {
     "description": "Hint to switch back from extension search"
   },
@@ -190,11 +190,11 @@
   "@optionsUseExtensionProviders": {
     "description": "Legacy setting label for extension download providers"
   },
-  "optionsUseExtensionProvidersOn": "Extension providers are enabled",
+  "optionsUseExtensionProvidersOn": "扩展提供商已启用",
   "@optionsUseExtensionProvidersOn": {
     "description": "Status when extension providers enabled"
   },
-  "optionsUseExtensionProvidersOff": "Extension providers are required",
+  "optionsUseExtensionProvidersOff": "需要扩展提供商",
   "@optionsUseExtensionProvidersOff": {
     "description": "Legacy status when extension providers would be disabled"
   },
@@ -214,7 +214,7 @@
   "@optionsMaxQualityCoverSubtitle": {
     "description": "Subtitle for max quality cover"
   },
-  "optionsReplayGain": "ReplayGain",
+  "optionsReplayGain": "回放增益",
   "@optionsReplayGain": {
     "description": "Title for ReplayGain setting toggle"
   },
@@ -226,27 +226,27 @@
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "trackReplayGain": "Rescan ReplayGain",
+  "trackReplayGain": "重新扫描回放增益",
   "@trackReplayGain": {
     "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
   },
-  "trackReplayGainSubtitle": "Analyze loudness and write ReplayGain tags",
+  "trackReplayGainSubtitle": "分析响度并写入回放增益标签",
   "@trackReplayGainSubtitle": {
     "description": "Subtitle for the rescan ReplayGain menu option"
   },
-  "trackReplayGainScanning": "Analyzing loudness...",
+  "trackReplayGainScanning": "正在分析声音...",
   "@trackReplayGainScanning": {
     "description": "Snackbar/progress message while scanning ReplayGain for a single track"
   },
-  "trackReplayGainSuccess": "ReplayGain tags added",
+  "trackReplayGainSuccess": "回放增益标签已添加",
   "@trackReplayGainSuccess": {
     "description": "Snackbar message after ReplayGain tags written for a single track"
   },
-  "trackReplayGainFailed": "Failed to add ReplayGain tags",
+  "trackReplayGainFailed": "添加回放增益标签失败",
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "selectionReplayGainCount": "ReplayGain ({count})",
+  "selectionReplayGainCount": "回放增益 ({count})",
   "@selectionReplayGainCount": {
     "description": "Batch selection action button label for ReplayGain",
     "placeholders": {
@@ -255,7 +255,7 @@
       }
     }
   },
-  "replayGainBatchConfirmTitle": "Add ReplayGain",
+  "replayGainBatchConfirmTitle": "添加回放增益",
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },

@@ -1919,7 +1919,7 @@
   "@extensionsInstallButton": {
     "description": "Button to install extension from file"
   },
-  "extensionsInfoTip": "Extensions can add new metadata and download providers. Only install extensions from trusted sources.",
+  "extensionsInfoTip": "يمكن للإضافات تزويدك بموفري بيانات التعريف الجديدة وتحميلها. ثبت الإضافات من مصادر موثوق بها فقط.",
   "@extensionsInfoTip": {
     "description": "Security warning about extensions"
   },

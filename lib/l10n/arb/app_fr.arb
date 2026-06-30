@@ -3843,47 +3843,47 @@
   "@settingsDonateSubtitle": {
     "description": "Subtitle for donate menu item"
   },
-  "settingsBackup": "Backup & Restore",
+  "settingsBackup": "Sauvegarde & Restauration",
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
-  "settingsBackupSubtitle": "Move your library, history and settings to a new device",
+  "settingsBackupSubtitle": "Transférer votre bibliothèque, votre historique et vos paramètres vers un nouvel appareil",
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
-  "backupTitle": "Backup & Restore",
+  "backupTitle": "Sauvegarde & Restauration",
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
-  "backupExportSectionTitle": "Create backup",
+  "backupExportSectionTitle": "Créer une sauvegarde",
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
-  "backupExportSectionDescription": "Save your settings, download history, liked tracks, wishlist, favorite artists and playlists into a single file you can keep or move to another phone.",
+  "backupExportSectionDescription": "Enregistrez vos paramètres, votre historique de téléchargement, les titres que vous avez aimés, votre liste de souhaits, vos artistes préférés et vos playlists dans un seul fichier que vous pourrez conserver ou transférer vers un autre téléphone.",
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
-  "backupExportButton": "Create backup file",
+  "backupExportButton": "Créer un fichier de sauvegarde",
   "@backupExportButton": {
     "description": "Button to create and share a backup file"
   },
-  "backupImportSectionTitle": "Restore backup",
+  "backupImportSectionTitle": "Restaurer la sauvegarde",
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
-  "backupImportSectionDescription": "Pick a backup file to restore your data. This replaces the current settings, history and library on this device.",
+  "backupImportSectionDescription": "Sélectionnez un fichier de sauvegarde pour restaurer vos données. Cette opération remplacera les réglages actuels, l'historique et la bibliothèque de cet appareil.",
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
-  "backupImportButton": "Choose backup file",
+  "backupImportButton": "Choisissez un fichier de sauvegarde",
   "@backupImportButton": {
     "description": "Button to pick a backup file to restore"
   },
-  "backupCreating": "Creating backup...",
+  "backupCreating": "Création d'une sauvegarde...",
   "@backupCreating": {
     "description": "Progress text while a backup is being created"
   },
-  "backupCreated": "Backup created",
+  "backupCreated": "Sauvegarde créée",
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
@@ -3923,15 +3923,15 @@
   "@backupInvalidFile": {
     "description": "Snackbar when the chosen file is not a valid backup"
   },
-  "backupRestoreRestartHint": "Restart the app to make sure every change is applied.",
+  "backupRestoreRestartHint": "Redémarrez l'application pour vous assurer que toutes les modifications ont bien été prises en compte.",
   "@backupRestoreRestartHint": {
     "description": "Hint shown after restoring that an app restart is recommended"
   },
-  "backupContentsTitle": "Backup contents",
+  "backupContentsTitle": "Contenu de la sauvegarde",
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupContentsSettings": "App settings",
+  "backupContentsSettings": "Paramètres de l'application",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
@@ -3993,7 +3993,7 @@
   "@backupIncludeSecrets": {
     "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
   },
-  "backupIncludeSecretsDescription": "Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.",
+  "backupIncludeSecretsDescription": "Les jetons et les clés API des extensions seront enregistrés dans le fichier de sauvegarde. Veillez à ne pas divulguer ce fichier. Si l'extension est désactivée, vous devrez les saisir à nouveau après la restauration.",
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
@@ -4166,11 +4166,11 @@
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
-  "downloadAllowLocalNetworkEnabled": "Requests to local/private addresses are allowed (for local proxy or custom DNS)",
+  "downloadAllowLocalNetworkEnabled": "Les requêtes vers des adresses locales ou privées sont autorisées (pour un proxy local ou un DNS personnalisé)",
   "@downloadAllowLocalNetworkEnabled": {
     "description": "Subtitle when allow local network access is on"
   },
-  "downloadAllowLocalNetworkDisabled": "Local/private addresses are blocked for security",
+  "downloadAllowLocalNetworkDisabled": "Les adresses locales/privées sont bloquées pour des raisons de sécurité",
   "@downloadAllowLocalNetworkDisabled": {
     "description": "Subtitle when allow local network access is off"
   },
@@ -5791,11 +5791,11 @@
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
-  "libraryExternalPlayer": "External player",
+  "libraryExternalPlayer": "Lecteur externe",
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
-  "libraryExternalPlayerSubtitle": "Recommended for listening, best quality, gapless playback, EQ, and wider format support",
+  "libraryExternalPlayerSubtitle": "Recommandé pour l'écoute, la meilleure qualité, la lecture en continu, l'égaliseur et la prise en charge d'un plus grand nombre de formats",
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
@@ -5819,7 +5819,7 @@
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
-  "nowPlayingMinimize": "Minimize",
+  "nowPlayingMinimize": "Réduire",
   "@nowPlayingMinimize": {
     "description": "Tooltip for minimizing the now playing screen"
   },
@@ -5827,7 +5827,7 @@
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
-  "nowPlayingDetails": "Details",
+  "nowPlayingDetails": "Détails",
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
@@ -5978,11 +5978,11 @@
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
-  "downloadPrimaryArtistOnlyOn": "Primary only: On",
+  "downloadPrimaryArtistOnlyOn": "Primaire uniquement : Activé",
   "@downloadPrimaryArtistOnlyOn": {
     "description": "Status label when primary-artist-only folder naming is enabled"
   },
-  "downloadPrimaryArtistOnlyOff": "Primary only: Off",
+  "downloadPrimaryArtistOnlyOff": "Primaire uniquement : Désactivé",
   "@downloadPrimaryArtistOnlyOff": {
     "description": "Status label when primary-artist-only folder naming is disabled"
   },
@@ -6010,7 +6010,7 @@
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },
-  "unknownTitle": "Unknown title",
+  "unknownTitle": "Titre inconnu",
   "@unknownTitle": {
     "description": "Fallback track title when metadata is missing"
   },
@@ -6018,7 +6018,7 @@
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "Add to queue",
+  "trackAddToQueue": "Ajouter à la file d'attente",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },

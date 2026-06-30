@@ -25,7 +25,7 @@
   "@homeTitle": {
     "description": "Home screen title"
   },
-  "homeSubtitle": "지원되는 URL을 붙여 넣거나, 이름을 검색",
+  "homeSubtitle": "지원되는 URL을 붙여넣거나, 이름으로 검색하세요",
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
@@ -37,7 +37,7 @@
   "@homeEmptySubtitle": {
     "description": "Subtitle shown on home when no providers are available yet"
   },
-  "homeSupports": "지원 항목: 트랙, 앨범, 플레이리스트, 아티스트 URLs",
+  "homeSupports": "지원 항목: 트랙, 앨범, 플레이리스트, 아티스트 URL",
   "@homeSupports": {
     "description": "Info text about supported URL types"
   },
@@ -272,7 +272,7 @@
   "@replayGainBatchAnalyzing": {
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
-  "replayGainBatchSuccess": "ReplayGain added to {success} of {total} tracks",
+  "replayGainBatchSuccess": "{total} 개의 트랙 중 {success} 개에 리플레이게인이 추가됨",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -1010,7 +1010,7 @@
   "@errorUrlNotRecognizedMessage": {
     "description": "Error message - URL not recognized explanation"
   },
-  "errorUrlFetchFailed": "Failed to load content from this link. Please try again.",
+  "errorUrlFetchFailed": "이 링크에서 콘텐츠를 불러오는 데 실패하였습니다. 다시 시도해 주세요",
   "@errorUrlFetchFailed": {
     "description": "Error message - generic URL fetch failure"
   },
@@ -1212,11 +1212,11 @@
   "@updateStartingDownload": {
     "description": "Update status - initializing"
   },
-  "updateDownloadFailed": "Download failed",
+  "updateDownloadFailed": "다운로드 실패",
   "@updateDownloadFailed": {
     "description": "Update error title"
   },
-  "updateFailedMessage": "Failed to download update",
+  "updateFailedMessage": "업데이트 다운로드 실패",
   "@updateFailedMessage": {
     "description": "Update error message"
   },
@@ -1653,7 +1653,7 @@
   "@trackLyricsTimeout": {
     "description": "Message when lyrics request times out"
   },
-  "trackLyricsLoadFailed": "Failed to load lyrics",
+  "trackLyricsLoadFailed": "가사 불러오기 실패",
   "@trackLyricsLoadFailed": {
     "description": "Message when lyrics loading fails"
   },
@@ -1669,7 +1669,7 @@
   "@trackInstrumental": {
     "description": "Message when track is instrumental (no lyrics)"
   },
-  "trackCopiedToClipboard": "Copied to clipboard",
+  "trackCopiedToClipboard": "클립보드에 복사됨",
   "@trackCopiedToClipboard": {
     "description": "Snackbar - content copied"
   },
@@ -1784,7 +1784,7 @@
   "@storeNewRepoUrlLabel": {
     "description": "Label for the new repository URL field inside the dialog"
   },
-  "storeLoadError": "Failed to load repository",
+  "storeLoadError": "리포지토리 불러오기 실패",
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
@@ -1937,7 +1937,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "Installed {installed} of {attempted} extensions",
+  "extensionsInstallPartialSuccess": "{attempted} 개의 확장 프로그램 중 {installed} 개가 설치됨",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -2207,7 +2207,7 @@
   "@albumFolderArtistAlbumFlatSubtitle": {
     "description": "Folder structure example for flat singles"
   },
-  "downloadedAlbumDeleteSelected": "Delete Selected",
+  "downloadedAlbumDeleteSelected": "선택 항목 삭제",
   "@downloadedAlbumDeleteSelected": {
     "description": "Button - delete selected tracks"
   },
@@ -2220,7 +2220,7 @@
       }
     }
   },
-  "downloadedAlbumSelectedCount": "{count} selected",
+  "downloadedAlbumSelectedCount": "{count} 개 선택됨",
   "@downloadedAlbumSelectedCount": {
     "description": "Selection count indicator",
     "placeholders": {
@@ -2229,7 +2229,7 @@
       }
     }
   },
-  "downloadedAlbumAllSelected": "All tracks selected",
+  "downloadedAlbumAllSelected": "모든 트랙 선택됨",
   "@downloadedAlbumAllSelected": {
     "description": "Status - all items selected"
   },
@@ -2370,7 +2370,7 @@
       }
     }
   },
-  "discographySelectedCount": "{count} selected",
+  "discographySelectedCount": "{count} 개 선택됨",
   "@discographySelectedCount": {
     "description": "Selection count badge",
     "placeholders": {
@@ -2379,7 +2379,7 @@
       }
     }
   },
-  "discographyDownloadSelected": "Download Selected",
+  "discographyDownloadSelected": "선택 항목 다운로드",
   "@discographyDownloadSelected": {
     "description": "Button - download selected albums"
   },
@@ -2392,7 +2392,7 @@
       }
     }
   },
-  "discographySkippedDownloaded": "{added} added, {skipped} already downloaded",
+  "discographySkippedDownloaded": "{added} 개 추가됨, {skipped} 개 이미 다운로드됨",
   "@discographySkippedDownloaded": {
     "description": "Snackbar - with skipped tracks count",
     "placeholders": {
@@ -2408,7 +2408,7 @@
   "@discographyNoAlbums": {
     "description": "Error - no albums found for artist"
   },
-  "discographyFailedToFetch": "Failed to fetch some albums",
+  "discographyFailedToFetch": "일부 앨범 가져오기 실패",
   "@discographyFailedToFetch": {
     "description": "Error - some albums failed to load"
   },
@@ -2500,7 +2500,7 @@
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
-  "libraryAutoScanOnOpen": "Every app open",
+  "libraryAutoScanOnOpen": "열려 있는 모든 앱",
   "@libraryAutoScanOnOpen": {
     "description": "Auto scan when app opens"
   },
@@ -2615,7 +2615,7 @@
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
-  "libraryRemovedMissingFiles": "Removed {count} missing files from library",
+  "libraryRemovedMissingFiles": "보관함에서 누락된 파일 {count} 개가 제거됨",
   "@libraryRemovedMissingFiles": {
     "description": "Snackbar after cleanup",
     "placeholders": {
@@ -2624,7 +2624,7 @@
       }
     }
   },
-  "libraryCleared": "Library cleared",
+  "libraryCleared": "보관함이 초기화됨",
   "@libraryCleared": {
     "description": "Snackbar after clearing library"
   },
@@ -2700,7 +2700,7 @@
   "@libraryFilterMetadata": {
     "description": "Filter section - metadata completeness"
   },
-  "libraryFilterMetadataComplete": "Complete metadata",
+  "libraryFilterMetadataComplete": "전체 메타데이터",
   "@libraryFilterMetadataComplete": {
     "description": "Filter option - items with complete metadata"
   },
@@ -3104,7 +3104,7 @@
   "@trackReEnrichFieldsTitle": {
     "description": "Section title for field selection in re-enrich dialog"
   },
-  "trackReEnrichFieldCover": "Cover Art",
+  "trackReEnrichFieldCover": "표지 아트",
   "@trackReEnrichFieldCover": {
     "description": "Checkbox label for cover art field in re-enrich"
   },
@@ -3136,7 +3136,7 @@
   "@trackEditMetadata": {
     "description": "Menu action - edit embedded metadata"
   },
-  "trackCoverSaved": "Cover art saved to {fileName}",
+  "trackCoverSaved": "표지 아트가 {fileName}에 저장됨",
   "@trackCoverSaved": {
     "description": "Snackbar after cover art saved",
     "placeholders": {
@@ -3149,7 +3149,7 @@
   "@trackCoverNoSource": {
     "description": "Snackbar when no cover art URL or embedded cover"
   },
-  "trackLyricsSaved": "Lyrics saved to {fileName}",
+  "trackLyricsSaved": "가사가 {fileName}에 저장됨",
   "@trackLyricsSaved": {
     "description": "Snackbar after lyrics saved",
     "placeholders": {
@@ -3166,11 +3166,11 @@
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
   },
-  "trackReEnrichSuccess": "Metadata re-enriched successfully",
+  "trackReEnrichSuccess": "메타데이터 재구성 성공",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
-  "trackReEnrichFfmpegFailed": "FFmpeg metadata embed failed",
+  "trackReEnrichFfmpegFailed": "FFmpeg 메타데이터 삽입 실패",
   "@trackReEnrichFfmpegFailed": {
     "description": "Snackbar when FFmpeg embed fails for MP3/Opus"
   },
@@ -3248,7 +3248,7 @@
   "@trackConvertConfirmTitle": {
     "description": "Confirmation dialog title"
   },
-  "trackConvertConfirmMessage": "Convert from {sourceFormat} to {targetFormat} at {bitrate}?\n\nThe original file will be deleted after conversion.",
+  "trackConvertConfirmMessage": "{bitrate} 비트레이트로 {sourceFormat} 에서 {targetFormat} 으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
   "@trackConvertConfirmMessage": {
     "description": "Confirmation dialog message",
     "placeholders": {
@@ -3283,7 +3283,7 @@
   "@trackConvertConverting": {
     "description": "Snackbar while converting"
   },
-  "trackConvertSuccess": "Converted to {format} successfully",
+  "trackConvertSuccess": "{format}으로 변환 성공",
   "@trackConvertSuccess": {
     "description": "Snackbar after successful conversion",
     "placeholders": {
@@ -3292,7 +3292,7 @@
       }
     }
   },
-  "trackConvertFailed": "Conversion failed",
+  "trackConvertFailed": "변환 실패",
   "@trackConvertFailed": {
     "description": "Snackbar when conversion fails"
   },
@@ -3359,7 +3359,7 @@
       }
     }
   },
-  "cueSplitSuccess": "Split into {count} tracks successfully",
+  "cueSplitSuccess": "{count} 개의 트랙으로 성공적으로 분할",
   "@cueSplitSuccess": {
     "description": "Snackbar after successful CUE split",
     "placeholders": {
@@ -3460,7 +3460,7 @@
       }
     }
   },
-  "collectionPlaylistCreated": "Playlist created",
+  "collectionPlaylistCreated": "재생목록이 생성됨",
   "@collectionPlaylistCreated": {
     "description": "Snackbar after creating playlist"
   },
@@ -3480,7 +3480,7 @@
   "@collectionDeletePlaylist": {
     "description": "Action to delete playlist"
   },
-  "collectionDeletePlaylistMessage": "Delete \"{playlistName}\" and all tracks inside it?",
+  "collectionDeletePlaylistMessage": "'{playlistName}'과 그 안에 있는 모든 트랙을 삭제하시겠습니까?",
   "@collectionDeletePlaylistMessage": {
     "description": "Confirmation message for deleting playlist",
     "placeholders": {
@@ -3489,11 +3489,11 @@
       }
     }
   },
-  "collectionPlaylistDeleted": "Playlist deleted",
+  "collectionPlaylistDeleted": "재생목록이 삭제됨",
   "@collectionPlaylistDeleted": {
     "description": "Snackbar after deleting playlist"
   },
-  "collectionPlaylistRenamed": "Playlist renamed",
+  "collectionPlaylistRenamed": "재생목록 이름이 변경됨",
   "@collectionPlaylistRenamed": {
     "description": "Snackbar after renaming playlist"
   },
@@ -3624,11 +3624,11 @@
   "@artistOptionRemoveFromFavorites": {
     "description": "Action label - remove artist from favorite artists"
   },
-  "collectionPlaylistChangeCover": "Change cover image",
+  "collectionPlaylistChangeCover": "표지 이미지 변경",
   "@collectionPlaylistChangeCover": {
     "description": "Bottom sheet action to pick a custom cover image for a playlist"
   },
-  "collectionPlaylistRemoveCover": "Remove cover image",
+  "collectionPlaylistRemoveCover": "표지 이미지 제거",
   "@collectionPlaylistRemoveCover": {
     "description": "Bottom sheet action to remove custom cover image from a playlist"
   },
@@ -3641,7 +3641,7 @@
       }
     }
   },
-  "selectionShareNoFiles": "No shareable files found",
+  "selectionShareNoFiles": "공유할 수 있는 파일을 찾을 수 없음",
   "@selectionShareNoFiles": {
     "description": "Snackbar when no selected files exist on disk"
   },
@@ -3654,11 +3654,11 @@
       }
     }
   },
-  "selectionConvertNoConvertible": "No convertible tracks selected",
+  "selectionConvertNoConvertible": "선택된 변환할 수 있는 트랙이 없음",
   "@selectionConvertNoConvertible": {
     "description": "Snackbar when no selected tracks support conversion"
   },
-  "selectionBatchConvertConfirmTitle": "Batch Convert",
+  "selectionBatchConvertConfirmTitle": "일괄 변환",
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
@@ -3689,7 +3689,7 @@
       }
     }
   },
-  "selectionBatchConvertProgress": "Converting {current} of {total}...",
+  "selectionBatchConvertProgress": "{total} 개 중 {current} 개를 변환하는 중...",
   "@selectionBatchConvertProgress": {
     "description": "Snackbar during batch conversion progress",
     "placeholders": {
@@ -3701,7 +3701,7 @@
       }
     }
   },
-  "selectionBatchConvertSuccess": "Converted {success} of {total} tracks to {format}",
+  "selectionBatchConvertSuccess": "{total} 개 중 {success} 개를 {format} 로 변환 완료",
   "@selectionBatchConvertSuccess": {
     "description": "Snackbar after batch conversion completes",
     "placeholders": {
@@ -3725,11 +3725,11 @@
       }
     }
   },
-  "downloadUseAlbumArtistForFoldersAlbumSubtitle": "Folder named after Album Artist tag",
+  "downloadUseAlbumArtistForFoldersAlbumSubtitle": "앨범 아티스트 태그로 이름이 지정된 폴더",
   "@downloadUseAlbumArtistForFoldersAlbumSubtitle": {
     "description": "Subtitle when album artist is used for folder names"
   },
-  "downloadUseAlbumArtistForFoldersTrackSubtitle": "Folder named after Track Artist tag",
+  "downloadUseAlbumArtistForFoldersTrackSubtitle": "트랙 아티스트 태그로 이름이 지정된 폴더",
   "@downloadUseAlbumArtistForFoldersTrackSubtitle": {
     "description": "Subtitle when track artist is used for folder names"
   },
@@ -3767,7 +3767,7 @@
   "@lyricsProvidersAtLeastOne": {
     "description": "Snackbar when user tries to disable the last enabled provider"
   },
-  "lyricsProvidersSaved": "Lyrics provider priority saved",
+  "lyricsProvidersSaved": "가사 제공자 우선순위 저장됨",
   "@lyricsProvidersSaved": {
     "description": "Snackbar after saving lyrics provider priority"
   },
@@ -3882,7 +3882,7 @@
   "@snackbarLoadingCueSheet": {
     "description": "Snackbar while loading a CUE sheet file"
   },
-  "snackbarMetadataSaved": "Metadata saved successfully",
+  "snackbarMetadataSaved": "메타데이터 저장 성공",
   "@snackbarMetadataSaved": {
     "description": "Snackbar after successfully saving track metadata"
   },
@@ -3890,7 +3890,7 @@
   "@snackbarFailedToEmbedLyrics": {
     "description": "Snackbar when lyrics embedding fails"
   },
-  "snackbarFailedToWriteStorage": "Failed to write back to storage",
+  "snackbarFailedToWriteStorage": "저장소 다시 쓰기 실패",
   "@snackbarFailedToWriteStorage": {
     "description": "Snackbar when writing metadata back to file fails"
   },
@@ -4170,7 +4170,7 @@
       }
     }
   },
-  "editMetadataAutoFillNoneSelected": "Select at least one field to auto-fill",
+  "editMetadataAutoFillNoneSelected": "자동 채우기를 위해 하나 이상의 필드를 선택하세요",
   "@editMetadataAutoFillNoneSelected": {
     "description": "Snackbar when user taps Fetch without selecting any fields"
   },
@@ -4218,7 +4218,7 @@
   "@editMetadataFieldCopyright": {
     "description": "Chip label for copyright field in auto-fill selector"
   },
-  "editMetadataFieldCover": "Cover Art",
+  "editMetadataFieldCover": "표지 아트",
   "@editMetadataFieldCover": {
     "description": "Chip label for cover art field in auto-fill selector"
   },
@@ -4604,7 +4604,7 @@
       }
     }
   },
-  "notifDownloadsCanceledTitle": "Downloads canceled",
+  "notifDownloadsCanceledTitle": "다운로드 취소됨",
   "@notifDownloadsCanceledTitle": {
     "description": "Notification title when downloads are canceled by the user"
   },
@@ -4797,7 +4797,7 @@
   "@optionsEmbedMetadataSubtitleOn": {
     "description": "Subtitle when metadata embedding is enabled"
   },
-  "optionsEmbedMetadataSubtitleOff": "Disabled (advanced): skip all metadata embedding",
+  "optionsEmbedMetadataSubtitleOff": "비활성화됨 (고급): 모든 메타데이터 삽입 건너뛰기",
   "@optionsEmbedMetadataSubtitleOff": {
     "description": "Subtitle when metadata embedding is disabled"
   },
@@ -4833,7 +4833,7 @@
   "@trackCoverSelected": {
     "description": "Label for the newly selected cover preview"
   },
-  "trackCoverReplaceNotice": "The selected cover will replace the current embedded cover when you tap Save.",
+  "trackCoverReplaceNotice": "저장을 탭하면 선택한 표지가 현재 내장된 표지를 대체합니다",
   "@trackCoverReplaceNotice": {
     "description": "Notice shown when a new cover has been selected but not saved yet"
   },
@@ -4926,11 +4926,11 @@
   "@logIssueTrackNotFoundLabel": {
     "description": "Diagnostic badge label when a track is unavailable"
   },
-  "logIssueTrackNotFoundDescription": "Some tracks could not be found on download services",
+  "logIssueTrackNotFoundDescription": "일부 트랙은 다운로드 서비스에서 찾을 수 없습니다",
   "@logIssueTrackNotFoundDescription": {
     "description": "Diagnostic badge description when a track is unavailable"
   },
-  "logIssueTrackNotFoundSuggestion": "The track may not be available in lossless quality",
+  "logIssueTrackNotFoundSuggestion": "트랙이 무손실 음질로 제공되지 않을 수 있습니다",
   "@logIssueTrackNotFoundSuggestion": {
     "description": "Diagnostic badge suggestion when a track is unavailable"
   },
@@ -5104,7 +5104,7 @@
   "@metadataProvidersTitle": {
     "description": "Settings item title for metadata provider order"
   },
-  "metadataProvidersSubtitle": "Drag to set search and metadata source order",
+  "metadataProvidersSubtitle": "드래그하여 검색 및 메타데이터 소스 순서를 설정하세요",
   "@metadataProvidersSubtitle": {
     "description": "Subtitle for metadata provider priority item"
   },
@@ -5112,7 +5112,7 @@
   "@downloadDeduplication": {
     "description": "Setting - skip tracks already in download history"
   },
-  "downloadDeduplicationEnabled": "Already-downloaded tracks will be skipped",
+  "downloadDeduplicationEnabled": "이미 다운로드된 트랙은 건너뜁니다",
   "@downloadDeduplicationEnabled": {
     "description": "Subtitle when deduplication is on"
   },
@@ -5202,7 +5202,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylistWithExisting": "Added {count} {count, plural, =1{track} other{tracks}} to {playlistName} ({alreadyCount} already in playlist)",
+  "collectionAddedTracksToPlaylistWithExisting": "{count} {count, plural, =1{트랙} other{트랙}}이 {playlistName}에 추가됨 ({alreadyCount}트랙은 이미 재생목록에 있음)",
   "@collectionAddedTracksToPlaylistWithExisting": {
     "description": "Snackbar after adding multiple tracks to a playlist when some were already present",
     "placeholders": {
@@ -5226,7 +5226,7 @@
       }
     }
   },
-  "trackReEnrichSuccessWithFailures": "Metadata re-enriched successfully ({successCount}/{total}) - Failed: {failedCount}",
+  "trackReEnrichSuccessWithFailures": "메타데이터가 성공적으로 재구성됨 ({successCount}/{total}) - 실패: {failedCount}",
   "@trackReEnrichSuccessWithFailures": {
     "description": "Snackbar summary after batch metadata re-enrichment finishes with failures",
     "placeholders": {
@@ -5271,7 +5271,7 @@
   "@a11yDeselectTrack": {
     "description": "Accessibility label for deselecting a track"
   },
-  "a11yPlayTrackByArtist": "Play {trackName} by {artistName}",
+  "a11yPlayTrackByArtist": "{artistName} 의 {trackName} 재생",
   "@a11yPlayTrackByArtist": {
     "description": "Accessibility label for playing a local library track",
     "placeholders": {
@@ -5301,7 +5301,7 @@
       }
     }
   },
-  "actionGo": "Go",
+  "actionGo": "이동",
   "@actionGo": {
     "description": "Generic action button label"
   },
@@ -5327,7 +5327,7 @@
       }
     }
   },
-  "libraryScanCancelled": "Scan cancelled",
+  "libraryScanCancelled": "스캔 취소됨",
   "@libraryScanCancelled": {
     "description": "Library scan status when a scan was cancelled"
   },
@@ -5335,7 +5335,7 @@
   "@libraryScanCancelledSubtitle": {
     "description": "Library scan status subtitle after cancellation"
   },
-  "libraryDownloadsHistoryExcluded": "{count} from Downloads history (excluded from list)",
+  "libraryDownloadsHistoryExcluded": "다운로드 기록에서 {count} 개 (목록에서 제외됨)",
   "@libraryDownloadsHistoryExcluded": {
     "description": "Library count note for downloaded history items excluded from the local list",
     "placeholders": {
@@ -5348,7 +5348,7 @@
   "@downloadNativeWorker": {
     "description": "Setting title for Android native download worker"
   },
-  "downloadNativeWorkerSubtitle": "Beta Android service worker for extension downloads",
+  "downloadNativeWorkerSubtitle": "확장 프로그램용 베타 Android service worker",
   "@downloadNativeWorkerSubtitle": {
     "description": "Setting subtitle for Android native download worker"
   },
@@ -5394,7 +5394,7 @@
   "@extensionCustomUrlHandling": {
     "description": "Extension detail section title for custom URL handling"
   },
-  "extensionCustomUrlHandlingSubtitle": "This extension can handle links from these sites",
+  "extensionCustomUrlHandlingSubtitle": "이 확장 프로그램은 다음 사이트의 링크를 처리할 수 있습니다",
   "@extensionCustomUrlHandlingSubtitle": {
     "description": "Extension detail subtitle for custom URL handling"
   },
@@ -5439,11 +5439,11 @@
   "@extensionSettingNotSet": {
     "description": "Value shown when an extension setting has no value"
   },
-  "extensionActionFailed": "Action failed",
+  "extensionActionFailed": "작업 실패",
   "@extensionActionFailed": {
     "description": "Fallback error when an extension action fails without details"
   },
-  "extensionEnterValue": "Enter value",
+  "extensionEnterValue": "값을 입력하세요",
   "@extensionEnterValue": {
     "description": "Hint for editing an extension setting value"
   },
@@ -5451,7 +5451,7 @@
   "@extensionHealthServiceOnline": {
     "description": "Tooltip for online extension service"
   },
-  "extensionHealthServiceDegraded": "Service degraded",
+  "extensionHealthServiceDegraded": "서비스 저하됨",
   "@extensionHealthServiceDegraded": {
     "description": "Tooltip for degraded extension service"
   },
@@ -5480,7 +5480,7 @@
       }
     }
   },
-  "trackLyricsEmbeddedSource": "Embedded",
+  "trackLyricsEmbeddedSource": "내장",
   "@trackLyricsEmbeddedSource": {
     "description": "Lyrics source label for embedded lyrics"
   },
@@ -5504,15 +5504,15 @@
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
-  "errorInvalidFolderSelected": "Invalid folder selected",
+  "errorInvalidFolderSelected": "잘못된 폴더가 선택됨",
   "@errorInvalidFolderSelected": {
     "description": "Error when the selected folder is invalid"
   },
-  "errorCouldNotKeepFolderAccess": "Could not keep access to the selected folder",
+  "errorCouldNotKeepFolderAccess": "선택한 폴더에 대한 액세스 권한을 유지할 수 없습니다",
   "@errorCouldNotKeepFolderAccess": {
     "description": "Error when persistent folder access cannot be saved"
   },
-  "storeAnyVersion": "Any",
+  "storeAnyVersion": "모든",
   "@storeAnyVersion": {
     "description": "Store detail value when any app version is accepted"
   },
@@ -5536,15 +5536,15 @@
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
-  "artistReleases": "Releases",
+  "artistReleases": "릴리스",
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },
-  "editMetadataSelectNone": "None",
+  "editMetadataSelectNone": "없음",
   "@editMetadataSelectNone": {
     "description": "Button to clear selected fields for auto-fill"
   },
-  "queueRetryAllFailed": "Retry {count} failed",
+  "queueRetryAllFailed": "재시도 {count} 개 실패",
   "@queueRetryAllFailed": {
     "description": "Button to retry every failed download in the queue",
     "placeholders": {
@@ -5553,7 +5553,7 @@
       }
     }
   },
-  "settingsSaveDownloadHistory": "Save download history",
+  "settingsSaveDownloadHistory": "다운로드 기록 저장",
   "@settingsSaveDownloadHistory": {
     "description": "Settings switch title for storing completed downloads in history"
   },
@@ -5589,7 +5589,7 @@
   "@shareSheetCopyLink": {
     "description": "Tooltip for copying a cross-service link"
   },
-  "shareSheetLinkCopied": "{service} link copied",
+  "shareSheetLinkCopied": "{service} 링크가 복사됨",
   "@shareSheetLinkCopied": {
     "description": "Snackbar after copying a cross-service link",
     "placeholders": {

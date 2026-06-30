@@ -772,6 +772,18 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
+  "previewPlay": "Play preview",
+  "@previewPlay": {
+    "description": "Tooltip for the button that plays a short track preview snippet"
+  },
+  "previewStop": "Stop preview",
+  "@previewStop": {
+    "description": "Tooltip for the button that stops the playing track preview snippet"
+  },
+  "previewUnavailable": "Preview unavailable",
+  "@previewUnavailable": {
+    "description": "Snackbar shown when a track preview snippet cannot be played"
+  },
   "dialogDiscard": "취소",
   "@dialogDiscard": {
     "description": "Dialog button - discard changes"
@@ -2094,6 +2106,10 @@
   "downloadAlbumFolderStructure": "앨범 폴더 구조",
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
+  },
+  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "@albumFolderStructureDescription": {
+    "description": "Album folder structure picker description"
   },
   "downloadUseAlbumArtistForFolders": "폴더에 앨범 아티스트 사용",
   "@downloadUseAlbumArtistForFolders": {
@@ -3827,6 +3843,169 @@
   "@settingsDonateSubtitle": {
     "description": "Subtitle for donate menu item"
   },
+  "settingsBackup": "Backup & Restore",
+  "@settingsBackup": {
+    "description": "Settings menu item - backup and restore page"
+  },
+  "settingsBackupSubtitle": "Move your library, history and settings to a new device",
+  "@settingsBackupSubtitle": {
+    "description": "Subtitle for backup and restore settings item"
+  },
+  "backupTitle": "Backup & Restore",
+  "@backupTitle": {
+    "description": "App bar title for the backup and restore page"
+  },
+  "backupExportSectionTitle": "Create backup",
+  "@backupExportSectionTitle": {
+    "description": "Section title for the export/backup card"
+  },
+  "backupExportSectionDescription": "Save your settings, download history, liked tracks, wishlist, favorite artists and playlists into a single file you can keep or move to another phone.",
+  "@backupExportSectionDescription": {
+    "description": "Description of what a backup contains"
+  },
+  "backupExportButton": "Create backup file",
+  "@backupExportButton": {
+    "description": "Button to create and share a backup file"
+  },
+  "backupImportSectionTitle": "Restore backup",
+  "@backupImportSectionTitle": {
+    "description": "Section title for the import/restore card"
+  },
+  "backupImportSectionDescription": "Pick a backup file to restore your data. This replaces the current settings, history and library on this device.",
+  "@backupImportSectionDescription": {
+    "description": "Description for the restore action"
+  },
+  "backupImportButton": "Choose backup file",
+  "@backupImportButton": {
+    "description": "Button to pick a backup file to restore"
+  },
+  "backupCreating": "Creating backup...",
+  "@backupCreating": {
+    "description": "Progress text while a backup is being created"
+  },
+  "backupCreated": "Backup created",
+  "@backupCreated": {
+    "description": "Snackbar after a backup file is created"
+  },
+  "backupCreateFailed": "Failed to create backup",
+  "@backupCreateFailed": {
+    "description": "Snackbar when backup creation fails"
+  },
+  "backupEmpty": "There is nothing to back up yet",
+  "@backupEmpty": {
+    "description": "Snackbar when there is no data to back up"
+  },
+  "backupRestoreConfirmTitle": "Restore this backup?",
+  "@backupRestoreConfirmTitle": {
+    "description": "Confirmation dialog title before restoring a backup"
+  },
+  "backupRestoreConfirmMessage": "This will replace your current settings, download history, liked tracks, wishlist and playlists with the contents of the backup. This cannot be undone.",
+  "@backupRestoreConfirmMessage": {
+    "description": "Confirmation dialog message before restoring a backup"
+  },
+  "backupRestoreConfirmButton": "Restore",
+  "@backupRestoreConfirmButton": {
+    "description": "Confirm button to proceed with restore"
+  },
+  "backupRestoring": "Restoring backup...",
+  "@backupRestoring": {
+    "description": "Progress text while restoring a backup"
+  },
+  "backupRestored": "Backup restored successfully",
+  "@backupRestored": {
+    "description": "Snackbar after a successful restore"
+  },
+  "backupRestoreFailed": "Failed to restore backup",
+  "@backupRestoreFailed": {
+    "description": "Snackbar when restore fails"
+  },
+  "backupInvalidFile": "This file is not a valid SpotiFLAC backup",
+  "@backupInvalidFile": {
+    "description": "Snackbar when the chosen file is not a valid backup"
+  },
+  "backupRestoreRestartHint": "Restart the app to make sure every change is applied.",
+  "@backupRestoreRestartHint": {
+    "description": "Hint shown after restoring that an app restart is recommended"
+  },
+  "backupContentsTitle": "Backup contents",
+  "@backupContentsTitle": {
+    "description": "Header above the list summarizing what the backup contains"
+  },
+  "backupContentsSettings": "App settings",
+  "@backupContentsSettings": {
+    "description": "Backup contents row label for settings"
+  },
+  "backupContentsHistory": "{count} history {count, plural, =1{item} other{items}}",
+  "@backupContentsHistory": {
+    "description": "Backup contents row for history count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupContentsLiked": "{count} liked {count, plural, =1{track} other{tracks}}",
+  "@backupContentsLiked": {
+    "description": "Backup contents row for liked tracks count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupContentsWishlist": "{count} wishlist {count, plural, =1{track} other{tracks}}",
+  "@backupContentsWishlist": {
+    "description": "Backup contents row for wishlist tracks count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupContentsPlaylists": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "@backupContentsPlaylists": {
+    "description": "Backup contents row for playlist count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupContentsArtists": "{count, plural, =1{1 favorite artist} other{{count} favorite artists}}",
+  "@backupContentsArtists": {
+    "description": "Backup contents row for favorite artists count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupContentsExtensions": "{count, plural, =1{1 extension} other{{count} extensions}}",
+  "@backupContentsExtensions": {
+    "description": "Backup contents row for installed extensions count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupIncludeSecrets": "Include extension credentials",
+  "@backupIncludeSecrets": {
+    "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
+  },
+  "backupIncludeSecretsDescription": "Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.",
+  "@backupIncludeSecretsDescription": {
+    "description": "Explanation for the include-credentials toggle"
+  },
+  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the store.",
+  "@backupExtensionsRestoreFailed": {
+    "description": "Snackbar/hint when some extensions failed to reinstall during restore",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tooltipLoveAll": "모든 즐겨찾기",
   "@tooltipLoveAll": {
     "description": "Tooltip for the Love All button on album/playlist screens"
@@ -3982,6 +4161,18 @@
   "downloadNetworkCompatibilityModeDisabled": "표준 ​​네트워크 설정 사용",
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
+  },
+  "downloadAllowLocalNetwork": "Allow Local Network Access",
+  "@downloadAllowLocalNetwork": {
+    "description": "Setting title for allowing requests to private/local network targets"
+  },
+  "downloadAllowLocalNetworkEnabled": "Requests to local/private addresses are allowed (for local proxy or custom DNS)",
+  "@downloadAllowLocalNetworkEnabled": {
+    "description": "Subtitle when allow local network access is on"
+  },
+  "downloadAllowLocalNetworkDisabled": "Local/private addresses are blocked for security",
+  "@downloadAllowLocalNetworkDisabled": {
+    "description": "Subtitle when allow local network access is off"
   },
   "downloadSelectServiceToEnable": "이 옵션을 활성화하려면 품질 옵션이 있는 공급자를 선택하세요",
   "@downloadSelectServiceToEnable": {
@@ -5595,5 +5786,343 @@
     "placeholders": {
       "service": {}
     }
+  },
+  "libraryPlayback": "Playback",
+  "@libraryPlayback": {
+    "description": "Section header for playback settings in library settings"
+  },
+  "libraryExternalPlayer": "External player",
+  "@libraryExternalPlayer": {
+    "description": "Setting option to use an external music player"
+  },
+  "libraryExternalPlayerSubtitle": "Recommended for listening, best quality, gapless playback, EQ, and wider format support",
+  "@libraryExternalPlayerSubtitle": {
+    "description": "Subtitle for external player option"
+  },
+  "libraryBuiltInPreviewPlayer": "Built-in preview player",
+  "@libraryBuiltInPreviewPlayer": {
+    "description": "Setting option to use the built-in preview player"
+  },
+  "libraryBuiltInPreviewPlayerSubtitle": "Only for quick local previews inside SpotiFLAC Mobile, not recommended for regular listening",
+  "@libraryBuiltInPreviewPlayerSubtitle": {
+    "description": "Subtitle for built-in preview player option"
+  },
+  "libraryBuiltInPlayerInfo": "The built-in player is a preview tool for checking local tracks quickly. Use an external music player for actual listening.",
+  "@libraryBuiltInPlayerInfo": {
+    "description": "Info note explaining the built-in player is for previews only"
+  },
+  "nowPlayingTitle": "Now Playing",
+  "@nowPlayingTitle": {
+    "description": "Title for the now playing screen"
+  },
+  "nowPlayingNothingPlaying": "Nothing is playing",
+  "@nowPlayingNothingPlaying": {
+    "description": "Empty state when no track is currently playing"
+  },
+  "nowPlayingMinimize": "Minimize",
+  "@nowPlayingMinimize": {
+    "description": "Tooltip for minimizing the now playing screen"
+  },
+  "nowPlayingUpNext": "Up next",
+  "@nowPlayingUpNext": {
+    "description": "Title for the playback queue sheet"
+  },
+  "nowPlayingDetails": "Details",
+  "@nowPlayingDetails": {
+    "description": "Menu item and section title for track metadata details"
+  },
+  "nowPlayingOpenInExternalPlayer": "Open in external player",
+  "@nowPlayingOpenInExternalPlayer": {
+    "description": "Menu item to open the current track in an external player"
+  },
+  "nowPlayingTabPlayer": "Player",
+  "@nowPlayingTabPlayer": {
+    "description": "Tab label for the player view"
+  },
+  "nowPlayingTabLyrics": "Lyrics",
+  "@nowPlayingTabLyrics": {
+    "description": "Tab label for the lyrics view"
+  },
+  "nowPlayingNoLyrics": "No lyrics in this file",
+  "@nowPlayingNoLyrics": {
+    "description": "Empty state when the playing file has no embedded lyrics"
+  },
+  "nowPlayingLibraryEmpty": "Your library is empty",
+  "@nowPlayingLibraryEmpty": {
+    "description": "Snackbar when shuffle library is requested but library has no tracks"
+  },
+  "nowPlayingShuffleLibraryFailed": "Could not shuffle library: {error}",
+  "@nowPlayingShuffleLibraryFailed": {
+    "description": "Snackbar when shuffling the library fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "nowPlayingShuffleOn": "Shuffle on",
+  "@nowPlayingShuffleOn": {
+    "description": "Tooltip when shuffle mode is enabled"
+  },
+  "nowPlayingPlayInOrder": "Play in order",
+  "@nowPlayingPlayInOrder": {
+    "description": "Tooltip when shuffle mode is disabled"
+  },
+  "nowPlayingShuffleLibrary": "Shuffle library",
+  "@nowPlayingShuffleLibrary": {
+    "description": "Button label to shuffle and play the entire local library"
+  },
+  "nowPlayingQueueEmpty": "Queue is empty",
+  "@nowPlayingQueueEmpty": {
+    "description": "Empty state when the playback queue has no items"
+  },
+  "nowPlayingNoMetadata": "No metadata available",
+  "@nowPlayingNoMetadata": {
+    "description": "Empty state when track metadata cannot be loaded"
+  },
+  "announcementUnableToOpenLink": "Unable to open link. Please try again.",
+  "@announcementUnableToOpenLink": {
+    "description": "Snackbar shown when an announcement CTA link cannot be opened"
+  },
+  "trackConvertLosslessOutputWithCap": "Lossless output with {quality} cap",
+  "@trackConvertLosslessOutputWithCap": {
+    "description": "Hint shown when lossless conversion will cap bit depth or sample rate",
+    "placeholders": {
+      "quality": {
+        "type": "String"
+      }
+    }
+  },
+  "trackConvertConfirmMessageLosslessCapped": "Convert from {sourceFormat} to {targetFormat} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original file will be deleted after conversion.",
+  "@trackConvertConfirmMessageLosslessCapped": {
+    "description": "Confirmation dialog message for capped lossless conversion of a single file",
+    "placeholders": {
+      "sourceFormat": {
+        "type": "String"
+      },
+      "targetFormat": {
+        "type": "String"
+      },
+      "quality": {
+        "type": "String"
+      }
+    }
+  },
+  "selectionBatchConvertConfirmMessageLosslessCapped": "Convert {count} {count, plural, =1{track} other{tracks}} to {format} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original files will be deleted after conversion.",
+  "@selectionBatchConvertConfirmMessageLosslessCapped": {
+    "description": "Confirmation dialog message for capped lossless batch conversion",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      },
+      "quality": {
+        "type": "String"
+      }
+    }
+  },
+  "trackConvertActionLabelLossless": "{sourceFormat} → {targetFormat} ({quality})",
+  "@trackConvertActionLabelLossless": {
+    "description": "Convert button label for lossless conversion with quality cap",
+    "placeholders": {
+      "sourceFormat": {
+        "type": "String"
+      },
+      "targetFormat": {
+        "type": "String"
+      },
+      "quality": {
+        "type": "String"
+      }
+    }
+  },
+  "trackConvertActionLabelLossy": "{sourceFormat} → {targetFormat} @ {bitrate}",
+  "@trackConvertActionLabelLossy": {
+    "description": "Convert button label for lossy conversion",
+    "placeholders": {
+      "sourceFormat": {
+        "type": "String"
+      },
+      "targetFormat": {
+        "type": "String"
+      },
+      "bitrate": {
+        "type": "String"
+      }
+    }
+  },
+  "aboutPaxsenixSubtitle": "Lyrics proxy for Musixmatch, Netease, Apple Music, QQ Music, Spotify, Deezer, YouTube, Kugou, and Genius",
+  "@aboutPaxsenixSubtitle": {
+    "description": "Subtitle for Paxsenix special thanks entry on the about page"
+  },
+  "snackbarPlayingNext": "Playing next",
+  "@snackbarPlayingNext": {
+    "description": "Snackbar when a track is inserted as the next queue item"
+  },
+  "snackbarAddedToQueueGeneric": "Added to queue",
+  "@snackbarAddedToQueueGeneric": {
+    "description": "Snackbar when a track is added to the playback queue without naming it"
+  },
+  "selectionDeletePlaylistsCount": "Delete {count} {count, plural, =1{playlist} other{playlists}}",
+  "@selectionDeletePlaylistsCount": {
+    "description": "Button label for deleting multiple selected playlists",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "actionShuffle": "Shuffle",
+  "@actionShuffle": {
+    "description": "Tooltip for shuffle playback action"
+  },
+  "downloadPrimaryArtistOnlyOn": "Primary only: On",
+  "@downloadPrimaryArtistOnlyOn": {
+    "description": "Status label when primary-artist-only folder naming is enabled"
+  },
+  "downloadPrimaryArtistOnlyOff": "Primary only: Off",
+  "@downloadPrimaryArtistOnlyOff": {
+    "description": "Status label when primary-artist-only folder naming is disabled"
+  },
+  "downloadAlbumArtistMetadataPrimaryOnly": "Album Artist metadata: Primary only",
+  "@downloadAlbumArtistMetadataPrimaryOnly": {
+    "description": "Status label when album-artist folder filtering uses primary artist only"
+  },
+  "downloadAlbumArtistMetadataFull": "Album Artist metadata: Full",
+  "@downloadAlbumArtistMetadataFull": {
+    "description": "Status label when album-artist folder filtering uses full metadata"
+  },
+  "trackConvertOriginal": "Original",
+  "@trackConvertOriginal": {
+    "description": "Label for keeping original bit depth or sample rate during conversion"
+  },
+  "trackConvertOriginalQuality": "Original quality",
+  "@trackConvertOriginalQuality": {
+    "description": "Label when no bit depth or sample rate cap is applied during lossless conversion"
+  },
+  "trackConvertLosslessSuffix": "Lossless",
+  "@trackConvertLosslessSuffix": {
+    "description": "Suffix used in converted lossless quality labels"
+  },
+  "updateSeeReleaseNotes": "See release notes for details.",
+  "@updateSeeReleaseNotes": {
+    "description": "Fallback changelog text when release notes cannot be parsed"
+  },
+  "unknownTitle": "Unknown title",
+  "@unknownTitle": {
+    "description": "Fallback track title when metadata is missing"
+  },
+  "trackPlayNext": "Play next",
+  "@trackPlayNext": {
+    "description": "Menu action to play a track as the next queue item"
+  },
+  "trackAddToQueue": "Add to queue",
+  "@trackAddToQueue": {
+    "description": "Menu action to add a track to the playback queue"
+  },
+  "snackbarExtensionInstalledEnable": "{extensionName} installed. Enable it in Settings > Extensions",
+  "@snackbarExtensionInstalledEnable": {
+    "description": "Snackbar after installing an extension from the repo tab",
+    "placeholders": {
+      "extensionName": {
+        "type": "String"
+      }
+    }
+  },
+  "snackbarExtensionUpdatedVersion": "{extensionName} updated to v{version}",
+  "@snackbarExtensionUpdatedVersion": {
+    "description": "Snackbar after updating an extension from the repo tab",
+    "placeholders": {
+      "extensionName": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "snackbarFailedToInstallNamed": "Failed to install {extensionName}",
+  "@snackbarFailedToInstallNamed": {
+    "description": "Snackbar when extension install fails in the repo tab",
+    "placeholders": {
+      "extensionName": {
+        "type": "String"
+      }
+    }
+  },
+  "snackbarFailedToUpdateNamed": "Failed to update {extensionName}",
+  "@snackbarFailedToUpdateNamed": {
+    "description": "Snackbar when extension update fails in the repo tab",
+    "placeholders": {
+      "extensionName": {
+        "type": "String"
+      }
+    }
+  },
+  "releaseTypeEp": "EP",
+  "@releaseTypeEp": {
+    "description": "Badge label for EP releases"
+  },
+  "releaseTypeSingle": "Single",
+  "@releaseTypeSingle": {
+    "description": "Badge label for single releases"
+  },
+  "trackCoverOnline": "Online cover",
+  "@trackCoverOnline": {
+    "description": "Label shown when metadata autofill downloaded cover art from the internet"
+  },
+  "regionCountryUS": "United States",
+  "@regionCountryUS": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryGB": "United Kingdom",
+  "@regionCountryGB": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryFR": "France",
+  "@regionCountryFR": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryDE": "Germany",
+  "@regionCountryDE": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryJP": "Japan",
+  "@regionCountryJP": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryKR": "South Korea",
+  "@regionCountryKR": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryIN": "India",
+  "@regionCountryIN": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryID": "Indonesia",
+  "@regionCountryID": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryBR": "Brazil",
+  "@regionCountryBR": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryMX": "Mexico",
+  "@regionCountryMX": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryAU": "Australia",
+  "@regionCountryAU": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryCA": "Canada",
+  "@regionCountryCA": {
+    "description": "Country name for SongLink region picker"
+  },
+  "regionCountryXK": "Kosovo",
+  "@regionCountryXK": {
+    "description": "Country name for SongLink region picker"
   }
 }

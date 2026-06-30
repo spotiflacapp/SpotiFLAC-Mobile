@@ -178,11 +178,11 @@
   "@optionsSwitchBack": {
     "description": "Hint to switch back from extension search"
   },
-  "optionsAutoFallback": "자동 재시도",
+  "optionsAutoFallback": "자동 대체",
   "@optionsAutoFallback": {
     "description": "Auto-retry with other services"
   },
-  "optionsAutoFallbackSubtitle": "다운로드가 실패한 경우, 다른 서비스로 재시도",
+  "optionsAutoFallbackSubtitle": "다운로드가 실패한 경우에 다른 서비스를 이용해 보세요",
   "@optionsAutoFallbackSubtitle": {
     "description": "Subtitle for auto fallback"
   },
@@ -328,11 +328,11 @@
   "@optionsUpdateChannel": {
     "description": "Stable vs preview releases"
   },
-  "optionsUpdateChannelStable": "안정적인 버전만 수령",
+  "optionsUpdateChannelStable": "안정적인 버전만 받기",
   "@optionsUpdateChannelStable": {
     "description": "Only stable updates"
   },
-  "optionsUpdateChannelPreview": "미리보기 버전을 수령",
+  "optionsUpdateChannelPreview": "미리보기 버전을 받기",
   "@optionsUpdateChannelPreview": {
     "description": "Include beta/preview updates"
   },
@@ -344,7 +344,7 @@
   "@optionsClearHistory": {
     "description": "Delete all download history"
   },
-  "optionsClearHistorySubtitle": "기록에서 모든 다운로드 음반을 제거합니다",
+  "optionsClearHistorySubtitle": "기록에서 모든 다운로드한 트랙을 제거합니다",
   "@optionsClearHistorySubtitle": {
     "description": "Subtitle for clear history"
   },
@@ -373,7 +373,7 @@
       }
     }
   },
-  "optionsSpotifyCredentialsRequired": "탭하여 설정",
+  "optionsSpotifyCredentialsRequired": "필수 - 탭하여 설정",
   "@optionsSpotifyCredentialsRequired": {
     "description": "Prompt to set up credentials"
   },
@@ -389,7 +389,7 @@
   "@extensionsTitle": {
     "description": "Extensions page title"
   },
-  "extensionsDisabled": "비활성화",
+  "extensionsDisabled": "비활성화됨",
   "@extensionsDisabled": {
     "description": "Extension status - inactive"
   },
@@ -411,7 +411,7 @@
       }
     }
   },
-  "extensionsUninstall": "삭제",
+  "extensionsUninstall": "제거",
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
@@ -547,7 +547,7 @@
   "@artistSingles": {
     "description": "Section header for singles/EPs"
   },
-  "artistCompilations": "편집",
+  "artistCompilations": "컴필레이션",
   "@artistCompilations": {
     "description": "Section header for compilations"
   },
@@ -565,7 +565,7 @@
       }
     }
   },
-  "trackMetadataService": "제공업체",
+  "trackMetadataService": "제공자",
   "@trackMetadataService": {
     "description": "Metadata field - download service used"
   },
@@ -581,7 +581,7 @@
   "@trackMetadataDelete": {
     "description": "Action button - delete track"
   },
-  "setupGrantPermission": "권한을 제공해 주세요.",
+  "setupGrantPermission": "권한을 부여해 주세요",
   "@setupGrantPermission": {
     "description": "Button to request permission"
   },
@@ -2075,7 +2075,7 @@
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },
-  "qualityNote": "Actual quality depends on track availability from the service",
+  "qualityNote": "실제 품질은 서비스의 트랙 가용성에 따라 달라집니다",
   "@qualityNote": {
     "description": "Note about quality availability"
   },
@@ -2611,7 +2611,7 @@
       }
     }
   },
-  "libraryInLibrary": "In Library",
+  "libraryInLibrary": "보관함에서",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
@@ -3662,7 +3662,7 @@
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
-  "selectionBatchConvertConfirmMessage": "Convert {count} {count, plural, =1{track} other{tracks}} to {format} at {bitrate}?\n\nOriginal files will be deleted after conversion.",
+  "selectionBatchConvertConfirmMessage": "{count} {count, plural, =1{트랙} other{트랙}}을 {bitrate} 비트레이트로 {format} 으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessage": {
     "description": "Confirmation dialog message for batch conversion",
     "placeholders": {
@@ -3677,7 +3677,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLossless": "Convert {count} {count, plural, =1{track} other{tracks}} to {format}? (Lossless — no quality loss)\n\nOriginal files will be deleted after conversion.",
+  "selectionBatchConvertConfirmMessageLossless": "{count} {count, plural, =1{트랙} other{트랙}}을 {format} 으로 변환하시겠습니까? (무손실 — 음질 손실 없음)\n\n변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessageLossless": {
     "description": "Confirmation dialog message for lossless batch conversion",
     "placeholders": {

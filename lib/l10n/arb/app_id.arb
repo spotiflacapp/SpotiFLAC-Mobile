@@ -728,7 +728,7 @@
   "@setupAllowAccessToManageFiles": {
     "description": "Instruction for file access permission"
   },
-  "setupLanguageTitle": "Choose Language",
+  "setupLanguageTitle": "Pilih Bahasa",
   "@setupLanguageTitle": {
     "description": "Title for the language selection step in setup"
   },

@@ -238,11 +238,11 @@
   "@trackReplayGainScanning": {
     "description": "Snackbar/progress message while scanning ReplayGain for a single track"
   },
-  "trackReplayGainSuccess": "ReplayGain tags added",
+  "trackReplayGainSuccess": "리플레이게인 태그가 추가됨",
   "@trackReplayGainSuccess": {
     "description": "Snackbar message after ReplayGain tags written for a single track"
   },
-  "trackReplayGainFailed": "Failed to add ReplayGain tags",
+  "trackReplayGainFailed": "리플레이게인 태그 추가 실패",
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
@@ -4289,7 +4289,7 @@
   "@queueEmptyHistorySubtitle": {
     "description": "Empty state subtitle for download history"
   },
-  "selectionAllPlaylistsSelected": "All playlists selected",
+  "selectionAllPlaylistsSelected": "모든 재생목록이 선택됨",
   "@selectionAllPlaylistsSelected": {
     "description": "Shown when all playlists are selected in selection mode"
   },
@@ -4468,15 +4468,15 @@
   "@cancelDownloadKeep": {
     "description": "Dialog button - keep the active download (do not cancel)"
   },
-  "metadataSaveFailedFfmpeg": "Failed to save metadata via FFmpeg",
+  "metadataSaveFailedFfmpeg": "FFmpeg를 통해 메타데이터 저장 실패",
   "@metadataSaveFailedFfmpeg": {
     "description": "Snackbar error when FFmpeg fails to write metadata"
   },
-  "metadataSaveFailedStorage": "Failed to write metadata back to storage",
+  "metadataSaveFailedStorage": "저장소에 메타데이터 다시 쓰기 실패",
   "@metadataSaveFailedStorage": {
     "description": "Snackbar error when writing metadata file back to storage fails"
   },
-  "snackbarFolderPickerFailed": "Failed to open folder picker: {error}",
+  "snackbarFolderPickerFailed": "폴더 선택기 열기 실패: {error}",
   "@snackbarFolderPickerFailed": {
     "description": "Snackbar shown when folder picker fails to open",
     "placeholders": {
@@ -4485,15 +4485,15 @@
       }
     }
   },
-  "errorLoadAlbum": "Failed to load album",
+  "errorLoadAlbum": "앨범 불러오기 실패",
   "@errorLoadAlbum": {
     "description": "Error state shown when album fails to load"
   },
-  "errorLoadPlaylist": "Failed to load playlist",
+  "errorLoadPlaylist": "재생목록 불러오기 실패",
   "@errorLoadPlaylist": {
     "description": "Error state shown when playlist fails to load"
   },
-  "errorLoadArtist": "Failed to load artist",
+  "errorLoadArtist": "아티스트 불러오기 실패",
   "@errorLoadArtist": {
     "description": "Error state shown when artist fails to load"
   },
@@ -4567,7 +4567,7 @@
   "@notifDownloadComplete": {
     "description": "Notification title when a single download is complete"
   },
-  "notifDownloadsFinished": "Downloads Finished ({completed} done, {failed} failed)",
+  "notifDownloadsFinished": "다운로드 완료 ({completed} 개 완료, {failed} 개 실패)",
   "@notifDownloadsFinished": {
     "description": "Notification title when queue finishes with some failures",
     "placeholders": {

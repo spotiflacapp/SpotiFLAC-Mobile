@@ -146,18 +146,17 @@ class _LyricsProviderPriorityPageState
   }
 
   Future<void> _saveChanges() async {
-    ref
-        .read(settingsProvider.notifier)
-        .setLyricsProviders(List<String>.from(_enabledProviders));
+    final settingsNotifier = ref.read(settingsProvider.notifier);
+    settingsNotifier.setLyricsProviders(List<String>.from(_enabledProviders));
+    await settingsNotifier.syncLyricsSettingsToBackend();
+    if (!mounted) return;
     setState(() {
       _initialProviders = List.from(_enabledProviders);
       _hasChanges = false;
     });
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.lyricsProvidersSaved)),
-      );
-    }
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(context.l10n.lyricsProvidersSaved)));
   }
 
   Future<bool> _confirmDiscard(BuildContext context) async {

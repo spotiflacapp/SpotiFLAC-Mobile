@@ -5851,7 +5851,7 @@
   "@nowPlayingLibraryEmpty": {
     "description": "Snackbar when shuffle library is requested but library has no tracks"
   },
-  "nowPlayingShuffleLibraryFailed": "Could not shuffle library: {error}",
+  "nowPlayingShuffleLibraryFailed": "보관함에서 셔플을 사용할 수 없습니다: {error}",
   "@nowPlayingShuffleLibraryFailed": {
     "description": "Snackbar when shuffling the library fails",
     "placeholders": {
@@ -5860,15 +5860,15 @@
       }
     }
   },
-  "nowPlayingShuffleOn": "Shuffle on",
+  "nowPlayingShuffleOn": "셔플 켜기",
   "@nowPlayingShuffleOn": {
     "description": "Tooltip when shuffle mode is enabled"
   },
-  "nowPlayingPlayInOrder": "Play in order",
+  "nowPlayingPlayInOrder": "순서대로 재생",
   "@nowPlayingPlayInOrder": {
     "description": "Tooltip when shuffle mode is disabled"
   },
-  "nowPlayingShuffleLibrary": "Shuffle library",
+  "nowPlayingShuffleLibrary": "보관함 셔플",
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
@@ -5880,7 +5880,7 @@
   "@nowPlayingNoMetadata": {
     "description": "Empty state when track metadata cannot be loaded"
   },
-  "announcementUnableToOpenLink": "Unable to open link. Please try again.",
+  "announcementUnableToOpenLink": "링크를 열 수 없습니다. 다시 시도해 주세요",
   "@announcementUnableToOpenLink": {
     "description": "Snackbar shown when an announcement CTA link cannot be opened"
   },
@@ -5893,7 +5893,7 @@
       }
     }
   },
-  "trackConvertConfirmMessageLosslessCapped": "Convert from {sourceFormat} to {targetFormat} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original file will be deleted after conversion.",
+  "trackConvertConfirmMessageLosslessCapped": "{sourceFormat}에서 {targetFormat}({quality})으로 변환하시겠습니까?\n\n출력은 무손실 코덱을 유지하지만 비트 심도/샘플 속도가 제한됩니다. 변환 후 원본 파일이 삭제됩니다",
   "@trackConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless conversion of a single file",
     "placeholders": {
@@ -5908,7 +5908,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLosslessCapped": "Convert {count} {count, plural, =1{track} other{tracks}} to {format} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original files will be deleted after conversion.",
+  "selectionBatchConvertConfirmMessageLosslessCapped": "{count} {count, plural, =1{ 개의 트랙} other{ 개의 트랙}}을 {format}({quality})으로 변환하시겠습니까?\n\n출력은 무손실 코덱을 유지하지만 비트 심도/샘플 속도가 제한됩니다. 변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless batch conversion",
     "placeholders": {
@@ -5953,11 +5953,11 @@
       }
     }
   },
-  "aboutPaxsenixSubtitle": "Lyrics proxy for Musixmatch, Netease, Apple Music, QQ Music, Spotify, Deezer, YouTube, Kugou, and Genius",
+  "aboutPaxsenixSubtitle": "Musixmatch, Netease, Apple Music, QQ Music, Spotify, Deezer, YouTube, Kugou 및 Genius용 가사 프록시",
   "@aboutPaxsenixSubtitle": {
     "description": "Subtitle for Paxsenix special thanks entry on the about page"
   },
-  "snackbarPlayingNext": "Playing next",
+  "snackbarPlayingNext": "다음 곡 재생",
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },
@@ -5965,7 +5965,7 @@
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
-  "selectionDeletePlaylistsCount": "Delete {count} {count, plural, =1{playlist} other{playlists}}",
+  "selectionDeletePlaylistsCount": "{count} {count, plural, =1{ 개의 재생목록} other{ 개의 재생목록}} 삭제",
   "@selectionDeletePlaylistsCount": {
     "description": "Button label for deleting multiple selected playlists",
     "placeholders": {
@@ -5974,7 +5974,7 @@
       }
     }
   },
-  "actionShuffle": "Shuffle",
+  "actionShuffle": "셔플",
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
@@ -5986,11 +5986,11 @@
   "@downloadPrimaryArtistOnlyOff": {
     "description": "Status label when primary-artist-only folder naming is disabled"
   },
-  "downloadAlbumArtistMetadataPrimaryOnly": "Album Artist metadata: Primary only",
+  "downloadAlbumArtistMetadataPrimaryOnly": "앨범 아티스트 메타데이터: 기본만",
   "@downloadAlbumArtistMetadataPrimaryOnly": {
     "description": "Status label when album-artist folder filtering uses primary artist only"
   },
-  "downloadAlbumArtistMetadataFull": "Album Artist metadata: Full",
+  "downloadAlbumArtistMetadataFull": "앨범 아티스트 메타데이터: 전체",
   "@downloadAlbumArtistMetadataFull": {
     "description": "Status label when album-artist folder filtering uses full metadata"
   },
@@ -6018,11 +6018,11 @@
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "Add to queue",
+  "trackAddToQueue": "현재 재생목록에 추가",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },
-  "snackbarExtensionInstalledEnable": "{extensionName} installed. Enable it in Settings > Extensions",
+  "snackbarExtensionInstalledEnable": "{extensionName} 이 설치됨. '설정 > 확장 프로그램'에서 활성화하세요",
   "@snackbarExtensionInstalledEnable": {
     "description": "Snackbar after installing an extension from the repo tab",
     "placeholders": {
@@ -6031,7 +6031,7 @@
       }
     }
   },
-  "snackbarExtensionUpdatedVersion": "{extensionName} updated to v{version}",
+  "snackbarExtensionUpdatedVersion": "{extensionName} 이 v{version} 으로 업데이트됨",
   "@snackbarExtensionUpdatedVersion": {
     "description": "Snackbar after updating an extension from the repo tab",
     "placeholders": {
@@ -6043,7 +6043,7 @@
       }
     }
   },
-  "snackbarFailedToInstallNamed": "Failed to install {extensionName}",
+  "snackbarFailedToInstallNamed": "{extensionName} 설치 실패",
   "@snackbarFailedToInstallNamed": {
     "description": "Snackbar when extension install fails in the repo tab",
     "placeholders": {
@@ -6052,7 +6052,7 @@
       }
     }
   },
-  "snackbarFailedToUpdateNamed": "Failed to update {extensionName}",
+  "snackbarFailedToUpdateNamed": "{extensionName} 업데이트 실패",
   "@snackbarFailedToUpdateNamed": {
     "description": "Snackbar when extension update fails in the repo tab",
     "placeholders": {
@@ -6065,11 +6065,11 @@
   "@releaseTypeEp": {
     "description": "Badge label for EP releases"
   },
-  "releaseTypeSingle": "Single",
+  "releaseTypeSingle": "싱글",
   "@releaseTypeSingle": {
     "description": "Badge label for single releases"
   },
-  "trackCoverOnline": "Online cover",
+  "trackCoverOnline": "온라인 커버",
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },

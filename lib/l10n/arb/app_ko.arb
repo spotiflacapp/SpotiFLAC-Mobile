@@ -3883,7 +3883,7 @@
   "@backupCreating": {
     "description": "Progress text while a backup is being created"
   },
-  "backupCreated": "Backup created",
+  "backupCreated": "백업이 생성됨",
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
@@ -3891,11 +3891,11 @@
   "@backupCreateFailed": {
     "description": "Snackbar when backup creation fails"
   },
-  "backupEmpty": "There is nothing to back up yet",
+  "backupEmpty": "아직 백업할 내용이 없습니다",
   "@backupEmpty": {
     "description": "Snackbar when there is no data to back up"
   },
-  "backupRestoreConfirmTitle": "Restore this backup?",
+  "backupRestoreConfirmTitle": "이 백업을 복원하시겠습니까?",
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
@@ -3903,7 +3903,7 @@
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
-  "backupRestoreConfirmButton": "Restore",
+  "backupRestoreConfirmButton": "복원",
   "@backupRestoreConfirmButton": {
     "description": "Confirm button to proceed with restore"
   },
@@ -3911,7 +3911,7 @@
   "@backupRestoring": {
     "description": "Progress text while restoring a backup"
   },
-  "backupRestored": "Backup restored successfully",
+  "backupRestored": "백업 복원 성공",
   "@backupRestored": {
     "description": "Snackbar after a successful restore"
   },
@@ -3919,7 +3919,7 @@
   "@backupRestoreFailed": {
     "description": "Snackbar when restore fails"
   },
-  "backupInvalidFile": "This file is not a valid SpotiFLAC backup",
+  "backupInvalidFile": "이 파일은 유효한 SpotiFLAC 백업이 아닙니다",
   "@backupInvalidFile": {
     "description": "Snackbar when the chosen file is not a valid backup"
   },
@@ -5799,7 +5799,7 @@
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "Built-in preview player",
+  "libraryBuiltInPreviewPlayer": "내장 미리보기 플레이어",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
@@ -5815,39 +5815,39 @@
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
-  "nowPlayingNothingPlaying": "Nothing is playing",
+  "nowPlayingNothingPlaying": "재생 중인 노래가 없습니다",
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
-  "nowPlayingMinimize": "Minimize",
+  "nowPlayingMinimize": "최소화",
   "@nowPlayingMinimize": {
     "description": "Tooltip for minimizing the now playing screen"
   },
-  "nowPlayingUpNext": "Up next",
+  "nowPlayingUpNext": "다음 곡",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
-  "nowPlayingDetails": "Details",
+  "nowPlayingDetails": "자세히",
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingOpenInExternalPlayer": "Open in external player",
+  "nowPlayingOpenInExternalPlayer": "외부 플레이어에서 열기",
   "@nowPlayingOpenInExternalPlayer": {
     "description": "Menu item to open the current track in an external player"
   },
-  "nowPlayingTabPlayer": "Player",
+  "nowPlayingTabPlayer": "플레이어",
   "@nowPlayingTabPlayer": {
     "description": "Tab label for the player view"
   },
-  "nowPlayingTabLyrics": "Lyrics",
+  "nowPlayingTabLyrics": "가사",
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
-  "nowPlayingNoLyrics": "No lyrics in this file",
+  "nowPlayingNoLyrics": "이 파일에는 가사가 없습니다",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
-  "nowPlayingLibraryEmpty": "Your library is empty",
+  "nowPlayingLibraryEmpty": "보관함이 비어져 있습니다",
   "@nowPlayingLibraryEmpty": {
     "description": "Snackbar when shuffle library is requested but library has no tracks"
   },
@@ -5872,11 +5872,11 @@
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
-  "nowPlayingQueueEmpty": "Queue is empty",
+  "nowPlayingQueueEmpty": "현재 재생목록이 비어져 있습니다",
   "@nowPlayingQueueEmpty": {
     "description": "Empty state when the playback queue has no items"
   },
-  "nowPlayingNoMetadata": "No metadata available",
+  "nowPlayingNoMetadata": "사용할 수 있는 메타데이터가 없음",
   "@nowPlayingNoMetadata": {
     "description": "Empty state when track metadata cannot be loaded"
   },
@@ -5961,7 +5961,7 @@
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },
-  "snackbarAddedToQueueGeneric": "Added to queue",
+  "snackbarAddedToQueueGeneric": "현재 재생목록에 추가됨",
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
@@ -5978,11 +5978,11 @@
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
-  "downloadPrimaryArtistOnlyOn": "Primary only: On",
+  "downloadPrimaryArtistOnlyOn": "기본 아티스트만: ON",
   "@downloadPrimaryArtistOnlyOn": {
     "description": "Status label when primary-artist-only folder naming is enabled"
   },
-  "downloadPrimaryArtistOnlyOff": "Primary only: Off",
+  "downloadPrimaryArtistOnlyOff": "기본 아티스트만: OFF",
   "@downloadPrimaryArtistOnlyOff": {
     "description": "Status label when primary-artist-only folder naming is disabled"
   },
@@ -5994,27 +5994,27 @@
   "@downloadAlbumArtistMetadataFull": {
     "description": "Status label when album-artist folder filtering uses full metadata"
   },
-  "trackConvertOriginal": "Original",
+  "trackConvertOriginal": "원본",
   "@trackConvertOriginal": {
     "description": "Label for keeping original bit depth or sample rate during conversion"
   },
-  "trackConvertOriginalQuality": "Original quality",
+  "trackConvertOriginalQuality": "원본 음질",
   "@trackConvertOriginalQuality": {
     "description": "Label when no bit depth or sample rate cap is applied during lossless conversion"
   },
-  "trackConvertLosslessSuffix": "Lossless",
+  "trackConvertLosslessSuffix": "무손실",
   "@trackConvertLosslessSuffix": {
     "description": "Suffix used in converted lossless quality labels"
   },
-  "updateSeeReleaseNotes": "See release notes for details.",
+  "updateSeeReleaseNotes": "자세한 내용은 릴리스 노트를 참조하세요",
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },
-  "unknownTitle": "Unknown title",
+  "unknownTitle": "알 수 없는 제목",
   "@unknownTitle": {
     "description": "Fallback track title when metadata is missing"
   },
-  "trackPlayNext": "Play next",
+  "trackPlayNext": "다음 곡 재생",
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
@@ -6073,55 +6073,55 @@
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },
-  "regionCountryUS": "United States",
+  "regionCountryUS": "미국",
   "@regionCountryUS": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryGB": "United Kingdom",
+  "regionCountryGB": "영국",
   "@regionCountryGB": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryFR": "France",
+  "regionCountryFR": "프랑스",
   "@regionCountryFR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryDE": "Germany",
+  "regionCountryDE": "독일",
   "@regionCountryDE": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryJP": "Japan",
+  "regionCountryJP": "일본",
   "@regionCountryJP": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryKR": "South Korea",
+  "regionCountryKR": "한국",
   "@regionCountryKR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryIN": "India",
+  "regionCountryIN": "인도",
   "@regionCountryIN": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryID": "Indonesia",
+  "regionCountryID": "인도네시아",
   "@regionCountryID": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryBR": "Brazil",
+  "regionCountryBR": "브라질",
   "@regionCountryBR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryMX": "Mexico",
+  "regionCountryMX": "멕시코",
   "@regionCountryMX": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryAU": "Australia",
+  "regionCountryAU": "호주",
   "@regionCountryAU": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryCA": "Canada",
+  "regionCountryCA": "캐나다",
   "@regionCountryCA": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryXK": "Kosovo",
+  "regionCountryXK": "코소보",
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
   }

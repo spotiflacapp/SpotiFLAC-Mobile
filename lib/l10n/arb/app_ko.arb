@@ -29,7 +29,7 @@
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
-  "homeEmptyTitle": "아직 검색 공급자가 없습니다",
+  "homeEmptyTitle": "아직 검색 제공자가 없음",
   "@homeEmptyTitle": {
     "description": "Title shown on home when no providers are available yet"
   },

@@ -1,7 +1,7 @@
 {
   "@@locale": "es-ES",
   "@@last_modified": "2026-04-28",
-  "appName": "SpotiFLAC Mobile",
+  "appName": "SpotiFLAC Móvil",
   "@appName": {
     "description": "App name - DO NOT TRANSLATE"
   },
@@ -174,7 +174,7 @@
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
-  "optionsSwitchBack": "Choose the default search provider to switch back from an extension",
+  "optionsSwitchBack": "Elija el proveedor de búsqueda por defecto para volver de una extensión",
   "@optionsSwitchBack": {
     "description": "Hint to switch back from extension search"
   },
@@ -190,11 +190,11 @@
   "@optionsUseExtensionProviders": {
     "description": "Legacy setting label for extension download providers"
   },
-  "optionsUseExtensionProvidersOn": "Extension providers are enabled",
+  "optionsUseExtensionProvidersOn": "Proveedores de extensiones habilitados",
   "@optionsUseExtensionProvidersOn": {
     "description": "Status when extension providers enabled"
   },
-  "optionsUseExtensionProvidersOff": "Extension providers are required",
+  "optionsUseExtensionProvidersOff": "Proveedores de extensiones habilitados",
   "@optionsUseExtensionProvidersOff": {
     "description": "Legacy status when extension providers would be disabled"
   },

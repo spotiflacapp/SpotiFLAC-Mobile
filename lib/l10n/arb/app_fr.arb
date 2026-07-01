@@ -3935,7 +3935,7 @@
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
-  "backupContentsHistory": "{count} history {count, plural, =1{item} other{items}}",
+  "backupContentsHistory": "{count} historique {count, plural, one {}=1{élément} other{éléments}}",
   "@backupContentsHistory": {
     "description": "Backup contents row for history count",
     "placeholders": {
@@ -3944,7 +3944,7 @@
       }
     }
   },
-  "backupContentsLiked": "{count} liked {count, plural, =1{track} other{tracks}}",
+  "backupContentsLiked": "{count} favoris {count, plural, one {}=1{titre} other{titres}}",
   "@backupContentsLiked": {
     "description": "Backup contents row for liked tracks count",
     "placeholders": {
@@ -3953,7 +3953,7 @@
       }
     }
   },
-  "backupContentsWishlist": "{count} wishlist {count, plural, =1{track} other{tracks}}",
+  "backupContentsWishlist": "{count} liste de souhaits {count, plural, one {}=1{titre} other{titres}}",
   "@backupContentsWishlist": {
     "description": "Backup contents row for wishlist tracks count",
     "placeholders": {
@@ -3971,7 +3971,7 @@
       }
     }
   },
-  "backupContentsArtists": "{count, plural, =1{1 favorite artist} other{{count} favorite artists}}",
+  "backupContentsArtists": "{count, plural, one {}=1{1 artiste préféré} other{{count} artistes préférés}}",
   "@backupContentsArtists": {
     "description": "Backup contents row for favorite artists count",
     "placeholders": {
@@ -3997,7 +3997,7 @@
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
-  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the store.",
+  "backupExtensionsRestoreFailed": "{count} {count, plural, one {}=1{extension} other{extensions}} n'ont pas pu être réinstallées. Installez-les manuellement depuis la boutique.",
   "@backupExtensionsRestoreFailed": {
     "description": "Snackbar/hint when some extensions failed to reinstall during restore",
     "placeholders": {
@@ -5908,7 +5908,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLosslessCapped": "Convert {count} {count, plural, =1{track} other{tracks}} to {format} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original files will be deleted after conversion.",
+  "selectionBatchConvertConfirmMessageLosslessCapped": "Convertir {count} {count, plural, =1{titre} other{titres}} en {format} ({quality}) ?\n\nLe fichier de sortie conservera un codec sans perte, mais la profondeur de bits et la fréquence d'échantillonnage seront limitées. Les fichiers d'origine seront supprimés après la conversion.",
   "@selectionBatchConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless batch conversion",
     "placeholders": {
@@ -5957,7 +5957,7 @@
   "@aboutPaxsenixSubtitle": {
     "description": "Subtitle for Paxsenix special thanks entry on the about page"
   },
-  "snackbarPlayingNext": "Playing next",
+  "snackbarPlayingNext": "Prochainement",
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },
@@ -5965,7 +5965,7 @@
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
-  "selectionDeletePlaylistsCount": "Delete {count} {count, plural, =1{playlist} other{playlists}}",
+  "selectionDeletePlaylistsCount": "Supprimer {count} {count, plural, one {}=1{playlist} other{playlists}}",
   "@selectionDeletePlaylistsCount": {
     "description": "Button label for deleting multiple selected playlists",
     "placeholders": {
@@ -5974,7 +5974,7 @@
       }
     }
   },
-  "actionShuffle": "Shuffle",
+  "actionShuffle": "Lecture aléatoire",
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
@@ -6014,7 +6014,7 @@
   "@unknownTitle": {
     "description": "Fallback track title when metadata is missing"
   },
-  "trackPlayNext": "Play next",
+  "trackPlayNext": "Suivant",
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },

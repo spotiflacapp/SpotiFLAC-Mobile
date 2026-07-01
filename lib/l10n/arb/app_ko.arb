@@ -89,7 +89,7 @@
   "@downloadTitle": {
     "description": "Download settings page title"
   },
-  "downloadAskQualitySubtitle": "다운로드를 할 때마다 품질을 선택하도록 합니다",
+  "downloadAskQualitySubtitle": "다운로드를 할 때마다 음질을 선택하도록 합니다",
   "@downloadAskQualitySubtitle": {
     "description": "Subtitle for ask quality toggle"
   },
@@ -328,15 +328,15 @@
   "@optionsUpdateChannel": {
     "description": "Stable vs preview releases"
   },
-  "optionsUpdateChannelStable": "안정적인 버전만 받기",
+  "optionsUpdateChannelStable": "안정 버전만 받기",
   "@optionsUpdateChannelStable": {
     "description": "Only stable updates"
   },
-  "optionsUpdateChannelPreview": "미리보기 버전을 받기",
+  "optionsUpdateChannelPreview": "개발 버전을 받기",
   "@optionsUpdateChannelPreview": {
     "description": "Include beta/preview updates"
   },
-  "optionsUpdateChannelWarning": "미리보기 버전은 불안정할 수 있습니다",
+  "optionsUpdateChannelWarning": "개발 버전은 불안정할 수 있습니다",
   "@optionsUpdateChannelWarning": {
     "description": "Warning about preview channel"
   },
@@ -772,15 +772,15 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "미리보기 재생",
+  "previewPlay": "미리듣기 재생",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "미리보기 중지",
+  "previewStop": "미리듣기 중지",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "미리보기 사용할 수 없음",
+  "previewUnavailable": "미리듣기 사용할 수 없음",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -841,7 +841,7 @@
   "@dialogDeleteSelectedTitle": {
     "description": "Dialog title - delete selected items"
   },
-  "dialogDeleteSelectedMessage": "기록에서 {count} {count, plural, =1{track} other{tracks}}를 삭제하시겠습니까?",
+  "dialogDeleteSelectedMessage": "기록에서 {count} {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n이렇게 하면 저장소에서 파일도 삭제됩니다",
   "@dialogDeleteSelectedMessage": {
     "description": "Dialog message - delete selected tracks",
     "placeholders": {
@@ -854,7 +854,7 @@
   "@dialogImportPlaylistTitle": {
     "description": "Dialog title - import CSV playlist"
   },
-  "dialogImportPlaylistMessage": "CSV 파일에서 {count}개의 트랙을 찾았습니다. 다운로드 대기열에 추가하시겠습니까?",
+  "dialogImportPlaylistMessage": "CSV 파일에서 {count} 개의 트랙을 찾았습니다. 다운로드 목록에 추가하시겠습니까?",
   "csvImportTracks": "CSV 파일의 트랙: {count}",
   "@csvImportTracks": {
     "description": "Label shown in quality picker for CSV import",
@@ -872,7 +872,7 @@
       }
     }
   },
-  "snackbarAddedToQueue": "\"{trackName}\"(을)를 대기열에 추가했습니다.",
+  "snackbarAddedToQueue": "'{trackName}'가 다운로드 목록에 추가됨",
   "@snackbarAddedToQueue": {
     "description": "Snackbar - track added to download queue",
     "placeholders": {
@@ -881,7 +881,7 @@
       }
     }
   },
-  "snackbarAddedTracksToQueue": "대기열에 {count}개의 트랙을 추가했습니다.",
+  "snackbarAddedTracksToQueue": "{count} 개의 트랙이 다운로드 목록에 추가됨",
   "@snackbarAddedTracksToQueue": {
     "description": "Snackbar - multiple tracks added to queue",
     "placeholders": {
@@ -890,7 +890,7 @@
       }
     }
   },
-  "snackbarAlreadyDownloaded": "\"{trackName}\"(은)는 이미 다운로드되었습니다.",
+  "snackbarAlreadyDownloaded": "'{trackName}'은 이미 다운로드되어 있음",
   "@snackbarAlreadyDownloaded": {
     "description": "Snackbar - track already exists",
     "placeholders": {
@@ -899,7 +899,7 @@
       }
     }
   },
-  "snackbarAlreadyInLibrary": "라이브러리에 \"{trackName}\"(은)는 이미 존재합니다.",
+  "snackbarAlreadyInLibrary": "보관함에 '{trackName}'이 이미 존재함",
   "@snackbarAlreadyInLibrary": {
     "description": "Snackbar - track already exists in local library",
     "placeholders": {
@@ -920,7 +920,7 @@
   "@snackbarCredentialsCleared": {
     "description": "Snackbar - Spotify credentials removed"
   },
-  "snackbarDeletedTracks": "{count}{count, plural, =1{track} other{tracks}} 제거됨",
+  "snackbarDeletedTracks": "{count}{count, plural, =1{트랙} other{트랙}}이 제거됨",
   "@snackbarDeletedTracks": {
     "description": "Snackbar - tracks deleted",
     "placeholders": {
@@ -929,7 +929,7 @@
       }
     }
   },
-  "snackbarCannotOpenFile": "파일을 열 수 없습니다: {error}",
+  "snackbarCannotOpenFile": "파일을 열 수 없음: {error}",
   "@snackbarCannotOpenFile": {
     "description": "Snackbar - file open error",
     "placeholders": {
@@ -942,7 +942,7 @@
   "@snackbarFillAllFields": {
     "description": "Snackbar - validation error"
   },
-  "snackbarViewQueue": "대기목록 보기",
+  "snackbarViewQueue": "다운로드 목록 보기",
   "@snackbarViewQueue": {
     "description": "Snackbar action - view download queue"
   },
@@ -972,7 +972,7 @@
   "@snackbarMetadataProviderSaved": {
     "description": "Snackbar - metadata provider order saved"
   },
-  "snackbarExtensionInstalled": "{extensionName}(이)가 설치됨",
+  "snackbarExtensionInstalled": "'{extensionName}'이 설치됨",
   "@snackbarExtensionInstalled": {
     "description": "Snackbar - extension installed successfully",
     "placeholders": {
@@ -981,7 +981,7 @@
       }
     }
   },
-  "snackbarExtensionUpdated": "{extensionName}(이)가 설치됨.",
+  "snackbarExtensionUpdated": "'{extensionName}'이 설치됨",
   "@snackbarExtensionUpdated": {
     "description": "Snackbar - extension updated successfully",
     "placeholders": {
@@ -1026,7 +1026,7 @@
   "@errorUrlFetchFailed": {
     "description": "Error message - generic URL fetch failure"
   },
-  "errorMissingExtensionSource": "확장 소스가 누락되어, {item}(을)를 로드할 수 없습니다",
+  "errorMissingExtensionSource": "'{item}'을 불러올 수 없음: 확장 소스가 누락됨",
   "@errorMissingExtensionSource": {
     "description": "Error - extension source not available",
     "placeholders": {
@@ -1063,7 +1063,7 @@
   "@actionSaveCredentials": {
     "description": "Action button - save Spotify credentials"
   },
-  "selectionSelected": "{count}개 선택됨",
+  "selectionSelected": "{count} 개 선택됨",
   "@selectionSelected": {
     "description": "Selection count indicator",
     "placeholders": {
@@ -1360,7 +1360,7 @@
   "@logNoLogsYetSubtitle": {
     "description": "Empty state subtitle"
   },
-  "logEntriesFiltered": "({count} filtered)개 항목 필터링",
+  "logEntriesFiltered": "항목 ({count} 개 필터됨)",
   "@logEntriesFiltered": {
     "description": "Log count with filter active",
     "placeholders": {
@@ -1369,7 +1369,7 @@
       }
     }
   },
-  "logEntries": "항목 수: ({count})",
+  "logEntries": "항목 ({count})",
   "@logEntries": {
     "description": "Total log count",
     "placeholders": {
@@ -1406,7 +1406,7 @@
   "@channelStable": {
     "description": "Update channel - stable releases"
   },
-  "channelPreview": "베타",
+  "channelPreview": "개발",
   "@channelPreview": {
     "description": "Update channel - beta/preview releases"
   },
@@ -1506,7 +1506,7 @@
   "@settingsAppearanceSubtitle": {
     "description": "Appearance settings description"
   },
-  "settingsDownloadSubtitle": "서비스, 품질, 대체",
+  "settingsDownloadSubtitle": "서비스, 음질, 대체",
   "@settingsDownloadSubtitle": {
     "description": "Download settings description"
   },
@@ -1612,7 +1612,7 @@
   "@trackDuration": {
     "description": "Metadata label - track length"
   },
-  "trackAudioQuality": "오디오 품질",
+  "trackAudioQuality": "오디오 음질",
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
@@ -1673,7 +1673,7 @@
   "@trackEmbedLyrics": {
     "description": "Action - embed lyrics into audio file"
   },
-  "trackLyricsEmbedded": "가사를 성공적으로 삽입하였습니다",
+  "trackLyricsEmbedded": "가사 삽입 성공",
   "@trackLyricsEmbedded": {
     "description": "Snackbar - lyrics saved to file"
   },
@@ -1848,7 +1848,7 @@
   "@extensionUrlHandler": {
     "description": "Capability - handles URLs"
   },
-  "extensionQualityOptions": "품질 옵션",
+  "extensionQualityOptions": "음질 옵션",
   "@extensionQualityOptions": {
     "description": "Capability - quality selection"
   },
@@ -1935,11 +1935,11 @@
   "@extensionsInfoTip": {
     "description": "Security warning about extensions"
   },
-  "extensionsInstalledSuccess": "확장 프로그램을 성공적으로 설치하였습니다",
+  "extensionsInstalledSuccess": "확장 프로그램 설치 성공",
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} 개의 확장 프로그램을 성공적으로 설치하였습니다",
+  "extensionsInstalledCount": "{count} 개의 확장 프로그램 설치 성공",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -2075,7 +2075,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "최고 품질 Opus, 트랙당 약 8MB",
+  "downloadLossyOpus256Subtitle": "최고 음질 Opus, 트랙당 약 8MB",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2087,7 +2087,7 @@
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },
-  "qualityNote": "실제 품질은 서비스의 트랙 가용성에 따라 달라집니다",
+  "qualityNote": "실제 음질은 서비스의 트랙 가용성에 따라 달라집니다",
   "@qualityNote": {
     "description": "Note about quality availability"
   },
@@ -2107,7 +2107,7 @@
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "albumFolderStructureDescription": "앨범 폴더 구조를 선택하세요",
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },
@@ -2127,7 +2127,7 @@
   "@downloadUsePrimaryArtistOnlyDisabled": {
     "description": "Subtitle when primary artist only is disabled"
   },
-  "downloadSelectQuality": "품질 선택",
+  "downloadSelectQuality": "음질 선택",
   "@downloadSelectQuality": {
     "description": "Dialog title - choose audio quality"
   },
@@ -2399,7 +2399,7 @@
   "@discographyDownloadSelected": {
     "description": "Button - download selected albums"
   },
-  "discographyAddedToQueue": "대기목록에 {count} 트랙이 추가됨",
+  "discographyAddedToQueue": "{count} 개의 트랙이 다운로드 목록에 추가됨",
   "@discographyAddedToQueue": {
     "description": "Snackbar - tracks added from discography",
     "placeholders": {
@@ -2648,7 +2648,7 @@
   "@libraryStorageAccessRequired": {
     "description": "Dialog title for storage permission"
   },
-  "libraryStorageAccessMessage": "SpotifyFLAC은 음악 라이브러리를 스캔하기 위해 저장소 접근 권한이 필요합니다. 설정에서 권한을 부여해 주세요.",
+  "libraryStorageAccessMessage": "SpotifyFLAC은 음악 보관함을 스캔하기 위해 저장소 접근 권한이 필요합니다. 설정에서 권한을 부여해 주세요",
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
@@ -2692,7 +2692,7 @@
   "@libraryFilterSource": {
     "description": "Filter section - source type"
   },
-  "libraryFilterQuality": "품질",
+  "libraryFilterQuality": "음질",
   "@libraryFilterQuality": {
     "description": "Filter section - audio quality"
   },
@@ -2790,7 +2790,7 @@
   "@tutorialWelcomeTitle": {
     "description": "Tutorial welcome page title"
   },
-  "tutorialWelcomeDesc": "좋아하는 음악을 무손실 음질로 다운로드하는 방법을 알아보겠습니다. 이 간단한 튜토리얼은 기본 사항을 보여줍니다.",
+  "tutorialWelcomeDesc": "좋아하는 음악을 무손실 음질로 다운로드하는 방법을 알아보겠습니다. 이 간단한 튜토리얼은 기본 사항을 보여줍니다",
   "@tutorialWelcomeDesc": {
     "description": "Tutorial welcome page description"
   },
@@ -2830,7 +2830,7 @@
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
-  "tutorialLibraryTip1": "보관함 탭에서 다운로드 진행 상황과 대기목록을 확인하세요",
+  "tutorialLibraryTip1": "보관함 탭에서 다운로드 진행 상황과 다운로드 목록을 확인하세요",
   "@tutorialLibraryTip1": {
     "description": "Tutorial library tip 1"
   },
@@ -2874,7 +2874,7 @@
   "@tutorialSettingsTip1": {
     "description": "Tutorial settings tip 1"
   },
-  "tutorialSettingsTip2": "기본 오디오 품질 및 형식 설정",
+  "tutorialSettingsTip2": "기본 오디오 음질 및 형식 설정",
   "@tutorialSettingsTip2": {
     "description": "Tutorial settings tip 2"
   },
@@ -3190,11 +3190,11 @@
   "@trackReEnrichFfmpegFailed": {
     "description": "Snackbar when FFmpeg embed fails for MP3/Opus"
   },
-  "queueFlacAction": "FLAC 대기목록",
+  "queueFlacAction": "FLAC 다운로드 목록",
   "@queueFlacAction": {
     "description": "Action/button label for queueing FLAC redownloads for local tracks"
   },
-  "queueFlacConfirmMessage": "선택한 트랙에 대한 온라인 일치 항목을 검색하고 FLAC 다운로드를 대기목록에 추가합니다\n\n기존 파일은 수정되거나 삭제되지 않습니다\n\n신뢰도가 높은 일치 항목만 자동으로 대기열에 추가됩니다\n\n{count} 개가 선택되었습니다",
+  "queueFlacConfirmMessage": "선택한 트랙에 대한 온라인 일치 항목을 검색하고 FLAC을 다운로드 목록에 추가합니다\n\n기존 파일은 수정되거나 삭제되지 않습니다\n\n신뢰도가 높은 일치 항목만 자동으로 대기열에 추가됩니다\n\n{count} 개가 선택되었습니다",
   "@queueFlacConfirmMessage": {
     "description": "Confirmation dialog body before queueing FLAC redownloads for local tracks",
     "placeholders": {
@@ -3219,7 +3219,7 @@
   "@queueFlacNoReliableMatches": {
     "description": "Snackbar when no safe FLAC redownload matches were found"
   },
-  "queueFlacQueuedWithSkipped": "대기목록에 {addedCount} 개의 트랙을 추가하고 {skippedCount} 개의 트랙을 건너뛰었습니다",
+  "queueFlacQueuedWithSkipped": "다운로드 목록에 {addedCount} 개의 트랙을 추가하고, {skippedCount} 개의 트랙을 건너뜀",
   "@queueFlacQueuedWithSkipped": {
     "description": "Snackbar when some selected local tracks were queued for FLAC redownload and some were skipped",
     "placeholders": {
@@ -3279,7 +3279,7 @@
       }
     }
   },
-  "trackConvertConfirmMessageLossless": "{sourceFormat}에서 {targetFormat}으로 변환하시겠습니까?\n(무손실 — 품질 손실 없음)\n\n변환 후에 원본 파일이 삭제됩니다.",
+  "trackConvertConfirmMessageLossless": "{sourceFormat}에서 {targetFormat}으로 변환하시겠습니까?\n(무손실 — 음질 손실 없음)\n\n변환 후에 원본 파일이 삭제됩니다",
   "@trackConvertConfirmMessageLossless": {
     "description": "Confirmation dialog message for lossless-to-lossless conversion",
     "placeholders": {
@@ -3831,7 +3831,7 @@
   "@safMigrationMessage2": {
     "description": "Second paragraph of SAF migration dialog"
   },
-  "safMigrationSuccess": "다운로드 폴더를 SAF 모드로 업데이트하였습니다",
+  "safMigrationSuccess": "다운로드 폴더가 SAF 모드로 업데이트됨",
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
@@ -3847,7 +3847,7 @@
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
-  "settingsBackupSubtitle": "Move your library, history and settings to a new device",
+  "settingsBackupSubtitle": "보관함, 기록 및 설정을 새 기기로 옮기세요",
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
@@ -3859,7 +3859,7 @@
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
-  "backupExportSectionDescription": "Save your settings, download history, liked tracks, wishlist, favorite artists and playlists into a single file you can keep or move to another phone.",
+  "backupExportSectionDescription": "설정, 다운로드 기록, 좋아요 표시한 곡, 위시리스트, 즐겨찾는 아티스트 및 재생목록을 하나의 파일로 저장하여 보관하거나 다른 휴대전화로 옮길 수 있습니다",
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
@@ -3871,7 +3871,7 @@
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
-  "backupImportSectionDescription": "Pick a backup file to restore your data. This replaces the current settings, history and library on this device.",
+  "backupImportSectionDescription": "데이터를 복원할 백업 파일을 선택하세요. 이 작업을 수행하면 현재 기기에 저장된 설정, 기록 및 보관함이 백업 파일의 내용으로 대체됩니다",
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
@@ -3899,7 +3899,7 @@
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
-  "backupRestoreConfirmMessage": "This will replace your current settings, download history, liked tracks, wishlist and playlists with the contents of the backup. This cannot be undone.",
+  "backupRestoreConfirmMessage": "현재 설정, 다운로드 기록, 좋아요 표시한 트랙, 위시리스트 및 재생목록이 백업 파일의 내용으로 대체됩니다. 이 작업은 되돌릴 수 없습니다",
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
@@ -3923,7 +3923,7 @@
   "@backupInvalidFile": {
     "description": "Snackbar when the chosen file is not a valid backup"
   },
-  "backupRestoreRestartHint": "Restart the app to make sure every change is applied.",
+  "backupRestoreRestartHint": "모든 변경 사항을 적용하려면 앱을 다시 시작하세요",
   "@backupRestoreRestartHint": {
     "description": "Hint shown after restoring that an app restart is recommended"
   },
@@ -3993,11 +3993,11 @@
   "@backupIncludeSecrets": {
     "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
   },
-  "backupIncludeSecretsDescription": "Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.",
+  "backupIncludeSecretsDescription": "확장 프로그램의 토큰과 API 키가 백업 파일에 함께 저장됩니다. 백업 파일은 안전하게 보관하세요. 비활성화하면 복원 후 다시 입력해야 합니다",
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
-  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the store.",
+  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{확장 프로그램} other{확장 프로그램}}을 다시 설치할 수 없습니다. 스토어에서 수동으로 설치하세요",
   "@backupExtensionsRestoreFailed": {
     "description": "Snackbar/hint when some extensions failed to reinstall during restore",
     "placeholders": {
@@ -4065,7 +4065,7 @@
   "@snackbarMetadataSaved": {
     "description": "Snackbar after successfully saving track metadata"
   },
-  "snackbarFailedToEmbedLyrics": "가사를 삽입할 수 없습니다",
+  "snackbarFailedToEmbedLyrics": "가사 삽입 실패",
   "@snackbarFailedToEmbedLyrics": {
     "description": "Snackbar when lyrics embedding fails"
   },
@@ -4166,19 +4166,19 @@
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
-  "downloadAllowLocalNetworkEnabled": "Requests to local/private addresses are allowed (for local proxy or custom DNS)",
+  "downloadAllowLocalNetworkEnabled": "로컬/사설 주소에 대한 요청이 허용됨 (로컬 프록시 또는 사용자 지정 DNS용)",
   "@downloadAllowLocalNetworkEnabled": {
     "description": "Subtitle when allow local network access is on"
   },
-  "downloadAllowLocalNetworkDisabled": "Local/private addresses are blocked for security",
+  "downloadAllowLocalNetworkDisabled": "보안을 위해 로컬/사설 주소가 차단됨",
   "@downloadAllowLocalNetworkDisabled": {
     "description": "Subtitle when allow local network access is off"
   },
-  "downloadSelectServiceToEnable": "이 옵션을 활성화하려면 품질 옵션이 있는 공급자를 선택하세요",
+  "downloadSelectServiceToEnable": "이 옵션을 활성화하려면 음질 옵션이 있는 공급자를 선택하세요",
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
-  "downloadSelectTidalQobuz": "품질을 선택하려면 품질 옵션이 있는 제공자를 선택하세요",
+  "downloadSelectTidalQobuz": "음질을 선택하려면 음질 옵션이 있는 제공자를 선택하세요",
   "@downloadSelectTidalQobuz": {
     "description": "Legacy info shown when a provider does not expose quality options"
   },
@@ -4323,7 +4323,7 @@
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
-  "playlistsCount": "{count, plural, =1{1 재생목록} other{{count} 재생목록}}",
+  "playlistsCount": "{count, plural, =1{1 개의 재생목록} other{{count} 개의 재생목록}}",
   "@playlistsCount": {
     "description": "Playlist count display",
     "placeholders": {
@@ -4421,7 +4421,7 @@
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
-  "queueDownloadingCount": "({count}) 다운로드하는 중",
+  "queueDownloadingCount": "다운로드하는 중 ({count})",
   "@queueDownloadingCount": {
     "description": "Header for active downloads section with count",
     "placeholders": {
@@ -4438,7 +4438,7 @@
   "@queueFilteringIndicator": {
     "description": "Shown while filter results are being computed"
   },
-  "queueTrackCount": "{count, plural, =1{1 트랙} other{{count} 트랙}}",
+  "queueTrackCount": "{count, plural, =1{1 개의 트랙} other{{count} 개의 트랙}}",
   "@queueTrackCount": {
     "description": "Track count label with plural support",
     "placeholders": {
@@ -4447,7 +4447,7 @@
       }
     }
   },
-  "queueAlbumCount": "{count, plural, =1{1 앨범} other{{count} 앨범}}",
+  "queueAlbumCount": "{count, plural, =1{1 개의 앨범} other{{count} 개의 앨범}}",
   "@queueAlbumCount": {
     "description": "Album count label with plural support",
     "placeholders": {
@@ -4492,7 +4492,7 @@
   "@selectionSelectPlaylistsToDelete": {
     "description": "Hint shown when no playlists are selected for deletion"
   },
-  "audioAnalysisTitle": "오디오 품질 분석",
+  "audioAnalysisTitle": "오디오 음질 분석",
   "@audioAnalysisTitle": {
     "description": "Title for audio analysis section"
   },
@@ -4726,7 +4726,7 @@
   "@notifEmbeddingMetadata": {
     "description": "Notification body while embedding metadata into a downloaded track"
   },
-  "notifAlreadyInLibraryCount": "이미 라이브러리에 있음 ({completed}/{total})",
+  "notifAlreadyInLibraryCount": "이미 보관함에 있음 ({completed}/{total})",
   "@notifAlreadyInLibraryCount": {
     "description": "Notification title when track is already in library, with count",
     "placeholders": {
@@ -4738,7 +4738,7 @@
       }
     }
   },
-  "notifAlreadyInLibrary": "이미 라이브러리에 있음",
+  "notifAlreadyInLibrary": "이미 보관함에 있음",
   "@notifAlreadyInLibrary": {
     "description": "Notification title when track is already in library"
   },
@@ -4774,7 +4774,7 @@
   "@notifAllDownloadsComplete": {
     "description": "Notification title when all downloads finish successfully"
   },
-  "notifTracksDownloadedSuccess": "{count, plural, =1{1 트랙 다운로드 성공} other{{count} 트랙 다운로드 성공}}",
+  "notifTracksDownloadedSuccess": "{count, plural, =1{1 개의 트랙 다운로드 성공} other{{count} 개의 트랙 다운로드 성공}}",
   "@notifTracksDownloadedSuccess": {
     "description": "Notification body for queue complete - how many tracks were downloaded",
     "placeholders": {
@@ -4783,7 +4783,7 @@
       }
     }
   },
-  "notifDownloadsFinishedBody": "{completed, plural, =1{1 트랙 다운로드 성공} other{{completed} 트랙 다운로드 성공}}, {failed, plural, =1{1 실패} other{{failed} 실패}}",
+  "notifDownloadsFinishedBody": "{completed, plural, =1{1 개의 트랙 다운로드 성공} other{{completed} 개의 트랙 다운로드 성공}}, {failed, plural, =1{1 개 실패} other{{failed} 개 실패}}",
   "@notifDownloadsFinishedBody": {
     "description": "Notification body when queue finishes with failures",
     "placeholders": {
@@ -4799,7 +4799,7 @@
   "@notifDownloadsCanceledTitle": {
     "description": "Notification title when downloads are canceled by the user"
   },
-  "notifDownloadsCanceledBody": "{count, plural, =1{1 다운로드가 사용자에 의해 취소됨} other{{count} 다운로드가 사용자에 의해 취소됨}}",
+  "notifDownloadsCanceledBody": "{count, plural, =1{1 개의 다운로드가 사용자에 의해 취소됨} other{{count} 개의 다운로드가 사용자에 의해 취소됨}}",
   "@notifDownloadsCanceledBody": {
     "description": "Notification body when downloads are canceled by the user",
     "placeholders": {
@@ -5363,7 +5363,7 @@
   "@libraryFilterMetadataMissingLabel": {
     "description": "Filter option - items missing record label"
   },
-  "collectionDeletePlaylistsMessage": "{count} {count, plural, =1{playlist} other{playlists}}를 삭제하시겠습니까?",
+  "collectionDeletePlaylistsMessage": "{count} {count, plural, =1{재생목록} other{재생목록}}을 삭제하시겠습니까?",
   "@collectionDeletePlaylistsMessage": {
     "description": "Confirmation message for deleting selected playlists",
     "placeholders": {
@@ -5735,7 +5735,7 @@
   "@editMetadataSelectNone": {
     "description": "Button to clear selected fields for auto-fill"
   },
-  "queueRetryAllFailed": "재시도 {count} 개 실패",
+  "queueRetryAllFailed": "재시도 {count} 번 실패",
   "@queueRetryAllFailed": {
     "description": "Button to retry every failed download in the queue",
     "placeholders": {
@@ -5795,23 +5795,23 @@
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
-  "libraryExternalPlayerSubtitle": "Recommended for listening, best quality, gapless playback, EQ, and wider format support",
+  "libraryExternalPlayerSubtitle": "감상용으로 권장됩니다. 최고 음질, 갭리스 재생, EQ 및 다양한 오디오 형식을 지원합니다",
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "내장 미리보기 플레이어",
+  "libraryBuiltInPreviewPlayer": "내장 미리듣기 플레이어",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Only for quick local previews inside SpotiFLAC Mobile, not recommended for regular listening",
+  "libraryBuiltInPreviewPlayerSubtitle": "SpotiFLAC Mobile에서 빠른 로컬 미리듣기 전용이며, 일반적인 음악 감상에는 권장되지 않습니다",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
-  "libraryBuiltInPlayerInfo": "The built-in player is a preview tool for checking local tracks quickly. Use an external music player for actual listening.",
+  "libraryBuiltInPlayerInfo": "내장 플레이어는 로컬 트랙을 빠르게 미리듣기 위한 도구입니다. 실제 음악 감상은 외부 음악 플레이어를 이용하는 것을 권장합니다",
   "@libraryBuiltInPlayerInfo": {
     "description": "Info note explaining the built-in player is for previews only"
   },
-  "nowPlayingTitle": "Now Playing",
+  "nowPlayingTitle": "현재 재생 중",
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
@@ -5851,7 +5851,7 @@
   "@nowPlayingLibraryEmpty": {
     "description": "Snackbar when shuffle library is requested but library has no tracks"
   },
-  "nowPlayingShuffleLibraryFailed": "보관함에서 셔플을 사용할 수 없습니다: {error}",
+  "nowPlayingShuffleLibraryFailed": "보관함에서 셔플을 사용할 수 없음: {error}",
   "@nowPlayingShuffleLibraryFailed": {
     "description": "Snackbar when shuffling the library fails",
     "placeholders": {
@@ -5872,7 +5872,7 @@
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
-  "nowPlayingQueueEmpty": "현재 재생목록이 비어져 있습니다",
+  "nowPlayingQueueEmpty": "현재 다운로드 목록이 비어져 있습니다",
   "@nowPlayingQueueEmpty": {
     "description": "Empty state when the playback queue has no items"
   },
@@ -5884,7 +5884,7 @@
   "@announcementUnableToOpenLink": {
     "description": "Snackbar shown when an announcement CTA link cannot be opened"
   },
-  "trackConvertLosslessOutputWithCap": "Lossless output with {quality} cap",
+  "trackConvertLosslessOutputWithCap": "{quality} 제한이 있는 무손실 출력",
   "@trackConvertLosslessOutputWithCap": {
     "description": "Hint shown when lossless conversion will cap bit depth or sample rate",
     "placeholders": {
@@ -5908,7 +5908,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLosslessCapped": "{count} {count, plural, =1{ 개의 트랙} other{ 개의 트랙}}을 {format}({quality})으로 변환하시겠습니까?\n\n출력은 무손실 코덱을 유지하지만 비트 심도/샘플 속도가 제한됩니다. 변환 후 원본 파일이 삭제됩니다",
+  "selectionBatchConvertConfirmMessageLosslessCapped": "{count} {count, plural, =1{트랙} other{트랙}}을 {format}({quality})으로 변환하시겠습니까?\n\n출력은 무손실 코덱을 유지하지만 비트 심도/샘플 속도가 제한됩니다. 변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless batch conversion",
     "placeholders": {
@@ -5961,11 +5961,11 @@
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },
-  "snackbarAddedToQueueGeneric": "현재 재생목록에 추가됨",
+  "snackbarAddedToQueueGeneric": "현재 다운로드 목록에 추가됨",
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
-  "selectionDeletePlaylistsCount": "{count} {count, plural, =1{ 개의 재생목록} other{ 개의 재생목록}} 삭제",
+  "selectionDeletePlaylistsCount": "{count} {count, plural, =1{재생목록} other{재생목록}} 삭제",
   "@selectionDeletePlaylistsCount": {
     "description": "Button label for deleting multiple selected playlists",
     "placeholders": {
@@ -6018,7 +6018,7 @@
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "현재 재생목록에 추가",
+  "trackAddToQueue": "현재 다운로드 목록에 추가",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },

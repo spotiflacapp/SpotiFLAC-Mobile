@@ -101,7 +101,7 @@
   "@downloadSingleFilenameFormat": {
     "description": "Setting for output filename pattern for singles/EPs"
   },
-  "downloadSingleFilenameFormatDescription": "싱글 및 EP용 파일 이름 패턴입니다. 앨범 형식과 동일한 태그를 사용합니다.",
+  "downloadSingleFilenameFormatDescription": "싱글 및 EP용 파일 이름 패턴입니다. 앨범 형식과 동일한 태그를 사용합니다",
   "@downloadSingleFilenameFormatDescription": {
     "description": "Subtitle description for single filename format setting"
   },
@@ -170,7 +170,7 @@
   "@optionsDefaultSearchTab": {
     "description": "Title for the preferred default search tab setting"
   },
-  "optionsDefaultSearchTabSubtitle": "새 검색 결과를 표시할 탭을 먼저 선택하세요.",
+  "optionsDefaultSearchTabSubtitle": "새 검색 결과를 표시할 탭을 먼저 선택하세요",
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
@@ -206,11 +206,11 @@
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
-  "optionsMaxQualityCover": "고품질 커버 이미지",
+  "optionsMaxQualityCover": "고품질 표지 이미지",
   "@optionsMaxQualityCover": {
     "description": "Download highest quality album art"
   },
-  "optionsMaxQualityCoverSubtitle": "최고 품질의 커버 이미지를 다운로드",
+  "optionsMaxQualityCoverSubtitle": "최고 해상도의 표지 이미지를 다운로드",
   "@optionsMaxQualityCoverSubtitle": {
     "description": "Subtitle for max quality cover"
   },
@@ -288,7 +288,7 @@
   "@optionsArtistTagMode": {
     "description": "Setting title for how artist metadata is written into files"
   },
-  "optionsArtistTagModeDescription": "여러 아티스트를 내장 태그에 작성하는 방법을 선택하세요.",
+  "optionsArtistTagModeDescription": "여러 아티스트를 내장 태그에 작성하는 방법을 선택하세요",
   "@optionsArtistTagModeDescription": {
     "description": "Bottom-sheet description for artist tag mode setting"
   },
@@ -304,7 +304,7 @@
   "@optionsArtistTagModeSplitVorbis": {
     "description": "Artist tag mode option that writes repeated ARTIST tags for Vorbis formats"
   },
-  "optionsArtistTagModeSplitVorbisSubtitle": "FLAC 및 Opus의 경우 아티스트당 하나의 아티스트 태그를 작성하세요. MP3 및 M4A는 병합된 상태로 유지됩니다.",
+  "optionsArtistTagModeSplitVorbisSubtitle": "FLAC 및 Opus의 경우 아티스트당 하나의 아티스트 태그를 작성하세요. MP3 및 M4A는 병합된 상태로 유지됩니다",
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
@@ -377,7 +377,7 @@
   "@optionsSpotifyCredentialsRequired": {
     "description": "Prompt to set up credentials"
   },
-  "optionsSpotifyWarning": "Spotify는 사용자 고유의 API 자격 증명을 요구합니다. developer.spotify.com에서 무료로 발급받으세요",
+  "optionsSpotifyWarning": "Spotify는 사용자 고유의 API 자격 증명을 요구합니다. 'developer.spotify.com'에서 무료로 발급받으세요",
   "@optionsSpotifyWarning": {
     "description": "Info about Spotify API requirement"
   },
@@ -597,15 +597,15 @@
   "@setupStorageAccessMessageAndroid11": {
     "description": "Android 11+ specific explanation"
   },
-  "setupOpenSettings": "설정으로 이동",
+  "setupOpenSettings": "설정 열기",
   "@setupOpenSettings": {
     "description": "Button to open system settings"
   },
-  "setupPermissionDeniedMessage": "권한이 거부되었습니다. 계속하려면 모든 권한을 허용해 주세요.",
+  "setupPermissionDeniedMessage": "권한이 거부되었습니다. 계속하려면 모든 권한을 허용해 주세요",
   "@setupPermissionDeniedMessage": {
     "description": "Error when permission denied"
   },
-  "setupPermissionRequired": "{permissionType} 권한 필요",
+  "setupPermissionRequired": "'{permissionType}' 권한 필요",
   "@setupPermissionRequired": {
     "description": "Generic permission required title",
     "placeholders": {
@@ -615,7 +615,7 @@
       }
     }
   },
-  "setupPermissionRequiredMessage": "최상의 사용 경험을 위해 {permissionType} 권한이 필요합니다. 설정에서 나중에 변경할 수 있습니다",
+  "setupPermissionRequiredMessage": "최상의 사용 경험을 위해 '{permissionType}' 권한이 필요합니다. 설정에서 나중에 변경할 수 있습니다",
   "@setupPermissionRequiredMessage": {
     "description": "Generic permission required message",
     "placeholders": {
@@ -841,7 +841,7 @@
   "@dialogDeleteSelectedTitle": {
     "description": "Dialog title - delete selected items"
   },
-  "dialogDeleteSelectedMessage": "기록에서 {count} {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n이렇게 하면 저장소에서 파일도 삭제됩니다",
+  "dialogDeleteSelectedMessage": "기록에서 {count} 개의 {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n이렇게 하면 저장소에서도 파일이 삭제됩니다",
   "@dialogDeleteSelectedMessage": {
     "description": "Dialog message - delete selected tracks",
     "placeholders": {
@@ -881,7 +881,7 @@
       }
     }
   },
-  "snackbarAddedTracksToQueue": "{count} 개의 트랙이 다운로드 목록에 추가됨",
+  "snackbarAddedTracksToQueue": "다운로드 목록에 {count} 개의 트랙이 추가됨",
   "@snackbarAddedTracksToQueue": {
     "description": "Snackbar - multiple tracks added to queue",
     "placeholders": {
@@ -912,15 +912,15 @@
   "@snackbarHistoryCleared": {
     "description": "Snackbar - history deleted"
   },
-  "snackbarCredentialsSaved": "자격 증명이 저장되었습니다.",
+  "snackbarCredentialsSaved": "자격 증명이 저장됨",
   "@snackbarCredentialsSaved": {
     "description": "Snackbar - Spotify credentials saved"
   },
-  "snackbarCredentialsCleared": "자격 증명이 제거되었습니다.",
+  "snackbarCredentialsCleared": "자격 증명이 삭제됨",
   "@snackbarCredentialsCleared": {
     "description": "Snackbar - Spotify credentials removed"
   },
-  "snackbarDeletedTracks": "{count}{count, plural, =1{트랙} other{트랙}}이 제거됨",
+  "snackbarDeletedTracks": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 제거됨",
   "@snackbarDeletedTracks": {
     "description": "Snackbar - tracks deleted",
     "placeholders": {
@@ -938,7 +938,7 @@
       }
     }
   },
-  "snackbarFillAllFields": "모든 항목을 입력해 주세요.",
+  "snackbarFillAllFields": "모든 항목을 입력해 주세요",
   "@snackbarFillAllFields": {
     "description": "Snackbar - validation error"
   },
@@ -960,15 +960,15 @@
   "@snackbarFileNotFound": {
     "description": "Snackbar - file doesn't exist"
   },
-  "snackbarSelectExtFile": ".spotiflac-ext 확장자 파일을 선택",
+  "snackbarSelectExtFile": ".spotiflac-ext 파일을 선택하세요",
   "@snackbarSelectExtFile": {
     "description": "Snackbar - wrong file type selected"
   },
-  "snackbarProviderPrioritySaved": "제공자 우선순위 저장됨",
+  "snackbarProviderPrioritySaved": "제공자 우선순위가 저장됨",
   "@snackbarProviderPrioritySaved": {
     "description": "Snackbar - provider order saved"
   },
-  "snackbarMetadataProviderSaved": "메타데이터 제공자 우선순위 저장됨",
+  "snackbarMetadataProviderSaved": "메타데이터 제공자 우선순위가 저장됨",
   "@snackbarMetadataProviderSaved": {
     "description": "Snackbar - metadata provider order saved"
   },
@@ -1002,11 +1002,11 @@
   "@errorRateLimited": {
     "description": "Error title - too many requests"
   },
-  "errorRateLimitedMessage": "요청이 너무 많습니다. 잠시 후 다시 검색해 주세요.",
+  "errorRateLimitedMessage": "요청이 너무 많습니다. 잠시 후 다시 검색해 주세요",
   "@errorRateLimitedMessage": {
     "description": "Error message - rate limit explanation"
   },
-  "errorNoTracksFound": "트랙을 찾을 수 없습니다",
+  "errorNoTracksFound": "트랙을 찾을 수 없음",
   "@errorNoTracksFound": {
     "description": "Error - search returned no results"
   },
@@ -1014,11 +1014,11 @@
   "@searchEmptyResultSubtitle": {
     "description": "Subtitle shown under the empty search result state on the home screen"
   },
-  "errorUrlNotRecognized": "링크를 인식할 수 없습니다",
+  "errorUrlNotRecognized": "링크를 인식할 수 없음",
   "@errorUrlNotRecognized": {
     "description": "Error title - URL not handled by any extension or service"
   },
-  "errorUrlNotRecognizedMessage": "이 링크는 지원되지 않습니다. URL이 올바른지, 호환되는 확장 프로그램이 설치되어 있는지 확인하세요.",
+  "errorUrlNotRecognizedMessage": "이 링크는 지원되지 않습니다. URL이 올바른지, 호환되는 확장 프로그램이 설치되어 있는지 확인하세요",
   "@errorUrlNotRecognizedMessage": {
     "description": "Error message - URL not recognized explanation"
   },
@@ -1035,11 +1035,11 @@
       }
     }
   },
-  "actionPause": "멈추기",
+  "actionPause": "일시 중지",
   "@actionPause": {
     "description": "Action button - pause download"
   },
-  "actionResume": "재시작",
+  "actionResume": "계속",
   "@actionResume": {
     "description": "Action button - resume download"
   },
@@ -1096,7 +1096,7 @@
   "@progressReadingCsv": {
     "description": "Progress indicator - parsing CSV file"
   },
-  "searchSongs": "곡",
+  "searchSongs": "노래",
   "@searchSongs": {
     "description": "Search result category - songs"
   },
@@ -3678,7 +3678,7 @@
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
-  "selectionBatchConvertConfirmMessage": "{count} {count, plural, =1{트랙} other{트랙}}을 {bitrate} 비트레이트로 {format} 으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
+  "selectionBatchConvertConfirmMessage": "{count} {count, plural, =1{트랙} other{트랙}}을 {bitrate} 비트레이트로 {format}으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessage": {
     "description": "Confirmation dialog message for batch conversion",
     "placeholders": {
@@ -3693,7 +3693,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLossless": "{count} {count, plural, =1{트랙} other{트랙}}을 {format} 으로 변환하시겠습니까? (무손실 — 음질 손실 없음)\n\n변환 후 원본 파일이 삭제됩니다",
+  "selectionBatchConvertConfirmMessageLossless": "{count} {count, plural, =1{트랙} other{트랙}}을 {format}으로 변환하시겠습니까? (무손실 — 음질 손실 없음)\n\n변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessageLossless": {
     "description": "Confirmation dialog message for lossless batch conversion",
     "placeholders": {
@@ -3997,7 +3997,7 @@
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
-  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{확장 프로그램} other{확장 프로그램}}을 다시 설치할 수 없습니다. 스토어에서 수동으로 설치하세요",
+  "backupExtensionsRestoreFailed": "{count} 개의 {count, plural, =1{확장 프로그램} other{확장 프로그램}}을 다시 설치할 수 없습니다. 스토어에서 수동으로 설치하세요",
   "@backupExtensionsRestoreFailed": {
     "description": "Snackbar/hint when some extensions failed to reinstall during restore",
     "placeholders": {
@@ -4294,7 +4294,7 @@
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
-  "dialogDownloadPlaylistsMessage": "{playlistCount} {playlistCount, plural, =1{재생목록} other{재생록록}}에서 {trackCount} {trackCount, plural, =1{트랙} other{트랙}}을 다운로드하시겠습니까?",
+  "dialogDownloadPlaylistsMessage": "{playlistCount} 개의 {playlistCount, plural, =1{재생목록} other{재생록록}}에서 {trackCount} 개의 {trackCount, plural, =1{트랙} other{트랙}}을 다운로드하시겠습니까?",
   "@dialogDownloadPlaylistsMessage": {
     "description": "Dialog message for bulk playlist download confirmation",
     "placeholders": {
@@ -4306,7 +4306,7 @@
       }
     }
   },
-  "bulkDownloadPlaylistsButton": "{count} {count, plural, =1{재생목록} other{재생목록}} 다운로드",
+  "bulkDownloadPlaylistsButton": "{count} 개의 {count, plural, =1{재생목록} other{재생목록}} 다운로드",
   "@bulkDownloadPlaylistsButton": {
     "description": "Button label for bulk downloading selected playlists",
     "placeholders": {
@@ -4352,7 +4352,7 @@
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
-  "editMetadataAutoFillDone": "온라인 메타데이터로부터 {count} {count, plural, =1{필드} other{필드}}가 채워졌습니다",
+  "editMetadataAutoFillDone": "온라인 메타데이터로부터 {count} 개의 {count, plural, =1{필드} other{필드}}가 채워짐",
   "@editMetadataAutoFillDone": {
     "description": "Snackbar confirming how many fields were auto-filled",
     "placeholders": {
@@ -5182,7 +5182,7 @@
       }
     }
   },
-  "a11yOpenItemCount": "{title}, {count} {count, plural, =1{항목} other{항목}} 열기",
+  "a11yOpenItemCount": "{title}, {count} 개의 {count, plural, =1{항목} other{항목}} 열기",
   "@a11yOpenItemCount": {
     "description": "Accessibility label for opening a grouped item with count",
     "placeholders": {
@@ -5363,7 +5363,7 @@
   "@libraryFilterMetadataMissingLabel": {
     "description": "Filter option - items missing record label"
   },
-  "collectionDeletePlaylistsMessage": "{count} {count, plural, =1{재생목록} other{재생목록}}을 삭제하시겠습니까?",
+  "collectionDeletePlaylistsMessage": "{count} 개의 {count, plural, =1{재생목록} other{재생목록}}을 삭제하시겠습니까?",
   "@collectionDeletePlaylistsMessage": {
     "description": "Confirmation message for deleting selected playlists",
     "placeholders": {
@@ -5372,7 +5372,7 @@
       }
     }
   },
-  "collectionPlaylistsDeleted": "{count} {count, plural, =1{재생목록} other{재생목록}} 삭제됨",
+  "collectionPlaylistsDeleted": "{count} 개의 {count, plural, =1{재생목록} other{재생목록}}이 삭제됨",
   "@collectionPlaylistsDeleted": {
     "description": "Snackbar after deleting selected playlists",
     "placeholders": {
@@ -5381,7 +5381,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylist": "{playlistName} 에 {count} {count, plural, =1{트랙} other{트랙}}이 추가됨",
+  "collectionAddedTracksToPlaylist": "{playlistName} 에 {count} 개의 {count, plural, =1{트랙} other{트랙}}이 추가됨",
   "@collectionAddedTracksToPlaylist": {
     "description": "Snackbar after adding multiple tracks to a playlist",
     "placeholders": {
@@ -5393,7 +5393,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylistWithExisting": "{count} {count, plural, =1{트랙} other{트랙}}이 {playlistName}에 추가됨 ({alreadyCount}트랙은 이미 재생목록에 있음)",
+  "collectionAddedTracksToPlaylistWithExisting": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 {playlistName}에 추가됨 ({alreadyCount}트랙은 이미 재생목록에 있음)",
   "@collectionAddedTracksToPlaylistWithExisting": {
     "description": "Snackbar after adding multiple tracks to a playlist when some were already present",
     "placeholders": {
@@ -5408,7 +5408,7 @@
       }
     }
   },
-  "itemCount": "{count} {count, plural, =1{항목} other{항목}}",
+  "itemCount": "{count} 개의 {count, plural, =1{항목} other{항목}}",
   "@itemCount": {
     "description": "Generic item count label",
     "placeholders": {
@@ -5432,7 +5432,7 @@
       }
     }
   },
-  "selectionDeleteTracksCount": "{count} {count, plural, =1{트랙} other{트랙}} 삭제",
+  "selectionDeleteTracksCount": "{count} 개의 {count, plural, =1{트랙} other{트랙}} 삭제",
   "@selectionDeleteTracksCount": {
     "description": "Button label for deleting selected tracks",
     "placeholders": {
@@ -5474,7 +5474,7 @@
       }
     }
   },
-  "storeExtensionsCount": "{count} {count, plural, =1{확장 프로그램} other{확장 프로그램}}",
+  "storeExtensionsCount": "{count} 개의 {count, plural, =1{확장 프로그램} other{확장 프로그램}}",
   "@storeExtensionsCount": {
     "description": "Store extension result count",
     "placeholders": {
@@ -5555,7 +5555,7 @@
   "@extensionServiceHealth": {
     "description": "Extension capability label for service health checks"
   },
-  "extensionHealthChecksConfigured": "{count} {count, plural, =1{검사} other{검사}}가 설정됨",
+  "extensionHealthChecksConfigured": "{count} 개의 {count, plural, =1{검사} other{검사}}가 설정됨",
   "@extensionHealthChecksConfigured": {
     "description": "Extension service health check count",
     "placeholders": {
@@ -5593,7 +5593,7 @@
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
-  "extensionSettingsCount": "{count} {count, plural, =1{설정} other{설정}}",
+  "extensionSettingsCount": "{count} 개의 {count, plural, =1{설정} other{설정}}",
   "@extensionSettingsCount": {
     "description": "Count of settings exposed by an extension quality option",
     "placeholders": {
@@ -5908,7 +5908,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLosslessCapped": "{count} {count, plural, =1{트랙} other{트랙}}을 {format}({quality})으로 변환하시겠습니까?\n\n출력은 무손실 코덱을 유지하지만 비트 심도/샘플 속도가 제한됩니다. 변환 후 원본 파일이 삭제됩니다",
+  "selectionBatchConvertConfirmMessageLosslessCapped": "{count} 개의 {count, plural, =1{트랙} other{트랙}}을 {format}({quality})으로 변환하시겠습니까?\n\n출력은 무손실 코덱을 유지하지만 비트 심도/샘플 속도가 제한됩니다. 변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless batch conversion",
     "placeholders": {
@@ -5965,7 +5965,7 @@
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
-  "selectionDeletePlaylistsCount": "{count} {count, plural, =1{재생목록} other{재생목록}} 삭제",
+  "selectionDeletePlaylistsCount": "{count} 개의 {count, plural, =1{재생목록} other{재생목록}} 삭제",
   "@selectionDeletePlaylistsCount": {
     "description": "Button label for deleting multiple selected playlists",
     "placeholders": {

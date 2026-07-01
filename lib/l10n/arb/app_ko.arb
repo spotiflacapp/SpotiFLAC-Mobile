@@ -841,7 +841,7 @@
   "@dialogDeleteSelectedTitle": {
     "description": "Dialog title - delete selected items"
   },
-  "dialogDeleteSelectedMessage": "기록에서 {count} 개의 {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n이렇게 하면 저장소에서도 파일이 삭제됩니다",
+  "dialogDeleteSelectedMessage": "기록에서 {count} 개의 {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n저장소에서도 파일이 삭제됩니다",
   "@dialogDeleteSelectedMessage": {
     "description": "Dialog message - delete selected tracks",
     "placeholders": {
@@ -2043,7 +2043,7 @@
   "@downloadLossy320": {
     "description": "Quality option label for lossy 320kbps"
   },
-  "downloadLossyFormat": "손실 압축 형식 ",
+  "downloadLossyFormat": "손실 압축 형식",
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
@@ -2227,7 +2227,7 @@
   "@downloadedAlbumDeleteSelected": {
     "description": "Button - delete selected tracks"
   },
-  "downloadedAlbumDeleteMessage": "앨범에서 {count} {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n이렇게 하면 저장소에서 파일도 삭제됩니다",
+  "downloadedAlbumDeleteMessage": "앨범에서 {count} 개의 {count, plural, =1{트랙} other{트랙}}을 삭제하시겠습니까?\n\n저장소에서도 파일이 삭제됩니다",
   "@downloadedAlbumDeleteMessage": {
     "description": "Delete confirmation with count",
     "placeholders": {
@@ -2627,7 +2627,7 @@
       }
     }
   },
-  "libraryInLibrary": "라이브러리에서",
+  "libraryInLibrary": "라이브러리에 있음",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
@@ -3396,7 +3396,7 @@
   "@cueSplitButton": {
     "description": "Button text to start CUE splitting"
   },
-  "actionCreate": "만들기",
+  "actionCreate": "생성",
   "@actionCreate": {
     "description": "Generic action button - create"
   },
@@ -3428,7 +3428,7 @@
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
   },
-  "collectionCreatePlaylist": "재생목록 만들기",
+  "collectionCreatePlaylist": "재생목록 생성",
   "@collectionCreatePlaylist": {
     "description": "Action to create a new playlist"
   },
@@ -3476,7 +3476,7 @@
       }
     }
   },
-  "collectionPlaylistCreated": "재생목록 만들기 완료",
+  "collectionPlaylistCreated": "재생목록 생성 완료",
   "@collectionPlaylistCreated": {
     "description": "Snackbar after creating playlist"
   },
@@ -3678,7 +3678,7 @@
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
-  "selectionBatchConvertConfirmMessage": "{count} {count, plural, =1{트랙} other{트랙}}을 {bitrate} 비트레이트로 {format}으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
+  "selectionBatchConvertConfirmMessage": "{count} 개의 {count, plural, =1{트랙} other{트랙}}을 {bitrate} 비트레이트로 {format}으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessage": {
     "description": "Confirmation dialog message for batch conversion",
     "placeholders": {
@@ -3693,7 +3693,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLossless": "{count} {count, plural, =1{트랙} other{트랙}}을 {format}으로 변환하시겠습니까? (무손실 — 음질 손실 없음)\n\n변환 후 원본 파일이 삭제됩니다",
+  "selectionBatchConvertConfirmMessageLossless": "{count} 개의 {count, plural, =1{트랙} other{트랙}}을 {format}으로 변환하시겠습니까? (무손실 — 음질 손실 없음)\n\n변환 후 원본 파일이 삭제됩니다",
   "@selectionBatchConvertConfirmMessageLossless": {
     "description": "Confirmation dialog message for lossless batch conversion",
     "placeholders": {
@@ -4646,7 +4646,7 @@
   "@cancelDownloadTitle": {
     "description": "Dialog title when confirming cancellation of an active download"
   },
-  "cancelDownloadContent": "\"{trackName}\"에 대한 활성 다운로드를 취소합니다.",
+  "cancelDownloadContent": "'{trackName}'에 대한 활성 다운로드를 취소합니다",
   "@cancelDownloadContent": {
     "description": "Dialog body when confirming cancellation of an active download",
     "placeholders": {
@@ -5028,7 +5028,7 @@
   "@trackCoverReplaceNotice": {
     "description": "Notice shown when a new cover has been selected but not saved yet"
   },
-  "actionStop": "정지",
+  "actionStop": "중지",
   "@actionStop": {
     "description": "Generic action - stop"
   },
@@ -5036,7 +5036,7 @@
   "@queueFinalizingDownload": {
     "description": "Accessibility label for a queue item that is finalizing"
   },
-  "queueDownloadedFileMissing": "다운로드한 파일이 없습니다",
+  "queueDownloadedFileMissing": "다운로드한 파일이 없음",
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
@@ -5381,7 +5381,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylist": "{playlistName} 에 {count} 개의 {count, plural, =1{트랙} other{트랙}}이 추가됨",
+  "collectionAddedTracksToPlaylist": "\"{playlistName}\"에 {count} 개의 {count, plural, =1{트랙} other{트랙}}이 추가됨",
   "@collectionAddedTracksToPlaylist": {
     "description": "Snackbar after adding multiple tracks to a playlist",
     "placeholders": {
@@ -5393,7 +5393,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylistWithExisting": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 {playlistName}에 추가됨 ({alreadyCount}트랙은 이미 재생목록에 있음)",
+  "collectionAddedTracksToPlaylistWithExisting": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 \"{playlistName}\"에 추가됨 ({alreadyCount} 개의 트랙은 이미 재생목록에 있음)",
   "@collectionAddedTracksToPlaylistWithExisting": {
     "description": "Snackbar after adding multiple tracks to a playlist when some were already present",
     "placeholders": {
@@ -5432,7 +5432,7 @@
       }
     }
   },
-  "selectionDeleteTracksCount": "{count} 개의 {count, plural, =1{트랙} other{트랙}} 삭제",
+  "selectionDeleteTracksCount": "{count} {count, plural, =1{트랙} other{트랙}} 삭제",
   "@selectionDeleteTracksCount": {
     "description": "Button label for deleting selected tracks",
     "placeholders": {
@@ -5614,7 +5614,7 @@
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
-  "extensionHealthNotConfigured": "구성되지 않음",
+  "extensionHealthNotConfigured": "설정되지 않음",
   "@extensionHealthNotConfigured": {
     "description": "Extension service health status - not configured"
   },
@@ -5756,7 +5756,7 @@
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
-  "dialogDisableHistoryMessage": "기존 기록이 삭제됩니다. 다운로드한 파일은 삭제되지 않습니다.",
+  "dialogDisableHistoryMessage": "기존 기록이 삭제됩니다. 다운로드한 파일은 삭제되지 않습니다",
   "@dialogDisableHistoryMessage": {
     "description": "Confirmation dialog message shown before disabling download history"
   },
@@ -5965,7 +5965,7 @@
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
-  "selectionDeletePlaylistsCount": "{count} 개의 {count, plural, =1{재생목록} other{재생목록}} 삭제",
+  "selectionDeletePlaylistsCount": "{count} {count, plural, =1{재생목록} other{재생목록}} 삭제",
   "@selectionDeletePlaylistsCount": {
     "description": "Button label for deleting multiple selected playlists",
     "placeholders": {

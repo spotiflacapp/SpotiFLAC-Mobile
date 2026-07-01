@@ -772,15 +772,15 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "Écouter un aperçu",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "Arrêter l'aperçu",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "Preview unavailable",
+  "previewUnavailable": "Aperçu indisponible",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -2107,7 +2107,7 @@
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "albumFolderStructureDescription": "Choisissez la structure des dossiers d'albums",
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },
@@ -3887,39 +3887,39 @@
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
-  "backupCreateFailed": "Failed to create backup",
+  "backupCreateFailed": "Échec de la création de la sauvegarde",
   "@backupCreateFailed": {
     "description": "Snackbar when backup creation fails"
   },
-  "backupEmpty": "There is nothing to back up yet",
+  "backupEmpty": "Il n'y a encore rien à sauvegarder",
   "@backupEmpty": {
     "description": "Snackbar when there is no data to back up"
   },
-  "backupRestoreConfirmTitle": "Restore this backup?",
+  "backupRestoreConfirmTitle": "Restaurer cette sauvegarde ?",
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
-  "backupRestoreConfirmMessage": "This will replace your current settings, download history, liked tracks, wishlist and playlists with the contents of the backup. This cannot be undone.",
+  "backupRestoreConfirmMessage": "Cette opération remplacera vos paramètres actuels, votre historique de téléchargements, vos titres favoris, votre liste de souhaits et vos listes de lecture par le contenu de la sauvegarde. Cette opération est irréversible.",
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
-  "backupRestoreConfirmButton": "Restore",
+  "backupRestoreConfirmButton": "Restaurer",
   "@backupRestoreConfirmButton": {
     "description": "Confirm button to proceed with restore"
   },
-  "backupRestoring": "Restoring backup...",
+  "backupRestoring": "Restauration de la sauvegarde...",
   "@backupRestoring": {
     "description": "Progress text while restoring a backup"
   },
-  "backupRestored": "Backup restored successfully",
+  "backupRestored": "La sauvegarde a été restaurée avec succès",
   "@backupRestored": {
     "description": "Snackbar after a successful restore"
   },
-  "backupRestoreFailed": "Failed to restore backup",
+  "backupRestoreFailed": "Échec de la restauration de la sauvegarde",
   "@backupRestoreFailed": {
     "description": "Snackbar when restore fails"
   },
-  "backupInvalidFile": "This file is not a valid SpotiFLAC backup",
+  "backupInvalidFile": "Ce fichier n'est pas une sauvegarde SpotiFLAC valide",
   "@backupInvalidFile": {
     "description": "Snackbar when the chosen file is not a valid backup"
   },
@@ -3989,7 +3989,7 @@
       }
     }
   },
-  "backupIncludeSecrets": "Include extension credentials",
+  "backupIncludeSecrets": "Inclure les informations d'identification de l'extension",
   "@backupIncludeSecrets": {
     "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
   },
@@ -4162,7 +4162,7 @@
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadAllowLocalNetwork": "Allow Local Network Access",
+  "downloadAllowLocalNetwork": "Autoriser l'accès au réseau local",
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
@@ -5787,7 +5787,7 @@
       "service": {}
     }
   },
-  "libraryPlayback": "Playback",
+  "libraryPlayback": "Lecture",
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
@@ -5799,15 +5799,15 @@
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "Built-in preview player",
+  "libraryBuiltInPreviewPlayer": "Lecteur de prévisualisation intégré",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Only for quick local previews inside SpotiFLAC Mobile, not recommended for regular listening",
+  "libraryBuiltInPreviewPlayerSubtitle": "Uniquement pour des écoutes rapides et locales dans SpotiFLAC Mobile ; non recommandé pour une écoute régulière",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
-  "libraryBuiltInPlayerInfo": "The built-in player is a preview tool for checking local tracks quickly. Use an external music player for actual listening.",
+  "libraryBuiltInPlayerInfo": "Le lecteur intégré est un outil de prévisualisation permettant de vérifier rapidement les morceaux stockés localement. Utilisez un lecteur de musique externe pour les écouter.",
   "@libraryBuiltInPlayerInfo": {
     "description": "Info note explaining the built-in player is for previews only"
   },
@@ -5815,7 +5815,7 @@
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
-  "nowPlayingNothingPlaying": "Nothing is playing",
+  "nowPlayingNothingPlaying": "Il n'y a rien à l'écran",
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
@@ -5831,27 +5831,27 @@
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingOpenInExternalPlayer": "Open in external player",
+  "nowPlayingOpenInExternalPlayer": "Ouvrir dans un lecteur externe",
   "@nowPlayingOpenInExternalPlayer": {
     "description": "Menu item to open the current track in an external player"
   },
-  "nowPlayingTabPlayer": "Player",
+  "nowPlayingTabPlayer": "Lecteur",
   "@nowPlayingTabPlayer": {
     "description": "Tab label for the player view"
   },
-  "nowPlayingTabLyrics": "Lyrics",
+  "nowPlayingTabLyrics": "Paroles",
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
-  "nowPlayingNoLyrics": "No lyrics in this file",
+  "nowPlayingNoLyrics": "Ce fichier ne contient pas de paroles",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
-  "nowPlayingLibraryEmpty": "Your library is empty",
+  "nowPlayingLibraryEmpty": "Votre bibliothèque est vide",
   "@nowPlayingLibraryEmpty": {
     "description": "Snackbar when shuffle library is requested but library has no tracks"
   },
-  "nowPlayingShuffleLibraryFailed": "Could not shuffle library: {error}",
+  "nowPlayingShuffleLibraryFailed": "Impossible de lire aléatoirement la bibliothèque : {error}",
   "@nowPlayingShuffleLibraryFailed": {
     "description": "Snackbar when shuffling the library fails",
     "placeholders": {
@@ -5864,7 +5864,7 @@
   "@nowPlayingShuffleOn": {
     "description": "Tooltip when shuffle mode is enabled"
   },
-  "nowPlayingPlayInOrder": "Play in order",
+  "nowPlayingPlayInOrder": "Lire dans l'ordre",
   "@nowPlayingPlayInOrder": {
     "description": "Tooltip when shuffle mode is disabled"
   },
@@ -5872,19 +5872,19 @@
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
-  "nowPlayingQueueEmpty": "Queue is empty",
+  "nowPlayingQueueEmpty": "La file d'attente est vide",
   "@nowPlayingQueueEmpty": {
     "description": "Empty state when the playback queue has no items"
   },
-  "nowPlayingNoMetadata": "No metadata available",
+  "nowPlayingNoMetadata": "Aucune métadonnée disponible",
   "@nowPlayingNoMetadata": {
     "description": "Empty state when track metadata cannot be loaded"
   },
-  "announcementUnableToOpenLink": "Unable to open link. Please try again.",
+  "announcementUnableToOpenLink": "Impossible d'ouvrir le lien. Veuillez réessayer.",
   "@announcementUnableToOpenLink": {
     "description": "Snackbar shown when an announcement CTA link cannot be opened"
   },
-  "trackConvertLosslessOutputWithCap": "Lossless output with {quality} cap",
+  "trackConvertLosslessOutputWithCap": "Sortie sans perte avec une limite de {quality}",
   "@trackConvertLosslessOutputWithCap": {
     "description": "Hint shown when lossless conversion will cap bit depth or sample rate",
     "placeholders": {
@@ -6002,7 +6002,7 @@
   "@trackConvertOriginalQuality": {
     "description": "Label when no bit depth or sample rate cap is applied during lossless conversion"
   },
-  "trackConvertLosslessSuffix": "Lossless",
+  "trackConvertLosslessSuffix": "Sans perte",
   "@trackConvertLosslessSuffix": {
     "description": "Suffix used in converted lossless quality labels"
   },

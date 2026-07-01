@@ -660,15 +660,15 @@
   "@setupChooseFromFilesSubtitle": {
     "description": "Subtitle for file picker"
   },
-  "setupIosEmptyFolderWarning": "iOS 제한 사항: 빈 폴더는 선택할 수 없습니다. 파일이 하나 이상 있는 폴더를 선택하세요.",
+  "setupIosEmptyFolderWarning": "iOS 제한 사항: 빈 폴더는 선택할 수 없습니다. 파일이 하나 이상 있는 폴더를 선택하세요",
   "@setupIosEmptyFolderWarning": {
     "description": "iOS folder selection warning"
   },
-  "setupIcloudNotSupported": "iCloud Drive는 지원되지 않습니다. 앱의 문서 폴더를 사용해 주세요.",
+  "setupIcloudNotSupported": "iCloud Drive는 지원되지 않습니다. 앱의 문서 폴더를 사용해 주세요",
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
-  "setupDownloadInFlac": "Spotify 음악을 FLAC 형식으로 다운로드하세요.",
+  "setupDownloadInFlac": "Spotify 음악을 FLAC 형식으로 다운로드하세요",
   "@setupDownloadInFlac": {
     "description": "App tagline in setup"
   },
@@ -680,7 +680,7 @@
   "@setupStorageRequired": {
     "description": "Title when storage permission needed"
   },
-  "setupStorageDescription": "SpotiFLAC은 다운로드한 음악 파일을 저장하기 위해 저장소 접근 권한이 필요합니다.",
+  "setupStorageDescription": "SpotiFLAC은 다운로드한 음악 파일을 저장하기 위해 저장소 접근 권한이 필요합니다",
   "@setupStorageDescription": {
     "description": "Explanation for storage permission"
   },
@@ -708,7 +708,7 @@
   "@setupEnableNotifications": {
     "description": "Button to enable notifications"
   },
-  "setupNotificationBackgroundDescription": "알림으로 다운로드 진행 상황을 확인하세요. 앱이 백그라운드에서 실행 중일 때 다운로드 상태와 완료 여부를 확인할 수 있습니다.",
+  "setupNotificationBackgroundDescription": "알림으로 다운로드 진행 상황을 확인하세요. 앱이 백그라운드에서 실행 중일 때 다운로드 상태와 완료 여부를 확인할 수 있습니다",
   "@setupNotificationBackgroundDescription": {
     "description": "Detailed notification explanation"
   },
@@ -724,7 +724,7 @@
   "@setupGetStarted": {
     "description": "Final setup button"
   },
-  "setupAllowAccessToManageFiles": "다음 화면에서 \"모든 파일 관리 권한 허용\"을 활성화해 주세요.",
+  "setupAllowAccessToManageFiles": "다음 화면에서 '모든 파일 관리 권한 허용'을 활성화해 주세요",
   "@setupAllowAccessToManageFiles": {
     "description": "Instruction for file access permission"
   },
@@ -732,7 +732,7 @@
   "@setupLanguageTitle": {
     "description": "Title for the language selection step in setup"
   },
-  "setupLanguageDescription": "앱에서 사용할 언어를 선택하세요. 나중에 설정에서 변경할 수 있습니다.",
+  "setupLanguageDescription": "앱에서 사용할 언어를 선택하세요. 나중에 설정에서 변경할 수 있습니다",
   "@setupLanguageDescription": {
     "description": "Description for the language selection step in setup"
   },
@@ -780,7 +780,7 @@
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "미리듣기 사용할 수 없음",
+  "previewUnavailable": "미리듣기를 사용할 수 없음",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -796,7 +796,7 @@
   "@dialogUninstall": {
     "description": "Dialog button - uninstall extension"
   },
-  "dialogDiscardChanges": "변경사항 취소",
+  "dialogDiscardChanges": "변경 사항 취소",
   "@dialogDiscardChanges": {
     "description": "Dialog title - unsaved changes warning"
   },
@@ -812,7 +812,7 @@
   "@dialogRemoveExtension": {
     "description": "Dialog title - uninstall extension"
   },
-  "dialogRemoveExtensionMessage": "이 확장 프로그램을 정말로 제거하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+  "dialogRemoveExtensionMessage": "이 확장 프로그램을 제거하시겠습니까? 이 작업은 되돌릴 수 없습니다",
   "@dialogRemoveExtensionMessage": {
     "description": "Dialog message - uninstall confirmation"
   },
@@ -820,7 +820,7 @@
   "@dialogUninstallExtension": {
     "description": "Dialog title - uninstall extension"
   },
-  "dialogUninstallExtensionMessage": "{extensionName}을 정말로 삭제하시겠습니까?",
+  "dialogUninstallExtensionMessage": "'{extensionName}'을 제거하시겠습니까?",
   "@dialogUninstallExtensionMessage": {
     "description": "Dialog message - uninstall specific extension",
     "placeholders": {
@@ -829,15 +829,15 @@
       }
     }
   },
-  "dialogClearHistoryTitle": "기록 삭제",
+  "dialogClearHistoryTitle": "기록 지우기",
   "@dialogClearHistoryTitle": {
     "description": "Dialog title - clear download history"
   },
-  "dialogClearHistoryMessage": "다운로드 기록을 모두 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+  "dialogClearHistoryMessage": "모든 다운로드 기록을 지우시겠습니까? 이 작업은 되돌릴 수 없습니다",
   "@dialogClearHistoryMessage": {
     "description": "Dialog message - clear history confirmation"
   },
-  "dialogDeleteSelectedTitle": "선택한 항목 삭제",
+  "dialogDeleteSelectedTitle": "선택 항목 삭제",
   "@dialogDeleteSelectedTitle": {
     "description": "Dialog title - delete selected items"
   },
@@ -850,7 +850,7 @@
       }
     }
   },
-  "dialogImportPlaylistTitle": "재생 목록 가져오기",
+  "dialogImportPlaylistTitle": "재생목록 가져오기",
   "@dialogImportPlaylistTitle": {
     "description": "Dialog title - import CSV playlist"
   },
@@ -1080,7 +1080,7 @@
   "@selectionSelectToDelete": {
     "description": "Placeholder when nothing selected"
   },
-  "progressFetchingMetadata": "메타데이터 가져오는 중... {current}/{total}",
+  "progressFetchingMetadata": "메타데이터를 가져오는 중... {current}/{total}",
   "@progressFetchingMetadata": {
     "description": "Progress indicator - loading track info",
     "placeholders": {
@@ -1164,7 +1164,7 @@
   "@filenameShowAdvancedTags": {
     "description": "Toggle label for showing advanced filename tags"
   },
-  "filenameShowAdvancedTagsDescription": "트랙 패딩 및 날짜 패턴에 대한 서식 있는 태그를 활성화합니다.",
+  "filenameShowAdvancedTagsDescription": "트랙 패딩 및 날짜 패턴에 대한 서식 있는 태그를 활성화합니다",
   "@filenameShowAdvancedTagsDescription": {
     "description": "Description for advanced filename tag toggle"
   },
@@ -1236,11 +1236,11 @@
   "@updateNewVersionReady": {
     "description": "Update subtitle"
   },
-  "updateCurrent": "현재",
+  "updateCurrent": "현재 버전",
   "@updateCurrent": {
     "description": "Label for current version"
   },
-  "updateNew": "신규",
+  "updateNew": "새 버전",
   "@updateNew": {
     "description": "Label for new version"
   },
@@ -1264,11 +1264,11 @@
   "@providerPriorityTitle": {
     "description": "Provider priority page title"
   },
-  "providerPriorityDescription": "드래그하여 다운로드 제공자 순서를 변경하세요. 앱은 트랙을 다운로드할 경우에 위에서 아래로 제공자를 차례로 시도합니다.",
+  "providerPriorityDescription": "드래그하여 다운로드 제공자 순서를 변경하세요. 앱은 트랙을 다운로드할 경우에 위에서 아래로 제공자를 차례로 시도합니다",
   "@providerPriorityDescription": {
     "description": "Provider priority page description"
   },
-  "providerPriorityInfo": "첫 ​​번째 제공자에서 트랙을 사용할 수 없는 경우에 앱은 자동으로 다음 제공자를 시도합니다.",
+  "providerPriorityInfo": "첫 ​​번째 제공자에서 트랙을 사용할 수 없는 경우에 앱은 자동으로 다음 제공자를 시도합니다",
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
@@ -1276,11 +1276,11 @@
   "@providerPriorityFallbackExtensionsTitle": {
     "description": "Section title for choosing which download extensions can be used as fallback providers"
   },
-  "providerPriorityFallbackExtensionsDescription": "자동 대체 중에 사용할 수 있는 설치된 다운로드 확장 프로그램을 선택하세요.",
+  "providerPriorityFallbackExtensionsDescription": "자동 대체 중에 사용할 수 있는 설치된 다운로드 확장 프로그램을 선택하세요",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
-  "providerPriorityFallbackExtensionsHint": "다운로드 공급자 기능이 활성화된 확장 프로그램만 여기에 나열됩니다.",
+  "providerPriorityFallbackExtensionsHint": "다운로드 공급자 기능이 활성화된 확장 프로그램만 여기에 나열됩니다",
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
@@ -1296,11 +1296,11 @@
   "@metadataProviderPriorityTitle": {
     "description": "Metadata priority page title"
   },
-  "metadataProviderPriorityDescription": "드래그하여 메타데이터 제공자 순서를 변경하세요. 앱은 트랙을 검색하고 메타데이터를 가져올 경우에 위에서 아래로 제공자를 시도합니다.",
+  "metadataProviderPriorityDescription": "드래그하여 메타데이터 제공자 순서를 변경하세요. 앱은 트랙을 검색하고 메타데이터를 가져올 경우에 위에서 아래로 제공자를 시도합니다",
   "@metadataProviderPriorityDescription": {
     "description": "Metadata priority page description"
   },
-  "metadataProviderPriorityInfo": "Deezer는 요청 횟수 제한이 없으므로 기본 앱으로 사용하는 것이 좋습니다. Spotify는 요청 횟수가 많아지면 요청 횟수를 제한할 수 있습니다.",
+  "metadataProviderPriorityInfo": "Deezer는 요청 횟수 제한이 없으므로 기본 앱으로 사용하는 것이 좋습니다. Spotify는 요청 횟수가 많아지면 요청 횟수를 제한할 수 있습니다",
   "@metadataProviderPriorityInfo": {
     "description": "Info tip about rate limits"
   },
@@ -1316,7 +1316,7 @@
   "@logTitle": {
     "description": "Logs screen title"
   },
-  "logCopied": "로그를 클립보드에 복사하였습니다",
+  "logCopied": "로그가 클립보드에 복사됨",
   "@logCopied": {
     "description": "Snackbar - logs copied"
   },
@@ -1352,11 +1352,11 @@
   "@logFilterBySeverity": {
     "description": "Filter dialog title"
   },
-  "logNoLogsYet": "어떠한 로그도 없음",
+  "logNoLogsYet": "아직 로그 없음",
   "@logNoLogsYet": {
     "description": "Empty state title"
   },
-  "logNoLogsYetSubtitle": "앱을 사용하는 동안 로그가 여기에 표시됩니다.",
+  "logNoLogsYetSubtitle": "앱을 사용하는 동안에 로그가 여기에 표시됩니다",
   "@logNoLogsYetSubtitle": {
     "description": "Empty state subtitle"
   },
@@ -1382,7 +1382,7 @@
   "@credentialsTitle": {
     "description": "Credentials dialog title"
   },
-  "credentialsDescription": "Spotify 애플리케이션 할당량을 사용하려면 클라이언트 ID와 비밀키를 입력하세요.",
+  "credentialsDescription": "Spotify 애플리케이션 할당량을 사용하려면 클라이언트 ID와 비밀키를 입력하세요",
   "@credentialsDescription": {
     "description": "Credentials dialog explanation"
   },
@@ -1390,15 +1390,15 @@
   "@credentialsClientId": {
     "description": "Client ID field label - DO NOT TRANSLATE"
   },
-  "credentialsClientIdHint": "Client ID를 붙여넣으세요",
+  "credentialsClientIdHint": "클라이언트 ID를 붙여넣으세요",
   "@credentialsClientIdHint": {
     "description": "Client ID placeholder"
   },
-  "credentialsClientSecret": "비밀키",
+  "credentialsClientSecret": "클라이언트 비밀키",
   "@credentialsClientSecret": {
     "description": "Client Secret field label - DO NOT TRANSLATE"
   },
-  "credentialsClientSecretHint": "비밀키를 붙여넣으세요",
+  "credentialsClientSecretHint": "클라이언트 비밀키를 붙여넣으세요",
   "@credentialsClientSecretHint": {
     "description": "Client Secret placeholder"
   },
@@ -1454,7 +1454,7 @@
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
   },
-  "lyricsModeDescription": "다운로드한 파일에 가사를 저장하는 방법을 선택하세요.",
+  "lyricsModeDescription": "다운로드한 파일에 가사를 저장하는 방법을 선택하세요",
   "@lyricsModeDescription": {
     "description": "Lyrics mode picker description"
   },
@@ -1462,7 +1462,7 @@
   "@lyricsModeEmbed": {
     "description": "Lyrics mode option - embed in audio file"
   },
-  "lyricsModeEmbedSubtitle": "FLAC 메타데이터 내에 저장됩니다.",
+  "lyricsModeEmbedSubtitle": "FLAC 메타데이터 내에 저장됩니다",
   "@lyricsModeEmbedSubtitle": {
     "description": "Subtitle for embed option"
   },
@@ -1478,7 +1478,7 @@
   "@lyricsModeBoth": {
     "description": "Lyrics mode option - embed and external"
   },
-  "lyricsModeBothSubtitle": ".lrc 파일을 삽입하고 저장합니다.",
+  "lyricsModeBothSubtitle": ".lrc 파일을 삽입하고 저장합니다",
   "@lyricsModeBothSubtitle": {
     "description": "Subtitle for both option"
   },
@@ -1572,7 +1572,7 @@
   "@trackLyrics": {
     "description": "Tab title - lyrics"
   },
-  "trackFileNotFound": "파일을 찾을 수 없습니다",
+  "trackFileNotFound": "파일을 찾을 수 없음",
   "@trackFileNotFound": {
     "description": "Error - file doesn't exist"
   },
@@ -1640,7 +1640,7 @@
   "@trackCopyLyrics": {
     "description": "Action - copy lyrics to clipboard"
   },
-  "trackLyricsSource": "소스: {source}",
+  "trackLyricsSource": "출처: {source}",
   "@trackLyricsSource": {
     "description": "Label showing the lyrics source/provider",
     "placeholders": {
@@ -1661,7 +1661,7 @@
   "@trackFetchOnlineLyrics": {
     "description": "Action - fetch lyrics from online providers"
   },
-  "trackLyricsTimeout": "요청 시간이 초과되었습니다. 나중에 다시 시도하세요.",
+  "trackLyricsTimeout": "요청 시간이 초과되었습니다. 나중에 다시 시도하세요",
   "@trackLyricsTimeout": {
     "description": "Message when lyrics request times out"
   },
@@ -1689,7 +1689,7 @@
   "@trackDeleteConfirmTitle": {
     "description": "Delete confirmation title"
   },
-  "trackDeleteConfirmMessage": "이렇게 하면 다운로드한 파일이 영구적으로 삭제되고 기록에서 제거됩니다.",
+  "trackDeleteConfirmMessage": "이렇게 하면 다운로드한 파일이 영구적으로 삭제되고 기록에서 제거됩니다",
   "@trackDeleteConfirmMessage": {
     "description": "Delete confirmation message"
   },
@@ -1979,7 +1979,7 @@
   "@extensionsFallbackSubtitle": {
     "description": "Subtitle for download fallback extensions menu"
   },
-  "extensionsNoDownloadProvider": "다운로드 제공자가 있는 확장 프로그램가 없습니다",
+  "extensionsNoDownloadProvider": "다운로드 제공자가 있는 확장 프로그램가 없음",
   "@extensionsNoDownloadProvider": {
     "description": "Empty state - no download providers"
   },
@@ -1991,7 +1991,7 @@
   "@extensionsMetadataPrioritySubtitle": {
     "description": "Subtitle for metadata priority"
   },
-  "extensionsNoMetadataProvider": "메타데이터 제공자가 있는 확장 프로그램이 없습니다",
+  "extensionsNoMetadataProvider": "메타데이터 제공자가 있는 확장 프로그램이 없음",
   "@extensionsNoMetadataProvider": {
     "description": "Empty state - no metadata providers"
   },
@@ -1999,7 +1999,7 @@
   "@extensionsSearchProvider": {
     "description": "Setting - search provider selection"
   },
-  "extensionsNoCustomSearch": "사용자 정의 검색이 있는 확장 프로그램이 없습니다",
+  "extensionsNoCustomSearch": "사용자 정의 검색이 있는 확장 프로그램이 없음",
   "@extensionsNoCustomSearch": {
     "description": "Empty state - no search providers"
   },
@@ -2043,15 +2043,15 @@
   "@downloadLossy320": {
     "description": "Quality option label for lossy 320kbps"
   },
-  "downloadLossyFormat": "손실 압축 형식",
+  "downloadLossyFormat": "손실 압축 포맷",
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadLossy320Format": "손실 압축 320kbps 형식",
+  "downloadLossy320Format": "손실 압축 320kbps 포맷",
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
-  "downloadLossy320FormatDesc": "320kbps 손실 다운로드의 출력 형식을 선택하세요. 필요에 따라 원본 스트림이 선택한 형식으로 변환됩니다.",
+  "downloadLossy320FormatDesc": "320kbps 손실 다운로드의 출력 형식을 선택하세요. 필요에 따라 원본 스트림이 선택한 형식으로 변환됩니다",
   "@downloadLossy320FormatDesc": {
     "description": "Description in the lossy format picker"
   },
@@ -2802,7 +2802,7 @@
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
-  "tutorialWelcomeTip3": "메타데이터, 앨범 아트 및 가사 자동 삽입",
+  "tutorialWelcomeTip3": "메타데이터, 표지 이미지 및 가사 자동 삽입",
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },
@@ -3092,7 +3092,7 @@
   "@trackSaveCoverArt": {
     "description": "Menu action - save album cover art as file"
   },
-  "trackSaveCoverArtSubtitle": "앨범 아트를 .jpg 파일로 저장",
+  "trackSaveCoverArtSubtitle": "표지 이미지를 .jpg 파일로 저장",
   "@trackSaveCoverArtSubtitle": {
     "description": "Subtitle for save cover art action"
   },
@@ -3120,7 +3120,7 @@
   "@trackReEnrichFieldsTitle": {
     "description": "Section title for field selection in re-enrich dialog"
   },
-  "trackReEnrichFieldCover": "표지 아트",
+  "trackReEnrichFieldCover": "표지 이미지",
   "@trackReEnrichFieldCover": {
     "description": "Checkbox label for cover art field in re-enrich"
   },
@@ -3152,7 +3152,7 @@
   "@trackEditMetadata": {
     "description": "Menu action - edit embedded metadata"
   },
-  "trackCoverSaved": "표지 아트가 {fileName}에 저장됨",
+  "trackCoverSaved": "표지 이미지가 {fileName}에 저장됨",
   "@trackCoverSaved": {
     "description": "Snackbar after cover art saved",
     "placeholders": {
@@ -3161,7 +3161,7 @@
       }
     }
   },
-  "trackCoverNoSource": "표지 이미지 소스를 사용할 수 없습니다",
+  "trackCoverNoSource": "사용할 수 있는 표지 소스가 없음",
   "@trackCoverNoSource": {
     "description": "Snackbar when no cover art URL or embedded cover"
   },
@@ -4409,7 +4409,7 @@
   "@editMetadataFieldCopyright": {
     "description": "Chip label for copyright field in auto-fill selector"
   },
-  "editMetadataFieldCover": "표지 아트",
+  "editMetadataFieldCover": "표지 이미지",
   "@editMetadataFieldCover": {
     "description": "Chip label for cover art field in auto-fill selector"
   },
@@ -4984,7 +4984,7 @@
   "@optionsEmbedMetadata": {
     "description": "Settings toggle title for writing metadata into downloaded files"
   },
-  "optionsEmbedMetadataSubtitleOn": "메타데이터, 표지 이미지 및 내장 가사를 파일에 기록합니다",
+  "optionsEmbedMetadataSubtitleOn": "메타데이터, 표지 이미지 및 내장 가사를 파일에 기록",
   "@optionsEmbedMetadataSubtitleOn": {
     "description": "Subtitle when metadata embedding is enabled"
   },
@@ -5000,27 +5000,27 @@
   "@downloadFilenameHintExample": {
     "description": "Example placeholder for the download filename format input"
   },
-  "trackCoverNoEmbeddedArt": "내장된 앨범 아트가 없습니다",
+  "trackCoverNoEmbeddedArt": "내장된 표지 이미지가 없습니다",
   "@trackCoverNoEmbeddedArt": {
     "description": "Message shown when a track file has no embedded cover art"
   },
-  "trackCoverReplace": "커버 교체",
+  "trackCoverReplace": "표지 교체",
   "@trackCoverReplace": {
     "description": "Button label for replacing selected cover art"
   },
-  "trackCoverPick": "커버 선택",
+  "trackCoverPick": "표지 선택",
   "@trackCoverPick": {
     "description": "Button label for selecting cover art"
   },
-  "trackCoverClearSelected": "선택된 커버 지우기",
+  "trackCoverClearSelected": "선택된 표지 지우기",
   "@trackCoverClearSelected": {
     "description": "Tooltip for clearing the newly selected cover art"
   },
-  "trackCoverCurrent": "현재 커버",
+  "trackCoverCurrent": "현재 표지",
   "@trackCoverCurrent": {
     "description": "Label for the currently embedded cover preview"
   },
-  "trackCoverSelected": "선택된 커버",
+  "trackCoverSelected": "선택된 표지",
   "@trackCoverSelected": {
     "description": "Label for the newly selected cover preview"
   },
@@ -5259,7 +5259,7 @@
   "@settingsMetadata": {
     "description": "Settings menu item - metadata settings"
   },
-  "settingsMetadataSubtitle": "앨범 아트, 태그, 리플레이게인, 제공자",
+  "settingsMetadataSubtitle": "표지 이미지, 태그, 리플레이게인, 제공자",
   "@settingsMetadataSubtitle": {
     "description": "Subtitle for metadata settings"
   },
@@ -6069,7 +6069,7 @@
   "@releaseTypeSingle": {
     "description": "Badge label for single releases"
   },
-  "trackCoverOnline": "온라인 커버",
+  "trackCoverOnline": "온라인 표지",
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },

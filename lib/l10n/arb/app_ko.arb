@@ -772,15 +772,15 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "미리보기 재생",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "미리보기 중지",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "Preview unavailable",
+  "previewUnavailable": "미리보기 사용할 수 없음",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -3843,7 +3843,7 @@
   "@settingsDonateSubtitle": {
     "description": "Subtitle for donate menu item"
   },
-  "settingsBackup": "Backup & Restore",
+  "settingsBackup": "백업 & 복원",
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
@@ -3851,11 +3851,11 @@
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
-  "backupTitle": "Backup & Restore",
+  "backupTitle": "백업 & 복원",
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
-  "backupExportSectionTitle": "Create backup",
+  "backupExportSectionTitle": "백업 생성",
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
@@ -3863,11 +3863,11 @@
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
-  "backupExportButton": "Create backup file",
+  "backupExportButton": "백업 파일 생성",
   "@backupExportButton": {
     "description": "Button to create and share a backup file"
   },
-  "backupImportSectionTitle": "Restore backup",
+  "backupImportSectionTitle": "백업 복원",
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
@@ -3875,11 +3875,11 @@
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
-  "backupImportButton": "Choose backup file",
+  "backupImportButton": "백업 파일 선택",
   "@backupImportButton": {
     "description": "Button to pick a backup file to restore"
   },
-  "backupCreating": "Creating backup...",
+  "backupCreating": "백업을 생성하는 중...",
   "@backupCreating": {
     "description": "Progress text while a backup is being created"
   },
@@ -3887,7 +3887,7 @@
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
-  "backupCreateFailed": "Failed to create backup",
+  "backupCreateFailed": "백업 생성 실패",
   "@backupCreateFailed": {
     "description": "Snackbar when backup creation fails"
   },
@@ -3907,7 +3907,7 @@
   "@backupRestoreConfirmButton": {
     "description": "Confirm button to proceed with restore"
   },
-  "backupRestoring": "Restoring backup...",
+  "backupRestoring": "백업을 복원하는 중...",
   "@backupRestoring": {
     "description": "Progress text while restoring a backup"
   },
@@ -3915,7 +3915,7 @@
   "@backupRestored": {
     "description": "Snackbar after a successful restore"
   },
-  "backupRestoreFailed": "Failed to restore backup",
+  "backupRestoreFailed": "백업 복원 실패",
   "@backupRestoreFailed": {
     "description": "Snackbar when restore fails"
   },
@@ -3927,15 +3927,15 @@
   "@backupRestoreRestartHint": {
     "description": "Hint shown after restoring that an app restart is recommended"
   },
-  "backupContentsTitle": "Backup contents",
+  "backupContentsTitle": "백업 콘텐츠",
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupContentsSettings": "App settings",
+  "backupContentsSettings": "앱 설정",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
-  "backupContentsHistory": "{count} history {count, plural, =1{item} other{items}}",
+  "backupContentsHistory": "{count} 개의 기록 {count, plural, =1{항목} other{항목}}",
   "@backupContentsHistory": {
     "description": "Backup contents row for history count",
     "placeholders": {
@@ -3944,7 +3944,7 @@
       }
     }
   },
-  "backupContentsLiked": "{count} liked {count, plural, =1{track} other{tracks}}",
+  "backupContentsLiked": "{count} 개의 좋아요 표시한 {count, plural, =1{트랙} other{트랙}}",
   "@backupContentsLiked": {
     "description": "Backup contents row for liked tracks count",
     "placeholders": {
@@ -3953,7 +3953,7 @@
       }
     }
   },
-  "backupContentsWishlist": "{count} wishlist {count, plural, =1{track} other{tracks}}",
+  "backupContentsWishlist": "{count} 개의 위시리스트 {count, plural, =1{트랙} other{트랙}}",
   "@backupContentsWishlist": {
     "description": "Backup contents row for wishlist tracks count",
     "placeholders": {
@@ -3962,7 +3962,7 @@
       }
     }
   },
-  "backupContentsPlaylists": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "backupContentsPlaylists": "{count, plural, =1{1 개의 재생목록} other{{count} 개의 재생목록}}",
   "@backupContentsPlaylists": {
     "description": "Backup contents row for playlist count",
     "placeholders": {
@@ -3971,7 +3971,7 @@
       }
     }
   },
-  "backupContentsArtists": "{count, plural, =1{1 favorite artist} other{{count} favorite artists}}",
+  "backupContentsArtists": "{count, plural, =1{1 명의 좋아하는 아티스트} other{{count} 명의 좋아하는 아티스트}}",
   "@backupContentsArtists": {
     "description": "Backup contents row for favorite artists count",
     "placeholders": {
@@ -3980,7 +3980,7 @@
       }
     }
   },
-  "backupContentsExtensions": "{count, plural, =1{1 extension} other{{count} extensions}}",
+  "backupContentsExtensions": "{count, plural, =1{1 개의 확장 프로그램} other{{count} 개의 확장 프로그램}}",
   "@backupContentsExtensions": {
     "description": "Backup contents row for installed extensions count",
     "placeholders": {
@@ -3989,7 +3989,7 @@
       }
     }
   },
-  "backupIncludeSecrets": "Include extension credentials",
+  "backupIncludeSecrets": "확장 프로그램 자격 증명 포함",
   "@backupIncludeSecrets": {
     "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
   },
@@ -4162,7 +4162,7 @@
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadAllowLocalNetwork": "Allow Local Network Access",
+  "downloadAllowLocalNetwork": "로컬 네트워크 액세스 허용",
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
@@ -5787,11 +5787,11 @@
       "service": {}
     }
   },
-  "libraryPlayback": "Playback",
+  "libraryPlayback": "재생",
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
-  "libraryExternalPlayer": "External player",
+  "libraryExternalPlayer": "외부 플레이어",
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },

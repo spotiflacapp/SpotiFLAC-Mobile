@@ -6006,6 +6006,34 @@
   "@trackConvertLosslessSuffix": {
     "description": "Suffix used in converted lossless quality labels"
   },
+  "trackConvertDithering": "Dithering",
+  "@trackConvertDithering": {
+    "description": "Section label for lossless conversion dithering options"
+  },
+  "trackConvertResampler": "Resampler",
+  "@trackConvertResampler": {
+    "description": "Section label for lossless conversion resampler options"
+  },
+  "trackConvertDitherNone": "None",
+  "@trackConvertDitherNone": {
+    "description": "Lossless conversion dither option with no dithering applied"
+  },
+  "trackConvertDitherTriangular": "TPDF",
+  "@trackConvertDitherTriangular": {
+    "description": "Lossless conversion triangular probability density function dither option"
+  },
+  "trackConvertDitherTriangularHp": "Triangular HP",
+  "@trackConvertDitherTriangularHp": {
+    "description": "Lossless conversion high-pass triangular dither option"
+  },
+  "trackConvertResamplerSwr": "SWR",
+  "@trackConvertResamplerSwr": {
+    "description": "Lossless conversion default FFmpeg swresample resampler option"
+  },
+  "trackConvertResamplerSoxr": "SoXr",
+  "@trackConvertResamplerSoxr": {
+    "description": "Lossless conversion SoX resampler option"
+  },
   "updateSeeReleaseNotes": "Pour plus de détails, consultez les notes de mise à jour.",
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
@@ -6124,5 +6152,57 @@
   "regionCountryXK": "Kosovo",
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
+  },
+  "extensionVerificationBrowserTitle": "Verification browser",
+  "@extensionVerificationBrowserTitle": {
+    "description": "Settings option title for extension verification browser preference"
+  },
+  "extensionVerificationBrowserSubtitleExternal": "Open challenges in the default browser first",
+  "@extensionVerificationBrowserSubtitleExternal": {
+    "description": "Subtitle when external browser is preferred for extension verification"
+  },
+  "extensionVerificationBrowserSubtitleInApp": "Open challenges in the in-app browser first",
+  "@extensionVerificationBrowserSubtitleInApp": {
+    "description": "Subtitle when in-app browser is preferred for extension verification"
+  },
+  "extensionVerificationBrowserExternal": "External",
+  "@extensionVerificationBrowserExternal": {
+    "description": "Chip label for external browser verification mode"
+  },
+  "extensionVerificationBrowserInApp": "In-app",
+  "@extensionVerificationBrowserInApp": {
+    "description": "Chip label for in-app browser verification mode"
+  },
+  "extensionVerificationHelpTitleManual": "Open verification manually",
+  "@extensionVerificationHelpTitleManual": {
+    "description": "Dialog title when automatic browser launch for verification fails"
+  },
+  "extensionVerificationHelpTitleWaiting": "Verification still waiting",
+  "@extensionVerificationHelpTitleWaiting": {
+    "description": "Dialog title when verification is taking longer than expected"
+  },
+  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile could not open the browser automatically. Open this link in your browser, or copy it manually.",
+  "@extensionVerificationHelpMessageManual": {
+    "description": "Dialog message when automatic browser launch for verification fails"
+  },
+  "extensionVerificationHelpMessageWaiting": "If the browser did not open, or verification finished but did not return to SpotiFLAC Mobile, open this link again or copy it manually.",
+  "@extensionVerificationHelpMessageWaiting": {
+    "description": "Dialog message when verification may need manual browser help"
+  },
+  "extensionVerificationClose": "Close",
+  "@extensionVerificationClose": {
+    "description": "Button to dismiss the extension verification help dialog"
+  },
+  "extensionVerificationCopyLink": "Copy link",
+  "@extensionVerificationCopyLink": {
+    "description": "Button to copy the extension verification URL"
+  },
+  "extensionVerificationLinkCopied": "Verification link copied",
+  "@extensionVerificationLinkCopied": {
+    "description": "Snackbar after copying the extension verification URL"
+  },
+  "extensionVerificationOpenBrowser": "Open browser",
+  "@extensionVerificationOpenBrowser": {
+    "description": "Button to open the extension verification URL in a browser"
   }
 }

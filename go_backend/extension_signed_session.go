@@ -236,6 +236,7 @@ func (r *extensionRuntime) signedSessionClear(call goja.FunctionCall) goja.Value
 	if err := r.saveSignedSession(config, record); err != nil {
 		return r.vm.ToValue(map[string]interface{}{"success": false, "error": err.Error()})
 	}
+	ClearPendingAuthRequest(r.extensionID)
 	return r.vm.ToValue(map[string]interface{}{"success": true})
 }
 
@@ -256,6 +257,7 @@ func (r *extensionRuntime) signedSessionCompleteGrant(call goja.FunctionCall) go
 	if err := r.exchangeSignedSessionGrant(grant); err != nil {
 		return r.vm.ToValue(map[string]interface{}{"success": false, "error": err.Error()})
 	}
+	ClearPendingAuthRequest(r.extensionID)
 	return r.vm.ToValue(map[string]interface{}{"success": true})
 }
 

@@ -3287,7 +3287,7 @@ func InvokeExtensionActionJSON(extensionID, actionName string) (string, error) {
 }
 
 func GetExtensionPendingAuthJSON(extensionID string) (string, error) {
-	req := GetPendingAuthRequest(extensionID)
+	req := ensureExtensionPendingAuthRequest(extensionID)
 	if req == nil {
 		return "", nil
 	}
@@ -3304,6 +3304,40 @@ func GetExtensionPendingAuthJSON(extensionID string) (string, error) {
 	}
 
 	return string(jsonBytes), nil
+}
+
+func ensureExtensionPendingAuthRequest(extensionID string) *PendingAuthRequest {
+	extensionID = strings.TrimSpace(extensionID)
+	if extensionID == "" {
+		return nil
+	}
+
+	if req := GetPendingAuthRequest(extensionID); req != nil {
+		return req
+	}
+
+	manager := getExtensionManager()
+	ext, err := manager.GetExtension(extensionID)
+	if err != nil || ext == nil || !ext.Enabled || ext.Manifest == nil || ext.Manifest.SignedSession == nil {
+		return nil
+	}
+
+	if err := ext.ensureRuntimeReady(); err != nil || ext.runtime == nil {
+		return nil
+	}
+
+	config := signedSessionConfigWithDefaults(ext.Manifest.SignedSession)
+	if config.Namespace == "" || config.BaseURL == "" {
+		return nil
+	}
+	if record, err := ext.runtime.loadSignedSession(config); err == nil {
+		record.SessionID = ""
+		record.SessionSecret = ""
+		record.ExpiresAt = ""
+		_ = ext.runtime.saveSignedSession(config, record)
+	}
+	ext.runtime.startSignedSessionVerification(config, "pending-auth-request")
+	return GetPendingAuthRequest(extensionID)
 }
 
 func SetExtensionAuthCodeByID(extensionID, authCode string) {

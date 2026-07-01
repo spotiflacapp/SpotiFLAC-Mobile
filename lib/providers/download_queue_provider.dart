@@ -2096,14 +2096,31 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           ),
         );
 
-    final opened = await openPendingExtensionVerification(
-      normalizedExtensionId,
-      browserMode: ref.read(settingsProvider).extensionVerificationBrowserMode,
-    );
-    if (!opened) return false;
+    final browserMode = ref
+        .read(settingsProvider)
+        .extensionVerificationBrowserMode;
+    Uri? authUri;
+    Timer? helpDialogTimer;
 
-    final event = await grantEventFuture;
-    return event.success;
+    try {
+      final opened = await openPendingExtensionVerification(
+        normalizedExtensionId,
+        browserMode: browserMode,
+        onAuthUri: (uri) => authUri = uri,
+      );
+      if (!opened) return false;
+
+      helpDialogTimer = scheduleExtensionVerificationHelpDialog(
+        normalizedExtensionId,
+        authUri,
+        browserMode: browserMode,
+      );
+
+      final event = await grantEventFuture;
+      return event.success;
+    } finally {
+      helpDialogTimer?.cancel();
+    }
   }
 
   Future<bool> _handleVerificationRequiredDownload(

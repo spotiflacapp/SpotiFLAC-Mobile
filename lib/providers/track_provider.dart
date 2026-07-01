@@ -683,14 +683,25 @@ class TrackNotifier extends Notifier<TrackState> {
           }
         });
 
+    final browserMode = ref
+        .read(settingsProvider)
+        .extensionVerificationBrowserMode;
+    Uri? authUri;
+    Timer? helpDialogTimer;
+
     try {
       final opened = await openPendingExtensionVerification(
         normalizedExtensionId,
-        browserMode: ref
-            .read(settingsProvider)
-            .extensionVerificationBrowserMode,
+        browserMode: browserMode,
+        onAuthUri: (uri) => authUri = uri,
       );
       if (!opened) return false;
+
+      helpDialogTimer = scheduleExtensionVerificationHelpDialog(
+        normalizedExtensionId,
+        authUri,
+        browserMode: browserMode,
+      );
 
       final event = await grantCompleter.future.timeout(
         const Duration(minutes: 5),
@@ -702,6 +713,7 @@ class TrackNotifier extends Notifier<TrackState> {
       );
       return false;
     } finally {
+      helpDialogTimer?.cancel();
       await grantSub.cancel();
     }
   }

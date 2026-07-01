@@ -7,6 +7,7 @@ import 'package:spotiflac_android/screens/main_shell.dart';
 import 'package:spotiflac_android/screens/setup_screen.dart';
 import 'package:spotiflac_android/screens/tutorial_screen.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
+import 'package:spotiflac_android/services/app_navigation_service.dart';
 import 'package:spotiflac_android/theme/dynamic_color_wrapper.dart';
 import 'package:spotiflac_android/l10n/app_localizations.dart';
 
@@ -28,6 +29,7 @@ final _routerProvider = Provider<GoRouter>((ref) {
   }
 
   return GoRouter(
+    navigatorKey: AppNavigationService.rootNavigatorKey,
     initialLocation: initialLocation,
     routes: [
       GoRoute(path: '/', builder: (context, state) => const MainShell()),

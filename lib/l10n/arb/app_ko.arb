@@ -157,7 +157,7 @@
   "@optionsPrimaryProviderSubtitle": {
     "description": "Subtitle for primary provider"
   },
-  "optionsUsingExtension": "확장 프로그램을 사용: {extensionName}",
+  "optionsUsingExtension": "확장 프로그램 사용: {extensionName}",
   "@optionsUsingExtension": {
     "description": "Shows active extension name",
     "placeholders": {
@@ -332,11 +332,11 @@
   "@optionsUpdateChannelStable": {
     "description": "Only stable updates"
   },
-  "optionsUpdateChannelPreview": "개발 버전을 받기",
+  "optionsUpdateChannelPreview": "베타 버전을 받기",
   "@optionsUpdateChannelPreview": {
     "description": "Include beta/preview updates"
   },
-  "optionsUpdateChannelWarning": "개발 버전은 불안정할 수 있습니다",
+  "optionsUpdateChannelWarning": "베타 버전은 불안정할 수 있습니다",
   "@optionsUpdateChannelWarning": {
     "description": "Warning about preview channel"
   },
@@ -1406,7 +1406,7 @@
   "@channelStable": {
     "description": "Update channel - stable releases"
   },
-  "channelPreview": "개발",
+  "channelPreview": "베타",
   "@channelPreview": {
     "description": "Update channel - beta/preview releases"
   },
@@ -2444,7 +2444,7 @@
   "@allFilesAccessDisabledSubtitle": {
     "description": "Subtitle when all files access is disabled"
   },
-  "allFilesAccessDescription": "사용자 정의 폴더에 저장할 경우에 쓰기 오류가 발생하면 이 옵션을 활성화하세요. Android 13 이상에서는 기본적으로 특정 디렉터리에 대한 액세스가 제한됩니다",
+  "allFilesAccessDescription": "사용자 정의 폴더에 저장할 경우에 쓰기 오류가 발생하면 이 옵션을 활성화하세요. Android 13 이상에서는 기본적으로 특정 디렉터리에 대한 접근이 제한됩니다",
   "@allFilesAccessDescription": {
     "description": "Description explaining when to enable all files access"
   },
@@ -2452,7 +2452,7 @@
   "@allFilesAccessDeniedMessage": {
     "description": "Message when permission is permanently denied"
   },
-  "allFilesAccessDisabledMessage": "모든 파일 액세스를 비활성화하였습니다. 앱은 제한된 저장소 액세스를 사용합니다",
+  "allFilesAccessDisabledMessage": "모든 파일 접근을 비활성화하였습니다. 앱은 제한된 저장소 접근을 사용합니다",
   "@allFilesAccessDisabledMessage": {
     "description": "Snackbar message when user disables all files access"
   },
@@ -4162,7 +4162,7 @@
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadAllowLocalNetwork": "로컬 네트워크 액세스 허용",
+  "downloadAllowLocalNetwork": "로컬 네트워크 접근 허용",
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
@@ -5699,7 +5699,7 @@
   "@errorInvalidFolderSelected": {
     "description": "Error when the selected folder is invalid"
   },
-  "errorCouldNotKeepFolderAccess": "선택한 폴더에 대한 액세스 권한을 유지할 수 없습니다",
+  "errorCouldNotKeepFolderAccess": "선택한 폴더에 대한 접근 권한을 유지할 수 없습니다",
   "@errorCouldNotKeepFolderAccess": {
     "description": "Error when persistent folder access cannot be saved"
   },
@@ -6006,6 +6006,34 @@
   "@trackConvertLosslessSuffix": {
     "description": "Suffix used in converted lossless quality labels"
   },
+  "trackConvertDithering": "디더링",
+  "@trackConvertDithering": {
+    "description": "Section label for lossless conversion dithering options"
+  },
+  "trackConvertResampler": "리샘플러",
+  "@trackConvertResampler": {
+    "description": "Section label for lossless conversion resampler options"
+  },
+  "trackConvertDitherNone": "없음",
+  "@trackConvertDitherNone": {
+    "description": "Lossless conversion dither option with no dithering applied"
+  },
+  "trackConvertDitherTriangular": "TPDF",
+  "@trackConvertDitherTriangular": {
+    "description": "Lossless conversion triangular probability density function dither option"
+  },
+  "trackConvertDitherTriangularHp": "삼각형 HP",
+  "@trackConvertDitherTriangularHp": {
+    "description": "Lossless conversion high-pass triangular dither option"
+  },
+  "trackConvertResamplerSwr": "SWR",
+  "@trackConvertResamplerSwr": {
+    "description": "Lossless conversion default FFmpeg swresample resampler option"
+  },
+  "trackConvertResamplerSoxr": "SoXr",
+  "@trackConvertResamplerSoxr": {
+    "description": "Lossless conversion SoX resampler option"
+  },
   "updateSeeReleaseNotes": "자세한 내용은 릴리스 노트를 참조하세요",
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
@@ -6124,5 +6152,57 @@
   "regionCountryXK": "코소보",
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
+  },
+  "extensionVerificationBrowserTitle": "인증 브라우저",
+  "@extensionVerificationBrowserTitle": {
+    "description": "Settings option title for extension verification browser preference"
+  },
+  "extensionVerificationBrowserSubtitleExternal": "인증을 기본 브라우저에서 먼저 실행합니다",
+  "@extensionVerificationBrowserSubtitleExternal": {
+    "description": "Subtitle when external browser is preferred for extension verification"
+  },
+  "extensionVerificationBrowserSubtitleInApp": "인증을 앱 내 브라우저에서 먼저 실행합니다",
+  "@extensionVerificationBrowserSubtitleInApp": {
+    "description": "Subtitle when in-app browser is preferred for extension verification"
+  },
+  "extensionVerificationBrowserExternal": "외부",
+  "@extensionVerificationBrowserExternal": {
+    "description": "Chip label for external browser verification mode"
+  },
+  "extensionVerificationBrowserInApp": "앱 내",
+  "@extensionVerificationBrowserInApp": {
+    "description": "Chip label for in-app browser verification mode"
+  },
+  "extensionVerificationHelpTitleManual": "수동으로 인증 열기",
+  "@extensionVerificationHelpTitleManual": {
+    "description": "Dialog title when automatic browser launch for verification fails"
+  },
+  "extensionVerificationHelpTitleWaiting": "아직 인증을 기다리는 중",
+  "@extensionVerificationHelpTitleWaiting": {
+    "description": "Dialog title when verification is taking longer than expected"
+  },
+  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile에서 브라우저를 자동으로 열지 못하였습니다. 아래 링크를 브라우저에서 열거나 직접 복사하세요",
+  "@extensionVerificationHelpMessageManual": {
+    "description": "Dialog message when automatic browser launch for verification fails"
+  },
+  "extensionVerificationHelpMessageWaiting": "브라우저가 열리지 않았거나 인증을 완료한 후에도 SpotiFLAC Mobile로 돌아오지 않았다면, 아래 링크를 다시 열거나 직접 복사하세요",
+  "@extensionVerificationHelpMessageWaiting": {
+    "description": "Dialog message when verification may need manual browser help"
+  },
+  "extensionVerificationClose": "닫기",
+  "@extensionVerificationClose": {
+    "description": "Button to dismiss the extension verification help dialog"
+  },
+  "extensionVerificationCopyLink": "링크 복사",
+  "@extensionVerificationCopyLink": {
+    "description": "Button to copy the extension verification URL"
+  },
+  "extensionVerificationLinkCopied": "인증 링크가 복사됨",
+  "@extensionVerificationLinkCopied": {
+    "description": "Snackbar after copying the extension verification URL"
+  },
+  "extensionVerificationOpenBrowser": "브라우저 열기",
+  "@extensionVerificationOpenBrowser": {
+    "description": "Button to open the extension verification URL in a browser"
   }
 }

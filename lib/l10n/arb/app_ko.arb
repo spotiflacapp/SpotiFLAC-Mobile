@@ -2043,11 +2043,11 @@
   "@downloadLossy320": {
     "description": "Quality option label for lossy 320kbps"
   },
-  "downloadLossyFormat": "손실 압축 포맷",
+  "downloadLossyFormat": "손실 압축 형식 ",
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadLossy320Format": "손실 압축 320kbps 포맷",
+  "downloadLossy320Format": "손실 압축 320kbps 형식",
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
@@ -2594,7 +2594,7 @@
       }
     }
   },
-  "libraryLastScanned": "마지막 스캔: {time}",
+  "libraryLastScanned": "마지막 스캔 시간: {time}",
   "@libraryLastScanned": {
     "description": "Last scan time display",
     "placeholders": {
@@ -3717,7 +3717,7 @@
       }
     }
   },
-  "selectionBatchConvertSuccess": "{total} 개 중 {success} 개를 {format} 로 변환 완료",
+  "selectionBatchConvertSuccess": "{total} 개 중 {success} 개를 {format}로 변환 완료",
   "@selectionBatchConvertSuccess": {
     "description": "Snackbar after batch conversion completes",
     "placeholders": {
@@ -3757,7 +3757,7 @@
   "@lyricsProvidersDescription": {
     "description": "Description on the lyrics provider priority page"
   },
-  "lyricsProvidersInfoText": "확장 프로그램 가사 제공자는 내장 가사 제공자보다 먼저 실행됩니다. 하나 이상의 제공자가 활성화되어 있어야 합니다.",
+  "lyricsProvidersInfoText": "확장 프로그램 가사 제공자는 내장 가사 제공자보다 먼저 실행됩니다. 하나 이상의 제공자가 활성화되어 있어야 합니다",
   "@lyricsProvidersInfoText": {
     "description": "Info tip on lyrics provider priority page"
   },
@@ -3783,11 +3783,11 @@
   "@lyricsProvidersAtLeastOne": {
     "description": "Snackbar when user tries to disable the last enabled provider"
   },
-  "lyricsProvidersSaved": "가사 제공자 우선순위 저장됨",
+  "lyricsProvidersSaved": "가사 제공자 우선순위가 저장됨",
   "@lyricsProvidersSaved": {
     "description": "Snackbar after saving lyrics provider priority"
   },
-  "lyricsProvidersDiscardContent": "저장되지 않은 변경 사항이 손실됩니다.",
+  "lyricsProvidersDiscardContent": "저장되지 않은 변경 사항이 손실됩니다",
   "@lyricsProvidersDiscardContent": {
     "description": "Body text of the discard-changes dialog on lyrics provider page"
   },
@@ -3883,7 +3883,7 @@
   "@backupCreating": {
     "description": "Progress text while a backup is being created"
   },
-  "backupCreated": "백업이 생성됨",
+  "backupCreated": "백업 생성 완료",
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
@@ -4006,7 +4006,7 @@
       }
     }
   },
-  "tooltipLoveAll": "모든 즐겨찾기",
+  "tooltipLoveAll": "모두 좋아요 표시",
   "@tooltipLoveAll": {
     "description": "Tooltip for the Love All button on album/playlist screens"
   },
@@ -4053,7 +4053,7 @@
   "@homeGoToAlbum": {
     "description": "Context menu item to navigate to the album page"
   },
-  "homeAlbumInfoUnavailable": "앨범 정보를 사용할 수 없습니다",
+  "homeAlbumInfoUnavailable": "앨범 정보를 사용할 수 없음",
   "@homeAlbumInfoUnavailable": {
     "description": "Snackbar when album info cannot be loaded"
   },
@@ -4082,11 +4082,11 @@
       }
     }
   },
-  "snackbarNoActionDefined": "이 버튼에 대해 정의된 작업이 없습니다",
+  "snackbarNoActionDefined": "이 버튼에 대해 정의된 작업이 없음",
   "@snackbarNoActionDefined": {
     "description": "Snackbar when an extension button has no action configured"
   },
-  "noTracksFoundForAlbum": "이 앨범에서 트랙을 찾을 수 없습니다",
+  "noTracksFoundForAlbum": "이 앨범에서 트랙을 찾을 수 없음",
   "@noTracksFoundForAlbum": {
     "description": "Empty state message when an album has no tracks"
   },
@@ -4134,7 +4134,7 @@
   "@downloadCreatePlaylistSourceFolder": {
     "description": "Setting to create a subfolder per playlist source"
   },
-  "downloadCreatePlaylistSourceFolderEnabled": "각 재생 목록에 대한 하위 폴더를 생성합니다",
+  "downloadCreatePlaylistSourceFolderEnabled": "각 재생 목록에 대한 하위 폴더를 만듭니다",
   "@downloadCreatePlaylistSourceFolderEnabled": {
     "description": "Subtitle when playlist folder is enabled"
   },
@@ -4254,7 +4254,7 @@
   "@downloadFilterContributingDisabled": {
     "description": "Subtitle when contributing artist filter is off"
   },
-  "downloadProvidersNoneEnabled": "활성화된 제공자가 없습니다",
+  "downloadProvidersNoneEnabled": "활성화된 제공자가 없음",
   "@downloadProvidersNoneEnabled": {
     "description": "Shown when no lyrics providers are active"
   },
@@ -4262,11 +4262,11 @@
   "@downloadMusixmatchLanguageCode": {
     "description": "Label for Musixmatch language input field"
   },
-  "downloadMusixmatchLanguageHint": "e.g. en, de, ja",
+  "downloadMusixmatchLanguageHint": "예시: en, de, ja",
   "@downloadMusixmatchLanguageHint": {
     "description": "Placeholder for Musixmatch language input"
   },
-  "downloadMusixmatchLanguageDesc": "Musixmatch에서 번역된 가사를 요청하려면 BCP-47 언어 코드(예: en, de, ja)를 입력하세요.",
+  "downloadMusixmatchLanguageDesc": "Musixmatch에서 번역된 가사를 요청하려면 BCP-47 언어 코드를 입력하세요 (예시: en, de, ja)",
   "@downloadMusixmatchLanguageDesc": {
     "description": "Description in Musixmatch language picker"
   },
@@ -4282,7 +4282,7 @@
   "@downloadNetworkWifiOnlySubtitle": {
     "description": "Subtitle for WiFi-only option in picker"
   },
-  "downloadSongLinkRegionDesc": "SongLink를 통해 트랙 링크를 해결할 경우에 사용되는 지역입니다. 스트리밍 서비스를 이용할 수 있는 국가를 선택하세요.",
+  "downloadSongLinkRegionDesc": "SongLink를 통해 트랙 링크를 해결할 경우에 사용되는 지역입니다. 스트리밍 서비스를 이용할 수 있는 국가를 선택하세요",
   "@downloadSongLinkRegionDesc": {
     "description": "Description in SongLink region picker"
   },
@@ -4348,7 +4348,7 @@
   "@editMetadataAutoFillSearching": {
     "description": "Snackbar shown while searching for online metadata"
   },
-  "editMetadataAutoFillNoResults": "온라인에서 일치하는 메타데이터를 찾을 수 없습니다",
+  "editMetadataAutoFillNoResults": "온라인에서 일치하는 메타데이터를 찾을 수 없음",
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
@@ -4456,7 +4456,7 @@
       }
     }
   },
-  "queueEmptyAlbums": "앨범 다운로드가 없습니다",
+  "queueEmptyAlbums": "앨범 다운로드가 없음",
   "@queueEmptyAlbums": {
     "description": "Empty state title when no album downloads exist"
   },
@@ -4464,7 +4464,7 @@
   "@queueEmptyAlbumsSubtitle": {
     "description": "Empty state subtitle for album downloads"
   },
-  "queueEmptySingles": "싱글 다운로드가 없습니다",
+  "queueEmptySingles": "싱글 다운로드가 없음",
   "@queueEmptySingles": {
     "description": "Empty state title when no single track downloads exist"
   },
@@ -4472,7 +4472,7 @@
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
-  "queueEmptyHistory": "다운로드 기록이 없습니다",
+  "queueEmptyHistory": "다운로드 기록이 없음",
   "@queueEmptyHistory": {
     "description": "Empty state title when download history is empty"
   },
@@ -4516,7 +4516,7 @@
   "@audioAnalysisContainer": {
     "description": "Audio container metric label"
   },
-  "audioAnalysisDecodedFormat": "디코딩된 형식",
+  "audioAnalysisDecodedFormat": "디코딩 형식",
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },
@@ -4556,7 +4556,7 @@
   "@audioAnalysisLufs": {
     "description": "Integrated loudness metric label"
   },
-  "audioAnalysisTruePeak": "True Peak",
+  "audioAnalysisTruePeak": "트루 피크",
   "@audioAnalysisTruePeak": {
     "description": "True peak metric label"
   },
@@ -4588,7 +4588,7 @@
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
-  "extensionsSearchWith": "{providerName}으로 검색",
+  "extensionsSearchWith": "'{providerName}'으로 검색",
   "@extensionsSearchWith": {
     "description": "Extensions page - subtitle for default metadata search provider option",
     "placeholders": {
@@ -4630,7 +4630,7 @@
       }
     }
   },
-  "extensionsNoHomeFeedExtensions": "홈 피드가 있는 확장 프로그램가 없습니드",
+  "extensionsNoHomeFeedExtensions": "홈 피드가 있는 확장 프로그램가 없음",
   "@extensionsNoHomeFeedExtensions": {
     "description": "Extensions page - shown when no installed extension has home feed"
   },
@@ -4704,7 +4704,7 @@
   "@notifChannelLibraryScanDesc": {
     "description": "Android notification channel description for library scan"
   },
-  "notifDownloadingTrack": "{trackName}를 다운로드하는 중",
+  "notifDownloadingTrack": "'{trackName}'를 다운로드하는 중",
   "@notifDownloadingTrack": {
     "description": "Notification title while downloading a track",
     "placeholders": {
@@ -4713,7 +4713,7 @@
       }
     }
   },
-  "notifFinalizingTrack": "{trackName}를 마무리하는 중",
+  "notifFinalizingTrack": "'{trackName}'를 마무리하는 중",
   "@notifFinalizingTrack": {
     "description": "Notification title while finalizing (embedding metadata) a track",
     "placeholders": {
@@ -4812,7 +4812,7 @@
   "@notifScanningLibrary": {
     "description": "Notification title while scanning local library"
   },
-  "notifLibraryScanProgressWithTotal": "{scanned}/{total} 파일 • {percentage}%",
+  "notifLibraryScanProgressWithTotal": "{scanned}/{total} 개의 파일 • {percentage}%",
   "@notifLibraryScanProgressWithTotal": {
     "description": "Notification body for library scan progress when total is known",
     "placeholders": {
@@ -4827,7 +4827,7 @@
       }
     }
   },
-  "notifLibraryScanProgressNoTotal": "{scanned} 파일 스캔됨 • {percentage}%",
+  "notifLibraryScanProgressNoTotal": "{scanned} 게의 파일이 스캔됨 • {percentage}%",
   "@notifLibraryScanProgressNoTotal": {
     "description": "Notification body for library scan progress when total is unknown",
     "placeholders": {
@@ -4843,7 +4843,7 @@
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },
-  "notifLibraryScanCompleteBody": "{count} 개의 파일이 색인됨",
+  "notifLibraryScanCompleteBody": "{count} 개의 트랙이 색인됨",
   "@notifLibraryScanCompleteBody": {
     "description": "Notification body for library scan complete - number of indexed tracks",
     "placeholders": {
@@ -4874,7 +4874,7 @@
   "@notifLibraryScanFailed": {
     "description": "Notification title when library scan fails"
   },
-  "notifLibraryScanCancelled": "보관함 스캔 취소됨",
+  "notifLibraryScanCancelled": "라이브러리 스캔이 취소됨",
   "@notifLibraryScanCancelled": {
     "description": "Notification title when library scan is cancelled by the user"
   },
@@ -4910,7 +4910,7 @@
   "@notifUpdateReady": {
     "description": "Notification title when app update download is complete"
   },
-  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} 다운로드 완료. 설치하려면 탭하세요.",
+  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} 다운로드 완료. 설치하려면 탭하세요",
   "@notifUpdateReadyBody": {
     "description": "Notification body when app update is ready to install",
     "placeholders": {
@@ -4935,7 +4935,7 @@
   "@homeSearchHintDefault": {
     "description": "Default placeholder for the main search field on Home"
   },
-  "homeSearchHintProvider": "{providerName}으로 검색...",
+  "homeSearchHintProvider": "'{providerName}'으로 검색...",
   "@homeSearchHintProvider": {
     "description": "Placeholder for the main search field when a provider is selected",
     "placeholders": {
@@ -5000,7 +5000,7 @@
   "@downloadFilenameHintExample": {
     "description": "Example placeholder for the download filename format input"
   },
-  "trackCoverNoEmbeddedArt": "내장된 표지 이미지가 없습니다",
+  "trackCoverNoEmbeddedArt": "내장된 표지 이미지가 없음",
   "@trackCoverNoEmbeddedArt": {
     "description": "Message shown when a track file has no embedded cover art"
   },
@@ -5048,7 +5048,7 @@
   "@queueRateLimitTitle": {
     "description": "Title shown on a failed queue item when the download service rate limits requests"
   },
-  "queueRateLimitMessage": "이 트랙은 아직 사용 가능할 수 있습니다. 몇 분 기다렸다가 병렬 다운로드를 줄인 후에 다시 시도하세요.",
+  "queueRateLimitMessage": "이 트랙은 아직 사용 가능할 수 있습니다. 몇 분 기다렸다가 병렬 다운로드를 줄인 후에 다시 시도하세요",
   "@queueRateLimitMessage": {
     "description": "Explanation shown on a failed queue item when the download service rate limits requests"
   },
@@ -5061,11 +5061,11 @@
       }
     }
   },
-  "logAutoScrollOn": "자동 스크롤 켜기",
+  "logAutoScrollOn": "자동 스크롤: ON",
   "@logAutoScrollOn": {
     "description": "Tooltip when auto-scroll is enabled on the log screen"
   },
-  "logAutoScrollOff": "자동 스크롤 끄기",
+  "logAutoScrollOff": "자동 스크롤: OFF",
   "@logAutoScrollOff": {
     "description": "Tooltip when auto-scroll is disabled on the log screen"
   },
@@ -5158,7 +5158,7 @@
   "@setupChangeFolderTooltip": {
     "description": "Tooltip for editing the selected download folder"
   },
-  "a11yOpenTrackByArtist": "{artistName}의 트랙 {trackName} 열기",
+  "a11yOpenTrackByArtist": "'{artistName}'의 트랙 '{trackName}' 열기",
   "@a11yOpenTrackByArtist": {
     "description": "Accessibility label for opening a track item",
     "placeholders": {
@@ -5194,7 +5194,7 @@
       }
     }
   },
-  "a11yOpenAlbumByArtistTrackCount": "{artistName} 의 앨범 {albumName} 열기 ({trackCount} 곡)",
+  "a11yOpenAlbumByArtistTrackCount": "'{artistName}'의 앨범 '{albumName}' 열기 ({trackCount} 번째 곡)",
   "@a11yOpenAlbumByArtistTrackCount": {
     "description": "Accessibility label for opening an album item with track count",
     "placeholders": {
@@ -5209,7 +5209,7 @@
       }
     }
   },
-  "a11yTrackByArtist": "{artistName} 의 {trackName}",
+  "a11yTrackByArtist": "'{artistName}'의 '{trackName}'",
   "@a11yTrackByArtist": {
     "description": "Accessibility label for a queue or list track item",
     "placeholders": {
@@ -5221,7 +5221,7 @@
       }
     }
   },
-  "a11ySelectAlbum": "앨범 {albumName} 선택",
+  "a11ySelectAlbum": "앨범 '{albumName}' 선택",
   "@a11ySelectAlbum": {
     "description": "Accessibility label for selecting an album",
     "placeholders": {
@@ -5230,7 +5230,7 @@
       }
     }
   },
-  "a11yOpenAlbum": "앨범 {albumName} 열기",
+  "a11yOpenAlbum": "앨범 '{albumName}' 열기",
   "@a11yOpenAlbum": {
     "description": "Accessibility label for opening an album",
     "placeholders": {
@@ -5267,7 +5267,7 @@
   "@settingsLyrics": {
     "description": "Settings menu item - lyrics settings"
   },
-  "settingsLyricsSubtitle": "임베드, 모드, 제공자, 언어 옵션",
+  "settingsLyricsSubtitle": "삽입, 모드, 제공자, 언어 옵션",
   "@settingsLyricsSubtitle": {
     "description": "Subtitle for lyrics settings"
   },
@@ -5462,7 +5462,7 @@
   "@a11yDeselectTrack": {
     "description": "Accessibility label for deselecting a track"
   },
-  "a11yPlayTrackByArtist": "{artistName} 의 {trackName} 재생",
+  "a11yPlayTrackByArtist": "'{artistName}'의 '{trackName}' 재생",
   "@a11yPlayTrackByArtist": {
     "description": "Accessibility label for playing a local library track",
     "placeholders": {
@@ -5518,7 +5518,7 @@
       }
     }
   },
-  "libraryScanCancelled": "스캔 취소됨",
+  "libraryScanCancelled": "스캔이 취소됨",
   "@libraryScanCancelled": {
     "description": "Library scan status when a scan was cancelled"
   },
@@ -5535,11 +5535,11 @@
       }
     }
   },
-  "downloadNativeWorker": "네이티브 다운로드 워커",
+  "downloadNativeWorker": "기본 다운로드 워커",
   "@downloadNativeWorker": {
     "description": "Setting title for Android native download worker"
   },
-  "downloadNativeWorkerSubtitle": "확장 프로그램용 베타 Android service worker",
+  "downloadNativeWorkerSubtitle": "확장 프로그램용 베타 Android 서비스 워커",
   "@downloadNativeWorkerSubtitle": {
     "description": "Setting subtitle for Android native download worker"
   },
@@ -5589,7 +5589,7 @@
   "@extensionCustomUrlHandlingSubtitle": {
     "description": "Extension detail subtitle for custom URL handling"
   },
-  "extensionCustomUrlHandlingShareHint": "이 사이트의 링크를 SpotiFLAC Mobile로 공유하면 이 확장 프로그램이 처리합니다.",
+  "extensionCustomUrlHandlingShareHint": "이 사이트의 링크를 SpotiFLAC Mobile로 공유하면 이 확장 프로그램이 처리합니다",
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
@@ -5768,11 +5768,11 @@
   "@openInOtherServices": {
     "description": "Title and tooltip for finding the current collection in other services"
   },
-  "shareSheetNoExtensions": "호환되는 다른 서비스가 없습니다",
+  "shareSheetNoExtensions": "호환되는 다른 서비스가 없음",
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
-  "shareSheetNotFound": "찾을 수 없습니다",
+  "shareSheetNotFound": "찾을 수 없음",
   "@shareSheetNotFound": {
     "description": "Cross-service share sheet row subtitle when a service has no match"
   },
@@ -5815,7 +5815,7 @@
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
-  "nowPlayingNothingPlaying": "재생 중인 노래가 없습니다",
+  "nowPlayingNothingPlaying": "재생 중인 노래가 없음",
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
@@ -5843,7 +5843,7 @@
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
-  "nowPlayingNoLyrics": "이 파일에는 가사가 없습니다",
+  "nowPlayingNoLyrics": "이 파일에는 가사가 없음",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -5872,7 +5872,7 @@
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
-  "nowPlayingQueueEmpty": "현재 다운로드 목록이 비어져 있습니다",
+  "nowPlayingQueueEmpty": "현재 다운로드 목록이 비어 있음",
   "@nowPlayingQueueEmpty": {
     "description": "Empty state when the playback queue has no items"
   },
@@ -6018,11 +6018,11 @@
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "현재 다운로드 목록에 추가",
+  "trackAddToQueue": "다운로드 목록에 추가",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },
-  "snackbarExtensionInstalledEnable": "{extensionName} 이 설치됨. '설정 > 확장 프로그램'에서 활성화하세요",
+  "snackbarExtensionInstalledEnable": "'{extensionName}'이 설치됨. '설정 > 확장 프로그램'에서 활성화하세요",
   "@snackbarExtensionInstalledEnable": {
     "description": "Snackbar after installing an extension from the repo tab",
     "placeholders": {
@@ -6031,7 +6031,7 @@
       }
     }
   },
-  "snackbarExtensionUpdatedVersion": "{extensionName} 이 v{version} 으로 업데이트됨",
+  "snackbarExtensionUpdatedVersion": "'{extensionName}'이 v{version}으로 업데이트됨",
   "@snackbarExtensionUpdatedVersion": {
     "description": "Snackbar after updating an extension from the repo tab",
     "placeholders": {

@@ -1336,11 +1336,11 @@
   "@logShareLogs": {
     "description": "Share button tooltip"
   },
-  "logClearLogs": "로그 제거",
+  "logClearLogs": "로그 삭제",
   "@logClearLogs": {
     "description": "Clear button tooltip"
   },
-  "logClearLogsTitle": "로그 제거",
+  "logClearLogsTitle": "로그 삭제",
   "@logClearLogsTitle": {
     "description": "Clear logs dialog title"
   },
@@ -1410,7 +1410,7 @@
   "@channelPreview": {
     "description": "Update channel - beta/preview releases"
   },
-  "sectionSearchSource": "검색 소스",
+  "sectionSearchSource": "검색 출처",
   "@sectionSearchSource": {
     "description": "Settings section header"
   },
@@ -1760,7 +1760,7 @@
   "@storeAddRepoTitle": {
     "description": "Store setup screen - heading when no repo is configured"
   },
-  "storeAddRepoDescription": "확장 프로그램을 찾아보고 설치하려면 registry.json 파일이 포함된 GitHub 리포지토리 URL을 입력하세요.",
+  "storeAddRepoDescription": "확장 프로그램을 찾아보고 설치하려면 registry.json 파일이 포함된 GitHub 리포지토리 URL을 입력하세요",
   "@storeAddRepoDescription": {
     "description": "Store setup screen - explanatory text"
   },
@@ -1772,7 +1772,7 @@
   "@storeRepoUrlHint": {
     "description": "Hint/placeholder for the repository URL input field"
   },
-  "storeRepoUrlHelper": "예: https://github.com/user/extensions-repo",
+  "storeRepoUrlHelper": "예시: https://github.com/user/extensions-repo",
   "@storeRepoUrlHelper": {
     "description": "Helper text below the repository URL input field"
   },
@@ -1800,11 +1800,11 @@
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
-  "storeEmptyNoExtensions": "사용 가능한 확장 프로그램이 없습니다",
+  "storeEmptyNoExtensions": "사용 가능한 확장 프로그램이 없음",
   "@storeEmptyNoExtensions": {
     "description": "Message when store has no extensions"
   },
-  "storeEmptyNoResults": "확장 프로그램을 찾을 수 없습니다",
+  "storeEmptyNoResults": "확장 프로그램을 찾을 수 없음",
   "@storeEmptyNoResults": {
     "description": "Message when search/filter returns no results"
   },
@@ -1919,7 +1919,7 @@
   "@extensionsInstalledSection": {
     "description": "Section header - installed extensions"
   },
-  "extensionsNoExtensions": "설치된 확장 프로그램이 없습니다",
+  "extensionsNoExtensions": "설치된 확장 프로그램이 없음",
   "@extensionsNoExtensions": {
     "description": "Empty state - no extensions"
   },
@@ -1987,7 +1987,7 @@
   "@extensionsMetadataPriority": {
     "description": "Setting - metadata provider order"
   },
-  "extensionsMetadataPrioritySubtitle": "검색 & 메타데이터 소스 순서 설정",
+  "extensionsMetadataPrioritySubtitle": "검색 & 메타데이터 출처 순서 설정",
   "@extensionsMetadataPrioritySubtitle": {
     "description": "Subtitle for metadata priority"
   },
@@ -2171,7 +2171,7 @@
   "@settingsDownloadNetworkWifiOnly": {
     "description": "Network option - only use WiFi"
   },
-  "settingsDownloadNetworkSubtitle": "다운로드에 사용할 네트워크를 선택하세요. Wi-Fi 전용으로 설정하면 모바일 데이터 사용 시 다운로드가 일시 중지됩니다.",
+  "settingsDownloadNetworkSubtitle": "다운로드에 사용할 네트워크를 선택하세요. Wi-Fi 전용으로 설정하면 모바일 데이터 사용 시 다운로드가 일시 중지됩니다",
   "@settingsDownloadNetworkSubtitle": {
     "description": "Subtitle explaining network preference"
   },
@@ -2292,7 +2292,7 @@
   "@recentTypePlaylist": {
     "description": "Recent access item type - playlist"
   },
-  "recentEmpty": "최근 항목이 없습니다",
+  "recentEmpty": "최근 항목이 없음",
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
@@ -2374,7 +2374,7 @@
   "@discographyFetchingTracks": {
     "description": "Progress - fetching album tracks"
   },
-  "discographyFetchingAlbum": "{total} 개 중에 {current} 개를 가져오는 중...",
+  "discographyFetchingAlbum": "{total} 개 중 {current} 개를 가져오는 중...",
   "@discographyFetchingAlbum": {
     "description": "Progress - fetching specific album",
     "placeholders": {
@@ -2399,7 +2399,7 @@
   "@discographyDownloadSelected": {
     "description": "Button - download selected albums"
   },
-  "discographyAddedToQueue": "{count} 개의 트랙이 다운로드 목록에 추가됨",
+  "discographyAddedToQueue": "다운로드 목록에 {count} 개의 트랙이 추가됨",
   "@discographyAddedToQueue": {
     "description": "Snackbar - tracks added from discography",
     "placeholders": {
@@ -2420,7 +2420,7 @@
       }
     }
   },
-  "discographyNoAlbums": "사용 가능한 앨범이 없습니다",
+  "discographyNoAlbums": "사용 가능한 앨범이 없음",
   "@discographyNoAlbums": {
     "description": "Error - no albums found for artist"
   },
@@ -2440,19 +2440,19 @@
   "@allFilesAccessEnabledSubtitle": {
     "description": "Subtitle when all files access is enabled"
   },
-  "allFilesAccessDisabledSubtitle": "미디아 폴더에만 제한됨",
+  "allFilesAccessDisabledSubtitle": "미디어 폴더에만 제한됨",
   "@allFilesAccessDisabledSubtitle": {
     "description": "Subtitle when all files access is disabled"
   },
-  "allFilesAccessDescription": "사용자 정의 폴더에 저장할 경우에 쓰기 오류가 발생하면 이 옵션을 활성화하세요. Android 13 이상에서는 기본적으로 특정 디렉터리에 대한 액세스가 제한됩니다.",
+  "allFilesAccessDescription": "사용자 정의 폴더에 저장할 경우에 쓰기 오류가 발생하면 이 옵션을 활성화하세요. Android 13 이상에서는 기본적으로 특정 디렉터리에 대한 액세스가 제한됩니다",
   "@allFilesAccessDescription": {
     "description": "Description explaining when to enable all files access"
   },
-  "allFilesAccessDeniedMessage": "권한이 거부되었습니다. 시스템 설정에서 '모든 파일 접근'를 수동으로 활성화하세요.",
+  "allFilesAccessDeniedMessage": "권한이 거부되었습니다. 시스템 설정에서 '모든 파일 접근'를 수동으로 활성화하세요",
   "@allFilesAccessDeniedMessage": {
     "description": "Message when permission is permanently denied"
   },
-  "allFilesAccessDisabledMessage": "모든 파일 액세스를 비활성화하였습니다. 앱은 제한된 저장소 액세스를 사용합니다.",
+  "allFilesAccessDisabledMessage": "모든 파일 액세스를 비활성화하였습니다. 앱은 제한된 저장소 액세스를 사용합니다",
   "@allFilesAccessDisabledMessage": {
     "description": "Snackbar message when user disables all files access"
   },
@@ -2516,7 +2516,7 @@
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
-  "libraryAutoScanOnOpen": "열려 있는 모든 앱",
+  "libraryAutoScanOnOpen": "앱을 열 때마다",
   "@libraryAutoScanOnOpen": {
     "description": "Auto scan when app opens"
   },
@@ -2572,7 +2572,7 @@
   "@libraryAbout": {
     "description": "Section header for about info"
   },
-  "libraryAboutDescription": "Scans your existing music collection to detect duplicates when downloading. Supports FLAC, M4A, MP3, Opus, and OGG formats. Metadata is read from file tags when available.",
+  "libraryAboutDescription": "기존 음악 라이브러리를 검사하여 다운로드 시 중복 곡을 감지합니다. FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF 및 APE 형식을 지원합니다. 가능한 경우 파일 태그의 메타데이터를 읽어 사용합니다",
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },
@@ -2652,7 +2652,7 @@
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
-  "libraryFolderNotExist": "선택한 폴더가 없습니다",
+  "libraryFolderNotExist": "선택한 폴더가 존재하지 않음",
   "@libraryFolderNotExist": {
     "description": "Error when folder doesn't exist"
   },
@@ -2688,7 +2688,7 @@
   "@libraryFilterApply": {
     "description": "Apply filters button"
   },
-  "libraryFilterSource": "소스",
+  "libraryFilterSource": "출처",
   "@libraryFilterSource": {
     "description": "Filter section - source type"
   },
@@ -2810,7 +2810,7 @@
   "@tutorialSearchTitle": {
     "description": "Tutorial search page title"
   },
-  "tutorialSearchDesc": "다운로드하고 싶은 음악을 찾는 두 가지 쉬운 방법이 있습니다.",
+  "tutorialSearchDesc": "다운로드하고 싶은 음악을 찾는 두 가지 쉬운 방법이 있습니다",
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
@@ -2818,7 +2818,7 @@
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
-  "tutorialDownloadDesc": "음악 다운로드는 간단하고 빠릅니다. 작동 방식은 다음과 같습니다.",
+  "tutorialDownloadDesc": "음악 다운로드는 간단하고 빠릅니다. 작동 방식은 다음과 같습니다",
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
@@ -2826,7 +2826,7 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "다운로드한 모든 음악은 라이브러리 탭에 정리되어 있습니다.",
+  "tutorialLibraryDesc": "다운로드한 모든 음악은 라이브러리 탭에 정리되어 있습니다",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
@@ -2846,7 +2846,7 @@
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
-  "tutorialExtensionsDesc": "커뮤니티 확장 프로그램을 사용하여 앱의 기능을 확장하세요.",
+  "tutorialExtensionsDesc": "커뮤니티 확장 프로그램을 사용하여 앱의 기능을 확장하세요",
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
@@ -2854,7 +2854,7 @@
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
-  "tutorialExtensionsTip2": "새 다운로드 제공즈 또는 검색 소스를 추가하세요",
+  "tutorialExtensionsTip2": "새 다운로드 제공자 또는 검색 출처를 추가하세요",
   "@tutorialExtensionsTip2": {
     "description": "Tutorial extensions tip 2"
   },
@@ -2866,7 +2866,7 @@
   "@tutorialSettingsTitle": {
     "description": "Tutorial settings page title"
   },
-  "tutorialSettingsDesc": "설정에서 앱을 원하는 대로 맞춤 설정하세요.",
+  "tutorialSettingsDesc": "설정에서 앱을 원하는 대로 맞춤 설정하세요",
   "@tutorialSettingsDesc": {
     "description": "Tutorial settings page description"
   },
@@ -2882,7 +2882,7 @@
   "@tutorialSettingsTip3": {
     "description": "Tutorial settings tip 3"
   },
-  "tutorialReadyMessage": "모든 준비가 완료되었습니다! 지금 바로 좋아하는 음악을 다운로드하세요.",
+  "tutorialReadyMessage": "모든 준비가 완료되었습니다! 지금 바로 좋아하는 음악을 다운로드하세요",
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
@@ -2923,7 +2923,7 @@
   "@cacheSummaryTitle": {
     "description": "Heading for cache summary card"
   },
-  "cacheSummarySubtitle": "캐시를 지워도 다운로드한 음악 파일은 삭제되지 않습니다.",
+  "cacheSummarySubtitle": "캐시를 지워도 다운로드한 음악 파일은 삭제되지 않습니다",
   "@cacheSummarySubtitle": {
     "description": "Helper text for cache summary card"
   },
@@ -2948,7 +2948,7 @@
   "@cacheAppDirectory": {
     "description": "Cache item title for app cache directory"
   },
-  "cacheAppDirectoryDesc": "HTTP 응답, WebView 데이터 및 기타 임시 앱 데이터.",
+  "cacheAppDirectoryDesc": "HTTP 응답, WebView 데이터 및 기타 임시 앱 데이터",
   "@cacheAppDirectoryDesc": {
     "description": "Description of what app cache directory contains"
   },
@@ -2956,7 +2956,7 @@
   "@cacheTempDirectory": {
     "description": "Cache item title for temporary files directory"
   },
-  "cacheTempDirectoryDesc": "다운로드 및 오디오 변환으로 생성된 임시 파일.",
+  "cacheTempDirectoryDesc": "다운로드 및 오디오 변환으로 생성된 임시 파일",
   "@cacheTempDirectoryDesc": {
     "description": "Description of what temporary directory contains"
   },
@@ -2964,7 +2964,7 @@
   "@cacheCoverImage": {
     "description": "Cache item title for persistent cover images"
   },
-  "cacheCoverImageDesc": "다운로드된 앨범 및 트랙 표지 이미지입니다. 볼 때 다시 다운로드됩니다.",
+  "cacheCoverImageDesc": "다운로드된 앨범 및 트랙 표지 이미지입니다. 볼 때 다시 다운로드됩니다",
   "@cacheCoverImageDesc": {
     "description": "Description of what cover image cache contains"
   },
@@ -2972,7 +2972,7 @@
   "@cacheLibraryCover": {
     "description": "Cache item title for local library cover art images"
   },
-  "cacheLibraryCoverDesc": "로컬 음악 파일에서 표지 이미지를 추출하였습니다. 다음 스캔 시 다시 추출합니다.",
+  "cacheLibraryCoverDesc": "로컬 음악 파일에서 표지 이미지를 추출하였습니다. 다음 스캔 시 다시 추출합니다",
   "@cacheLibraryCoverDesc": {
     "description": "Description of what library cover cache contains"
   },
@@ -2980,7 +2980,7 @@
   "@cacheExploreFeed": {
     "description": "Cache item title for explore home feed cache"
   },
-  "cacheExploreFeedDesc": "탐색 탭 콘텐츠(신규 발매, 인기 콘텐츠). 다음 방문 시 새로 고쳐집니다.",
+  "cacheExploreFeedDesc": "탐색 탭 콘텐츠(신규 발매, 인기 콘텐츠)는 다음 방문 시 새로 고쳐집니다",
   "@cacheExploreFeedDesc": {
     "description": "Description of what explore feed cache contains"
   },
@@ -2988,7 +2988,7 @@
   "@cacheTrackLookup": {
     "description": "Cache item title for track ID lookup cache"
   },
-  "cacheTrackLookupDesc": "Spotify/Deezer 트랙 ID을 조회합니다. 지우면 속도가 느려질 수 있습니다.",
+  "cacheTrackLookupDesc": "Spotify/Deezer 트랙 ID을 조회합니다. 지우면 속도가 느려질 수 있습니다",
   "@cacheTrackLookupDesc": {
     "description": "Description of what track lookup cache contains"
   },
@@ -2996,7 +2996,7 @@
   "@cacheCleanupUnusedDesc": {
     "description": "Description of what cleanup unused data does"
   },
-  "cacheNoData": "캐시된 데이터가 없습니다",
+  "cacheNoData": "캐시된 데이터가 없음",
   "@cacheNoData": {
     "description": "Label when cache category has no data"
   },
@@ -3152,7 +3152,7 @@
   "@trackEditMetadata": {
     "description": "Menu action - edit embedded metadata"
   },
-  "trackCoverSaved": "표지 이미지가 {fileName}에 저장됨",
+  "trackCoverSaved": "표지 이미지가 '{fileName}'에 저장됨",
   "@trackCoverSaved": {
     "description": "Snackbar after cover art saved",
     "placeholders": {
@@ -3161,11 +3161,11 @@
       }
     }
   },
-  "trackCoverNoSource": "사용할 수 있는 표지 소스가 없음",
+  "trackCoverNoSource": "사용할 수 있는 표지 출처가 없음",
   "@trackCoverNoSource": {
     "description": "Snackbar when no cover art URL or embedded cover"
   },
-  "trackLyricsSaved": "가사가 {fileName}에 저장됨",
+  "trackLyricsSaved": "가사가 '{fileName}'에 저장됨",
   "@trackLyricsSaved": {
     "description": "Snackbar after lyrics saved",
     "placeholders": {
@@ -3215,7 +3215,7 @@
       }
     }
   },
-  "queueFlacNoReliableMatches": "선택한 항목에 대한 신뢰할 수 있는 온라인 일치 항목을 찾을 수 없습니다",
+  "queueFlacNoReliableMatches": "선택한 항목에 대한 신뢰할 수 있는 온라인 일치 항목을 찾을 수 없음",
   "@queueFlacNoReliableMatches": {
     "description": "Snackbar when no safe FLAC redownload matches were found"
   },
@@ -3256,7 +3256,7 @@
   "@trackConvertTargetFormat": {
     "description": "Label for format selection"
   },
-  "trackConvertBitrate": "Bitrate",
+  "trackConvertBitrate": "비트레이트",
   "@trackConvertBitrate": {
     "description": "Label for bitrate selection"
   },
@@ -3264,7 +3264,7 @@
   "@trackConvertConfirmTitle": {
     "description": "Confirmation dialog title"
   },
-  "trackConvertConfirmMessage": "{bitrate} 비트레이트로 {sourceFormat} 에서 {targetFormat} 으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
+  "trackConvertConfirmMessage": "{bitrate} 비트레이트로 {sourceFormat}에서 {targetFormat}으로 변환하시겠습니까?\n\n변환 후 원본 파일이 삭제됩니다",
   "@trackConvertConfirmMessage": {
     "description": "Confirmation dialog message",
     "placeholders": {
@@ -3279,7 +3279,7 @@
       }
     }
   },
-  "trackConvertConfirmMessageLossless": "{sourceFormat}에서 {targetFormat}으로 변환하시겠습니까?\n(무손실 — 음질 손실 없음)\n\n변환 후에 원본 파일이 삭제됩니다",
+  "trackConvertConfirmMessageLossless": "{sourceFormat}에서 {targetFormat}으로 변환하시겠습니까? (무손실 — 음질 손실 없음)\n\n변환 후에 원본 파일이 삭제됩니다",
   "@trackConvertConfirmMessageLossless": {
     "description": "Confirmation dialog message for lossless-to-lossless conversion",
     "placeholders": {
@@ -3316,7 +3316,7 @@
   "@cueSplitTitle": {
     "description": "Title for CUE split bottom sheet"
   },
-  "cueSplitSubtitle": "CUE+FLAC을 개별 트랙으로 분할합니다",
+  "cueSplitSubtitle": "CUE+FLAC을 개별 트랙으로 분할",
   "@cueSplitSubtitle": {
     "description": "Subtitle for CUE split menu item"
   },
@@ -3351,7 +3351,7 @@
   "@cueSplitConfirmTitle": {
     "description": "CUE split confirmation dialog title"
   },
-  "cueSplitConfirmMessage": "\"{album}\"을 {count} 개의 개별 FLAC 파일로 분할하시겠습니까?\n\n파일은 동일한 디렉토리에 저장됩니다.",
+  "cueSplitConfirmMessage": "'{album}'을 {count} 개의 개별 FLAC 파일로 분할하시겠습니까?\n\n파일은 동일한 디렉토리에 저장됩니다",
   "@cueSplitConfirmMessage": {
     "description": "CUE split confirmation dialog message",
     "placeholders": {
@@ -3375,7 +3375,7 @@
       }
     }
   },
-  "cueSplitSuccess": "{count} 개의 트랙으로 성공적으로 분할",
+  "cueSplitSuccess": "{count} 개의 트랙 분할 성공",
   "@cueSplitSuccess": {
     "description": "Snackbar after successful CUE split",
     "placeholders": {
@@ -3432,7 +3432,7 @@
   "@collectionCreatePlaylist": {
     "description": "Action to create a new playlist"
   },
-  "collectionNoPlaylistsYet": "아직 재생목록이 없습니다",
+  "collectionNoPlaylistsYet": "아직 재생목록이 없음",
   "@collectionNoPlaylistsYet": {
     "description": "Empty state title when user has no playlists"
   },
@@ -3458,7 +3458,7 @@
       }
     }
   },
-  "collectionAddedToPlaylist": "\"{playlistName}\"에 추가하였습니다",
+  "collectionAddedToPlaylist": "'{playlistName}'에 추가됨",
   "@collectionAddedToPlaylist": {
     "description": "Snackbar after adding track to playlist",
     "placeholders": {
@@ -3467,7 +3467,7 @@
       }
     }
   },
-  "collectionAlreadyInPlaylist": "이미 \"{playlistName}\"에 있습니다",
+  "collectionAlreadyInPlaylist": "이미 '{playlistName}'에 있음",
   "@collectionAlreadyInPlaylist": {
     "description": "Snackbar when track already exists in playlist",
     "placeholders": {
@@ -3476,7 +3476,7 @@
       }
     }
   },
-  "collectionPlaylistCreated": "재생목록이 생성됨",
+  "collectionPlaylistCreated": "재생목록 만들기 완료",
   "@collectionPlaylistCreated": {
     "description": "Snackbar after creating playlist"
   },
@@ -3505,15 +3505,15 @@
       }
     }
   },
-  "collectionPlaylistDeleted": "재생목록이 삭제됨",
+  "collectionPlaylistDeleted": "재생목록 삭제 완료",
   "@collectionPlaylistDeleted": {
     "description": "Snackbar after deleting playlist"
   },
-  "collectionPlaylistRenamed": "재생목록 이름이 변경됨",
+  "collectionPlaylistRenamed": "재생목록 이름 변경 완료",
   "@collectionPlaylistRenamed": {
     "description": "Snackbar after renaming playlist"
   },
-  "collectionWishlistEmptyTitle": "위시리스트가 비워져 있습니다",
+  "collectionWishlistEmptyTitle": "위시리스트가 비어 있음",
   "@collectionWishlistEmptyTitle": {
     "description": "Wishlist empty state title"
   },
@@ -3529,7 +3529,7 @@
   "@collectionLovedEmptySubtitle": {
     "description": "Loved empty state subtitle"
   },
-  "collectionFavoriteArtistsEmptyTitle": "아직 좋아하는 아티스트가 없습니다",
+  "collectionFavoriteArtistsEmptyTitle": "아직 좋아하는 아티스트가 없음",
   "@collectionFavoriteArtistsEmptyTitle": {
     "description": "Favorite artists empty state title"
   },
@@ -3537,7 +3537,7 @@
   "@collectionFavoriteArtistsEmptySubtitle": {
     "description": "Favorite artists empty state subtitle"
   },
-  "collectionPlaylistEmptyTitle": "재생목록이 비워져 있습니다",
+  "collectionPlaylistEmptyTitle": "재생목록이 비어 있음",
   "@collectionPlaylistEmptyTitle": {
     "description": "Playlist empty state title"
   },
@@ -3553,7 +3553,7 @@
   "@collectionRemoveFromFolder": {
     "description": "Tooltip for removing track from wishlist/loved folder"
   },
-  "collectionRemoved": "\"{trackName}\"가 제거됨",
+  "collectionRemoved": "'{trackName}' 제거 완료",
   "@collectionRemoved": {
     "description": "Snackbar after removing a track from a collection",
     "placeholders": {
@@ -3580,7 +3580,7 @@
       }
     }
   },
-  "collectionAddedToWishlist": "\"{trackName}\"가 위시리스트에 추가됨",
+  "collectionAddedToWishlist": "'{trackName}'가 위시리스트에 추가됨",
   "@collectionAddedToWishlist": {
     "description": "Snackbar after adding track to wishlist",
     "placeholders": {
@@ -3589,7 +3589,7 @@
       }
     }
   },
-  "collectionRemovedFromWishlist": "\"{trackName}\"가 위시리스트에서 제거됨",
+  "collectionRemovedFromWishlist": "'{trackName}'가 위시리스트에서 제거됨",
   "@collectionRemovedFromWishlist": {
     "description": "Snackbar after removing track from wishlist",
     "placeholders": {
@@ -3598,7 +3598,7 @@
       }
     }
   },
-  "collectionAddedToFavoriteArtists": "\"{artistName}\"가 좋아하는 아티스트에 추가됨",
+  "collectionAddedToFavoriteArtists": "'{artistName}'가 좋아하는 아티스트에 추가됨",
   "@collectionAddedToFavoriteArtists": {
     "description": "Snackbar after adding artist to favorite artists",
     "placeholders": {
@@ -3607,7 +3607,7 @@
       }
     }
   },
-  "collectionRemovedFromFavoriteArtists": "\"{artistName}\"가 좋아하는 아티스트에서 제거됨",
+  "collectionRemovedFromFavoriteArtists": "'{artistName}'가 좋아하는 아티스트에서 제거됨",
   "@collectionRemovedFromFavoriteArtists": {
     "description": "Snackbar after removing artist from favorite artists",
     "placeholders": {
@@ -3616,11 +3616,11 @@
       }
     }
   },
-  "trackOptionAddToLoved": "'좋아요 표시한 트랙'에 추가",
+  "trackOptionAddToLoved": "좋아요 표시한 트랙에 추가",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
-  "trackOptionRemoveFromLoved": "'좋아요 표시한 트랙'에서 제거",
+  "trackOptionRemoveFromLoved": "좋아요 표시한 트랙에서 제거",
   "@trackOptionRemoveFromLoved": {
     "description": "Bottom sheet action label - remove track from loved folder"
   },
@@ -3732,7 +3732,7 @@
       }
     }
   },
-  "downloadedAlbumDownloadedCount": "{count} 다운로드됨",
+  "downloadedAlbumDownloadedCount": "{count} 개 다운로드됨",
   "@downloadedAlbumDownloadedCount": {
     "description": "Downloaded tracks count badge",
     "placeholders": {
@@ -3753,7 +3753,7 @@
   "@lyricsProvidersTitle": {
     "description": "Settings item title for lyrics provider order"
   },
-  "lyricsProvidersDescription": "가사 소스를 활성화, 비활성화 및 재정렬합니다.\n가사가 발견될 때까지 위에서 아래로 제공자를 시도합니다.",
+  "lyricsProvidersDescription": "가사 출처를 활성화, 비활성화 및 재정렬합니다. 가사가 발견될 때까지 위에서 아래로 제공자를 시도합니다",
   "@lyricsProvidersDescription": {
     "description": "Description on the lyrics provider priority page"
   },
@@ -3823,11 +3823,11 @@
   "@safMigrationTitle": {
     "description": "Title of SAF migration dialog"
   },
-  "safMigrationMessage1": "SpotiFLAC은 이제 다운로드에 Android 저장소 접근 프레임워크(SAF)를 사용합니다. 이로써 Android 10 이상에서 \"권한 거부\" 오류가 해결됩니다.",
+  "safMigrationMessage1": "SpotiFLAC은 이제 다운로드에 Android 저장소 접근 프레임워크(SAF)를 사용합니다. 이로써 Android 10 이상에서 '권한 거부' 오류가 해결됩니다",
   "@safMigrationMessage1": {
     "description": "First paragraph of SAF migration dialog"
   },
-  "safMigrationMessage2": "새 저장소 시스템으로 전환하려면 다운로드 폴더를 다시 선택하세요.",
+  "safMigrationMessage2": "새 저장소 시스템으로 전환하려면 다운로드 폴더를 다시 선택하세요",
   "@safMigrationMessage2": {
     "description": "Second paragraph of SAF migration dialog"
   },
@@ -4036,7 +4036,7 @@
   "@dialogDownloadAllTitle": {
     "description": "Dialog title for bulk download confirmation"
   },
-  "dialogDownloadAllMessage": "{count} 트랙을 다운로드하시겠습니까?",
+  "dialogDownloadAllMessage": "{count} 개의 트랙을 다운로드하시겠습니까?",
   "@dialogDownloadAllMessage": {
     "description": "Body of the Download All confirmation dialog",
     "placeholders": {
@@ -4110,7 +4110,7 @@
   "@storageModeSafSubtitle": {
     "description": "Subtitle for SAF storage mode"
   },
-  "downloadFilenameDescription": "{artist}, {title}, {album}, {track}, {year}, {date}, {disc}를 자리표시자로 사용하세요",
+  "downloadFilenameDescription": "'{artist}', '{title}', '{album}', '{track}', '{year}', '{date}', '{disc}'를 자리표시자로 사용하세요",
   "@downloadFilenameDescription": {
     "description": "Description shown in filename format editor"
   },
@@ -4134,7 +4134,7 @@
   "@downloadCreatePlaylistSourceFolder": {
     "description": "Setting to create a subfolder per playlist source"
   },
-  "downloadCreatePlaylistSourceFolderEnabled": "각 재생 목록에 대한 하위 폴더를 생성합니다.",
+  "downloadCreatePlaylistSourceFolderEnabled": "각 재생 목록에 대한 하위 폴더를 생성합니다",
   "@downloadCreatePlaylistSourceFolderEnabled": {
     "description": "Subtitle when playlist folder is enabled"
   },
@@ -5295,7 +5295,7 @@
   "@metadataProvidersTitle": {
     "description": "Settings item title for metadata provider order"
   },
-  "metadataProvidersSubtitle": "드래그하여 검색 및 메타데이터 소스 순서를 설정하세요",
+  "metadataProvidersSubtitle": "드래그하여 검색 및 메타데이터 출처 순서를 설정하세요",
   "@metadataProvidersSubtitle": {
     "description": "Subtitle for metadata provider priority item"
   },

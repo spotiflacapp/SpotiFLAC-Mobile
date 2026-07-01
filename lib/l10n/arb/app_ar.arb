@@ -772,15 +772,15 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "تشغيل المعاينة",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "إيقاف المعاينة",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "Preview unavailable",
+  "previewUnavailable": "المعاينة غير متوفرة",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -1935,11 +1935,11 @@
   "@extensionsInfoTip": {
     "description": "Security warning about extensions"
   },
-  "extensionsInstalledSuccess": "Extension installed successfully",
+  "extensionsInstalledSuccess": "تم تثبيت الإضافة بنجاح",
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} extensions installed successfully",
+  "extensionsInstalledCount": "تم تثبيت {count} إضافات بنجاح",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -1949,7 +1949,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "Installed {installed} of {attempted} extensions",
+  "extensionsInstallPartialSuccess": "تم تثبيت {count} من أصل {attempted} إضافات",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -1963,35 +1963,35 @@
       }
     }
   },
-  "extensionsDownloadPriority": "Download Priority",
+  "extensionsDownloadPriority": "أولوية التحميل",
   "@extensionsDownloadPriority": {
     "description": "Setting - download provider order"
   },
-  "extensionsDownloadPrioritySubtitle": "Set download service order",
+  "extensionsDownloadPrioritySubtitle": "تعيين ترتيب خدمة التحميل",
   "@extensionsDownloadPrioritySubtitle": {
     "description": "Subtitle for download priority"
   },
-  "extensionsFallbackTitle": "Fallback Extensions",
+  "extensionsFallbackTitle": "الإضافات الاحتياطية",
   "@extensionsFallbackTitle": {
     "description": "Setting and page title for choosing which download extensions can be used during fallback"
   },
-  "extensionsFallbackSubtitle": "Choose which installed download extensions can be used as fallback",
+  "extensionsFallbackSubtitle": "اختر إضافات التحميل المثبتة التي يمكن استخدامها أثناء الرجوع التلقائي للمزود الاحتياطي",
   "@extensionsFallbackSubtitle": {
     "description": "Subtitle for download fallback extensions menu"
   },
-  "extensionsNoDownloadProvider": "No extensions with download provider",
+  "extensionsNoDownloadProvider": "لا توجد إضافات مع إمكانية مزود التحميل",
   "@extensionsNoDownloadProvider": {
     "description": "Empty state - no download providers"
   },
-  "extensionsMetadataPriority": "Metadata Priority",
+  "extensionsMetadataPriority": "أولوية البيانات الوصفية (metadata)",
   "@extensionsMetadataPriority": {
     "description": "Setting - metadata provider order"
   },
-  "extensionsMetadataPrioritySubtitle": "Set search & metadata source order",
+  "extensionsMetadataPrioritySubtitle": "تعيين ترتيب مصدر البحث والبيانات الوصفية",
   "@extensionsMetadataPrioritySubtitle": {
     "description": "Subtitle for metadata priority"
   },
-  "extensionsNoMetadataProvider": "No extensions with metadata provider",
+  "extensionsNoMetadataProvider": "لا توجد إضافات مع إمكانية مزود البيانات الوصفية",
   "@extensionsNoMetadataProvider": {
     "description": "Empty state - no metadata providers"
   },

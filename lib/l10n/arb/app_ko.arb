@@ -9,7 +9,7 @@
   "@navHome": {
     "description": "Bottom navigation - Home tab"
   },
-  "navLibrary": "보관함",
+  "navLibrary": "라이브러리",
   "@navLibrary": {
     "description": "Bottom navigation - Library tab"
   },
@@ -899,7 +899,7 @@
       }
     }
   },
-  "snackbarAlreadyInLibrary": "보관함에 '{trackName}'이 이미 존재함",
+  "snackbarAlreadyInLibrary": "라이브러리에 '{trackName}'이 이미 존재함",
   "@snackbarAlreadyInLibrary": {
     "description": "Snackbar - track already exists in local library",
     "placeholders": {
@@ -2456,7 +2456,7 @@
   "@allFilesAccessDisabledMessage": {
     "description": "Snackbar message when user disables all files access"
   },
-  "settingsLocalLibrary": "로컬 보관함",
+  "settingsLocalLibrary": "로컬 라이브러리",
   "@settingsLocalLibrary": {
     "description": "Settings menu item - local library"
   },
@@ -2472,7 +2472,7 @@
   "@settingsCacheSubtitle": {
     "description": "Subtitle for cache management menu"
   },
-  "libraryTitle": "로컬 보관함",
+  "libraryTitle": "로컬 라이브러리",
   "@libraryTitle": {
     "description": "Library settings page title"
   },
@@ -2480,7 +2480,7 @@
   "@libraryScanSettings": {
     "description": "Section header for scan settings"
   },
-  "libraryEnableLocalLibrary": "로컬 보관함 활성화",
+  "libraryEnableLocalLibrary": "로컬 라이브러리 활성화",
   "@libraryEnableLocalLibrary": {
     "description": "Toggle to enable library scanning"
   },
@@ -2488,7 +2488,7 @@
   "@libraryEnableLocalLibrarySubtitle": {
     "description": "Subtitle for enable toggle"
   },
-  "libraryFolder": "보관함 폴더",
+  "libraryFolder": "라이브러리 폴더",
   "@libraryFolder": {
     "description": "Folder selection setting"
   },
@@ -2508,7 +2508,7 @@
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
-  "libraryAutoScanSubtitle": "보관함에서 새 파일을 자동으로 스캔합니다",
+  "libraryAutoScanSubtitle": "라이브러리에서 새 파일을 자동으로 스캔합니다",
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
@@ -2532,7 +2532,7 @@
   "@libraryActions": {
     "description": "Section header for library actions"
   },
-  "libraryScan": "보관함 스캔",
+  "libraryScan": "라이브러리 스캔",
   "@libraryScan": {
     "description": "Button to start library scan"
   },
@@ -2552,7 +2552,7 @@
   "@libraryCleanupMissingFilesSubtitle": {
     "description": "Subtitle for cleanup button"
   },
-  "libraryClear": "보관함 지우기",
+  "libraryClear": "라이브러리 정리",
   "@libraryClear": {
     "description": "Button to clear all library entries"
   },
@@ -2560,11 +2560,11 @@
   "@libraryClearSubtitle": {
     "description": "Subtitle for clear button"
   },
-  "libraryClearConfirmTitle": "보관함 지우기",
+  "libraryClearConfirmTitle": "라이브러리 정리",
   "@libraryClearConfirmTitle": {
     "description": "Dialog title for clear confirmation"
   },
-  "libraryClearConfirmMessage": "이렇게 하면 보관함에서 스캔된 모든 트랙이 제거됩니다. 실제 음악 파일은 삭제되지 않습니다.",
+  "libraryClearConfirmMessage": "이렇게 하면 라이브러리에서 스캔된 모든 트랙이 제거됩니다. 실제 음악 파일은 삭제되지 않습니다",
   "@libraryClearConfirmMessage": {
     "description": "Dialog message for clear confirmation"
   },
@@ -2611,7 +2611,7 @@
   "@libraryScanning": {
     "description": "Status during scan"
   },
-  "libraryScanFinalizing": "보관함을 마무리하는 중...",
+  "libraryScanFinalizing": "라이브러리를 마무리하는 중...",
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
@@ -2627,11 +2627,11 @@
       }
     }
   },
-  "libraryInLibrary": "보관함에서",
+  "libraryInLibrary": "라이브러리에서",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
-  "libraryRemovedMissingFiles": "보관함에서 누락된 파일 {count} 개가 제거됨",
+  "libraryRemovedMissingFiles": "라이브러리에서 누락된 파일 {count} 개가 제거됨",
   "@libraryRemovedMissingFiles": {
     "description": "Snackbar after cleanup",
     "placeholders": {
@@ -2640,7 +2640,7 @@
       }
     }
   },
-  "libraryCleared": "보관함이 초기화됨",
+  "libraryCleared": "라이브러리가 초기화됨",
   "@libraryCleared": {
     "description": "Snackbar after clearing library"
   },
@@ -2648,7 +2648,7 @@
   "@libraryStorageAccessRequired": {
     "description": "Dialog title for storage permission"
   },
-  "libraryStorageAccessMessage": "SpotifyFLAC은 음악 보관함을 스캔하기 위해 저장소 접근 권한이 필요합니다. 설정에서 권한을 부여해 주세요",
+  "libraryStorageAccessMessage": "SpotifyFLAC은 음악 라이브러리를 스캔하기 위해 저장소 접근 권한이 필요합니다. 설정에서 권한을 부여해 주세요",
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
@@ -2822,15 +2822,15 @@
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
-  "tutorialLibraryTitle": "내 보관함",
+  "tutorialLibraryTitle": "내 라이브러리",
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "다운로드한 모든 음악은 보관함 탭에 정리되어 있습니다.",
+  "tutorialLibraryDesc": "다운로드한 모든 음악은 라이브러리 탭에 정리되어 있습니다.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
-  "tutorialLibraryTip1": "보관함 탭에서 다운로드 진행 상황과 다운로드 목록을 확인하세요",
+  "tutorialLibraryTip1": "라이브러리 탭에서 다운로드 진행 상황과 다운로드 목록을 확인하세요",
   "@tutorialLibraryTip1": {
     "description": "Tutorial library tip 1"
   },
@@ -2968,7 +2968,7 @@
   "@cacheCoverImageDesc": {
     "description": "Description of what cover image cache contains"
   },
-  "cacheLibraryCover": "보관함 표지 캐시",
+  "cacheLibraryCover": "라이브러리 표지 캐시",
   "@cacheLibraryCover": {
     "description": "Cache item title for local library cover art images"
   },
@@ -2992,7 +2992,7 @@
   "@cacheTrackLookupDesc": {
     "description": "Description of what track lookup cache contains"
   },
-  "cacheCleanupUnusedDesc": "누락된 파일에 대한 불필요한 다운로드 기록 및 보관함 항목을 제거합니다.",
+  "cacheCleanupUnusedDesc": "누락된 파일에 대한 불필요한 다운로드 기록 및 라이브러리 항목을 제거합니다",
   "@cacheCleanupUnusedDesc": {
     "description": "Description of what cleanup unused data does"
   },
@@ -3068,11 +3068,11 @@
   "@cacheCleanupUnused": {
     "description": "Action title for cleaning unused entries"
   },
-  "cacheCleanupUnusedSubtitle": "불필요한 다운로드 기록 및 누락된 보관함 항목을 제거합니다",
+  "cacheCleanupUnusedSubtitle": "불필요한 다운로드 기록 및 누락된 라이브러리 항목을 제거합니다",
   "@cacheCleanupUnusedSubtitle": {
     "description": "Subtitle for cleanup unused data action"
   },
-  "cacheCleanupResult": "정리 완료: {downloadCount} 개의 사용되지 않는 다운로드, {libraryCount} 개의 누락된 보관함 항목",
+  "cacheCleanupResult": "정리 완료: {downloadCount} 개의 사용되지 않는 다운로드, {libraryCount} 개의 누락된 라이브러리 항목",
   "@cacheCleanupResult": {
     "description": "Snackbar after unused data cleanup",
     "placeholders": {
@@ -3847,7 +3847,7 @@
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
-  "settingsBackupSubtitle": "보관함, 기록 및 설정을 새 기기로 옮기세요",
+  "settingsBackupSubtitle": "라이브러리, 기록 및 설정을 새 기기로 옮겨보세요",
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
@@ -3871,7 +3871,7 @@
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
-  "backupImportSectionDescription": "데이터를 복원할 백업 파일을 선택하세요. 이 작업을 수행하면 현재 기기에 저장된 설정, 기록 및 보관함이 백업 파일의 내용으로 대체됩니다",
+  "backupImportSectionDescription": "데이터를 복원할 백업 파일을 선택하세요. 이 작업을 수행하면 현재 기기에 저장된 설정, 기록 및 라이브러리가 백업 파일의 내용으로 대체됩니다",
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
@@ -4696,11 +4696,11 @@
   "@notifChannelDownloadDesc": {
     "description": "Android notification channel description for download progress"
   },
-  "notifChannelLibraryScanName": "보관함 스캔",
+  "notifChannelLibraryScanName": "라이브러리 스캔",
   "@notifChannelLibraryScanName": {
     "description": "Android notification channel name for library scan"
   },
-  "notifChannelLibraryScanDesc": "로컬 보관함 스캔 진행률을 표시합니다",
+  "notifChannelLibraryScanDesc": "로컬 라이브러리 스캔 진행률을 표시합니다",
   "@notifChannelLibraryScanDesc": {
     "description": "Android notification channel description for library scan"
   },
@@ -4726,7 +4726,7 @@
   "@notifEmbeddingMetadata": {
     "description": "Notification body while embedding metadata into a downloaded track"
   },
-  "notifAlreadyInLibraryCount": "이미 보관함에 있음 ({completed}/{total})",
+  "notifAlreadyInLibraryCount": "이미 라이브러리에 있음 ({completed}/{total})",
   "@notifAlreadyInLibraryCount": {
     "description": "Notification title when track is already in library, with count",
     "placeholders": {
@@ -4738,7 +4738,7 @@
       }
     }
   },
-  "notifAlreadyInLibrary": "이미 보관함에 있음",
+  "notifAlreadyInLibrary": "이미 라이브러리에 있음",
   "@notifAlreadyInLibrary": {
     "description": "Notification title when track is already in library"
   },
@@ -4808,7 +4808,7 @@
       }
     }
   },
-  "notifScanningLibrary": "로컬 보관함을 스캔하는 중",
+  "notifScanningLibrary": "로컬 라이브러리를 스캔하는 중",
   "@notifScanningLibrary": {
     "description": "Notification title while scanning local library"
   },
@@ -4839,7 +4839,7 @@
       }
     }
   },
-  "notifLibraryScanComplete": "보관함 스캔 완료",
+  "notifLibraryScanComplete": "라이브러리 스캔 완료",
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },
@@ -4870,7 +4870,7 @@
       }
     }
   },
-  "notifLibraryScanFailed": "보관함 스캔 실패",
+  "notifLibraryScanFailed": "라이브러리 스캔 실패",
   "@notifLibraryScanFailed": {
     "description": "Notification title when library scan fails"
   },
@@ -5748,7 +5748,7 @@
   "@settingsSaveDownloadHistory": {
     "description": "Settings switch title for storing completed downloads in history"
   },
-  "settingsSaveDownloadHistorySubtitle": "완료된 다운로드를 기록 및 보관함 보기에 유지합니다",
+  "settingsSaveDownloadHistorySubtitle": "완료된 다운로드를 기록 및 라이브러리 보기에 유지합니다",
   "@settingsSaveDownloadHistorySubtitle": {
     "description": "Settings switch subtitle for storing completed downloads in history"
   },
@@ -5847,11 +5847,11 @@
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
-  "nowPlayingLibraryEmpty": "보관함이 비어져 있습니다",
+  "nowPlayingLibraryEmpty": "라이브러리가 비어 있음",
   "@nowPlayingLibraryEmpty": {
     "description": "Snackbar when shuffle library is requested but library has no tracks"
   },
-  "nowPlayingShuffleLibraryFailed": "보관함에서 셔플을 사용할 수 없음: {error}",
+  "nowPlayingShuffleLibraryFailed": "라이브러리에서 셔플을 사용할 수 없음: {error}",
   "@nowPlayingShuffleLibraryFailed": {
     "description": "Snackbar when shuffling the library fails",
     "placeholders": {
@@ -5868,7 +5868,7 @@
   "@nowPlayingPlayInOrder": {
     "description": "Tooltip when shuffle mode is disabled"
   },
-  "nowPlayingShuffleLibrary": "보관함 셔플",
+  "nowPlayingShuffleLibrary": "라이브러리 셔플",
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },

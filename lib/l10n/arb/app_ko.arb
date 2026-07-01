@@ -33,11 +33,11 @@
   "@homeEmptyTitle": {
     "description": "Title shown on home when no providers are available yet"
   },
-  "homeEmptySubtitle": "계속하려면 확장 프로그램을 설치하세요.",
+  "homeEmptySubtitle": "계속하려면 확장 프로그램을 설치하세요",
   "@homeEmptySubtitle": {
     "description": "Subtitle shown on home when no providers are available yet"
   },
-  "homeSupports": "지원 항목: 트랙, 앨범, 플레이리스트, 아티스트 URL",
+  "homeSupports": "지원 항목: 트랙, 앨범, 재생목록, 아티스트 URL",
   "@homeSupports": {
     "description": "Info text about supported URL types"
   },
@@ -190,11 +190,11 @@
   "@optionsUseExtensionProviders": {
     "description": "Legacy setting label for extension download providers"
   },
-  "optionsUseExtensionProvidersOn": "확장 프로그램 제공자가 활성화되었습니다",
+  "optionsUseExtensionProvidersOn": "확장 프로그램 제공자가 활성화됨",
   "@optionsUseExtensionProvidersOn": {
     "description": "Status when extension providers enabled"
   },
-  "optionsUseExtensionProvidersOff": "확장 프로그램 제공자가 필요합니다",
+  "optionsUseExtensionProvidersOff": "확장 프로그램 제공자가 필요함",
   "@optionsUseExtensionProvidersOff": {
     "description": "Legacy status when extension providers would be disabled"
   },
@@ -296,7 +296,7 @@
   "@optionsArtistTagModeJoined": {
     "description": "Artist tag mode option that joins multiple artists into one value"
   },
-  "optionsArtistTagModeJoinedSubtitle": "플레이어 호환성을 최대화하려면 \"아티스트 A, 아티스트 B\"와 같이 하나의 ARTIST 값을 입력하세요.",
+  "optionsArtistTagModeJoinedSubtitle": "플레이어 호환성을 최대화하려면 '아티스트 A, 아티스트 B'와 같이 하나의 아티스트 값을 입력하세요",
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
@@ -320,7 +320,7 @@
   "@optionsCheckUpdates": {
     "description": "Auto update check toggle"
   },
-  "optionsCheckUpdatesSubtitle": "새로운 버전이 출시되면 알림",
+  "optionsCheckUpdatesSubtitle": "새 버전이 출시되면 알림",
   "@optionsCheckUpdatesSubtitle": {
     "description": "Subtitle for update check"
   },
@@ -447,7 +447,7 @@
   "@aboutMobileDeveloper": {
     "description": "Role description for mobile dev"
   },
-  "aboutOriginalCreator": "오리지널 SpotiFLAC 제작자",
+  "aboutOriginalCreator": "SpotiFLAC 오리지널 개발자",
   "@aboutOriginalCreator": {
     "description": "Role description for original creator"
   },
@@ -483,7 +483,7 @@
   "@aboutReportIssue": {
     "description": "Link to report bugs"
   },
-  "aboutReportIssueSubtitle": "발생하는 모든 문제를 신고하여 주세요.",
+  "aboutReportIssueSubtitle": "발생하는 모든 문제를 신고해 주세요",
   "@aboutReportIssueSubtitle": {
     "description": "Subtitle for report issue"
   },
@@ -491,7 +491,7 @@
   "@aboutFeatureRequest": {
     "description": "Link to suggest features"
   },
-  "aboutFeatureRequestSubtitle": "앱의 새로운 기능을 제안하여 주세요.",
+  "aboutFeatureRequestSubtitle": "앱의 새 기능을 제안해 주세요",
   "@aboutFeatureRequestSubtitle": {
     "description": "Subtitle for feature request"
   },
@@ -523,11 +523,11 @@
   "@aboutVersion": {
     "description": "Version info label"
   },
-  "aboutBinimumDesc": "QQDL 및 HiFi API 개발자입니다. 이 프로젝트는 무손실 다운로드 지원을 형성하는 데 도움을 주셨습니다.",
+  "aboutBinimumDesc": "QQDL 및 HiFi API 개발자입니다. 이 프로젝트는 무손실 다운로드 지원을 형성하는 데 도움을 주셨습니다",
   "@aboutBinimumDesc": {
     "description": "Credit description for binimum"
   },
-  "aboutSachinsenalDesc": "HiFi 프로젝트의 원작자이자, 무손실 음원 소스 통합 기능의 토대를 구축한 개발자입니다.",
+  "aboutSachinsenalDesc": "HiFi 프로젝트의 원작자이자, 무손실 음원 소스 연동 기능의 토대를 구축한 개발자입니다",
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
@@ -535,7 +535,7 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "음악 메타데이터 검색, 확장 프로그램 관리, 보관함 정리.",
+  "aboutAppDescription": "음악 메타데이터를 검색하고, 확장 프로그램을 관리하고, 라이브러리를 정리하세요",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },
@@ -551,7 +551,7 @@
   "@artistCompilations": {
     "description": "Section header for compilations"
   },
-  "artistPopular": "인기순",
+  "artistPopular": "인기",
   "@artistPopular": {
     "description": "Section header for popular/top tracks"
   },
@@ -593,7 +593,7 @@
   "@setupStorageAccessRequired": {
     "description": "Title when storage access needed"
   },
-  "setupStorageAccessMessageAndroid11": "Android 11 이상 버전에서는 선택한 다운로드 폴더에 파일을 저장하려면 \"모든 파일 접근\" 권한이 필요합니다.",
+  "setupStorageAccessMessageAndroid11": "Android 11 이상 버전에서는 선택한 다운로드 폴더에 파일을 저장하려면 '모든 파일 접근' 권한이 필요합니다",
   "@setupStorageAccessMessageAndroid11": {
     "description": "Android 11+ specific explanation"
   },
@@ -615,7 +615,7 @@
       }
     }
   },
-  "setupPermissionRequiredMessage": "최상의 사용 경험을 위해 {permissionType} 권한이 필요합니다. 설정에서 나중에 변경할 수 있습니다.",
+  "setupPermissionRequiredMessage": "최상의 사용 경험을 위해 {permissionType} 권한이 필요합니다. 설정에서 나중에 변경할 수 있습니다",
   "@setupPermissionRequiredMessage": {
     "description": "Generic permission required message",
     "placeholders": {
@@ -640,7 +640,7 @@
   "@setupDownloadLocationTitle": {
     "description": "Download location dialog title"
   },
-  "setupDownloadLocationIosMessage": "iOS에서는 다운로드한 파일이 앱의 문서 폴더에 저장됩니다. 파일 앱을 통해 해당 파일에 접근할 수 있습니다.",
+  "setupDownloadLocationIosMessage": "iOS에서는 다운로드한 파일이 앱의 문서 폴더에 저장됩니다. 파일 앱을 통해 해당 파일에 접근할 수 있습니다",
   "@setupDownloadLocationIosMessage": {
     "description": "iOS-specific folder info"
   },
@@ -676,7 +676,7 @@
   "@setupStorageGranted": {
     "description": "Success message for storage permission"
   },
-  "setupStorageRequired": "저장소 접근 권한이 필요합니다.",
+  "setupStorageRequired": "저장소 접근 권한 필요",
   "@setupStorageRequired": {
     "description": "Title when storage permission needed"
   },
@@ -696,7 +696,7 @@
   "@setupFolderChoose": {
     "description": "Button to choose folder"
   },
-  "setupFolderDescription": "다운로드한 음악 파일이 저장될 폴더를 선택하세요.",
+  "setupFolderDescription": "다운로드한 음악 파일이 저장될 폴더를 선택하세요",
   "@setupFolderDescription": {
     "description": "Explanation for folder selection"
   },
@@ -712,7 +712,7 @@
   "@setupNotificationBackgroundDescription": {
     "description": "Detailed notification explanation"
   },
-  "setupSkipForNow": "다음에 할래요.",
+  "setupSkipForNow": "다음에 할래요",
   "@setupSkipForNow": {
     "description": "Skip button text"
   },
@@ -752,7 +752,7 @@
   "@dialogDelete": {
     "description": "Dialog button - delete item"
   },
-  "dialogRetry": "재시도",
+  "dialogRetry": "다시 시도",
   "@dialogRetry": {
     "description": "Dialog button - retry action"
   },
@@ -1248,7 +1248,7 @@
   "@updateDownloading": {
     "description": "Update status - downloading"
   },
-  "updateWhatsNew": "새로운 기능",
+  "updateWhatsNew": "새 기능",
   "@updateWhatsNew": {
     "description": "Changelog section title"
   },
@@ -1748,7 +1748,7 @@
   "@storeFilterLyrics": {
     "description": "Store filter - lyrics providers"
   },
-  "storeFilterIntegration": "통합",
+  "storeFilterIntegration": "연동",
   "@storeFilterIntegration": {
     "description": "Store filter - integrations"
   },
@@ -1931,7 +1931,7 @@
   "@extensionsInstallButton": {
     "description": "Button to install extension from file"
   },
-  "extensionsInfoTip": "확장 프로그램은 새로운 메타데이터와 다운로드 제공자를 추가할 수 있습니다. 신뢰할 수 있는 출처에서만 확장 프로그램을 설치하세요.",
+  "extensionsInfoTip": "확장 프로그램은 새 메타데이터와 다운로드 제공자를 추가할 수 있습니다. 신뢰할 수 있는 출처에서만 확장 프로그램을 설치하세요",
   "@extensionsInfoTip": {
     "description": "Security warning about extensions"
   },
@@ -2902,7 +2902,7 @@
   "@cleanupOrphanedDownloadsSubtitle": {
     "description": "Subtitle for orphaned cleanup button"
   },
-  "cleanupOrphanedDownloadsResult": "기록에서 {count} 개의 불필요한 항목을 제거하였습니다",
+  "cleanupOrphanedDownloadsResult": "기록에서 {count} 개의 불필요한 항목이 제거됨",
   "@cleanupOrphanedDownloadsResult": {
     "description": "Snackbar after orphan cleanup",
     "placeholders": {
@@ -3408,7 +3408,7 @@
   "@collectionWishlist": {
     "description": "Custom folder for saved tracks to download later"
   },
-  "collectionLoved": "좋아요 표시한 곡",
+  "collectionLoved": "좋아요 표시한 트랙",
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
@@ -3521,7 +3521,7 @@
   "@collectionWishlistEmptySubtitle": {
     "description": "Wishlist empty state subtitle"
   },
-  "collectionLovedEmptyTitle": "'좋아요 표시한 곡' 폴더가 비워져 있습니다",
+  "collectionLovedEmptyTitle": "'좋아요 표시한 트랙' 폴더가 비어 있음",
   "@collectionLovedEmptyTitle": {
     "description": "Loved empty state title"
   },
@@ -3562,7 +3562,7 @@
       }
     }
   },
-  "collectionAddedToLoved": "'{trackName}'이 '좋아요 표시한 곡'에 추가됨",
+  "collectionAddedToLoved": "'{trackName}'이 '좋아요 표시한 트랙'에 추가됨",
   "@collectionAddedToLoved": {
     "description": "Snackbar after adding track to loved folder",
     "placeholders": {
@@ -3571,7 +3571,7 @@
       }
     }
   },
-  "collectionRemovedFromLoved": "'{trackName}'이 '좋아요 표시한 곡'에서 제거됨",
+  "collectionRemovedFromLoved": "'{trackName}'이 '좋아요 표시한 트랙'에서 제거됨",
   "@collectionRemovedFromLoved": {
     "description": "Snackbar after removing track from loved folder",
     "placeholders": {
@@ -3616,11 +3616,11 @@
       }
     }
   },
-  "trackOptionAddToLoved": "'좋아요 표시한 곡'에 추가",
+  "trackOptionAddToLoved": "'좋아요 표시한 트랙'에 추가",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
-  "trackOptionRemoveFromLoved": "'좋아요 표시한 곡'에서 제거",
+  "trackOptionRemoveFromLoved": "'좋아요 표시한 트랙'에서 제거",
   "@trackOptionRemoveFromLoved": {
     "description": "Bottom sheet action label - remove track from loved folder"
   },
@@ -3859,7 +3859,7 @@
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
-  "backupExportSectionDescription": "설정, 다운로드 기록, 좋아요 표시한 곡, 위시리스트, 즐겨찾는 아티스트 및 재생목록을 하나의 파일로 저장하여 보관하거나 다른 휴대전화로 옮길 수 있습니다",
+  "backupExportSectionDescription": "설정, 다운로드 기록, 좋아요 표시한 트랙, 위시리스트, 즐겨찾는 아티스트 및 재생목록을 하나의 파일로 저장하여 보관하거나 다른 휴대전화로 옮길 수 있습니다",
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
@@ -4014,7 +4014,7 @@
   "@tooltipAddToPlaylist": {
     "description": "Tooltip for the Add to Playlist button"
   },
-  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 곡'에서 {count} 트랙이 제거됨",
+  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 트랙'에서 {count} 개의 트랙이 제거됨",
   "@snackbarRemovedTracksFromLoved": {
     "description": "Snackbar after removing multiple tracks from Loved folder",
     "placeholders": {
@@ -4023,7 +4023,7 @@
       }
     }
   },
-  "snackbarAddedTracksToLoved": "'좋아요 표시한 곡'에 {count} 트랙이 추가됨",
+  "snackbarAddedTracksToLoved": "'좋아요 표시한 트랙'에 {count} 개의 트랙이 추가됨",
   "@snackbarAddedTracksToLoved": {
     "description": "Snackbar after adding multiple tracks to Loved folder",
     "placeholders": {
@@ -5417,7 +5417,7 @@
       }
     }
   },
-  "trackReEnrichSuccessWithFailures": "메타데이터가 성공적으로 재구성됨 ({successCount}/{total}) - 실패: {failedCount}",
+  "trackReEnrichSuccessWithFailures": "메타데이터 재구성 성공 ({successCount}/{total}) - 실패: {failedCount}",
   "@trackReEnrichSuccessWithFailures": {
     "description": "Snackbar summary after batch metadata re-enrichment finishes with failures",
     "placeholders": {
@@ -5723,7 +5723,7 @@
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
-  "storeCategoryIntegration": "통합",
+  "storeCategoryIntegration": "연동",
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },

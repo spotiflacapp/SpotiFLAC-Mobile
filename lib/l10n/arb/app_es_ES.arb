@@ -3571,7 +3571,7 @@
       }
     }
   },
-  "collectionRemovedFromLoved": "\"{trackName}\" removed from Loved",
+  "collectionRemovedFromLoved": "\"{trackName}\" se eliminó de «Me gusta»",
   "@collectionRemovedFromLoved": {
     "description": "Snackbar after removing track from loved folder",
     "placeholders": {
@@ -3580,7 +3580,7 @@
       }
     }
   },
-  "collectionAddedToWishlist": "\"{trackName}\" added to Wishlist",
+  "collectionAddedToWishlist": "\"{trackName}\" se agregó a la lista de deseos",
   "@collectionAddedToWishlist": {
     "description": "Snackbar after adding track to wishlist",
     "placeholders": {
@@ -3589,7 +3589,7 @@
       }
     }
   },
-  "collectionRemovedFromWishlist": "\"{trackName}\" removed from Wishlist",
+  "collectionRemovedFromWishlist": "\"{trackName}\" se eliminó de la lista de deseos",
   "@collectionRemovedFromWishlist": {
     "description": "Snackbar after removing track from wishlist",
     "placeholders": {
@@ -3598,7 +3598,7 @@
       }
     }
   },
-  "collectionAddedToFavoriteArtists": "\"{artistName}\" added to Favorite Artists",
+  "collectionAddedToFavoriteArtists": "\"{artistName}\" se agregó a Artistas favoritos",
   "@collectionAddedToFavoriteArtists": {
     "description": "Snackbar after adding artist to favorite artists",
     "placeholders": {
@@ -3607,7 +3607,7 @@
       }
     }
   },
-  "collectionRemovedFromFavoriteArtists": "\"{artistName}\" removed from Favorite Artists",
+  "collectionRemovedFromFavoriteArtists": "\"{artistName}\" se eliminó de Artistas favoritos",
   "@collectionRemovedFromFavoriteArtists": {
     "description": "Snackbar after removing artist from favorite artists",
     "placeholders": {
@@ -3616,11 +3616,11 @@
       }
     }
   },
-  "trackOptionAddToLoved": "Add to Loved",
+  "trackOptionAddToLoved": "Agregar a «Me gusta»",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
-  "trackOptionRemoveFromLoved": "Remove from Loved",
+  "trackOptionRemoveFromLoved": "Quitar de «Me gusta»",
   "@trackOptionRemoveFromLoved": {
     "description": "Bottom sheet action label - remove track from loved folder"
   },

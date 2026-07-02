@@ -555,7 +555,7 @@
   "@artistPopular": {
     "description": "Section header for popular/top tracks"
   },
-  "artistMonthlyListeners": "월간 청취자: {count}",
+  "artistMonthlyListeners": "월별 청취자: {count}",
   "@artistMonthlyListeners": {
     "description": "Monthly listener count display",
     "placeholders": {

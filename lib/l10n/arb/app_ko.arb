@@ -5393,7 +5393,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylistWithExisting": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 ''{playlistName}''에 추가됨 ({alreadyCount} 개의 트랙은 이미 재생목록에 있음)",
+  "collectionAddedTracksToPlaylistWithExisting": "''{playlistName}''에 {count} 개의 {count, plural, =1{트랙} other{트랙}}이 추가됨 ({alreadyCount} 개의 트랙은 이미 재생목록에 있음)",
   "@collectionAddedTracksToPlaylistWithExisting": {
     "description": "Snackbar after adding multiple tracks to a playlist when some were already present",
     "placeholders": {

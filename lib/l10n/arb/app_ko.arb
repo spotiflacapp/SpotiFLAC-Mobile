@@ -2627,7 +2627,7 @@
       }
     }
   },
-  "libraryInLibrary": "In Library",
+  "libraryInLibrary": "in 라이브러리",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },

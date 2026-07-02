@@ -2131,7 +2131,7 @@
   "@downloadSelectQuality": {
     "description": "Dialog title - choose audio quality"
   },
-  "downloadFrom": "다운로드 대상",
+  "downloadFrom": "다운로드 출처",
   "@downloadFrom": {
     "description": "Label - download source"
   },
@@ -2627,7 +2627,7 @@
       }
     }
   },
-  "libraryInLibrary": "라이브러리에 있음",
+  "libraryInLibrary": "In Library",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },

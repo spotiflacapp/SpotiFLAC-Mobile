@@ -37,7 +37,7 @@
   "@homeEmptySubtitle": {
     "description": "Subtitle shown on home when no providers are available yet"
   },
-  "homeSupports": "Mendukung: URL Track, Album, Playlist, Artis",
+  "homeSupports": "Mendukung: URL Lagu, Album, Daftar Putar, dan Artis",
   "@homeSupports": {
     "description": "Info text about supported URL types"
   },
@@ -226,23 +226,23 @@
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "trackReplayGain": "Rescan ReplayGain",
+  "trackReplayGain": "Pindai ulang ReplayGain",
   "@trackReplayGain": {
     "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
   },
-  "trackReplayGainSubtitle": "Analyze loudness and write ReplayGain tags",
+  "trackReplayGainSubtitle": "Analisis kenyaringan dan tulis tag ReplayGain",
   "@trackReplayGainSubtitle": {
     "description": "Subtitle for the rescan ReplayGain menu option"
   },
-  "trackReplayGainScanning": "Analyzing loudness...",
+  "trackReplayGainScanning": "Menganalisis kenyaringan...",
   "@trackReplayGainScanning": {
     "description": "Snackbar/progress message while scanning ReplayGain for a single track"
   },
-  "trackReplayGainSuccess": "ReplayGain tags added",
+  "trackReplayGainSuccess": "Tag ReplayGain ditambahkan",
   "@trackReplayGainSuccess": {
     "description": "Snackbar message after ReplayGain tags written for a single track"
   },
-  "trackReplayGainFailed": "Failed to add ReplayGain tags",
+  "trackReplayGainFailed": "Gagal menambahkan tag ReplayGain",
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
@@ -255,11 +255,11 @@
       }
     }
   },
-  "replayGainBatchConfirmTitle": "Add ReplayGain",
+  "replayGainBatchConfirmTitle": "Tambah ReplayGain",
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },
-  "replayGainBatchConfirmMessage": "Analyze loudness and write ReplayGain tags to {count} track(s)?",
+  "replayGainBatchConfirmMessage": "Analisis kenyaringan dan tulis tag ReplayGain ke {count} trek?",
   "@replayGainBatchConfirmMessage": {
     "description": "Message of the batch ReplayGain confirmation dialog",
     "placeholders": {
@@ -268,11 +268,11 @@
       }
     }
   },
-  "replayGainBatchAnalyzing": "Analyzing ReplayGain...",
+  "replayGainBatchAnalyzing": "Menganalisis ReplayGain...",
   "@replayGainBatchAnalyzing": {
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
-  "replayGainBatchSuccess": "ReplayGain added to {success} of {total} tracks",
+  "replayGainBatchSuccess": "ReplayGain ditambahkan ke {success} dari {total} trek",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -308,11 +308,11 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "Extension Repo",
+  "optionsExtensionStore": "Repositori Ekstensi",
   "@optionsExtensionStore": {
     "description": "Show/hide store tab"
   },
-  "optionsExtensionStoreSubtitle": "Show Repo tab in navigation",
+  "optionsExtensionStoreSubtitle": "Tampilkan tab Repo di navigasi",
   "@optionsExtensionStoreSubtitle": {
     "description": "Subtitle for extension store toggle"
   },
@@ -415,7 +415,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "Extension Repo",
+  "storeTitle": "Repositori Ekstensi",
   "@storeTitle": {
     "description": "Store screen title"
   },
@@ -447,7 +447,7 @@
   "@aboutMobileDeveloper": {
     "description": "Role description for mobile dev"
   },
-  "aboutOriginalCreator": "Pembuat SpotiFLAC asli",
+  "aboutOriginalCreator": "Pencipta SpotiFLAC asli",
   "@aboutOriginalCreator": {
     "description": "Role description for original creator"
   },
@@ -475,7 +475,7 @@
   "@aboutPCSource": {
     "description": "Link to PC GitHub repo"
   },
-  "aboutKeepAndroidOpen": "Keep Android Open",
+  "aboutKeepAndroidOpen": "Biarkan Android tetap terbuka",
   "@aboutKeepAndroidOpen": {
     "description": "Link to Keep Android Open campaign website"
   },
@@ -523,11 +523,11 @@
   "@aboutVersion": {
     "description": "Version info label"
   },
-  "aboutBinimumDesc": "The creator of QQDL & HiFi API. This project helped shape lossless download support.",
+  "aboutBinimumDesc": "Pencipta QQDL & HiFi API. Proyek ini membantu membentuk dukungan unduhan lossless.",
   "@aboutBinimumDesc": {
     "description": "Credit description for binimum"
   },
-  "aboutSachinsenalDesc": "The original HiFi project creator. A foundation for lossless-source integration.",
+  "aboutSachinsenalDesc": "Pencipta proyek HiFi asli. Sebuah fondasi untuk integrasi sumber lossless.",
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
@@ -535,7 +535,7 @@
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
+  "aboutAppDescription": "Cari metadata musik, kelola ekstensi, dan atur perpustakaan Anda.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },
@@ -732,11 +732,11 @@
   "@setupLanguageTitle": {
     "description": "Title for the language selection step in setup"
   },
-  "setupLanguageDescription": "Select your preferred language for the app. You can change this later in Settings.",
+  "setupLanguageDescription": "Pilih bahasa pilihan Anda untuk aplikasi ini. Anda dapat mengubahnya nanti di Pengaturan.",
   "@setupLanguageDescription": {
     "description": "Description for the language selection step in setup"
   },
-  "setupLanguageSystemDefault": "System Default",
+  "setupLanguageSystemDefault": "Bawaan Sistem",
   "@setupLanguageSystemDefault": {
     "description": "Option to use the system language"
   },
@@ -768,19 +768,19 @@
   "@dialogImport": {
     "description": "Dialog button - import data"
   },
-  "dialogDownload": "Download",
+  "dialogDownload": "Unduh",
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "Putar pratinjau",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "Hentikan pratinjau",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "Preview unavailable",
+  "previewUnavailable": "Pratinjau tidak tersedia",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -1010,7 +1010,7 @@
   "@errorNoTracksFound": {
     "description": "Error - search returned no results"
   },
-  "searchEmptyResultSubtitle": "Try another keyword",
+  "searchEmptyResultSubtitle": "Coba kata kunci lain",
   "@searchEmptyResultSubtitle": {
     "description": "Subtitle shown under the empty search result state on the home screen"
   },
@@ -1112,7 +1112,7 @@
   "@searchPlaylists": {
     "description": "Search result category - playlists"
   },
-  "searchSortTitle": "Sort Results",
+  "searchSortTitle": "Urutkan hasil",
   "@searchSortTitle": {
     "description": "Bottom sheet title for search sort options"
   },
@@ -1120,35 +1120,35 @@
   "@searchSortDefault": {
     "description": "Sort option - default API order"
   },
-  "searchSortTitleAZ": "Title (A-Z)",
+  "searchSortTitleAZ": "Judul (A-Z)",
   "@searchSortTitleAZ": {
     "description": "Sort option - title ascending"
   },
-  "searchSortTitleZA": "Title (Z-A)",
+  "searchSortTitleZA": "Judul (Z-A)",
   "@searchSortTitleZA": {
     "description": "Sort option - title descending"
   },
-  "searchSortArtistAZ": "Artist (A-Z)",
+  "searchSortArtistAZ": "Artis (A-Z)",
   "@searchSortArtistAZ": {
     "description": "Sort option - artist ascending"
   },
-  "searchSortArtistZA": "Artist (Z-A)",
+  "searchSortArtistZA": "Artis (Z-A)",
   "@searchSortArtistZA": {
     "description": "Sort option - artist descending"
   },
-  "searchSortDurationShort": "Duration (Shortest)",
+  "searchSortDurationShort": "Durasi (Terpendek)",
   "@searchSortDurationShort": {
     "description": "Sort option - shortest duration first"
   },
-  "searchSortDurationLong": "Duration (Longest)",
+  "searchSortDurationLong": "Durasi (Terpanjang)",
   "@searchSortDurationLong": {
     "description": "Sort option - longest duration first"
   },
-  "searchSortDateOldest": "Release Date (Oldest)",
+  "searchSortDateOldest": "Tanggal rilis (Terlama)",
   "@searchSortDateOldest": {
     "description": "Sort option - oldest release first"
   },
-  "searchSortDateNewest": "Release Date (Newest)",
+  "searchSortDateNewest": "Tanggal rilis (Terbaru)",
   "@searchSortDateNewest": {
     "description": "Sort option - newest release first"
   },
@@ -1248,7 +1248,7 @@
   "@updateDownloading": {
     "description": "Update status - downloading"
   },
-  "updateWhatsNew": "Yang Baru",
+  "updateWhatsNew": "Apa yang baru",
   "@updateWhatsNew": {
     "description": "Changelog section title"
   },
@@ -1272,19 +1272,19 @@
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
-  "providerPriorityFallbackExtensionsTitle": "Extension Fallback",
+  "providerPriorityFallbackExtensionsTitle": "Ekstensi Cadangan",
   "@providerPriorityFallbackExtensionsTitle": {
     "description": "Section title for choosing which download extensions can be used as fallback providers"
   },
-  "providerPriorityFallbackExtensionsDescription": "Choose which installed download extensions can be used during automatic fallback.",
+  "providerPriorityFallbackExtensionsDescription": "Pilih ekstensi unduhan terpasang mana yang dapat digunakan selama fallback otomatis.",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
-  "providerPriorityFallbackExtensionsHint": "Only enabled extensions with download-provider capability are listed here.",
+  "providerPriorityFallbackExtensionsHint": "Hanya ekstensi yang diaktifkan dengan kemampuan penyedia unduhan yang tercantum di sini.",
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
-  "providerBuiltIn": "Legacy",
+  "providerBuiltIn": "Warisan",
   "@providerBuiltIn": {
     "description": "Legacy label retained for old generated localization compatibility"
   },
@@ -1506,11 +1506,11 @@
   "@settingsAppearanceSubtitle": {
     "description": "Appearance settings description"
   },
-  "settingsDownloadSubtitle": "Service, quality, fallback",
+  "settingsDownloadSubtitle": "Layanan, kualitas, cadangan",
   "@settingsDownloadSubtitle": {
     "description": "Download settings description"
   },
-  "settingsOptionsSubtitle": "Fallback, metadata, lyrics, cover art",
+  "settingsOptionsSubtitle": "Cadangan, metadata, lirik, sampul album",
   "@settingsOptionsSubtitle": {
     "description": "Options settings description"
   },
@@ -1624,7 +1624,7 @@
   "@trackGenre": {
     "description": "Metadata label - music genre"
   },
-  "trackLabel": "Lebel",
+  "trackLabel": "Label",
   "@trackLabel": {
     "description": "Metadata label - record label"
   },
@@ -1640,7 +1640,7 @@
   "@trackCopyLyrics": {
     "description": "Action - copy lyrics to clipboard"
   },
-  "trackLyricsSource": "Source: {source}",
+  "trackLyricsSource": "Sumber: {source}",
   "@trackLyricsSource": {
     "description": "Label showing the lyrics source/provider",
     "placeholders": {
@@ -1653,15 +1653,15 @@
   "@trackLyricsNotAvailable": {
     "description": "Message when lyrics not found"
   },
-  "trackLyricsNotInFile": "No lyrics found in this file",
+  "trackLyricsNotInFile": "Tidak ditemukan lirik dalam file ini",
   "@trackLyricsNotInFile": {
     "description": "Message when no embedded lyrics in audio file"
   },
-  "trackFetchOnlineLyrics": "Fetch from Online",
+  "trackFetchOnlineLyrics": "Ambil dari Online",
   "@trackFetchOnlineLyrics": {
     "description": "Action - fetch lyrics from online providers"
   },
-  "trackLyricsTimeout": "Permintaan timeout. Coba lagi nanti.",
+  "trackLyricsTimeout": "Permintaan habis waktu. Coba lagi nanti.",
   "@trackLyricsTimeout": {
     "description": "Message when lyrics request times out"
   },
@@ -1756,15 +1756,15 @@
   "@storeClearFilters": {
     "description": "Button to clear all filters"
   },
-  "storeAddRepoTitle": "Add Extension Repository",
+  "storeAddRepoTitle": "Tambahkan Repositori Ekstensi",
   "@storeAddRepoTitle": {
     "description": "Store setup screen - heading when no repo is configured"
   },
-  "storeAddRepoDescription": "Enter a GitHub repository URL that contains a registry.json file to browse and install extensions.",
+  "storeAddRepoDescription": "Masukkan URL repositori GitHub yang berisi file registry.json untuk menelusuri dan memasang ekstensi.",
   "@storeAddRepoDescription": {
     "description": "Store setup screen - explanatory text"
   },
-  "storeRepoUrlLabel": "Repository URL",
+  "storeRepoUrlLabel": "Tautan Repositori",
   "@storeRepoUrlLabel": {
     "description": "Label for the repository URL input field"
   },
@@ -1772,47 +1772,47 @@
   "@storeRepoUrlHint": {
     "description": "Hint/placeholder for the repository URL input field"
   },
-  "storeRepoUrlHelper": "e.g. https://github.com/user/extensions-repo",
+  "storeRepoUrlHelper": "misalnya https://github.com/user/extensions-repo",
   "@storeRepoUrlHelper": {
     "description": "Helper text below the repository URL input field"
   },
-  "storeAddRepoButton": "Add Repository",
+  "storeAddRepoButton": "Tambahkan Repositori",
   "@storeAddRepoButton": {
     "description": "Button to submit a new repository URL"
   },
-  "storeChangeRepoTooltip": "Change repository",
+  "storeChangeRepoTooltip": "Ubah repositori",
   "@storeChangeRepoTooltip": {
     "description": "Tooltip for the change-repository icon button in the app bar"
   },
-  "storeRepoDialogTitle": "Extension Repository",
+  "storeRepoDialogTitle": "Repositori Ekstensi",
   "@storeRepoDialogTitle": {
     "description": "Title of the change/remove repository dialog"
   },
-  "storeRepoDialogCurrent": "Current repository:",
+  "storeRepoDialogCurrent": "Repositori saat ini:",
   "@storeRepoDialogCurrent": {
     "description": "Label shown above the current repository URL in the dialog"
   },
-  "storeNewRepoUrlLabel": "New Repository URL",
+  "storeNewRepoUrlLabel": "URL Repositori Baru",
   "@storeNewRepoUrlLabel": {
     "description": "Label for the new repository URL field inside the dialog"
   },
-  "storeLoadError": "Failed to load repository",
+  "storeLoadError": "Gagal memuat repositori",
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
-  "storeEmptyNoExtensions": "No extensions available",
+  "storeEmptyNoExtensions": "Tidak ada ekstensi yang tersedia",
   "@storeEmptyNoExtensions": {
     "description": "Message when store has no extensions"
   },
-  "storeEmptyNoResults": "No extensions found",
+  "storeEmptyNoResults": "Tidak ada ekstensi ditemukan",
   "@storeEmptyNoResults": {
     "description": "Message when search/filter returns no results"
   },
-  "extensionDefaultProvider": "Default Search",
+  "extensionDefaultProvider": "Pencarian default",
   "@extensionDefaultProvider": {
     "description": "Default search provider option"
   },
-  "extensionDefaultProviderSubtitle": "Use the default metadata search",
+  "extensionDefaultProviderSubtitle": "Gunakan pencarian metadata default",
   "@extensionDefaultProviderSubtitle": {
     "description": "Subtitle for default provider"
   },
@@ -1939,7 +1939,7 @@
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} extensions installed successfully",
+  "extensionsInstalledCount": "{count} ekstensi berhasil terpasang",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -1949,7 +1949,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "Installed {installed} of {attempted} extensions",
+  "extensionsInstallPartialSuccess": "Ekstensi yang terpasang berjumlah {installed} dari {attempted}",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -1971,11 +1971,11 @@
   "@extensionsDownloadPrioritySubtitle": {
     "description": "Subtitle for download priority"
   },
-  "extensionsFallbackTitle": "Fallback Extensions",
+  "extensionsFallbackTitle": "Ekstensi Cadangan",
   "@extensionsFallbackTitle": {
     "description": "Setting and page title for choosing which download extensions can be used during fallback"
   },
-  "extensionsFallbackSubtitle": "Choose which installed download extensions can be used as fallback",
+  "extensionsFallbackSubtitle": "Pilih ekstensi unduhan terpasang mana yang dapat digunakan sebagai cadangan",
   "@extensionsFallbackSubtitle": {
     "description": "Subtitle for download fallback extensions menu"
   },
@@ -2043,15 +2043,15 @@
   "@downloadLossy320": {
     "description": "Quality option label for lossy 320kbps"
   },
-  "downloadLossyFormat": "Lossy Format",
+  "downloadLossyFormat": "Format Lossy",
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadLossy320Format": "Lossy 320kbps Format",
+  "downloadLossy320Format": "Format Lossy 320kbps",
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
-  "downloadLossy320FormatDesc": "Choose the output format for 320kbps lossy downloads. The original stream will be converted to your selected format when needed.",
+  "downloadLossy320FormatDesc": "Pilih format output untuk unduhan lossy 320kbps. Aliran data asli akan dikonversi ke format yang Anda pilih bila diperlukan.",
   "@downloadLossy320FormatDesc": {
     "description": "Description in the lossy format picker"
   },
@@ -2059,7 +2059,7 @@
   "@downloadLossyMp3": {
     "description": "Lossy format option - MP3 320kbps"
   },
-  "downloadLossyMp3Subtitle": "Best compatibility, ~10MB per track",
+  "downloadLossyMp3Subtitle": "Kompatibilitas terbaik, ~10MB per trek",
   "@downloadLossyMp3Subtitle": {
     "description": "Subtitle for MP3 320kbps lossy option"
   },
@@ -2067,7 +2067,7 @@
   "@downloadLossyAac": {
     "description": "Lossy format option - AAC in M4A container at 320kbps"
   },
-  "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
+  "downloadLossyAacSubtitle": "Kompatibilitas seluler terbaik, kontainer M4A",
   "@downloadLossyAacSubtitle": {
     "description": "Subtitle for AAC/M4A 320kbps lossy option"
   },
@@ -2075,7 +2075,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "Best quality Opus, ~8MB per track",
+  "downloadLossyOpus256Subtitle": "Opus kualitas terbaik, ~8MB per trek",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2083,7 +2083,7 @@
   "@downloadLossyOpus128": {
     "description": "Lossy format option - Opus 128kbps"
   },
-  "downloadLossyOpus128Subtitle": "Smallest size, ~4MB per track",
+  "downloadLossyOpus128Subtitle": "Ukuran terkecil, ~4MB per trek",
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },
@@ -2107,7 +2107,7 @@
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "albumFolderStructureDescription": "Pilih bagaimana struktur folder album akan dibuat",
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },

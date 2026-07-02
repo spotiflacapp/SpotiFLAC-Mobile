@@ -605,7 +605,7 @@
   "@setupPermissionDeniedMessage": {
     "description": "Error when permission denied"
   },
-  "setupPermissionRequired": "'{permissionType}' 권한 필요",
+  "setupPermissionRequired": "''{permissionType}'' 권한 필요",
   "@setupPermissionRequired": {
     "description": "Generic permission required title",
     "placeholders": {
@@ -615,7 +615,7 @@
       }
     }
   },
-  "setupPermissionRequiredMessage": "최상의 사용 경험을 위해 '{permissionType}' 권한이 필요합니다. 설정에서 나중에 변경할 수 있습니다",
+  "setupPermissionRequiredMessage": "최상의 사용 경험을 위해 ''{permissionType}'' 권한이 필요합니다. 설정에서 나중에 변경할 수 있습니다",
   "@setupPermissionRequiredMessage": {
     "description": "Generic permission required message",
     "placeholders": {
@@ -820,7 +820,7 @@
   "@dialogUninstallExtension": {
     "description": "Dialog title - uninstall extension"
   },
-  "dialogUninstallExtensionMessage": "'{extensionName}'을 제거하시겠습니까?",
+  "dialogUninstallExtensionMessage": "''{extensionName}''을 제거하시겠습니까?",
   "@dialogUninstallExtensionMessage": {
     "description": "Dialog message - uninstall specific extension",
     "placeholders": {
@@ -872,7 +872,7 @@
       }
     }
   },
-  "snackbarAddedToQueue": "'{trackName}'가 다운로드 목록에 추가됨",
+  "snackbarAddedToQueue": "''{trackName}''가 다운로드 목록에 추가됨",
   "@snackbarAddedToQueue": {
     "description": "Snackbar - track added to download queue",
     "placeholders": {
@@ -890,7 +890,7 @@
       }
     }
   },
-  "snackbarAlreadyDownloaded": "'{trackName}'은 이미 다운로드되어 있음",
+  "snackbarAlreadyDownloaded": "''{trackName}''은 이미 다운로드되어 있음",
   "@snackbarAlreadyDownloaded": {
     "description": "Snackbar - track already exists",
     "placeholders": {
@@ -899,7 +899,7 @@
       }
     }
   },
-  "snackbarAlreadyInLibrary": "라이브러리에 '{trackName}'이 이미 존재함",
+  "snackbarAlreadyInLibrary": "라이브러리에 ''{trackName}''이 이미 존재함",
   "@snackbarAlreadyInLibrary": {
     "description": "Snackbar - track already exists in local library",
     "placeholders": {
@@ -972,7 +972,7 @@
   "@snackbarMetadataProviderSaved": {
     "description": "Snackbar - metadata provider order saved"
   },
-  "snackbarExtensionInstalled": "'{extensionName}'이 설치됨",
+  "snackbarExtensionInstalled": "''{extensionName}''이 설치됨",
   "@snackbarExtensionInstalled": {
     "description": "Snackbar - extension installed successfully",
     "placeholders": {
@@ -981,7 +981,7 @@
       }
     }
   },
-  "snackbarExtensionUpdated": "'{extensionName}'이 설치됨",
+  "snackbarExtensionUpdated": "''{extensionName}''이 설치됨",
   "@snackbarExtensionUpdated": {
     "description": "Snackbar - extension updated successfully",
     "placeholders": {
@@ -1026,7 +1026,7 @@
   "@errorUrlFetchFailed": {
     "description": "Error message - generic URL fetch failure"
   },
-  "errorMissingExtensionSource": "'{item}'을 불러올 수 없음: 확장 소스가 누락됨",
+  "errorMissingExtensionSource": "''{item}''을 불러올 수 없음: 확장 소스가 누락됨",
   "@errorMissingExtensionSource": {
     "description": "Error - extension source not available",
     "placeholders": {
@@ -3043,7 +3043,7 @@
   "@cacheClearConfirmTitle": {
     "description": "Dialog title before clearing one cache category"
   },
-  "cacheClearConfirmMessage": "'{target}'의 캐시된 데이터를 지웁니다. 다운로드한 음악 파일은 삭제되지 않습니다",
+  "cacheClearConfirmMessage": "''{target}''의 캐시된 데이터를 지웁니다. 다운로드한 음악 파일은 삭제되지 않습니다",
   "@cacheClearConfirmMessage": {
     "description": "Dialog message before clearing selected cache",
     "placeholders": {
@@ -3152,7 +3152,7 @@
   "@trackEditMetadata": {
     "description": "Menu action - edit embedded metadata"
   },
-  "trackCoverSaved": "표지 이미지가 '{fileName}'에 저장됨",
+  "trackCoverSaved": "표지 이미지가 ''{fileName}''에 저장됨",
   "@trackCoverSaved": {
     "description": "Snackbar after cover art saved",
     "placeholders": {
@@ -3165,7 +3165,7 @@
   "@trackCoverNoSource": {
     "description": "Snackbar when no cover art URL or embedded cover"
   },
-  "trackLyricsSaved": "가사가 '{fileName}'에 저장됨",
+  "trackLyricsSaved": "가사가 ''{fileName}''에 저장됨",
   "@trackLyricsSaved": {
     "description": "Snackbar after lyrics saved",
     "placeholders": {
@@ -3351,7 +3351,7 @@
   "@cueSplitConfirmTitle": {
     "description": "CUE split confirmation dialog title"
   },
-  "cueSplitConfirmMessage": "'{album}'을 {count} 개의 개별 FLAC 파일로 분할하시겠습니까?\n\n파일은 동일한 디렉토리에 저장됩니다",
+  "cueSplitConfirmMessage": "''{album}''을 {count} 개의 개별 FLAC 파일로 분할하시겠습니까?\n\n파일은 동일한 디렉토리에 저장됩니다",
   "@cueSplitConfirmMessage": {
     "description": "CUE split confirmation dialog message",
     "placeholders": {
@@ -3458,7 +3458,7 @@
       }
     }
   },
-  "collectionAddedToPlaylist": "'{playlistName}'에 추가됨",
+  "collectionAddedToPlaylist": "''{playlistName}''에 추가됨",
   "@collectionAddedToPlaylist": {
     "description": "Snackbar after adding track to playlist",
     "placeholders": {
@@ -3467,7 +3467,7 @@
       }
     }
   },
-  "collectionAlreadyInPlaylist": "이미 '{playlistName}'에 있음",
+  "collectionAlreadyInPlaylist": "이미 ''{playlistName}''에 있음",
   "@collectionAlreadyInPlaylist": {
     "description": "Snackbar when track already exists in playlist",
     "placeholders": {
@@ -3496,7 +3496,7 @@
   "@collectionDeletePlaylist": {
     "description": "Action to delete playlist"
   },
-  "collectionDeletePlaylistMessage": "'{playlistName}'과 그 안에 있는 모든 트랙을 삭제하시겠습니까?",
+  "collectionDeletePlaylistMessage": "''{playlistName}''과 그 안에 있는 모든 트랙을 삭제하시겠습니까?",
   "@collectionDeletePlaylistMessage": {
     "description": "Confirmation message for deleting playlist",
     "placeholders": {
@@ -3553,7 +3553,7 @@
   "@collectionRemoveFromFolder": {
     "description": "Tooltip for removing track from wishlist/loved folder"
   },
-  "collectionRemoved": "'{trackName}' 제거 완료",
+  "collectionRemoved": "''{trackName}'' 제거 완료",
   "@collectionRemoved": {
     "description": "Snackbar after removing a track from a collection",
     "placeholders": {
@@ -3562,7 +3562,7 @@
       }
     }
   },
-  "collectionAddedToLoved": "'{trackName}'이 '좋아요 표시한 트랙'에 추가됨",
+  "collectionAddedToLoved": "''{trackName}''이 '좋아요 표시한 트랙'에 추가됨",
   "@collectionAddedToLoved": {
     "description": "Snackbar after adding track to loved folder",
     "placeholders": {
@@ -3571,7 +3571,7 @@
       }
     }
   },
-  "collectionRemovedFromLoved": "'{trackName}'이 '좋아요 표시한 트랙'에서 제거됨",
+  "collectionRemovedFromLoved": "''{trackName}''이 '좋아요 표시한 트랙'에서 제거됨",
   "@collectionRemovedFromLoved": {
     "description": "Snackbar after removing track from loved folder",
     "placeholders": {
@@ -3580,7 +3580,7 @@
       }
     }
   },
-  "collectionAddedToWishlist": "'{trackName}'가 위시리스트에 추가됨",
+  "collectionAddedToWishlist": "''{trackName}''가 위시리스트에 추가됨",
   "@collectionAddedToWishlist": {
     "description": "Snackbar after adding track to wishlist",
     "placeholders": {
@@ -3589,7 +3589,7 @@
       }
     }
   },
-  "collectionRemovedFromWishlist": "'{trackName}'가 위시리스트에서 제거됨",
+  "collectionRemovedFromWishlist": "''{trackName}''가 위시리스트에서 제거됨",
   "@collectionRemovedFromWishlist": {
     "description": "Snackbar after removing track from wishlist",
     "placeholders": {
@@ -3598,7 +3598,7 @@
       }
     }
   },
-  "collectionAddedToFavoriteArtists": "'{artistName}'가 좋아하는 아티스트에 추가됨",
+  "collectionAddedToFavoriteArtists": "''{artistName}''가 좋아하는 아티스트에 추가됨",
   "@collectionAddedToFavoriteArtists": {
     "description": "Snackbar after adding artist to favorite artists",
     "placeholders": {
@@ -3607,7 +3607,7 @@
       }
     }
   },
-  "collectionRemovedFromFavoriteArtists": "'{artistName}'가 좋아하는 아티스트에서 제거됨",
+  "collectionRemovedFromFavoriteArtists": "''{artistName}''가 좋아하는 아티스트에서 제거됨",
   "@collectionRemovedFromFavoriteArtists": {
     "description": "Snackbar after removing artist from favorite artists",
     "placeholders": {
@@ -4110,7 +4110,7 @@
   "@storageModeSafSubtitle": {
     "description": "Subtitle for SAF storage mode"
   },
-  "downloadFilenameDescription": "'{artist}', '{title}', '{album}', '{track}', '{year}', '{date}', '{disc}'를 자리표시자로 사용하세요",
+  "downloadFilenameDescription": "''{artist}'', ''{title}'', ''{album}'', ''{track}'', ''{year}'', ''{date}'', ''{disc}''를 자리표시자로 사용하세요",
   "@downloadFilenameDescription": {
     "description": "Description shown in filename format editor"
   },
@@ -4588,7 +4588,7 @@
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
-  "extensionsSearchWith": "'{providerName}'으로 검색",
+  "extensionsSearchWith": "{providerName}으로 검색",
   "@extensionsSearchWith": {
     "description": "Extensions page - subtitle for default metadata search provider option",
     "placeholders": {
@@ -4646,7 +4646,7 @@
   "@cancelDownloadTitle": {
     "description": "Dialog title when confirming cancellation of an active download"
   },
-  "cancelDownloadContent": "'{trackName}'에 대한 활성 다운로드를 취소합니다",
+  "cancelDownloadContent": "''{trackName}''에 대한 활성 다운로드를 취소합니다",
   "@cancelDownloadContent": {
     "description": "Dialog body when confirming cancellation of an active download",
     "placeholders": {
@@ -4704,7 +4704,7 @@
   "@notifChannelLibraryScanDesc": {
     "description": "Android notification channel description for library scan"
   },
-  "notifDownloadingTrack": "'{trackName}'를 다운로드하는 중",
+  "notifDownloadingTrack": "''{trackName}''를 다운로드하는 중",
   "@notifDownloadingTrack": {
     "description": "Notification title while downloading a track",
     "placeholders": {
@@ -4713,7 +4713,7 @@
       }
     }
   },
-  "notifFinalizingTrack": "'{trackName}'를 마무리하는 중",
+  "notifFinalizingTrack": "''{trackName}''를 마무리하는 중",
   "@notifFinalizingTrack": {
     "description": "Notification title while finalizing (embedding metadata) a track",
     "placeholders": {
@@ -4935,7 +4935,7 @@
   "@homeSearchHintDefault": {
     "description": "Default placeholder for the main search field on Home"
   },
-  "homeSearchHintProvider": "'{providerName}'으로 검색...",
+  "homeSearchHintProvider": "{providerName}으로 검색...",
   "@homeSearchHintProvider": {
     "description": "Placeholder for the main search field when a provider is selected",
     "placeholders": {
@@ -5158,7 +5158,7 @@
   "@setupChangeFolderTooltip": {
     "description": "Tooltip for editing the selected download folder"
   },
-  "a11yOpenTrackByArtist": "'{artistName}'의 트랙 '{trackName}' 열기",
+  "a11yOpenTrackByArtist": "''{artistName}''의 트랙 ''{trackName}'' 열기",
   "@a11yOpenTrackByArtist": {
     "description": "Accessibility label for opening a track item",
     "placeholders": {
@@ -5194,7 +5194,7 @@
       }
     }
   },
-  "a11yOpenAlbumByArtistTrackCount": "'{artistName}'의 앨범 '{albumName}' 열기 ({trackCount} 번째 곡)",
+  "a11yOpenAlbumByArtistTrackCount": "''{artistName}''의 앨범 ''{albumName}'' 열기 ({trackCount} 번째 곡)",
   "@a11yOpenAlbumByArtistTrackCount": {
     "description": "Accessibility label for opening an album item with track count",
     "placeholders": {
@@ -5209,7 +5209,7 @@
       }
     }
   },
-  "a11yTrackByArtist": "'{artistName}'의 '{trackName}'",
+  "a11yTrackByArtist": "''{artistName}''의 ''{trackName}''",
   "@a11yTrackByArtist": {
     "description": "Accessibility label for a queue or list track item",
     "placeholders": {
@@ -5221,7 +5221,7 @@
       }
     }
   },
-  "a11ySelectAlbum": "앨범 '{albumName}' 선택",
+  "a11ySelectAlbum": "앨범 ''{albumName}'' 선택",
   "@a11ySelectAlbum": {
     "description": "Accessibility label for selecting an album",
     "placeholders": {
@@ -5230,7 +5230,7 @@
       }
     }
   },
-  "a11yOpenAlbum": "앨범 '{albumName}' 열기",
+  "a11yOpenAlbum": "앨범 ''{albumName}'' 열기",
   "@a11yOpenAlbum": {
     "description": "Accessibility label for opening an album",
     "placeholders": {
@@ -5381,7 +5381,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylist": "\"{playlistName}\"에 {count} 개의 {count, plural, =1{트랙} other{트랙}}이 추가됨",
+  "collectionAddedTracksToPlaylist": "''{playlistName}''에 {count} 개의 {count, plural, =1{트랙} other{트랙}}이 추가됨",
   "@collectionAddedTracksToPlaylist": {
     "description": "Snackbar after adding multiple tracks to a playlist",
     "placeholders": {
@@ -5393,7 +5393,7 @@
       }
     }
   },
-  "collectionAddedTracksToPlaylistWithExisting": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 \"{playlistName}\"에 추가됨 ({alreadyCount} 개의 트랙은 이미 재생목록에 있음)",
+  "collectionAddedTracksToPlaylistWithExisting": "{count} 개의 {count, plural, =1{트랙} other{트랙}}이 ''{playlistName}''에 추가됨 ({alreadyCount} 개의 트랙은 이미 재생목록에 있음)",
   "@collectionAddedTracksToPlaylistWithExisting": {
     "description": "Snackbar after adding multiple tracks to a playlist when some were already present",
     "placeholders": {
@@ -5462,7 +5462,7 @@
   "@a11yDeselectTrack": {
     "description": "Accessibility label for deselecting a track"
   },
-  "a11yPlayTrackByArtist": "'{artistName}'의 '{trackName}' 재생",
+  "a11yPlayTrackByArtist": "''{artistName}''의 ''{trackName}'' 재생",
   "@a11yPlayTrackByArtist": {
     "description": "Accessibility label for playing a local library track",
     "placeholders": {
@@ -6050,7 +6050,7 @@
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },
-  "snackbarExtensionInstalledEnable": "'{extensionName}'이 설치됨. '설정 > 확장 프로그램'에서 활성화하세요",
+  "snackbarExtensionInstalledEnable": "''{extensionName}''이 설치됨. '설정 > 확장 프로그램'에서 활성화하세요",
   "@snackbarExtensionInstalledEnable": {
     "description": "Snackbar after installing an extension from the repo tab",
     "placeholders": {
@@ -6059,7 +6059,7 @@
       }
     }
   },
-  "snackbarExtensionUpdatedVersion": "'{extensionName}'이 v{version}으로 업데이트됨",
+  "snackbarExtensionUpdatedVersion": "''{extensionName}''이 v{version}으로 업데이트됨",
   "@snackbarExtensionUpdatedVersion": {
     "description": "Snackbar after updating an extension from the repo tab",
     "placeholders": {

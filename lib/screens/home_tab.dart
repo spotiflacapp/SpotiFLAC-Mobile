@@ -966,8 +966,7 @@ class _HomeTabState extends ConsumerState<HomeTab>
 
         if (!mounted) return;
 
-        // ignore: use_build_context_synchronously
-        final l10n = context.l10n;
+        final l10n = this.context.l10n;
 
         final options = await showDialog<_CsvImportOptions>(
           context: this.context,

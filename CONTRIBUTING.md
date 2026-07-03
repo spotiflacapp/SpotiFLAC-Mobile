@@ -49,10 +49,10 @@ Feature requests are welcome! Please use the feature request template and:
 
 ### Code Contributions
 
-1. **Fork the repository** and create your branch from `dev`
+1. **Fork the repository** and create your branch from `main`
 2. **Make your changes** following our coding guidelines
 3. **Test your changes** thoroughly
-4. **Submit a pull request** to the `dev` branch
+4. **Submit a pull request** to the `main` branch
 
 ### Translations
 
@@ -172,17 +172,18 @@ flutter analyze
 
 ### State Management
 
-We use **Riverpod** for state management. Follow these patterns:
+We use **Riverpod** for state management, with hand-written `Notifier`s
+(no `riverpod_annotation` code generation). Follow this pattern:
 
 ```dart
-// Use code generation with riverpod_annotation
-@riverpod
-class MyNotifier extends _$MyNotifier {
+class MyNotifier extends Notifier<MyState> {
   @override
   MyState build() => MyState();
-  
+
   // Methods to update state
 }
+
+final myProvider = NotifierProvider<MyNotifier, MyState>(MyNotifier.new);
 ```
 
 ### Localization
@@ -238,7 +239,7 @@ chore(deps): update flutter_riverpod to 3.1.0
 1. **Update your fork**
    ```bash
    git fetch upstream
-   git rebase upstream/dev
+   git rebase upstream/main
    ```
 
 2. **Create a feature branch**
@@ -254,7 +255,7 @@ chore(deps): update flutter_riverpod to 3.1.0
    ```
 
 5. **Create a Pull Request**
-   - Target the `dev` branch
+   - Target the `main` branch
    - Fill in the PR template
    - Link related issues
 

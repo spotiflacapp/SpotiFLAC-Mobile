@@ -178,7 +178,7 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen> {
   }
 
   double _calculateExpandedHeight(BuildContext context, {bool tall = false}) {
-    final mediaSize = MediaQuery.of(context).size;
+    final mediaSize = MediaQuery.sizeOf(context);
     if (tall) {
       return (mediaSize.height * 0.68).clamp(440.0, 660.0);
     }

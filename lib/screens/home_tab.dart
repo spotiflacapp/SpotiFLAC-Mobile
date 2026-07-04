@@ -1205,8 +1205,7 @@ class _HomeTabState extends ConsumerState<HomeTab>
     final isShowingRecentAccess = ref.watch(
       trackProvider.select((s) => s.isShowingRecentAccess),
     );
-    final mediaQuery = MediaQuery.of(context);
-    final screenHeight = mediaQuery.size.height;
+    final screenHeight = MediaQuery.sizeOf(context).height;
     final topPadding = normalizedHeaderTopPadding(context);
     final bottomInset = context.navBarBottomInset;
     final hasHistoryItems = ref.watch(

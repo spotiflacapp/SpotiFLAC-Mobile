@@ -747,7 +747,7 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.7,
+        maxHeight: MediaQuery.sizeOf(context).height * 0.7,
       ),
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
@@ -846,7 +846,7 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.7,
+        maxHeight: MediaQuery.sizeOf(context).height * 0.7,
       ),
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
@@ -1072,7 +1072,7 @@ class _FilenameFormatEditorSheetState
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: SingleChildScrollView(
         child: SafeArea(
           child: Padding(

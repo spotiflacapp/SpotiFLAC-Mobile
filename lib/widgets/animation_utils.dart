@@ -421,7 +421,7 @@ class _CollectionHeaderSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     final coverSize = (screenWidth * 0.5).clamp(150.0, 210.0).toDouble();
 
     return Padding(
@@ -542,7 +542,7 @@ class ArtistScreenSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.sizeOf(context).width;
     return ShimmerLoading(
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),

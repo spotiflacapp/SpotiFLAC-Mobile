@@ -97,7 +97,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen> {
   }
 
   double _calculateExpandedHeight(BuildContext context) {
-    final mediaSize = MediaQuery.of(context).size;
+    final mediaSize = MediaQuery.sizeOf(context);
     return (mediaSize.height * 0.6).clamp(400.0, 580.0);
   }
 
@@ -249,7 +249,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
     final bottomInset = context.navBarBottomInset;
     final tracks = _sortedTracksCache;
 

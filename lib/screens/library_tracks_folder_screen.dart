@@ -68,7 +68,7 @@ class _LibraryTracksFolderScreenState
   }
 
   double _calculateExpandedHeight(BuildContext context) {
-    final mediaSize = MediaQuery.of(context).size;
+    final mediaSize = MediaQuery.sizeOf(context);
     return (mediaSize.height * 0.6).clamp(400.0, 580.0);
   }
 
@@ -330,7 +330,7 @@ class _LibraryTracksFolderScreenState
         )
         .maybeWhen(data: (keys) => keys, orElse: () => const <String>{});
 
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
     final bottomInset = context.navBarBottomInset;
 
     return PopScope(

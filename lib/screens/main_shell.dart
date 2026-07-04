@@ -375,7 +375,7 @@ class _MainShellState extends ConsumerState<MainShell>
 
     final trackState = ref.read(trackProvider);
 
-    final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
+    final isKeyboardVisible = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     _log.d(
       'Back: state check - tab=$_currentIndex, '

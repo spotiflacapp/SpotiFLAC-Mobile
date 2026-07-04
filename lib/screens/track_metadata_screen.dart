@@ -262,7 +262,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
   }
 
   double _calculateExpandedHeight(BuildContext context) {
-    final mediaSize = MediaQuery.of(context).size;
+    final mediaSize = MediaQuery.sizeOf(context);
     return (mediaSize.height * 0.55).clamp(360.0, 520.0);
   }
 
@@ -3438,7 +3438,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
         return SafeArea(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(sheetContext).size.height * 0.85,
+              maxHeight: MediaQuery.sizeOf(sheetContext).height * 0.85,
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -3916,7 +3916,7 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen> {
 
             return Padding(
               padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
+                bottom: MediaQuery.viewInsetsOf(context).bottom,
               ),
               child: DraggableScrollableSheet(
                 initialChildSize: 0.85,

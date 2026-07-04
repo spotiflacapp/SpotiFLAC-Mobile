@@ -800,7 +800,7 @@ class _DownloadSettingsPageState extends ConsumerState<DownloadSettingsPage> {
       ),
       builder: (context) => SafeArea(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.7,
+          height: MediaQuery.sizeOf(context).height * 0.7,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

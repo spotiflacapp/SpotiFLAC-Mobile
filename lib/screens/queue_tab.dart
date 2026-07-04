@@ -6085,7 +6085,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       if (_isSelectionMode) {
         _syncSelectionOverlay(
           items: allItems,
-          bottomPadding: MediaQuery.of(context).padding.bottom,
+          bottomPadding: MediaQuery.paddingOf(context).bottom,
         );
       }
       return;

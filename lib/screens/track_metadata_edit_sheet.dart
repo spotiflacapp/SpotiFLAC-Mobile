@@ -1250,7 +1250,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
     return Padding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
+        bottom: MediaQuery.viewInsetsOf(context).bottom,
       ),
       child: DraggableScrollableSheet(
         initialChildSize: 0.85,

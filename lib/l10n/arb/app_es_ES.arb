@@ -222,7 +222,7 @@
   "@optionsReplayGainSubtitleOn": {
     "description": "Subtitle when ReplayGain is enabled"
   },
-  "optionsReplayGainSubtitleOff": "Desactivado: sin etiquetas de normalización de volumen",
+  "optionsReplayGainSubtitleOff": "Desactivado: no hay etiquetas de normalización de sonoridad",
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
@@ -288,35 +288,35 @@
   "@optionsArtistTagMode": {
     "description": "Setting title for how artist metadata is written into files"
   },
-  "optionsArtistTagModeDescription": "Elija cómo se ingresan múltiples artistas en etiquetas incrustadas.",
+  "optionsArtistTagModeDescription": "Elige cómo se escriben varios artistas en las etiquetas incrustadas.",
   "@optionsArtistTagModeDescription": {
     "description": "Bottom-sheet description for artist tag mode setting"
   },
-  "optionsArtistTagModeJoined": "Valor único ingresado",
+  "optionsArtistTagModeJoined": "Valor único combinado",
   "@optionsArtistTagModeJoined": {
     "description": "Artist tag mode option that joins multiple artists into one value"
   },
-  "optionsArtistTagModeJoinedSubtitle": "Escribe un valor ARTIST, como \"Artista A, Artista B\" para mejor compatibilidad en reproductores.",
+  "optionsArtistTagModeJoinedSubtitle": "Escribir un solo valor de ARTISTA como «Artista A, Artista B» para máxima compatibilidad con reproductores.",
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
-  "optionsArtistTagModeSplitVorbis": "Dividir etiquetas para FLAC/OPUS",
+  "optionsArtistTagModeSplitVorbis": "Separar etiquetas para FLAC/Opus",
   "@optionsArtistTagModeSplitVorbis": {
     "description": "Artist tag mode option that writes repeated ARTIST tags for Vorbis formats"
   },
-  "optionsArtistTagModeSplitVorbisSubtitle": "Escribe una etiqueta de artista por artista para FLAC y OPUS; MP3 y M4A se mantienen agrupados.",
+  "optionsArtistTagModeSplitVorbisSubtitle": "Escribe una etiqueta de artista por cada artista en FLAC y Opus; MP3 y M4A se mantienen combinados.",
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "Extensión Repo",
+  "optionsExtensionStore": "Repositorio de extensiones",
   "@optionsExtensionStore": {
     "description": "Show/hide store tab"
   },
-  "optionsExtensionStoreSubtitle": "Mostar barra de navegación repo",
+  "optionsExtensionStoreSubtitle": "Mostrar la pestaña del repositorio en la navegación",
   "@optionsExtensionStoreSubtitle": {
     "description": "Subtitle for extension store toggle"
   },
-  "optionsCheckUpdates": "Comprobar actualizaciones",
+  "optionsCheckUpdates": "Buscar actualizaciones",
   "@optionsCheckUpdates": {
     "description": "Auto update check toggle"
   },
@@ -332,15 +332,15 @@
   "@optionsUpdateChannelStable": {
     "description": "Only stable updates"
   },
-  "optionsUpdateChannelPreview": "Versión preliminar",
+  "optionsUpdateChannelPreview": "Obtener versiones preliminares",
   "@optionsUpdateChannelPreview": {
     "description": "Include beta/preview updates"
   },
-  "optionsUpdateChannelWarning": "La Versión preliminar puede contener errores o características incompletas",
+  "optionsUpdateChannelWarning": "La versión preliminar puede contener errores o funciones incompletas",
   "@optionsUpdateChannelWarning": {
     "description": "Warning about preview channel"
   },
-  "optionsClearHistory": "Borrar el historial de descargas",
+  "optionsClearHistory": "Borrar historial de descargas",
   "@optionsClearHistory": {
     "description": "Delete all download history"
   },
@@ -352,11 +352,11 @@
   "@optionsDetailedLogging": {
     "description": "Enable verbose logs for debugging"
   },
-  "optionsDetailedLoggingOn": "Registros detallados están siendo registrados",
+  "optionsDetailedLoggingOn": "Se están registrando logs detallados",
   "@optionsDetailedLoggingOn": {
     "description": "Status when logging enabled"
   },
-  "optionsDetailedLoggingOff": "Habilitar para informes de errores",
+  "optionsDetailedLoggingOff": "Activar para informes de errores",
   "@optionsDetailedLoggingOff": {
     "description": "Status when logging disabled"
   },
@@ -373,15 +373,15 @@
       }
     }
   },
-  "optionsSpotifyCredentialsRequired": "Requerido - toque para configurar",
+  "optionsSpotifyCredentialsRequired": "Requerido: toca para configurar",
   "@optionsSpotifyCredentialsRequired": {
     "description": "Prompt to set up credentials"
   },
-  "optionsSpotifyWarning": "Spotify requiere tus propias credenciales API. Obténgalas gratis de developer.spotify.com",
+  "optionsSpotifyWarning": "Spotify requiere tus propias credenciales de API. Consíguelas gratis en developer.spotify.com",
   "@optionsSpotifyWarning": {
     "description": "Info about Spotify API requirement"
   },
-  "optionsSpotifyDeprecationWarning": "La función de búsqueda de Spotify dejará de estar disponible el 3 de marzo de 2026 debido a cambios en la API de Spotify. Te recomendamos que te pases a Deezer.",
+  "optionsSpotifyDeprecationWarning": "La búsqueda de Spotify quedará obsoleta el 3 de marzo de 2026 debido a cambios en la API de Spotify. Por favor, cambia a Deezer.",
   "@optionsSpotifyDeprecationWarning": {
     "description": "Warning about Spotify API deprecation"
   },
@@ -389,7 +389,7 @@
   "@extensionsTitle": {
     "description": "Extensions page title"
   },
-  "extensionsDisabled": "Deshabilitado",
+  "extensionsDisabled": "Desactivado",
   "@extensionsDisabled": {
     "description": "Extension status - inactive"
   },
@@ -415,7 +415,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "Extensión Repo",
+  "storeTitle": "Repositorio de extensiones",
   "@storeTitle": {
     "description": "Store screen title"
   },
@@ -451,7 +451,7 @@
   "@aboutOriginalCreator": {
     "description": "Role description for original creator"
   },
-  "aboutLogoArtist": "¡El talentoso artista que creó nuestro hermoso logo!",
+  "aboutLogoArtist": "¡El talentoso artista que creó el hermoso logo de nuestra app!",
   "@aboutLogoArtist": {
     "description": "Role description for logo artist"
   },
@@ -467,11 +467,11 @@
   "@aboutLinks": {
     "description": "Section for external links"
   },
-  "aboutMobileSource": "Código fuente móvil",
+  "aboutMobileSource": "Código fuente de la versión móvil",
   "@aboutMobileSource": {
     "description": "Link to mobile GitHub repo"
   },
-  "aboutPCSource": "Código fuente de PC",
+  "aboutPCSource": "Código fuente de la versión para PC",
   "@aboutPCSource": {
     "description": "Link to PC GitHub repo"
   },

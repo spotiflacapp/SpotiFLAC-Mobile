@@ -29,7 +29,7 @@
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
-  "homeEmptyTitle": "J",
+  "homeEmptyTitle": "Aún no hay proveedores de búsqueda",
   "@homeEmptyTitle": {
     "description": "Title shown on home when no providers are available yet"
   },
@@ -37,7 +37,7 @@
   "@homeEmptySubtitle": {
     "description": "Subtitle shown on home when no providers are available yet"
   },
-  "homeSupports": "Soporte de URL: pista, álbum, listas de reproducción, artistas",
+  "homeSupports": "Compatible con: URL de pistas, álbumes, listas de reproducción y artistas",
   "@homeSupports": {
     "description": "Info text about supported URL types"
   },
@@ -97,11 +97,11 @@
   "@downloadFilenameFormat": {
     "description": "Setting for output filename pattern"
   },
-  "downloadSingleFilenameFormat": "Formato de título único",
+  "downloadSingleFilenameFormat": "Formato del nombre de archivo para pistas individuales",
   "@downloadSingleFilenameFormat": {
     "description": "Setting for output filename pattern for singles/EPs"
   },
-  "downloadSingleFilenameFormatDescription": "Patrón de título para sencillos y mini-álbumes. Usa las mismas etiquetas que un álbum completo.",
+  "downloadSingleFilenameFormatDescription": "Patrón de nombre de archivo para sencillos y EP. Utiliza las mismas etiquetas que el formato para álbumes.",
   "@downloadSingleFilenameFormatDescription": {
     "description": "Subtitle description for single filename format setting"
   },
@@ -125,7 +125,7 @@
   "@appearanceThemeDark": {
     "description": "Dark theme"
   },
-  "appearanceDynamicColor": "Color dinámico",
+  "appearanceDynamicColor": "Color Dinámico",
   "@appearanceDynamicColor": {
     "description": "Material You dynamic colors"
   },
@@ -133,7 +133,7 @@
   "@appearanceDynamicColorSubtitle": {
     "description": "Subtitle for dynamic color"
   },
-  "appearanceHistoryView": "Vista de Historial",
+  "appearanceHistoryView": "Vista del Historial",
   "@appearanceHistoryView": {
     "description": "Layout style for history"
   },
@@ -149,11 +149,11 @@
   "@optionsTitle": {
     "description": "Options settings page title"
   },
-  "optionsPrimaryProvider": "Proveedor principal",
+  "optionsPrimaryProvider": "Proveedor Principal",
   "@optionsPrimaryProvider": {
     "description": "Main search provider setting"
   },
-  "optionsPrimaryProviderSubtitle": "Servicio usado para buscar por canción o nombre del álbum",
+  "optionsPrimaryProviderSubtitle": "Servicio utilizado para buscar por nombre de pista o álbum",
   "@optionsPrimaryProviderSubtitle": {
     "description": "Subtitle for primary provider"
   },
@@ -166,11 +166,11 @@
       }
     }
   },
-  "optionsDefaultSearchTab": "Pestaña de búsqueda por defecto",
+  "optionsDefaultSearchTab": "Pestaña de búsqueda predeterminada",
   "@optionsDefaultSearchTab": {
     "description": "Title for the preferred default search tab setting"
   },
-  "optionsDefaultSearchTabSubtitle": "Escoger cuál pestaña se abre primero para nuevos resultados de búsqueda.",
+  "optionsDefaultSearchTabSubtitle": "Elige qué pestaña se abre primero al mostrar nuevos resultados de búsqueda.",
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
@@ -178,11 +178,11 @@
   "@optionsSwitchBack": {
     "description": "Hint to switch back from extension search"
   },
-  "optionsAutoFallback": "Alternativa automática",
+  "optionsAutoFallback": "Cambio automático",
   "@optionsAutoFallback": {
     "description": "Auto-retry with other services"
   },
-  "optionsAutoFallbackSubtitle": "Pruebe otros servicios si falla la descarga",
+  "optionsAutoFallbackSubtitle": "Probar otros servicios si la descarga falla",
   "@optionsAutoFallbackSubtitle": {
     "description": "Subtitle for auto fallback"
   },
@@ -202,23 +202,23 @@
   "@optionsEmbedLyrics": {
     "description": "Embed lyrics in audio files"
   },
-  "optionsEmbedLyricsSubtitle": "Guardar letras sincronizadas con las pistas descargadas",
+  "optionsEmbedLyricsSubtitle": "Guarda las letras sincronizadas junto a las pistas descargadas",
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
-  "optionsMaxQualityCover": "Carátula de calidad máxima",
+  "optionsMaxQualityCover": "Máxima calidad de portada",
   "@optionsMaxQualityCover": {
     "description": "Download highest quality album art"
   },
-  "optionsMaxQualityCoverSubtitle": "Descargar carátula de resolución máxima",
+  "optionsMaxQualityCoverSubtitle": "Descargar la portada en la mayor resolución",
   "@optionsMaxQualityCoverSubtitle": {
     "description": "Subtitle for max quality cover"
   },
-  "optionsReplayGain": "Nivelación de ganancia",
+  "optionsReplayGain": "ReplayGain",
   "@optionsReplayGain": {
     "description": "Title for ReplayGain setting toggle"
   },
-  "optionsReplayGainSubtitleOn": "Analizar volumen e incrustar etiquetas de RG (EBU-R128)",
+  "optionsReplayGainSubtitleOn": "Analizar la sonoridad e incrustar etiquetas ReplayGain (EBU R128)",
   "@optionsReplayGainSubtitleOn": {
     "description": "Subtitle when ReplayGain is enabled"
   },

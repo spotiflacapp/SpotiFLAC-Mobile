@@ -6169,7 +6169,7 @@
   "@extensionVerificationBrowserExternal": {
     "description": "Chip label for external browser verification mode"
   },
-  "extensionVerificationBrowserInApp": "앱 내",
+  "extensionVerificationBrowserInApp": "내부",
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },

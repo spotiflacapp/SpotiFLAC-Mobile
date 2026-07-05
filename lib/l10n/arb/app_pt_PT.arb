@@ -2508,15 +2508,15 @@
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
-  "libraryAutoScanSubtitle": "Automatically scan your library for new files",
+  "libraryAutoScanSubtitle": "Escanear automaticamente sua biblioteca em busca de novos arquivos",
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
-  "libraryAutoScanOff": "Off",
+  "libraryAutoScanOff": "Desligar",
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
-  "libraryAutoScanOnOpen": "Every app open",
+  "libraryAutoScanOnOpen": "Sempre que abrir o aplicativo",
   "@libraryAutoScanOnOpen": {
     "description": "Auto scan when app opens"
   },
@@ -2960,7 +2960,7 @@
   "@cacheTempDirectoryDesc": {
     "description": "Description of what temporary directory contains"
   },
-  "cacheCoverImage": "Cover image cache",
+  "cacheCoverImage": "Cache da imagem de capa",
   "@cacheCoverImage": {
     "description": "Cache item title for persistent cover images"
   },

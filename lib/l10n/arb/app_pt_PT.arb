@@ -190,11 +190,11 @@
   "@optionsUseExtensionProviders": {
     "description": "Legacy setting label for extension download providers"
   },
-  "optionsUseExtensionProvidersOn": "Extension providers are enabled",
+  "optionsUseExtensionProvidersOn": "Provedores de extensão estão habilitados",
   "@optionsUseExtensionProvidersOn": {
     "description": "Status when extension providers enabled"
   },
-  "optionsUseExtensionProvidersOff": "Extension providers are required",
+  "optionsUseExtensionProvidersOff": "Provedores de extensão são necessários",
   "@optionsUseExtensionProvidersOff": {
     "description": "Legacy status when extension providers would be disabled"
   },
@@ -202,7 +202,7 @@
   "@optionsEmbedLyrics": {
     "description": "Embed lyrics in audio files"
   },
-  "optionsEmbedLyricsSubtitle": "Save synced lyrics alongside your downloaded tracks",
+  "optionsEmbedLyricsSubtitle": "Salve letras sincronizadas ao lado das suas faixas baixadas",
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
@@ -218,31 +218,31 @@
   "@optionsReplayGain": {
     "description": "Title for ReplayGain setting toggle"
   },
-  "optionsReplayGainSubtitleOn": "Scan loudness and embed ReplayGain tags (EBU R128)",
+  "optionsReplayGainSubtitleOn": "Analisar o volume e incorporar tags ReplayGain (EBU R128)",
   "@optionsReplayGainSubtitleOn": {
     "description": "Subtitle when ReplayGain is enabled"
   },
-  "optionsReplayGainSubtitleOff": "Disabled: no loudness normalization tags",
+  "optionsReplayGainSubtitleOff": "Desativado: sem etiquetas de normalização de intensidade",
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "trackReplayGain": "Rescan ReplayGain",
+  "trackReplayGain": "Reanalisar ReplayGain",
   "@trackReplayGain": {
     "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
   },
-  "trackReplayGainSubtitle": "Analyze loudness and write ReplayGain tags",
+  "trackReplayGainSubtitle": "Analisar o volume e gravar etiquetas ReplayGain",
   "@trackReplayGainSubtitle": {
     "description": "Subtitle for the rescan ReplayGain menu option"
   },
-  "trackReplayGainScanning": "Analyzing loudness...",
+  "trackReplayGainScanning": "Analisando o volume...",
   "@trackReplayGainScanning": {
     "description": "Snackbar/progress message while scanning ReplayGain for a single track"
   },
-  "trackReplayGainSuccess": "ReplayGain tags added",
+  "trackReplayGainSuccess": "Etiquetas ReplayGain adicionadas",
   "@trackReplayGainSuccess": {
     "description": "Snackbar message after ReplayGain tags written for a single track"
   },
-  "trackReplayGainFailed": "Failed to add ReplayGain tags",
+  "trackReplayGainFailed": "Falha ao adicionar etiquetas ReplayGain",
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
@@ -255,11 +255,11 @@
       }
     }
   },
-  "replayGainBatchConfirmTitle": "Add ReplayGain",
+  "replayGainBatchConfirmTitle": "Adicionar ReplayGain",
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },
-  "replayGainBatchConfirmMessage": "Analyze loudness and write ReplayGain tags to {count} track(s)?",
+  "replayGainBatchConfirmMessage": "Analisar o volume e gravar etiquetas ReplayGain em {count} faixa(s)?",
   "@replayGainBatchConfirmMessage": {
     "description": "Message of the batch ReplayGain confirmation dialog",
     "placeholders": {
@@ -268,11 +268,11 @@
       }
     }
   },
-  "replayGainBatchAnalyzing": "Analyzing ReplayGain...",
+  "replayGainBatchAnalyzing": "Analisando ReplayGain...",
   "@replayGainBatchAnalyzing": {
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
-  "replayGainBatchSuccess": "ReplayGain added to {success} of {total} tracks",
+  "replayGainBatchSuccess": "ReplayGain adicionado a {success} de {total} faixas",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -284,35 +284,35 @@
       }
     }
   },
-  "optionsArtistTagMode": "Artist Tag Mode",
+  "optionsArtistTagMode": "Modo de etiqueta de artista",
   "@optionsArtistTagMode": {
     "description": "Setting title for how artist metadata is written into files"
   },
-  "optionsArtistTagModeDescription": "Choose how multiple artists are written into embedded tags.",
+  "optionsArtistTagModeDescription": "Escolha como múltiplos artistas são escritos em etiquetas incorporadas.",
   "@optionsArtistTagModeDescription": {
     "description": "Bottom-sheet description for artist tag mode setting"
   },
-  "optionsArtistTagModeJoined": "Single joined value",
+  "optionsArtistTagModeJoined": "Valor único combinado",
   "@optionsArtistTagModeJoined": {
     "description": "Artist tag mode option that joins multiple artists into one value"
   },
-  "optionsArtistTagModeJoinedSubtitle": "Write one ARTIST value like \"Artist A, Artist B\" for maximum player compatibility.",
+  "optionsArtistTagModeJoinedSubtitle": "Escreva um valor ARTIST único como \"Artista A, Artista B\" para máxima compatibilidade com o ‘player’",
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
-  "optionsArtistTagModeSplitVorbis": "Split tags for FLAC/Opus",
+  "optionsArtistTagModeSplitVorbis": "Dividir etiquetas para FLAC/Opus",
   "@optionsArtistTagModeSplitVorbis": {
     "description": "Artist tag mode option that writes repeated ARTIST tags for Vorbis formats"
   },
-  "optionsArtistTagModeSplitVorbisSubtitle": "Write one artist tag per artist for FLAC and Opus; MP3 and M4A stay joined.",
+  "optionsArtistTagModeSplitVorbisSubtitle": "Escrever uma etiqueta de artista por artista para FLAC e Opus; MP3 e M4A permanecem combinados.",
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "Extension Repo",
+  "optionsExtensionStore": "Repositório de extensões",
   "@optionsExtensionStore": {
     "description": "Show/hide store tab"
   },
-  "optionsExtensionStoreSubtitle": "Show Repo tab in navigation",
+  "optionsExtensionStoreSubtitle": "Mostrar aba de repositório na navegação",
   "@optionsExtensionStoreSubtitle": {
     "description": "Subtitle for extension store toggle"
   },
@@ -364,7 +364,7 @@
   "@optionsSpotifyCredentials": {
     "description": "Spotify API credentials setting"
   },
-  "optionsSpotifyCredentialsConfigured": "Client ID: {clientId}...",
+  "optionsSpotifyCredentialsConfigured": "ID do cliente: {clientId}...",
   "@optionsSpotifyCredentialsConfigured": {
     "description": "Shows configured client ID preview",
     "placeholders": {
@@ -381,7 +381,7 @@
   "@optionsSpotifyWarning": {
     "description": "Info about Spotify API requirement"
   },
-  "optionsSpotifyDeprecationWarning": "Spotify search will be deprecated on March 3, 2026 due to Spotify API changes. Please switch to Deezer.",
+  "optionsSpotifyDeprecationWarning": "A busca do Spotify será descontinuada em 3 de março de 2026 devido a mudanças na API do Spotify. Por favor, mude para o Deezer.",
   "@optionsSpotifyDeprecationWarning": {
     "description": "Warning about Spotify API deprecation"
   },
@@ -415,7 +415,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "Extension Repo",
+  "storeTitle": "Repositório de extensões",
   "@storeTitle": {
     "description": "Store screen title"
   },
@@ -475,7 +475,7 @@
   "@aboutPCSource": {
     "description": "Link to PC GitHub repo"
   },
-  "aboutKeepAndroidOpen": "Keep Android Open",
+  "aboutKeepAndroidOpen": "Manter o Android aberto",
   "@aboutKeepAndroidOpen": {
     "description": "Link to Keep Android Open campaign website"
   },
@@ -523,19 +523,19 @@
   "@aboutVersion": {
     "description": "Version info label"
   },
-  "aboutBinimumDesc": "The creator of QQDL & HiFi API. This project helped shape lossless download support.",
+  "aboutBinimumDesc": "O criador do QQDL e da HiFi API. Este projeto ajudou a moldar o suporte a transferências sem perdas.",
   "@aboutBinimumDesc": {
     "description": "Credit description for binimum"
   },
-  "aboutSachinsenalDesc": "The original HiFi project creator. A foundation for lossless-source integration.",
+  "aboutSachinsenalDesc": "O criador original do projeto HiFi. Uma base para integração de fontes sem perdas.",
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutSjdonadoDesc": "Creator of I Don't Have Spotify (IDHS). The fallback link resolver that saves the day!",
+  "aboutSjdonadoDesc": "Criador do I Don't Have Spotify (IDHS). O resolvedor de link alternativo que salva o dia!",
   "@aboutSjdonadoDesc": {
     "description": "Credit description for sjdonado"
   },
-  "aboutAppDescription": "Search music metadata, manage extensions, and organize your library.",
+  "aboutAppDescription": "Pesquisar metadados de músicas, gerenciar extensões e organizar sua biblioteca.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },
@@ -664,7 +664,7 @@
   "@setupIosEmptyFolderWarning": {
     "description": "iOS folder selection warning"
   },
-  "setupIcloudNotSupported": "iCloud Drive is not supported. Please use the app Documents folder.",
+  "setupIcloudNotSupported": "O iCloud Drive não é compatível. Use a pasta Documentos do aplicativo.",
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
@@ -728,15 +728,15 @@
   "@setupAllowAccessToManageFiles": {
     "description": "Instruction for file access permission"
   },
-  "setupLanguageTitle": "Choose Language",
+  "setupLanguageTitle": "Escolher idioma",
   "@setupLanguageTitle": {
     "description": "Title for the language selection step in setup"
   },
-  "setupLanguageDescription": "Select your preferred language for the app. You can change this later in Settings.",
+  "setupLanguageDescription": "Selecione o idioma de sua preferência para o aplicativo. Você pode alterar isso depois em Configurações.",
   "@setupLanguageDescription": {
     "description": "Description for the language selection step in setup"
   },
-  "setupLanguageSystemDefault": "System Default",
+  "setupLanguageSystemDefault": "Padrão do sistema",
   "@setupLanguageSystemDefault": {
     "description": "Option to use the system language"
   },
@@ -768,19 +768,19 @@
   "@dialogImport": {
     "description": "Dialog button - import data"
   },
-  "dialogDownload": "Download",
+  "dialogDownload": "Baixar",
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "Reproduzir prévia",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "Parar prévia",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "Preview unavailable",
+  "previewUnavailable": "Prévia indisponível",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -899,7 +899,7 @@
       }
     }
   },
-  "snackbarAlreadyInLibrary": "\"{trackName}\" already exists in your library",
+  "snackbarAlreadyInLibrary": "\"{trackName}\" já existe na sua biblioteca",
   "@snackbarAlreadyInLibrary": {
     "description": "Snackbar - track already exists in local library",
     "placeholders": {
@@ -1010,19 +1010,19 @@
   "@errorNoTracksFound": {
     "description": "Error - search returned no results"
   },
-  "searchEmptyResultSubtitle": "Try another keyword",
+  "searchEmptyResultSubtitle": "Tente outra palavra-chave",
   "@searchEmptyResultSubtitle": {
     "description": "Subtitle shown under the empty search result state on the home screen"
   },
-  "errorUrlNotRecognized": "Link not recognized",
+  "errorUrlNotRecognized": "Link não reconhecido",
   "@errorUrlNotRecognized": {
     "description": "Error title - URL not handled by any extension or service"
   },
-  "errorUrlNotRecognizedMessage": "This link is not supported. Make sure the URL is correct and a compatible extension is installed.",
+  "errorUrlNotRecognizedMessage": "Este link não é suportado. Verifique se a URL está correta e se uma extensão compatível está instalada.",
   "@errorUrlNotRecognizedMessage": {
     "description": "Error message - URL not recognized explanation"
   },
-  "errorUrlFetchFailed": "Failed to load content from this link. Please try again.",
+  "errorUrlFetchFailed": "Falha ao carregar o conteúdo deste link. Por favor, tente novamente.",
   "@errorUrlFetchFailed": {
     "description": "Error message - generic URL fetch failure"
   },
@@ -1108,47 +1108,47 @@
   "@searchAlbums": {
     "description": "Search result category - albums"
   },
-  "searchPlaylists": "Playlists",
+  "searchPlaylists": "Listas de reprodução",
   "@searchPlaylists": {
     "description": "Search result category - playlists"
   },
-  "searchSortTitle": "Sort Results",
+  "searchSortTitle": "Ordenar resultados",
   "@searchSortTitle": {
     "description": "Bottom sheet title for search sort options"
   },
-  "searchSortDefault": "Default",
+  "searchSortDefault": "Padrão",
   "@searchSortDefault": {
     "description": "Sort option - default API order"
   },
-  "searchSortTitleAZ": "Title (A-Z)",
+  "searchSortTitleAZ": "Título (A-Z)",
   "@searchSortTitleAZ": {
     "description": "Sort option - title ascending"
   },
-  "searchSortTitleZA": "Title (Z-A)",
+  "searchSortTitleZA": "Título (Z-A)",
   "@searchSortTitleZA": {
     "description": "Sort option - title descending"
   },
-  "searchSortArtistAZ": "Artist (A-Z)",
+  "searchSortArtistAZ": "Artista (A-Z)",
   "@searchSortArtistAZ": {
     "description": "Sort option - artist ascending"
   },
-  "searchSortArtistZA": "Artist (Z-A)",
+  "searchSortArtistZA": "Artista (Z-A)",
   "@searchSortArtistZA": {
     "description": "Sort option - artist descending"
   },
-  "searchSortDurationShort": "Duration (Shortest)",
+  "searchSortDurationShort": "Duração (mais curta)",
   "@searchSortDurationShort": {
     "description": "Sort option - shortest duration first"
   },
-  "searchSortDurationLong": "Duration (Longest)",
+  "searchSortDurationLong": "Duração (mais longa)",
   "@searchSortDurationLong": {
     "description": "Sort option - longest duration first"
   },
-  "searchSortDateOldest": "Release Date (Oldest)",
+  "searchSortDateOldest": "Data de lançamento (mais antiga)",
   "@searchSortDateOldest": {
     "description": "Sort option - oldest release first"
   },
-  "searchSortDateNewest": "Release Date (Newest)",
+  "searchSortDateNewest": "Data de lançamento (mais recente)",
   "@searchSortDateNewest": {
     "description": "Sort option - newest release first"
   },
@@ -1160,11 +1160,11 @@
   "@filenameFormat": {
     "description": "Setting title - filename pattern"
   },
-  "filenameShowAdvancedTags": "Show advanced tags",
+  "filenameShowAdvancedTags": "Exibir etiquetas avançadas",
   "@filenameShowAdvancedTags": {
     "description": "Toggle label for showing advanced filename tags"
   },
-  "filenameShowAdvancedTagsDescription": "Enable formatted tags for track padding and date patterns",
+  "filenameShowAdvancedTagsDescription": "Ativar etiquetas formatadas para preenchimento de faixas e padrões de data",
   "@filenameShowAdvancedTagsDescription": {
     "description": "Description for advanced filename tag toggle"
   },
@@ -1172,11 +1172,11 @@
   "@folderOrganizationNone": {
     "description": "Folder option - flat structure"
   },
-  "folderOrganizationByPlaylist": "By Playlist",
+  "folderOrganizationByPlaylist": "Por playlist",
   "@folderOrganizationByPlaylist": {
     "description": "Folder option - playlist folders"
   },
-  "folderOrganizationByPlaylistSubtitle": "Separate folder for each playlist",
+  "folderOrganizationByPlaylistSubtitle": "Pasta separada para cada playlist",
   "@folderOrganizationByPlaylistSubtitle": {
     "description": "Subtitle for playlist folder option"
   },
@@ -1272,19 +1272,19 @@
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
-  "providerPriorityFallbackExtensionsTitle": "Extension Fallback",
+  "providerPriorityFallbackExtensionsTitle": "Alternativa de extensão",
   "@providerPriorityFallbackExtensionsTitle": {
     "description": "Section title for choosing which download extensions can be used as fallback providers"
   },
-  "providerPriorityFallbackExtensionsDescription": "Choose which installed download extensions can be used during automatic fallback.",
+  "providerPriorityFallbackExtensionsDescription": "Escolha quais extensões de download instaladas podem ser usadas durante a alternativa automática.",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
-  "providerPriorityFallbackExtensionsHint": "Only enabled extensions with download-provider capability are listed here.",
+  "providerPriorityFallbackExtensionsHint": "Apenas extensões ativadas com capacidade de provedor de download são listadas aqui.",
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
-  "providerBuiltIn": "Legacy",
+  "providerBuiltIn": "Legado",
   "@providerBuiltIn": {
     "description": "Legacy label retained for old generated localization compatibility"
   },
@@ -1386,7 +1386,7 @@
   "@credentialsDescription": {
     "description": "Credentials dialog explanation"
   },
-  "credentialsClientId": "Client ID",
+  "credentialsClientId": "ID do cliente",
   "@credentialsClientId": {
     "description": "Client ID field label - DO NOT TRANSLATE"
   },
@@ -1394,7 +1394,7 @@
   "@credentialsClientIdHint": {
     "description": "Client ID placeholder"
   },
-  "credentialsClientSecret": "Client Secret",
+  "credentialsClientSecret": "Segredo do cliente",
   "@credentialsClientSecret": {
     "description": "Client Secret field label - DO NOT TRANSLATE"
   },
@@ -1414,7 +1414,7 @@
   "@sectionSearchSource": {
     "description": "Settings section header"
   },
-  "sectionDownload": "Download",
+  "sectionDownload": "Baixar",
   "@sectionDownload": {
     "description": "Settings section header"
   },
@@ -1490,7 +1490,7 @@
   "@sectionTheme": {
     "description": "Settings section header"
   },
-  "sectionLayout": "Layout",
+  "sectionLayout": "Aparência\n",
   "@sectionLayout": {
     "description": "Settings section header"
   },
@@ -1506,11 +1506,11 @@
   "@settingsAppearanceSubtitle": {
     "description": "Appearance settings description"
   },
-  "settingsDownloadSubtitle": "Service, quality, fallback",
+  "settingsDownloadSubtitle": "Serviço, qualidade, alternativa",
   "@settingsDownloadSubtitle": {
     "description": "Download settings description"
   },
-  "settingsOptionsSubtitle": "Fallback, metadata, lyrics, cover art",
+  "settingsOptionsSubtitle": "Alternativa, metadados, letras, capa do álbum",
   "@settingsOptionsSubtitle": {
     "description": "Options settings description"
   },
@@ -1640,7 +1640,7 @@
   "@trackCopyLyrics": {
     "description": "Action - copy lyrics to clipboard"
   },
-  "trackLyricsSource": "Source: {source}",
+  "trackLyricsSource": "Fonte: {source}",
   "@trackLyricsSource": {
     "description": "Label showing the lyrics source/provider",
     "placeholders": {
@@ -1653,11 +1653,11 @@
   "@trackLyricsNotAvailable": {
     "description": "Message when lyrics not found"
   },
-  "trackLyricsNotInFile": "No lyrics found in this file",
+  "trackLyricsNotInFile": "Nenhuma letra encontrada neste arquivo",
   "@trackLyricsNotInFile": {
     "description": "Message when no embedded lyrics in audio file"
   },
-  "trackFetchOnlineLyrics": "Fetch from Online",
+  "trackFetchOnlineLyrics": "Buscar online",
   "@trackFetchOnlineLyrics": {
     "description": "Action - fetch lyrics from online providers"
   },
@@ -1736,7 +1736,7 @@
   "@storeFilterMetadata": {
     "description": "Store filter - metadata providers"
   },
-  "storeFilterDownload": "Download",
+  "storeFilterDownload": "Baixar",
   "@storeFilterDownload": {
     "description": "Store filter - download providers"
   },
@@ -1756,63 +1756,63 @@
   "@storeClearFilters": {
     "description": "Button to clear all filters"
   },
-  "storeAddRepoTitle": "Add Extension Repository",
+  "storeAddRepoTitle": "Adicionar repositório de extensões",
   "@storeAddRepoTitle": {
     "description": "Store setup screen - heading when no repo is configured"
   },
-  "storeAddRepoDescription": "Enter a GitHub repository URL that contains a registry.json file to browse and install extensions.",
+  "storeAddRepoDescription": "Insira a URL de um repositório do GitHub que contenha um arquivo registry.json para navegar e instalar extensões.",
   "@storeAddRepoDescription": {
     "description": "Store setup screen - explanatory text"
   },
-  "storeRepoUrlLabel": "Repository URL",
+  "storeRepoUrlLabel": "URL do repositório",
   "@storeRepoUrlLabel": {
     "description": "Label for the repository URL input field"
   },
-  "storeRepoUrlHint": "https://github.com/user/repo",
+  "storeRepoUrlHint": "https://github.com/usuario/repositorio",
   "@storeRepoUrlHint": {
     "description": "Hint/placeholder for the repository URL input field"
   },
-  "storeRepoUrlHelper": "e.g. https://github.com/user/extensions-repo",
+  "storeRepoUrlHelper": "e.g. https://github.com/usuario/repositorio-extensao",
   "@storeRepoUrlHelper": {
     "description": "Helper text below the repository URL input field"
   },
-  "storeAddRepoButton": "Add Repository",
+  "storeAddRepoButton": "Adicionar repositório",
   "@storeAddRepoButton": {
     "description": "Button to submit a new repository URL"
   },
-  "storeChangeRepoTooltip": "Change repository",
+  "storeChangeRepoTooltip": "Mudar repositório",
   "@storeChangeRepoTooltip": {
     "description": "Tooltip for the change-repository icon button in the app bar"
   },
-  "storeRepoDialogTitle": "Extension Repository",
+  "storeRepoDialogTitle": "Repositório de extensões",
   "@storeRepoDialogTitle": {
     "description": "Title of the change/remove repository dialog"
   },
-  "storeRepoDialogCurrent": "Current repository:",
+  "storeRepoDialogCurrent": "Repositório atual:",
   "@storeRepoDialogCurrent": {
     "description": "Label shown above the current repository URL in the dialog"
   },
-  "storeNewRepoUrlLabel": "New Repository URL",
+  "storeNewRepoUrlLabel": "URL do novo repositório",
   "@storeNewRepoUrlLabel": {
     "description": "Label for the new repository URL field inside the dialog"
   },
-  "storeLoadError": "Failed to load repository",
+  "storeLoadError": "Falha ao carregar o repositório",
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
-  "storeEmptyNoExtensions": "No extensions available",
+  "storeEmptyNoExtensions": "Nenhuma extensão disponível",
   "@storeEmptyNoExtensions": {
     "description": "Message when store has no extensions"
   },
-  "storeEmptyNoResults": "No extensions found",
+  "storeEmptyNoResults": "Nenhuma extensão encontrada",
   "@storeEmptyNoResults": {
     "description": "Message when search/filter returns no results"
   },
-  "extensionDefaultProvider": "Default Search",
+  "extensionDefaultProvider": "Pesquisa padrão",
   "@extensionDefaultProvider": {
     "description": "Default search provider option"
   },
-  "extensionDefaultProviderSubtitle": "Use the default metadata search",
+  "extensionDefaultProviderSubtitle": "Usar a pesquisa padrão de metadados",
   "@extensionDefaultProviderSubtitle": {
     "description": "Subtitle for default provider"
   },
@@ -1939,7 +1939,7 @@
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} extensions installed successfully",
+  "extensionsInstalledCount": "{count} extensões instaladas com sucesso",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -1949,7 +1949,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "Installed {installed} of {attempted} extensions",
+  "extensionsInstallPartialSuccess": "Instaladas {installed} de {attempted} extensões",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -1971,11 +1971,11 @@
   "@extensionsDownloadPrioritySubtitle": {
     "description": "Subtitle for download priority"
   },
-  "extensionsFallbackTitle": "Fallback Extensions",
+  "extensionsFallbackTitle": "Extensões alternativas",
   "@extensionsFallbackTitle": {
     "description": "Setting and page title for choosing which download extensions can be used during fallback"
   },
-  "extensionsFallbackSubtitle": "Choose which installed download extensions can be used as fallback",
+  "extensionsFallbackSubtitle": "Escolha quais extensões de download instaladas podem ser usadas como alternativa",
   "@extensionsFallbackSubtitle": {
     "description": "Subtitle for download fallback extensions menu"
   },
@@ -2015,15 +2015,15 @@
   "@extensionsErrorLoading": {
     "description": "Error message when extension fails to load"
   },
-  "qualityFlacLossless": "FLAC Lossless",
+  "qualityFlacLossless": "FLAC sem perdas",
   "@qualityFlacLossless": {
     "description": "Quality option - CD quality FLAC"
   },
-  "qualityFlacLosslessSubtitle": "16-bit / 44.1kHz",
+  "qualityFlacLosslessSubtitle": "16 bits / 44,1 kHz",
   "@qualityFlacLosslessSubtitle": {
     "description": "Technical spec for lossless"
   },
-  "qualityHiResFlac": "Hi-Res FLAC",
+  "qualityHiResFlac": "FLAC de alta resolução",
   "@qualityHiResFlac": {
     "description": "Quality option - high resolution FLAC"
   },
@@ -2031,7 +2031,7 @@
   "@qualityHiResFlacSubtitle": {
     "description": "Technical spec for hi-res"
   },
-  "qualityHiResFlacMax": "Hi-Res FLAC Max",
+  "qualityHiResFlacMax": "FLAC Max de alta resolução",
   "@qualityHiResFlacMax": {
     "description": "Quality option - maximum resolution FLAC"
   },

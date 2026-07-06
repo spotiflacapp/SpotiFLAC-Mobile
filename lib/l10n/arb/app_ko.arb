@@ -1868,7 +1868,7 @@
   "@extensionRemoveButton": {
     "description": "Button to uninstall extension"
   },
-  "extensionUpdated": "다운로드됨",
+  "extensionUpdated": "업데이트됨",
   "@extensionUpdated": {
     "description": "Extension detail - last update"
   },

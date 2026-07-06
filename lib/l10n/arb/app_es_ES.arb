@@ -4006,7 +4006,7 @@
       }
     }
   },
-  "tooltipLoveAll": "Love All",
+  "tooltipLoveAll": "Favoritos",
   "@tooltipLoveAll": {
     "description": "Tooltip for the Love All button on album/playlist screens"
   },
@@ -4014,7 +4014,7 @@
   "@tooltipAddToPlaylist": {
     "description": "Tooltip for the Add to Playlist button"
   },
-  "snackbarRemovedTracksFromLoved": "Removed {count} tracks from Loved",
+  "snackbarRemovedTracksFromLoved": "Eliminadas {count} pistas de Favoritos",
   "@snackbarRemovedTracksFromLoved": {
     "description": "Snackbar after removing multiple tracks from Loved folder",
     "placeholders": {
@@ -4023,7 +4023,7 @@
       }
     }
   },
-  "snackbarAddedTracksToLoved": "Added {count} tracks to Loved",
+  "snackbarAddedTracksToLoved": "Agregadas {count} pistas de Favoritos",
   "@snackbarAddedTracksToLoved": {
     "description": "Snackbar after adding multiple tracks to Loved folder",
     "placeholders": {
@@ -4036,7 +4036,7 @@
   "@dialogDownloadAllTitle": {
     "description": "Dialog title for bulk download confirmation"
   },
-  "dialogDownloadAllMessage": "Download {count} tracks?",
+  "dialogDownloadAllMessage": "¿Descargar {count} pistas?",
   "@dialogDownloadAllMessage": {
     "description": "Body of the Download All confirmation dialog",
     "placeholders": {
@@ -4045,7 +4045,7 @@
       }
     }
   },
-  "homeSkipAlreadyDownloaded": "Skip already downloaded songs",
+  "homeSkipAlreadyDownloaded": "Omitir canciones ya descargadas",
   "@homeSkipAlreadyDownloaded": {
     "description": "Checkbox label in import dialog to skip already-downloaded songs"
   },
@@ -4053,23 +4053,23 @@
   "@homeGoToAlbum": {
     "description": "Context menu item to navigate to the album page"
   },
-  "homeAlbumInfoUnavailable": "Album info not available",
+  "homeAlbumInfoUnavailable": "La información del álbum no está disponible",
   "@homeAlbumInfoUnavailable": {
     "description": "Snackbar when album info cannot be loaded"
   },
-  "snackbarLoadingCueSheet": "Loading CUE sheet...",
+  "snackbarLoadingCueSheet": "Cargando hoja CUE...",
   "@snackbarLoadingCueSheet": {
     "description": "Snackbar while loading a CUE sheet file"
   },
-  "snackbarMetadataSaved": "Metadata saved successfully",
+  "snackbarMetadataSaved": "Metadatos guardados correctamente",
   "@snackbarMetadataSaved": {
     "description": "Snackbar after successfully saving track metadata"
   },
-  "snackbarFailedToEmbedLyrics": "Failed to embed lyrics",
+  "snackbarFailedToEmbedLyrics": "Error al incrustar letras",
   "@snackbarFailedToEmbedLyrics": {
     "description": "Snackbar when lyrics embedding fails"
   },
-  "snackbarFailedToWriteStorage": "Failed to write back to storage",
+  "snackbarFailedToWriteStorage": "Error al escribir de vuelta al almacenamiento",
   "@snackbarFailedToWriteStorage": {
     "description": "Snackbar when writing metadata back to file fails"
   },
@@ -4082,23 +4082,23 @@
       }
     }
   },
-  "snackbarNoActionDefined": "No action defined for this button",
+  "snackbarNoActionDefined": "Ninguna acción definida para este botón",
   "@snackbarNoActionDefined": {
     "description": "Snackbar when an extension button has no action configured"
   },
-  "noTracksFoundForAlbum": "No tracks found for this album",
+  "noTracksFoundForAlbum": "No se encontraron pistas para este álbum",
   "@noTracksFoundForAlbum": {
     "description": "Empty state message when an album has no tracks"
   },
-  "downloadLocationSubtitle": "Choose where to save your downloaded tracks",
+  "downloadLocationSubtitle": "Elige dónde guardar tus pistas descargadas",
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageModeAppFolder": "App Folder (Recommended)",
+  "storageModeAppFolder": "Carpeta de la App (Recomendado)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
   },
-  "storageModeAppFolderSubtitle": "Saves to Music/SpotiFLAC by default",
+  "storageModeAppFolderSubtitle": "Guarda en Music/SpotiFLAC por defecto",
   "@storageModeAppFolderSubtitle": {
     "description": "Subtitle for app folder storage mode"
   },
@@ -4114,19 +4114,19 @@
   "@downloadFilenameDescription": {
     "description": "Description shown in filename format editor"
   },
-  "downloadFilenameInsertTag": "Tap to insert tag:",
+  "downloadFilenameInsertTag": "Toca para insertar etiqueta:",
   "@downloadFilenameInsertTag": {
     "description": "Label above filename tag chips"
   },
-  "downloadSeparateSinglesEnabled": "Singles and EPs saved in a separate folder",
+  "downloadSeparateSinglesEnabled": "Sencillos y EPs guardados en una carpeta separada",
   "@downloadSeparateSinglesEnabled": {
     "description": "Subtitle when separate singles folder is on"
   },
-  "downloadSeparateSinglesDisabled": "Singles and albums saved in the same folder",
+  "downloadSeparateSinglesDisabled": "Sencillos y álbumes guardados en la misma carpeta",
   "@downloadSeparateSinglesDisabled": {
     "description": "Subtitle when separate singles folder is off"
   },
-  "downloadArtistNameFilters": "Artist Name Filters",
+  "downloadArtistNameFilters": "Filtros de Nombre del Artista",
   "@downloadArtistNameFilters": {
     "description": "Setting title for artist folder filter options"
   },

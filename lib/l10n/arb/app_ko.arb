@@ -202,7 +202,7 @@
   "@optionsEmbedLyrics": {
     "description": "Embed lyrics in audio files"
   },
-  "optionsEmbedLyricsSubtitle": "다운로드한 트랙과 함께 동기화된 가사를 저장합니다",
+  "optionsEmbedLyricsSubtitle": "다운로드된 트랙과 함께 동기화된 가사를 저장합니다",
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
@@ -344,7 +344,7 @@
   "@optionsClearHistory": {
     "description": "Delete all download history"
   },
-  "optionsClearHistorySubtitle": "기록에서 모든 다운로드한 트랙을 제거합니다",
+  "optionsClearHistorySubtitle": "기록에서 모든 다운로드된 트랙을 제거합니다",
   "@optionsClearHistorySubtitle": {
     "description": "Subtitle for clear history"
   },
@@ -640,7 +640,7 @@
   "@setupDownloadLocationTitle": {
     "description": "Download location dialog title"
   },
-  "setupDownloadLocationIosMessage": "iOS에서는 다운로드한 파일이 앱의 문서 폴더에 저장됩니다. 파일 앱을 통해 해당 파일에 접근할 수 있습니다",
+  "setupDownloadLocationIosMessage": "iOS에서는 다운로드된 파일이 앱의 문서 폴더에 저장됩니다. 파일 앱을 통해 해당 파일에 접근할 수 있습니다",
   "@setupDownloadLocationIosMessage": {
     "description": "iOS-specific folder info"
   },
@@ -680,7 +680,7 @@
   "@setupStorageRequired": {
     "description": "Title when storage permission needed"
   },
-  "setupStorageDescription": "SpotiFLAC은 다운로드한 음악 파일을 저장하기 위해 저장소 접근 권한이 필요합니다",
+  "setupStorageDescription": "SpotiFLAC은 다운로드된 음악 파일을 저장하기 위해 저장소 접근 권한이 필요합니다",
   "@setupStorageDescription": {
     "description": "Explanation for storage permission"
   },
@@ -696,7 +696,7 @@
   "@setupFolderChoose": {
     "description": "Button to choose folder"
   },
-  "setupFolderDescription": "다운로드한 음악 파일이 저장될 폴더를 선택하세요",
+  "setupFolderDescription": "다운로드된 음악 파일이 저장될 폴더를 선택하세요",
   "@setupFolderDescription": {
     "description": "Explanation for folder selection"
   },
@@ -1192,7 +1192,7 @@
   "@folderOrganizationByArtistAlbum": {
     "description": "Folder option - nested folders"
   },
-  "folderOrganizationDescription": "다운로드한 파일을 폴더로 정리",
+  "folderOrganizationDescription": "다운로드된 파일을 폴더로 정리",
   "@folderOrganizationDescription": {
     "description": "Folder organization sheet description"
   },
@@ -1454,7 +1454,7 @@
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
   },
-  "lyricsModeDescription": "다운로드한 파일에 가사를 저장하는 방법을 선택하세요",
+  "lyricsModeDescription": "다운로드된 파일에 가사를 저장하는 방법을 선택하세요",
   "@lyricsModeDescription": {
     "description": "Lyrics mode picker description"
   },
@@ -1689,7 +1689,7 @@
   "@trackDeleteConfirmTitle": {
     "description": "Delete confirmation title"
   },
-  "trackDeleteConfirmMessage": "이렇게 하면 다운로드한 파일이 영구적으로 삭제되고 기록에서 제거됩니다",
+  "trackDeleteConfirmMessage": "이렇게 하면 다운로드된 파일이 영구적으로 삭제되고 기록에서 제거됩니다",
   "@trackDeleteConfirmMessage": {
     "description": "Delete confirmation message"
   },
@@ -2826,7 +2826,7 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "다운로드한 모든 음악은 라이브러리 탭에 정리되어 있습니다",
+  "tutorialLibraryDesc": "다운로드된 모든 음악은 라이브러리 탭에 정리되어 있습니다",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
@@ -2923,7 +2923,7 @@
   "@cacheSummaryTitle": {
     "description": "Heading for cache summary card"
   },
-  "cacheSummarySubtitle": "캐시를 지워도 다운로드한 음악 파일은 삭제되지 않습니다",
+  "cacheSummarySubtitle": "캐시를 지워도 다운로드된 음악 파일은 삭제되지 않습니다",
   "@cacheSummarySubtitle": {
     "description": "Helper text for cache summary card"
   },
@@ -3043,7 +3043,7 @@
   "@cacheClearConfirmTitle": {
     "description": "Dialog title before clearing one cache category"
   },
-  "cacheClearConfirmMessage": "''{target}''의 캐시된 데이터를 지웁니다. 다운로드한 음악 파일은 삭제되지 않습니다",
+  "cacheClearConfirmMessage": "''{target}''의 캐시된 데이터를 지웁니다. 다운로드된 음악 파일은 삭제되지 않습니다",
   "@cacheClearConfirmMessage": {
     "description": "Dialog message before clearing selected cache",
     "placeholders": {
@@ -3056,7 +3056,7 @@
   "@cacheClearAllConfirmTitle": {
     "description": "Dialog title before clearing all caches"
   },
-  "cacheClearAllConfirmMessage": "이 페이지의 모든 캐시 카테고리가 지워집니다. 다운로드한 음악 파일은 삭제되지 않습니다",
+  "cacheClearAllConfirmMessage": "이 페이지의 모든 캐시 카테고리가 지워집니다. 다운로드된 음악 파일은 삭제되지 않습니다",
   "@cacheClearAllConfirmMessage": {
     "description": "Dialog message before clearing all caches"
   },
@@ -4045,7 +4045,7 @@
       }
     }
   },
-  "homeSkipAlreadyDownloaded": "이미 다운로드한 노래 건너뛰기",
+  "homeSkipAlreadyDownloaded": "이미 다운로드된 노래 건너뛰기",
   "@homeSkipAlreadyDownloaded": {
     "description": "Checkbox label in import dialog to skip already-downloaded songs"
   },
@@ -4090,7 +4090,7 @@
   "@noTracksFoundForAlbum": {
     "description": "Empty state message when an album has no tracks"
   },
-  "downloadLocationSubtitle": "다운로드한 트랙을 저장할 위치를 선택하세요",
+  "downloadLocationSubtitle": "다운로드된 트랙을 저장할 위치를 선택하세요",
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
@@ -4476,7 +4476,7 @@
   "@queueEmptyHistory": {
     "description": "Empty state title when download history is empty"
   },
-  "queueEmptyHistorySubtitle": "다운로드한 트랙이 여기에 표시됩니다",
+  "queueEmptyHistorySubtitle": "다운로드된 트랙이 여기에 표시됩니다",
   "@queueEmptyHistorySubtitle": {
     "description": "Empty state subtitle for download history"
   },
@@ -5036,7 +5036,7 @@
   "@queueFinalizingDownload": {
     "description": "Accessibility label for a queue item that is finalizing"
   },
-  "queueDownloadedFileMissing": "다운로드한 파일이 없음",
+  "queueDownloadedFileMissing": "다운로드된 파일이 없음",
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
@@ -5756,7 +5756,7 @@
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
-  "dialogDisableHistoryMessage": "기존 기록이 삭제됩니다. 다운로드한 파일은 삭제되지 않습니다",
+  "dialogDisableHistoryMessage": "기존 기록이 삭제됩니다. 다운로드된 파일은 삭제되지 않습니다",
   "@dialogDisableHistoryMessage": {
     "description": "Confirmation dialog message shown before disabling download history"
   },

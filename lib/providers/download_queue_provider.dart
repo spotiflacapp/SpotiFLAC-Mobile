@@ -18,6 +18,7 @@ import 'package:spotiflac_android/services/ffmpeg_service.dart';
 import 'package:spotiflac_android/services/notification_service.dart';
 import 'package:spotiflac_android/services/history_database.dart';
 import 'package:spotiflac_android/utils/logger.dart' hide log;
+import 'package:spotiflac_android/utils/audio_format_utils.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/utils/artist_utils.dart';
@@ -35,152 +36,6 @@ final _trimDotsAndSpacesRegex = RegExp(r'^[. ]+|[. ]+$');
 final _trimUnderscoresAndSpacesRegex = RegExp(r'^[_ ]+|[_ ]+$');
 final _multiWhitespaceRegex = RegExp(r'\s+');
 final _multiUnderscoreRegex = RegExp(r'_+');
-
-int? _readPositiveBitrateKbps(dynamic value) {
-  final parsed = readPositiveInt(value);
-  if (parsed == null) return null;
-  final kbps = parsed >= 10000 ? (parsed / 1000).round() : parsed;
-  return kbps >= 16 ? kbps : null;
-}
-
-String? _audioFormatForPath(String? filePath, {String? fileName}) {
-  final candidates = <String>[?filePath, ?fileName];
-  for (final candidate in candidates) {
-    final lower = candidate.trim().toLowerCase();
-    if (lower.endsWith('.opus') || lower.endsWith('.ogg')) return 'OPUS';
-    if (lower.endsWith('.mp3')) return 'MP3';
-    if (lower.endsWith('.aac')) return 'AAC';
-    if (lower.endsWith('.m4a') || lower.endsWith('.mp4')) return 'M4A';
-  }
-  return null;
-}
-
-String? _nonPlaceholderQuality(String? quality) {
-  final normalized = normalizeOptionalString(quality);
-  if (normalized == null || isPlaceholderQualityLabel(normalized)) {
-    return null;
-  }
-  final bitrateMatch = RegExp(
-    r'\b(\d+)\s*kbps\b',
-    caseSensitive: false,
-  ).firstMatch(normalized);
-  if (bitrateMatch != null) {
-    final bitrate = int.tryParse(bitrateMatch.group(1) ?? '');
-    if (bitrate != null && bitrate < 16) return null;
-  }
-  final lower = normalized.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
-  const requestedLosslessLabels = {
-    'hi_res_lossless',
-    'hires_lossless',
-    'hi_res',
-    'hires',
-    'flac_best_available',
-  };
-  if (requestedLosslessLabels.contains(lower)) return null;
-  return normalized;
-}
-
-String? _normalizeAudioFormatValue(String? value) {
-  final normalized = normalizeOptionalString(
-    value,
-  )?.toLowerCase().replaceAll('-', '_');
-  return switch (normalized) {
-    'flac' => 'flac',
-    'alac' => 'alac',
-    'aac' || 'mp4a' => 'aac',
-    'eac3' || 'ec_3' => 'eac3',
-    'ac3' || 'ac_3' => 'ac3',
-    'ac4' || 'ac_4' => 'ac4',
-    'mp3' => 'mp3',
-    'opus' || 'ogg' => 'opus',
-    'm4a' || 'mp4' => 'm4a',
-    _ => null,
-  };
-}
-
-bool _isLossyAudioFormat(String? value) {
-  return const {
-    'aac',
-    'eac3',
-    'ac3',
-    'ac4',
-    'mp3',
-    'opus',
-    'm4a',
-  }.contains(_normalizeAudioFormatValue(value));
-}
-
-String _lossyFormatForSetting(String value) {
-  final normalized = value.trim().toLowerCase();
-  if (normalized.startsWith('opus')) return 'opus';
-  if (normalized.startsWith('aac') || normalized.startsWith('m4a')) {
-    return 'aac';
-  }
-  return 'mp3';
-}
-
-String _lossyExtensionForFormat(String format) {
-  return switch (format) {
-    'opus' => '.opus',
-    'aac' => '.m4a',
-    _ => '.mp3',
-  };
-}
-
-String _metadataFormatForLossyFormat(String format) {
-  return format == 'aac' ? 'm4a' : format;
-}
-
-String _displayFormatForLossyFormat(String format) {
-  return format == 'aac' ? 'AAC' : format.toUpperCase();
-}
-
-String? _resolveDisplayQuality({
-  required String? filePath,
-  String? fileName,
-  String? detectedFormat,
-  int? bitDepth,
-  int? sampleRate,
-  int? bitrateKbps,
-  String? storedQuality,
-}) {
-  final format =
-      _displayFormatForCodec(detectedFormat) ??
-      _audioFormatForPath(filePath, fileName: fileName);
-  if (format == 'OPUS' ||
-      format == 'MP3' ||
-      format == 'AAC' ||
-      format == 'EAC3' ||
-      format == 'AC3' ||
-      format == 'AC4' ||
-      (format == 'M4A' && (bitDepth == null || bitDepth <= 0))) {
-    return buildDisplayAudioQuality(bitrateKbps: bitrateKbps, format: format) ??
-        _nonPlaceholderQuality(storedQuality) ??
-        format;
-  }
-  return buildDisplayAudioQuality(
-    bitDepth: bitDepth,
-    sampleRate: sampleRate,
-    storedQuality: _nonPlaceholderQuality(storedQuality) ?? storedQuality,
-  );
-}
-
-String? _displayFormatForCodec(String? value) {
-  final normalized = normalizeOptionalString(
-    value,
-  )?.toLowerCase().replaceAll('-', '_');
-  return switch (normalized) {
-    'flac' => 'FLAC',
-    'alac' => 'ALAC',
-    'aac' || 'mp4a' => 'AAC',
-    'eac3' || 'ec_3' => 'EAC3',
-    'ac3' || 'ac_3' => 'AC3',
-    'ac4' || 'ac_4' => 'AC4',
-    'mp3' => 'MP3',
-    'opus' => 'OPUS',
-    _ => null,
-  };
-}
 
 /// log10 helper using dart:math's natural log.
 double _log10(num x) => log(x) / ln10;
@@ -843,14 +698,14 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
 
       final bitDepth = readPositiveInt(result['bit_depth']);
       final sampleRate = readPositiveInt(result['sample_rate']);
-      final detectedFormat = _normalizeAudioFormatValue(
+      final detectedFormat = normalizeAudioFormatValue(
         result['audio_codec']?.toString() ?? result['format']?.toString(),
       );
-      final rawBitrateKbps = _readPositiveBitrateKbps(result['bitrate']);
-      final bitrateKbps = _isLossyAudioFormat(detectedFormat)
+      final rawBitrateKbps = readPositiveBitrateKbps(result['bitrate']);
+      final bitrateKbps = isLossyAudioFormat(detectedFormat)
           ? rawBitrateKbps
           : null;
-      final quality = _resolveDisplayQuality(
+      final quality = resolveDisplayQuality(
         filePath: filePath,
         detectedFormat: detectedFormat,
         bitDepth: bitDepth,
@@ -3391,7 +3246,7 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     // the suffix), fall back to the actual audio codec reported by the backend
     // probe. This keeps any extension that returns a non-FLAC container (Opus,
     // MP3, AAC) from being mislabeled as FLAC.
-    final codec = _normalizeAudioFormatValue(
+    final codec = normalizeAudioFormatValue(
       result['audio_codec']?.toString() ??
           result['actual_audio_codec']?.toString() ??
           result['format']?.toString(),
@@ -6208,16 +6063,14 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     final actualBitDepth = result['actual_bit_depth'] as int?;
     final actualSampleRate = result['actual_sample_rate'] as int?;
     final actualFormat =
-        _normalizeAudioFormatValue(
+        normalizeAudioFormatValue(
           result['audio_codec']?.toString() ?? result['format']?.toString(),
         ) ??
-        _normalizeAudioFormatValue(_audioFormatForPath(filePath));
-    final actualBitrate = _isLossyAudioFormat(actualFormat)
-        ? _readPositiveBitrateKbps(
-            result['bitrate'] ?? result['actual_bitrate'],
-          )
+        normalizeAudioFormatValue(audioFormatForPath(filePath));
+    final actualBitrate = isLossyAudioFormat(actualFormat)
+        ? readPositiveBitrateKbps(result['bitrate'] ?? result['actual_bitrate'])
         : null;
-    final resolvedQuality = _resolveDisplayQuality(
+    final resolvedQuality = resolveDisplayQuality(
       filePath: filePath,
       detectedFormat: actualFormat,
       bitDepth: actualBitDepth,
@@ -6332,12 +6185,12 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     final resultSafFileName = result['file_name'] as String?;
     final lowerFilePath = filePath.toLowerCase();
     final historyFormat =
-        _normalizeAudioFormatValue(
+        normalizeAudioFormatValue(
           result['audio_codec']?.toString() ?? result['format']?.toString(),
         ) ??
-        _normalizeAudioFormatValue(_audioFormatForPath(filePath));
+        normalizeAudioFormatValue(audioFormatForPath(filePath));
     final isLossyOutput =
-        _isLossyAudioFormat(historyFormat) ||
+        isLossyAudioFormat(historyFormat) ||
         lowerFilePath.endsWith('.mp3') ||
         lowerFilePath.endsWith('.opus') ||
         lowerFilePath.endsWith('.ogg');
@@ -6539,9 +6392,9 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     }
 
     final tidalHighFormat = settings.tidalHighFormat;
-    final format = _lossyFormatForSetting(tidalHighFormat);
-    final newExt = _lossyExtensionForFormat(format);
-    final displayFormat = _displayFormatForLossyFormat(format);
+    final format = lossyFormatForSetting(tidalHighFormat);
+    final newExt = lossyExtensionForFormat(format);
+    final displayFormat = displayFormatForLossyFormat(format);
     final bitrateDisplay = tidalHighFormat.contains('_')
         ? '${tidalHighFormat.split('_').last}kbps'
         : '320kbps';
@@ -6551,7 +6404,7 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
       await _embedMetadataToFile(
         convertedPath,
         track,
-        format: _metadataFormatForLossyFormat(format),
+        format: metadataFormatForLossyFormat(format),
         genre: result['genre'] as String?,
         label: result['label'] as String?,
         copyright: result['copyright'] as String?,
@@ -6637,11 +6490,11 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
     if (context.quality == 'HIGH' || context.outputExt != '.flac') {
       return filePath;
     }
-    final resultAudioFormat = _normalizeAudioFormatValue(
+    final resultAudioFormat = normalizeAudioFormatValue(
       result['audio_codec']?.toString() ??
           result['actual_audio_codec']?.toString(),
     );
-    if (_isLossyAudioFormat(resultAudioFormat)) {
+    if (isLossyAudioFormat(resultAudioFormat)) {
       _log.d(
         'Native-worker output is $resultAudioFormat; preserving native container.',
       );
@@ -7868,11 +7721,11 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           result,
           filePath: filePath,
         );
-        final resultAudioFormat = _normalizeAudioFormatValue(
+        final resultAudioFormat = normalizeAudioFormatValue(
           result['audio_codec']?.toString() ??
               result['actual_audio_codec']?.toString(),
         );
-        final resultIsLossyAudio = _isLossyAudioFormat(resultAudioFormat);
+        final resultIsLossyAudio = isLossyAudioFormat(resultAudioFormat);
         final requiresContainerConversion =
             result['requires_container_conversion'] == true ||
             result['requiresContainerConversion'] == true ||
@@ -8086,8 +7939,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                     progress: 0.95,
                   );
 
-                  final format = _lossyFormatForSetting(tidalHighFormat);
-                  final displayFormat = _displayFormatForLossyFormat(format);
+                  final format = lossyFormatForSetting(tidalHighFormat);
+                  final displayFormat = displayFormatForLossyFormat(format);
                   convertedPath = await FFmpegService.convertM4aToLossy(
                     tempPath,
                     format: format,
@@ -8113,14 +7966,14 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                     await _embedMetadataToFile(
                       convertedPath,
                       trackToDownload,
-                      format: _metadataFormatForLossyFormat(format),
+                      format: metadataFormatForLossyFormat(format),
                       genre: backendGenre ?? genre,
                       label: backendLabel ?? label,
                       copyright: backendCopyright,
                       downloadService: item.service,
                     );
 
-                    final newExt = _lossyExtensionForFormat(format);
+                    final newExt = lossyExtensionForFormat(format);
                     final newFileName = '${safBaseName ?? 'track'}$newExt';
                     final newUri = await _writeTempToSaf(
                       treeUri: settings.downloadTreeUri,
@@ -8401,8 +8254,8 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                   progress: 0.95,
                 );
 
-                final format = _lossyFormatForSetting(tidalHighFormat);
-                final displayFormat = _displayFormatForLossyFormat(format);
+                final format = lossyFormatForSetting(tidalHighFormat);
+                final displayFormat = displayFormatForLossyFormat(format);
                 final convertedPath = await FFmpegService.convertM4aToLossy(
                   currentFilePath,
                   format: format,
@@ -8434,7 +8287,7 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                   await _embedMetadataToFile(
                     convertedPath,
                     trackToDownload,
-                    format: _metadataFormatForLossyFormat(format),
+                    format: metadataFormatForLossyFormat(format),
                     genre: backendGenre ?? genre,
                     label: backendLabel ?? label,
                     copyright: backendCopyright,
@@ -8958,12 +8811,12 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           final backendBitDepth = result['actual_bit_depth'] as int?;
           final backendSampleRate = result['actual_sample_rate'] as int?;
           final backendFormat =
-              _normalizeAudioFormatValue(
+              normalizeAudioFormatValue(
                 result['audio_codec']?.toString() ??
                     result['format']?.toString(),
               ) ??
-              _normalizeAudioFormatValue(_audioFormatForPath(filePath));
-          final backendBitrateKbps = _readPositiveBitrateKbps(
+              normalizeAudioFormatValue(audioFormatForPath(filePath));
+          final backendBitrateKbps = readPositiveBitrateKbps(
             result['bitrate'] ?? result['actual_bitrate'],
           );
           final backendISRC = result['isrc'] as String?;
@@ -8987,7 +8840,7 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           int? finalBitDepth = backendBitDepth;
           int? finalSampleRate = backendSampleRate;
           String? finalFormat = backendFormat;
-          int? finalBitrateKbps = _isLossyAudioFormat(finalFormat)
+          int? finalBitrateKbps = isLossyAudioFormat(finalFormat)
               ? backendBitrateKbps
               : null;
           final lowerFilePath = filePath.toLowerCase();
@@ -9018,22 +8871,22 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
                 if (probedSampleRate != null && probedSampleRate > 0) {
                   finalSampleRate = probedSampleRate;
                 }
-                final probedFormat = _normalizeAudioFormatValue(
+                final probedFormat = normalizeAudioFormatValue(
                   metadata['audio_codec']?.toString() ??
                       metadata['format']?.toString(),
                 );
                 if (probedFormat != null) {
                   finalFormat = probedFormat;
                 }
-                final probedBitrateKbps = _readPositiveBitrateKbps(
+                final probedBitrateKbps = readPositiveBitrateKbps(
                   metadata['bitrate'] ?? metadata['bit_rate'],
                 );
                 if (probedBitrateKbps != null &&
-                    _isLossyAudioFormat(finalFormat)) {
+                    isLossyAudioFormat(finalFormat)) {
                   finalBitrateKbps = probedBitrateKbps;
                 }
 
-                final resolvedQuality = _resolveDisplayQuality(
+                final resolvedQuality = resolveDisplayQuality(
                   filePath: filePath,
                   fileName: finalSafFileName,
                   detectedFormat: finalFormat,
@@ -9058,7 +8911,7 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
           );
 
           final isLossyOutput =
-              _isLossyAudioFormat(finalFormat) ||
+              isLossyAudioFormat(finalFormat) ||
               lowerFilePath.endsWith('.mp3') ||
               lowerFilePath.endsWith('.opus') ||
               lowerFilePath.endsWith('.ogg');

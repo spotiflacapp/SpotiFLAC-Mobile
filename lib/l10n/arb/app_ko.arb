@@ -555,7 +555,7 @@
   "@artistPopular": {
     "description": "Section header for popular/top tracks"
   },
-  "artistMonthlyListeners": "월별 청취자: {count}",
+  "artistMonthlyListeners": "월별 청취자 {count}",
   "@artistMonthlyListeners": {
     "description": "Monthly listener count display",
     "placeholders": {
@@ -2131,7 +2131,7 @@
   "@downloadSelectQuality": {
     "description": "Dialog title - choose audio quality"
   },
-  "downloadFrom": "다운로드 출처",
+  "downloadFrom": "다운로드 제공자",
   "@downloadFrom": {
     "description": "Label - download source"
   },
@@ -2318,7 +2318,7 @@
   "@discographyDownloadAll": {
     "description": "Option - download entire discography"
   },
-  "discographyDownloadAllSubtitle": "{albumCount} 개의 릴리스에서 {count} 개의 트랙",
+  "discographyDownloadAllSubtitle": "{albumCount} 개의 발매 음악에서 {count} 개의 트랙",
   "@discographyDownloadAllSubtitle": {
     "description": "Subtitle showing total tracks and albums",
     "placeholders": {
@@ -2980,7 +2980,7 @@
   "@cacheExploreFeed": {
     "description": "Cache item title for explore home feed cache"
   },
-  "cacheExploreFeedDesc": "탐색 탭 콘텐츠(신규 발매, 인기 콘텐츠)는 다음 방문 시 새로 고쳐집니다",
+  "cacheExploreFeedDesc": "탐색 탭 콘텐츠(최신 발매 음악, 인기 콘텐츠)는 다음 방문 시 새로 고쳐집니다",
   "@cacheExploreFeedDesc": {
     "description": "Description of what explore feed cache contains"
   },
@@ -3408,7 +3408,7 @@
   "@collectionWishlist": {
     "description": "Custom folder for saved tracks to download later"
   },
-  "collectionLoved": "좋아요 표시한 트랙",
+  "collectionLoved": "좋아요 표시한 음악",
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
@@ -3521,7 +3521,7 @@
   "@collectionWishlistEmptySubtitle": {
     "description": "Wishlist empty state subtitle"
   },
-  "collectionLovedEmptyTitle": "'좋아요 표시한 트랙' 폴더가 비어 있음",
+  "collectionLovedEmptyTitle": "'좋아요 표시한 음악' 폴더가 비어 있음",
   "@collectionLovedEmptyTitle": {
     "description": "Loved empty state title"
   },
@@ -3562,7 +3562,7 @@
       }
     }
   },
-  "collectionAddedToLoved": "''{trackName}''이 '좋아요 표시한 트랙'에 추가됨",
+  "collectionAddedToLoved": "''{trackName}''이 '좋아요 표시한 음악'에 추가됨",
   "@collectionAddedToLoved": {
     "description": "Snackbar after adding track to loved folder",
     "placeholders": {
@@ -3571,7 +3571,7 @@
       }
     }
   },
-  "collectionRemovedFromLoved": "''{trackName}''이 '좋아요 표시한 트랙'에서 제거됨",
+  "collectionRemovedFromLoved": "''{trackName}''이 '좋아요 표시한 음악'에서 제거됨",
   "@collectionRemovedFromLoved": {
     "description": "Snackbar after removing track from loved folder",
     "placeholders": {
@@ -3616,11 +3616,11 @@
       }
     }
   },
-  "trackOptionAddToLoved": "좋아요 표시한 트랙에 추가",
+  "trackOptionAddToLoved": "좋아요 표시한 음악에 추가",
   "@trackOptionAddToLoved": {
     "description": "Bottom sheet action label - add track to loved folder"
   },
-  "trackOptionRemoveFromLoved": "좋아요 표시한 트랙에서 제거",
+  "trackOptionRemoveFromLoved": "좋아요 표시한 음악에서 제거",
   "@trackOptionRemoveFromLoved": {
     "description": "Bottom sheet action label - remove track from loved folder"
   },
@@ -3859,7 +3859,7 @@
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
-  "backupExportSectionDescription": "설정, 다운로드 기록, 좋아요 표시한 트랙, 위시리스트, 즐겨찾는 아티스트 및 재생목록을 하나의 파일로 저장하여 보관하거나 다른 휴대전화로 옮길 수 있습니다",
+  "backupExportSectionDescription": "설정, 다운로드 기록, 좋아요 표시한 음악, 위시리스트, 즐겨찾는 아티스트 및 재생목록을 하나의 파일로 저장하여 보관하거나 다른 휴대전화로 옮길 수 있습니다",
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
@@ -3899,7 +3899,7 @@
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
-  "backupRestoreConfirmMessage": "현재 설정, 다운로드 기록, 좋아요 표시한 트랙, 위시리스트 및 재생목록이 백업 파일의 내용으로 대체됩니다. 이 작업은 되돌릴 수 없습니다",
+  "backupRestoreConfirmMessage": "현재 설정, 다운로드 기록, 좋아요 표시한 음악, 위시리스트 및 재생목록이 백업 파일의 내용으로 대체됩니다. 이 작업은 되돌릴 수 없습니다",
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
@@ -3944,7 +3944,7 @@
       }
     }
   },
-  "backupContentsLiked": "{count} 개의 좋아요 표시한 {count, plural, =1{트랙} other{트랙}}",
+  "backupContentsLiked": "{count} 개의 좋아요 표시한 {count, plural, =1{음악} other{음악}}",
   "@backupContentsLiked": {
     "description": "Backup contents row for liked tracks count",
     "placeholders": {
@@ -4014,7 +4014,7 @@
   "@tooltipAddToPlaylist": {
     "description": "Tooltip for the Add to Playlist button"
   },
-  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 트랙'에서 {count} 개의 트랙이 제거됨",
+  "snackbarRemovedTracksFromLoved": "'좋아요 표시한 음악'에서 {count} 개의 트랙이 제거됨",
   "@snackbarRemovedTracksFromLoved": {
     "description": "Snackbar after removing multiple tracks from Loved folder",
     "placeholders": {
@@ -4023,7 +4023,7 @@
       }
     }
   },
-  "snackbarAddedTracksToLoved": "'좋아요 표시한 트랙'에 {count} 개의 트랙이 추가됨",
+  "snackbarAddedTracksToLoved": "'좋아요 표시한 음악'에 {count} 개의 트랙이 추가됨",
   "@snackbarAddedTracksToLoved": {
     "description": "Snackbar after adding multiple tracks to Loved folder",
     "placeholders": {
@@ -5727,7 +5727,7 @@
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
-  "artistReleases": "릴리스",
+  "artistReleases": "발매 음악",
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },

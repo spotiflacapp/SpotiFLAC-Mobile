@@ -190,11 +190,11 @@
   "@optionsUseExtensionProviders": {
     "description": "Legacy setting label for extension download providers"
   },
-  "optionsUseExtensionProvidersOn": "Extension providers are enabled",
+  "optionsUseExtensionProvidersOn": "Erweiterungsanbieter sind aktiviert",
   "@optionsUseExtensionProvidersOn": {
     "description": "Status when extension providers enabled"
   },
-  "optionsUseExtensionProvidersOff": "Extension providers are required",
+  "optionsUseExtensionProvidersOff": "Erweiterungsanbieter sind erforderlich",
   "@optionsUseExtensionProvidersOff": {
     "description": "Legacy status when extension providers would be disabled"
   },
@@ -1312,7 +1312,7 @@
   "@metadataMayRateLimit": {
     "description": "Spotify provider description"
   },
-  "logTitle": "Logs",
+  "logTitle": "Protokolle",
   "@logTitle": {
     "description": "Logs screen title"
   },
@@ -4504,7 +4504,7 @@
   "@audioAnalysisAnalyzing": {
     "description": "Loading text while analyzing audio"
   },
-  "audioAnalysisSampleRate": "Sample Rate",
+  "audioAnalysisSampleRate": "Abtastrate",
   "@audioAnalysisSampleRate": {
     "description": "Sample rate metric label"
   },
@@ -5731,7 +5731,7 @@
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },
-  "editMetadataSelectNone": "None",
+  "editMetadataSelectNone": "Keine",
   "@editMetadataSelectNone": {
     "description": "Button to clear selected fields for auto-fill"
   },
@@ -5811,7 +5811,7 @@
   "@libraryBuiltInPlayerInfo": {
     "description": "Info note explaining the built-in player is for previews only"
   },
-  "nowPlayingTitle": "Now Playing",
+  "nowPlayingTitle": "Jetzt läuft",
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
@@ -6014,7 +6014,7 @@
   "@trackConvertResampler": {
     "description": "Section label for lossless conversion resampler options"
   },
-  "trackConvertDitherNone": "None",
+  "trackConvertDitherNone": "Keine",
   "@trackConvertDitherNone": {
     "description": "Lossless conversion dither option with no dithering applied"
   },
@@ -6121,11 +6121,11 @@
   "@regionCountryJP": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryKR": "South Korea",
+  "regionCountryKR": "Südkorea",
   "@regionCountryKR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryIN": "India",
+  "regionCountryIN": "Indien",
   "@regionCountryIN": {
     "description": "Country name for SongLink region picker"
   },
@@ -6189,7 +6189,7 @@
   "@extensionVerificationHelpMessageWaiting": {
     "description": "Dialog message when verification may need manual browser help"
   },
-  "extensionVerificationClose": "Close",
+  "extensionVerificationClose": "Schließen",
   "@extensionVerificationClose": {
     "description": "Button to dismiss the extension verification help dialog"
   },

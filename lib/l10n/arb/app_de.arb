@@ -772,11 +772,11 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "Vorschau abspielen",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "Vorschau stoppen",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
@@ -3931,7 +3931,7 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupContentsSettings": "App settings",
+  "backupContentsSettings": "Appeinstellungen",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
@@ -5957,7 +5957,7 @@
   "@aboutPaxsenixSubtitle": {
     "description": "Subtitle for Paxsenix special thanks entry on the about page"
   },
-  "snackbarPlayingNext": "Playing next",
+  "snackbarPlayingNext": "Als nächstes",
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },

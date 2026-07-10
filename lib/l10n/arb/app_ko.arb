@@ -1120,19 +1120,19 @@
   "@searchSortDefault": {
     "description": "Sort option - default API order"
   },
-  "searchSortTitleAZ": "제목 (오름차순)",
+  "searchSortTitleAZ": "제목 (A-Z)",
   "@searchSortTitleAZ": {
     "description": "Sort option - title ascending"
   },
-  "searchSortTitleZA": "제목 (내림차순)",
+  "searchSortTitleZA": "제목 (Z-A)",
   "@searchSortTitleZA": {
     "description": "Sort option - title descending"
   },
-  "searchSortArtistAZ": "아티스트 (오름차순)",
+  "searchSortArtistAZ": "아티스트 (A-Z)",
   "@searchSortArtistAZ": {
     "description": "Sort option - artist ascending"
   },
-  "searchSortArtistZA": "아티스트 (내림차순)",
+  "searchSortArtistZA": "아티스트 (Z-A)",
   "@searchSortArtistZA": {
     "description": "Sort option - artist descending"
   },
@@ -2748,19 +2748,19 @@
   "@libraryFilterSortOldest": {
     "description": "Sort option - oldest first"
   },
-  "libraryFilterSortAlbumAsc": "앨범 (오름차순)",
+  "libraryFilterSortAlbumAsc": "앨범 (A-Z)",
   "@libraryFilterSortAlbumAsc": {
     "description": "Sort option - album ascending"
   },
-  "libraryFilterSortAlbumDesc": "앨범 (내림차순)",
+  "libraryFilterSortAlbumDesc": "앨범 (Z-A)",
   "@libraryFilterSortAlbumDesc": {
     "description": "Sort option - album descending"
   },
-  "libraryFilterSortGenreAsc": "장르 (오름차순)",
+  "libraryFilterSortGenreAsc": "장르 (A-Z)",
   "@libraryFilterSortGenreAsc": {
     "description": "Sort option - genre ascending"
   },
-  "libraryFilterSortGenreDesc": "장르 (내림차순)",
+  "libraryFilterSortGenreDesc": "장르 (Z-A)",
   "@libraryFilterSortGenreDesc": {
     "description": "Sort option - genre descending"
   },
@@ -4634,11 +4634,11 @@
   "@extensionsNoHomeFeedExtensions": {
     "description": "Extensions page - shown when no installed extension has home feed"
   },
-  "sortAlphaAsc": "오름차순",
+  "sortAlphaAsc": "A-Z",
   "@sortAlphaAsc": {
     "description": "Sort option - alphabetical ascending"
   },
-  "sortAlphaDesc": "내림차순",
+  "sortAlphaDesc": "Z-A",
   "@sortAlphaDesc": {
     "description": "Sort option - alphabetical descending"
   },

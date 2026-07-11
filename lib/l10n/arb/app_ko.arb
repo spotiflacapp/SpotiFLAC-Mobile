@@ -5355,7 +5355,7 @@
   "@libraryFilterMetadataMissingArtist": {
     "description": "Filter option - items missing artist"
   },
-  "libraryFilterMetadataIncorrectIsrcFormat": "잘못된 ISRC 형식",
+  "libraryFilterMetadataIncorrectIsrcFormat": "ISRC 형식이 잘못됨",
   "@libraryFilterMetadataIncorrectIsrcFormat": {
     "description": "Filter option - items with an invalid ISRC format"
   },

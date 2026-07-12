@@ -3428,7 +3428,7 @@
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
   },
-  "collectionCreatePlaylist": "재생목록 생성",
+  "collectionCreatePlaylist": "재생목록 만들기",
   "@collectionCreatePlaylist": {
     "description": "Action to create a new playlist"
   },
@@ -3476,7 +3476,7 @@
       }
     }
   },
-  "collectionPlaylistCreated": "재생목록 생성 완료",
+  "collectionPlaylistCreated": "재생목록 만들기 완료",
   "@collectionPlaylistCreated": {
     "description": "Snackbar after creating playlist"
   },
@@ -3855,7 +3855,7 @@
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
-  "backupExportSectionTitle": "백업 생성",
+  "backupExportSectionTitle": "백업 만들기",
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
@@ -3863,7 +3863,7 @@
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
-  "backupExportButton": "백업 파일 생성",
+  "backupExportButton": "백업 파일 만들기",
   "@backupExportButton": {
     "description": "Button to create and share a backup file"
   },
@@ -3879,15 +3879,15 @@
   "@backupImportButton": {
     "description": "Button to pick a backup file to restore"
   },
-  "backupCreating": "백업을 생성하는 중...",
+  "backupCreating": "백업을 만드는 중...",
   "@backupCreating": {
     "description": "Progress text while a backup is being created"
   },
-  "backupCreated": "백업 생성 완료",
+  "backupCreated": "백업 만들기 완료",
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
-  "backupCreateFailed": "백업 생성 실패",
+  "backupCreateFailed": "백업 만들기 실패",
   "@backupCreateFailed": {
     "description": "Snackbar when backup creation fails"
   },

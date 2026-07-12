@@ -2131,7 +2131,7 @@
   "@downloadSelectQuality": {
     "description": "Dialog title - choose audio quality"
   },
-  "downloadFrom": "다운로드 제공자",
+  "downloadFrom": "다운로드 제공자 선택",
   "@downloadFrom": {
     "description": "Label - download source"
   },
@@ -2956,7 +2956,7 @@
   "@cacheTempDirectory": {
     "description": "Cache item title for temporary files directory"
   },
-  "cacheTempDirectoryDesc": "다운로드 및 오디오 변환으로 생성된 임시 파일",
+  "cacheTempDirectoryDesc": "다운로드 및 오디오 변환으로 만들어진 임시 파일",
   "@cacheTempDirectoryDesc": {
     "description": "Description of what temporary directory contains"
   },
@@ -3396,7 +3396,7 @@
   "@cueSplitButton": {
     "description": "Button text to start CUE splitting"
   },
-  "actionCreate": "생성",
+  "actionCreate": "만들기",
   "@actionCreate": {
     "description": "Generic action button - create"
   },

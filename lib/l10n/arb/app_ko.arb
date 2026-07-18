@@ -17,7 +17,7 @@
   "@navSettings": {
     "description": "Bottom navigation - Settings tab"
   },
-  "navStore": "리포",
+  "navStore": "레포",
   "@navStore": {
     "description": "Bottom navigation - Extension store tab"
   },
@@ -308,11 +308,11 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "확장 프로그램 리포",
+  "optionsExtensionStore": "확장 프로그램 레포",
   "@optionsExtensionStore": {
     "description": "Show/hide store tab"
   },
-  "optionsExtensionStoreSubtitle": "하단바에서 리포 탭 표시",
+  "optionsExtensionStoreSubtitle": "하단바에서 레포 탭 표시",
   "@optionsExtensionStoreSubtitle": {
     "description": "Subtitle for extension store toggle"
   },
@@ -415,7 +415,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "확장 프로그램 리포",
+  "storeTitle": "확장 프로그램 레포",
   "@storeTitle": {
     "description": "Store screen title"
   },
@@ -1756,15 +1756,15 @@
   "@storeClearFilters": {
     "description": "Button to clear all filters"
   },
-  "storeAddRepoTitle": "확장 프로그램 리포지토리 추가",
+  "storeAddRepoTitle": "확장 프로그램 레포지토리 추가",
   "@storeAddRepoTitle": {
     "description": "Store setup screen - heading when no repo is configured"
   },
-  "storeAddRepoDescription": "확장 프로그램을 찾아보고 설치하려면 registry.json 파일이 포함된 GitHub 리포지토리 URL을 입력하세요",
+  "storeAddRepoDescription": "확장 프로그램을 찾아보고 설치하려면 registry.json 파일이 포함된 GitHub 레포지토리 URL을 입력하세요",
   "@storeAddRepoDescription": {
     "description": "Store setup screen - explanatory text"
   },
-  "storeRepoUrlLabel": "리포지토리 URL",
+  "storeRepoUrlLabel": "레포지토리 URL",
   "@storeRepoUrlLabel": {
     "description": "Label for the repository URL input field"
   },
@@ -1776,27 +1776,27 @@
   "@storeRepoUrlHelper": {
     "description": "Helper text below the repository URL input field"
   },
-  "storeAddRepoButton": "리포지토리 추가",
+  "storeAddRepoButton": "레포지토리 추가",
   "@storeAddRepoButton": {
     "description": "Button to submit a new repository URL"
   },
-  "storeChangeRepoTooltip": "리포지토리 변경",
+  "storeChangeRepoTooltip": "레포지토리 변경",
   "@storeChangeRepoTooltip": {
     "description": "Tooltip for the change-repository icon button in the app bar"
   },
-  "storeRepoDialogTitle": "확장 프로그램 리포지토리",
+  "storeRepoDialogTitle": "확장 프로그램 레포지토리",
   "@storeRepoDialogTitle": {
     "description": "Title of the change/remove repository dialog"
   },
-  "storeRepoDialogCurrent": "현재 리포지토리:",
+  "storeRepoDialogCurrent": "현재 레포지토리:",
   "@storeRepoDialogCurrent": {
     "description": "Label shown above the current repository URL in the dialog"
   },
-  "storeNewRepoUrlLabel": "새 리포지토리 URL",
+  "storeNewRepoUrlLabel": "새 레포지토리 URL",
   "@storeNewRepoUrlLabel": {
     "description": "Label for the new repository URL field inside the dialog"
   },
-  "storeLoadError": "리포지토리 불러오기 실패",
+  "storeLoadError": "레포지토리 불러오기 실패",
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
@@ -2850,7 +2850,7 @@
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
-  "tutorialExtensionsTip1": "유용한 확장 프로그램을 찾으려면 리포 탭을 탐색하세요",
+  "tutorialExtensionsTip1": "유용한 확장 프로그램을 찾으려면 레포 탭을 탐색하세요",
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
@@ -5275,7 +5275,7 @@
   "@settingsApp": {
     "description": "Settings menu item - app settings"
   },
-  "settingsAppSubtitle": "업데이트, 데이터, 확장프로그램 리포, 디버그",
+  "settingsAppSubtitle": "업데이트, 데이터, 확장프로그램 레포, 디버그",
   "@settingsAppSubtitle": {
     "description": "Subtitle for app settings"
   },

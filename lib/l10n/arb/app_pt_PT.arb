@@ -3537,11 +3537,11 @@
   "@collectionFavoriteArtistsEmptySubtitle": {
     "description": "Favorite artists empty state subtitle"
   },
-  "collectionPlaylistEmptyTitle": "Playlist is empty",
+  "collectionPlaylistEmptyTitle": "A lista de reprodução está vazia",
   "@collectionPlaylistEmptyTitle": {
     "description": "Playlist empty state title"
   },
-  "collectionPlaylistEmptySubtitle": "Long-press + on any track to add it here",
+  "collectionPlaylistEmptySubtitle": "",
   "@collectionPlaylistEmptySubtitle": {
     "description": "Playlist empty state subtitle"
   },
@@ -4102,11 +4102,11 @@
   "@storageModeAppFolderSubtitle": {
     "description": "Subtitle for app folder storage mode"
   },
-  "storageModeSaf": "Custom Folder (SAF)",
+  "storageModeSaf": "",
   "@storageModeSaf": {
     "description": "Storage mode option - Storage Access Framework"
   },
-  "storageModeSafSubtitle": "Pick any folder, including SD card",
+  "storageModeSafSubtitle": "Escolha qualquer pasta, incluindo o cartão SD",
   "@storageModeSafSubtitle": {
     "description": "Subtitle for SAF storage mode"
   },
@@ -4839,7 +4839,7 @@
       }
     }
   },
-  "notifLibraryScanComplete": "Library scan complete",
+  "notifLibraryScanComplete": "",
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },

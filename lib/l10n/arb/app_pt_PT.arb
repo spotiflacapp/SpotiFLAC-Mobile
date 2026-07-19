@@ -4839,7 +4839,7 @@
       }
     }
   },
-  "notifLibraryScanComplete": "",
+  "notifLibraryScanComplete": "Library scan complete",
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },
@@ -4874,11 +4874,11 @@
   "@notifLibraryScanFailed": {
     "description": "Notification title when library scan fails"
   },
-  "notifLibraryScanCancelled": "Library scan cancelled",
+  "notifLibraryScanCancelled": "Escaneamento de biblioteca cancelado",
   "@notifLibraryScanCancelled": {
     "description": "Notification title when library scan is cancelled by the user"
   },
-  "notifLibraryScanStopped": "Scan stopped before completion.",
+  "notifLibraryScanStopped": "",
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
   },

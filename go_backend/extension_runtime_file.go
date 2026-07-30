@@ -356,7 +356,16 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 			return fatal
 		}
 		if readErr == nil {
-			break
+			if contentLength <= 0 || written == contentLength {
+				break
+			}
+			// The body reported a clean EOF (e.g. a mid-transfer connection
+			// reset that the transport surfaced as normal end-of-stream
+			// instead of io.ErrUnexpectedEOF) but fewer bytes arrived than
+			// the server promised in Content-Length. Route it through the
+			// same resume-or-fail path as a real read error instead of
+			// silently promoting a truncated file.
+			readErr = io.ErrUnexpectedEOF
 		}
 
 		stalled := wd.stalled.Load()

@@ -379,9 +379,9 @@ func TestExtensionRuntime_BindDownloadCancelContext(t *testing.T) {
 	}
 
 	req = runtime.bindDownloadCancelContext(req)
-	cancelMu.Lock()
-	refs := cancelMap["test-item"].refs
-	cancelMu.Unlock()
+	downloadCancels.mu.Lock()
+	refs := downloadCancels.entries["test-item"].refs
+	downloadCancels.mu.Unlock()
 	if refs != 1 {
 		t.Fatalf("binding a request leaked a cancellation reference: %d", refs)
 	}
@@ -468,9 +468,9 @@ func TestExtensionRuntime_BindExtensionRequestCancelContext(t *testing.T) {
 		t.Fatalf("new request: %v", err)
 	}
 	req = runtime.bindDownloadCancelContext(req)
-	extensionRequestCancelMu.Lock()
-	refs := extensionRequestCancelMap[requestID].refs
-	extensionRequestCancelMu.Unlock()
+	extensionRequestCancels.mu.Lock()
+	refs := extensionRequestCancels.entries[requestID].refs
+	extensionRequestCancels.mu.Unlock()
 	if refs != 1 {
 		t.Fatalf("binding a request leaked a cancellation reference: %d", refs)
 	}

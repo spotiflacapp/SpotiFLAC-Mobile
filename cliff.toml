@@ -5,7 +5,7 @@
 # Template for the changelog body
 body = """
 {%- macro remote_url() -%}
-  https://github.com/zarzet/SpotiFLAC-Mobile
+  https://github.com/spotiflacapp/SpotiFLAC-Mobile
 {%- endmacro -%}
 
 {% if version %}\
@@ -99,5 +99,5 @@ tag_pattern = "v[0-9].*"
 sort_commits = "newest"
 
 [remote.github]
-owner = "zarzet"
+owner = "spotiflacapp"
 repo = "SpotiFLAC-Mobile"

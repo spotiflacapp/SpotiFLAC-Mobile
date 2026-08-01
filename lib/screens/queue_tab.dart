@@ -2,19 +2,27 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/services/shell_navigation_service.dart';
+import 'package:spotiflac_android/widgets/error_card.dart';
+import 'package:spotiflac_android/widgets/track_card.dart';
+import 'package:spotiflac_android/theme/app_tokens.dart';
+import 'package:spotiflac_android/widgets/app_bottom_sheet.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
-import 'package:spotiflac_android/utils/app_bar_layout.dart';
+import 'package:spotiflac_android/utils/audio_quality_badge_policy.dart';
 import 'package:spotiflac_android/utils/nav_bar_inset.dart';
+import 'package:spotiflac_android/utils/re_enrich_release_policy.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
 import 'package:spotiflac_android/utils/ffmpeg_reenrich.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/lyrics_metadata_helper.dart';
 import 'package:spotiflac_android/models/download_item.dart';
+import 'package:spotiflac_android/models/settings.dart';
 import 'package:spotiflac_android/models/track.dart';
 import 'package:spotiflac_android/models/unified_library_item.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
@@ -39,6 +47,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:spotiflac_android/services/cover_cache_manager.dart';
 import 'package:spotiflac_android/screens/library_tracks_folder_screen.dart';
 import 'package:spotiflac_android/screens/local_album_screen.dart';
+import 'package:spotiflac_android/screens/queue_library_refresh_policy.dart';
 import 'package:spotiflac_android/utils/clickable_metadata.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/widgets/download_service_picker.dart';
@@ -46,6 +55,7 @@ import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/widgets/selection_action_button.dart';
 import 'package:spotiflac_android/widgets/selection_bottom_bar.dart';
 import 'package:spotiflac_android/widgets/smoothed_progress.dart';
+import 'package:spotiflac_android/widgets/scroll_edge_fade.dart';
 
 part 'queue_tab_helpers.dart';
 part 'queue_tab_widgets.dart';
@@ -153,7 +163,7 @@ String? _formatDownloadEta(DownloadItem item, {double? visualProgress}) {
 bool _shouldAnimateDownloadProgress(BuildContext context, DownloadItem item) {
   final progress = item.progress.clamp(0.0, 1.0);
   final animationsDisabled =
-      MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+      MediaQuery.maybeDisableAnimationsOf(context) ?? false;
   return item.status == DownloadStatus.downloading &&
       progress > 0 &&
       progress < 1 &&
@@ -222,7 +232,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
   bool _isSelectionMode = false;
   final Set<String> _selectedIds = {};
-  OverlayEntry? _selectionOverlayEntry;
+  final SelectionOverlayController _selectionOverlay =
+      SelectionOverlayController();
   List<UnifiedLibraryItem> _selectionOverlayItems = const [];
   double _selectionOverlayBottomPadding = 0;
 
@@ -232,13 +243,15 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
   bool _isPlaylistSelectionMode = false;
   final Set<String> _selectedPlaylistIds = {};
-  OverlayEntry? _playlistSelectionOverlayEntry;
+  final SelectionOverlayController _playlistSelectionOverlay =
+      SelectionOverlayController();
   List<UserPlaylistCollection> _playlistSelectionOverlayItems = const [];
   double _playlistSelectionOverlayBottomPadding = 0;
 
   PageController? _filterPageController;
-  final List<String> _filterModes = ['all', 'albums', 'singles'];
+  final List<String> _filterModes = ['all', 'albums', 'singles', 'playlists'];
   bool _isPageControllerInitialized = false;
+  bool _wasTabVisible = false;
   static const List<String> _months = [
     'Jan',
     'Feb',
@@ -266,6 +279,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   String? _filterFormat;
   String? _filterMetadata;
   String _sortMode = 'latest';
+  String _libraryQualityLabelMode = AppSettings.libraryQualityLabelBitrate;
   double _libraryGridExtent = _libraryGridDefaultExtent;
   double? _libraryGridScaleStartExtent;
   final Map<String, int> _libraryPageOffsetByFilter = {};
@@ -326,9 +340,47 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   void _initializePageController() {
     if (_isPageControllerInitialized) return;
     _isPageControllerInitialized = true;
-    final currentFilter = ref.read(settingsProvider).historyFilterMode;
-    final initialPage = _filterModes.indexOf(currentFilter).clamp(0, 2);
+    final settings = ref.read(settingsProvider);
+    final initialFilter = settings.defaultLibraryView == 'last'
+        ? settings.historyFilterMode
+        : settings.defaultLibraryView;
+    final initialPage = _filterModes
+        .indexOf(initialFilter)
+        .clamp(0, _filterModes.length - 1);
+    if (settings.historyFilterMode != _filterModes[initialPage]) {
+      Future.microtask(() {
+        if (!mounted) return;
+        ref
+            .read(settingsProvider.notifier)
+            .setHistoryFilterMode(_filterModes[initialPage]);
+      });
+    }
     _filterPageController = PageController(initialPage: initialPage);
+  }
+
+  /// When the shell switches back to this tab and a fixed default view is
+  /// configured, jump the filter pager to it.
+  void _applyDefaultLibraryViewOnTabVisible() {
+    final isVisible = TickerMode.valuesOf(context).enabled;
+    final becameVisible = isVisible && !_wasTabVisible;
+    _wasTabVisible = isVisible;
+    if (!becameVisible) return;
+    final defaultView = ref.read(settingsProvider).defaultLibraryView;
+    if (defaultView == 'last') return;
+    final index = _filterModes.indexOf(defaultView);
+    if (index < 0) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      if (ref.read(settingsProvider).historyFilterMode != defaultView) {
+        ref.read(settingsProvider.notifier).setHistoryFilterMode(defaultView);
+      }
+      final controller = _filterPageController;
+      if (controller != null &&
+          controller.hasClients &&
+          controller.page?.round() != index) {
+        controller.jumpToPage(index);
+      }
+    });
   }
 
   @override
@@ -368,8 +420,12 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   int _libraryPageOffsetFor(String filterMode) =>
       _libraryPageOffsetByFilter[filterMode] ?? 0;
 
-  void _resetLibraryPaging() {
+  void _resetLibraryOffsets() {
     _libraryPageOffsetByFilter.clear();
+  }
+
+  void _resetLibraryPaging() {
+    _resetLibraryOffsets();
     _queueLibraryPageDataCache.clear();
   }
 
@@ -392,16 +448,24 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
   QueueLibraryCounts _resolveQueueLibraryCounts(
     AsyncValue<QueueLibraryCounts> value,
-    _QueueLibraryCountsRequest request,
-  ) {
+    _QueueLibraryCountsRequest request, {
+    QueueLibraryCounts? nonEmptyFallback,
+  }) {
     return value.maybeWhen(
       data: (counts) {
-        _queueLibraryCountsCache[request] = counts;
+        final cached = _queueLibraryCountsCache[request];
+        final resolved = resolveQueueLibraryCountsSnapshot(
+          current: counts,
+          cached: cached,
+          activeDownloadFallback: nonEmptyFallback,
+        );
+        _queueLibraryCountsCache[request] = resolved;
         _trimQueueLibraryCountsCache();
-        return counts;
+        return resolved;
       },
       orElse: () =>
           _queueLibraryCountsCache[request] ??
+          nonEmptyFallback ??
           const QueueLibraryCounts(
             allTrackCount: 0,
             albumCount: 0,
@@ -412,20 +476,28 @@ class _QueueTabState extends ConsumerState<QueueTab> {
 
   _QueueLibraryPageData _resolveQueueLibraryPageData(
     AsyncValue<_QueueLibraryPageData>? value,
-    _QueueLibraryPageRequest request,
-  ) {
+    _QueueLibraryPageRequest request, {
+    _QueueLibraryPageData? nonEmptyFallback,
+  }) {
+    void storePage(_QueueLibraryPageData data) {
+      final cached = _queueLibraryPageDataCache[request];
+      if (shouldRetainQueueLibraryPageSnapshot(
+        currentIsEmpty: data.isEmpty,
+        cachedHasContent: cached != null && !cached.isEmpty,
+        activeDownloadFallbackAvailable: nonEmptyFallback != null,
+      )) {
+        return;
+      }
+      _queueLibraryPageDataCache[request] = data;
+      _trimQueueLibraryPageDataCache(protectedRequest: request);
+    }
+
     if (value != null) {
       final liveData = value.asData?.value;
       if (liveData != null) {
-        _queueLibraryPageDataCache[request] = liveData;
-        _trimQueueLibraryPageDataCache(protectedRequest: request);
+        storePage(liveData);
       }
-      value.whenOrNull(
-        data: (data) {
-          _queueLibraryPageDataCache[request] = data;
-          _trimQueueLibraryPageDataCache(protectedRequest: request);
-        },
-      );
+      value.whenOrNull(data: storePage);
     }
 
     final pages = <_QueueLibraryPageData>[];
@@ -446,7 +518,11 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       if (page != null) pages.add(page);
     }
 
-    return _QueueLibraryPageData.combine(pages);
+    final combined = _QueueLibraryPageData.combine(pages);
+    if (combined.isEmpty && nonEmptyFallback != null) {
+      return nonEmptyFallback;
+    }
+    return combined;
   }
 
   void _invalidateLibraryDataCaches() {
@@ -682,9 +758,6 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: colorScheme.surfaceContainerLow,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (context) => StatefulBuilder(
         builder: (context, setSheetState) {
           return SafeArea(
@@ -701,17 +774,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                            child: Container(
-                              width: 32,
-                              height: 4,
-                              margin: const EdgeInsets.only(bottom: 16),
-                              decoration: BoxDecoration(
-                                color: colorScheme.outlineVariant,
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            ),
-                          ),
+                          const AppSheetHandle(),
 
                           Row(
                             children: [
@@ -955,6 +1018,15 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                               ),
                               FilterChip(
                                 label: Text(
+                                  context.l10n.libraryFilterMetadataMissingIsrc,
+                                ),
+                                selected: tempMetadata == 'missing-isrc',
+                                onSelected: (_) => setSheetState(
+                                  () => tempMetadata = 'missing-isrc',
+                                ),
+                              ),
+                              FilterChip(
+                                label: Text(
                                   context
                                       .l10n
                                       .libraryFilterMetadataMissingLabel,
@@ -1108,6 +1180,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   @override
   Widget build(BuildContext context) {
     _initializePageController();
+    _applyDefaultLibraryViewOnTabVisible();
 
     ref.listen(downloadQueueLookupProvider, (previous, next) {
       if (previous == null) return;
@@ -1131,8 +1204,10 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       downloadHistoryProvider.select((state) => state.loadedIndexVersion),
       (previous, next) {
         if (previous == null || previous == next) return;
-        _invalidateLibraryDataCaches();
-        _resetLibraryPaging();
+        // The family provider already reruns for the new revision. Retain its
+        // last successful page while SQLite is loading so metadata backfills
+        // and download completions cannot flash the Library as empty.
+        _resetLibraryOffsets();
         if (mounted) setState(() {});
       },
     );
@@ -1140,8 +1215,8 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       localLibraryProvider.select((state) => state.loadedIndexVersion),
       (previous, next) {
         if (previous == null || previous == next) return;
-        _invalidateLibraryDataCaches();
-        _resetLibraryPaging();
+        // Keep stale rows visible until the refreshed query replaces them.
+        _resetLibraryOffsets();
         if (mounted) setState(() {});
       },
     );
@@ -1185,8 +1260,12 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     final historyFilterMode = ref.watch(
       settingsProvider.select((s) => s.historyFilterMode),
     );
+    // Keep this mode out of the page-provider request: changing only badge
+    // text must not re-query the database or reset Library pagination.
+    _libraryQualityLabelMode = ref.watch(
+      settingsProvider.select((s) => s.libraryQualityLabelMode),
+    );
     final colorScheme = Theme.of(context).colorScheme;
-    final topPadding = normalizedHeaderTopPadding(context);
     final countsRequest = _QueueLibraryCountsRequest(
       searchQuery: _searchQuery,
       filterSource: _filterSource,
@@ -1196,7 +1275,21 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       localLibraryEnabled: localLibraryEnabled,
     );
     final countsValue = ref.watch(_queueLibraryCountsProvider(countsRequest));
-    final queueCounts = _resolveQueueLibraryCounts(countsValue, countsRequest);
+    final historySnapshotFallbackEnabled =
+        hasQueueItems &&
+        inMemoryHistoryItems.isNotEmpty &&
+        countsRequest.allowsInMemoryHistoryFallback;
+    final historySnapshotCounts = historySnapshotFallbackEnabled
+        ? _historySnapshotCounts(
+            inMemoryHistoryItems,
+            persistedTotalCount: historyTotalCount,
+          )
+        : null;
+    final queueCounts = _resolveQueueLibraryCounts(
+      countsValue,
+      countsRequest,
+      nonEmptyFallback: historySnapshotCounts,
+    );
 
     _QueueLibraryPageRequest pageRequest(String filterMode) =>
         _QueueLibraryPageRequest(
@@ -1221,9 +1314,20 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       final request = filterMode == historyFilterMode
           ? activePageRequest
           : pageRequest(filterMode);
+      final historySnapshot =
+          hasQueueItems &&
+              inMemoryHistoryItems.isNotEmpty &&
+              request.allowsInMemoryHistoryFallback
+          ? _QueueLibraryPageData.fromHistorySnapshot(
+              inMemoryHistoryItems,
+              filterMode: request.filterMode,
+              limit: request.limit,
+            )
+          : null;
       return _resolveQueueLibraryPageData(
         filterMode == historyFilterMode ? activePageValue : null,
         request,
+        nonEmptyFallback: historySnapshot,
       );
     }
 
@@ -1232,7 +1336,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
         collectionState,
         totalTrackCount: switch (filterMode) {
           'singles' => queueCounts.singleTrackCount,
-          'albums' => 0,
+          'albums' || 'playlists' => 0,
           _ => queueCounts.allTrackCount,
         },
         totalAlbumCount: filterMode == 'albums' ? queueCounts.albumCount : null,
@@ -1247,6 +1351,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
     final currentTotalCount = switch (historyFilterMode) {
       'albums' => queueCounts.albumCount,
       'singles' => queueCounts.singleTrackCount,
+      'playlists' => 0,
       _ => queueCounts.allTrackCount,
     };
     final hasMoreLibrary = currentLoadedCount < currentTotalCount;
@@ -1256,6 +1361,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
         queueCounts.allTrackCount > 0 || queueCounts.albumCount > 0;
     final hasLibraryContent =
         historyTotalCount > 0 ||
+        inMemoryHistoryItems.isNotEmpty ||
         (localLibraryEnabled && localLibraryTotalCount > 0);
     final hasActiveSearch =
         _searchQuery.isNotEmpty || _searchController.text.trim().isNotEmpty;
@@ -1311,41 +1417,7 @@ class _QueueTabState extends ConsumerState<QueueTab> {
             ).copyWith(overscroll: false),
             child: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                SliverAppBar(
-                  expandedHeight: 120 + topPadding,
-                  collapsedHeight: kToolbarHeight,
-                  floating: false,
-                  pinned: true,
-                  backgroundColor: colorScheme.surface,
-                  surfaceTintColor: Colors.transparent,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final maxHeight = 120 + topPadding;
-                      final minHeight = kToolbarHeight + topPadding;
-                      final expandRatio =
-                          ((constraints.maxHeight - minHeight) /
-                                  (maxHeight - minHeight))
-                              .clamp(0.0, 1.0);
-
-                      return FlexibleSpaceBar(
-                        expandedTitleScale: 1.0,
-                        titlePadding: const EdgeInsets.only(
-                          left: 24,
-                          bottom: 16,
-                        ),
-                        title: Text(
-                          context.l10n.navLibrary,
-                          style: TextStyle(
-                            fontSize: 20 + (14 * expandRatio),
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                AppSliverHeader.tabRoot(title: context.l10n.navLibrary),
 
                 if (shouldShowLibraryControls || hasQueueItems)
                   SliverToBoxAdapter(
@@ -1421,37 +1493,51 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                           filteredAlbumCount = queueCounts.albumCount;
                           filteredSingleCount = queueCounts.singleTrackCount;
 
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                _FilterChip(
-                                  label: context.l10n.historyFilterAll,
-                                  count: filteredAllCount,
-                                  isSelected: historyFilterMode == 'all',
-                                  onTap: () {
-                                    _animateToFilterPage(0);
-                                  },
-                                ),
-                                const SizedBox(width: 8),
-                                _FilterChip(
-                                  label: context.l10n.historyFilterAlbums,
-                                  count: filteredAlbumCount,
-                                  isSelected: historyFilterMode == 'albums',
-                                  onTap: () {
-                                    _animateToFilterPage(1);
-                                  },
-                                ),
-                                const SizedBox(width: 8),
-                                _FilterChip(
-                                  label: context.l10n.historyFilterSingles,
-                                  count: filteredSingleCount,
-                                  isSelected: historyFilterMode == 'singles',
-                                  onTap: () {
-                                    _animateToFilterPage(2);
-                                  },
-                                ),
-                              ],
+                          return ScrollEdgeFade(
+                            axis: Axis.horizontal,
+                            size: 48,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  _FilterChip(
+                                    label: context.l10n.historyFilterAll,
+                                    count: filteredAllCount,
+                                    isSelected: historyFilterMode == 'all',
+                                    onTap: () {
+                                      _animateToFilterPage(0);
+                                    },
+                                  ),
+                                  const SizedBox(width: 8),
+                                  _FilterChip(
+                                    label: context.l10n.historyFilterAlbums,
+                                    count: filteredAlbumCount,
+                                    isSelected: historyFilterMode == 'albums',
+                                    onTap: () {
+                                      _animateToFilterPage(1);
+                                    },
+                                  ),
+                                  const SizedBox(width: 8),
+                                  _FilterChip(
+                                    label: context.l10n.historyFilterSingles,
+                                    count: filteredSingleCount,
+                                    isSelected: historyFilterMode == 'singles',
+                                    onTap: () {
+                                      _animateToFilterPage(2);
+                                    },
+                                  ),
+                                  const SizedBox(width: 8),
+                                  _FilterChip(
+                                    label: context.l10n.searchPlaylists,
+                                    count: collectionState.playlists.length,
+                                    isSelected:
+                                        historyFilterMode == 'playlists',
+                                    onTap: () {
+                                      _animateToFilterPage(3);
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -1623,7 +1709,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
       ),
     );
     if (confirmed == true) {
-      ref.read(downloadQueueProvider.notifier).dismissItem(item.id);
+      // cancelItem (not dismissItem): the item stays in the queue as
+      // cancelled so it can be retried without re-searching the track.
+      ref.read(downloadQueueProvider.notifier).cancelItem(item.id);
     }
   }
 
@@ -1633,13 +1721,18 @@ class _QueueTabState extends ConsumerState<QueueTab> {
   ) async {
     final colorScheme = Theme.of(context).colorScheme;
     final isRateLimit = item.errorType == DownloadErrorType.rateLimit;
+    final isCancelled = item.status == DownloadStatus.skipped;
     final isFolderAccessLost =
         item.errorMessage == safPermissionLostErrorMessage ||
         item.errorMessage == downloadFolderAccessLostErrorMessage;
-    final title = isRateLimit
+    final title = isCancelled
+        ? context.l10n.queueCancelledTitle
+        : isRateLimit
         ? context.l10n.queueRateLimitTitle
         : context.l10n.updateDownloadFailed;
-    final message = isRateLimit
+    final message = isCancelled
+        ? context.l10n.queueCancelledMessage
+        : isRateLimit
         ? context.l10n.queueRateLimitMessage
         : (item.errorMessage.trim().isNotEmpty
               ? _localizedDownloadError(context, item.errorMessage)
@@ -1729,7 +1822,9 @@ class _QueueTabState extends ConsumerState<QueueTab> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                context.l10n.snackbarFolderPickerFailed(e.toString()),
+                context.l10n.snackbarFolderPickerFailed(
+                  context.friendlyError(e),
+                ),
               ),
             ),
           );

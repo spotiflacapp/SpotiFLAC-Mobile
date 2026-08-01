@@ -1,6 +1,7 @@
 import 'package:spotiflac_android/models/track.dart';
 import 'package:spotiflac_android/providers/download_history_provider.dart';
 import 'package:spotiflac_android/services/library_database.dart';
+import 'package:spotiflac_android/utils/audio_quality_badge_policy.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 
 enum LibraryItemSource { downloaded, local }
@@ -102,6 +103,34 @@ class UnifiedLibraryItem {
   bool get hasCover =>
       coverUrl != null ||
       (localCoverPath != null && localCoverPath!.isNotEmpty);
+
+  String? qualityForMode(String mode) {
+    final history = historyItem;
+    if (history != null) {
+      return buildLibraryAudioQualityLabel(
+        mode: mode,
+        format: history.format,
+        bitrateKbps: history.bitrate,
+        bitDepth: history.bitDepth,
+        sampleRate: history.sampleRate,
+        storedQuality: history.quality ?? quality,
+      );
+    }
+
+    final local = localItem;
+    if (local != null) {
+      return buildLibraryAudioQualityLabel(
+        mode: mode,
+        format: local.format,
+        bitrateKbps: local.bitrate,
+        bitDepth: local.bitDepth,
+        sampleRate: local.sampleRate,
+        storedQuality: quality,
+      );
+    }
+
+    return quality;
+  }
 
   String? get albumArtist => historyItem?.albumArtist ?? localItem?.albumArtist;
 

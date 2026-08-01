@@ -10,3 +10,14 @@ SnackBarAction buildViewQueueSnackBarAction(BuildContext context) {
     },
   );
 }
+
+/// Shared "Added to queue" snackbar with a View action jumping to Library.
+void showAddedToQueueSnackBar(BuildContext context, String trackName) {
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(context.l10n.snackbarAddedToQueue(trackName)),
+      action: buildViewQueueSnackBarAction(context),
+    ),
+  );
+}

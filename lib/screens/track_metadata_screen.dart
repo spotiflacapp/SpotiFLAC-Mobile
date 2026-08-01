@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/app_bottom_sheet.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
@@ -16,10 +17,12 @@ import 'package:spotiflac_android/providers/local_library_provider.dart';
 import 'package:spotiflac_android/providers/playback_provider.dart';
 import 'package:spotiflac_android/providers/music_player_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
+import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/services/ffmpeg_service.dart';
 import 'package:spotiflac_android/services/replaygain_service.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/utils/audio_conversion_utils.dart';
 import 'package:spotiflac_android/utils/audio_format_utils.dart';
 import 'package:spotiflac_android/utils/cover_art_utils.dart';
@@ -27,17 +30,29 @@ import 'package:spotiflac_android/utils/logger.dart';
 import 'package:spotiflac_android/utils/lyrics_metadata_helper.dart';
 import 'package:spotiflac_android/utils/mime_utils.dart';
 import 'package:spotiflac_android/utils/image_cache_utils.dart';
+
 import 'package:spotiflac_android/utils/string_utils.dart';
+import 'package:spotiflac_android/utils/user_facing_error.dart';
 import 'package:spotiflac_android/utils/int_utils.dart';
 import 'package:spotiflac_android/utils/nav_bar_inset.dart';
+import 'package:spotiflac_android/utils/re_enrich_release_policy.dart';
+import 'package:spotiflac_android/theme/cover_palette.dart' show HeaderPalette;
 import 'package:spotiflac_android/widgets/album_detail_header.dart'
     show HeaderMetaRow, HeaderMetaItem;
 import 'package:spotiflac_android/widgets/audio_analysis_widget.dart';
 import 'package:spotiflac_android/widgets/batch_convert_sheet.dart';
 import 'package:spotiflac_android/widgets/cached_cover_image.dart';
+import 'package:spotiflac_android/widgets/open_on_platform_sheet.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
 import 'package:spotiflac_android/constants/music_services.dart';
 import 'package:spotiflac_android/screens/collapsing_header_scroll_mixin.dart';
+import 'package:spotiflac_android/screens/downloaded_album_screen.dart';
+import 'package:spotiflac_android/screens/local_album_screen.dart';
+import 'package:spotiflac_android/utils/clickable_metadata.dart';
+
+part 'track_metadata_screen_cover.dart';
+part 'track_metadata_screen_display.dart';
+part 'track_metadata_screen_menu.dart';
 
 part 'track_metadata_edit_sheet.dart';
 part 'track_metadata_cards.dart';
@@ -127,15 +142,6 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
   Map<String, dynamic>? _editedMetadata;
   String? _resolvedAudioFormat;
   String? _embeddedCoverPreviewPath;
-  static final RegExp _lrcTimestampPattern = RegExp(
-    r'^\[\d{2}:\d{2}\.\d{2,3}\]',
-  );
-  static final RegExp _lrcMetadataPattern = RegExp(r'^\[[a-zA-Z]+:.*\]$');
-  static final RegExp _lrcInlineTimestampPattern = RegExp(
-    r'<\d{2}:\d{2}\.\d{2,3}>',
-  );
-  static final RegExp _lrcSpeakerPrefixPattern = RegExp(r'^(v1|v2):\s*');
-  static final RegExp _lrcBackgroundLinePattern = RegExp(r'^\[bg:(.*)\]$');
   static final RegExp _invalidFileNameChars = RegExp(r'[<>:"/\\|?*\x00-\x1f]');
   static final RegExp _multiUnderscore = RegExp(r'_+');
   static final RegExp _leadingOrTrailingDots = RegExp(r'^\.+|\.+$');
@@ -155,96 +161,6 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
   ];
 
   String get _coverCacheKey => _itemId;
-
-  bool _isCacheTrackedPath(String? path) {
-    if (!_hasPath(path)) return false;
-    return _embeddedCoverPreviewCache.values.any(
-      (entry) => entry.previewPath == path,
-    );
-  }
-
-  bool _isVolatileSafTempPath(String path) {
-    if (path.isEmpty) return false;
-    return path.contains(
-      '${Platform.pathSeparator}cache${Platform.pathSeparator}saf_',
-    );
-  }
-
-  Future<String?> _readLocalFileValidationToken(String path) async {
-    if (path.isEmpty || isContentUri(path) || _isVolatileSafTempPath(path)) {
-      return null;
-    }
-    try {
-      final stat = await fileStat(path);
-      if (stat == null) return null;
-      return '${stat.modified?.millisecondsSinceEpoch ?? 0}:${stat.size ?? 0}';
-    } catch (_) {
-      return null;
-    }
-  }
-
-  Future<void> _cacheEmbeddedCoverPreview(
-    String cacheKey,
-    String sourcePath,
-    String previewPath,
-  ) async {
-    final sourceValidationToken = await _readLocalFileValidationToken(
-      sourcePath,
-    );
-    final existing = _embeddedCoverPreviewCache[cacheKey];
-    _embeddedCoverPreviewCache[cacheKey] = _EmbeddedCoverPreviewCacheEntry(
-      previewPath: previewPath,
-      sourceValidationToken: sourceValidationToken,
-    );
-    if (existing != null && existing.previewPath != previewPath) {
-      await _cleanupTempFileAndParentIfNotCached(existing.previewPath);
-    }
-
-    while (_embeddedCoverPreviewCache.length > _maxCoverPreviewCacheEntries) {
-      final oldestKey = _embeddedCoverPreviewCache.keys.first;
-      final removed = _embeddedCoverPreviewCache.remove(oldestKey);
-      if (removed != null) {
-        await _cleanupTempFileAndParentIfNotCached(removed.previewPath);
-      }
-    }
-  }
-
-  Future<void> _invalidateEmbeddedCoverPreviewCacheForPath(
-    String cacheKey,
-  ) async {
-    if (cacheKey.isEmpty) return;
-    final removed = _embeddedCoverPreviewCache.remove(cacheKey);
-    if (removed != null) {
-      await _cleanupTempFileAndParentIfNotCached(removed.previewPath);
-    }
-  }
-
-  Future<String?> _getCachedEmbeddedCoverPreviewPathIfValid(
-    String cacheKey,
-    String sourcePath,
-  ) async {
-    if (cacheKey.isEmpty) return null;
-    final cached = _embeddedCoverPreviewCache[cacheKey];
-    if (cached == null) return null;
-
-    if (!await fileExists(cached.previewPath)) {
-      _embeddedCoverPreviewCache.remove(cacheKey);
-      return null;
-    }
-
-    if (!isContentUri(sourcePath) && !_isVolatileSafTempPath(sourcePath)) {
-      final currentToken = await _readLocalFileValidationToken(sourcePath);
-      if (currentToken != null &&
-          cached.sourceValidationToken != null &&
-          currentToken != cached.sourceValidationToken) {
-        _embeddedCoverPreviewCache.remove(cacheKey);
-        await _cleanupTempFileAndParentIfNotCached(cached.previewPath);
-        return null;
-      }
-    }
-
-    return cached.previewPath;
-  }
 
   @override
   void initState() {
@@ -379,7 +295,9 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
     _hasLoadedResolvedAudioMetadata = true;
 
     try {
-      final metadata = await PlatformBridge.readFileMetadata(sourcePath);
+      final metadata = await PlatformBridge.readDisplayAudioMetadata(
+        sourcePath,
+      );
       if (!mounted ||
           generation != _metadataLoadGeneration ||
           sourcePath != cleanFilePath) {
@@ -398,11 +316,11 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
       final formatChanged =
           resolvedFormat != null &&
           resolvedFormat != normalizeAudioFormatValue(storedFormat);
-      final resolvedBitrate = _isBitrateFormatValue(resolvedFormat)
-          ? _readPlausibleBitrateKbps(
-              metadata['bitrate'] ?? metadata['bit_rate'],
-            )
-          : null;
+      // Lossless files carry an average bitrate too (computed by the backend
+      // from file size / duration) — useful for spotting fake 24-bit rips.
+      final resolvedBitrate = _readPlausibleBitrateKbps(
+        metadata['bitrate'] ?? metadata['bit_rate'],
+      );
       final resolvedDuration = readPositiveInt(metadata['duration']);
       final resolvedAlbum = metadata['album']?.toString();
       final resolvedTitle = metadata['title']?.toString();
@@ -491,6 +409,17 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
               needsDuration ||
               needsComposer ||
               (isPlaceholderQualityLabel(_quality) && resolvedQuality != null));
+      final localItem = _localLibraryItem;
+      final localAudioMetadataChanged =
+          localItem != null &&
+          ((resolvedBitDepth != null &&
+                  resolvedBitDepth != localItem.bitDepth) ||
+              (resolvedSampleRate != null &&
+                  resolvedSampleRate != localItem.sampleRate) ||
+              (resolvedBitrate != null &&
+                  resolvedBitrate != localItem.bitrate) ||
+              needsDuration ||
+              formatChanged);
 
       if ((resolvedBitDepth != null ||
               resolvedSampleRate != null ||
@@ -573,463 +502,32 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
             );
           });
         }
-      } else if (_isLocalItem && (needsDuration || formatChanged)) {
+      } else if (_isLocalItem && localAudioMetadataChanged) {
         await LibraryDatabase.instance.updateAudioMetadata(
-          _localLibraryItem!.id,
+          localItem.id,
           duration: resolvedDuration,
+          bitDepth: resolvedBitDepth,
+          sampleRate: resolvedSampleRate,
+          bitrate: resolvedBitrate,
           format: formatChanged ? resolvedFormat : null,
         );
+        if (mounted &&
+            generation == _metadataLoadGeneration &&
+            sourcePath == cleanFilePath) {
+          setState(() {
+            _currentLocalLibraryItem = localItem.withAudioMetadata(
+              duration: resolvedDuration,
+              bitDepth: resolvedBitDepth,
+              sampleRate: resolvedSampleRate,
+              bitrate: resolvedBitrate,
+              format: resolvedFormat,
+            );
+          });
+        }
         await ref.read(localLibraryProvider.notifier).reloadFromStorage();
       }
     } catch (e) {
       _log.w('Failed to resolve audio metadata from file: $e');
-    }
-  }
-
-  Future<void> _refreshEmbeddedCoverPreview({bool force = false}) async {
-    final generation = _metadataLoadGeneration;
-    final cacheKey = _coverCacheKey;
-    final sourcePath = cleanFilePath;
-    if (!force) {
-      final cachedPath = await _getCachedEmbeddedCoverPreviewPathIfValid(
-        cacheKey,
-        sourcePath,
-      );
-      if (_hasPath(cachedPath)) {
-        if (mounted &&
-            generation == _metadataLoadGeneration &&
-            sourcePath == cleanFilePath &&
-            _embeddedCoverPreviewPath != cachedPath) {
-          setState(() => _embeddedCoverPreviewPath = cachedPath);
-        }
-        return;
-      }
-    }
-
-    String? newPreviewPath;
-    try {
-      if (!_fileExists) {
-        await _invalidateEmbeddedCoverPreviewCacheForPath(cacheKey);
-        await _cleanupTempFileAndParentIfNotCached(_embeddedCoverPreviewPath);
-        if (mounted &&
-            generation == _metadataLoadGeneration &&
-            sourcePath == cleanFilePath) {
-          setState(() => _embeddedCoverPreviewPath = null);
-        }
-        return;
-      }
-      if (force) {
-        await _invalidateEmbeddedCoverPreviewCacheForPath(cacheKey);
-      }
-      final tempDir = await Directory.systemTemp.createTemp(
-        'track_cover_preview_',
-      );
-      final outputPath =
-          '${tempDir.path}${Platform.pathSeparator}cover_preview.jpg';
-      final result = await PlatformBridge.extractCoverToFile(
-        sourcePath,
-        outputPath,
-      );
-      if (result['error'] == null && await File(outputPath).exists()) {
-        newPreviewPath = outputPath;
-        await _cacheEmbeddedCoverPreview(cacheKey, sourcePath, outputPath);
-      } else {
-        try {
-          await tempDir.delete(recursive: true);
-        } catch (_) {}
-      }
-    } catch (_) {}
-
-    final oldPreviewPath = _embeddedCoverPreviewPath;
-    if (!mounted ||
-        generation != _metadataLoadGeneration ||
-        sourcePath != cleanFilePath) {
-      if (newPreviewPath != null) {
-        await _cleanupTempFileAndParentIfNotCached(newPreviewPath);
-      }
-      return;
-    }
-
-    setState(() => _embeddedCoverPreviewPath = newPreviewPath);
-    if (oldPreviewPath != null && oldPreviewPath != newPreviewPath) {
-      await _cleanupTempFileAndParentIfNotCached(oldPreviewPath);
-    }
-  }
-
-  bool get _isLocalItem => _currentLocalLibraryItem != null;
-  DownloadHistoryItem? get _downloadItem => _currentDownloadItem;
-  LocalLibraryItem? get _localLibraryItem => _currentLocalLibraryItem;
-  bool get _hasHistoryNavigation =>
-      widget.historyNavigationItems != null && widget.navigationIndex != null;
-  bool get _hasLocalNavigation =>
-      widget.localNavigationItems != null && widget.navigationIndex != null;
-  bool get _hasTrackSwipeNavigation =>
-      _hasHistoryNavigation || _hasLocalNavigation;
-  int? get _navigationIndex => _currentNavigationIndex;
-  int get _navigationLength =>
-      widget.historyNavigationItems?.length ??
-      widget.localNavigationItems?.length ??
-      0;
-
-  String get _itemId =>
-      _isLocalItem ? _localLibraryItem!.id : _downloadItem!.id;
-  String get trackName =>
-      _editedMetadata?['title']?.toString() ??
-      (_isLocalItem ? _localLibraryItem!.trackName : _downloadItem!.trackName);
-  String get artistName =>
-      _editedMetadata?['artist']?.toString() ??
-      (_isLocalItem
-          ? _localLibraryItem!.artistName
-          : _downloadItem!.artistName);
-  String get albumName =>
-      _editedMetadata?['album']?.toString() ??
-      (_isLocalItem ? _localLibraryItem!.albumName : _downloadItem!.albumName);
-  String? get albumArtist {
-    final edited = _editedMetadata?['album_artist']?.toString();
-    if (edited != null && edited.isNotEmpty) return edited;
-    return normalizeOptionalString(
-      _isLocalItem
-          ? _localLibraryItem!.albumArtist
-          : _downloadItem!.albumArtist,
-    );
-  }
-
-  int? get trackNumber {
-    final edited = _editedMetadata?['track_number'];
-    if (edited != null) {
-      final v = int.tryParse(edited.toString());
-      if (v != null && v > 0) return v;
-    }
-    return _isLocalItem
-        ? _localLibraryItem!.trackNumber
-        : _downloadItem!.trackNumber;
-  }
-
-  int? get totalTracks =>
-      readPositiveInt(_editedMetadata?['total_tracks']) ??
-      (_isLocalItem
-          ? _localLibraryItem!.totalTracks
-          : _downloadItem!.totalTracks);
-
-  int? get discNumber {
-    final edited = _editedMetadata?['disc_number'];
-    if (edited != null) {
-      final v = int.tryParse(edited.toString());
-      if (v != null && v > 0) return v;
-    }
-    return _isLocalItem
-        ? _localLibraryItem!.discNumber
-        : _downloadItem!.discNumber;
-  }
-
-  int? get totalDiscs =>
-      readPositiveInt(_editedMetadata?['total_discs']) ??
-      (_isLocalItem
-          ? _localLibraryItem!.totalDiscs
-          : _downloadItem!.totalDiscs);
-
-  String? get releaseDate =>
-      _editedMetadata?['date']?.toString() ??
-      (_isLocalItem
-          ? _localLibraryItem!.releaseDate
-          : _downloadItem!.releaseDate);
-  String? get isrc {
-    final raw =
-        _editedMetadata?['isrc']?.toString() ??
-        (_isLocalItem ? _localLibraryItem!.isrc : _downloadItem!.isrc);
-    if (raw == null || raw.trim().isEmpty) return null;
-    final upper = raw.trim().toUpperCase();
-    // Only accept valid ISRC codes (CC-XXX-YY-NNNNN, 12 alphanumeric chars).
-    // Strip hyphens/spaces that some sources include.
-    final stripped = upper.replaceAll(RegExp(r'[-\s]'), '');
-    if (_isrcValidationPattern.hasMatch(stripped)) return stripped;
-    return null;
-  }
-
-  static final RegExp _isrcValidationPattern = RegExp(
-    r'^[A-Z]{2}[A-Z0-9]{3}\d{7}$',
-  );
-  String? get genre =>
-      _editedMetadata?['genre']?.toString() ??
-      (_isLocalItem ? _localLibraryItem!.genre : _downloadItem!.genre);
-  String? get label =>
-      _editedMetadata?['label']?.toString() ??
-      (_isLocalItem ? _localLibraryItem!.label : _downloadItem!.label);
-  String? get copyright =>
-      _editedMetadata?['copyright']?.toString() ??
-      (_isLocalItem ? _localLibraryItem!.copyright : _downloadItem!.copyright);
-  String? get composer =>
-      _editedMetadata?['composer']?.toString() ??
-      (_isLocalItem ? _localLibraryItem!.composer : null);
-  int? get duration =>
-      readPositiveInt(_editedMetadata?['duration']) ??
-      (_isLocalItem ? _localLibraryItem!.duration : _downloadItem!.duration);
-  int? get bitDepth =>
-      readPositiveInt(_editedMetadata?['bit_depth']) ??
-      (_isLocalItem ? _localLibraryItem!.bitDepth : _downloadItem!.bitDepth);
-  int? get sampleRate =>
-      readPositiveInt(_editedMetadata?['sample_rate']) ??
-      (_isLocalItem
-          ? _localLibraryItem!.sampleRate
-          : _downloadItem!.sampleRate);
-  int? get _audioBitrate =>
-      _isLocalItem ? _localLibraryItem!.bitrate : _downloadItem?.bitrate;
-  String? get _storedAudioFormat =>
-      _resolvedAudioFormat ??
-      (_isLocalItem ? _localLibraryItem?.format : _downloadItem?.format);
-
-  String get _filePath =>
-      _isLocalItem ? _localLibraryItem!.filePath : _downloadItem!.filePath;
-  String get _coverHeroTag =>
-      widget.coverHeroTag ??
-      (_isLocalItem ? 'cover_lib_$_itemId' : 'cover_$_itemId');
-  String? get _coverUrl => _isLocalItem
-      ? null
-      : highResCoverUrl(normalizeRemoteHttpUrl(_downloadItem!.coverUrl));
-
-  String? get _localCoverPath =>
-      _isLocalItem ? _localLibraryItem!.coverPath : null;
-  String? get _spotifyId => _isLocalItem ? null : _downloadItem!.spotifyId;
-  String get _service =>
-      _isLocalItem ? MusicServices.local : _downloadItem!.service;
-  DateTime get _addedAt {
-    if (_isLocalItem) {
-      final modTime = _localLibraryItem!.fileModTime;
-      if (modTime != null && modTime > 0) {
-        return DateTime.fromMillisecondsSinceEpoch(modTime);
-      }
-      return _localLibraryItem!.scannedAt;
-    }
-    return _downloadItem!.downloadedAt;
-  }
-
-  String? get _quality => _isLocalItem ? null : _downloadItem!.quality;
-
-  int? _readPlausibleBitrateKbps(dynamic value) {
-    final parsed = readPositiveInt(value);
-    if (parsed == null) return null;
-    final kbps = parsed >= 10000 ? (parsed / 1000).round() : parsed;
-    return kbps >= 16 ? kbps : null;
-  }
-
-  bool _isBitrateFormatValue(String? value) {
-    return const {
-      'aac',
-      'eac3',
-      'ac3',
-      'ac4',
-      'mp3',
-      'opus',
-      'm4a',
-    }.contains(normalizeAudioFormatValue(value));
-  }
-
-  String? _usableStoredQuality(String? quality) {
-    final normalized = normalizeOptionalString(quality);
-    if (normalized == null || isPlaceholderQualityLabel(normalized)) {
-      return null;
-    }
-    final bitrateMatch = RegExp(
-      r'\b(\d+)\s*kbps\b',
-      caseSensitive: false,
-    ).firstMatch(normalized);
-    if (bitrateMatch != null) {
-      final bitrate = int.tryParse(bitrateMatch.group(1) ?? '');
-      if (bitrate != null && bitrate < 16) return null;
-    }
-    return normalized;
-  }
-
-  String? _displayQualityForValues({
-    required String? format,
-    int? bitDepth,
-    int? sampleRate,
-    int? bitrateKbps,
-    String? storedQuality,
-  }) {
-    final normalizedFormat = normalizeAudioFormatValue(format);
-    final formatLabel = normalizedFormat == null
-        ? normalizeOptionalString(format)?.toUpperCase()
-        : _formatLabelForRaw(normalizedFormat);
-    if (_isBitrateFormatValue(normalizedFormat)) {
-      return buildDisplayAudioQuality(
-            bitrateKbps: bitrateKbps,
-            format: formatLabel,
-          ) ??
-          _usableStoredQuality(storedQuality) ??
-          formatLabel;
-    }
-    return buildDisplayAudioQuality(
-      bitDepth: bitDepth,
-      sampleRate: sampleRate,
-      storedQuality: _usableStoredQuality(storedQuality),
-    );
-  }
-
-  String _displayServiceTrackId(String value) {
-    final raw = value.trim();
-    if (raw.isEmpty) return raw;
-    final spotifyTrackIdPattern = RegExp(r'^[A-Za-z0-9]{22}$');
-
-    if (raw.startsWith('deezer:')) return raw.substring('deezer:'.length);
-    if (raw.startsWith('tidal:')) return raw.substring('tidal:'.length);
-    if (raw.startsWith('qobuz:')) return raw.substring('qobuz:'.length);
-    if (spotifyTrackIdPattern.hasMatch(raw)) return raw;
-
-    if (raw.startsWith('spotify:')) {
-      final last = raw.split(':').last.trim();
-      if (spotifyTrackIdPattern.hasMatch(last)) return last;
-      return raw;
-    }
-
-    final uri = Uri.tryParse(raw);
-    if (uri != null &&
-        uri.host.contains('spotify.com') &&
-        uri.pathSegments.length >= 2 &&
-        uri.pathSegments.first == 'track') {
-      final candidate = uri.pathSegments[1].trim();
-      if (spotifyTrackIdPattern.hasMatch(candidate)) {
-        return candidate;
-      }
-    }
-
-    return raw;
-  }
-
-  String _serviceForTrackId(String value, {required String fallbackService}) {
-    final raw = value.trim();
-    if (raw.isEmpty) return fallbackService;
-    final spotifyTrackIdPattern = RegExp(r'^[A-Za-z0-9]{22}$');
-
-    if (raw.startsWith('deezer:')) return MusicServices.deezer;
-    if (raw.startsWith('tidal:')) return MusicServices.tidal;
-    if (raw.startsWith('qobuz:')) return MusicServices.qobuz;
-    if (raw.startsWith('spotify:')) return MusicServices.spotify;
-    if (spotifyTrackIdPattern.hasMatch(raw)) return MusicServices.spotify;
-
-    final uri = Uri.tryParse(raw);
-    if (uri != null) {
-      final host = uri.host.toLowerCase();
-      if (host.contains('spotify.com')) return MusicServices.spotify;
-      if (host.contains('deezer.com')) return MusicServices.deezer;
-      if (host.contains('tidal.com')) return MusicServices.tidal;
-      if (host.contains('qobuz.com')) return MusicServices.qobuz;
-    }
-
-    return fallbackService;
-  }
-
-  String? get _displayAudioQuality {
-    final fileName = _extractFileNameFromPathOrUri(cleanFilePath);
-    final fileExt = fileName.contains('.')
-        ? fileName.split('.').last.toUpperCase()
-        : null;
-
-    return _displayQualityForValues(
-      format: _storedAudioFormat ?? fileExt,
-      bitDepth: bitDepth,
-      sampleRate: sampleRate,
-      bitrateKbps: _audioBitrate,
-      storedQuality: _quality,
-    );
-  }
-
-  /// The raw file path, with EXISTS: prefix stripped but #trackNN preserved.
-  /// Use this when you need the full virtual path (e.g. for display or DB lookups).
-  String get rawFilePath {
-    final path = _filePath;
-    return path.startsWith('EXISTS:') ? path.substring(7) : path;
-  }
-
-  /// The clean file path with both EXISTS: prefix and #trackNN suffix stripped.
-  /// Use this for actual filesystem/SAF operations.
-  String get cleanFilePath {
-    var path = _filePath;
-    if (path.startsWith('EXISTS:')) path = path.substring(7);
-    if (isCueVirtualPath(path)) path = stripCueTrackSuffix(path);
-    return path;
-  }
-
-  bool get _isCueVirtualTrack => isCueVirtualPath(rawFilePath);
-
-  String _cueVirtualTrackGuidance(BuildContext context) {
-    return 'This CUE track is virtual. Use ${context.l10n.cueSplitButton} first.';
-  }
-
-  void _showCueVirtualTrackSnackBar(BuildContext context) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(_cueVirtualTrackGuidance(context))));
-  }
-
-  void _hideCurrentSnackBar() {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  }
-
-  String get _l10nCueSplitFailed => context.l10n.cueSplitFailed;
-  String get _l10nCueSplitNoAudioFile => context.l10n.cueSplitNoAudioFile;
-
-  String _l10nCueSplitSplitting(int current, int total) {
-    return context.l10n.cueSplitSplitting(current, total);
-  }
-
-  String _l10nCueSplitSuccess(int count) {
-    return context.l10n.cueSplitSuccess(count);
-  }
-
-  void _showSnackBarMessage(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  void _showLongSnackBarMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), duration: const Duration(seconds: 60)),
-    );
-  }
-
-  String _formatPathForDisplay(String pathOrUri) {
-    if (pathOrUri.isEmpty || !pathOrUri.startsWith('content://')) {
-      return pathOrUri;
-    }
-
-    try {
-      final uri = Uri.parse(pathOrUri);
-      final segments = uri.pathSegments;
-      String? documentId;
-
-      final documentIndex = segments.indexOf('document');
-      if (documentIndex != -1 && documentIndex + 1 < segments.length) {
-        documentId = Uri.decodeComponent(segments[documentIndex + 1]);
-      }
-
-      if (documentId == null || documentId.isEmpty) {
-        final treeIndex = segments.indexOf('tree');
-        if (treeIndex != -1 && treeIndex + 1 < segments.length) {
-          documentId = Uri.decodeComponent(segments[treeIndex + 1]);
-        }
-      }
-
-      if (documentId == null || documentId.isEmpty) return pathOrUri;
-
-      final separatorIndex = documentId.indexOf(':');
-      if (separatorIndex <= 0) return documentId;
-
-      final volumeId = documentId.substring(0, separatorIndex);
-      final relativePath = documentId
-          .substring(separatorIndex + 1)
-          .replaceAll('\\', '/');
-
-      if (volumeId.toLowerCase() == 'primary') {
-        if (relativePath.isEmpty) return '/storage/emulated/0';
-        return '/storage/emulated/0/$relativePath';
-      }
-
-      if (relativePath.isEmpty) return volumeId;
-      return 'SD Card/$relativePath';
-    } catch (_) {
-      return pathOrUri;
     }
   }
 
@@ -1189,7 +687,11 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
             SliverToBoxAdapter(
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 720),
+                  constraints: BoxConstraints(
+                    maxWidth: adaptiveContentMaxWidth(
+                      MediaQuery.sizeOf(context).width,
+                    ),
+                  ),
                   child: _buildAnimatedTrackContent(context, ref, colorScheme),
                 ),
               ),
@@ -1275,234 +777,6 @@ class _TrackMetadataScreenState extends ConsumerState<TrackMetadataScreen>
         ),
       ],
     );
-  }
-
-  void _showOptionsMenu(
-    BuildContext screenContext,
-    WidgetRef ref,
-    ColorScheme colorScheme,
-  ) {
-    showModalBottomSheet<void>(
-      context: screenContext,
-      useRootNavigator: true,
-      backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      isScrollControlled: true,
-      builder: (sheetContext) {
-        final l10n = sheetContext.l10n;
-
-        final options = <_MetadataOption>[
-          if (_fileExists)
-            _MetadataOption(
-              icon: Icons.playlist_play,
-              label: l10n.trackPlayNext,
-              onTap: () => _enqueueThis(ref, playNext: true),
-            ),
-          if (_fileExists)
-            _MetadataOption(
-              icon: Icons.queue_music,
-              label: l10n.trackAddToQueue,
-              onTap: () => _enqueueThis(ref, playNext: false),
-            ),
-          _MetadataOption(
-            icon: Icons.copy_outlined,
-            label: l10n.trackCopyFilePath,
-            dividerAbove: _fileExists,
-            onTap: () => _copyToClipboard(screenContext, cleanFilePath),
-          ),
-          if (_fileExists)
-            _MetadataOption(
-              icon: Icons.edit_outlined,
-              label: l10n.trackEditMetadata,
-              onTap: () =>
-                  _showEditMetadataSheet(screenContext, ref, colorScheme),
-            ),
-          if (!_isLocalItem && (_coverUrl != null || _fileExists))
-            _MetadataOption(
-              icon: Icons.image_outlined,
-              label: l10n.trackSaveCoverArt,
-              onTap: _saveCoverArt,
-            ),
-          if (!_isLocalItem)
-            _MetadataOption(
-              icon: Icons.lyrics_outlined,
-              label: l10n.trackSaveLyrics,
-              onTap: _saveLyrics,
-            ),
-          if (_fileExists)
-            _MetadataOption(
-              icon: Icons.travel_explore,
-              label: l10n.trackReEnrich,
-              onTap: _reEnrichMetadata,
-            ),
-          if (_fileExists && _isConvertibleFormat)
-            _MetadataOption(
-              icon: Icons.swap_horiz,
-              label: l10n.trackConvertFormat,
-              onTap: () => _showConvertSheet(screenContext),
-            ),
-          if (_fileExists && !_isCueFile)
-            _MetadataOption(
-              icon: Icons.graphic_eq,
-              label: l10n.trackReplayGain,
-              onTap: () => _rescanReplayGain(),
-            ),
-          if (_fileExists && _isCueFile)
-            _MetadataOption(
-              icon: Icons.call_split,
-              label: l10n.cueSplitTitle,
-              onTap: () => _showCueSplitSheet(screenContext),
-            ),
-          _MetadataOption(
-            icon: Icons.share_outlined,
-            label: l10n.trackMetadataShare,
-            dividerAbove: true,
-            onTap: () => _shareFile(screenContext),
-          ),
-          _MetadataOption(
-            icon: Icons.delete_outline,
-            label: l10n.trackRemoveFromDevice,
-            destructive: true,
-            onTap: () => _confirmDelete(screenContext, ref, colorScheme),
-          ),
-        ];
-
-        return SafeArea(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.sizeOf(sheetContext).height * 0.85,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 8),
-                  Center(
-                    child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: colorScheme.onSurfaceVariant.withValues(
-                          alpha: 0.4,
-                        ),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: _buildOptionsHeaderCover(colorScheme),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                trackName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(sheetContext)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                artistName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(sheetContext)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                      color: colorScheme.onSurfaceVariant,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    height: 1,
-                    color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-                  ),
-                  const SizedBox(height: 8),
-                  SettingsGroup(
-                    children: [
-                      for (int i = 0; i < options.length; i++) ...[
-                        if (options[i].dividerAbove && i != 0)
-                          Divider(
-                            height: 1,
-                            thickness: 1,
-                            color: colorScheme.outlineVariant.withValues(
-                              alpha: 0.3,
-                            ),
-                          ),
-                        _MetadataOptionTile(
-                          option: options[i],
-                          colorScheme: colorScheme,
-                          onTap: () => _closeOptionsMenuAndRun(
-                            sheetContext,
-                            options[i].onTap,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildOptionsHeaderCover(ColorScheme colorScheme) {
-    const size = 56.0;
-    const cacheWidth = 112;
-
-    Widget placeholder() => Container(
-      width: size,
-      height: size,
-      color: colorScheme.surfaceContainerHighest,
-      child: Icon(Icons.music_note, color: colorScheme.onSurfaceVariant),
-    );
-
-    if (_coverUrl != null) {
-      return CachedCoverImage(
-        imageUrl: _coverUrl!,
-        width: size,
-        height: size,
-        fit: BoxFit.cover,
-        memCacheWidth: cacheWidth,
-        memCacheHeight: cacheWidth,
-        errorWidget: (_, _, _) => placeholder(),
-      );
-    }
-
-    if (_localCoverPath != null && _localCoverPath!.isNotEmpty) {
-      return Image.file(
-        File(_localCoverPath!),
-        width: size,
-        height: size,
-        fit: BoxFit.cover,
-        cacheWidth: cacheWidth,
-        errorBuilder: (_, _, _) => placeholder(),
-      );
-    }
-
-    return placeholder();
   }
 }
 

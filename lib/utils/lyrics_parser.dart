@@ -115,7 +115,10 @@ class LyricsParser {
       if (idMatch != null) {
         final key = idMatch.group(1)!.toLowerCase();
         if (key == 'offset') {
-          final value = line.substring(line.indexOf(':') + 1).replaceAll(']', '').trim();
+          final value = line
+              .substring(line.indexOf(':') + 1)
+              .replaceAll(']', '')
+              .trim();
           offsetMs = int.tryParse(value) ?? 0;
         }
         continue;
@@ -144,13 +147,7 @@ class LyricsParser {
       for (final tm in timeMatches) {
         final d = _toDuration(tm.group(1), tm.group(2), tm.group(3));
         if (d == null) continue;
-        parsed.add(
-          LyricLine(
-            time: d,
-            text: cleanContent,
-            words: words,
-          ),
-        );
+        parsed.add(LyricLine(time: d, text: cleanContent, words: words));
       }
     }
 
@@ -179,8 +176,10 @@ class LyricsParser {
                   text: l.text,
                   words: l.words
                       .map(
-                        (w) =>
-                            LyricWord(time: _shift(w.time, offsetMs), text: w.text),
+                        (w) => LyricWord(
+                          time: _shift(w.time, offsetMs),
+                          text: w.text,
+                        ),
                       )
                       .toList(),
                 ),
@@ -211,7 +210,9 @@ class LyricsParser {
       final d = _toDuration(m.group(1), m.group(2), m.group(3));
       if (d == null) continue;
       final start = m.end;
-      final end = i + 1 < matches.length ? matches[i + 1].start : content.length;
+      final end = i + 1 < matches.length
+          ? matches[i + 1].start
+          : content.length;
       final word = content.substring(start, end);
       if (word.trim().isEmpty) continue;
       words.add(LyricWord(time: d, text: word));
@@ -253,12 +254,7 @@ class LyricsParser {
 
         if (begin != null) {
           lines.add(
-            LyricLine(
-              time: begin,
-              end: end,
-              text: lineText,
-              words: words,
-            ),
+            LyricLine(time: begin, end: end, text: lineText, words: words),
           );
         }
       }
@@ -301,11 +297,7 @@ class LyricsParser {
         final h = int.parse(parts[0]);
         final m = int.parse(parts[1]);
         final s = double.parse(parts[2]);
-        return Duration(
-          hours: h,
-          minutes: m,
-          milliseconds: (s * 1000).round(),
-        );
+        return Duration(hours: h, minutes: m, milliseconds: (s * 1000).round());
       } else if (parts.length == 2) {
         final m = int.parse(parts[0]);
         final s = double.parse(parts[1]);

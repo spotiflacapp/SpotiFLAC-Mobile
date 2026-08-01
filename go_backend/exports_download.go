@@ -383,12 +383,6 @@ func DownloadByStrategy(requestJSON string) (string, error) {
 	return errorResponse("Extension providers are disabled; built-in download providers have been retired")
 }
 
-func GetDownloadProgress() string {
-	progress := getProgress()
-	jsonBytes, _ := json.Marshal(progress)
-	return string(jsonBytes)
-}
-
 func GetAllDownloadProgress() string {
 	return GetMultiProgress()
 }
@@ -399,10 +393,6 @@ func GetAllDownloadProgressDelta(sinceSeq int64) string {
 
 func InitItemProgress(itemID string) {
 	StartItemProgress(itemID)
-}
-
-func FinishItemProgress(itemID string) {
-	CompleteItemProgress(itemID)
 }
 
 func ClearItemProgress(itemID string) {
@@ -445,18 +435,20 @@ func classifyDownloadErrorType(msg string) string {
 		return "isp_blocked"
 	} else if strings.Contains(lowerMsg, "cancel") {
 		return "cancelled"
-	} else if strings.Contains(lowerMsg, "verify_required") ||
-		strings.Contains(lowerMsg, "verification_required") ||
-		strings.Contains(lowerMsg, "verification required") ||
-		strings.Contains(lowerMsg, "needs verification") ||
+	} else if strings.Contains(lowerMsg, "verification_required") ||
 		strings.Contains(lowerMsg, "session is not authenticated") ||
 		strings.Contains(lowerMsg, "signed session is not authenticated") ||
-		strings.Contains(lowerMsg, "signed session expired") ||
-		strings.Contains(lowerMsg, "unauthorized") ||
-		strings.Contains(lowerMsg, "precondition required") ||
-		messageHasHTTPStatusCode(lowerMsg, "401") ||
-		messageHasHTTPStatusCode(lowerMsg, "428") {
+		strings.Contains(lowerMsg, "signed session expired") {
 		return "verification_required"
+	} else if strings.Contains(lowerMsg, "byoa_provider_reauth_required") ||
+		strings.Contains(lowerMsg, "reauth_provider") {
+		return "provider_reauth_required"
+	} else if strings.Contains(lowerMsg, "request_auth_invalid") {
+		return "request_auth_invalid"
+	} else if strings.Contains(lowerMsg, "provider_auth_failed") {
+		return "provider_auth_failed"
+	} else if strings.Contains(lowerMsg, "provider_unavailable") {
+		return "provider_unavailable"
 	} else if strings.Contains(lowerMsg, "rate limit") ||
 		messageHasHTTPStatusCode(lowerMsg, "429") ||
 		strings.Contains(lowerMsg, "too many requests") {
@@ -481,6 +473,26 @@ func classifyDownloadErrorType(msg string) string {
 	}
 
 	return "unknown"
+}
+
+// isOutputStorageWriteFailure distinguishes an unwritable destination from a
+// provider-specific failure. Provider fallback cannot repair the former: all
+// providers receive the same output path, so continuing only delays the
+// storage fallback and can replace the useful permission error with an
+// unrelated error from the last provider.
+func isOutputStorageWriteFailure(errorType, message string) bool {
+	if strings.EqualFold(strings.TrimSpace(errorType), "permission") {
+		return true
+	}
+	lowerMsg := strings.ToLower(strings.TrimSpace(message))
+	if lowerMsg == "" {
+		return false
+	}
+	return strings.Contains(lowerMsg, "operation not permitted") ||
+		strings.Contains(lowerMsg, "permission denied") ||
+		strings.Contains(lowerMsg, "read-only file system") ||
+		strings.Contains(lowerMsg, "failed to create file") ||
+		strings.Contains(lowerMsg, "failed to create directory")
 }
 
 func messageHasHTTPStatusCode(lowerMsg, code string) bool {

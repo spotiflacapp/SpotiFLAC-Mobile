@@ -27,6 +27,11 @@ object SafDownloadHandler {
     private val safNameLocks = java.util.concurrent.ConcurrentHashMap<String, Any>()
 
     data class UniqueWriteResult(val uri: String, val fileName: String)
+    data class ExistingAwareWriteResult(
+        val uri: String,
+        val fileName: String,
+        val alreadyExists: Boolean,
+    )
 
     private fun <T> withSafNameLock(
         treeUriStr: String,
@@ -349,6 +354,79 @@ object SafDownloadHandler {
                 srcPath,
             ) ?: return@withSafNameLock null
             UniqueWriteResult(uri = uri, fileName = availableName)
+        }
+    }
+
+    fun writeFileToSafCollisionAware(
+        context: Context,
+        treeUriStr: String,
+        relativeDir: String,
+        cleanFileName: String,
+        variantFileName: String,
+        mimeType: String,
+        srcPath: String,
+        preservedSuffix: String = "",
+    ): UniqueWriteResult? {
+        val safeRelativeDir = sanitizeRelativeDir(relativeDir)
+        val cleanName = sanitizeFilename(cleanFileName)
+        val preferredVariant = sanitizeFilenamePreservingSuffix(
+            variantFileName,
+            preservedSuffix,
+        )
+        return withSafNameLock(treeUriStr, safeRelativeDir, cleanName) {
+            val treeUri = Uri.parse(treeUriStr)
+            val targetDir = ensureDocumentDir(context, treeUri, safeRelativeDir)
+                ?: return@withSafNameLock null
+            val selectedName = if (targetDir.findFile(cleanName) == null) {
+                cleanName
+            } else {
+                findAvailableFileName(targetDir, preferredVariant, preservedSuffix)
+            }
+            val uri = writeFileToSafLocked(
+                context,
+                treeUriStr,
+                safeRelativeDir,
+                selectedName,
+                srcPath,
+            ) ?: return@withSafNameLock null
+            UniqueWriteResult(uri = uri, fileName = selectedName)
+        }
+    }
+
+    fun writeFileToSafIfAbsent(
+        context: Context,
+        treeUriStr: String,
+        relativeDir: String,
+        fileName: String,
+        mimeType: String,
+        srcPath: String,
+    ): ExistingAwareWriteResult? {
+        val safeRelativeDir = sanitizeRelativeDir(relativeDir)
+        val finalName = sanitizeFilename(fileName)
+        return withSafNameLock(treeUriStr, safeRelativeDir, finalName) {
+            val treeUri = Uri.parse(treeUriStr)
+            val targetDir = ensureDocumentDir(context, treeUri, safeRelativeDir)
+                ?: return@withSafNameLock null
+            val existing = targetDir.findFile(finalName)
+            if (existing != null && existing.isFile && existing.length() > 0L) {
+                return@withSafNameLock ExistingAwareWriteResult(
+                    uri = existing.uri.toString(),
+                    fileName = existing.name ?: finalName,
+                    alreadyExists = true,
+                )
+            }
+            val uri = writeFileToSafLocked(
+                context,
+                treeUriStr,
+                safeRelativeDir,
+                finalName,
+                srcPath,
+            ) ?: return@withSafNameLock null
+            ExistingAwareWriteResult(
+                uri = uri,
+                fileName = finalName,
+                alreadyExists = false,
+            )
         }
     }
 

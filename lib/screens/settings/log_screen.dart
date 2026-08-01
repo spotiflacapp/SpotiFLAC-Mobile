@@ -4,7 +4,7 @@ import 'package:share_plus/share_plus.dart' show ShareParams, SharePlus;
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 final RegExp _domainPattern = RegExp(
   r'domain:\s*([^\s,]+)',
@@ -140,7 +140,7 @@ class _LogScreenState extends State<LogScreen> {
         body: CustomScrollView(
           controller: _scrollController,
           slivers: [
-            SettingsSliverAppBar(
+            AppSliverHeader.page(
               title: context.l10n.logTitle,
               actions: [
                 IconButton(

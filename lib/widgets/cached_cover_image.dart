@@ -180,6 +180,25 @@ CachedNetworkImageProvider cachedCoverImageProvider(String url) {
   );
 }
 
+/// Pre-warms the cover cache at the metadata-screen display size so the hero
+/// transition doesn't pop in a low-res frame. Http(s) URLs only.
+void precacheCoverImage(BuildContext context, String? url) {
+  if (url == null || url.isEmpty) return;
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return;
+  }
+  final dpr = MediaQuery.devicePixelRatioOf(context).clamp(1.0, 3.0).toDouble();
+  final targetSize = (360 * dpr).round().clamp(512, 1024).toInt();
+  precacheImage(
+    ResizeImage(
+      cachedCoverImageProvider(url),
+      width: targetSize,
+      height: targetSize,
+    ),
+    context,
+  );
+}
+
 int coverImageCacheExtent(
   BuildContext context,
   double logicalSize, {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class PrioritySettingsScaffold extends StatelessWidget {
   final bool hasChanges;
@@ -55,7 +55,7 @@ class PrioritySettingsScaffold extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(
+            AppSliverHeader.page(
               title: title,
               leading: IconButton(
                 tooltip: MaterialLocalizations.of(context).backButtonTooltip,

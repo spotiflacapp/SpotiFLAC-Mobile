@@ -44,6 +44,18 @@ void main() {
       expect(swrHighPass.normalizedDither, 'triangular_hp');
       expect(swrHighPass.hasDither, isTrue);
     });
+
+    test('uses VHQ and a 95 percent passband only for SoXR', () {
+      const soxr = LosslessConversionProcessing(resampler: 'soxr');
+      const swr = LosslessConversionProcessing(resampler: 'swr');
+
+      expect(losslessResamplerFilterOptions(soxr), [
+        'resampler=soxr',
+        'precision=28',
+        'cutoff=0.95',
+      ]);
+      expect(losslessResamplerFilterOptions(swr), ['resampler=swr']);
+    });
   });
 
   group('kept conversion output identity', () {

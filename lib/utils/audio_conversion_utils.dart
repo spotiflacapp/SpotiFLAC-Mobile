@@ -27,6 +27,9 @@ const List<String> losslessDitherOptions = [
 
 const List<String> losslessResamplerOptions = ['swr', 'soxr'];
 
+const int soxrVhqPrecisionBits = 28;
+const double soxrPassbandEndRatio = 0.95;
+
 class LosslessConversionProcessing {
   final String dither;
   final String resampler;
@@ -47,6 +50,19 @@ class LosslessConversionProcessing {
   }
 
   bool get hasDither => normalizedDither != 'none';
+}
+
+List<String> losslessResamplerFilterOptions(
+  LosslessConversionProcessing processing,
+) {
+  final resampler = processing.normalizedResampler;
+  return [
+    'resampler=$resampler',
+    if (resampler == 'soxr') ...[
+      'precision=$soxrVhqPrecisionBits',
+      'cutoff=$soxrPassbandEndRatio',
+    ],
+  ];
 }
 
 List<int> availableLosslessBitDepthOptions(int? sourceBitDepth) {

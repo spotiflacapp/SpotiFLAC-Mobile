@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/extension_row.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,7 +14,7 @@ import 'package:spotiflac_android/screens/settings/extension_detail_page.dart';
 import 'package:spotiflac_android/screens/settings/metadata_provider_priority_page.dart';
 import 'package:spotiflac_android/screens/settings/provider_priority_page.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class ExtensionsPage extends ConsumerStatefulWidget {
   const ExtensionsPage({super.key});
@@ -23,17 +24,6 @@ class ExtensionsPage extends ConsumerStatefulWidget {
 }
 
 class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
-  static final RegExp _platformExceptionPattern = RegExp(
-    r'PlatformException\([^,]+,\s*([^,]+(?:,[^,]+)?),',
-  );
-  static final RegExp _platformExceptionSimplePattern = RegExp(
-    r'PlatformException\([^,]+,\s*(.+?),\s*null',
-  );
-  static final RegExp _trailingNullsPattern = RegExp(
-    r',\s*null\s*,\s*null\)?$',
-  );
-  static final RegExp _leadingCommaPattern = RegExp(r'^\s*,\s*');
-
   @override
   void initState() {
     super.initState();
@@ -68,7 +58,7 @@ class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(title: context.l10n.extensionsTitle),
+            AppSliverHeader.page(title: context.l10n.extensionsTitle),
 
             if (extState.isLoading)
               const SliverToBoxAdapter(
@@ -94,7 +84,7 @@ class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            extState.error!,
+                            context.friendlyError(extState.error),
                             style: TextStyle(
                               color: colorScheme.onErrorContainer,
                             ),
@@ -193,16 +183,19 @@ class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
               ),
 
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: FilledButton.icon(
-                  onPressed: _installExtension,
-                  icon: const Icon(Icons.add),
-                  label: Text(context.l10n.extensionsInstallButton),
-                  style: FilledButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+              child: SettingsSearchTarget(
+                label: context.l10n.extensionsInstallButton,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: FilledButton.icon(
+                    onPressed: _installExtension,
+                    icon: const Icon(Icons.add),
+                    label: Text(context.l10n.extensionsInstallButton),
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
                   ),
                 ),
@@ -210,34 +203,11 @@ class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
             ),
 
             SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
-                child: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: colorScheme.tertiaryContainer.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.info_outline,
-                        size: 20,
-                        color: colorScheme.tertiary,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          context.l10n.extensionsInfoTip,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(
-                                color: colorScheme.onTertiaryContainer,
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              child: SettingsInfoCard(
+                icon: Icons.info_outline,
+                tone: SettingsInfoTone.warning,
+                message: context.l10n.extensionsInfoTip,
+                margin: const EdgeInsets.fromLTRB(16, 8, 16, 32),
               ),
             ),
           ],
@@ -308,26 +278,10 @@ class _ExtensionsPageState extends ConsumerState<ExtensionsPage> {
   }
 
   String _getFriendlyErrorMessage(String? error) {
-    if (error == null) return context.l10n.snackbarFailedToInstall;
-
-    String message = error;
-
-    if (message.contains('PlatformException')) {
-      final match = _platformExceptionPattern.firstMatch(message);
-      if (match != null) {
-        message = match.group(1)?.trim() ?? message;
-      } else {
-        final simpleMatch = _platformExceptionSimplePattern.firstMatch(message);
-        if (simpleMatch != null) {
-          message = simpleMatch.group(1)?.trim() ?? message;
-        }
-      }
-    }
-
-    message = message.replaceAll(_trailingNullsPattern, '');
-    message = message.replaceAll(_leadingCommaPattern, '');
-
-    return message;
+    return context.friendlyError(
+      error,
+      fallback: context.l10n.snackbarFailedToInstall,
+    );
   }
 }
 
@@ -357,95 +311,39 @@ class _ExtensionItem extends StatelessWidget {
         ? null
         : _extensionHealthColor(colorScheme, serviceHealthStatus);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: hasError
-                        ? colorScheme.errorContainer
-                        : colorScheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child:
-                      extension.iconPath != null &&
-                          extension.iconPath!.isNotEmpty
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(
-                            File(extension.iconPath!),
-                            width: 44,
-                            height: 44,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => Icon(
-                              hasError ? Icons.error_outline : Icons.extension,
-                              color: hasError
-                                  ? colorScheme.error
-                                  : colorScheme.onPrimaryContainer,
-                            ),
-                          ),
-                        )
-                      : Icon(
-                          hasError ? Icons.error_outline : Icons.extension,
-                          color: hasError
-                              ? colorScheme.error
-                              : colorScheme.onPrimaryContainer,
-                        ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        extension.displayName,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        hasError
-                            ? extension.errorMessage ??
-                                  context.l10n.extensionsErrorLoading
-                            : serviceHealthStatus == null
-                            ? 'v${extension.version}'
-                            : 'v${extension.version} · ${_extensionHealthLabel(context, serviceHealthStatus)}',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: hasError
-                              ? colorScheme.error
-                              : serviceHealthColor ??
-                                    colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Switch(
-                  value: extension.enabled,
-                  onChanged: hasError ? null : onToggle,
-                ),
-              ],
-            ),
-          ),
+    return ExtensionRow(
+      showDivider: showDivider,
+      onTap: onTap,
+      avatar: ExtensionAvatar(
+        filePath: extension.iconPath,
+        fallbackIcon: hasError ? Icons.error_outline : Icons.extension,
+        background: hasError
+            ? colorScheme.errorContainer
+            : colorScheme.primaryContainer,
+        foreground: hasError
+            ? colorScheme.error
+            : colorScheme.onPrimaryContainer,
+      ),
+      title: Text(extension.displayName),
+      subtitle: Text(
+        hasError
+            ? context.friendlyError(
+                extension.errorMessage,
+                fallback: context.l10n.extensionsErrorLoading,
+              )
+            : serviceHealthStatus == null
+            ? 'v${extension.version}'
+            : 'v${extension.version} · ${_extensionHealthLabel(context, serviceHealthStatus)}',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: hasError
+              ? colorScheme.error
+              : serviceHealthColor ?? colorScheme.onSurfaceVariant,
         ),
-        if (showDivider)
-          Divider(
-            height: 1,
-            thickness: 1,
-            indent: 76,
-            endIndent: 16,
-            color: colorScheme.outlineVariant.withValues(alpha: 0.3),
-          ),
-      ],
+      ),
+      trailing: Switch(
+        value: extension.enabled,
+        onChanged: hasError ? null : onToggle,
+      ),
     );
   }
 }
@@ -488,7 +386,7 @@ class _DownloadPriorityItem extends ConsumerWidget {
       (e) => e.enabled && e.hasDownloadProvider,
     );
 
-    return InkWell(
+    final content = InkWell(
       onTap: hasDownloadExtensions
           ? () => Navigator.push(
               context,
@@ -540,6 +438,10 @@ class _DownloadPriorityItem extends ConsumerWidget {
         ),
       ),
     );
+    return SettingsSearchTarget(
+      label: context.l10n.extensionsDownloadPriority,
+      child: content,
+    );
   }
 }
 
@@ -555,7 +457,7 @@ class _MetadataPriorityItem extends ConsumerWidget {
       (e) => e.enabled && e.hasMetadataProvider,
     );
 
-    return InkWell(
+    final content = InkWell(
       onTap: hasMetadataExtensions
           ? () => Navigator.push(
               context,
@@ -607,6 +509,10 @@ class _MetadataPriorityItem extends ConsumerWidget {
         ),
       ),
     );
+    return SettingsSearchTarget(
+      label: context.l10n.extensionsMetadataPriority,
+      child: content,
+    );
   }
 }
 
@@ -622,7 +528,7 @@ class _DownloadFallbackItem extends ConsumerWidget {
       (e) => e.enabled && e.hasDownloadProvider,
     );
 
-    return InkWell(
+    final content = InkWell(
       onTap: hasDownloadExtensions
           ? () => Navigator.push(
               context,
@@ -674,6 +580,10 @@ class _DownloadFallbackItem extends ConsumerWidget {
         ),
       ),
     );
+    return SettingsSearchTarget(
+      label: context.l10n.extensionsFallbackTitle,
+      child: content,
+    );
   }
 }
 
@@ -704,7 +614,7 @@ class _SearchProviderSelector extends ConsumerWidget {
       currentProviderName = ext?.displayName ?? resolvedProviderId;
     }
 
-    return Column(
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
@@ -761,6 +671,10 @@ class _SearchProviderSelector extends ConsumerWidget {
         ),
       ],
     );
+    return SettingsSearchTarget(
+      label: context.l10n.extensionsSearchProvider,
+      child: content,
+    );
   }
 
   void _showSearchProviderPicker(
@@ -775,9 +689,6 @@ class _SearchProviderSelector extends ConsumerWidget {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (ctx) => SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -858,7 +769,7 @@ class _HomeFeedProviderSelector extends ConsumerWidget {
       currentProviderName = ext?.displayName ?? settings.homeFeedProvider!;
     }
 
-    return Column(
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
@@ -904,6 +815,10 @@ class _HomeFeedProviderSelector extends ConsumerWidget {
         ),
       ],
     );
+    return SettingsSearchTarget(
+      label: context.l10n.extensionsHomeFeedProvider,
+      child: content,
+    );
   }
 
   void _showHomeFeedProviderPicker(
@@ -918,9 +833,6 @@ class _HomeFeedProviderSelector extends ConsumerWidget {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (ctx) => SafeArea(
         child: SingleChildScrollView(
           child: Column(

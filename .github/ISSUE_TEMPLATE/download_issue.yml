@@ -1,111 +1,124 @@
 name: Download Issue
-description: Report issues with downloading specific tracks or albums
+description: Report a wrong, missing, failed, or low-quality download
 title: "[Download]: "
 labels: ["download-issue"]
 body:
   - type: markdown
     attributes:
       value: |
-        Having trouble downloading a specific track or album? Please provide details below.
+        Download matching is extension-driven. Include the source item, provider order, and logs so the exact decision path can be inspected.
 
   - type: checkboxes
     id: checklist
     attributes:
       label: Checklist
-      description: Please confirm the following before submitting
       options:
-        - label: I have tried downloading with a different service (Tidal/Qobuz/Amazon)
+        - label: I searched existing issues and did not find this problem.
           required: true
-        - label: I am using the latest version of SpotiFLAC (Stable Version)
+        - label: I updated the affected extension and retried once.
           required: true
 
   - type: dropdown
     id: issue-type
     attributes:
       label: Issue Type
-      description: What kind of download issue are you experiencing?
       options:
-        - Track not found on service
+        - Track or album not found
         - Wrong track downloaded
-        - Download fails/errors
-        - Metadata incorrect
-        - Audio quality issue
+        - Download fails or stalls
+        - Metadata or cover is incorrect
+        - Audio format or quality is incorrect
+        - Duplicate or replacement behavior
         - Other
     validations:
       required: true
 
   - type: input
-    id: spotify-url
+    id: source-url
     attributes:
-      label: Spotify URL
-      description: The Spotify URL of the track/album you're trying to download
-      placeholder: "https://open.spotify.com/track/..."
-    validations:
-      required: true
+      label: Source URL
+      description: URL pasted or opened in SpotiFLAC Mobile, if available.
+      placeholder: "https://..."
 
   - type: input
     id: track-info
     attributes:
-      label: Track Info
-      description: Artist name and track title
-      placeholder: "Artist - Track Title"
+      label: Track or Album
+      placeholder: "Artist - Track or album title"
+    validations:
+      required: true
+
+  - type: input
+    id: metadata-source
+    attributes:
+      label: Search or Metadata Extension
+      placeholder: "Extension name and version"
+    validations:
+      required: true
+
+  - type: input
+    id: download-provider
+    attributes:
+      label: Selected Download Extension
+      placeholder: "Extension name and version"
+    validations:
+      required: true
+
+  - type: textarea
+    id: priority
+    attributes:
+      label: Provider Priority and Requested Quality
+      placeholder: |
+        Provider order: first, second, third
+        Requested quality: best / 24-bit / ...
+        Automatic fallback: on/off
     validations:
       required: true
 
   - type: dropdown
-    id: download-service
+    id: storage
     attributes:
-      label: Download Service
-      description: Which service did you try to download from?
+      label: Download Storage
       options:
-        - Tidal
-        - Qobuz
-        - Amazon Music
-        - All services
+        - SAF folder
+        - App-specific folder
+        - Not sure
     validations:
       required: true
 
   - type: dropdown
-    id: search-service
+    id: worker
     attributes:
-      label: Search Service
-      description: Which search service are you using?
+      label: Download Worker
       options:
-        - Spotify
-        - Deezer
+        - Native worker
+        - Dart worker
+        - Not sure
     validations:
       required: true
 
   - type: textarea
     id: description
     attributes:
-      label: Description
-      description: Describe the issue in detail
-      placeholder: |
-        What happened? What did you expect?
-        If wrong track was downloaded, what track was downloaded instead?
+      label: What Happened?
+      description: For a wrong match, identify both the expected and downloaded recording.
+      placeholder: Describe the result and the expected result.
     validations:
       required: true
 
   - type: input
-    id: version
+    id: environment
     attributes:
-      label: App Version
-      description: Which version of SpotiFLAC are you using?
-      placeholder: "e.g., v2.2.0"
+      label: App Version, Device, and OS
+      placeholder: "4.8.1 (139), device model, Android/iOS version"
     validations:
       required: true
 
   - type: textarea
-    id: screenshots
+    id: logs
     attributes:
-      label: Screenshots / Logs
-      description: |
-        If applicable, add screenshots or logs.
-        
-        **To get logs:**
-        1. Go to Settings > Options > Detailed Logging (turn ON)
-        2. Try downloading the track again
-        3. Go to Settings > Logs
-        4. Tap Share button to export logs
-      placeholder: Drag & drop screenshots or paste logs here...
+      label: Logs and Screenshots
+      description: Enable detailed logging, retry once, and export Settings > Logs. Remove credentials and personal data.
+      placeholder: Paste logs or drag files here.
+    validations:
+      required: true

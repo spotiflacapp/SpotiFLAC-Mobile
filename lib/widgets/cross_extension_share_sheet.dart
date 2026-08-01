@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/app_bottom_sheet.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
@@ -30,14 +31,13 @@ class CrossExtensionShareSheet extends ConsumerStatefulWidget {
     required String sourceExtensionId,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
-    return showModalBottomSheet<void>(
+    return showAppBottomSheet<void>(
       context: context,
       useRootNavigator: true,
-      isScrollControlled: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
+      title: context.l10n.openInOtherServices,
+      subtitle: artists.isNotEmpty ? '$name - $artists' : name,
+      maxHeightFactor: 0.82,
       builder: (_) => CrossExtensionShareSheet(
         name: name,
         artists: artists,
@@ -93,93 +93,44 @@ class _CrossExtensionShareSheetState
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return SafeArea(
-      top: false,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.sizeOf(context).height * 0.82,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 8),
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 16, 24, 4),
+    return FutureBuilder<List<CrossExtensionShareResult>>(
+      future: _future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const SizedBox(
+            height: 180,
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final results = snapshot.data ?? const [];
+        if (results.isEmpty) {
+          return SizedBox(
+            height: 180,
+            child: Center(
               child: Text(
-                context.l10n.openInOtherServices,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
-              child: Text(
-                widget.artists.isNotEmpty
-                    ? '${widget.name} - ${widget.artists}'
-                    : widget.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+                context.l10n.shareSheetNoExtensions,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
-            Flexible(
-              child: FutureBuilder<List<CrossExtensionShareResult>>(
-                future: _future,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return const SizedBox(
-                      height: 180,
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                  }
+          );
+        }
 
-                  final results = snapshot.data ?? const [];
-                  if (results.isEmpty) {
-                    return SizedBox(
-                      height: 180,
-                      child: Center(
-                        child: Text(
-                          context.l10n.shareSheetNoExtensions,
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.only(bottom: 16, top: 4),
-                    itemBuilder: (context, index) {
-                      final result = results[index];
-                      return _CrossExtensionShareTile(
-                        result: result,
-                        iconPath: _iconPathFor(result.extensionId),
-                      );
-                    },
-                    itemCount: results.length,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+        return ListView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(bottom: 16, top: 4),
+          itemBuilder: (context, index) {
+            final result = results[index];
+            return _CrossExtensionShareTile(
+              result: result,
+              iconPath: _iconPathFor(result.extensionId),
+            );
+          },
+          itemCount: results.length,
+        );
+      },
     );
   }
 }

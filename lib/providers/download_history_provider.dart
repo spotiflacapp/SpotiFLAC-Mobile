@@ -13,6 +13,9 @@ import 'package:spotiflac_android/utils/audio_format_utils.dart';
 import 'package:spotiflac_android/utils/int_utils.dart';
 import 'package:spotiflac_android/utils/path_match_keys.dart';
 
+part 'download_history_models.dart';
+part 'download_history_provider_maintenance.dart';
+
 final _historyLog = AppLogger('DownloadHistory');
 
 typedef StartupOrphanDecision = ({
@@ -54,290 +57,6 @@ String? resolvePersistedHistoryQuality({
       normalizeOptionalString(existing);
 }
 
-class DownloadHistoryItem {
-  final String id;
-  final String trackName;
-  final String artistName;
-  final String albumName;
-  final String? albumArtist;
-  final String? coverUrl;
-  final String filePath;
-  final String? storageMode;
-  final String? downloadTreeUri;
-  final String? safRelativeDir;
-  final String? safFileName;
-  final bool safRepaired;
-  final String service;
-  final DateTime downloadedAt;
-  final String? isrc;
-  final String? spotifyId;
-  final int? trackNumber;
-  final int? totalTracks;
-  final int? discNumber;
-  final int? totalDiscs;
-  final int? duration;
-  final String? releaseDate;
-  final String? quality;
-  final int? bitDepth;
-  final int? sampleRate;
-  final int? bitrate;
-  final String? format;
-  final String? genre;
-  final String? composer;
-  final String? label;
-  final String? copyright;
-
-  const DownloadHistoryItem({
-    required this.id,
-    required this.trackName,
-    required this.artistName,
-    required this.albumName,
-    this.albumArtist,
-    this.coverUrl,
-    required this.filePath,
-    this.storageMode,
-    this.downloadTreeUri,
-    this.safRelativeDir,
-    this.safFileName,
-    this.safRepaired = false,
-    required this.service,
-    required this.downloadedAt,
-    this.isrc,
-    this.spotifyId,
-    this.trackNumber,
-    this.totalTracks,
-    this.discNumber,
-    this.totalDiscs,
-    this.duration,
-    this.releaseDate,
-    this.quality,
-    this.bitDepth,
-    this.sampleRate,
-    this.bitrate,
-    this.format,
-    this.genre,
-    this.composer,
-    this.label,
-    this.copyright,
-  });
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'trackName': trackName,
-    'artistName': artistName,
-    'albumName': albumName,
-    'albumArtist': albumArtist,
-    'coverUrl': coverUrl,
-    'filePath': filePath,
-    'storageMode': storageMode,
-    'downloadTreeUri': downloadTreeUri,
-    'safRelativeDir': safRelativeDir,
-    'safFileName': safFileName,
-    'safRepaired': safRepaired,
-    'service': service,
-    'downloadedAt': downloadedAt.toIso8601String(),
-    'isrc': isrc,
-    'spotifyId': spotifyId,
-    'trackNumber': trackNumber,
-    'totalTracks': totalTracks,
-    'discNumber': discNumber,
-    'totalDiscs': totalDiscs,
-    'duration': duration,
-    'releaseDate': releaseDate,
-    'quality': quality,
-    'bitDepth': bitDepth,
-    'sampleRate': sampleRate,
-    'bitrate': bitrate,
-    'format': format,
-    'genre': genre,
-    'composer': composer,
-    'label': label,
-    'copyright': copyright,
-  };
-
-  factory DownloadHistoryItem.fromJson(Map<String, dynamic> json) =>
-      DownloadHistoryItem(
-        id: json['id'] as String,
-        trackName: json['trackName'] as String,
-        artistName: json['artistName'] as String,
-        albumName: json['albumName'] as String,
-        albumArtist: normalizeOptionalString(json['albumArtist'] as String?),
-        coverUrl: normalizeCoverReference(json['coverUrl']?.toString()),
-        filePath: json['filePath'] as String,
-        storageMode: json['storageMode'] as String?,
-        downloadTreeUri: json['downloadTreeUri'] as String?,
-        safRelativeDir: json['safRelativeDir'] as String?,
-        safFileName: json['safFileName'] as String?,
-        safRepaired: json['safRepaired'] == true,
-        service: json['service'] as String,
-        downloadedAt: DateTime.parse(json['downloadedAt'] as String),
-        isrc: json['isrc'] as String?,
-        spotifyId: json['spotifyId'] as String?,
-        trackNumber: json['trackNumber'] as int?,
-        totalTracks: json['totalTracks'] as int?,
-        discNumber: json['discNumber'] as int?,
-        totalDiscs: json['totalDiscs'] as int?,
-        duration: json['duration'] as int?,
-        releaseDate: json['releaseDate'] as String?,
-        quality: json['quality'] as String?,
-        bitDepth: json['bitDepth'] as int?,
-        sampleRate: json['sampleRate'] as int?,
-        bitrate: (json['bitrate'] as num?)?.toInt(),
-        format: json['format'] as String?,
-        genre: json['genre'] as String?,
-        composer: json['composer'] as String?,
-        label: json['label'] as String?,
-        copyright: json['copyright'] as String?,
-      );
-
-  DownloadHistoryItem copyWith({
-    String? trackName,
-    String? artistName,
-    String? albumName,
-    String? albumArtist,
-    String? coverUrl,
-    String? filePath,
-    String? storageMode,
-    String? downloadTreeUri,
-    String? safRelativeDir,
-    String? safFileName,
-    bool? safRepaired,
-    String? isrc,
-    String? spotifyId,
-    int? trackNumber,
-    int? totalTracks,
-    int? discNumber,
-    int? totalDiscs,
-    int? duration,
-    String? releaseDate,
-    String? quality,
-    int? bitDepth,
-    int? sampleRate,
-    int? bitrate,
-    String? format,
-    String? genre,
-    String? composer,
-    String? label,
-    String? copyright,
-  }) {
-    return DownloadHistoryItem(
-      id: id,
-      trackName: trackName ?? this.trackName,
-      artistName: artistName ?? this.artistName,
-      albumName: albumName ?? this.albumName,
-      albumArtist: albumArtist ?? this.albumArtist,
-      coverUrl: normalizeCoverReference(coverUrl ?? this.coverUrl),
-      filePath: filePath ?? this.filePath,
-      storageMode: storageMode ?? this.storageMode,
-      downloadTreeUri: downloadTreeUri ?? this.downloadTreeUri,
-      safRelativeDir: safRelativeDir ?? this.safRelativeDir,
-      safFileName: safFileName ?? this.safFileName,
-      safRepaired: safRepaired ?? this.safRepaired,
-      service: service,
-      downloadedAt: downloadedAt,
-      isrc: isrc ?? this.isrc,
-      spotifyId: spotifyId ?? this.spotifyId,
-      trackNumber: trackNumber ?? this.trackNumber,
-      totalTracks: totalTracks ?? this.totalTracks,
-      discNumber: discNumber ?? this.discNumber,
-      totalDiscs: totalDiscs ?? this.totalDiscs,
-      duration: duration ?? this.duration,
-      releaseDate: releaseDate ?? this.releaseDate,
-      quality: quality ?? this.quality,
-      bitDepth: bitDepth ?? this.bitDepth,
-      sampleRate: sampleRate ?? this.sampleRate,
-      bitrate: bitrate ?? this.bitrate,
-      format: format ?? this.format,
-      genre: genre ?? this.genre,
-      composer: composer ?? this.composer,
-      label: label ?? this.label,
-      copyright: copyright ?? this.copyright,
-    );
-  }
-}
-
-Map<String, DownloadHistoryItem> _indexRecentHistoryItems(
-  Iterable<DownloadHistoryItem> items,
-  String? Function(DownloadHistoryItem item) keyOf,
-) {
-  final index = <String, DownloadHistoryItem>{};
-  for (final item in items) {
-    final key = keyOf(item);
-    if (key != null && key.isNotEmpty) {
-      index.putIfAbsent(key, () => item);
-    }
-  }
-  return index;
-}
-
-class DownloadHistoryState {
-  final List<DownloadHistoryItem> items;
-  final int totalCount;
-  final int loadedIndexVersion;
-  final List<DownloadHistoryItem> _lookupItems;
-  final Map<String, DownloadHistoryItem> _bySpotifyId;
-  final Map<String, DownloadHistoryItem> _byIsrc;
-  final Map<String, DownloadHistoryItem> _byTrackArtistKey;
-
-  DownloadHistoryState({
-    this.items = const [],
-    this.totalCount = 0,
-    this.loadedIndexVersion = 0,
-    List<DownloadHistoryItem>? lookupItems,
-  }) : _lookupItems = List.unmodifiable(lookupItems ?? items),
-       _bySpotifyId = _indexRecentHistoryItems(
-         lookupItems ?? items,
-         (item) => item.spotifyId,
-       ),
-       _byIsrc = _indexRecentHistoryItems(
-         lookupItems ?? items,
-         (item) => item.isrc,
-       ),
-       _byTrackArtistKey = _indexRecentHistoryItems(
-         lookupItems ?? items,
-         (item) => _trackArtistKey(item.trackName, item.artistName),
-       );
-
-  static String _trackArtistKey(String trackName, String artistName) {
-    final normalizedTrack = trackName.trim().toLowerCase();
-    if (normalizedTrack.isEmpty) return '';
-    final normalizedArtist = artistName.trim().toLowerCase();
-    return '$normalizedTrack|$normalizedArtist';
-  }
-
-  bool isDownloaded(String spotifyId) => _bySpotifyId.containsKey(spotifyId);
-
-  DownloadHistoryItem? getBySpotifyId(String spotifyId) =>
-      _bySpotifyId[spotifyId];
-
-  DownloadHistoryItem? getByIsrc(String isrc) => _byIsrc[isrc];
-
-  DownloadHistoryItem? findByTrackAndArtist(
-    String trackName,
-    String artistName,
-  ) {
-    final key = _trackArtistKey(trackName, artistName);
-    if (key.isEmpty) return null;
-    return _byTrackArtistKey[key];
-  }
-
-  List<DownloadHistoryItem> get lookupItems => _lookupItems;
-
-  DownloadHistoryState copyWith({
-    List<DownloadHistoryItem>? items,
-    int? totalCount,
-    int? loadedIndexVersion,
-    List<DownloadHistoryItem>? lookupItems,
-  }) {
-    return DownloadHistoryState(
-      items: items ?? this.items,
-      totalCount: totalCount ?? this.totalCount,
-      loadedIndexVersion: loadedIndexVersion ?? this.loadedIndexVersion,
-      lookupItems: lookupItems ?? _lookupItems,
-    );
-  }
-}
-
 class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
   static const int _initialHistoryLoadLimit = 100;
   static const int _safRepairBatchSize = 20;
@@ -363,9 +82,13 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
   bool _isAudioMetadataBackfillInProgress = false;
   bool _startupMaintenanceScheduled = false;
   Future<void> _historyWriteChain = Future<void>.value();
+  Timer? _indexBumpTimer;
+  DateTime? _lastIndexBumpAt;
+  static const _indexBumpWindow = Duration(seconds: 1);
 
   @override
   DownloadHistoryState build() {
+    ref.onDispose(() => _indexBumpTimer?.cancel());
     _loadFromDatabaseSync();
     return DownloadHistoryState();
   }
@@ -411,597 +134,6 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
       _scheduleStartupMaintenance(items);
     } catch (e, stack) {
       _historyLog.e('Failed to load history from database: $e', e, stack);
-    }
-  }
-
-  void _scheduleStartupMaintenance(List<DownloadHistoryItem> initialItems) {
-    if (_startupMaintenanceScheduled) {
-      return;
-    }
-    _startupMaintenanceScheduled = true;
-
-    unawaited(
-      Future<void>.delayed(_startupMaintenanceDelay, () async {
-        try {
-          final prefs = await SharedPreferences.getInstance();
-
-          if (Platform.isAndroid) {
-            await _repairMissingSafEntries(
-              initialItems,
-              maxItems: _safRepairMaxPerLaunch,
-              prefs: prefs,
-            );
-            await Future<void>.delayed(_startupMaintenanceStepGap);
-          }
-
-          await _cleanupOrphanedDownloadsIncremental(
-            maxItems: _orphanCleanupMaxPerLaunch,
-            prefs: prefs,
-          );
-          await Future<void>.delayed(_startupMaintenanceStepGap);
-
-          final currentItems = state.items;
-          if (currentItems.isNotEmpty) {
-            await _backfillAudioMetadata(
-              currentItems,
-              maxItems: _audioMetadataBackfillMaxPerLaunch,
-              prefs: prefs,
-            );
-          }
-        } catch (e, stack) {
-          _historyLog.w('Startup history maintenance failed: $e');
-          _historyLog.d('$stack');
-        }
-      }),
-    );
-  }
-
-  int _readStartupCursor(SharedPreferences prefs, String key, int totalCount) {
-    if (totalCount <= 0) {
-      return 0;
-    }
-    final cursor = prefs.getInt(key) ?? 0;
-    if (cursor < 0 || cursor >= totalCount) {
-      return 0;
-    }
-    return cursor;
-  }
-
-  Future<void> _writeStartupCursor(
-    SharedPreferences prefs,
-    String key,
-    int nextCursor,
-    int totalCount,
-  ) async {
-    if (totalCount <= 0 || nextCursor <= 0 || nextCursor >= totalCount) {
-      await prefs.remove(key);
-      return;
-    }
-    await prefs.setInt(key, nextCursor);
-  }
-
-  String _fileNameFromUri(String uri) {
-    try {
-      final parsed = Uri.parse(uri);
-      if (parsed.pathSegments.isNotEmpty) {
-        return Uri.decodeComponent(parsed.pathSegments.last);
-      }
-    } catch (_) {}
-    return '';
-  }
-
-  List<String> _conversionRenameCandidates(
-    String fileName, {
-    bool includeAlternateExtensions = false,
-  }) {
-    if (fileName.trim().isEmpty) return const [];
-    final dotIndex = fileName.lastIndexOf('.');
-    if (dotIndex < 0) return [fileName];
-    final baseName = fileName.substring(0, dotIndex);
-    final extension = fileName.substring(dotIndex);
-    final plainBase = baseName.endsWith('_converted')
-        ? baseName.substring(0, baseName.length - '_converted'.length)
-        : baseName;
-    return <String>{
-      fileName,
-      if (plainBase != baseName) '$plainBase$extension',
-      if (plainBase == baseName) '${baseName}_converted$extension',
-      if (includeAlternateExtensions)
-        for (final audioExtension in _audioExtensions)
-          '$plainBase$audioExtension',
-    }.toList(growable: false);
-  }
-
-  Future<void> _repairMissingSafEntries(
-    List<DownloadHistoryItem> items, {
-    required int maxItems,
-    required SharedPreferences prefs,
-  }) async {
-    if (_isSafRepairInProgress || items.isEmpty) {
-      return;
-    }
-    _isSafRepairInProgress = true;
-
-    final candidateIndexes = <int>[];
-    for (var i = 0; i < items.length; i++) {
-      final item = items[i];
-      if (item.storageMode != 'saf') continue;
-      if (item.downloadTreeUri == null || item.downloadTreeUri!.isEmpty) {
-        continue;
-      }
-      final hasFilePath = item.filePath.trim().isNotEmpty;
-      final hasSafFileName =
-          item.safFileName != null && item.safFileName!.trim().isNotEmpty;
-      if (!hasFilePath && !hasSafFileName) {
-        continue;
-      }
-      candidateIndexes.add(i);
-    }
-
-    if (candidateIndexes.isEmpty) {
-      await prefs.remove(_startupSafRepairCursorKey);
-      _isSafRepairInProgress = false;
-      return;
-    }
-
-    final startCursor = _readStartupCursor(
-      prefs,
-      _startupSafRepairCursorKey,
-      candidateIndexes.length,
-    );
-    final endCursor = (startCursor + maxItems).clamp(
-      0,
-      candidateIndexes.length,
-    );
-    final selectedIndexes = candidateIndexes.sublist(startCursor, endCursor);
-
-    if (selectedIndexes.isEmpty) {
-      await prefs.remove(_startupSafRepairCursorKey);
-      _isSafRepairInProgress = false;
-      return;
-    }
-
-    final updatedItems = [...items];
-    final persistedUpdates = <Map<String, dynamic>>[];
-    var changed = false;
-    var repairedCount = 0;
-    var verifiedCount = 0;
-
-    try {
-      for (var c = 0; c < selectedIndexes.length; c++) {
-        final i = selectedIndexes[c];
-        final item = items[i];
-        final rawPath = item.filePath.trim();
-        final isDirectSafUri = rawPath.isNotEmpty && isContentUri(rawPath);
-
-        if (isDirectSafUri) {
-          final exists = await fileExists(rawPath);
-          if (exists) {
-            final verified = item.copyWith(
-              safRepaired: true,
-              safFileName: item.safFileName ?? _fileNameFromUri(rawPath),
-            );
-            updatedItems[i] = verified;
-            changed = true;
-            verifiedCount++;
-            persistedUpdates.add(verified.toJson());
-            continue;
-          }
-        }
-
-        var fallbackName = (item.safFileName ?? '').trim();
-        if (fallbackName.isEmpty && isDirectSafUri) {
-          fallbackName = _fileNameFromUri(rawPath);
-        }
-        if (fallbackName.isEmpty) {
-          _historyLog.w('Missing SAF filename for history item: ${item.id}');
-          continue;
-        }
-
-        try {
-          Map<String, dynamic>? resolved;
-          String? resolvedFileName;
-          for (final candidate in _conversionRenameCandidates(fallbackName)) {
-            final candidateResult = await PlatformBridge.resolveSafFile(
-              treeUri: item.downloadTreeUri!,
-              relativeDir: item.safRelativeDir ?? '',
-              fileName: candidate,
-            );
-            final candidateUri = (candidateResult['uri'] as String? ?? '')
-                .trim();
-            if (candidateUri.isEmpty) continue;
-            resolved = candidateResult;
-            resolvedFileName = candidate;
-            break;
-          }
-          if (resolved == null || resolvedFileName == null) continue;
-          final newUri = (resolved['uri'] as String).trim();
-
-          final newRelativeDir = resolved['relative_dir'] as String?;
-          final updated = item.copyWith(
-            filePath: newUri,
-            safRelativeDir:
-                (newRelativeDir != null && newRelativeDir.isNotEmpty)
-                ? newRelativeDir
-                : item.safRelativeDir,
-            safFileName: resolvedFileName,
-            safRepaired: true,
-          );
-
-          updatedItems[i] = updated;
-          changed = true;
-          repairedCount++;
-          persistedUpdates.add(updated.toJson());
-        } catch (e) {
-          _historyLog.w('Failed to repair SAF URI: $e');
-        }
-
-        if ((c + 1) % _safRepairBatchSize == 0) {
-          await Future<void>.delayed(const Duration(milliseconds: 16));
-        }
-      }
-
-      if (changed) {
-        await _db.upsertBatch(persistedUpdates);
-        state = state.copyWith(
-          items: updatedItems,
-          loadedIndexVersion: state.loadedIndexVersion + 1,
-          lookupItems: _lookupItemsWithUpdates(updatedItems),
-        );
-        _historyLog.i(
-          'SAF repair pass: verified=$verifiedCount, repaired=$repairedCount, checked=${selectedIndexes.length}',
-        );
-      }
-      await _writeStartupCursor(
-        prefs,
-        _startupSafRepairCursorKey,
-        endCursor,
-        candidateIndexes.length,
-      );
-    } finally {
-      _isSafRepairInProgress = false;
-    }
-  }
-
-  bool _supportsAudioMetadataProbe(String filePath) {
-    final trimmed = filePath.trim().toLowerCase();
-    if (trimmed.isEmpty) return false;
-    if (trimmed.startsWith('content://')) return true;
-    return trimmed.endsWith('.flac') ||
-        trimmed.endsWith('.m4a') ||
-        trimmed.endsWith('.mp4') ||
-        trimmed.endsWith('.aac') ||
-        trimmed.endsWith('.mp3') ||
-        trimmed.endsWith('.opus') ||
-        trimmed.endsWith('.ogg');
-  }
-
-  bool _shouldBackfillAudioMetadata(DownloadHistoryItem item) {
-    if (!_supportsAudioMetadataProbe(item.filePath)) {
-      return false;
-    }
-
-    final trimmedPath = item.filePath.trim().toLowerCase();
-    final hasResolvedSpecs =
-        item.bitDepth != null &&
-        item.bitDepth! > 0 &&
-        item.sampleRate != null &&
-        item.sampleRate! > 0;
-    final needsFormatBackfill = normalizeOptionalString(item.format) == null;
-    final needsLosslessSpecProbe =
-        !hasResolvedSpecs &&
-        (trimmedPath.endsWith('.flac') ||
-            trimmedPath.endsWith('.m4a') ||
-            trimmedPath.endsWith('.mp4') ||
-            trimmedPath.endsWith('.aac') ||
-            trimmedPath.startsWith('content://'));
-
-    if (hasResolvedSpecs && !isPlaceholderQualityLabel(item.quality)) {
-      final needsComposerBackfill =
-          normalizeOptionalString(item.composer) == null;
-      final needsDurationBackfill = item.duration == null || item.duration == 0;
-      final needsTrackNumberBackfill = item.trackNumber == null;
-      final needsTotalTracksBackfill = item.totalTracks == null;
-      final needsDiscNumberBackfill = item.discNumber == null;
-      final needsTotalDiscsBackfill = item.totalDiscs == null;
-      return needsComposerBackfill ||
-          needsFormatBackfill ||
-          needsDurationBackfill ||
-          needsTrackNumberBackfill ||
-          needsTotalTracksBackfill ||
-          needsDiscNumberBackfill ||
-          needsTotalDiscsBackfill;
-    }
-
-    final needsComposerBackfill =
-        normalizeOptionalString(item.composer) == null;
-    final needsDurationBackfill = item.duration == null || item.duration == 0;
-    final needsTrackNumberBackfill = item.trackNumber == null;
-    final needsTotalTracksBackfill = item.totalTracks == null;
-    final needsDiscNumberBackfill = item.discNumber == null;
-    final needsTotalDiscsBackfill = item.totalDiscs == null;
-    return needsLosslessSpecProbe ||
-        needsFormatBackfill ||
-        isPlaceholderQualityLabel(item.quality) ||
-        normalizeOptionalString(item.quality) == null ||
-        needsComposerBackfill ||
-        needsDurationBackfill ||
-        needsTrackNumberBackfill ||
-        needsTotalTracksBackfill ||
-        needsDiscNumberBackfill ||
-        needsTotalDiscsBackfill;
-  }
-
-  /// Errors that indicate the file content itself cannot be parsed — as
-  /// opposed to transient conditions like a missing file or an unmounted
-  /// SAF volume. These never resolve on retry.
-  static bool _isPermanentProbeError(String error) {
-    final lower = error.toLowerCase();
-    return lower.contains('failed to parse') ||
-        lower.contains('head incorrect') ||
-        lower.contains('invalid') ||
-        lower.contains('not a ');
-  }
-
-  Set<String> _readAudioProbeFailedPaths(SharedPreferences prefs) {
-    final stored = prefs.getStringList(_audioProbeFailedPathsKey);
-    if (stored == null || stored.isEmpty) return <String>{};
-    return stored.toSet();
-  }
-
-  Future<void> _rememberAudioProbeFailure(
-    SharedPreferences prefs,
-    String filePath,
-  ) async {
-    final normalized = filePath.trim();
-    if (normalized.isEmpty) return;
-    final stored = prefs.getStringList(_audioProbeFailedPathsKey) ?? <String>[];
-    if (stored.contains(normalized)) return;
-    stored.add(normalized);
-    while (stored.length > _audioProbeFailedPathsMax) {
-      stored.removeAt(0);
-    }
-    await prefs.setStringList(_audioProbeFailedPathsKey, stored);
-  }
-
-  Future<Map<String, dynamic>?> _probeAudioMetadata(
-    String filePath, {
-    String? fallbackQuality,
-  }) async {
-    if (!_supportsAudioMetadataProbe(filePath)) {
-      return null;
-    }
-
-    try {
-      final result = await PlatformBridge.readFileMetadata(filePath);
-      final error = result['error'];
-      if (error != null) {
-        if (_isPermanentProbeError(error.toString())) {
-          // The file content itself is unparseable (e.g. an MP4 stream under
-          // a .flac name); retrying on every launch can never succeed.
-          return const {'permanent_failure': true};
-        }
-        return null;
-      }
-
-      final bitDepth = readPositiveInt(result['bit_depth']);
-      final sampleRate = readPositiveInt(result['sample_rate']);
-      final detectedFormat = normalizeAudioFormatValue(
-        result['audio_codec']?.toString() ?? result['format']?.toString(),
-      );
-      final rawBitrateKbps = readPositiveBitrateKbps(result['bitrate']);
-      final bitrateKbps = isLossyAudioFormat(detectedFormat)
-          ? rawBitrateKbps
-          : null;
-      final quality = resolveDisplayQuality(
-        filePath: filePath,
-        detectedFormat: detectedFormat,
-        bitDepth: bitDepth,
-        sampleRate: sampleRate,
-        bitrateKbps: bitrateKbps,
-        storedQuality: fallbackQuality,
-      );
-      final composer = normalizeOptionalString(result['composer']?.toString());
-      final duration = readPositiveInt(result['duration']);
-      final trackNumber = readPositiveInt(result['track_number']);
-      final totalTracks = readPositiveInt(result['total_tracks']);
-      final discNumber = readPositiveInt(result['disc_number']);
-      final totalDiscs = readPositiveInt(result['total_discs']);
-
-      if (quality == null &&
-          bitDepth == null &&
-          sampleRate == null &&
-          bitrateKbps == null &&
-          detectedFormat == null &&
-          composer == null &&
-          duration == null &&
-          trackNumber == null &&
-          totalTracks == null &&
-          discNumber == null &&
-          totalDiscs == null) {
-        return null;
-      }
-
-      return {
-        'quality': quality,
-        'bitDepth': bitDepth,
-        'sampleRate': sampleRate,
-        'bitrate': bitrateKbps,
-        'format': detectedFormat,
-        'bitrateKbps': bitrateKbps,
-        'composer': composer,
-        'duration': duration,
-        'trackNumber': trackNumber,
-        'totalTracks': totalTracks,
-        'discNumber': discNumber,
-        'totalDiscs': totalDiscs,
-      };
-    } catch (e) {
-      _historyLog.d('Audio metadata probe failed for $filePath: $e');
-      return null;
-    }
-  }
-
-  Future<void> _backfillAudioMetadata(
-    List<DownloadHistoryItem> items, {
-    required int maxItems,
-    required SharedPreferences prefs,
-  }) async {
-    if (_isAudioMetadataBackfillInProgress || items.isEmpty) {
-      return;
-    }
-    _isAudioMetadataBackfillInProgress = true;
-
-    try {
-      final probeFailedPaths = _readAudioProbeFailedPaths(prefs);
-      final candidateIndexes = <int>[];
-      for (var i = 0; i < items.length; i++) {
-        if (!_shouldBackfillAudioMetadata(items[i])) continue;
-        if (probeFailedPaths.contains(items[i].filePath.trim())) continue;
-        candidateIndexes.add(i);
-      }
-
-      if (candidateIndexes.isEmpty) {
-        await prefs.remove(_startupAudioCursorKey);
-        return;
-      }
-
-      final startCursor = _readStartupCursor(
-        prefs,
-        _startupAudioCursorKey,
-        candidateIndexes.length,
-      );
-      final endCursor = (startCursor + maxItems).clamp(
-        0,
-        candidateIndexes.length,
-      );
-      final selectedIndexes = candidateIndexes.sublist(startCursor, endCursor);
-
-      if (selectedIndexes.isEmpty) {
-        await prefs.remove(_startupAudioCursorKey);
-        return;
-      }
-
-      List<DownloadHistoryItem>? updatedItems;
-      final persistedUpdates = <Map<String, dynamic>>[];
-      var refreshedCount = 0;
-
-      for (final index in selectedIndexes) {
-        final item = items[index];
-
-        final probed = await _probeAudioMetadata(
-          item.filePath,
-          fallbackQuality: item.quality,
-        );
-        if (probed == null) {
-          continue;
-        }
-        if (probed['permanent_failure'] == true) {
-          // Remember the path so this file stops being reselected on every
-          // launch; the content can never parse, only a re-download fixes it.
-          await _rememberAudioProbeFailure(prefs, item.filePath);
-          continue;
-        }
-
-        final resolvedQuality = normalizeOptionalString(
-          probed['quality'] as String?,
-        );
-        final resolvedBitDepth = probed['bitDepth'] as int?;
-        final resolvedSampleRate = probed['sampleRate'] as int?;
-        final resolvedBitrate = probed['bitrate'] as int?;
-        final resolvedFormat = normalizeOptionalString(
-          probed['format'] as String?,
-        );
-        final resolvedComposer = normalizeOptionalString(
-          probed['composer'] as String?,
-        );
-        final resolvedDuration = probed['duration'] as int?;
-        final resolvedTrackNumber = probed['trackNumber'] as int?;
-        final resolvedTotalTracks = probed['totalTracks'] as int?;
-        final resolvedDiscNumber = probed['discNumber'] as int?;
-        final resolvedTotalDiscs = probed['totalDiscs'] as int?;
-
-        final qualityChanged =
-            resolvedQuality != null && resolvedQuality != item.quality;
-        final bitDepthChanged =
-            resolvedBitDepth != null && resolvedBitDepth != item.bitDepth;
-        final sampleRateChanged =
-            resolvedSampleRate != null && resolvedSampleRate != item.sampleRate;
-        final bitrateChanged =
-            resolvedBitrate != null && resolvedBitrate != item.bitrate;
-        final formatChanged =
-            resolvedFormat != null && resolvedFormat != item.format;
-        final composerChanged =
-            resolvedComposer != null && resolvedComposer != item.composer;
-        final durationChanged =
-            resolvedDuration != null && resolvedDuration != item.duration;
-        final trackNumberChanged =
-            resolvedTrackNumber != null &&
-            resolvedTrackNumber != item.trackNumber;
-        final totalTracksChanged =
-            resolvedTotalTracks != null &&
-            resolvedTotalTracks != item.totalTracks;
-        final discNumberChanged =
-            resolvedDiscNumber != null && resolvedDiscNumber != item.discNumber;
-        final totalDiscsChanged =
-            resolvedTotalDiscs != null && resolvedTotalDiscs != item.totalDiscs;
-
-        if (!qualityChanged &&
-            !bitDepthChanged &&
-            !sampleRateChanged &&
-            !bitrateChanged &&
-            !formatChanged &&
-            !composerChanged &&
-            !durationChanged &&
-            !trackNumberChanged &&
-            !totalTracksChanged &&
-            !discNumberChanged &&
-            !totalDiscsChanged) {
-          continue;
-        }
-
-        final updated = item.copyWith(
-          quality: resolvedQuality,
-          bitDepth: resolvedBitDepth,
-          sampleRate: resolvedSampleRate,
-          bitrate: resolvedBitrate,
-          format: resolvedFormat,
-          composer: resolvedComposer,
-          duration: resolvedDuration,
-          trackNumber: resolvedTrackNumber,
-          totalTracks: resolvedTotalTracks,
-          discNumber: resolvedDiscNumber,
-          totalDiscs: resolvedTotalDiscs,
-        );
-        updatedItems ??= [...items];
-        updatedItems[index] = updated;
-        persistedUpdates.add(updated.toJson());
-        refreshedCount++;
-      }
-
-      if (persistedUpdates.isNotEmpty && updatedItems != null) {
-        await _db.upsertBatch(persistedUpdates);
-        state = state.copyWith(
-          items: updatedItems,
-          loadedIndexVersion: state.loadedIndexVersion + 1,
-          lookupItems: _lookupItemsWithUpdates(updatedItems),
-        );
-      }
-
-      await _writeStartupCursor(
-        prefs,
-        _startupAudioCursorKey,
-        endCursor,
-        candidateIndexes.length,
-      );
-
-      if (refreshedCount > 0) {
-        _historyLog.i(
-          'Audio metadata backfill refreshed $refreshedCount items',
-        );
-      }
-    } finally {
-      _isAudioMetadataBackfillInProgress = false;
     }
   }
 
@@ -1162,20 +294,47 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
         await _db.upsert(resolved.item.toJson());
         _putResolvedHistoryInMemory(resolved.item, resolved.existingId);
       }
-      int? persistedCount;
-      try {
-        persistedCount = await _db.getCount();
-      } catch (error) {
-        _historyLog.w('History saved but count refresh failed: $error');
-      }
-      state = state.copyWith(
-        totalCount: persistedCount ?? state.totalCount,
-        loadedIndexVersion: state.loadedIndexVersion + 1,
-      );
+      _scheduleIndexBump();
     } catch (e, stack) {
       _historyLog.e('Failed to $action: $e', e, stack);
       rethrow;
     }
+  }
+
+  /// Coalesces the post-persist count refresh + index bump to at most one per
+  /// [_indexBumpWindow]. Every bump invalidates the DB-derived views (queue
+  /// union queries, grouped counts, per-row exists checks) across all
+  /// keep-alive tabs, so per-item bumps during a batch fan out into repeated
+  /// full-table work.
+  void _scheduleIndexBump() {
+    if (_indexBumpTimer != null) return;
+    final now = DateTime.now();
+    final sinceLast = _lastIndexBumpAt == null
+        ? _indexBumpWindow
+        : now.difference(_lastIndexBumpAt!);
+    if (sinceLast >= _indexBumpWindow) {
+      _lastIndexBumpAt = now;
+      unawaited(_bumpIndexNow());
+      return;
+    }
+    _indexBumpTimer = Timer(_indexBumpWindow - sinceLast, () {
+      _indexBumpTimer = null;
+      _lastIndexBumpAt = DateTime.now();
+      unawaited(_bumpIndexNow());
+    });
+  }
+
+  Future<void> _bumpIndexNow() async {
+    int? persistedCount;
+    try {
+      persistedCount = await _db.getCount();
+    } catch (error) {
+      _historyLog.w('History saved but count refresh failed: $error');
+    }
+    state = state.copyWith(
+      totalCount: persistedCount ?? state.totalCount,
+      loadedIndexVersion: state.loadedIndexVersion + 1,
+    );
   }
 
   DownloadHistoryItem _putInMemoryTrackVariant(DownloadHistoryItem item) {
@@ -1365,7 +524,10 @@ class DownloadHistoryNotifier extends Notifier<DownloadHistoryState> {
       lookupItems: _lookupItemsWithUpdates([updated]),
     );
     await _db.upsert(updated.toJson());
-    _bumpHistoryRevision();
+    // Swiping through older tracks can backfill several quality records in a
+    // short burst. Coalesce their DB-derived Library refreshes just like
+    // download completion writes instead of rebuilding every view per swipe.
+    _scheduleIndexBump();
   }
 
   Future<void> updateMetadataForItem({
@@ -1860,37 +1022,6 @@ final downloadHistoryProvider =
       DownloadHistoryNotifier.new,
     );
 
-class DownloadHistoryPageRequest {
-  final int limit;
-  final int offset;
-
-  const DownloadHistoryPageRequest({this.limit = 100, this.offset = 0});
-
-  @override
-  bool operator ==(Object other) =>
-      other is DownloadHistoryPageRequest &&
-      other.limit == limit &&
-      other.offset == offset;
-
-  @override
-  int get hashCode => Object.hash(limit, offset);
-}
-
-final downloadHistoryPageProvider = FutureProvider.autoDispose
-    .family<List<DownloadHistoryItem>, DownloadHistoryPageRequest>((
-      ref,
-      request,
-    ) async {
-      ref.watch(
-        downloadHistoryProvider.select((state) => state.loadedIndexVersion),
-      );
-      final rows = await HistoryDatabase.instance.getAll(
-        limit: request.limit,
-        offset: request.offset,
-      );
-      return rows.map(DownloadHistoryItem.fromJson).toList(growable: false);
-    });
-
 class DownloadHistoryGroupedCounts {
   final int albumCount;
   final int singleTrackCount;
@@ -1935,34 +1066,24 @@ final downloadHistoryExistsProvider = FutureProvider.autoDispose
       );
     });
 
+// Deliberately no per-row verifyOrRepairHistoryItem here (issue #495): on a
+// >500-track playlist that verify pass meant one SAF stat round-trip per
+// already-downloaded track, and any loadedIndexVersion bump mid-pass restarted
+// it from zero — above ~500 tracks the future never settled and "Download all"
+// silently did nothing. Stale rows are reconciled by the startup repair and
+// orphan-cleanup passes; the single-track provider above keeps the verify.
 final downloadHistoryBatchExistsProvider = FutureProvider.autoDispose
     .family<Set<String>, HistoryBatchLookupRequest>((ref, request) async {
       ref.watch(
         downloadHistoryProvider.select((state) => state.loadedIndexVersion),
       );
-      final notifier = ref.read(downloadHistoryProvider.notifier);
       final rows = await HistoryDatabase.instance.findExistingTracks(
         request.tracks,
       );
-      final found = <String>{};
-      const chunkSize = 16;
-      for (var start = 0; start < rows.length; start += chunkSize) {
-        final end = min(start + chunkSize, rows.length);
-        final checks = await Future.wait(
-          List.generate(end - start, (offset) async {
-            final index = start + offset;
-            final row = rows[index];
-            if (row == null) return null;
-            final exists = await notifier.verifyOrRepairHistoryItem(
-              DownloadHistoryItem.fromJson(row),
-            );
-            if (!exists) return null;
-            return request.tracks[index].lookupKey;
-          }),
-        );
-        found.addAll(checks.whereType<String>());
-      }
-      return found;
+      return <String>{
+        for (var i = 0; i < rows.length; i++)
+          if (rows[i] != null) request.tracks[i].lookupKey,
+      };
     });
 
 class DownloadedAlbumTracksRequest {

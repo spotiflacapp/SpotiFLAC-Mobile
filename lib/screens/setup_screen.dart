@@ -11,9 +11,14 @@ import 'package:spotiflac_android/l10n/supported_locales.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
+import 'package:spotiflac_android/widgets/scroll_edge_fade.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 
 final _log = AppLogger('SetupScreen');
+
+// Height of the back-button/progress header row above the PageView
+// (16 vertical padding * 2 + 48 button).
+const _headerHeight = 80.0;
 
 class SetupScreen extends ConsumerStatefulWidget {
   const SetupScreen({super.key});
@@ -24,6 +29,7 @@ class SetupScreen extends ConsumerStatefulWidget {
 
 class _SetupScreenState extends ConsumerState<SetupScreen> {
   final PageController _pageController = PageController();
+  final ScrollController _languageScrollController = ScrollController();
   int _currentStep = 0;
 
   String _selectedLocale = 'system';
@@ -46,6 +52,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
   @override
   void dispose() {
     _pageController.dispose();
+    _languageScrollController.dispose();
     super.dispose();
   }
 
@@ -251,7 +258,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  context.l10n.snackbarCannotOpenFile(e.toString()),
+                  context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
                 ),
               ),
             );
@@ -313,9 +320,6 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (ctx) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -364,7 +368,9 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          context.l10n.snackbarFolderPickerFailed(e.toString()),
+                          context.l10n.snackbarFolderPickerFailed(
+                            context.friendlyError(e),
+                          ),
                         ),
                         backgroundColor: Theme.of(context).colorScheme.error,
                         duration: const Duration(seconds: 4),
@@ -472,7 +478,9 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
+          SnackBar(
+            content: Text(context.l10n.snackbarError(context.friendlyError(e))),
+          ),
         );
       }
     } finally {
@@ -648,12 +656,13 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
         final logoSize = (shortestSide * 0.24).clamp(80.0, 104.0);
         final titleGap = (shortestSide * 0.06).clamp(16.0, 32.0);
         final subtitleGap = (shortestSide * 0.04).clamp(8.0, 16.0);
-        final minContentHeight = constraints.maxHeight > 48
-            ? constraints.maxHeight - 48
+        const totalPadding = 48.0 + _headerHeight;
+        final minContentHeight = constraints.maxHeight > totalPadding
+            ? constraints.maxHeight - totalPadding
             : 0.0;
 
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 24 + _headerHeight),
           child: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(
@@ -709,17 +718,13 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
     ('es', 'Español', Icons.language),
     ('es_ES', 'Español (España)', Icons.language),
     ('fr', 'Français', Icons.language),
-    ('hi', 'हिन्दी', Icons.language),
     ('ja', '日本語', Icons.language),
     ('ko', '한국어', Icons.language),
-    ('nl', 'Nederlands', Icons.language),
     ('pt', 'Português', Icons.language),
     ('pt_PT', 'Português (Brasil)', Icons.language),
     ('ru', 'Русский', Icons.language),
     ('tr', 'Türkçe', Icons.language),
-    ('zh', '简体中文', Icons.language),
-    ('zh_CN', '简体中文 (中国)', Icons.language),
-    ('zh_TW', '繁體中文', Icons.language),
+    ('uk', 'Українська', Icons.language),
   ];
 
   List<(String, String, IconData)> get _filteredLanguages {
@@ -792,77 +797,91 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.fromLTRB(
-                  24 + wideListInset(context, contentMaxWidth: 560),
-                  0,
-                  24 + wideListInset(context, contentMaxWidth: 560),
-                  80,
+              child: ScrollEdgeFade(
+                child: Scrollbar(
+                  controller: _languageScrollController,
+                  thumbVisibility: true,
+                  child: _buildLanguageList(languages, colorScheme),
                 ),
-                itemCount: languages.length,
-                itemBuilder: (context, index) {
-                  final lang = languages[index];
-                  final code = lang.$1;
-                  final name = lang.$2;
-                  final isSelected = _selectedLocale == code;
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Material(
-                      color: isSelected
-                          ? colorScheme.primaryContainer
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(16),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () => _onLanguageSelected(code),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 14,
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                lang.$3,
-                                color: isSelected
-                                    ? colorScheme.onPrimaryContainer
-                                    : colorScheme.onSurfaceVariant,
-                                size: 22,
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  code == 'system'
-                                      ? context.l10n.setupLanguageSystemDefault
-                                      : name,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: isSelected
-                                        ? FontWeight.w600
-                                        : FontWeight.normal,
-                                    color: isSelected
-                                        ? colorScheme.onPrimaryContainer
-                                        : colorScheme.onSurface,
-                                  ),
-                                ),
-                              ),
-                              if (isSelected)
-                                Icon(
-                                  Icons.check_circle,
-                                  color: colorScheme.onPrimaryContainer,
-                                  size: 22,
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLanguageList(
+    List<(String, String, IconData)> languages,
+    ColorScheme colorScheme,
+  ) {
+    return ListView.builder(
+      controller: _languageScrollController,
+      padding: EdgeInsets.fromLTRB(
+        24 + wideListInset(context, contentMaxWidth: 560),
+        0,
+        24 + wideListInset(context, contentMaxWidth: 560),
+        80,
+      ),
+      itemCount: languages.length,
+      itemBuilder: (context, index) {
+        final lang = languages[index];
+        final code = lang.$1;
+        final name = lang.$2;
+        final isSelected = _selectedLocale == code;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
+          child: Material(
+            color: isSelected
+                ? colorScheme.primaryContainer
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(16),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(16),
+              onTap: () => _onLanguageSelected(code),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      lang.$3,
+                      color: isSelected
+                          ? colorScheme.onPrimaryContainer
+                          : colorScheme.onSurfaceVariant,
+                      size: 22,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        code == 'system'
+                            ? context.l10n.setupLanguageSystemDefault
+                            : name,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                          color: isSelected
+                              ? colorScheme.onPrimaryContainer
+                              : colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+                    if (isSelected)
+                      Icon(
+                        Icons.check_circle,
+                        color: colorScheme.onPrimaryContainer,
+                        size: 22,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         );
       },
     );
@@ -994,12 +1013,15 @@ class _StepLayout extends StatelessWidget {
         final titleGap = (shortestSide * 0.06).clamp(16.0, 32.0);
         final descriptionGap = (shortestSide * 0.04).clamp(8.0, 16.0);
         final actionGap = (shortestSide * 0.09).clamp(20.0, 48.0);
-        final minContentHeight = constraints.maxHeight > 48
-            ? constraints.maxHeight - 48
+        // Extra bottom padding offsets the 80dp header above the PageView so
+        // the content sits at the optical center of the full screen.
+        const totalPadding = 48.0 + _headerHeight;
+        final minContentHeight = constraints.maxHeight > totalPadding
+            ? constraints.maxHeight - totalPadding
             : 0.0;
 
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 24 + _headerHeight),
           child: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(

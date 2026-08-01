@@ -78,17 +78,6 @@ func TestDeezerClientWithFakeHTTP(t *testing.T) {
 		t.Fatalf("cached artist = %#v/%v", cachedArtist, err)
 	}
 
-	related, err := client.GetRelatedArtists(ctx, "deezer:301", 3)
-	if err != nil {
-		t.Fatalf("GetRelatedArtists: %v", err)
-	}
-	if len(related) != 1 || related[0].ID != "deezer:302" {
-		t.Fatalf("related = %#v", related)
-	}
-	if _, err := client.GetRelatedArtists(ctx, "", 0); err == nil {
-		t.Fatal("expected invalid related artist ID")
-	}
-
 	playlist, err := client.GetPlaylist(ctx, "401")
 	if err != nil {
 		t.Fatalf("GetPlaylist: %v", err)

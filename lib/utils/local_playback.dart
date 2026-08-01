@@ -22,9 +22,8 @@ Future<bool> playLocalIfAvailable(
   final historyNotifier = ref.read(downloadHistoryProvider.notifier);
 
   try {
-    DownloadHistoryItem? historyItem = await historyNotifier.getBySpotifyIdAsync(
-      track.id,
-    );
+    DownloadHistoryItem? historyItem = await historyNotifier
+        .getBySpotifyIdAsync(track.id);
     final isrc = track.isrc?.trim();
     historyItem ??= (isrc != null && isrc.isNotEmpty)
         ? await historyNotifier.getByIsrcAsync(isrc)
@@ -74,7 +73,11 @@ Future<bool> playLocalIfAvailable(
   } catch (e) {
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.snackbarCannotOpenFile('$e'))),
+        SnackBar(
+          content: Text(
+            context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+          ),
+        ),
       );
     }
     return true;

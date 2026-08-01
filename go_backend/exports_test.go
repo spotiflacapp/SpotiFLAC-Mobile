@@ -405,6 +405,44 @@ func TestApplyReEnrichTrackMetadataKeepsReleaseIdentityOnAlbumMismatch(t *testin
 	}
 }
 
+func TestApplyReEnrichTrackMetadataReplacesStalePlaylistAlbumWhenRequested(t *testing.T) {
+	req := reEnrichRequest{
+		TrackName:              "Song",
+		ArtistName:             "Artist",
+		AlbumName:              "Road Trip Playlist",
+		CoverURL:               "https://covers/playlist.jpg",
+		TrackNumber:            42,
+		ReleaseDate:            "",
+		ReplaceReleaseMetadata: true,
+	}
+
+	applyReEnrichTrackMetadata(&req, ExtTrackMetadata{
+		Name:        "Song",
+		Artists:     "Artist",
+		AlbumName:   "Actual Album",
+		AlbumArtist: "Artist",
+		CoverURL:    "https://covers/album.jpg",
+		TrackNumber: 3,
+		ReleaseDate: "2024-01-01",
+	})
+
+	if req.AlbumName != "Actual Album" {
+		t.Fatalf("album = %q, want actual album", req.AlbumName)
+	}
+	if req.AlbumArtist != "Artist" {
+		t.Fatalf("album artist = %q", req.AlbumArtist)
+	}
+	if req.CoverURL != "https://covers/album.jpg" {
+		t.Fatalf("cover = %q", req.CoverURL)
+	}
+	if req.TrackNumber != 3 {
+		t.Fatalf("track number = %d", req.TrackNumber)
+	}
+	if req.ReleaseDate != "2024-01-01" {
+		t.Fatalf("release date = %q", req.ReleaseDate)
+	}
+}
+
 func TestSelectBestReEnrichTrackPrefersCandidateWithReleaseDate(t *testing.T) {
 	req := reEnrichRequest{
 		TrackName:   "Song Title",

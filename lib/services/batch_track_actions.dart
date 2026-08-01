@@ -96,9 +96,6 @@ Future<void> showBatchConvertSheet(
     context: modalContext,
     useRootNavigator: true,
     isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
     builder: (sheetContext) => BatchConvertSheet(
       formats: formats,
       title: sheetTitle,

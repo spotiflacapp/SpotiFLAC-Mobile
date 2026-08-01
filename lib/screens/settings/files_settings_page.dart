@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/app_bottom_sheet.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,7 +11,7 @@ import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class FilesSettingsPage extends ConsumerStatefulWidget {
   const FilesSettingsPage({super.key});
@@ -122,7 +123,7 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(title: context.l10n.settingsFiles),
+            AppSliverHeader.page(title: context.l10n.settingsFiles),
 
             SliverToBoxAdapter(
               child: SettingsSectionHeader(
@@ -151,54 +152,18 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
                 settings.storageMode == 'saf' &&
                 settings.downloadTreeUri.isNotEmpty)
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: colorScheme.errorContainer.withValues(alpha: 0.6),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.warning_amber_outlined,
-                          color: colorScheme.onErrorContainer,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                context.l10n.downloadFolderAccessLostTitle,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: colorScheme.onErrorContainer,
-                                    ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                context.l10n.downloadFolderAccessLostSubtitle,
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(
-                                      color: colorScheme.onErrorContainer
-                                          .withValues(alpha: 0.8),
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await _pickSafTreeAndSave();
-                            await _checkSafAccess();
-                          },
-                          child: Text(context.l10n.downloadFolderReselect),
-                        ),
-                      ],
-                    ),
+                child: SettingsInfoCard(
+                  icon: Icons.warning_amber_outlined,
+                  tone: SettingsInfoTone.error,
+                  title: context.l10n.downloadFolderAccessLostTitle,
+                  message: context.l10n.downloadFolderAccessLostSubtitle,
+                  margin: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                  action: FilledButton.tonal(
+                    onPressed: () async {
+                      await _pickSafTreeAndSave();
+                      await _checkSafAccess();
+                    },
+                    child: Text(context.l10n.downloadFolderReselect),
                   ),
                 ),
               ),
@@ -521,9 +486,6 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (ctx) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -585,9 +547,6 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (ctx) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -639,7 +598,9 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
                     ScaffoldMessenger.of(ctx).showSnackBar(
                       SnackBar(
                         content: Text(
-                          ctx.l10n.snackbarFolderPickerFailed(e.toString()),
+                          ctx.l10n.snackbarFolderPickerFailed(
+                            ctx.friendlyError(e),
+                          ),
                         ),
                         backgroundColor: Theme.of(ctx).colorScheme.error,
                         duration: const Duration(seconds: 4),
@@ -675,33 +636,11 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
                     );
               },
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 20,
-                      color: colorScheme.tertiary,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        context.l10n.setupIosEmptyFolderWarning,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onTertiaryContainer,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            SettingsInfoCard(
+              icon: Icons.info_outline,
+              tone: SettingsInfoTone.warning,
+              message: context.l10n.setupIosEmptyFolderWarning,
+              margin: const EdgeInsets.fromLTRB(24, 8, 24, 16),
             ),
             const SizedBox(height: 8),
           ],
@@ -727,9 +666,6 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       isScrollControlled: true,
       useSafeArea: true,
       backgroundColor: colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (context) => _FilenameFormatEditorSheet(
         initialText: current,
         onSave: save,
@@ -750,9 +686,6 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       constraints: BoxConstraints(
         maxHeight: MediaQuery.sizeOf(context).height * 0.7,
       ),
@@ -822,8 +755,9 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
                   leading: Icon(option.$4),
                   title: Text(option.$2),
                   subtitle: Text(option.$3),
-                  trailing:
-                      current == option.$1 ? const Icon(Icons.check) : null,
+                  trailing: current == option.$1
+                      ? const Icon(Icons.check)
+                      : null,
                   onTap: () {
                     ref
                         .read(settingsProvider.notifier)
@@ -849,9 +783,6 @@ class _FilesSettingsPageState extends ConsumerState<FilesSettingsPage> {
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       constraints: BoxConstraints(
         maxHeight: MediaQuery.sizeOf(context).height * 0.7,
       ),
@@ -974,7 +905,6 @@ class _FolderOption extends StatelessWidget {
   }
 }
 
-
 /// Bottom sheet for editing a filename format. Owns its controller and disposes
 /// it in [dispose] to avoid use-after-dispose during the close animation.
 class _FilenameFormatEditorSheet extends StatefulWidget {
@@ -1088,22 +1018,12 @@ class _FilenameFormatEditorSheetState
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Center(
-                  child: Container(
-                    width: 32,
-                    height: 4,
-                    margin: const EdgeInsets.only(bottom: 24),
-                    decoration: BoxDecoration(
-                      color: colorScheme.outlineVariant,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
+                const AppSheetHandle(),
                 Text(
                   widget.title ?? context.l10n.filenameFormat,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),

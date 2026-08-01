@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: README
-    url: https://github.com/zarzet/SpotiFLAC-Mobile#readme
+    url: https://github.com/spotiflacapp/SpotiFLAC-Mobile#readme
     about: Check the README for setup instructions and FAQ
   - name: Extension Development Guide
     url: https://spotiflac.zarz.moe/docs
-    about: Documentation for building SpotiFLAC extensions
+    about: Documentation for building SpotiFLAC Mobile extensions

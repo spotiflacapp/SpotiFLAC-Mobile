@@ -1,0 +1,285 @@
+part of 'download_history_provider.dart';
+
+class DownloadHistoryItem {
+  final String id;
+  final String trackName;
+  final String artistName;
+  final String albumName;
+  final String? albumArtist;
+  final String? coverUrl;
+  final String filePath;
+  final String? storageMode;
+  final String? downloadTreeUri;
+  final String? safRelativeDir;
+  final String? safFileName;
+  final bool safRepaired;
+  final String service;
+  final DateTime downloadedAt;
+  final String? isrc;
+  final String? spotifyId;
+  final int? trackNumber;
+  final int? totalTracks;
+  final int? discNumber;
+  final int? totalDiscs;
+  final int? duration;
+  final String? releaseDate;
+  final String? quality;
+  final int? bitDepth;
+  final int? sampleRate;
+  final int? bitrate;
+  final String? format;
+  final String? genre;
+  final String? composer;
+  final String? label;
+  final String? copyright;
+
+  const DownloadHistoryItem({
+    required this.id,
+    required this.trackName,
+    required this.artistName,
+    required this.albumName,
+    this.albumArtist,
+    this.coverUrl,
+    required this.filePath,
+    this.storageMode,
+    this.downloadTreeUri,
+    this.safRelativeDir,
+    this.safFileName,
+    this.safRepaired = false,
+    required this.service,
+    required this.downloadedAt,
+    this.isrc,
+    this.spotifyId,
+    this.trackNumber,
+    this.totalTracks,
+    this.discNumber,
+    this.totalDiscs,
+    this.duration,
+    this.releaseDate,
+    this.quality,
+    this.bitDepth,
+    this.sampleRate,
+    this.bitrate,
+    this.format,
+    this.genre,
+    this.composer,
+    this.label,
+    this.copyright,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'trackName': trackName,
+    'artistName': artistName,
+    'albumName': albumName,
+    'albumArtist': albumArtist,
+    'coverUrl': coverUrl,
+    'filePath': filePath,
+    'storageMode': storageMode,
+    'downloadTreeUri': downloadTreeUri,
+    'safRelativeDir': safRelativeDir,
+    'safFileName': safFileName,
+    'safRepaired': safRepaired,
+    'service': service,
+    'downloadedAt': downloadedAt.toIso8601String(),
+    'isrc': isrc,
+    'spotifyId': spotifyId,
+    'trackNumber': trackNumber,
+    'totalTracks': totalTracks,
+    'discNumber': discNumber,
+    'totalDiscs': totalDiscs,
+    'duration': duration,
+    'releaseDate': releaseDate,
+    'quality': quality,
+    'bitDepth': bitDepth,
+    'sampleRate': sampleRate,
+    'bitrate': bitrate,
+    'format': format,
+    'genre': genre,
+    'composer': composer,
+    'label': label,
+    'copyright': copyright,
+  };
+
+  factory DownloadHistoryItem.fromJson(Map<String, dynamic> json) =>
+      DownloadHistoryItem(
+        id: json['id'] as String,
+        trackName: json['trackName'] as String,
+        artistName: json['artistName'] as String,
+        albumName: json['albumName'] as String,
+        albumArtist: normalizeOptionalString(json['albumArtist'] as String?),
+        coverUrl: normalizeCoverReference(json['coverUrl']?.toString()),
+        filePath: json['filePath'] as String,
+        storageMode: json['storageMode'] as String?,
+        downloadTreeUri: json['downloadTreeUri'] as String?,
+        safRelativeDir: json['safRelativeDir'] as String?,
+        safFileName: json['safFileName'] as String?,
+        safRepaired: json['safRepaired'] == true,
+        service: json['service'] as String,
+        downloadedAt: DateTime.parse(json['downloadedAt'] as String),
+        isrc: json['isrc'] as String?,
+        spotifyId: json['spotifyId'] as String?,
+        trackNumber: json['trackNumber'] as int?,
+        totalTracks: json['totalTracks'] as int?,
+        discNumber: json['discNumber'] as int?,
+        totalDiscs: json['totalDiscs'] as int?,
+        duration: json['duration'] as int?,
+        releaseDate: json['releaseDate'] as String?,
+        quality: json['quality'] as String?,
+        bitDepth: json['bitDepth'] as int?,
+        sampleRate: json['sampleRate'] as int?,
+        bitrate: (json['bitrate'] as num?)?.toInt(),
+        format: json['format'] as String?,
+        genre: json['genre'] as String?,
+        composer: json['composer'] as String?,
+        label: json['label'] as String?,
+        copyright: json['copyright'] as String?,
+      );
+
+  DownloadHistoryItem copyWith({
+    String? trackName,
+    String? artistName,
+    String? albumName,
+    String? albumArtist,
+    String? coverUrl,
+    String? filePath,
+    String? storageMode,
+    String? downloadTreeUri,
+    String? safRelativeDir,
+    String? safFileName,
+    bool? safRepaired,
+    String? isrc,
+    String? spotifyId,
+    int? trackNumber,
+    int? totalTracks,
+    int? discNumber,
+    int? totalDiscs,
+    int? duration,
+    String? releaseDate,
+    String? quality,
+    int? bitDepth,
+    int? sampleRate,
+    int? bitrate,
+    String? format,
+    String? genre,
+    String? composer,
+    String? label,
+    String? copyright,
+  }) {
+    return DownloadHistoryItem(
+      id: id,
+      trackName: trackName ?? this.trackName,
+      artistName: artistName ?? this.artistName,
+      albumName: albumName ?? this.albumName,
+      albumArtist: albumArtist ?? this.albumArtist,
+      coverUrl: normalizeCoverReference(coverUrl ?? this.coverUrl),
+      filePath: filePath ?? this.filePath,
+      storageMode: storageMode ?? this.storageMode,
+      downloadTreeUri: downloadTreeUri ?? this.downloadTreeUri,
+      safRelativeDir: safRelativeDir ?? this.safRelativeDir,
+      safFileName: safFileName ?? this.safFileName,
+      safRepaired: safRepaired ?? this.safRepaired,
+      service: service,
+      downloadedAt: downloadedAt,
+      isrc: isrc ?? this.isrc,
+      spotifyId: spotifyId ?? this.spotifyId,
+      trackNumber: trackNumber ?? this.trackNumber,
+      totalTracks: totalTracks ?? this.totalTracks,
+      discNumber: discNumber ?? this.discNumber,
+      totalDiscs: totalDiscs ?? this.totalDiscs,
+      duration: duration ?? this.duration,
+      releaseDate: releaseDate ?? this.releaseDate,
+      quality: quality ?? this.quality,
+      bitDepth: bitDepth ?? this.bitDepth,
+      sampleRate: sampleRate ?? this.sampleRate,
+      bitrate: bitrate ?? this.bitrate,
+      format: format ?? this.format,
+      genre: genre ?? this.genre,
+      composer: composer ?? this.composer,
+      label: label ?? this.label,
+      copyright: copyright ?? this.copyright,
+    );
+  }
+}
+
+Map<String, DownloadHistoryItem> _indexRecentHistoryItems(
+  Iterable<DownloadHistoryItem> items,
+  String? Function(DownloadHistoryItem item) keyOf,
+) {
+  final index = <String, DownloadHistoryItem>{};
+  for (final item in items) {
+    final key = keyOf(item);
+    if (key != null && key.isNotEmpty) {
+      index.putIfAbsent(key, () => item);
+    }
+  }
+  return index;
+}
+
+class DownloadHistoryState {
+  final List<DownloadHistoryItem> items;
+  final int totalCount;
+  final int loadedIndexVersion;
+  final List<DownloadHistoryItem> _lookupItems;
+  final Map<String, DownloadHistoryItem> _bySpotifyId;
+  final Map<String, DownloadHistoryItem> _byIsrc;
+  final Map<String, DownloadHistoryItem> _byTrackArtistKey;
+
+  DownloadHistoryState({
+    this.items = const [],
+    this.totalCount = 0,
+    this.loadedIndexVersion = 0,
+    List<DownloadHistoryItem>? lookupItems,
+  }) : _lookupItems = List.unmodifiable(lookupItems ?? items),
+       _bySpotifyId = _indexRecentHistoryItems(
+         lookupItems ?? items,
+         (item) => item.spotifyId,
+       ),
+       _byIsrc = _indexRecentHistoryItems(
+         lookupItems ?? items,
+         (item) => item.isrc,
+       ),
+       _byTrackArtistKey = _indexRecentHistoryItems(
+         lookupItems ?? items,
+         (item) => _trackArtistKey(item.trackName, item.artistName),
+       );
+
+  static String _trackArtistKey(String trackName, String artistName) {
+    final normalizedTrack = trackName.trim().toLowerCase();
+    if (normalizedTrack.isEmpty) return '';
+    final normalizedArtist = artistName.trim().toLowerCase();
+    return '$normalizedTrack|$normalizedArtist';
+  }
+
+  bool isDownloaded(String spotifyId) => _bySpotifyId.containsKey(spotifyId);
+
+  DownloadHistoryItem? getBySpotifyId(String spotifyId) =>
+      _bySpotifyId[spotifyId];
+
+  DownloadHistoryItem? getByIsrc(String isrc) => _byIsrc[isrc];
+
+  DownloadHistoryItem? findByTrackAndArtist(
+    String trackName,
+    String artistName,
+  ) {
+    final key = _trackArtistKey(trackName, artistName);
+    if (key.isEmpty) return null;
+    return _byTrackArtistKey[key];
+  }
+
+  List<DownloadHistoryItem> get lookupItems => _lookupItems;
+
+  DownloadHistoryState copyWith({
+    List<DownloadHistoryItem>? items,
+    int? totalCount,
+    int? loadedIndexVersion,
+    List<DownloadHistoryItem>? lookupItems,
+  }) {
+    return DownloadHistoryState(
+      items: items ?? this.items,
+      totalCount: totalCount ?? this.totalCount,
+      loadedIndexVersion: loadedIndexVersion ?? this.loadedIndexVersion,
+      lookupItems: lookupItems ?? _lookupItems,
+    );
+  }
+}

@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:path/path.dart' as p;
 import 'package:spotiflac_android/models/track.dart';
+import 'package:spotiflac_android/services/m3u_playlist_service.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 
@@ -14,13 +16,16 @@ class CsvImportService {
     try {
       final FilePickerResult? result = await FilePicker.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['csv'],
+        allowedExtensions: ['csv', 'm3u', 'm3u8'],
       );
 
       if (result != null && result.files.single.path != null) {
         final file = File(result.files.single.path!);
         final content = await file.readAsString();
-        final tracks = _parseCsv(content);
+        final extension = p.extension(file.path).toLowerCase();
+        final tracks = (extension == '.m3u' || extension == '.m3u8')
+            ? M3uPlaylistService.parseM3u(content)
+            : _parseCsv(content);
 
         if (tracks.isNotEmpty) {
           return await _enrichTracksMetadata(tracks, onProgress: onProgress);
@@ -28,7 +33,7 @@ class CsvImportService {
         return tracks;
       }
     } catch (e) {
-      _log.e('Error picking/parsing CSV: $e');
+      _log.e('Error picking/parsing playlist file: $e');
     }
     return [];
   }

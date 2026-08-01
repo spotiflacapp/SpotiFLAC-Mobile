@@ -214,6 +214,11 @@ class PlaybackController extends Notifier<PlaybackState> {
     );
   }
 
+  /// Public wrapper so non-playback features (e.g. M3U export) reuse the
+  /// same library+history file resolution.
+  Future<List<String?>> resolveTrackFilePaths(List<Track> tracks) =>
+      _resolveTrackPaths(tracks);
+
   List<Track> _orderedTracksFromStartIndex(List<Track> tracks, int startIndex) {
     final safeStart = startIndex.clamp(0, tracks.length - 1);
     if (safeStart == 0) {

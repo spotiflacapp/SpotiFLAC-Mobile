@@ -33,14 +33,83 @@ func TestDownloadErrorClassificationPrioritizesRateLimit(t *testing.T) {
 
 func TestDownloadErrorClassificationDetectsVerificationRequired(t *testing.T) {
 	cases := []string{
-		"HTTP 401 for /tickets",
-		"HTTP status 428: precondition required",
-		"Verification required",
+		"verification_required: canonical gateway challenge",
+		"signed session expired",
 	}
 	for _, tc := range cases {
 		if got := classifyDownloadErrorType(tc); got != "verification_required" {
 			t.Fatalf("classifyDownloadErrorType(%q) = %q, want verification_required", tc, got)
 		}
+	}
+}
+
+func TestDownloadErrorClassificationDoesNotInferVerificationFromHTTPStatus(t *testing.T) {
+	cases := []string{
+		"HTTP 401 for /tickets",
+		"HTTP 403 forbidden",
+		"HTTP status 428: precondition required",
+		"Provider returned unauthorized",
+		"VERIFY_REQUIRED without canonical origin and action",
+		"Verification required without a typed contract",
+	}
+	for _, tc := range cases {
+		if got := classifyDownloadErrorType(tc); got == "verification_required" {
+			t.Fatalf("classifyDownloadErrorType(%q) inferred verification from an ambiguous status", tc)
+		}
+	}
+}
+
+func TestDownloadErrorClassificationPreservesProviderContracts(t *testing.T) {
+	tests := map[string]string{
+		"PROVIDER_AUTH_FAILED":                 "provider_auth_failed",
+		"PROVIDER_UNAVAILABLE":                 "provider_unavailable",
+		"REQUEST_AUTH_INVALID":                 "request_auth_invalid",
+		"BYOA_PROVIDER_REAUTH_REQUIRED action": "provider_reauth_required",
+	}
+	for message, want := range tests {
+		if got := classifyDownloadErrorType(message); got != want {
+			t.Fatalf("classifyDownloadErrorType(%q) = %q, want %q", message, got, want)
+		}
+	}
+}
+
+func TestOutputStorageWriteFailureDetection(t *testing.T) {
+	cases := []struct {
+		name      string
+		errorType string
+		message   string
+		want      bool
+	}{
+		{
+			name:      "typed permission failure",
+			errorType: "permission",
+			message:   "backend omitted details",
+			want:      true,
+		},
+		{
+			name:    "android operation not permitted",
+			message: "failed to create file: open /storage/song.partial: operation not permitted",
+			want:    true,
+		},
+		{
+			name:    "read only destination",
+			message: "open /music/song.flac: read-only file system",
+			want:    true,
+		},
+		{
+			name:      "provider API error",
+			errorType: "api_error",
+			message:   "HTTP 404 for /download",
+			want:      false,
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := isOutputStorageWriteFailure(tc.errorType, tc.message); got != tc.want {
+				t.Fatalf("isOutputStorageWriteFailure(%q, %q) = %v, want %v", tc.errorType, tc.message, got, tc.want)
+			}
+		})
 	}
 }
 
@@ -104,6 +173,40 @@ func TestExtensionTrackExportsPreserveExplicitFlag(t *testing.T) {
 	assertExplicit("URL handler", jsonText, err)
 }
 
+func TestSearchTracksWithMetadataProviderUsesOnlySelectedExtension(t *testing.T) {
+	dir := t.TempDir()
+	if err := InitExtensionSystem(filepath.Join(dir, "extensions"), filepath.Join(dir, "data")); err != nil {
+		t.Fatalf("InitExtensionSystem: %v", err)
+	}
+
+	selected := newTestLoadedExtension(t, ExtensionTypeMetadataProvider)
+	selected.ID = "selected-metadata"
+	selected.Manifest.Name = selected.ID
+	other := newTestLoadedExtension(t, ExtensionTypeMetadataProvider)
+	other.ID = "other-metadata"
+	other.Manifest.Name = other.ID
+
+	manager := getExtensionManager()
+	manager.mu.Lock()
+	manager.extensions = map[string]*loadedExtension{
+		selected.ID: selected,
+		other.ID:    other,
+	}
+	manager.mu.Unlock()
+	defer CleanupExtensions()
+
+	jsonText, err := SearchTracksWithMetadataProviderJSON(selected.ID, "needle", 5)
+	if err != nil {
+		t.Fatalf("SearchTracksWithMetadataProviderJSON: %v", err)
+	}
+	if !strings.Contains(jsonText, `"provider_id":"selected-metadata"`) {
+		t.Fatalf("expected selected provider attribution, got %s", jsonText)
+	}
+	if strings.Contains(jsonText, `"provider_id":"other-metadata"`) {
+		t.Fatalf("unexpected fallback to another provider: %s", jsonText)
+	}
+}
+
 func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	dir := t.TempDir()
 	dataDir := filepath.Join(dir, "data")
@@ -134,10 +237,9 @@ func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	}
 
 	InitItemProgress("item-1")
-	FinishItemProgress("item-1")
 	ClearItemProgress("item-1")
 	CancelDownload("item-1")
-	if GetDownloadProgress() == "" || GetAllDownloadProgress() == "" || GetAllDownloadProgressDelta(0) == "" {
+	if GetAllDownloadProgress() == "" || GetAllDownloadProgressDelta(0) == "" {
 		t.Fatal("expected progress JSON")
 	}
 	CleanupConnections()
@@ -193,9 +295,6 @@ func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	AllowDownloadDir(dir)
 	if err := SetDownloadDirectory(dir); err != nil {
 		t.Fatalf("SetDownloadDirectory: %v", err)
-	}
-	if duplicateJSON, err := CheckDuplicate(dir, ""); err != nil || !strings.Contains(duplicateJSON, "exists") {
-		t.Fatalf("CheckDuplicate = %q/%v", duplicateJSON, err)
 	}
 	if batchJSON, err := CheckDuplicatesBatch(dir, `[{"isrc":"","track_name":"Song","artist_name":"Artist"}]`); err != nil || !strings.Contains(batchJSON, "Song") {
 		t.Fatalf("CheckDuplicatesBatch = %q/%v", batchJSON, err)
@@ -262,9 +361,6 @@ func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 		t.Fatal("expected settings JSON error")
 	}
 
-	if jsonText, err := SearchTracksWithExtensionsJSON("song", 5); err != nil || !strings.Contains(jsonText, "search-1") {
-		t.Fatalf("SearchTracksWithExtensionsJSON = %q/%v", jsonText, err)
-	}
 	if jsonText, err := SearchTracksWithMetadataProvidersJSON("song", 5, true); err != nil || !strings.Contains(jsonText, "search-1") {
 		t.Fatalf("SearchTracksWithMetadataProvidersJSON = %q/%v", jsonText, err)
 	}
@@ -362,9 +458,6 @@ func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	if _, err := GetDeezerMetadata("bad", "1"); err == nil {
 		t.Fatal("expected unsupported Deezer metadata type")
 	}
-	if jsonText, err := GetDeezerRelatedArtists("301", 2); err != nil || !strings.Contains(jsonText, "Related") {
-		t.Fatalf("GetDeezerRelatedArtists = %q/%v", jsonText, err)
-	}
 	if jsonText, err := GetDeezerExtendedMetadata("101"); err != nil || !strings.Contains(jsonText, "Label") {
 		t.Fatalf("GetDeezerExtendedMetadata = %q/%v", jsonText, err)
 	}
@@ -385,36 +478,21 @@ func TestExportsJSONWrappersAndExtensionManagerSurface(t *testing.T) {
 	if customJSON, err := CustomSearchWithExtensionJSONWithRequestID(ext.ID, "needle", `not-json`, "req-custom"); err != nil || !strings.Contains(customJSON, "custom-1") {
 		t.Fatalf("CustomSearchWithExtensionJSONWithRequestID = %q/%v", customJSON, err)
 	}
-	if providersJSON, err := GetSearchProvidersJSON(); err != nil || !strings.Contains(providersJSON, "coverage-ext") {
-		t.Fatalf("GetSearchProvidersJSON = %q/%v", providersJSON, err)
-	}
 	if found := FindURLHandlerJSON("https://example.test/track/1"); found != ext.ID {
 		t.Fatalf("FindURLHandlerJSON = %q", found)
-	}
-	if handlersJSON, err := GetURLHandlersJSON(); err != nil || !strings.Contains(handlersJSON, "coverage-ext") {
-		t.Fatalf("GetURLHandlersJSON = %q/%v", handlersJSON, err)
 	}
 	if handledJSON, err := HandleURLWithExtensionJSON("https://example.test/track/1"); err != nil || !strings.Contains(handledJSON, "url-track") {
 		t.Fatalf("HandleURLWithExtensionJSON = %q/%v", handledJSON, err)
 	}
-	if postJSON, err := RunPostProcessingJSON(filepath.Join(dir, "song.flac"), `{"title":"Song"}`); err != nil || !strings.Contains(postJSON, "success") {
-		t.Fatalf("RunPostProcessingJSON = %q/%v", postJSON, err)
-	}
 	v2Input := `{"path":"` + escapeJSONPath(filepath.Join(dir, "song.flac")) + `","uri":"content://song","name":"song.flac","mime_type":"audio/flac","size":10}`
 	if postJSON, err := RunPostProcessingV2JSON(v2Input, `not-json`); err != nil || !strings.Contains(postJSON, "success") {
 		t.Fatalf("RunPostProcessingV2JSON = %q/%v", postJSON, err)
-	}
-	if postProviders, err := GetPostProcessingProvidersJSON(); err != nil || !strings.Contains(postProviders, "hook") {
-		t.Fatalf("GetPostProcessingProvidersJSON = %q/%v", postProviders, err)
 	}
 	if feedJSON, err := GetExtensionHomeFeedJSON(ext.ID); err != nil || !strings.Contains(feedJSON, "home-1") {
 		t.Fatalf("GetExtensionHomeFeedJSON = %q/%v", feedJSON, err)
 	}
 	if feedJSON, err := GetExtensionHomeFeedJSONWithRequestID(ext.ID, "req-home"); err != nil || !strings.Contains(feedJSON, "home-1") {
 		t.Fatalf("GetExtensionHomeFeedJSONWithRequestID = %q/%v", feedJSON, err)
-	}
-	if categoriesJSON, err := GetExtensionBrowseCategoriesJSON(ext.ID); err != nil || !strings.Contains(categoriesJSON, "cat-1") {
-		t.Fatalf("GetExtensionBrowseCategoriesJSON = %q/%v", categoriesJSON, err)
 	}
 	CancelExtensionRequestJSON("req-home")
 

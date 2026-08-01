@@ -485,6 +485,7 @@ func parseExtensionDownloadResultValue(vm *goja.Runtime, value goja.Value) ExtDo
 		BitDepth:          gojaObjectInt(obj, "bit_depth", "bitDepth"),
 		SampleRate:        gojaObjectInt(obj, "sample_rate", "sampleRate"),
 		AudioCodec:        gojaObjectString(obj, "audio_codec", "audioCodec", "codec"),
+		DurationMS:        gojaObjectInt(obj, "duration_ms", "durationMs"),
 		ErrorMessage:      gojaObjectString(obj, "error_message", "errorMessage", "error"),
 		ErrorType:         gojaObjectString(obj, "error_type", "errorType"),
 		RetryAfterSeconds: gojaObjectInt(obj, "retry_after_seconds", "retryAfterSeconds"),

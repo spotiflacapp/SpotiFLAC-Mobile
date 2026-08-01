@@ -114,9 +114,7 @@ func (c *NeteaseClient) SearchSong(trackName, artistName string) (int64, error) 
 }
 
 func selectBestNeteaseSearchResult(results []neteaseSearchSong, trackName, artistName string) *neteaseSearchSong {
-	bestIndex := -1
-	bestScore := -1
-	for i := range results {
+	best := selectBestLyricsCandidate(len(results), trackName, artistName, 0, func(i int) (string, string, float64, bool) {
 		result := &results[i]
 		artists := make([]string, 0, len(result.Artists))
 		for _, artist := range result.Artists {
@@ -125,20 +123,14 @@ func selectBestNeteaseSearchResult(results []neteaseSearchSong, trackName, artis
 			}
 		}
 		candidateArtist := strings.Join(artists, ", ")
-		if !lyricsSearchTitlesMatch(result.Name, trackName, false) ||
-			!lyricsSearchArtistsMatch(candidateArtist, artistName) {
-			continue
-		}
-		score := scoreLyricsSearchCandidate(result.Name, candidateArtist, 0, trackName, artistName, 0)
-		if score > bestScore {
-			bestIndex = i
-			bestScore = score
-		}
-	}
-	if bestIndex < 0 {
+		ok := lyricsSearchTitlesMatch(result.Name, trackName, false) &&
+			lyricsSearchArtistsMatch(candidateArtist, artistName)
+		return result.Name, candidateArtist, 0, ok
+	})
+	if best < 0 {
 		return nil
 	}
-	return &results[bestIndex]
+	return &results[best]
 }
 
 func (c *NeteaseClient) FetchLyricsByID(songID int64, includeTranslation, includeRomanization bool) (string, error) {
@@ -207,36 +199,8 @@ func (c *NeteaseClient) FetchLyrics(
 		return nil, err
 	}
 
-	lines := parseSyncedLyrics(lrcText)
-	if len(lines) == 0 {
-		plainLines := strings.Split(lrcText, "\n")
-		for _, line := range plainLines {
-			trimmed := strings.TrimSpace(line)
-			if trimmed != "" {
-				lines = append(lines, LyricsLine{
-					StartTimeMs: 0,
-					Words:       trimmed,
-					EndTimeMs:   0,
-				})
-			}
-		}
-
-		if len(lines) == 0 {
-			return nil, fmt.Errorf("netease returned empty lyrics")
-		}
-
-		return &LyricsResponse{
-			Lines:    lines,
-			SyncType: "UNSYNCED",
-			Provider: "Netease",
-			Source:   "Netease",
-		}, nil
+	if resp := lyricsResponseFromLRCText(lrcText, "Netease", "Netease"); resp != nil {
+		return resp, nil
 	}
-
-	return &LyricsResponse{
-		Lines:    lines,
-		SyncType: "LINE_SYNCED",
-		Provider: "Netease",
-		Source:   "Netease",
-	}, nil
+	return nil, fmt.Errorf("netease returned empty lyrics")
 }

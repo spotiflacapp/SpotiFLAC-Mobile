@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/models/track.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
@@ -282,6 +283,91 @@ Future<void> navigateToAlbum(
   }
 }
 
+/// Opens the album for a track, enriching sparse search results first when
+/// they do not include album identity. This keeps collection actions generic:
+/// any metadata extension can supply the missing track fields through search.
+Future<void> navigateToTrackAlbum(BuildContext context, Track track) async {
+  final albumName = track.albumName.trim();
+  final albumId = track.albumId?.trim();
+  final hasAlbumId = albumId != null && !_isUnknownResourceId(albumId);
+
+  if (albumName.isNotEmpty || hasAlbumId) {
+    await navigateToAlbum(
+      context,
+      albumName: albumName.isNotEmpty ? albumName : context.l10n.trackAlbum,
+      albumId: hasAlbumId ? albumId : null,
+      artistName: _preferredAlbumArtist(track),
+      coverUrl: track.coverUrl,
+      extensionId: track.source,
+    );
+    return;
+  }
+
+  final query = [
+    track.name.trim(),
+    track.artistName.trim(),
+  ].where((part) => part.isNotEmpty).join(' ');
+  if (query.isEmpty) {
+    _showUnavailable(context, context.l10n.trackAlbum);
+    return;
+  }
+
+  _showLoadingSnackBar(context, 'Looking up album...');
+  try {
+    final searchResult = await _searchMetadataProviders(
+      context,
+      query,
+      filter: 'track',
+      limit: 20,
+      sourceProviderId: track.source,
+    );
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+    final matches = searchResult?.items ?? const <Map<String, dynamic>>[];
+    final bestMatch = _pickBestResultByName(matches, track.name);
+    if (bestMatch == null) {
+      _showUnavailable(context, context.l10n.trackAlbum);
+      return;
+    }
+
+    final providerId = _resolveResultProviderId(
+      bestMatch,
+      searchResult?.providerId,
+    );
+    final resolvedTrack = Track.fromBackendMap(bestMatch, source: providerId);
+    final resolvedAlbumName = resolvedTrack.albumName.trim();
+    final resolvedAlbumId = resolvedTrack.albumId?.trim();
+    final hasResolvedAlbumId =
+        resolvedAlbumId != null && !_isUnknownResourceId(resolvedAlbumId);
+    if (resolvedAlbumName.isEmpty && !hasResolvedAlbumId) {
+      _showUnavailable(context, context.l10n.trackAlbum);
+      return;
+    }
+
+    await navigateToAlbum(
+      context,
+      albumName: resolvedAlbumName.isNotEmpty
+          ? resolvedAlbumName
+          : context.l10n.trackAlbum,
+      albumId: hasResolvedAlbumId ? resolvedAlbumId : null,
+      artistName: _preferredAlbumArtist(resolvedTrack),
+      coverUrl: resolvedTrack.coverUrl ?? track.coverUrl,
+      extensionId: providerId,
+    );
+  } catch (e) {
+    _log.e('Failed to resolve album for track "${track.name}": $e', e);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    _showUnavailable(context, context.l10n.trackAlbum);
+  }
+}
+
+String _preferredAlbumArtist(Track track) {
+  final albumArtist = (track.albumArtist ?? '').trim();
+  return albumArtist.isNotEmpty ? albumArtist : track.artistName;
+}
+
 void _pushArtistScreen(
   BuildContext context, {
   required String artistId,
@@ -292,7 +378,7 @@ void _pushArtistScreen(
   final isExtension = extensionId != null;
   final resolvedProviderId = extensionId;
 
-  _pushViaPreferredNavigator(
+  pushViaPreferredNavigator(
     context,
     (context) => isExtension && resolvedProviderId != null
         ? ExtensionArtistScreen(
@@ -320,7 +406,7 @@ void _pushAlbumScreen(
   final isExtension = extensionId != null;
   final resolvedExtensionId = extensionId;
 
-  _pushViaPreferredNavigator(
+  pushViaPreferredNavigator(
     context,
     (context) => isExtension && resolvedExtensionId != null
         ? ExtensionAlbumScreen(
@@ -339,7 +425,10 @@ void _pushAlbumScreen(
   );
 }
 
-void _pushViaPreferredNavigator(BuildContext context, WidgetBuilder builder) {
+/// Pushes detail pages into the active tab navigator when invoked from a root
+/// modal such as Now Playing. The root modal is dismissed first so the album
+/// is immediately visible instead of being hidden behind it.
+void pushViaPreferredNavigator(BuildContext context, WidgetBuilder builder) {
   final currentNavigator = Navigator.of(context);
   final rootNavigator = Navigator.of(context, rootNavigator: true);
   final activeTabNavigator = ShellNavigationService.activeTabNavigator();

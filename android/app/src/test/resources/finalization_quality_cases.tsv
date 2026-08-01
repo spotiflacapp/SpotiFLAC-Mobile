@@ -1,0 +1,6 @@
+# codec	bit_depth	sample_rate	bitrate_kbps	measured_quality	expected_label
+flac	24	96000		LOSSLESS	24bit-96kHz
+flac				LOSSLESS	<null>
+flac				24-bit/44.1kHz	24bit-44.1kHz
+mp3			320	HIGH	320kbps
+opus				OPUS 192kbps	192kbps

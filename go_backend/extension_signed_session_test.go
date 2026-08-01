@@ -1,6 +1,7 @@
 package gobackend
 
 import (
+	"context"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
@@ -10,8 +11,10 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	goruntime "runtime"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -245,6 +248,60 @@ func TestPreflightSignedSession(t *testing.T) {
 			t.Fatalf("bootstrapped session = %#v error:%v", record, err)
 		}
 	})
+
+	t.Run("retries a transport failure once and surfaces the cause", func(t *testing.T) {
+		calls := 0
+		runtime := newSignedSessionTestRuntime(t, "preflight-network", roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			return nil, fmt.Errorf("dial tcp: Wi-Fi route unavailable")
+		}))
+		runtime.manifest.SignedSession = &SignedSessionConfig{
+			Namespace: "preflight-network",
+			BaseURL:   "https://auth.example.com",
+		}
+
+		verificationRequired, err := runtime.preflightSignedSession()
+		if err == nil || verificationRequired {
+			t.Fatalf("preflight = verification:%v error:%v", verificationRequired, err)
+		}
+		if calls != 2 {
+			t.Fatalf("bootstrap calls = %d, want one initial attempt and one retry", calls)
+		}
+		if !strings.Contains(err.Error(), "network request") || !strings.Contains(err.Error(), "Wi-Fi route unavailable") {
+			t.Fatalf("bootstrap error did not preserve the transport cause: %v", err)
+		}
+		if strings.Contains(err.Error(), "install_id=") {
+			t.Fatalf("bootstrap error leaked the install identifier: %v", err)
+		}
+	})
+
+	t.Run("surfaces HTTP status and retry-after without inventing a challenge", func(t *testing.T) {
+		calls := 0
+		runtime := newSignedSessionTestRuntime(t, "preflight-rate-limit", roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			return &http.Response{
+				StatusCode: http.StatusTooManyRequests,
+				Header:     http.Header{"Retry-After": []string{"17"}},
+				Body:       io.NopCloser(strings.NewReader(`{"error":"limited"}`)),
+				Request:    req,
+			}, nil
+		}))
+		runtime.manifest.SignedSession = &SignedSessionConfig{
+			Namespace: "preflight-rate-limit",
+			BaseURL:   "https://auth.example.com",
+		}
+
+		verificationRequired, err := runtime.preflightSignedSession()
+		if err == nil || verificationRequired {
+			t.Fatalf("preflight = verification:%v error:%v", verificationRequired, err)
+		}
+		if calls != 1 {
+			t.Fatalf("rate-limited bootstrap calls = %d, want 1", calls)
+		}
+		if !strings.Contains(err.Error(), "HTTP 429") || !strings.Contains(err.Error(), "retry-after seconds: 17") {
+			t.Fatalf("rate-limit details missing from bootstrap error: %v", err)
+		}
+	})
 }
 
 func TestDownloadWithExtensionsPreflightsBeforeMetadataEnrichment(t *testing.T) {
@@ -299,7 +356,9 @@ func TestDownloadWithExtensionsPreflightsBeforeMetadataEnrichment(t *testing.T) 
 		manager.mu.Unlock()
 	})
 
-	requestJSON := `{"service":"preflight-download","item_id":"preflight-item","isrc":"USRC17607839"}`
+	// Metadata may originate from another extension, but the explicitly chosen
+	// download provider owns the signed-session namespace and verification.
+	requestJSON := `{"source":"spotify-metadata","service":"preflight-download","item_id":"preflight-item","isrc":"USRC17607839"}`
 	responseJSON, err := DownloadWithExtensionsJSON(requestJSON)
 	if err != nil {
 		t.Fatalf("DownloadWithExtensionsJSON: %v", err)
@@ -313,6 +372,133 @@ func TestDownloadWithExtensionsPreflightsBeforeMetadataEnrichment(t *testing.T) 
 	}
 	if got := GetItemProgress(itemID); got != "{}" {
 		t.Fatalf("verification response left stale progress: %s", got)
+	}
+}
+
+func TestParallelSignedSessionPreflightSharesOneBootstrap(t *testing.T) {
+	var calls atomic.Int32
+	transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		calls.Add(1)
+		// Keep the first bootstrap in flight long enough for the second runtime
+		// to contend on the shared session coordinator.
+		time.Sleep(20 * time.Millisecond)
+		payload, _ := json.Marshal(signedSessionExchangeResponse{
+			ChallengeURL: "https://auth.example.com/challenge",
+		})
+		return &http.Response{
+			StatusCode: http.StatusOK,
+			Header:     make(http.Header),
+			Body:       io.NopCloser(strings.NewReader(string(payload))),
+			Request:    req,
+		}, nil
+	})
+
+	root := t.TempDir()
+	config := &SignedSessionConfig{
+		Namespace: "shared-download-session",
+		BaseURL:   "https://auth.example.com",
+	}
+	newRuntime := func(extensionID string) *extensionRuntime {
+		return &extensionRuntime{
+			extensionID: extensionID,
+			manifest: &ExtensionManifest{
+				Name:          extensionID,
+				SignedSession: config,
+			},
+			dataDir:    filepath.Join(root, extensionID),
+			vm:         goja.New(),
+			httpClient: &http.Client{Transport: transport},
+		}
+	}
+	runtimeA := newRuntime("provider-a")
+	runtimeB := newRuntime("provider-b")
+	t.Cleanup(func() {
+		ClearPendingAuthRequest("provider-a")
+		ClearPendingAuthRequest("provider-b")
+	})
+
+	results := make(chan error, 2)
+	for _, runtime := range []*extensionRuntime{runtimeA, runtimeB} {
+		go func(runtime *extensionRuntime) {
+			verificationRequired, err := runtime.preflightSignedSession()
+			if err == nil && !verificationRequired {
+				err = fmt.Errorf("verification was not requested")
+			}
+			results <- err
+		}(runtime)
+	}
+	for range 2 {
+		if err := <-results; err != nil {
+			t.Fatal(err)
+		}
+	}
+	if got := calls.Load(); got != 1 {
+		t.Fatalf("parallel preflight bootstrap calls = %d, want 1", got)
+	}
+}
+
+func TestDownloadWithExtensionsStopsAfterFailedSignedSessionPreflight(t *testing.T) {
+	extensionID := "preflight-network-failure"
+	itemID := "preflight-network-item"
+	RemoveItemProgress(itemID)
+	t.Cleanup(func() { RemoveItemProgress(itemID) })
+
+	calls := 0
+	runtime := newSignedSessionTestRuntime(t, extensionID, roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		calls++
+		return nil, fmt.Errorf("dial tcp: Wi-Fi route unavailable")
+	}))
+	manifest := &ExtensionManifest{
+		Name:  extensionID,
+		Types: []ExtensionType{ExtensionTypeDownloadProvider},
+		SignedSession: &SignedSessionConfig{
+			Namespace: extensionID,
+			BaseURL:   "https://auth.example.com",
+		},
+	}
+	runtime.manifest = manifest
+	ext := &loadedExtension{
+		ID:          extensionID,
+		Manifest:    manifest,
+		VM:          runtime.vm,
+		runtime:     runtime,
+		initialized: true,
+		Enabled:     true,
+		DataDir:     runtime.dataDir,
+	}
+
+	manager := getExtensionManager()
+	manager.mu.Lock()
+	previous, hadPrevious := manager.extensions[extensionID]
+	manager.extensions[extensionID] = ext
+	manager.mu.Unlock()
+	t.Cleanup(func() {
+		manager.mu.Lock()
+		if hadPrevious {
+			manager.extensions[extensionID] = previous
+		} else {
+			delete(manager.extensions, extensionID)
+		}
+		manager.mu.Unlock()
+	})
+
+	requestJSON := `{"service":"preflight-network-failure","item_id":"preflight-network-item","isrc":"USRC17607839"}`
+	responseJSON, err := DownloadWithExtensionsJSON(requestJSON)
+	if err != nil {
+		t.Fatalf("DownloadWithExtensionsJSON: %v", err)
+	}
+	var response DownloadResponse
+	if err := json.Unmarshal([]byte(responseJSON), &response); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if response.ErrorType != "network" || response.Service != extensionID || !strings.Contains(response.Error, "Could not start verification") {
+		t.Fatalf("response = %#v", response)
+	}
+	if calls != 2 {
+		t.Fatalf("bootstrap calls = %d, want only the initial attempt and its transport retry", calls)
+	}
+	if got := GetItemProgress(itemID); got != "{}" {
+		t.Fatalf("failed preflight left stale progress: %s", got)
 	}
 }
 
@@ -397,6 +583,24 @@ func TestSignedSessionRetryAfterSeconds(t *testing.T) {
 	})
 }
 
+func TestSignedSessionProviderRetryDuration(t *testing.T) {
+	t.Run("header is authoritative", func(t *testing.T) {
+		resp := &http.Response{Header: http.Header{"Retry-After": []string{"10"}}}
+		contract := signedSessionErrorContract{RetryAfterSeconds: 30}
+		if got := signedSessionProviderRetryDuration(resp, contract); got != 10*time.Second {
+			t.Fatalf("retry duration = %s, want 10s", got)
+		}
+	})
+
+	t.Run("body fallback is bounded", func(t *testing.T) {
+		resp := &http.Response{Header: make(http.Header)}
+		contract := signedSessionErrorContract{RetryAfterSeconds: int(^uint(0) >> 1)}
+		if got := signedSessionProviderRetryDuration(resp, contract); got != maxRetryAfterDelay {
+			t.Fatalf("retry duration = %s, want cap %s", got, maxRetryAfterDelay)
+		}
+	})
+}
+
 func TestNormalizeSignedSessionRecordScope(t *testing.T) {
 	config := SignedSessionConfig{Namespace: "Tidal", BaseURL: "https://a.example.com", AppVersion: "1.0", Platform: "mobile"}
 
@@ -447,6 +651,27 @@ func newSignedSessionTestRuntime(t *testing.T, extensionID string, transport rou
 		vm:          goja.New(),
 		httpClient:  &http.Client{Transport: transport},
 	}
+}
+
+func saveUsableSignedSession(
+	t *testing.T,
+	runtime *extensionRuntime,
+	config SignedSessionConfig,
+	sessionID string,
+) SignedSessionConfig {
+	t.Helper()
+	resolved := signedSessionConfigWithDefaults(&config)
+	record, err := runtime.loadSignedSession(resolved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	record.SessionID = sessionID
+	record.SessionSecret = "secret-" + sessionID
+	record.ExpiresAt = time.Now().Add(time.Hour).UTC().Format(time.RFC3339)
+	if err := runtime.saveSignedSession(resolved, record); err != nil {
+		t.Fatal(err)
+	}
+	return resolved
 }
 
 func TestSignedSessionFilePathDeterminism(t *testing.T) {
@@ -693,7 +918,7 @@ func TestSignedSessionFetchUnauthenticatedTriggersVerification(t *testing.T) {
 	}
 }
 
-func TestSignedSessionFetchRevokesSessionOn401(t *testing.T) {
+func TestSignedSessionFetchRevokesSessionOnCanonicalSessionInvalid(t *testing.T) {
 	calls := 0
 	transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
 		calls++
@@ -703,7 +928,14 @@ func TestSignedSessionFetchRevokesSessionOn401(t *testing.T) {
 			body, _ := json.Marshal(payload)
 			return &http.Response{StatusCode: 200, Header: make(http.Header), Body: io.NopCloser(strings.NewReader(string(body))), Request: req}, nil
 		default:
-			return &http.Response{StatusCode: http.StatusUnauthorized, Header: make(http.Header), Body: io.NopCloser(strings.NewReader(`{}`)), Request: req}, nil
+			return &http.Response{
+				StatusCode: http.StatusUnauthorized,
+				Header:     make(http.Header),
+				Body: io.NopCloser(strings.NewReader(
+					`{"error":"Unauthorized","code":"SESSION_INVALID","origin":"gateway","action":"bootstrap_session"}`,
+				)),
+				Request: req,
+			}, nil
 		}
 	})
 
@@ -726,7 +958,7 @@ func TestSignedSessionFetchRevokesSessionOn401(t *testing.T) {
 	call := goja.FunctionCall{Arguments: []goja.Value{runtime.vm.ToValue("GET"), runtime.vm.ToValue("/tracks/search")}}
 	result := runtime.signedSessionFetch(call).Export().(map[string]any)
 	if result["ok"] != false || result["needsVerification"] != true {
-		t.Fatalf("expected a verification-required response after 401, got %+v", result)
+		t.Fatalf("expected verification after canonical SESSION_INVALID, got %+v", result)
 	}
 
 	reloaded, err := runtime.loadSignedSession(resolved)
@@ -734,13 +966,714 @@ func TestSignedSessionFetchRevokesSessionOn401(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if reloaded.SessionID != "" || reloaded.SessionSecret != "" {
-		t.Fatalf("expected session to be wiped after 401, got %+v", reloaded)
+		t.Fatalf("expected session to be wiped after SESSION_INVALID, got %+v", reloaded)
+	}
+}
+
+func TestSignedSessionFetchRetriesAfterSilentSessionBootstrap(t *testing.T) {
+	calls := 0
+	transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		calls++
+		switch {
+		case strings.Contains(req.URL.Path, "/bootstrap"):
+			payload, _ := json.Marshal(signedSessionExchangeResponse{
+				SessionID:     "sess-replacement",
+				SessionSecret: "secret-replacement",
+				ExpiresAt:     time.Now().Add(time.Hour).UTC().Format(time.RFC3339),
+			})
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(string(payload))),
+				Request:    req,
+			}, nil
+		case req.Header.Get("X-Sig-Session") == "sess-replacement":
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(`{"ticket_id":"fresh"}`)),
+				Request:    req,
+			}, nil
+		default:
+			return &http.Response{
+				StatusCode: http.StatusUnauthorized,
+				Header:     make(http.Header),
+				Body: io.NopCloser(strings.NewReader(
+					`{"error":"Unauthorized","code":"SESSION_INVALID","origin":"gateway","action":"bootstrap_session"}`,
+				)),
+				Request: req,
+			}, nil
+		}
+	})
+	runtime := newSignedSessionTestRuntime(t, "silent-bootstrap", transport)
+	config := SignedSessionConfig{Namespace: "silent-bootstrap", BaseURL: "https://auth.example.com"}
+	runtime.manifest.SignedSession = &config
+	resolved := saveUsableSignedSession(t, runtime, config, "sess-old")
+
+	call := goja.FunctionCall{Arguments: []goja.Value{
+		runtime.vm.ToValue("POST"),
+		runtime.vm.ToValue("/tickets"),
+	}}
+	result := runtime.signedSessionFetch(call).Export().(map[string]any)
+	if result["ok"] != true || calls != 3 {
+		t.Fatalf("signed request was not retried after silent bootstrap: calls=%d result=%+v", calls, result)
+	}
+	reloaded, err := runtime.loadSignedSession(resolved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.SessionID != "sess-replacement" || reloaded.SessionSecret != "secret-replacement" {
+		t.Fatalf("replacement session was not persisted: %+v", reloaded)
+	}
+}
+
+func TestSignedSessionFetchDoesNotMutateSessionForNonCanonicalAuthStatus(t *testing.T) {
+	tests := []struct {
+		name       string
+		statusCode int
+		body       string
+	}{
+		{
+			name:       "bare 401",
+			statusCode: http.StatusUnauthorized,
+			body:       `{}`,
+		},
+		{
+			name:       "provider-origin 401",
+			statusCode: http.StatusUnauthorized,
+			body:       `{"error":"Unauthorized","code":"PROVIDER_AUTH_FAILED","origin":"provider"}`,
+		},
+		{
+			name:       "gateway 401 missing action",
+			statusCode: http.StatusUnauthorized,
+			body:       `{"error":"Unauthorized","code":"SESSION_INVALID","origin":"gateway"}`,
+		},
+		{
+			name:       "bare 428",
+			statusCode: http.StatusPreconditionRequired,
+			body:       `{"error":"VERIFY_REQUIRED"}`,
+		},
+		{
+			name:       "request auth 403 with forbidden action",
+			statusCode: http.StatusForbidden,
+			body:       `{"error":"Forbidden","code":"REQUEST_AUTH_INVALID","origin":"gateway","action":"bootstrap_session"}`,
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			calls := 0
+			transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+				calls++
+				return &http.Response{
+					StatusCode: tc.statusCode,
+					Header:     make(http.Header),
+					Body:       io.NopCloser(strings.NewReader(tc.body)),
+					Request:    req,
+				}, nil
+			})
+			runtime := newSignedSessionTestRuntime(t, "strict-contract-"+strings.ReplaceAll(tc.name, " ", "-"), transport)
+			config := SignedSessionConfig{Namespace: runtime.extensionID, BaseURL: "https://auth.example.com"}
+			runtime.manifest.SignedSession = &config
+			resolved := saveUsableSignedSession(t, runtime, config, "sess-safe")
+
+			call := goja.FunctionCall{Arguments: []goja.Value{
+				runtime.vm.ToValue("GET"),
+				runtime.vm.ToValue("/tracks/search"),
+			}}
+			result := runtime.signedSessionFetch(call).Export().(map[string]any)
+			if result["needsVerification"] == true {
+				t.Fatalf("non-canonical response triggered verification: %+v", result)
+			}
+			if calls != 1 {
+				t.Fatalf("network calls = %d, want no bootstrap or retry", calls)
+			}
+			reloaded, err := runtime.loadSignedSession(resolved)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if reloaded.SessionID != "sess-safe" || reloaded.SessionSecret != "secret-sess-safe" {
+				t.Fatalf("non-canonical response mutated the session: %+v", reloaded)
+			}
+		})
+	}
+}
+
+func TestSignedSessionFetchCanonicalVerifyDoesNotClearSession(t *testing.T) {
+	calls := 0
+	transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		calls++
+		switch {
+		case strings.Contains(req.URL.Path, "/bootstrap"):
+			payload, _ := json.Marshal(signedSessionExchangeResponse{
+				AuthURL: "https://auth.example.com/verify",
+			})
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(string(payload))),
+				Request:    req,
+			}, nil
+		case strings.Contains(req.URL.Path, "/session/exchange"):
+			payload, _ := json.Marshal(signedSessionExchangeResponse{
+				SessionID:     "sess-after-verify",
+				SessionSecret: "secret-after-verify",
+				ExpiresAt:     time.Now().Add(time.Hour).UTC().Format(time.RFC3339),
+			})
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(string(payload))),
+				Request:    req,
+			}, nil
+		case req.Header.Get("X-Sig-Session") == "sess-after-verify":
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(`{"ok":true}`)),
+				Request:    req,
+			}, nil
+		}
+		return &http.Response{
+			StatusCode: http.StatusPreconditionRequired,
+			Header:     make(http.Header),
+			Body: io.NopCloser(strings.NewReader(
+				`{"error":"VERIFY_REQUIRED","code":"VERIFY_REQUIRED","origin":"gateway","action":"verify"}`,
+			)),
+			Request: req,
+		}, nil
+	})
+	runtime := newSignedSessionTestRuntime(t, "canonical-verify", transport)
+	config := SignedSessionConfig{Namespace: "canonical-verify", BaseURL: "https://auth.example.com"}
+	runtime.manifest.SignedSession = &config
+	resolved := saveUsableSignedSession(t, runtime, config, "sess-verified")
+
+	call := goja.FunctionCall{Arguments: []goja.Value{
+		runtime.vm.ToValue("GET"),
+		runtime.vm.ToValue("/tracks/search"),
+	}}
+	result := runtime.signedSessionFetch(call).Export().(map[string]any)
+	if result["needsVerification"] != true || result["auth_url"] != "https://auth.example.com/verify" {
+		t.Fatalf("canonical VERIFY_REQUIRED did not open verification: %+v", result)
+	}
+	if calls != 2 {
+		t.Fatalf("network calls = %d, want signed request plus bootstrap", calls)
+	}
+	reloaded, err := runtime.loadSignedSession(resolved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.SessionID != "sess-verified" || reloaded.SessionSecret != "secret-sess-verified" {
+		t.Fatalf("VERIFY_REQUIRED cleared the valid gateway session: %+v", reloaded)
+	}
+
+	blockedResult := runtime.signedSessionFetch(call).Export().(map[string]any)
+	if blockedResult["needsVerification"] != true {
+		t.Fatalf("blocked generation did not join verification: %+v", blockedResult)
+	}
+	if calls != 2 {
+		t.Fatalf("blocked generation reached the gateway again: calls=%d", calls)
+	}
+	verificationRequired, err := runtime.preflightSignedSession()
+	if err != nil || !verificationRequired {
+		t.Fatalf("preflight did not preserve the blocked verification state: required=%v err=%v", verificationRequired, err)
+	}
+	if calls != 2 {
+		t.Fatalf("blocked preflight reached the gateway again: calls=%d", calls)
+	}
+	status := runtime.signedSessionStatus(goja.FunctionCall{}).Export().(map[string]any)
+	if status["authenticated"] != false || status["verification_required"] != true {
+		t.Fatalf("blocked generation status is incorrect: %+v", status)
+	}
+
+	if err := runtime.exchangeSignedSessionGrant("grant-after-verify"); err != nil {
+		t.Fatalf("exchange grant: %v", err)
+	}
+	afterVerification := runtime.signedSessionFetch(call).Export().(map[string]any)
+	if afterVerification["ok"] != true {
+		t.Fatalf("new verified generation remained blocked: %+v", afterVerification)
+	}
+	if calls != 4 {
+		t.Fatalf("network calls = %d, want 428, bootstrap, exchange, success", calls)
+	}
+}
+
+func TestSignedSessionFetchRequestAuthInvalidPreservesSession(t *testing.T) {
+	t.Run("current generation returns the error without bootstrap", func(t *testing.T) {
+		calls := 0
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			return &http.Response{
+				StatusCode: http.StatusForbidden,
+				Header:     make(http.Header),
+				Body: io.NopCloser(strings.NewReader(
+					`{"error":"Forbidden","code":"REQUEST_AUTH_INVALID","origin":"gateway","retryable":false}`,
+				)),
+				Request: req,
+			}, nil
+		})
+		runtime := newSignedSessionTestRuntime(t, "request-auth-current", transport)
+		config := SignedSessionConfig{Namespace: "request-auth-current", BaseURL: "https://auth.example.com"}
+		runtime.manifest.SignedSession = &config
+		resolved := saveUsableSignedSession(t, runtime, config, "sess-request-auth")
+
+		call := goja.FunctionCall{Arguments: []goja.Value{
+			runtime.vm.ToValue("POST"),
+			runtime.vm.ToValue("/tickets"),
+		}}
+		result := runtime.signedSessionFetch(call).Export().(map[string]any)
+		if result["code"] != "REQUEST_AUTH_INVALID" || result["needsVerification"] == true {
+			t.Fatalf("REQUEST_AUTH_INVALID was not returned as a non-verification error: %+v", result)
+		}
+		if calls != 1 {
+			t.Fatalf("current generation request was retried or bootstrapped: calls=%d", calls)
+		}
+		reloaded, err := runtime.loadSignedSession(resolved)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if reloaded.SessionID != "sess-request-auth" || reloaded.SessionSecret != "secret-sess-request-auth" {
+			t.Fatalf("REQUEST_AUTH_INVALID mutated the current session: %+v", reloaded)
+		}
+	})
+
+	t.Run("stale generation retries once with the current session", func(t *testing.T) {
+		oldRequestStarted := make(chan struct{})
+		releaseOldRequest := make(chan struct{})
+		var requestCalls atomic.Int32
+
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			switch {
+			case strings.HasSuffix(req.URL.Path, "/session/exchange"):
+				payload, _ := json.Marshal(signedSessionExchangeResponse{
+					SessionID:     "sess-request-new",
+					SessionSecret: "secret-request-new",
+					ExpiresAt:     time.Now().Add(time.Hour).UTC().Format(time.RFC3339),
+				})
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Header:     make(http.Header),
+					Body:       io.NopCloser(strings.NewReader(string(payload))),
+					Request:    req,
+				}, nil
+			case strings.HasSuffix(req.URL.Path, "/tickets"):
+				requestCalls.Add(1)
+				if req.Header.Get("X-Sig-Session") == "sess-request-old" {
+					close(oldRequestStarted)
+					<-releaseOldRequest
+					return &http.Response{
+						StatusCode: http.StatusForbidden,
+						Header:     make(http.Header),
+						Body: io.NopCloser(strings.NewReader(
+							`{"error":"Forbidden","code":"REQUEST_AUTH_INVALID","origin":"gateway","retryable":false}`,
+						)),
+						Request: req,
+					}, nil
+				}
+				return &http.Response{
+					StatusCode: http.StatusOK,
+					Header:     make(http.Header),
+					Body:       io.NopCloser(strings.NewReader(`{"ticket_id":"fresh"}`)),
+					Request:    req,
+				}, nil
+			default:
+				t.Fatalf("unexpected request: %s", req.URL.String())
+				return nil, nil
+			}
+		})
+
+		root := t.TempDir()
+		config := &SignedSessionConfig{Namespace: "request-auth-shared", BaseURL: "https://auth.example.com"}
+		newRuntime := func(extensionID string) *extensionRuntime {
+			return &extensionRuntime{
+				extensionID: extensionID,
+				manifest: &ExtensionManifest{
+					Name:          extensionID,
+					SignedSession: config,
+				},
+				dataDir:    filepath.Join(root, extensionID),
+				vm:         goja.New(),
+				httpClient: &http.Client{Transport: transport},
+			}
+		}
+		runtimeA := newRuntime("request-auth-a")
+		runtimeB := newRuntime("request-auth-b")
+		resolved := saveUsableSignedSession(t, runtimeA, *config, "sess-request-old")
+
+		resultCh := make(chan map[string]any, 1)
+		go func() {
+			call := goja.FunctionCall{Arguments: []goja.Value{
+				runtimeA.vm.ToValue("POST"),
+				runtimeA.vm.ToValue("/tickets"),
+			}}
+			resultCh <- runtimeA.signedSessionFetch(call).Export().(map[string]any)
+		}()
+		<-oldRequestStarted
+		if err := runtimeB.exchangeSignedSessionGrant("grant-request-auth"); err != nil {
+			t.Fatalf("exchange grant: %v", err)
+		}
+		close(releaseOldRequest)
+
+		result := <-resultCh
+		if result["ok"] != true || requestCalls.Load() != 2 {
+			t.Fatalf("stale request was not rebuilt once: calls=%d result=%+v", requestCalls.Load(), result)
+		}
+		reloaded, err := runtimeA.loadSignedSession(resolved)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if reloaded.SessionID != "sess-request-new" || reloaded.SessionSecret != "secret-request-new" {
+			t.Fatalf("stale REQUEST_AUTH_INVALID changed the new session: %+v", reloaded)
+		}
+	})
+}
+
+func TestSignedSessionFetchProviderContractsNeverClearSession(t *testing.T) {
+	t.Run("provider authentication failure passes through without retry", func(t *testing.T) {
+		calls := 0
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			return &http.Response{
+				StatusCode: http.StatusBadGateway,
+				Header:     make(http.Header),
+				Body: io.NopCloser(strings.NewReader(
+					`{"error":"Provider authentication failed","code":"PROVIDER_AUTH_FAILED","origin":"provider","retryable":false,"retry_mode":"none"}`,
+				)),
+				Request: req,
+			}, nil
+		})
+		runtime := newSignedSessionTestRuntime(t, "provider-auth-failed", transport)
+		config := SignedSessionConfig{Namespace: "provider-auth-failed", BaseURL: "https://auth.example.com"}
+		runtime.manifest.SignedSession = &config
+		resolved := saveUsableSignedSession(t, runtime, config, "sess-provider-auth")
+
+		call := goja.FunctionCall{Arguments: []goja.Value{
+			runtime.vm.ToValue("POST"),
+			runtime.vm.ToValue("/tickets"),
+		}}
+		result := runtime.signedSessionFetch(call).Export().(map[string]any)
+		if result["code"] != "PROVIDER_AUTH_FAILED" ||
+			result["origin"] != "provider" ||
+			result["retryMode"] != "none" {
+			t.Fatalf("provider contract was not exposed to the extension: %+v", result)
+		}
+		if result["needsVerification"] == true || calls != 1 {
+			t.Fatalf("provider auth failure triggered verification or retry: calls=%d result=%+v", calls, result)
+		}
+		reloaded, err := runtime.loadSignedSession(resolved)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if reloaded.SessionID != "sess-provider-auth" {
+			t.Fatalf("provider auth failure cleared the gateway session: %+v", reloaded)
+		}
+	})
+
+	t.Run("non-replay retry modes fail closed", func(t *testing.T) {
+		previousWait := signedSessionProviderWait
+		waitCalls := 0
+		signedSessionProviderWait = func(context.Context, time.Duration) error {
+			waitCalls++
+			return nil
+		}
+		t.Cleanup(func() { signedSessionProviderWait = previousWait })
+
+		tests := []struct {
+			name     string
+			modeJSON string
+			wantMode string
+		}{
+			{name: "missing mode"},
+			{name: "none", modeJSON: `,"retry_mode":"none"`, wantMode: "none"},
+			{name: "new ticket", modeJSON: `,"retry_mode":"new_ticket"`, wantMode: "new_ticket"},
+			{name: "poll existing", modeJSON: `,"retry_mode":"poll_existing"`, wantMode: "poll_existing"},
+			{name: "unknown", modeJSON: `,"retry_mode":"future_mode"`, wantMode: "future_mode"},
+		}
+		for _, tc := range tests {
+			t.Run(tc.name, func(t *testing.T) {
+				calls := 0
+				transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+					calls++
+					body := fmt.Sprintf(
+						`{"error":"Provider temporarily unavailable","code":"PROVIDER_UNAVAILABLE","origin":"provider","retryable":true%s,"retry_after_seconds":10}`,
+						tc.modeJSON,
+					)
+					return &http.Response{
+						StatusCode: http.StatusServiceUnavailable,
+						Header:     http.Header{"Retry-After": []string{"10"}},
+						Body:       io.NopCloser(strings.NewReader(body)),
+						Request:    req,
+					}, nil
+				})
+				runtime := newSignedSessionTestRuntime(t, "retry-mode-"+strings.ReplaceAll(tc.name, " ", "-"), transport)
+				config := SignedSessionConfig{Namespace: runtime.extensionID, BaseURL: "https://auth.example.com"}
+				runtime.manifest.SignedSession = &config
+				resolved := saveUsableSignedSession(t, runtime, config, "sess-retry-mode")
+				waitsBefore := waitCalls
+
+				call := goja.FunctionCall{Arguments: []goja.Value{
+					runtime.vm.ToValue("POST"),
+					runtime.vm.ToValue("/tickets"),
+				}}
+				result := runtime.signedSessionFetch(call).Export().(map[string]any)
+				if calls != 1 || waitCalls != waitsBefore {
+					t.Fatalf("mode %q was replayed: calls=%d waits=%d", tc.wantMode, calls, waitCalls-waitsBefore)
+				}
+				if result["retryMode"] != tc.wantMode {
+					t.Fatalf("retryMode = %v, want %q: %+v", result["retryMode"], tc.wantMode, result)
+				}
+				reloaded, err := runtime.loadSignedSession(resolved)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if reloaded.SessionID != "sess-retry-mode" {
+					t.Fatalf("mode %q changed gateway session: %+v", tc.wantMode, reloaded)
+				}
+			})
+		}
+	})
+
+	t.Run("temporary provider failure retries with Retry-After", func(t *testing.T) {
+		previousWait := signedSessionProviderWait
+		previousNow := signedSessionRequestNow
+		var waits []time.Duration
+		signedSessionProviderWait = func(_ context.Context, delay time.Duration) error {
+			waits = append(waits, delay)
+			return nil
+		}
+		nextRequestTime := time.Date(2026, time.July, 30, 12, 0, 0, 0, time.UTC)
+		signedSessionRequestNow = func() time.Time {
+			current := nextRequestTime
+			nextRequestTime = nextRequestTime.Add(time.Second)
+			return current
+		}
+		t.Cleanup(func() {
+			signedSessionProviderWait = previousWait
+			signedSessionRequestNow = previousNow
+		})
+
+		calls := 0
+		nonces := make(map[string]struct{})
+		timestamps := make(map[string]struct{})
+		signatures := make(map[string]struct{})
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			nonces[req.Header.Get("X-Sig-Nonce")] = struct{}{}
+			timestamps[req.Header.Get("X-Sig-Timestamp")] = struct{}{}
+			signatures[req.Header.Get("X-Sig-Signature")] = struct{}{}
+			if calls <= signedSessionMaxProviderRetries {
+				return &http.Response{
+					StatusCode: http.StatusServiceUnavailable,
+					Header:     http.Header{"Retry-After": []string{"10"}},
+					Body: io.NopCloser(strings.NewReader(
+						`{"error":"Provider temporarily unavailable","code":"PROVIDER_UNAVAILABLE","origin":"provider","retryable":true,"retry_mode":"same_operation","retry_after_seconds":30}`,
+					)),
+					Request: req,
+				}, nil
+			}
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(`{"ok":true}`)),
+				Request:    req,
+			}, nil
+		})
+		runtime := newSignedSessionTestRuntime(t, "provider-unavailable", transport)
+		config := SignedSessionConfig{Namespace: "provider-unavailable", BaseURL: "https://auth.example.com"}
+		runtime.manifest.SignedSession = &config
+		resolved := saveUsableSignedSession(t, runtime, config, "sess-provider-retry")
+
+		call := goja.FunctionCall{Arguments: []goja.Value{
+			runtime.vm.ToValue("POST"),
+			runtime.vm.ToValue("/tickets"),
+		}}
+		result := runtime.signedSessionFetch(call).Export().(map[string]any)
+		if result["ok"] != true || calls != signedSessionMaxProviderRetries+1 {
+			t.Fatalf("provider retry did not recover: calls=%d result=%+v", calls, result)
+		}
+		if len(waits) != signedSessionMaxProviderRetries {
+			t.Fatalf("provider retry waits = %v", waits)
+		}
+		for _, delay := range waits {
+			if delay != 10*time.Second {
+				t.Fatalf("Retry-After header was not authoritative: waits=%v", waits)
+			}
+		}
+		wantSignedAttempts := signedSessionMaxProviderRetries + 1
+		if len(nonces) != wantSignedAttempts ||
+			len(timestamps) != wantSignedAttempts ||
+			len(signatures) != wantSignedAttempts {
+			t.Fatalf(
+				"provider retries reused signed request headers: nonces=%d timestamps=%d signatures=%d want=%d",
+				len(nonces),
+				len(timestamps),
+				len(signatures),
+				wantSignedAttempts,
+			)
+		}
+		reloaded, err := runtime.loadSignedSession(resolved)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if reloaded.SessionID != "sess-provider-retry" {
+			t.Fatalf("provider retry changed the gateway session: %+v", reloaded)
+		}
+	})
+
+	t.Run("temporary provider retry budget is bounded", func(t *testing.T) {
+		previousWait := signedSessionProviderWait
+		signedSessionProviderWait = func(context.Context, time.Duration) error { return nil }
+		t.Cleanup(func() { signedSessionProviderWait = previousWait })
+
+		calls := 0
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			return &http.Response{
+				StatusCode: http.StatusServiceUnavailable,
+				Header:     http.Header{"Retry-After": []string{"1"}},
+				Body: io.NopCloser(strings.NewReader(
+					`{"error":"Provider temporarily unavailable","code":"PROVIDER_UNAVAILABLE","origin":"provider","retryable":true,"retry_mode":"same_operation","retry_after_seconds":1}`,
+				)),
+				Request: req,
+			}, nil
+		})
+		runtime := newSignedSessionTestRuntime(t, "provider-unavailable-bounded", transport)
+		config := SignedSessionConfig{Namespace: "provider-unavailable-bounded", BaseURL: "https://auth.example.com"}
+		runtime.manifest.SignedSession = &config
+		resolved := saveUsableSignedSession(t, runtime, config, "sess-provider-bounded")
+
+		call := goja.FunctionCall{Arguments: []goja.Value{
+			runtime.vm.ToValue("POST"),
+			runtime.vm.ToValue("/tickets"),
+		}}
+		result := runtime.signedSessionFetch(call).Export().(map[string]any)
+		if calls != signedSessionMaxProviderRetries+1 {
+			t.Fatalf("provider attempts = %d, want %d", calls, signedSessionMaxProviderRetries+1)
+		}
+		if result["code"] != "PROVIDER_UNAVAILABLE" || result["retryable"] != true {
+			t.Fatalf("final provider failure was not returned intact: %+v", result)
+		}
+		reloaded, err := runtime.loadSignedSession(resolved)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if reloaded.SessionID != "sess-provider-bounded" {
+			t.Fatalf("exhausted provider retries changed the gateway session: %+v", reloaded)
+		}
+	})
+}
+
+func TestStaleSignedSession401RetriesWithoutClearingExchangedSession(t *testing.T) {
+	oldRequestStarted := make(chan struct{})
+	releaseOldRequest := make(chan struct{})
+	var searchCalls atomic.Int32
+
+	transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+		switch {
+		case strings.HasSuffix(req.URL.Path, "/session/exchange"):
+			payload, _ := json.Marshal(signedSessionExchangeResponse{
+				SessionID:     "sess-new",
+				SessionSecret: "secret-new",
+				ExpiresAt:     time.Now().Add(time.Hour).UTC().Format(time.RFC3339),
+			})
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(string(payload))),
+				Request:    req,
+			}, nil
+		case strings.HasSuffix(req.URL.Path, "/tracks/search"):
+			searchCalls.Add(1)
+			if req.Header.Get("X-Sig-Session") == "sess-old" {
+				close(oldRequestStarted)
+				<-releaseOldRequest
+				return &http.Response{
+					StatusCode: http.StatusUnauthorized,
+					Header:     make(http.Header),
+					Body: io.NopCloser(strings.NewReader(
+						`{"error":"Unauthorized","code":"SESSION_INVALID","origin":"gateway","action":"bootstrap_session"}`,
+					)),
+					Request: req,
+				}, nil
+			}
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(`{"ok":true}`)),
+				Request:    req,
+			}, nil
+		default:
+			t.Fatalf("unexpected request: %s", req.URL.String())
+			return nil, nil
+		}
+	})
+
+	root := t.TempDir()
+	config := &SignedSessionConfig{
+		Namespace: "shared-stale-session",
+		BaseURL:   "https://auth.example.com",
+	}
+	newRuntime := func(extensionID string) *extensionRuntime {
+		return &extensionRuntime{
+			extensionID: extensionID,
+			manifest: &ExtensionManifest{
+				Name:          extensionID,
+				SignedSession: config,
+			},
+			dataDir:    filepath.Join(root, extensionID),
+			vm:         goja.New(),
+			httpClient: &http.Client{Transport: transport},
+		}
+	}
+	runtimeA := newRuntime("download-a")
+	runtimeB := newRuntime("download-b")
+	resolved := signedSessionConfigWithDefaults(config)
+	record, err := runtimeA.loadSignedSession(resolved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	record.SessionID = "sess-old"
+	record.SessionSecret = "secret-old"
+	record.ExpiresAt = time.Now().Add(time.Hour).UTC().Format(time.RFC3339)
+	if err := runtimeA.saveSignedSession(resolved, record); err != nil {
+		t.Fatal(err)
+	}
+
+	resultCh := make(chan map[string]any, 1)
+	go func() {
+		call := goja.FunctionCall{Arguments: []goja.Value{
+			runtimeA.vm.ToValue("GET"),
+			runtimeA.vm.ToValue("/tracks/search"),
+		}}
+		resultCh <- runtimeA.signedSessionFetch(call).Export().(map[string]any)
+	}()
+	<-oldRequestStarted
+	if err := runtimeB.exchangeSignedSessionGrant("grant-new"); err != nil {
+		t.Fatalf("exchange grant: %v", err)
+	}
+	close(releaseOldRequest)
+
+	result := <-resultCh
+	if result["ok"] != true {
+		t.Fatalf("stale request was not retried with the new session: %+v", result)
+	}
+	if got := searchCalls.Load(); got != 2 {
+		t.Fatalf("signed search calls = %d, want stale request plus one retry", got)
+	}
+	reloaded, err := runtimeA.loadSignedSession(resolved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.SessionID != "sess-new" || reloaded.SessionSecret != "secret-new" {
+		t.Fatalf("stale 401 overwrote exchanged session: %+v", reloaded)
 	}
 }
 
 func TestExchangeSignedSessionGrant(t *testing.T) {
 	t.Run("success stores the exchanged session", func(t *testing.T) {
+		calls := 0
 		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
 			if !strings.HasSuffix(req.URL.Path, "/session/exchange") {
 				t.Fatalf("unexpected path: %s", req.URL.Path)
 			}
@@ -753,6 +1686,12 @@ func TestExchangeSignedSessionGrant(t *testing.T) {
 
 		if err := runtime.exchangeSignedSessionGrant("grant-token"); err != nil {
 			t.Fatalf("unexpected error: %v", err)
+		}
+		if err := runtime.exchangeSignedSessionGrant("grant-token"); err != nil {
+			t.Fatalf("duplicate callback was not idempotent: %v", err)
+		}
+		if calls != 1 {
+			t.Fatalf("duplicate grant exchange calls = %d, want 1", calls)
 		}
 
 		config := signedSessionConfigWithDefaults(runtime.manifest.SignedSession)
@@ -774,6 +1713,105 @@ func TestExchangeSignedSessionGrant(t *testing.T) {
 
 		if err := runtime.exchangeSignedSessionGrant("bad-grant"); err == nil {
 			t.Fatal("expected an error for a non-2xx exchange response")
+		}
+	})
+
+	t.Run("429 preserves the grant and retries after the server delay", func(t *testing.T) {
+		pendingSignedSessionGrantsMu.Lock()
+		pendingSignedSessionGrants = make(map[string]string)
+		pendingSignedSessionGrantsMu.Unlock()
+		previousWait := signedSessionRetryWait
+		var waits []time.Duration
+		signedSessionRetryWait = func(delay time.Duration) {
+			waits = append(waits, delay)
+		}
+		t.Cleanup(func() { signedSessionRetryWait = previousWait })
+
+		calls := 0
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			if calls == 1 {
+				return &http.Response{
+					StatusCode: http.StatusTooManyRequests,
+					Header:     http.Header{"Retry-After": []string{"7"}},
+					Body:       io.NopCloser(strings.NewReader(`{}`)),
+					Request:    req,
+				}, nil
+			}
+			payload, _ := json.Marshal(signedSessionExchangeResponse{
+				SessionID:     "sess-after-429",
+				SessionSecret: "secret-after-429",
+				ExpiresAt:     "2030-01-01T00:00:00Z",
+			})
+			return &http.Response{
+				StatusCode: http.StatusOK,
+				Header:     make(http.Header),
+				Body:       io.NopCloser(strings.NewReader(string(payload))),
+				Request:    req,
+			}, nil
+		})
+		runtime := newSignedSessionTestRuntime(t, "tidal-rate-limit", transport)
+		runtime.manifest.SignedSession = &SignedSessionConfig{
+			Namespace: "tidal-rate-limit",
+			BaseURL:   "https://auth.example.com",
+		}
+		setPendingSignedSessionGrant(runtime.extensionID, "grant-preserved")
+
+		result := runtime.signedSessionCompleteGrant(goja.FunctionCall{}).Export().(map[string]any)
+		if result["success"] != true {
+			t.Fatalf("grant exchange did not recover from 429: %+v", result)
+		}
+		if calls != 2 {
+			t.Fatalf("exchange calls = %d, want 2", calls)
+		}
+		if len(waits) != 1 || waits[0] != 7*time.Second {
+			t.Fatalf("exchange retry waits = %v, want [7s]", waits)
+		}
+		pendingSignedSessionGrantsMu.Lock()
+		_, stillPending := pendingSignedSessionGrants[runtime.extensionID]
+		pendingSignedSessionGrantsMu.Unlock()
+		if stillPending {
+			t.Fatal("grant was not cleared after successful retry")
+		}
+	})
+
+	t.Run("exhausted 429 retries keep the grant for a later retry", func(t *testing.T) {
+		pendingSignedSessionGrantsMu.Lock()
+		pendingSignedSessionGrants = make(map[string]string)
+		pendingSignedSessionGrantsMu.Unlock()
+		previousWait := signedSessionRetryWait
+		signedSessionRetryWait = func(time.Duration) {}
+		t.Cleanup(func() { signedSessionRetryWait = previousWait })
+
+		calls := 0
+		transport := roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			calls++
+			return &http.Response{
+				StatusCode: http.StatusTooManyRequests,
+				Header:     http.Header{"Retry-After": []string{"3"}},
+				Body:       io.NopCloser(strings.NewReader(`{}`)),
+				Request:    req,
+			}, nil
+		})
+		runtime := newSignedSessionTestRuntime(t, "tidal-rate-limit-exhausted", transport)
+		runtime.manifest.SignedSession = &SignedSessionConfig{
+			Namespace: "tidal-rate-limit-exhausted",
+			BaseURL:   "https://auth.example.com",
+		}
+		setPendingSignedSessionGrant(runtime.extensionID, "grant-retry-later")
+
+		result := runtime.signedSessionCompleteGrant(goja.FunctionCall{}).Export().(map[string]any)
+		if result["success"] != false {
+			t.Fatalf("exhausted rate limit unexpectedly succeeded: %+v", result)
+		}
+		if calls != signedSessionExchangeMaxAttempts {
+			t.Fatalf("exchange calls = %d, want %d", calls, signedSessionExchangeMaxAttempts)
+		}
+		pendingSignedSessionGrantsMu.Lock()
+		pendingGrant := pendingSignedSessionGrants[runtime.extensionID]
+		pendingSignedSessionGrantsMu.Unlock()
+		if pendingGrant != "grant-retry-later" {
+			t.Fatalf("pending grant = %q, want it preserved for retry", pendingGrant)
 		}
 	})
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/theme/cover_palette.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/models/track.dart';
@@ -8,12 +9,14 @@ import 'package:spotiflac_android/providers/download_queue_provider.dart';
 import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
+import 'package:spotiflac_android/utils/audio_quality_badge_policy.dart';
 import 'package:spotiflac_android/utils/confirm_and_delete_tracks.dart';
 import 'package:spotiflac_android/utils/ffmpeg_reenrich.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/lyrics_metadata_helper.dart';
 import 'package:spotiflac_android/utils/nav_bar_inset.dart';
+import 'package:spotiflac_android/utils/re_enrich_release_policy.dart';
 import 'package:spotiflac_android/services/library_database.dart';
 import 'package:spotiflac_android/services/batch_track_actions.dart';
 import 'package:spotiflac_android/models/unified_library_item.dart';
@@ -26,7 +29,7 @@ import 'package:spotiflac_android/providers/playback_provider.dart';
 import 'package:spotiflac_android/providers/music_player_provider.dart';
 import 'package:spotiflac_android/screens/collapsing_header_scroll_mixin.dart';
 import 'package:spotiflac_android/screens/selection_mode_mixin.dart';
-import 'package:spotiflac_android/widgets/album_scaffold_body.dart';
+import 'package:spotiflac_android/widgets/collection_scaffold.dart';
 import 'package:spotiflac_android/widgets/album_track_tile.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/widgets/destructive_selection_button.dart';
@@ -69,6 +72,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
   late List<int> _sortedDiscNumbersCache;
   late bool _hasMultipleDiscsCache;
   String? _commonQualityCache;
+  String? _commonQualityModeCache;
 
   @override
   void initState() {
@@ -104,7 +108,8 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
     _discGroupsCache = _groupTracksByDisc(_sortedTracksCache);
     _sortedDiscNumbersCache = _discGroupsCache.keys.toList()..sort();
     _hasMultipleDiscsCache = _discGroupsCache.length > 1;
-    _commonQualityCache = _computeCommonQuality(_sortedTracksCache);
+    _commonQualityCache = null;
+    _commonQualityModeCache = null;
   }
 
   Map<int, List<LocalLibraryItem>> _groupTracksByDisc(
@@ -129,9 +134,8 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
         final item = tracksById[id];
         if (item == null) return false;
         if (!isCueVirtualPath(item.filePath)) {
-          try {
-            await deleteFile(item.filePath);
-          } catch (_) {}
+          final deleted = await deleteFile(item.filePath);
+          if (!deleted) return false;
         }
         await libraryNotifier.removeItem(id);
         return true;
@@ -157,7 +161,9 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.snackbarCannotOpenFile(e.toString())),
+            content: Text(
+              context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+            ),
           ),
         );
       }
@@ -167,6 +173,9 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final qualityLabelMode = ref.watch(
+      settingsProvider.select((s) => s.libraryQualityLabelMode),
+    );
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
     final bottomInset = context.navBarBottomInset;
     final tracks = _sortedTracksCache;
@@ -180,24 +189,27 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
 
     pruneSelection(tracks.map((t) => t.id).toSet());
 
-    return AlbumScaffoldBody(
+    return CollectionScaffold(
       scrollController: scrollController,
       isSelectionMode: isSelectionMode,
       onExitSelectionMode: exitSelectionMode,
-      appBar: _buildAppBar(context, colorScheme),
-      trackList: _buildTrackList(context, colorScheme, tracks),
-      bottomBar: _buildSelectionBottomBar(
+      appBar: _buildAppBar(context, colorScheme, qualityLabelMode),
+      slivers: [_buildTrackList(context, colorScheme, tracks)],
+      selectionBar: _buildSelectionBottomBar(
         context,
         colorScheme,
         tracks,
         bottomPadding,
       ),
       bottomInset: bottomInset,
-      bottomPadding: bottomPadding,
     );
   }
 
-  Widget _buildAppBar(BuildContext context, ColorScheme colorScheme) {
+  Widget _buildAppBar(
+    BuildContext context,
+    ColorScheme colorScheme,
+    String qualityLabelMode,
+  ) {
     final expandedHeight = calculateExpandedHeight(context);
 
     final cacheWidth = coverCacheWidthForViewport(context);
@@ -224,6 +236,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
       expandedHeight: expandedHeight,
       showTitleInAppBar: showTitleInAppBar,
       background: background,
+      paletteSource: widget.coverPath,
       blurAndScrimBackground: widget.coverPath != null,
       coverBuilder: (context, coverSize) => widget.coverPath != null
           ? Image.file(
@@ -252,8 +265,8 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
             ),
       subtitle: Text(
         widget.artistName,
-        style: const TextStyle(
-          color: Colors.white70,
+        style: TextStyle(
+          color: HeaderPalette.of(context).onSurfaceVariant,
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
@@ -261,7 +274,7 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      meta: _buildLocalHeaderMeta(context),
+      meta: _buildLocalHeaderMeta(context, qualityLabelMode),
       actions: AlbumPlayActions(
         playLabel: context.l10n.tooltipPlay,
         shuffleTooltip: context.l10n.actionShuffle,
@@ -271,14 +284,14 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
     );
   }
 
-  Widget _buildLocalHeaderMeta(BuildContext context) {
+  Widget _buildLocalHeaderMeta(BuildContext context, String qualityLabelMode) {
     final tracks = _sortedTracksCache;
     final totalSeconds = tracks.fold<int>(
       0,
       (sum, t) => sum + ((t.duration ?? 0) > 0 ? t.duration! : 0),
     );
     final totalMinutes = (totalSeconds / 60).round();
-    final quality = _commonQualityCache;
+    final quality = _getCommonQuality(qualityLabelMode);
 
     return HeaderMetaRow(
       items: [
@@ -306,34 +319,27 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
     await _openFile(tracks[Random().nextInt(tracks.length)]);
   }
 
-  String? _computeCommonQuality(List<LocalLibraryItem> tracks) {
+  String? _getCommonQuality(String mode) {
+    if (_commonQualityModeCache == mode) return _commonQualityCache;
+    _commonQualityModeCache = mode;
+    _commonQualityCache = _computeCommonQuality(_sortedTracksCache, mode);
+    return _commonQualityCache;
+  }
+
+  String? _computeCommonQuality(List<LocalLibraryItem> tracks, String mode) {
     if (tracks.isEmpty) return null;
-    final first = tracks.first;
+    String? label(LocalLibraryItem track) => buildLibraryAudioQualityLabel(
+      mode: mode,
+      format: track.format,
+      bitrateKbps: track.bitrate,
+      bitDepth: track.bitDepth,
+      sampleRate: track.sampleRate,
+    );
 
-    if (first.bitrate != null && first.bitrate! > 0) {
-      final fmt = first.format?.toUpperCase() ?? '';
-      final firstBitrate = first.bitrate;
-      for (final track in tracks) {
-        if (track.bitrate != firstBitrate) {
-          return null;
-        }
-      }
-      return '$fmt ${firstBitrate}kbps'.trim();
-    }
-
-    if (first.bitDepth == null ||
-        first.bitDepth == 0 ||
-        first.sampleRate == null) {
-      return null;
-    }
-
-    final firstQuality =
-        '${first.bitDepth}/${(first.sampleRate! / 1000).round()}kHz';
+    final firstQuality = label(tracks.first);
+    if (firstQuality == null) return null;
     for (final track in tracks) {
-      if (track.bitDepth != first.bitDepth ||
-          track.sampleRate != first.sampleRate) {
-        return null;
-      }
+      if (label(track) != firstQuality) return null;
     }
     return firstQuality;
   }
@@ -454,6 +460,9 @@ class _LocalAlbumScreenState extends ConsumerState<LocalAlbumScreen>
       'copyright': '',
       'duration_ms': durationMs,
       'search_online': true,
+      'replace_release_metadata': allowsReleaseIdentityReplacement(
+        ReEnrichOperationScope.batch,
+      ),
       // ignore: use_null_aware_elements
       if (updateFields != null) 'update_fields': updateFields,
     };

@@ -20,23 +20,25 @@ type cancelEntry struct {
 	refs     int
 }
 
-var (
-	cancelMu  sync.Mutex
-	cancelMap = make(map[string]*cancelEntry)
+type cancelRegistry struct {
+	mu      sync.Mutex
+	entries map[string]*cancelEntry
+}
 
-	extensionRequestCancelMu  sync.Mutex
-	extensionRequestCancelMap = make(map[string]*cancelEntry)
+var (
+	downloadCancels         = &cancelRegistry{entries: make(map[string]*cancelEntry)}
+	extensionRequestCancels = &cancelRegistry{entries: make(map[string]*cancelEntry)}
 )
 
-func initDownloadCancel(itemID string) context.Context {
-	if itemID == "" {
+func (r *cancelRegistry) init(id string) context.Context {
+	if id == "" {
 		return context.Background()
 	}
 
-	cancelMu.Lock()
-	defer cancelMu.Unlock()
+	r.mu.Lock()
+	defer r.mu.Unlock()
 
-	if entry, ok := cancelMap[itemID]; ok {
+	if entry, ok := r.entries[id]; ok {
 		if entry.ctx == nil {
 			ctx, cancel := context.WithCancel(context.Background())
 			entry.ctx = ctx
@@ -50,7 +52,7 @@ func initDownloadCancel(itemID string) context.Context {
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
-	cancelMap[itemID] = &cancelEntry{
+	r.entries[id] = &cancelEntry{
 		ctx:      ctx,
 		cancel:   cancel,
 		canceled: false,
@@ -59,164 +61,122 @@ func initDownloadCancel(itemID string) context.Context {
 	return ctx
 }
 
-func downloadCancelContext(itemID string) context.Context {
-	if itemID == "" {
+func (r *cancelRegistry) context(id string) context.Context {
+	if id == "" {
 		return context.Background()
 	}
-	cancelMu.Lock()
-	defer cancelMu.Unlock()
-	if entry, ok := cancelMap[itemID]; ok && entry.ctx != nil {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if entry, ok := r.entries[id]; ok && entry.ctx != nil {
 		return entry.ctx
 	}
 	return context.Background()
+}
+
+func (r *cancelRegistry) requestCancel(id string) {
+	if id == "" {
+		return
+	}
+
+	r.mu.Lock()
+	if entry, ok := r.entries[id]; ok {
+		entry.canceled = true
+		if entry.cancel != nil {
+			entry.cancel()
+		}
+	} else {
+		r.entries[id] = &cancelEntry{canceled: true}
+	}
+	r.mu.Unlock()
+}
+
+func (r *cancelRegistry) isCancelled(id string) bool {
+	if id == "" {
+		return false
+	}
+
+	r.mu.Lock()
+	entry, ok := r.entries[id]
+	canceled := ok && entry.canceled
+	r.mu.Unlock()
+	return canceled
+}
+
+// resetIfIdle removes a cancellation entry that has no active work attached
+// (refs <= 0). Such entries exist to catch an item that is just about to
+// start, but if the item never starts the flag lingers and the next explicit
+// retry would consume it and abort immediately.
+func (r *cancelRegistry) resetIfIdle(id string) {
+	if id == "" {
+		return
+	}
+
+	r.mu.Lock()
+	if entry, ok := r.entries[id]; ok && entry.refs <= 0 {
+		delete(r.entries, id)
+	}
+	r.mu.Unlock()
+}
+
+func (r *cancelRegistry) release(id string) {
+	if id == "" {
+		return
+	}
+
+	r.mu.Lock()
+	if entry, ok := r.entries[id]; ok {
+		entry.refs--
+		if entry.refs <= 0 {
+			delete(r.entries, id)
+		}
+	}
+	r.mu.Unlock()
+}
+
+func initDownloadCancel(itemID string) context.Context {
+	return downloadCancels.init(itemID)
+}
+
+func downloadCancelContext(itemID string) context.Context {
+	return downloadCancels.context(itemID)
 }
 
 func cancelDownload(itemID string) {
 	if itemID == "" {
 		return
 	}
-
-	cancelMu.Lock()
-	entry, ok := cancelMap[itemID]
-	if ok {
-		entry.canceled = true
-		if entry.cancel != nil {
-			entry.cancel()
-		}
-	} else {
-		cancelMap[itemID] = &cancelEntry{canceled: true}
-	}
-	cancelMu.Unlock()
-
+	downloadCancels.requestCancel(itemID)
 	RemoveItemProgress(itemID)
 }
 
 func isDownloadCancelled(itemID string) bool {
-	if itemID == "" {
-		return false
-	}
-
-	cancelMu.Lock()
-	entry, ok := cancelMap[itemID]
-	canceled := ok && entry.canceled
-	cancelMu.Unlock()
-	return canceled
+	return downloadCancels.isCancelled(itemID)
 }
 
-// resetDownloadCancel removes a cancellation entry that has no active
-// download attached (refs <= 0). Such entries exist to catch an item that is
-// just about to start, but if the item never starts the flag lingers and the
-// next explicit retry would consume it and abort immediately.
 func resetDownloadCancel(itemID string) {
-	if itemID == "" {
-		return
-	}
-
-	cancelMu.Lock()
-	if entry, ok := cancelMap[itemID]; ok && entry.refs <= 0 {
-		delete(cancelMap, itemID)
-	}
-	cancelMu.Unlock()
+	downloadCancels.resetIfIdle(itemID)
 }
 
 func clearDownloadCancel(itemID string) {
-	if itemID == "" {
-		return
-	}
-
-	cancelMu.Lock()
-	if entry, ok := cancelMap[itemID]; ok {
-		entry.refs--
-		if entry.refs <= 0 {
-			delete(cancelMap, itemID)
-		}
-	}
-	cancelMu.Unlock()
+	downloadCancels.release(itemID)
 }
 
 func initExtensionRequestCancel(requestID string) context.Context {
-	if requestID == "" {
-		return context.Background()
-	}
-
-	extensionRequestCancelMu.Lock()
-	defer extensionRequestCancelMu.Unlock()
-
-	if entry, ok := extensionRequestCancelMap[requestID]; ok {
-		if entry.ctx == nil {
-			ctx, cancel := context.WithCancel(context.Background())
-			entry.ctx = ctx
-			entry.cancel = cancel
-			if entry.canceled && entry.cancel != nil {
-				entry.cancel()
-			}
-		}
-		entry.refs++
-		return entry.ctx
-	}
-
-	ctx, cancel := context.WithCancel(context.Background())
-	extensionRequestCancelMap[requestID] = &cancelEntry{
-		ctx:      ctx,
-		cancel:   cancel,
-		canceled: false,
-		refs:     1,
-	}
-	return ctx
+	return extensionRequestCancels.init(requestID)
 }
 
 func extensionRequestCancelContext(requestID string) context.Context {
-	if requestID == "" {
-		return context.Background()
-	}
-	extensionRequestCancelMu.Lock()
-	defer extensionRequestCancelMu.Unlock()
-	if entry, ok := extensionRequestCancelMap[requestID]; ok && entry.ctx != nil {
-		return entry.ctx
-	}
-	return context.Background()
+	return extensionRequestCancels.context(requestID)
 }
 
 func cancelExtensionRequest(requestID string) {
-	if requestID == "" {
-		return
-	}
-
-	extensionRequestCancelMu.Lock()
-	if entry, ok := extensionRequestCancelMap[requestID]; ok {
-		entry.canceled = true
-		if entry.cancel != nil {
-			entry.cancel()
-		}
-	} else {
-		extensionRequestCancelMap[requestID] = &cancelEntry{canceled: true}
-	}
-	extensionRequestCancelMu.Unlock()
+	extensionRequestCancels.requestCancel(requestID)
 }
 
 func isExtensionRequestCancelled(requestID string) bool {
-	if requestID == "" {
-		return false
-	}
-
-	extensionRequestCancelMu.Lock()
-	entry, ok := extensionRequestCancelMap[requestID]
-	canceled := ok && entry.canceled
-	extensionRequestCancelMu.Unlock()
-	return canceled
+	return extensionRequestCancels.isCancelled(requestID)
 }
 
 func clearExtensionRequestCancel(requestID string) {
-	if requestID == "" {
-		return
-	}
-
-	extensionRequestCancelMu.Lock()
-	if entry, ok := extensionRequestCancelMap[requestID]; ok {
-		entry.refs--
-		if entry.refs <= 0 {
-			delete(extensionRequestCancelMap, requestID)
-		}
-	}
-	extensionRequestCancelMu.Unlock()
+	extensionRequestCancels.release(requestID)
 }

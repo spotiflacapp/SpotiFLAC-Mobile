@@ -267,7 +267,42 @@ func TestFileDownloadFailureLeavesNoFinalFile(t *testing.T) {
 	}
 }
 
-func TestFileDownloadResumesAfterMidBodyCut(t *testing.T) {
+func TestFileDownloadDoesNotResumeMidBodyCutByDefault(t *testing.T) {
+	const full = "hello-world!"
+	var attempts int
+	runtime := newFileDownloadTestRuntime(t, func(req *http.Request) (*http.Response, error) {
+		attempts++
+		h := make(http.Header)
+		h.Set("ETag", `"v1"`)
+		return &http.Response{
+			StatusCode:    200,
+			Header:        h,
+			Body:          io.NopCloser(&failingBodyReader{data: []byte(full[:6])}),
+			ContentLength: int64(len(full)),
+			Request:       req,
+		}, nil
+	})
+
+	result := runtime.fileDownload(goja.FunctionCall{Arguments: []goja.Value{
+		runtime.vm.ToValue("https://cdn.example.com/track.flac"),
+		runtime.vm.ToValue("out/track.flac"),
+	}}).Export().(map[string]any)
+	if result["success"] != false {
+		t.Fatalf("expected failed download, got %#v", result)
+	}
+	if attempts != 1 {
+		t.Fatalf("attempts = %d, want no automatic resume", attempts)
+	}
+	finalPath := filepath.Join(runtime.dataDir, "out", "track.flac")
+	if _, err := os.Stat(finalPath); !os.IsNotExist(err) {
+		t.Fatalf("partial download visible at final path: %v", err)
+	}
+	if _, err := os.Stat(stagedDownloadPath(finalPath)); !os.IsNotExist(err) {
+		t.Fatalf("staged file left behind: %v", err)
+	}
+}
+
+func TestFileDownloadResumesAfterMidBodyCutWhenEnabled(t *testing.T) {
 	const full = "hello-world!"
 	var attempts int
 	var resumeRange, resumeIfRange string
@@ -300,6 +335,7 @@ func TestFileDownloadResumesAfterMidBodyCut(t *testing.T) {
 	result := runtime.fileDownload(goja.FunctionCall{Arguments: []goja.Value{
 		runtime.vm.ToValue("https://cdn.example.com/track.flac"),
 		runtime.vm.ToValue("out/track.flac"),
+		runtime.vm.ToValue(map[string]any{"resume": true}),
 	}}).Export().(map[string]any)
 	if result["success"] != true {
 		t.Fatalf("download result = %#v", result)
@@ -342,6 +378,7 @@ func TestFileDownloadResumeRestartsWhenRangeIgnored(t *testing.T) {
 	result := runtime.fileDownload(goja.FunctionCall{Arguments: []goja.Value{
 		runtime.vm.ToValue("https://cdn.example.com/track.flac"),
 		runtime.vm.ToValue("out/track.flac"),
+		runtime.vm.ToValue(map[string]any{"resume": true}),
 	}}).Export().(map[string]any)
 	if result["success"] != true {
 		t.Fatalf("download result = %#v", result)

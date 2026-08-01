@@ -193,6 +193,35 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
     }
   }
 
+  Future<({String uri, String fileName})?> _writeTempToSafCollisionAware({
+    required String treeUri,
+    required String relativeDir,
+    required String cleanFileName,
+    required String variantFileName,
+    required String mimeType,
+    required String srcPath,
+    String preservedSuffix = '',
+  }) async {
+    try {
+      final result = await PlatformBridge.createCollisionAwareSafFileFromPath(
+        treeUri: treeUri,
+        relativeDir: relativeDir,
+        cleanFileName: cleanFileName,
+        variantFileName: variantFileName,
+        mimeType: mimeType,
+        srcPath: srcPath,
+        preservedSuffix: preservedSuffix,
+      );
+      final uri = (result['uri'] as String? ?? '').trim();
+      final publishedName = (result['file_name'] as String? ?? '').trim();
+      if (uri.isEmpty || publishedName.isEmpty) return null;
+      return (uri: uri, fileName: publishedName);
+    } catch (e) {
+      _log.w('Failed to write collision-aware temp file to SAF: $e');
+      return null;
+    }
+  }
+
   Future<void> _writeLrcToSaf({
     required String treeUri,
     required String relativeDir,
@@ -251,6 +280,8 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
     op,
     bool avoidOverwrite = false,
     String preservedSuffix = '',
+    String? collisionCleanFileName,
+    String? collisionVariantFileName,
     void Function(String fileName)? onPublishedFileName,
   }) async {
     final tempPath = await _copySafToTemp(uri);
@@ -267,7 +298,21 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
       final dotIndex = fileName.lastIndexOf('.');
       final ext = dotIndex >= 0 ? fileName.substring(dotIndex) : '';
       String? newUri;
-      if (avoidOverwrite) {
+      if (collisionCleanFileName != null && collisionVariantFileName != null) {
+        final published = await _writeTempToSafCollisionAware(
+          treeUri: treeUri,
+          relativeDir: relativeDir,
+          cleanFileName: collisionCleanFileName,
+          variantFileName: collisionVariantFileName,
+          mimeType: _mimeTypeForExt(ext),
+          srcPath: outPath,
+          preservedSuffix: preservedSuffix,
+        );
+        newUri = published?.uri;
+        if (published != null) {
+          onPublishedFileName?.call(published.fileName);
+        }
+      } else if (avoidOverwrite) {
         final published = await _writeTempToSafUnique(
           treeUri: treeUri,
           relativeDir: relativeDir,
@@ -321,6 +366,7 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
     String? downloadTreeUri,
     String? safRelativeDir,
     String? fileName,
+    bool collisionOnly = false,
   }) async {
     if (!item.preserveQualityVariant || result['already_exists'] == true) {
       return _QualityVariantFileOutcome(filePath: filePath, fileName: fileName);
@@ -382,7 +428,7 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
     if (bitDepth != null) result['actual_bit_depth'] = bitDepth;
     if (sampleRate != null) result['actual_sample_rate'] = sampleRate;
     if (detectedFormat != null) result['audio_codec'] = detectedFormat;
-    if (bitrateKbps != null && isLossyAudioFormat(detectedFormat)) {
+    if (bitrateKbps != null) {
       result['bitrate'] = bitrateKbps;
     }
 
@@ -391,11 +437,16 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
     final currentFileName = storageMode == 'saf' && isContentUri(filePath)
         ? (fileName ?? result['file_name']?.toString() ?? '')
         : (localPathSegments.isEmpty ? '' : localPathSegments.last);
-    final preferredFileName = applyQualityVariantFilenameLabel(
+    final variantFileName = applyQualityVariantFilenameLabel(
       fileName: currentFileName,
       stagingLabel: stagingLabel,
       qualityLabel: qualityLabel,
     );
+    final cleanFileName = removeQualityVariantStagingLabel(
+      fileName: currentFileName,
+      stagingLabel: stagingLabel,
+    );
+    final preferredFileName = variantFileName;
     if (preferredFileName == currentFileName) {
       return _QualityVariantFileOutcome(
         filePath: filePath,
@@ -417,8 +468,10 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
         uri: filePath,
         treeUri: downloadTreeUri,
         relativeDir: safRelativeDir ?? '',
-        avoidOverwrite: true,
+        avoidOverwrite: !collisionOnly,
         preservedSuffix: qualityLabel,
+        collisionCleanFileName: collisionOnly ? cleanFileName : null,
+        collisionVariantFileName: collisionOnly ? variantFileName : null,
         onPublishedFileName: (name) => publishedFileName = name,
         op: (tempPath, addCleanup) async => (tempPath, preferredFileName),
       );
@@ -441,44 +494,70 @@ extension _DownloadQueueFinalization on DownloadQueueNotifier {
 
     final source = File(filePath);
     final parent = source.parent;
-    var target = File(
-      '${parent.path}${Platform.pathSeparator}$preferredFileName',
+    final cleanTarget = File(
+      '${parent.path}${Platform.pathSeparator}$cleanFileName',
     );
-    var counter = 2;
-    while (await target.exists() && target.path != source.path) {
-      final dotIndex = preferredFileName.lastIndexOf('.');
-      final hasExtension = dotIndex > 0;
-      final stem = hasExtension
-          ? preferredFileName.substring(0, dotIndex)
+    final lockTarget = collisionOnly
+        ? cleanTarget
+        : File('${parent.path}${Platform.pathSeparator}$preferredFileName');
+    return _withQualityVariantFileLock(lockTarget.path, () async {
+      final selectedFileName = collisionOnly
+          ? resolveQualityVariantFilename(
+              fileName: currentFileName,
+              stagingLabel: stagingLabel,
+              qualityLabel: qualityLabel,
+              collisionOnly: true,
+              cleanNameExists:
+                  cleanTarget.path != source.path && await cleanTarget.exists(),
+            )
           : preferredFileName;
-      final extension = hasExtension
-          ? preferredFileName.substring(dotIndex)
-          : '';
-      target = File(
-        '${parent.path}${Platform.pathSeparator}$stem ($counter)$extension',
+      if (selectedFileName == currentFileName) {
+        return _QualityVariantFileOutcome(
+          filePath: filePath,
+          fileName: fileName,
+          metadata: metadata,
+        );
+      }
+
+      var target = File(
+        '${parent.path}${Platform.pathSeparator}$selectedFileName',
       );
-      counter++;
-    }
-    try {
-      final renamed = await source.rename(target.path);
-      result['file_path'] = renamed.path;
-      final renamedSegments = renamed.uri.pathSegments;
-      result['file_name'] = renamedSegments.isEmpty
-          ? null
-          : renamedSegments.last;
-      return _QualityVariantFileOutcome(
-        filePath: renamed.path,
-        fileName: result['file_name'] as String?,
-        metadata: metadata,
-      );
-    } catch (e) {
-      _log.w('Failed to apply measured quality filename: $e');
-      return _QualityVariantFileOutcome(
-        filePath: filePath,
-        fileName: fileName,
-        metadata: metadata,
-      );
-    }
+      var counter = 2;
+      while (await target.exists() && target.path != source.path) {
+        final dotIndex = selectedFileName.lastIndexOf('.');
+        final hasExtension = dotIndex > 0;
+        final stem = hasExtension
+            ? selectedFileName.substring(0, dotIndex)
+            : selectedFileName;
+        final extension = hasExtension
+            ? selectedFileName.substring(dotIndex)
+            : '';
+        target = File(
+          '${parent.path}${Platform.pathSeparator}$stem ($counter)$extension',
+        );
+        counter++;
+      }
+      try {
+        final renamed = await source.rename(target.path);
+        result['file_path'] = renamed.path;
+        final renamedSegments = renamed.uri.pathSegments;
+        result['file_name'] = renamedSegments.isEmpty
+            ? null
+            : renamedSegments.last;
+        return _QualityVariantFileOutcome(
+          filePath: renamed.path,
+          fileName: result['file_name'] as String?,
+          metadata: metadata,
+        );
+      } catch (e) {
+        _log.w('Failed to apply measured quality filename: $e');
+        return _QualityVariantFileOutcome(
+          filePath: filePath,
+          fileName: fileName,
+          metadata: metadata,
+        );
+      }
+    });
   }
 
   /// Shared decrypt finalize used by both the inline single-item pipeline

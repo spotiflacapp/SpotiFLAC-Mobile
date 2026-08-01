@@ -7,6 +7,18 @@ class _ResolvedAutoFillTrack {
   const _ResolvedAutoFillTrack({required this.track, this.deezerId});
 }
 
+class _AutoFillPreview {
+  final Map<String, String> values;
+  final String sourceName;
+  final String? coverUrl;
+
+  const _AutoFillPreview({
+    required this.values,
+    required this.sourceName,
+    this.coverUrl,
+  });
+}
+
 class _EditMetadataSheet extends StatefulWidget {
   static const _onlineCoverSentinel = '__online_cover__';
   final ColorScheme colorScheme;
@@ -30,6 +42,7 @@ class _EditMetadataSheet extends StatefulWidget {
 }
 
 class _EditMetadataSheetState extends State<_EditMetadataSheet> {
+  static const _coverResizeDimensions = <int>[500, 1000, 1500, 2000, 3000];
   static final RegExp _metadataCollapsePattern = RegExp(r'[^a-z0-9]+');
   static final RegExp _metadataWhitespacePattern = RegExp(r'\s+');
   static final RegExp _spotifyTrackIdPattern = RegExp(r'^[A-Za-z0-9]{22}$');
@@ -46,8 +59,285 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
   String? _currentCoverPath;
   String? _currentCoverTempDir;
   bool _loadingCurrentCover = false;
+  int? _coverMaxDimension;
+  final Map<String, ({int width, int height})> _coverDimensions = {};
+  final Set<String> _coverDimensionLoads = {};
+  String? _selectedMetadataProviderId;
+  _AutoFillPreview? _autoFillPreview;
+  final GlobalKey<ScaffoldMessengerState> _sheetMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   final Set<String> _autoFillFields = {};
+
+  List<Extension> _orderedMetadataProviders(ExtensionState state) {
+    final providersById = <String, Extension>{
+      for (final extension in state.extensions)
+        if (extension.enabled && extension.hasMetadataProvider)
+          extension.id: extension,
+    };
+    final ordered = <Extension>[];
+    for (final id in state.metadataProviderPriority) {
+      final extension = providersById.remove(id);
+      if (extension != null) ordered.add(extension);
+    }
+    final remaining = providersById.values.toList()
+      ..sort(
+        (a, b) =>
+            a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase()),
+      );
+    return [...ordered, ...remaining];
+  }
+
+  String _metadataProviderName(String? providerId) {
+    final normalized = providerId?.trim() ?? '';
+    if (normalized.isEmpty) {
+      return context.l10n.editMetadataAutoFillSourceAutomatic;
+    }
+    final extensionState = ProviderScope.containerOf(
+      context,
+      listen: false,
+    ).read(extensionProvider);
+    return extensionState.extensions
+            .where((extension) => extension.id == normalized)
+            .firstOrNull
+            ?.displayName ??
+        normalized;
+  }
+
+  Future<void> _showMetadataProviderPicker(List<Extension> providers) async {
+    FocusScope.of(context).unfocus();
+    final selectedId = await showModalBottomSheet<String>(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      showDragHandle: true,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+      builder: (sheetContext) {
+        final cs = Theme.of(sheetContext).colorScheme;
+        final currentId =
+            providers.any(
+              (extension) => extension.id == _selectedMetadataProviderId,
+            )
+            ? _selectedMetadataProviderId!
+            : '';
+        final options = <({String id, String name, IconData icon})>[
+          (
+            id: '',
+            name: sheetContext.l10n.editMetadataAutoFillSourceAutomatic,
+            icon: Icons.auto_awesome_outlined,
+          ),
+          for (final extension in providers)
+            (
+              id: extension.id,
+              name: extension.displayName,
+              icon: Icons.extension_outlined,
+            ),
+        ];
+
+        return SafeArea(
+          top: false,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(sheetContext).height * 0.72,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                  child: Text(
+                    sheetContext.l10n.editMetadataAutoFillSource,
+                    style: Theme.of(sheetContext).textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Flexible(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: SettingsGroup(
+                      children: [
+                        for (var index = 0; index < options.length; index++)
+                          _metadataProviderOption(
+                            context: sheetContext,
+                            id: options[index].id,
+                            name: options[index].name,
+                            icon: options[index].icon,
+                            selected: options[index].id == currentId,
+                            showDivider: index != options.length - 1,
+                            cs: cs,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (!mounted || selectedId == null) return;
+    setState(() {
+      _selectedMetadataProviderId = selectedId.isEmpty ? null : selectedId;
+      _invalidateAutoFillPreview();
+    });
+  }
+
+  Future<void> _showCoverResolutionPicker() async {
+    FocusScope.of(context).unfocus();
+    final currentValue = _coverMaxDimension ?? 0;
+    final selectedValue = await showModalBottomSheet<int>(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      showDragHandle: true,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+      builder: (sheetContext) {
+        final cs = Theme.of(sheetContext).colorScheme;
+        final options = <({int value, String label})>[
+          (
+            value: 0,
+            label: _originalCoverResolutionLabel(
+              sheetContext.l10n.trackConvertOriginal,
+            ),
+          ),
+          for (final dimension in _coverResizeDimensions)
+            (value: dimension, label: '$dimension px'),
+        ];
+        return SafeArea(
+          top: false,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(sheetContext).height * 0.72,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                  child: Text(
+                    sheetContext.l10n.trackCoverResolution,
+                    style: Theme.of(sheetContext).textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Flexible(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: SettingsGroup(
+                      children: [
+                        for (var index = 0; index < options.length; index++)
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 4,
+                                ),
+                                leading: Icon(
+                                  options[index].value == 0
+                                      ? Icons.photo_size_select_actual_outlined
+                                      : Icons.photo_size_select_large_outlined,
+                                  color: options[index].value == currentValue
+                                      ? cs.primary
+                                      : cs.onSurfaceVariant,
+                                ),
+                                title: Text(options[index].label),
+                                selected: options[index].value == currentValue,
+                                selectedColor: cs.primary,
+                                trailing: options[index].value == currentValue
+                                    ? const Icon(Icons.check_rounded)
+                                    : null,
+                                onTap: () => Navigator.pop(
+                                  sheetContext,
+                                  options[index].value,
+                                ),
+                              ),
+                              if (index != options.length - 1)
+                                Divider(
+                                  height: 1,
+                                  indent: 60,
+                                  endIndent: 20,
+                                  color: cs.outlineVariant.withValues(
+                                    alpha: 0.3,
+                                  ),
+                                ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    if (!mounted || selectedValue == null) return;
+    setState(() {
+      _coverMaxDimension = selectedValue == 0 ? null : selectedValue;
+    });
+  }
+
+  Widget _metadataProviderOption({
+    required BuildContext context,
+    required String id,
+    required String name,
+    required IconData icon,
+    required bool selected,
+    required bool showDivider,
+    required ColorScheme cs,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 4,
+          ),
+          leading: Icon(
+            icon,
+            color: selected ? cs.primary : cs.onSurfaceVariant,
+          ),
+          title: Text(name, maxLines: 2, overflow: TextOverflow.ellipsis),
+          selected: selected,
+          selectedColor: cs.primary,
+          trailing: selected ? const Icon(Icons.check_rounded) : null,
+          onTap: () => Navigator.pop(context, id),
+        ),
+        if (showDivider)
+          Divider(
+            height: 1,
+            indent: 60,
+            endIndent: 20,
+            color: cs.outlineVariant.withValues(alpha: 0.3),
+          ),
+      ],
+    );
+  }
+
+  void _invalidateAutoFillPreview() {
+    _autoFillPreview = null;
+  }
+
+  void _showSheetSnackBar(String message) {
+    final snackBar = SnackBar(content: Text(message));
+    final messenger = _sheetMessengerKey.currentState;
+    if (messenger != null) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
+      return;
+    }
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(snackBar);
+  }
 
   static const _fieldDefs = <String, String>{
     'title': 'title',
@@ -84,8 +374,32 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
   late final TextEditingController _copyrightCtrl;
   late final TextEditingController _composerCtrl;
   late final TextEditingController _commentCtrl;
+  bool _fetchingMusicBrainz = false;
 
   bool _hasValue(String? value) => value != null && value.trim().isNotEmpty;
+
+  String _originalCoverResolutionLabel(String originalLabel) {
+    final sourcePath = _selectedCoverPath ?? _currentCoverPath;
+    final dimensions = sourcePath == null ? null : _coverDimensions[sourcePath];
+    if (dimensions == null) return originalLabel;
+    return '$originalLabel · ${dimensions.width} × ${dimensions.height} px';
+  }
+
+  Future<void> _loadCoverDimensions(String path) async {
+    if (_coverDimensions.containsKey(path) || !_coverDimensionLoads.add(path)) {
+      return;
+    }
+    final dimensions = await FFmpegService.probeImageDimensions(path);
+    if (!mounted) return;
+    setState(() {
+      _coverDimensionLoads.remove(path);
+      final isActivePath =
+          path == _currentCoverPath || path == _selectedCoverPath;
+      if (isActivePath && dimensions != null) {
+        _coverDimensions[path] = dimensions;
+      }
+    });
+  }
 
   String _resolveImageExtension(String? ext, Uint8List? bytes) {
     final normalized = (ext ?? '').toLowerCase();
@@ -122,9 +436,14 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
   Future<void> _cleanupSelectedCoverTemp() async {
     final dirPath = _selectedCoverTempDir;
+    final coverPath = _selectedCoverPath;
     _selectedCoverPath = null;
     _selectedCoverTempDir = null;
     _selectedCoverName = null;
+    if (coverPath != null) {
+      _coverDimensions.remove(coverPath);
+      _coverDimensionLoads.remove(coverPath);
+    }
     if (dirPath == null || dirPath.isEmpty) return;
     try {
       final dir = Directory(dirPath);
@@ -136,8 +455,13 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
   Future<void> _cleanupCurrentCoverTemp() async {
     final dirPath = _currentCoverTempDir;
+    final coverPath = _currentCoverPath;
     _currentCoverPath = null;
     _currentCoverTempDir = null;
+    if (coverPath != null) {
+      _coverDimensions.remove(coverPath);
+      _coverDimensionLoads.remove(coverPath);
+    }
     if (dirPath == null || dirPath.isEmpty) return;
     try {
       final dir = Directory(dirPath);
@@ -185,11 +509,19 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     }
 
     final oldDir = _currentCoverTempDir;
+    final oldCoverPath = _currentCoverPath;
     setState(() {
+      if (oldCoverPath != null && oldCoverPath != newCoverPath) {
+        _coverDimensions.remove(oldCoverPath);
+        _coverDimensionLoads.remove(oldCoverPath);
+      }
       _currentCoverPath = newCoverPath;
       _currentCoverTempDir = newCoverDir;
       _loadingCurrentCover = false;
     });
+    if (newCoverPath != null) {
+      unawaited(_loadCoverDimensions(newCoverPath));
+    }
     if (oldDir != null && oldDir.isNotEmpty && oldDir != newCoverDir) {
       try {
         final dir = Directory(oldDir);
@@ -242,11 +574,10 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
         _selectedCoverTempDir = tempDir.path;
         _selectedCoverName = picked.name;
       });
+      unawaited(_loadCoverDimensions(tempPath));
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
-      );
+      _showSheetSnackBar(context.l10n.snackbarError(context.friendlyError(e)));
     }
   }
 
@@ -329,12 +660,14 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
   void _selectAllFields() {
     setState(() {
+      _invalidateAutoFillPreview();
       _autoFillFields.addAll(_fieldDefs.keys);
     });
   }
 
   void _selectEmptyFields() {
     setState(() {
+      _invalidateAutoFillPreview();
       _autoFillFields.clear();
       for (final key in _fieldDefs.keys) {
         if (key == 'cover') {
@@ -352,7 +685,10 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
   }
 
   void _selectNoFields() {
-    setState(_autoFillFields.clear);
+    setState(() {
+      _invalidateAutoFillPreview();
+      _autoFillFields.clear();
+    });
   }
 
   String _normalizeMetadataText(String value) {
@@ -655,15 +991,16 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     return false;
   }
 
-  Future<void> _fetchAndFill() async {
+  Future<void> _fetchAutoFillPreview() async {
     if (_autoFillFields.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.editMetadataAutoFillNoneSelected)),
-      );
+      _showSheetSnackBar(context.l10n.editMetadataAutoFillNoneSelected);
       return;
     }
 
-    setState(() => _fetching = true);
+    setState(() {
+      _fetching = true;
+      _invalidateAutoFillPreview();
+    });
     final settingsNotifier = ProviderScope.containerOf(
       context,
       listen: false,
@@ -674,12 +1011,31 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
       final artist = _artistCtrl.text.trim();
       final album = _albumCtrl.text.trim();
       final currentIsrc = _isrcCtrl.text.trim().toUpperCase();
+      final configuredProviderId = _selectedMetadataProviderId?.trim();
+      final extensionState = ProviderScope.containerOf(
+        context,
+        listen: false,
+      ).read(extensionProvider);
+      final selectedProvider = configuredProviderId == null
+          ? null
+          : extensionState.extensions
+                .where(
+                  (extension) =>
+                      extension.id == configuredProviderId &&
+                      extension.enabled &&
+                      extension.hasMetadataProvider,
+                )
+                .firstOrNull;
+      final selectedProviderId = selectedProvider?.id;
+      final usesAutomaticProvider =
+          selectedProviderId == null || selectedProviderId.isEmpty;
       final shouldFetchLyrics = _autoFillFields.contains('lyrics');
       final needsTrackLookup = _autoFillFields.any((key) => key != 'lyrics');
       Map<String, dynamic>? best;
       String? deezerId;
+      String? lyricsSourceName;
 
-      if (needsTrackLookup) {
+      if (needsTrackLookup && usesAutomaticProvider) {
         try {
           final resolved = await _resolveAutoFillTrackFromIdentifiers(
             currentIsrc,
@@ -700,9 +1056,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
       if (needsTrackLookup && best == null && queryParts.isEmpty) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.l10n.editMetadataAutoFillNoResults)),
-          );
+          _showSheetSnackBar(context.l10n.editMetadataAutoFillNoResults);
         }
         return;
       }
@@ -713,17 +1067,33 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
       if (needsTrackLookup && best == null) {
         final query = queryParts.join(' ');
-        final results = await PlatformBridge.searchTracksWithMetadataProviders(
-          query,
-          limit: 5,
-        );
+        final List<Map<String, dynamic>> results;
+        if (usesAutomaticProvider) {
+          results = await PlatformBridge.searchTracksWithMetadataProviders(
+            query,
+            limit: 5,
+          );
+        } else if (selectedProvider!.hasCustomSearch) {
+          final trackFilter = selectedProvider.searchBehavior?.filterIdForKind(
+            'track',
+          );
+          results = await PlatformBridge.customSearchWithExtension(
+            selectedProvider.id,
+            query,
+            options: {'limit': 5, 'filter': ?trackFilter},
+          );
+        } else {
+          results = await PlatformBridge.searchTracksWithMetadataProvider(
+            selectedProvider.id,
+            query,
+            limit: 5,
+          );
+        }
 
         if (!mounted) return;
 
         if (results.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.l10n.editMetadataAutoFillNoResults)),
-          );
+          _showSheetSnackBar(context.l10n.editMetadataAutoFillNoResults);
           return;
         }
 
@@ -756,10 +1126,34 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
         }
 
         if (best == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.l10n.editMetadataAutoFillNoResults)),
-          );
+          _showSheetSnackBar(context.l10n.editMetadataAutoFillNoResults);
           return;
+        }
+
+        if (!usesAutomaticProvider) {
+          final trackId = best['id']?.toString().trim() ?? '';
+          if (trackId.isNotEmpty) {
+            try {
+              final details = await PlatformBridge.getProviderMetadata(
+                selectedProviderId,
+                'track',
+                trackId,
+              );
+              final mergedDetails = <String, dynamic>{...best};
+              for (final entry in _unwrapTrackPayload(details).entries) {
+                final value = entry.value;
+                if (value != null && value.toString().trim().isNotEmpty) {
+                  mergedDetails[entry.key] = value;
+                }
+              }
+              best = mergedDetails;
+            } catch (e) {
+              _log.w(
+                'Detailed metadata lookup failed for '
+                '$selectedProviderId/$trackId: $e',
+              );
+            }
+          }
         }
       }
 
@@ -809,7 +1203,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
           ? currentIsrc
           : (_looksLikeIsrc(candidateIsrc) ? candidateIsrc : '');
 
-      if (needsIsrc || needsExtended) {
+      if (usesAutomaticProvider && (needsIsrc || needsExtended)) {
         try {
           if (deezerId == null && deezerLookupIsrc.isNotEmpty) {
             final deezerResult = await PlatformBridge.searchDeezerByISRC(
@@ -839,7 +1233,8 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
       if (!mounted) return;
 
-      if (needsIsrc &&
+      if (usesAutomaticProvider &&
+          needsIsrc &&
           (enriched['isrc'] ?? '').trim().isEmpty &&
           deezerId != null) {
         try {
@@ -859,7 +1254,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
       if (!mounted) return;
 
-      if (needsExtended && deezerId != null) {
+      if (usesAutomaticProvider && needsExtended && deezerId != null) {
         try {
           final extended = await PlatformBridge.getDeezerExtendedMetadata(
             deezerId,
@@ -897,6 +1292,9 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
               durationMs: widget.durationMs,
             );
             final lyricsText = lyricsResult['lyrics']?.toString().trim() ?? '';
+            final lyricsSource =
+                lyricsResult['source']?.toString().trim() ?? '';
+            if (lyricsSource.isNotEmpty) lyricsSourceName = lyricsSource;
             final instrumental =
                 (lyricsResult['instrumental'] as bool? ?? false) ||
                 lyricsText == '[instrumental:true]';
@@ -911,76 +1309,120 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
       if (!mounted) return;
 
+      final availableValues = <String, String>{};
+      for (final entry in enriched.entries) {
+        final value = entry.value.trim();
+        if (value.isNotEmpty && value != '0' && value != 'null') {
+          availableValues[entry.key] = value;
+        }
+      }
+      final coverUrl = selectedBest == null
+          ? null
+          : (selectedBest['cover_url'] ?? selectedBest['images'] ?? '')
+                .toString()
+                .trim();
+      final hasSelectedValue = _autoFillFields.any(
+        (key) => key == 'cover'
+            ? coverUrl != null && coverUrl.isNotEmpty
+            : availableValues.containsKey(key),
+      );
+      if (!hasSelectedValue) {
+        _showSheetSnackBar(context.l10n.editMetadataAutoFillNoResults);
+        return;
+      }
+
+      final resolvedSourceId = selectedProviderId?.isNotEmpty == true
+          ? selectedProviderId!
+          : (selectedBest?['provider_id']?.toString().trim() ?? '');
+      final resolvedSourceName =
+          selectedBest == null && lyricsSourceName?.isNotEmpty == true
+          ? lyricsSourceName!
+          : _metadataProviderName(resolvedSourceId);
+      setState(() {
+        _autoFillPreview = _AutoFillPreview(
+          values: availableValues,
+          sourceName: resolvedSourceName,
+          coverUrl: coverUrl?.isNotEmpty == true ? coverUrl : null,
+        );
+      });
+    } catch (e, stackTrace) {
+      _log.e('Metadata auto-fill failed: $e', e, stackTrace);
+      if (mounted) {
+        _showSheetSnackBar(
+          context.l10n.snackbarError(context.friendlyError(e)),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _fetching = false);
+    }
+  }
+
+  Future<void> _applyAutoFillPreview() async {
+    final preview = _autoFillPreview;
+    if (preview == null || _saving || _fetching) return;
+
+    setState(() => _fetching = true);
+    try {
       var filledCount = 0;
       for (final key in _autoFillFields) {
         if (key == 'cover') continue;
-        final value = enriched[key];
-        if (value != null &&
-            value.isNotEmpty &&
-            value != '0' &&
-            value != 'null') {
-          final ctrl = _controllerForKey(key);
-          if (ctrl != null) {
-            ctrl.text = value;
-            filledCount++;
-          }
+        final value = preview.values[key];
+        final ctrl = _controllerForKey(key);
+        if (value != null && ctrl != null) {
+          ctrl.text = value;
+          filledCount++;
         }
       }
 
-      if (_autoFillFields.contains('cover') && selectedBest != null) {
-        final coverUrl =
-            (selectedBest['cover_url'] ?? selectedBest['images'] ?? '')
-                .toString();
-        if (coverUrl.isNotEmpty) {
-          try {
-            final tempDir = await Directory.systemTemp.createTemp(
-              'autofill_cover_',
-            );
-            final coverOutput =
-                '${tempDir.path}${Platform.pathSeparator}cover.jpg';
-            await PlatformBridge.downloadCoverToFile(
-              coverUrl,
-              coverOutput,
-              maxQuality: false,
-            );
-            final file = File(coverOutput);
-            if (await file.exists() && await file.length() > 0) {
-              await _cleanupSelectedCoverTemp();
-              if (mounted) {
-                setState(() {
-                  _selectedCoverPath = coverOutput;
-                  _selectedCoverTempDir = tempDir.path;
-                  _selectedCoverName = _EditMetadataSheet._onlineCoverSentinel;
-                });
-                filledCount++;
-              }
-            } else {
-              try {
-                await tempDir.delete(recursive: true);
-              } catch (_) {}
-            }
-          } catch (_) {
-            // Cover download is best-effort
-          }
-        }
-      }
-
-      if (mounted) {
-        setState(() {});
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              filledCount > 0
-                  ? context.l10n.editMetadataAutoFillDone(filledCount)
-                  : context.l10n.editMetadataAutoFillNoResults,
-            ),
-          ),
+      if (_autoFillFields.contains('cover') && preview.coverUrl != null) {
+        final tempDir = await Directory.systemTemp.createTemp(
+          'autofill_cover_',
         );
+        final coverOutput = '${tempDir.path}${Platform.pathSeparator}cover.jpg';
+        try {
+          await PlatformBridge.downloadCoverToFile(
+            preview.coverUrl!,
+            coverOutput,
+            maxQuality: true,
+          );
+          final file = File(coverOutput);
+          if (await file.exists() && await file.length() > 0) {
+            await _cleanupSelectedCoverTemp();
+            if (mounted) {
+              _selectedCoverPath = coverOutput;
+              _selectedCoverTempDir = tempDir.path;
+              _selectedCoverName = _EditMetadataSheet._onlineCoverSentinel;
+              filledCount++;
+              unawaited(_loadCoverDimensions(coverOutput));
+            }
+          } else {
+            await tempDir.delete(recursive: true);
+          }
+        } catch (_) {
+          try {
+            if (await tempDir.exists()) await tempDir.delete(recursive: true);
+          } catch (_) {}
+        }
       }
+
+      if (!mounted) return;
+      setState(() {
+        if (filledCount > 0) {
+          _invalidateAutoFillPreview();
+        }
+      });
+      _showSheetSnackBar(
+        filledCount > 0
+            ? context.l10n.editMetadataAutoFillDoneFromSource(
+                filledCount,
+                preview.sourceName,
+              )
+            : context.l10n.editMetadataAutoFillNoResults,
+      );
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
+        _showSheetSnackBar(
+          context.l10n.snackbarError(context.friendlyError(e)),
         );
       }
     } finally {
@@ -1036,29 +1478,55 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
   Future<void> _save() async {
     setState(() => _saving = true);
-
-    final metadata = <String, String>{
-      'title': _titleCtrl.text,
-      'artist': _artistCtrl.text,
-      'album': _albumCtrl.text,
-      'album_artist': _albumArtistCtrl.text,
-      'date': _dateCtrl.text,
-      'track_number': _trackNumCtrl.text,
-      'track_total': _trackTotalCtrl.text,
-      'disc_number': _discNumCtrl.text,
-      'disc_total': _discTotalCtrl.text,
-      'genre': _genreCtrl.text,
-      'isrc': _isrcCtrl.text,
-      'lyrics': _lyricsCtrl.text,
-      'label': _labelCtrl.text,
-      'copyright': _copyrightCtrl.text,
-      'composer': _composerCtrl.text,
-      'comment': _commentCtrl.text,
-      'cover_path': _selectedCoverPath ?? '',
-      'artist_tag_mode': widget.artistTagMode,
-    };
-
+    final noCoverMessage = context.l10n.trackCoverNoEmbeddedArt;
+    final resizeFailedMessage = context.l10n.trackCoverResizeFailed;
+    Directory? resizedCoverTempDir;
     try {
+      String? coverPathForSave = _selectedCoverPath;
+      final requestedCoverDimension = _coverMaxDimension;
+      if (requestedCoverDimension != null) {
+        final sourceCoverPath = _selectedCoverPath ?? _currentCoverPath;
+        if (!_hasValue(sourceCoverPath)) {
+          throw StateError(noCoverMessage);
+        }
+        resizedCoverTempDir = await Directory.systemTemp.createTemp(
+          'edit_resized_cover_',
+        );
+        final resizedCoverPath =
+            '${resizedCoverTempDir.path}${Platform.pathSeparator}'
+            'cover_${requestedCoverDimension}px.jpg';
+        final resized = await FFmpegService.resizeCoverArt(
+          inputPath: sourceCoverPath!,
+          outputPath: resizedCoverPath,
+          maxDimension: requestedCoverDimension,
+        );
+        if (!resized) {
+          throw StateError(resizeFailedMessage);
+        }
+        coverPathForSave = resizedCoverPath;
+      }
+
+      final metadata = <String, String>{
+        'title': _titleCtrl.text,
+        'artist': _artistCtrl.text,
+        'album': _albumCtrl.text,
+        'album_artist': _albumArtistCtrl.text,
+        'date': _dateCtrl.text,
+        'track_number': _trackNumCtrl.text,
+        'track_total': _trackTotalCtrl.text,
+        'disc_number': _discNumCtrl.text,
+        'disc_total': _discTotalCtrl.text,
+        'genre': _genreCtrl.text,
+        'isrc': _isrcCtrl.text,
+        'lyrics': _lyricsCtrl.text,
+        'label': _labelCtrl.text,
+        'copyright': _copyrightCtrl.text,
+        'composer': _composerCtrl.text,
+        'comment': _commentCtrl.text,
+        'cover_path': coverPathForSave ?? '',
+        'artist_tag_mode': widget.artistTagMode,
+      };
+
       final result = await PlatformBridge.editFileMetadata(
         widget.filePath,
         metadata,
@@ -1066,11 +1534,13 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
       if (result['error'] != null) {
         if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('${result['error']}')));
+          _showSheetSnackBar(
+            context.friendlyError(
+              result['error'],
+              fallback: context.l10n.metadataSaveFailedFfmpeg,
+            ),
+          );
         }
-        setState(() => _saving = false);
         return;
       }
 
@@ -1146,7 +1616,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
           // Lyrics/ReplayGain preservation is best-effort.
         }
 
-        String? existingCoverPath = _selectedCoverPath ?? _currentCoverPath;
+        String? existingCoverPath = coverPathForSave ?? _currentCoverPath;
         String? extractedCoverPath;
         if (existingCoverPath == null || existingCoverPath.isEmpty) {
           // Preserve current embedded cover when user does not pick a new one.
@@ -1210,21 +1680,17 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
 
         if (ffmpegResult == null) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n.metadataSaveFailedFfmpeg)),
-            );
+            _showSheetSnackBar(context.l10n.metadataSaveFailedFfmpeg);
           }
-          setState(() => _saving = false);
           return;
         }
 
         if (tempPath != null && safUri != null) {
           final ok = await PlatformBridge.writeTempToSaf(ffmpegResult, safUri);
-          if (!ok && mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.l10n.metadataSaveFailedStorage)),
-            );
-            setState(() => _saving = false);
+          if (!ok) {
+            if (mounted) {
+              _showSheetSnackBar(context.l10n.metadataSaveFailedStorage);
+            }
             return;
           }
         }
@@ -1235,11 +1701,18 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
+        _showSheetSnackBar(
+          context.l10n.snackbarError(context.friendlyError(e)),
         );
       }
     } finally {
+      if (resizedCoverTempDir != null) {
+        try {
+          if (await resizedCoverTempDir.exists()) {
+            await resizedCoverTempDir.delete(recursive: true);
+          }
+        } catch (_) {}
+      }
       if (mounted) setState(() => _saving = false);
     }
   }
@@ -1249,173 +1722,188 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     final cs = widget.colorScheme;
 
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.viewInsetsOf(context).bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: DraggableScrollableSheet(
         initialChildSize: 0.85,
         minChildSize: 0.5,
         maxChildSize: 0.95,
         expand: false,
-        builder: (context, scrollController) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 12, bottom: 8),
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: cs.onSurfaceVariant.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(2),
+        builder: (context, scrollController) => ScaffoldMessenger(
+          key: _sheetMessengerKey,
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            resizeToAvoidBottomInset: false,
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 8),
+                  child: const AppSheetHandle(),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      context.l10n.trackEditMetadata,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  if (_saving)
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      ),
-                    )
-                  else
-                    FilledButton.icon(
-                      onPressed: _save,
-                      icon: const Icon(Icons.check, size: 18),
-                      label: Text(context.l10n.dialogSave),
-                      style: FilledButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 12,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            Divider(height: 1, color: cs.outlineVariant.withValues(alpha: 0.5)),
-            Expanded(
-              child: ListView(
-                controller: scrollController,
-                padding: const EdgeInsets.fromLTRB(20, 6, 20, 24),
-                children: [
-                  _buildCoverEditor(cs),
-                  _buildAutoFillSection(cs),
-                  _sectionCard(
-                    icon: Icons.info_outline,
-                    title: context.l10n.trackMetadata,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+                  child: Row(
                     children: [
-                      _field(context.l10n.editMetadataFieldTitle, _titleCtrl),
-                      _field(context.l10n.editMetadataFieldArtist, _artistCtrl),
-                      _field(context.l10n.editMetadataFieldAlbum, _albumCtrl),
-                      _field(
-                        context.l10n.editMetadataFieldAlbumArtist,
-                        _albumArtistCtrl,
+                      Expanded(
+                        child: Text(
+                          context.l10n.trackEditMetadata,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      _field(
-                        context.l10n.editMetadataFieldDate,
-                        _dateCtrl,
-                        hint: context.l10n.editMetadataFieldDateHint,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _field(
-                              context.l10n.editMetadataFieldTrackNum,
-                              _trackNumCtrl,
-                              keyboard: TextInputType.number,
+                      if (_saving)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: SizedBox(
+                            width: 22,
+                            height: 22,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        )
+                      else
+                        FilledButton.icon(
+                          onPressed: _save,
+                          icon: const Icon(Icons.check, size: 18),
+                          label: Text(context.l10n.dialogSave),
+                          style: FilledButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _field(
-                              context.l10n.editMetadataFieldTrackTotal,
-                              _trackTotalCtrl,
-                              keyboard: TextInputType.number,
-                            ),
+                        ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  height: 1,
+                  color: cs.outlineVariant.withValues(alpha: 0.5),
+                ),
+                Expanded(
+                  child: ListView(
+                    controller: scrollController,
+                    padding: const EdgeInsets.fromLTRB(20, 6, 20, 24),
+                    children: [
+                      _buildCoverEditor(cs),
+                      _buildAutoFillSection(cs),
+                      _sectionCard(
+                        icon: Icons.info_outline,
+                        title: context.l10n.trackMetadata,
+                        children: [
+                          _field(
+                            context.l10n.editMetadataFieldTitle,
+                            _titleCtrl,
+                          ),
+                          _field(
+                            context.l10n.editMetadataFieldArtist,
+                            _artistCtrl,
+                          ),
+                          _field(
+                            context.l10n.editMetadataFieldAlbum,
+                            _albumCtrl,
+                          ),
+                          _field(
+                            context.l10n.editMetadataFieldAlbumArtist,
+                            _albumArtistCtrl,
+                          ),
+                          _field(
+                            context.l10n.editMetadataFieldDate,
+                            _dateCtrl,
+                            hint: context.l10n.editMetadataFieldDateHint,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _field(
+                                  context.l10n.editMetadataFieldTrackNum,
+                                  _trackNumCtrl,
+                                  keyboard: TextInputType.number,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _field(
+                                  context.l10n.editMetadataFieldTrackTotal,
+                                  _trackTotalCtrl,
+                                  keyboard: TextInputType.number,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _field(
+                                  context.l10n.editMetadataFieldDiscNum,
+                                  _discNumCtrl,
+                                  keyboard: TextInputType.number,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _field(
+                                  context.l10n.editMetadataFieldDiscTotal,
+                                  _discTotalCtrl,
+                                  keyboard: TextInputType.number,
+                                ),
+                              ),
+                            ],
+                          ),
+                          _field(
+                            context.l10n.editMetadataFieldGenre,
+                            _genreCtrl,
+                          ),
+                          _field(context.l10n.editMetadataFieldIsrc, _isrcCtrl),
+                        ],
+                      ),
+                      _sectionCard(
+                        icon: Icons.lyrics_outlined,
+                        title: context.l10n.trackLyrics,
+                        children: [
+                          _field(
+                            context.l10n.trackLyrics,
+                            _lyricsCtrl,
+                            maxLines: 8,
+                            keyboard: TextInputType.multiline,
                           ),
                         ],
                       ),
-                      Row(
+                      _sectionCard(
+                        icon: Icons.tune,
+                        title: context.l10n.editMetadataAdvanced,
+                        onHeaderTap: () =>
+                            setState(() => _showAdvanced = !_showAdvanced),
+                        expanded: _showAdvanced,
                         children: [
-                          Expanded(
-                            child: _field(
-                              context.l10n.editMetadataFieldDiscNum,
-                              _discNumCtrl,
-                              keyboard: TextInputType.number,
+                          if (_showAdvanced) ...[
+                            _field(
+                              context.l10n.editMetadataFieldLabel,
+                              _labelCtrl,
                             ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _field(
-                              context.l10n.editMetadataFieldDiscTotal,
-                              _discTotalCtrl,
-                              keyboard: TextInputType.number,
+                            _field(
+                              context.l10n.editMetadataFieldCopyright,
+                              _copyrightCtrl,
                             ),
-                          ),
+                            _field(
+                              context.l10n.editMetadataFieldComposer,
+                              _composerCtrl,
+                            ),
+                            _field(
+                              context.l10n.editMetadataFieldComment,
+                              _commentCtrl,
+                              maxLines: 3,
+                            ),
+                          ],
                         ],
                       ),
-                      _field(context.l10n.editMetadataFieldGenre, _genreCtrl),
-                      _field(context.l10n.editMetadataFieldIsrc, _isrcCtrl),
                     ],
                   ),
-                  _sectionCard(
-                    icon: Icons.lyrics_outlined,
-                    title: context.l10n.trackLyrics,
-                    children: [
-                      _field(
-                        context.l10n.trackLyrics,
-                        _lyricsCtrl,
-                        maxLines: 8,
-                        keyboard: TextInputType.multiline,
-                      ),
-                    ],
-                  ),
-                  _sectionCard(
-                    icon: Icons.tune,
-                    title: context.l10n.editMetadataAdvanced,
-                    onHeaderTap: () =>
-                        setState(() => _showAdvanced = !_showAdvanced),
-                    expanded: _showAdvanced,
-                    children: [
-                      if (_showAdvanced) ...[
-                        _field(context.l10n.editMetadataFieldLabel, _labelCtrl),
-                        _field(
-                          context.l10n.editMetadataFieldCopyright,
-                          _copyrightCtrl,
-                        ),
-                        _field(
-                          context.l10n.editMetadataFieldComposer,
-                          _composerCtrl,
-                        ),
-                        _field(
-                          context.l10n.editMetadataFieldComment,
-                          _commentCtrl,
-                          maxLines: 3,
-                        ),
-                      ],
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -1436,6 +1924,24 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
             ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
           ),
           const SizedBox(height: 12),
+          Consumer(
+            builder: (context, ref, _) {
+              final extensionState = ref.watch(extensionProvider);
+              final providers = _orderedMetadataProviders(extensionState);
+              final selectedProviderIsAvailable = providers.any(
+                (extension) => extension.id == _selectedMetadataProviderId,
+              );
+              final selectedId = selectedProviderIsAvailable
+                  ? _selectedMetadataProviderId
+                  : null;
+              return _selectionField(
+                label: context.l10n.editMetadataAutoFillSource,
+                value: _metadataProviderName(selectedId),
+                enabled: !_fetching && !_saving,
+                onTap: () => _showMetadataProviderPicker(providers),
+              );
+            },
+          ),
           Row(
             children: [
               _quickSelectButton(
@@ -1470,6 +1976,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
                     ? null
                     : (val) {
                         setState(() {
+                          _invalidateAutoFillPreview();
                           if (val) {
                             _autoFillFields.add(key);
                           } else {
@@ -1493,7 +2000,7 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
             child: FilledButton.icon(
               onPressed: (_fetching || _saving || _autoFillFields.isEmpty)
                   ? null
-                  : _fetchAndFill,
+                  : _fetchAutoFillPreview,
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(
@@ -1513,14 +2020,155 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
               label: Text(
                 _fetching
                     ? context.l10n.editMetadataAutoFillSearching
-                    : context.l10n.editMetadataAutoFillFetch,
+                    : context.l10n.editMetadataAutoFillFind,
               ),
+            ),
+          ),
+          if (_autoFillPreview case final preview?) ...[
+            const SizedBox(height: 12),
+            _buildAutoFillPreview(cs, preview),
+          ],
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: (_fetching || _fetchingMusicBrainz || _saving)
+                  ? null
+                  : _fetchFromMusicBrainz,
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              icon: _fetchingMusicBrainz
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.library_music_outlined),
+              label: Text(context.l10n.editMetadataMusicBrainzButton),
             ),
           ),
           const SizedBox(height: 8),
         ],
       ],
     );
+  }
+
+  Widget _buildAutoFillPreview(ColorScheme cs, _AutoFillPreview preview) {
+    final previewFields = _autoFillFields
+        .where((key) {
+          if (key == 'cover') return preview.coverUrl != null;
+          return preview.values.containsKey(key);
+        })
+        .toList(growable: false);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerHighest.withValues(alpha: 0.45),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: cs.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.fact_check_outlined, size: 18, color: cs.primary),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  context.l10n.editMetadataAutoFillPreview(preview.sourceName),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ...previewFields.map((key) {
+            final value = key == 'cover'
+                ? context.l10n.editMetadataAutoFillCoverAvailable
+                : preview.values[key]!;
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 104,
+                    child: Text(
+                      _fieldLabel(key),
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      value,
+                      maxLines: key == 'lyrics' ? 3 : 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+          const SizedBox(height: 6),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: (_fetching || _saving) ? null : _applyAutoFillPreview,
+              icon: const Icon(Icons.check),
+              label: Text(context.l10n.editMetadataAutoFillApply),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Fills genre and album artist from MusicBrainz (keyed by ISRC) as
+  /// editable suggestions; nothing is saved until the user taps Save.
+  Future<void> _fetchFromMusicBrainz() async {
+    final isrc = _isrcCtrl.text.trim();
+    if (isrc.isEmpty) {
+      _showSheetSnackBar(context.l10n.editMetadataMusicBrainzNeedsIsrc);
+      return;
+    }
+    setState(() => _fetchingMusicBrainz = true);
+    try {
+      final tags = await PlatformBridge.fetchMusicBrainzTags(
+        isrc: isrc,
+        albumName: _albumCtrl.text.trim(),
+      );
+      if (!mounted) return;
+      var filled = 0;
+      if (tags.genre.isNotEmpty) {
+        _genreCtrl.text = tags.genre;
+        filled++;
+      }
+      if (tags.albumArtist.isNotEmpty) {
+        _albumArtistCtrl.text = tags.albumArtist;
+        filled++;
+      }
+      _showSheetSnackBar(
+        filled > 0
+            ? context.l10n.editMetadataMusicBrainzFilled
+            : context.l10n.editMetadataMusicBrainzNothing,
+      );
+    } catch (_) {
+      if (mounted) {
+        _showSheetSnackBar(context.l10n.editMetadataMusicBrainzNothing);
+      }
+    } finally {
+      if (mounted) setState(() => _fetchingMusicBrainz = false);
+    }
   }
 
   Widget _quickSelectButton({
@@ -1642,6 +2290,23 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
               ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
             ),
           ],
+          const SizedBox(height: 12),
+          _selectionField(
+            label: context.l10n.trackCoverResolution,
+            value: _coverMaxDimension == null
+                ? _originalCoverResolutionLabel(
+                    context.l10n.trackConvertOriginal,
+                  )
+                : '${_coverMaxDimension!} px',
+            enabled: !_saving,
+            onTap: _showCoverResolutionPicker,
+          ),
+          Text(
+            context.l10n.trackCoverResolutionHint,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          ),
         ],
         const SizedBox(height: 8),
       ],
@@ -1653,6 +2318,8 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
     required String path,
     required String label,
   }) {
+    final dimensions = _coverDimensions[path];
+    final loadingDimensions = _coverDimensionLoads.contains(path);
     return Column(
       children: [
         Container(
@@ -1698,6 +2365,26 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
+        const SizedBox(height: 3),
+        if (dimensions != null)
+          Text(
+            '${dimensions.width} × ${dimensions.height} px',
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: cs.primary,
+              fontWeight: FontWeight.w600,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )
+        else if (loadingDimensions)
+          SizedBox(
+            width: 12,
+            height: 12,
+            child: CircularProgressIndicator(
+              strokeWidth: 1.5,
+              color: cs.primary,
+            ),
+          ),
       ],
     );
   }
@@ -1762,6 +2449,65 @@ class _EditMetadataSheetState extends State<_EditMetadataSheet> {
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 15,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _selectionField({
+    required String label,
+    required String value,
+    required VoidCallback onTap,
+    bool enabled = true,
+  }) {
+    final cs = widget.colorScheme;
+    final radius = BorderRadius.circular(14);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 4, bottom: 6),
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: enabled ? cs.onSurfaceVariant : cs.outline,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.1,
+              ),
+            ),
+          ),
+          Material(
+            color: _fieldFill(cs),
+            borderRadius: radius,
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: enabled ? onTap : null,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        value,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: enabled ? cs.onSurface : cs.outline,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.expand_more_rounded,
+                      color: enabled ? cs.onSurfaceVariant : cs.outline,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

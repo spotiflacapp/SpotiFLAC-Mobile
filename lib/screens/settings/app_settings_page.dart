@@ -4,7 +4,7 @@ import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class AppSettingsPage extends ConsumerWidget {
   const AppSettingsPage({super.key});
@@ -19,7 +19,7 @@ class AppSettingsPage extends ConsumerWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(title: context.l10n.settingsApp),
+            AppSliverHeader.page(title: context.l10n.settingsApp),
 
             SliverToBoxAdapter(
               child: SettingsSectionHeader(title: context.l10n.sectionApp),
@@ -246,7 +246,9 @@ class AppSettingsPage extends ConsumerWidget {
       if (context.mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.snackbarError(e.toString()))),
+          SnackBar(
+            content: Text(context.l10n.snackbarError(context.friendlyError(e))),
+          ),
         );
       }
     }
@@ -265,7 +267,7 @@ class _UpdateChannelSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Padding(
+    final content = Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,13 +305,15 @@ class _UpdateChannelSelector extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              _ChannelChip(
+              SettingsChoiceChip(
+                expand: true,
                 label: context.l10n.channelStable,
                 isSelected: currentChannel == 'stable',
                 onTap: () => onChanged('stable'),
               ),
               const SizedBox(width: 8),
-              _ChannelChip(
+              SettingsChoiceChip(
+                expand: true,
                 label: context.l10n.channelPreview,
                 isSelected: currentChannel == 'preview',
                 onTap: () => onChanged('preview'),
@@ -338,6 +342,10 @@ class _UpdateChannelSelector extends StatelessWidget {
         ],
       ),
     );
+    return SettingsSearchTarget(
+      label: context.l10n.optionsUpdateChannel,
+      child: content,
+    );
   }
 }
 
@@ -359,7 +367,7 @@ class _VerificationBrowserModeSelector extends StatelessWidget {
         ? 'external_first'
         : 'in_app_first';
 
-    return Column(
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
@@ -403,13 +411,15 @@ class _VerificationBrowserModeSelector extends StatelessWidget {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  _ChannelChip(
+                  SettingsChoiceChip(
+                    expand: true,
                     label: context.l10n.extensionVerificationBrowserExternal,
                     isSelected: normalizedMode == 'external_first',
                     onTap: () => onChanged('external_first'),
                   ),
                   const SizedBox(width: 8),
-                  _ChannelChip(
+                  SettingsChoiceChip(
+                    expand: true,
                     label: context.l10n.extensionVerificationBrowserInApp,
                     isSelected: normalizedMode == 'in_app_first',
                     onTap: () => onChanged('in_app_first'),
@@ -428,52 +438,9 @@ class _VerificationBrowserModeSelector extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class _ChannelChip extends StatelessWidget {
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-  const _ChannelChip({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final unselectedColor = isDark
-        ? Color.alphaBlend(
-            Colors.white.withValues(alpha: 0.05),
-            colorScheme.surface,
-          )
-        : colorScheme.surfaceContainerHigh;
-    return Expanded(
-      child: Material(
-        color: isSelected ? colorScheme.primaryContainer : unselectedColor,
-        borderRadius: BorderRadius.circular(12),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Center(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                  color: isSelected
-                      ? colorScheme.onPrimaryContainer
-                      : colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+    return SettingsSearchTarget(
+      label: context.l10n.extensionVerificationBrowserTitle,
+      child: content,
     );
   }
 }

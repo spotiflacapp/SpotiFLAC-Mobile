@@ -24,6 +24,7 @@ class _MiniPlayerState extends ConsumerState<MiniPlayer> {
     if (mediaItem == null) return const SizedBox.shrink();
 
     final isPlaying = ref.watch(playbackPlayingProvider);
+    final isLoading = ref.watch(playbackLoadingProvider);
     if (mediaItem.id == _dismissedItemId && !isPlaying) {
       return const SizedBox.shrink();
     }
@@ -112,8 +113,17 @@ class _MiniPlayerState extends ConsumerState<MiniPlayer> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                        onPressed: () => controller.togglePlayPause(isPlaying),
+                        icon: isLoading
+                            ? const SizedBox.square(
+                                dimension: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.5,
+                                ),
+                              )
+                            : Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                        onPressed: isLoading
+                            ? null
+                            : () => controller.togglePlayPause(isPlaying),
                       ),
                       IconButton(
                         icon: const Icon(Icons.skip_next),

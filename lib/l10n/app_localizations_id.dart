@@ -110,7 +110,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Gunakan warna dari wallpaper Anda';
 
   @override
-  String get appearanceHistoryView => 'Tampilan Riwayat';
+  String get appearanceHistoryView => 'Gaya Tampilan Histori';
 
   @override
   String get appearanceHistoryViewList => 'Daftar';
@@ -138,7 +138,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Pilih tab mana yang terbuka terlebih dahulu untuk hasil pencarian baru.';
 
   @override
-  String get optionsAutoFallback => 'Cadangan Otomatis';
+  String get optionsAutoFallback => 'Layanan Cadangan';
 
   @override
   String get optionsAutoFallbackSubtitle =>
@@ -631,6 +631,52 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String csvImportTracks(int count) {
     return '$count trek dari CSV';
+  }
+
+  @override
+  String get collectionExportM3u => 'Export as M3U8';
+
+  @override
+  String collectionExportM3uDone(int exported, int total) {
+    return 'Exported $exported of $total tracks';
+  }
+
+  @override
+  String get collectionExportM3uNone => 'No downloaded files to export';
+
+  @override
+  String get collectionExportM3uFailed => 'Export failed';
+
+  @override
+  String get trackOpenOn => 'Open on...';
+
+  @override
+  String get trackOpenOnNoLinks => 'No platform links found for this track.';
+
+  @override
+  String get libraryReviewDuplicates => 'Review duplicates';
+
+  @override
+  String get libraryReviewDuplicatesSubtitle =>
+      'Find tracks stored more than once';
+
+  @override
+  String get duplicatesTitle => 'Duplicates';
+
+  @override
+  String get duplicatesEmpty => 'No duplicate tracks found.';
+
+  @override
+  String get duplicatesKeepBest => 'Keep best';
+
+  @override
+  String duplicatesKeepBestMessage(int count, String trackName) {
+    return 'Delete $count lower-quality copies of \"$trackName\"?';
+  }
+
+  @override
+  String duplicatesDeleteCopyMessage(String trackName) {
+    return 'Delete this copy of \"$trackName\"?';
   }
 
   @override
@@ -1538,6 +1584,13 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get appearanceHeroAnimationsSubtitle =>
       'Fly covers between screens, e.g. when opening the player';
+
+  @override
+  String get appearanceForceBlur => 'Always use blur effects';
+
+  @override
+  String get appearanceForceBlurSubtitle =>
+      'Enable the navigation bar blur even on devices where it is off by default. May cost performance.';
 
   @override
   String get queueClearAll => 'Hapus Semua';
@@ -3263,7 +3316,33 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get editMetadataAutoFillDesc =>
-      'Select fields to fill automatically from online metadata';
+      'Pilih extension metadata dan field, lalu periksa datanya sebelum diterapkan';
+
+  @override
+  String get editMetadataAutoFillSource => 'Sumber metadata';
+
+  @override
+  String get editMetadataAutoFillSourceAutomatic =>
+      'Otomatis (prioritas provider)';
+
+  @override
+  String get editMetadataAutoFillFind => 'Cari metadata';
+
+  @override
+  String editMetadataAutoFillPreview(String source) {
+    return 'Data dari $source';
+  }
+
+  @override
+  String get editMetadataAutoFillCoverAvailable => 'Sampul tersedia';
+
+  @override
+  String get editMetadataAutoFillApply => 'Terapkan data terpilih';
+
+  @override
+  String editMetadataAutoFillDoneFromSource(int count, String source) {
+    return 'Mengisi $count field dari $source';
+  }
 
   @override
   String get editMetadataAutoFillFetch => 'Fetch & Fill';
@@ -3377,6 +3456,27 @@ class AppLocalizationsId extends AppLocalizations {
       'Single track downloads will appear here';
 
   @override
+  String queuePlaylistCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count playlists',
+      one: '1 playlist',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get queueEmptyPlaylistsSubtitle =>
+      'Create a playlist to organize your tracks';
+
+  @override
+  String get libraryDefaultView => 'Default view';
+
+  @override
+  String get libraryDefaultViewLastUsed => 'Last used';
+
+  @override
   String get queueEmptyHistory => 'No download history';
 
   @override
@@ -3453,6 +3553,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get audioAnalysisSpectralCutoff => 'Spectral Cutoff';
 
   @override
+  String get audioAnalysisCutoffNotDetected => 'Tidak terdeteksi';
+
+  @override
   String get audioAnalysisChannelStats => 'Per-channel Stats';
 
   @override
@@ -3503,6 +3606,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get cancelDownloadKeep => 'Keep';
+
+  @override
+  String get queueCancelledTitle => 'Download cancelled';
+
+  @override
+  String get queueCancelledMessage =>
+      'This download was cancelled. Retry it or remove it from the queue.';
 
   @override
   String get metadataSaveFailedFfmpeg => 'Failed to save metadata via FFmpeg';
@@ -3737,10 +3847,56 @@ class AppLocalizationsId extends AppLocalizations {
       'The selected cover will replace the current embedded cover when you tap Save.';
 
   @override
+  String get trackCoverResolution => 'Resolusi cover';
+
+  @override
+  String get trackCoverResolutionHint =>
+      'Mengatur sisi terpanjang saat disimpan. Memperbesar gambar tidak menambah detail.';
+
+  @override
+  String get trackCoverResizeFailed =>
+      'Ukuran cover tidak dapat diubah. Coba ukuran atau gambar lain.';
+
+  @override
   String get actionStop => 'Stop';
 
   @override
   String get queueFinalizingDownload => 'Finalizing download';
+
+  @override
+  String get queueDownloadNext => 'Download next';
+
+  @override
+  String get queueMoveUp => 'Move up';
+
+  @override
+  String get queueMoveDown => 'Move down';
+
+  @override
+  String get editMetadataMusicBrainzButton => 'Fetch from MusicBrainz';
+
+  @override
+  String get editMetadataMusicBrainzFilled => 'Updated from MusicBrainz';
+
+  @override
+  String get editMetadataMusicBrainzNothing => 'Nothing found on MusicBrainz';
+
+  @override
+  String get editMetadataMusicBrainzNeedsIsrc => 'Requires an ISRC tag';
+
+  @override
+  String get nowPlayingRepeatOff => 'Repeat off';
+
+  @override
+  String get nowPlayingRepeatAll => 'Repeat all';
+
+  @override
+  String get nowPlayingRepeatOne => 'Repeat one';
+
+  @override
+  String queueNetworkFailedOffline(int count) {
+    return '$count downloads failed while offline';
+  }
 
   @override
   String get queueDownloadedFileMissing => 'Downloaded file missing';
@@ -3945,7 +4101,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get downloadQualityVariantsDescription =>
-      'Tambahkan kualitas yang dipilih ke nama file dan simpan setiap versi di riwayat unduhan';
+      'Simpan setiap versi kualitas; tambahkan kualitas terukur ke nama file hanya jika namanya sudah digunakan';
 
   @override
   String get trackOptionDownloadQualityVariant => 'Unduh kualitas lain';
@@ -3987,6 +4143,9 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get libraryFilterMetadataIncorrectIsrcFormat =>
       'Incorrect ISRC format';
+
+  @override
+  String get libraryFilterMetadataMissingIsrc => 'Missing ISRC';
 
   @override
   String get libraryFilterMetadataMissingLabel => 'Missing label';
@@ -4155,9 +4314,6 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get downloadNativeWorkerSubtitle =>
       'Layanan latar belakang Android untuk unduhan ekstensi';
-
-  @override
-  String get badgeBeta => 'BETA';
 
   @override
   String get extensionServiceStatus => 'Service Status';
@@ -4657,4 +4813,27 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get extensionVerificationOpenBrowser => 'Open browser';
+
+  @override
+  String get settingsSearchHint => 'Cari pengaturan';
+
+  @override
+  String settingsSearchNoResults(String query) {
+    return 'Tidak ada pengaturan yang cocok dengan \"$query\"';
+  }
+
+  @override
+  String get settingsGroupInterface => 'Ekstensi & tampilan';
+
+  @override
+  String get settingsGroupContent => 'Konten & metadata';
+
+  @override
+  String get settingsGroupDownloads => 'Unduhan & file';
+
+  @override
+  String get settingsGroupSystem => 'Sistem';
+
+  @override
+  String get settingsGroupHelp => 'Tentang & dukungan';
 }

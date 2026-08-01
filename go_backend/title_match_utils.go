@@ -363,6 +363,7 @@ func isLatinScript(value string) bool {
 type resolvedTrackInfo struct {
 	Title                string
 	ArtistName           string
+	AlbumName            string
 	ISRC                 string
 	Duration             int
 	SkipNameVerification bool
@@ -385,6 +386,13 @@ func trackMatchesRequest(req DownloadRequest, resolved resolvedTrackInfo, logPre
 			!titlesMatch(req.TrackName, resolved.Title) {
 			GoLog("[%s] Verification failed: title mismatch — expected '%s', got '%s'\n",
 				logPrefix, req.TrackName, resolved.Title)
+			return false
+		}
+
+		if req.AlbumName != "" && resolved.AlbumName != "" &&
+			!titlesMatch(req.AlbumName, resolved.AlbumName) {
+			GoLog("[%s] Verification failed: album mismatch — expected '%s', got '%s'\n",
+				logPrefix, req.AlbumName, resolved.AlbumName)
 			return false
 		}
 	}

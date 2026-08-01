@@ -37,6 +37,7 @@ jobs:
               - 'pubspec.lock'
               - 'analysis_options.yaml'
               - 'l10n.yaml'
+              - '.fvmrc'
               - '.github/workflows/ci.yml'
             go:
               - 'go_backend/**'
@@ -51,6 +52,7 @@ jobs:
               - 'lib/services/platform_bridge.dart'
               - 'pubspec.yaml'
               - 'pubspec.lock'
+              - '.fvmrc'
               - '.github/workflows/ci.yml'
 
   flutter:
@@ -67,6 +69,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version-file: .fvmrc
           cache: true
 
       - name: Cache pub dependencies
@@ -102,8 +105,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          # Keep in sync with release.yml
-          go-version: "1.26.5"
+          go-version-file: go_backend/go.mod
           cache-dependency-path: go_backend/go.sum
 
       - name: Check formatting
@@ -134,23 +136,20 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          go-version: "1.26.5"
+          go-version-file: go_backend/go.mod
           cache-dependency-path: go_backend/go.sum
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version-file: .fvmrc
           cache: true
 
-      - name: Cache Gradle
-        uses: actions/cache@v5
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: gradle-${{ runner.os }}-
+          gradle-version: "9.6.1"
 
       - name: Install Android SDK & NDK
         run: |
@@ -182,4 +181,4 @@ jobs:
         run: echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
 
       - name: Compile Kotlin and run native unit tests
-        run: ./android/gradlew -p android :app:compileDebugKotlin :app:testDebugUnitTest
+        run: gradle -p android :app:compileDebugKotlin :app:testDebugUnitTest

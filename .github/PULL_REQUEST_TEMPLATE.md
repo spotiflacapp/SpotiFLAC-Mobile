@@ -1,27 +1,42 @@
-## Description
+## Summary
 
-<!-- What does this PR do? Why is it needed? -->
+<!-- What changed, why is it needed, and which user-visible behavior is affected? -->
 
 ## Related Issues
 
-<!-- Link related issues, e.g. "Fixes #123" -->
+<!-- Use "Fixes #123" when this PR should close an issue. -->
 
 ## Type of Change
 
 - [ ] Bug fix
-- [ ] New feature
-- [ ] Refactor (no functional change)
-- [ ] Documentation
-- [ ] Other (describe below)
+- [ ] Feature
+- [ ] Performance improvement
+- [ ] Refactor with no intended behavior change
+- [ ] Tests, build, or repository maintenance
+- [ ] Documentation or localization
 
-## Checklist
+## Validation
 
-- [ ] Code follows project conventions
-- [ ] `flutter analyze` and `flutter test` pass
-- [ ] `go vet ./...` and `go test ./...` pass in `go_backend/` (if Go code changed)
-- [ ] Documentation updated (if needed)
-- [ ] Commit messages follow the [conventional commits](https://www.conventionalcommits.org) format
+<!-- Check only commands relevant to this change. Explain skipped checks below. -->
 
-## Screenshots
+- [ ] `dart format --output=none --set-exit-if-changed lib test`
+- [ ] `flutter analyze`
+- [ ] `flutter test`
+- [ ] `gofmt`, `go vet ./...`, and `go test ./...` in `go_backend/`
+- [ ] Android or iOS native checks
+- [ ] Manual reproduction or device test
 
-<!-- For UI changes, add before/after screenshots. Delete this section otherwise. -->
+Validation notes:
+
+<!-- Devices, commands, test cases, or the reason a check was not applicable. -->
+
+## Contributor Checklist
+
+- [ ] This PR is focused and contains no unrelated changes.
+- [ ] Extension-specific behavior, if any, uses a generic capability or manifest contract.
+- [ ] User-facing strings, documentation, and generated files are updated where needed.
+- [ ] No credentials, downloaded media, or build artifacts are included.
+
+## Screenshots or Recordings
+
+<!-- Add before/after media for UI changes. Delete this section otherwise. -->

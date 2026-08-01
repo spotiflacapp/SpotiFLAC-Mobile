@@ -56,7 +56,7 @@ void main() {
             lowEndDeviceProvider.overrideWithValue(
               runtimeProfile.disableOverscrollEffects,
             ),
-            backdropBlurEnabledProvider.overrideWithValue(
+            deviceSupportsBackdropBlurProvider.overrideWithValue(
               runtimeProfile.enableBackdropBlur,
             ),
             initialSettingsProvider.overrideWithValue(bootstrapSettings),

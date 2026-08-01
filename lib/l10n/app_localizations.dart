@@ -5,21 +5,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'app_localizations_ar.dart';
 import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_fr.dart';
-import 'app_localizations_hi.dart';
 import 'app_localizations_id.dart';
 import 'app_localizations_ja.dart';
 import 'app_localizations_ko.dart';
-import 'app_localizations_nl.dart';
 import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
 import 'app_localizations_tr.dart';
 import 'app_localizations_uk.dart';
-import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -107,25 +103,19 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
     Locale('de'),
     Locale('en'),
     Locale('es'),
     Locale('es', 'ES'),
     Locale('fr'),
-    Locale('hi'),
     Locale('id'),
     Locale('ja'),
     Locale('ko'),
-    Locale('nl'),
     Locale('pt'),
     Locale('pt', 'PT'),
     Locale('ru'),
     Locale('tr'),
     Locale('uk'),
-    Locale('zh'),
-    Locale('zh', 'CN'),
-    Locale('zh', 'TW'),
   ];
 
   /// App name - DO NOT TRANSLATE
@@ -1235,7 +1225,7 @@ abstract class AppLocalizations {
   /// Dialog message - import playlist confirmation
   ///
   /// In en, this message translates to:
-  /// **'Found {count} tracks in CSV. Add them to download queue?'**
+  /// **'Found {count} tracks in the playlist file. Add them to download queue?'**
   String dialogImportPlaylistMessage(int count);
 
   /// Label shown in quality picker for CSV import
@@ -1243,6 +1233,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} tracks from CSV'**
   String csvImportTracks(int count);
+
+  /// Tooltip on the collection screen action that exports the track list as an M3U8 playlist file
+  ///
+  /// In en, this message translates to:
+  /// **'Export as M3U8'**
+  String get collectionExportM3u;
+
+  /// Snackbar after M3U8 export; tracks without a local file are not exported
+  ///
+  /// In en, this message translates to:
+  /// **'Exported {exported} of {total} tracks'**
+  String collectionExportM3uDone(int exported, int total);
+
+  /// Snackbar when an M3U8 export finds no local files
+  ///
+  /// In en, this message translates to:
+  /// **'No downloaded files to export'**
+  String get collectionExportM3uNone;
+
+  /// Snackbar when writing or sharing the M3U8 export fails
+  ///
+  /// In en, this message translates to:
+  /// **'Export failed'**
+  String get collectionExportM3uFailed;
+
+  /// Track option and sheet title listing streaming platforms where the track can be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Open on...'**
+  String get trackOpenOn;
+
+  /// Shown in the Open on sheet when song.link returns no links
+  ///
+  /// In en, this message translates to:
+  /// **'No platform links found for this track.'**
+  String get trackOpenOnNoLinks;
+
+  /// Library settings row opening the duplicate review sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Review duplicates'**
+  String get libraryReviewDuplicates;
+
+  /// Subtitle for the duplicate review settings row
+  ///
+  /// In en, this message translates to:
+  /// **'Find tracks stored more than once'**
+  String get libraryReviewDuplicatesSubtitle;
+
+  /// Title of the duplicate review sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicates'**
+  String get duplicatesTitle;
+
+  /// Shown when the duplicate review sheet finds nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No duplicate tracks found.'**
+  String get duplicatesEmpty;
+
+  /// Button that deletes all but the highest-quality copy in a duplicate group
+  ///
+  /// In en, this message translates to:
+  /// **'Keep best'**
+  String get duplicatesKeepBest;
+
+  /// Confirmation message for the keep-best action
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {count} lower-quality copies of \"{trackName}\"?'**
+  String duplicatesKeepBestMessage(int count, String trackName);
+
+  /// Confirmation message for deleting one duplicate copy
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this copy of \"{trackName}\"?'**
+  String duplicatesDeleteCopyMessage(String trackName);
 
   /// Snackbar - track added to download queue
   ///
@@ -2846,6 +2914,18 @@ abstract class AppLocalizations {
   /// **'Fly covers between screens, e.g. when opening the player'**
   String get appearanceHeroAnimationsSubtitle;
 
+  /// Toggle that forces backdrop blur on even when the device profile disabled it
+  ///
+  /// In en, this message translates to:
+  /// **'Always use blur effects'**
+  String get appearanceForceBlur;
+
+  /// Subtitle for the force-blur toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Enable the navigation bar blur even on devices where it is off by default. May cost performance.'**
+  String get appearanceForceBlurSubtitle;
+
   /// Button - clear all queue items
   ///
   /// In en, this message translates to:
@@ -3659,7 +3739,7 @@ abstract class AppLocalizations {
   /// Tutorial welcome page title
   ///
   /// In en, this message translates to:
-  /// **'Welcome to SpotiFLAC!'**
+  /// **'Welcome to SpotiFLAC Mobile!'**
   String get tutorialWelcomeTitle;
 
   /// Tutorial welcome page description
@@ -3671,7 +3751,7 @@ abstract class AppLocalizations {
   /// Tutorial welcome tip 1
   ///
   /// In en, this message translates to:
-  /// **'Download music from Spotify, Deezer, or paste any supported URL'**
+  /// **'Search music or paste a link from any source your installed extensions support'**
   String get tutorialWelcomeTip1;
 
   /// Tutorial welcome tip 2
@@ -5475,8 +5555,50 @@ abstract class AppLocalizations {
   /// Description for the auto-fill section
   ///
   /// In en, this message translates to:
-  /// **'Select fields to fill automatically from online metadata'**
+  /// **'Choose a metadata extension, select fields, then review its data before applying'**
   String get editMetadataAutoFillDesc;
+
+  /// Label for the metadata extension selector in online auto-fill
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata source'**
+  String get editMetadataAutoFillSource;
+
+  /// Automatic source option that follows configured metadata provider priority
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic (provider priority)'**
+  String get editMetadataAutoFillSourceAutomatic;
+
+  /// Button label for finding an online metadata candidate
+  ///
+  /// In en, this message translates to:
+  /// **'Find metadata'**
+  String get editMetadataAutoFillFind;
+
+  /// Title for the online metadata preview
+  ///
+  /// In en, this message translates to:
+  /// **'Data from {source}'**
+  String editMetadataAutoFillPreview(String source);
+
+  /// Preview value when the selected metadata source provides cover artwork
+  ///
+  /// In en, this message translates to:
+  /// **'Cover artwork available'**
+  String get editMetadataAutoFillCoverAvailable;
+
+  /// Button label for applying the previewed metadata
+  ///
+  /// In en, this message translates to:
+  /// **'Apply selected data'**
+  String get editMetadataAutoFillApply;
+
+  /// Snackbar confirming fields applied from a selected metadata source
+  ///
+  /// In en, this message translates to:
+  /// **'Filled {count} {count, plural, =1{field} other{fields}} from {source}'**
+  String editMetadataAutoFillDoneFromSource(int count, String source);
 
   /// Button label to fetch online metadata and fill selected fields
   ///
@@ -5640,6 +5762,30 @@ abstract class AppLocalizations {
   /// **'Single track downloads will appear here'**
   String get queueEmptySinglesSubtitle;
 
+  /// Playlist count label with plural support
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 playlist} other{{count} playlists}}'**
+  String queuePlaylistCount(int count);
+
+  /// Empty state subtitle for the playlists library view
+  ///
+  /// In en, this message translates to:
+  /// **'Create a playlist to organize your tracks'**
+  String get queueEmptyPlaylistsSubtitle;
+
+  /// Setting title - which library view opens when switching to the Library tab
+  ///
+  /// In en, this message translates to:
+  /// **'Default view'**
+  String get libraryDefaultView;
+
+  /// Default view option - keep the last used library view
+  ///
+  /// In en, this message translates to:
+  /// **'Last used'**
+  String get libraryDefaultViewLastUsed;
+
   /// Empty state title when download history is empty
   ///
   /// In en, this message translates to:
@@ -5790,6 +5936,12 @@ abstract class AppLocalizations {
   /// **'Spectral Cutoff'**
   String get audioAnalysisSpectralCutoff;
 
+  /// Displayed when no reliable broadband spectral cutoff can be detected
+  ///
+  /// In en, this message translates to:
+  /// **'Not detected'**
+  String get audioAnalysisCutoffNotDetected;
+
   /// Per-channel audio analysis section label
   ///
   /// In en, this message translates to:
@@ -5879,6 +6031,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Keep'**
   String get cancelDownloadKeep;
+
+  /// Dialog title when opening a cancelled queue item
+  ///
+  /// In en, this message translates to:
+  /// **'Download cancelled'**
+  String get queueCancelledTitle;
+
+  /// Dialog body when opening a cancelled queue item
+  ///
+  /// In en, this message translates to:
+  /// **'This download was cancelled. Retry it or remove it from the queue.'**
+  String get queueCancelledMessage;
 
   /// Snackbar error when FFmpeg fails to write metadata
   ///
@@ -6106,10 +6270,10 @@ abstract class AppLocalizations {
   /// **'Search with {providerName}...'**
   String homeSearchHintProvider(String providerName);
 
-  /// Tooltip for importing a CSV file into Home search
+  /// Tooltip for importing a CSV or M3U playlist file into Home search
   ///
   /// In en, this message translates to:
-  /// **'Import CSV'**
+  /// **'Import playlist (CSV, M3U)'**
   String get homeImportCsvTooltip;
 
   /// Tooltip for the Home search provider picker
@@ -6208,6 +6372,24 @@ abstract class AppLocalizations {
   /// **'The selected cover will replace the current embedded cover when you tap Save.'**
   String get trackCoverReplaceNotice;
 
+  /// Label for selecting the embedded cover art resolution
+  ///
+  /// In en, this message translates to:
+  /// **'Cover resolution'**
+  String get trackCoverResolution;
+
+  /// Explanation below the embedded cover art resolution selector
+  ///
+  /// In en, this message translates to:
+  /// **'Sets the longest edge when saved. Enlarging does not add image detail.'**
+  String get trackCoverResolutionHint;
+
+  /// Error shown when resizing cover art before saving metadata fails
+  ///
+  /// In en, this message translates to:
+  /// **'The cover image could not be resized. Please try another size or image.'**
+  String get trackCoverResizeFailed;
+
   /// Generic action - stop
   ///
   /// In en, this message translates to:
@@ -6219,6 +6401,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finalizing download'**
   String get queueFinalizingDownload;
+
+  /// Tooltip on a queued download row; moves the item to the front of the queue so the next free slot downloads it
+  ///
+  /// In en, this message translates to:
+  /// **'Download next'**
+  String get queueDownloadNext;
+
+  /// Queue item menu action - move the queued item one position earlier
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
+  String get queueMoveUp;
+
+  /// Queue item menu action - move the queued item one position later
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
+  String get queueMoveDown;
+
+  /// Tag editor button that fills genre and album artist from MusicBrainz by ISRC
+  ///
+  /// In en, this message translates to:
+  /// **'Fetch from MusicBrainz'**
+  String get editMetadataMusicBrainzButton;
+
+  /// Snackbar after MusicBrainz suggestions were applied to the tag editor fields
+  ///
+  /// In en, this message translates to:
+  /// **'Updated from MusicBrainz'**
+  String get editMetadataMusicBrainzFilled;
+
+  /// Snackbar when the MusicBrainz lookup returns no data
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing found on MusicBrainz'**
+  String get editMetadataMusicBrainzNothing;
+
+  /// Snackbar when the MusicBrainz lookup is tapped without an ISRC
+  ///
+  /// In en, this message translates to:
+  /// **'Requires an ISRC tag'**
+  String get editMetadataMusicBrainzNeedsIsrc;
+
+  /// Repeat toggle tooltip when repeat is disabled
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat off'**
+  String get nowPlayingRepeatOff;
+
+  /// Repeat toggle tooltip when the whole queue repeats
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat all'**
+  String get nowPlayingRepeatAll;
+
+  /// Repeat toggle tooltip when the current track repeats
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat one'**
+  String get nowPlayingRepeatOne;
+
+  /// Snackbar shown when connectivity returns and network-failed downloads can be retried
+  ///
+  /// In en, this message translates to:
+  /// **'{count} downloads failed while offline'**
+  String queueNetworkFailedOffline(int count);
 
   /// Accessibility label when a downloaded file is missing from disk
   ///
@@ -6545,7 +6793,7 @@ abstract class AppLocalizations {
   /// Description for retaining multiple quality versions
   ///
   /// In en, this message translates to:
-  /// **'Add the selected quality to the filename and keep each version in download history'**
+  /// **'Keep every quality version; add its measured quality to the filename only when the name is already used'**
   String get downloadQualityVariantsDescription;
 
   /// Track menu action to download another quality version
@@ -6625,6 +6873,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Incorrect ISRC format'**
   String get libraryFilterMetadataIncorrectIsrcFormat;
+
+  /// Filter option - items without any ISRC tag
+  ///
+  /// In en, this message translates to:
+  /// **'Missing ISRC'**
+  String get libraryFilterMetadataMissingIsrc;
 
   /// Filter option - items missing record label
   ///
@@ -6807,12 +7061,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Android background service for extension downloads'**
   String get downloadNativeWorkerSubtitle;
-
-  /// Badge label for beta features
-  ///
-  /// In en, this message translates to:
-  /// **'BETA'**
-  String get badgeBeta;
 
   /// Extension detail section header for service status
   ///
@@ -7645,6 +7893,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open browser'**
   String get extensionVerificationOpenBrowser;
+
+  /// Placeholder of the search field on the Settings tab
+  ///
+  /// In en, this message translates to:
+  /// **'Search settings'**
+  String get settingsSearchHint;
+
+  /// Shown when a Settings search returns nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No settings match \"{query}\"'**
+  String settingsSearchNoResults(String query);
+
+  /// Settings group covering look and feel
+  ///
+  /// In en, this message translates to:
+  /// **'Extensions & appearance'**
+  String get settingsGroupInterface;
+
+  /// Settings group covering the library, metadata and lyrics
+  ///
+  /// In en, this message translates to:
+  /// **'Content & metadata'**
+  String get settingsGroupContent;
+
+  /// Settings group covering download behaviour and storage
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads & files'**
+  String get settingsGroupDownloads;
+
+  /// Settings group covering app-level data, cache and logs
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settingsGroupSystem;
+
+  /// Settings group covering the about page and donations
+  ///
+  /// In en, this message translates to:
+  /// **'About & support'**
+  String get settingsGroupHelp;
 }
 
 class _AppLocalizationsDelegate
@@ -7658,21 +7948,17 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) => <String>[
-    'ar',
     'de',
     'en',
     'es',
     'fr',
-    'hi',
     'id',
     'ja',
     'ko',
-    'nl',
     'pt',
     'ru',
     'tr',
     'uk',
-    'zh',
   ].contains(locale.languageCode);
 
   @override
@@ -7698,22 +7984,10 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
         }
         break;
       }
-    case 'zh':
-      {
-        switch (locale.countryCode) {
-          case 'CN':
-            return AppLocalizationsZhCn();
-          case 'TW':
-            return AppLocalizationsZhTw();
-        }
-        break;
-      }
   }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return AppLocalizationsAr();
     case 'de':
       return AppLocalizationsDe();
     case 'en':
@@ -7722,16 +7996,12 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEs();
     case 'fr':
       return AppLocalizationsFr();
-    case 'hi':
-      return AppLocalizationsHi();
     case 'id':
       return AppLocalizationsId();
     case 'ja':
       return AppLocalizationsJa();
     case 'ko':
       return AppLocalizationsKo();
-    case 'nl':
-      return AppLocalizationsNl();
     case 'pt':
       return AppLocalizationsPt();
     case 'ru':
@@ -7740,8 +8010,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsTr();
     case 'uk':
       return AppLocalizationsUk();
-    case 'zh':
-      return AppLocalizationsZh();
   }
 
   throw FlutterError(

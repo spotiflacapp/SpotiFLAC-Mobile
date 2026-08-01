@@ -744,20 +744,37 @@ func writeID3Chunk(filePath, expectMagic, chunkID string, le bool, id3 []byte) e
 	return nil
 }
 
-func loadCoverForTag(fields map[string]string) ([]byte, string) {
+func loadCoverForTag(fields map[string]string) ([]byte, string, error) {
 	coverPath := strings.TrimSpace(fields["cover_path"])
 	if coverPath == "" {
-		return nil, ""
+		return nil, "", nil
 	}
 	data, err := os.ReadFile(coverPath)
-	if err != nil || len(data) == 0 {
-		return nil, ""
+	if err != nil {
+		return nil, "", fmt.Errorf("read cover art: %w", err)
+	}
+	if len(data) == 0 {
+		return nil, "", fmt.Errorf("cover art is empty")
 	}
 	mime := "image/jpeg"
-	if len(data) >= 8 && data[0] == 0x89 && data[1] == 0x50 && data[2] == 0x4E && data[3] == 0x47 {
+	switch {
+	case len(data) >= 8 && data[0] == 0x89 && data[1] == 0x50 && data[2] == 0x4E && data[3] == 0x47:
 		mime = "image/png"
+	case len(data) >= 12 && string(data[0:4]) == "RIFF" && string(data[8:12]) == "WEBP":
+		mime = "image/webp"
+	case len(data) >= 6 && (string(data[0:6]) == "GIF87a" || string(data[0:6]) == "GIF89a"):
+		mime = "image/gif"
+	default:
+		switch strings.ToLower(filepath.Ext(coverPath)) {
+		case ".png":
+			mime = "image/png"
+		case ".webp":
+			mime = "image/webp"
+		case ".gif":
+			mime = "image/gif"
+		}
 	}
-	return data, mime
+	return data, mime, nil
 }
 
 func audioMetadataFromEditFields(fields map[string]string) *AudioMetadata {
@@ -851,7 +868,10 @@ func WriteWAVTags(filePath string, fields map[string]string) error {
 	existing, _ := ReadWAVTags(filePath)
 	meta := mergeEditFieldsOntoExisting(existing, fields)
 
-	coverData, coverMIME := loadCoverForTag(fields)
+	coverData, coverMIME, err := loadCoverForTag(fields)
+	if err != nil {
+		return err
+	}
 	if coverData == nil {
 		// Preserve an existing embedded cover when no new one is supplied.
 		if f, err := os.Open(filePath); err == nil {
@@ -871,7 +891,10 @@ func WriteAIFFTags(filePath string, fields map[string]string) error {
 	existing, _ := ReadAIFFTags(filePath)
 	meta := mergeEditFieldsOntoExisting(existing, fields)
 
-	coverData, coverMIME := loadCoverForTag(fields)
+	coverData, coverMIME, err := loadCoverForTag(fields)
+	if err != nil {
+		return err
+	}
 	if coverData == nil {
 		if f, err := os.Open(filePath); err == nil {
 			if p, perr := streamProbeAIFF(f); perr == nil && len(p.id3) > 0 {

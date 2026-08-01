@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/app_bottom_sheet.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
@@ -12,6 +13,7 @@ class DownloadServicePicker extends ConsumerStatefulWidget {
   final String? coverUrl;
   final void Function(String quality, String service) onSelect;
   final String? recommendedService;
+  final ScrollController? scrollController;
 
   const DownloadServicePicker({
     super.key,
@@ -20,6 +22,7 @@ class DownloadServicePicker extends ConsumerStatefulWidget {
     this.coverUrl,
     required this.onSelect,
     this.recommendedService,
+    this.scrollController,
   });
 
   @override
@@ -40,16 +43,17 @@ class DownloadServicePicker extends ConsumerStatefulWidget {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       isScrollControlled: true,
-      builder: (context) => DownloadServicePicker(
-        trackName: trackName,
-        artistName: artistName,
-        coverUrl: coverUrl,
-        onSelect: onSelect,
-        recommendedService: recommendedService,
+      enableDrag: false,
+      builder: (context) => AppDraggableSheet(
+        builder: (context, scrollController) => DownloadServicePicker(
+          trackName: trackName,
+          artistName: artistName,
+          coverUrl: coverUrl,
+          onSelect: onSelect,
+          recommendedService: recommendedService,
+          scrollController: scrollController,
+        ),
       ),
     );
   }
@@ -122,6 +126,7 @@ class _DownloadServicePickerState extends ConsumerState<DownloadServicePicker> {
 
     return SafeArea(
       child: SingleChildScrollView(
+        controller: widget.scrollController,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,17 +142,7 @@ class _DownloadServicePickerState extends ConsumerState<DownloadServicePicker> {
                 color: colorScheme.outlineVariant.withValues(alpha: 0.5),
               ),
             ] else ...[
-              const SizedBox(height: 8),
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
+              const AppSheetHandle(),
             ],
 
             Padding(
@@ -517,15 +512,7 @@ class _TrackInfoHeaderState extends State<_TrackInfoHeader> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 8),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
+            const AppSheetHandle(),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
               child: Row(

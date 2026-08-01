@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
-import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:ffmpeg_kit_flutter_new_full/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new_full/ffmpeg_kit_config.dart';
 import 'package:ffmpeg_kit_flutter_new_full/ffmpeg_session.dart';
@@ -9,108 +9,17 @@ import 'package:ffmpeg_kit_flutter_new_full/ffprobe_kit.dart';
 import 'package:ffmpeg_kit_flutter_new_full/return_code.dart';
 import 'package:ffmpeg_kit_flutter_new_full/session_state.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:spotiflac_android/services/audio_metadata_mapper.dart';
+import 'package:spotiflac_android/services/ffmpeg_models.dart';
+import 'package:spotiflac_android/services/id3v23_lyrics.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/artist_utils.dart';
 import 'package:spotiflac_android/utils/audio_conversion_utils.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 
+export 'package:spotiflac_android/services/ffmpeg_models.dart';
+
 final _log = AppLogger('FFmpeg');
-
-class DownloadDecryptionDescriptor {
-  final String strategy;
-  final String key;
-  final String? iv;
-  final String? inputFormat;
-  final String? outputExtension;
-  final Map<String, dynamic> options;
-
-  const DownloadDecryptionDescriptor({
-    required this.strategy,
-    required this.key,
-    this.iv,
-    this.inputFormat,
-    this.outputExtension,
-    this.options = const {},
-  });
-
-  factory DownloadDecryptionDescriptor.fromJson(Map<String, dynamic> json) {
-    final rawOptions = json['options'];
-    return DownloadDecryptionDescriptor(
-      strategy: (json['strategy'] as String? ?? '').trim(),
-      key: (json['key'] as String? ?? '').trim(),
-      iv: (json['iv'] as String?)?.trim(),
-      inputFormat: (json['input_format'] as String?)?.trim(),
-      outputExtension: (json['output_extension'] as String?)?.trim(),
-      options: rawOptions is Map
-          ? Map<String, dynamic>.from(rawOptions)
-          : const {},
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{'strategy': strategy, 'key': key};
-    if (iv != null && iv!.isNotEmpty) {
-      json['iv'] = iv;
-    }
-    if (inputFormat != null && inputFormat!.isNotEmpty) {
-      json['input_format'] = inputFormat;
-    }
-    if (outputExtension != null && outputExtension!.isNotEmpty) {
-      json['output_extension'] = outputExtension;
-    }
-    if (options.isNotEmpty) {
-      json['options'] = options;
-    }
-    return json;
-  }
-
-  static DownloadDecryptionDescriptor? fromDownloadResult(
-    Map<String, dynamic> result,
-  ) {
-    final rawDecryption = result['decryption'];
-    if (rawDecryption is Map) {
-      final descriptorJson = Map<String, dynamic>.from(rawDecryption);
-      descriptorJson['output_extension'] ??= result['output_extension'];
-      final descriptor = DownloadDecryptionDescriptor.fromJson(descriptorJson);
-      if (descriptor.normalizedStrategy == 'ffmpeg.mov_key' &&
-          descriptor.key.isNotEmpty) {
-        return descriptor;
-      }
-    }
-
-    final legacyKey = (result['decryption_key'] as String?)?.trim() ?? '';
-    if (legacyKey.isEmpty) {
-      return null;
-    }
-
-    return DownloadDecryptionDescriptor(
-      strategy: 'ffmpeg.mov_key',
-      key: legacyKey,
-      inputFormat: 'mov',
-      outputExtension: (result['output_extension'] as String?)?.trim(),
-    );
-  }
-
-  String get normalizedStrategy {
-    switch (strategy.trim().toLowerCase()) {
-      case '':
-      case 'ffmpeg.mov_key':
-      case 'ffmpeg_mov_key':
-      case 'mov_decryption_key':
-      case 'mp4_decryption_key':
-      case 'ffmpeg.mp4_decryption_key':
-        return 'ffmpeg.mov_key';
-      default:
-        return strategy.trim();
-    }
-  }
-
-  String? get normalizedOutputExtension {
-    final trimmed = (outputExtension ?? '').trim().toLowerCase();
-    if (trimmed.isEmpty) return null;
-    return trimmed.startsWith('.') ? trimmed : '.$trimmed';
-  }
-}
 
 class _ResolvedLosslessConversionQuality {
   final int? targetBitDepth;
@@ -387,6 +296,116 @@ class FFmpegService {
     }
   }
 
+  @visibleForTesting
+  static List<String> buildCoverResizeArguments({
+    required String inputPath,
+    required String outputPath,
+    required int maxDimension,
+  }) {
+    if (maxDimension < 64 || maxDimension > 8192) {
+      throw ArgumentError.value(
+        maxDimension,
+        'maxDimension',
+        'Must be between 64 and 8192 pixels',
+      );
+    }
+    return [
+      '-y',
+      '-i',
+      inputPath,
+      '-map_metadata',
+      '-1',
+      '-an',
+      '-sn',
+      '-vf',
+      'scale=$maxDimension:$maxDimension:'
+          'force_original_aspect_ratio=decrease:flags=lanczos',
+      '-frames:v',
+      '1',
+      '-update',
+      '1',
+      '-q:v',
+      '2',
+      outputPath,
+    ];
+  }
+
+  /// Resizes cover art so its longest edge is [maxDimension].
+  ///
+  /// FFmpeg is allowed to upscale smaller sources because this is an explicit
+  /// user choice. Aspect ratio is preserved and the result is written as the
+  /// format implied by [outputPath].
+  static Future<bool> resizeCoverArt({
+    required String inputPath,
+    required String outputPath,
+    required int maxDimension,
+  }) async {
+    try {
+      final source = File(inputPath);
+      if (!await source.exists()) return false;
+
+      final result = await _executeWithArguments(
+        buildCoverResizeArguments(
+          inputPath: inputPath,
+          outputPath: outputPath,
+          maxDimension: maxDimension,
+        ),
+      );
+      final output = File(outputPath);
+      final hasOutput = await output.exists() && await output.length() > 0;
+      if (!result.success || !hasOutput) {
+        _log.w(
+          'Cover resize failed (${result.returnCode}): '
+          '${_previewCommandForLog(result.output)}',
+        );
+        try {
+          if (await output.exists()) await output.delete();
+        } catch (_) {}
+        return false;
+      }
+      return true;
+    } catch (e) {
+      _log.w('Cover resize failed: $e');
+      try {
+        final output = File(outputPath);
+        if (await output.exists()) await output.delete();
+      } catch (_) {}
+      return false;
+    }
+  }
+
+  @visibleForTesting
+  static ({int width, int height})? imageDimensionsFromProperties(
+    Map<dynamic, dynamic> properties,
+  ) {
+    final width = int.tryParse(properties['width']?.toString() ?? '');
+    final height = int.tryParse(properties['height']?.toString() ?? '');
+    if (width == null || height == null || width <= 0 || height <= 0) {
+      return null;
+    }
+    return (width: width, height: height);
+  }
+
+  /// Reads image dimensions without decoding the full bitmap into Dart memory.
+  static Future<({int width, int height})?> probeImageDimensions(
+    String filePath,
+  ) async {
+    try {
+      final session = await FFprobeKit.getMediaInformation(filePath);
+      final info = session.getMediaInformation();
+      if (info == null) return null;
+      for (final stream in info.getStreams()) {
+        final properties =
+            stream.getAllProperties() ?? const <String, dynamic>{};
+        final dimensions = imageDimensionsFromProperties(properties);
+        if (dimensions != null) return dimensions;
+      }
+    } catch (e) {
+      _log.w('Cover dimension probe failed for $filePath: $e');
+    }
+    return null;
+  }
+
   static Future<String?> probePrimaryAudioCodec(String filePath) async {
     try {
       final session = await FFprobeKit.getMediaInformation(filePath);
@@ -595,7 +614,7 @@ class FFmpegService {
     if (!hasSampleRate && !hasSampleFormat && !processing.hasDither) return;
 
     final options = <String>[
-      'resampler=${processing.normalizedResampler}',
+      ...losslessResamplerFilterOptions(processing),
       if (hasSampleRate) 'osr=$targetSampleRate',
       if (hasSampleFormat) 'osf=${outputSampleFormat.trim()}',
       if (processing.hasDither) 'dither_method=${processing.normalizedDither}',
@@ -677,22 +696,6 @@ class FFmpegService {
     _log.e('M4A to $normalizedFormat conversion failed: ${result.output}');
     await _cleanupConversionOutput(outputPlan);
     return null;
-  }
-
-  static Future<String?> decryptAudioFile({
-    required String inputPath,
-    required String decryptionKey,
-    bool deleteOriginal = true,
-  }) async {
-    return decryptWithDescriptor(
-      inputPath: inputPath,
-      descriptor: DownloadDecryptionDescriptor(
-        strategy: _genericMovKeyDecryptionStrategy,
-        key: decryptionKey,
-        inputFormat: 'mov',
-      ),
-      deleteOriginal: deleteOriginal,
-    );
   }
 
   static Future<String?> decryptWithDescriptor({
@@ -898,31 +901,6 @@ class FFmpegService {
       _log.e('Failed to finalize decrypted file: $e');
       return null;
     }
-  }
-
-  static Future<String?> convertFlacToMp3(
-    String inputPath, {
-    String bitrate = '320k',
-    bool deleteOriginal = true,
-  }) async {
-    final outputPath = _buildOutputPath(inputPath, '.mp3');
-
-    final command =
-        '-v error -hide_banner -i "$inputPath" -codec:a libmp3lame -b:a $bitrate -map 0:a -map_metadata 0 -id3v2_version 3 "$outputPath" -y';
-
-    final result = await _execute(command);
-
-    if (result.success) {
-      if (deleteOriginal) {
-        try {
-          await File(inputPath).delete();
-        } catch (_) {}
-      }
-      return outputPath;
-    }
-
-    _log.e('FLAC to MP3 conversion failed: ${result.output}');
-    return null;
   }
 
   static bool isActiveLiveDecryptedUrl(String url) {
@@ -1352,117 +1330,12 @@ class FFmpegService {
     return port;
   }
 
-  static Future<String?> convertFlacToOpus(
-    String inputPath, {
-    String bitrate = '128k',
-    bool deleteOriginal = true,
-  }) async {
-    final outputPath = _buildOutputPath(inputPath, '.opus');
-
-    final command =
-        '-v error -hide_banner -i "$inputPath" -codec:a libopus -b:a $bitrate -vbr on -compression_level 10 -map 0:a -map_metadata 0 "$outputPath" -y';
-
-    final result = await _execute(command);
-
-    if (result.success) {
-      if (deleteOriginal) {
-        try {
-          await File(inputPath).delete();
-        } catch (_) {}
-      }
-      return outputPath;
-    }
-
-    _log.e('FLAC to Opus conversion failed: ${result.output}');
-    return null;
-  }
-
-  static Future<String?> convertFlacToLossy(
-    String inputPath, {
-    required String format,
-    String? bitrate,
-    bool deleteOriginal = true,
-  }) async {
-    String bitrateValue = '320k';
-    if (bitrate != null && bitrate.contains('_')) {
-      final parts = bitrate.split('_');
-      if (parts.length == 2) {
-        bitrateValue = '${parts[1]}k';
-      }
-    }
-
-    switch (format.toLowerCase()) {
-      case 'opus':
-        final opusBitrate = bitrate?.startsWith('opus_') == true
-            ? bitrateValue
-            : '128k';
-        return convertFlacToOpus(
-          inputPath,
-          bitrate: opusBitrate,
-          deleteOriginal: deleteOriginal,
-        );
-      case 'mp3':
-      default:
-        final mp3Bitrate = bitrate?.startsWith('mp3_') == true
-            ? bitrateValue
-            : '320k';
-        return convertFlacToMp3(
-          inputPath,
-          bitrate: mp3Bitrate,
-          deleteOriginal: deleteOriginal,
-        );
-    }
-  }
-
-  static Future<String?> convertFlacToM4a(
-    String inputPath, {
-    String codec = 'aac',
-    String bitrate = '256k',
-  }) async {
-    final dir = File(inputPath).parent.path;
-    final baseName = inputPath
-        .split(Platform.pathSeparator)
-        .last
-        .replaceAll('.flac', '');
-    final outputDir = '$dir${Platform.pathSeparator}M4A';
-
-    await Directory(outputDir).create(recursive: true);
-
-    final outputPath = '$outputDir${Platform.pathSeparator}$baseName.m4a';
-
-    String command;
-    if (codec == 'alac') {
-      command =
-          '-v error -hide_banner -i "$inputPath" -codec:a alac -map 0:a -map_metadata 0 "$outputPath" -y';
-    } else {
-      command =
-          '-v error -hide_banner -i "$inputPath" -codec:a aac -b:a $bitrate -map 0:a -map_metadata 0 "$outputPath" -y';
-    }
-
-    final result = await _execute(command);
-
-    if (result.success) {
-      return outputPath;
-    }
-
-    _log.e('FLAC to M4A conversion failed: ${result.output}');
-    return null;
-  }
-
   static Future<bool> isAvailable() async {
     try {
       final version = await FFmpegKitConfig.getFFmpegVersion();
       return version?.isNotEmpty ?? false;
     } catch (e) {
       return false;
-    }
-  }
-
-  static Future<String?> getVersion() async {
-    try {
-      return await FFmpegKitConfig.getFFmpegVersion();
-    } catch (e) {
-      return null;
     }
   }
 
@@ -1764,7 +1637,7 @@ class FFmpegService {
       ..add('copy');
 
     if (metadata != null) {
-      _appendVorbisMetadataToArguments(
+      AudioMetadataMapper.appendVorbisMetadataArguments(
         arguments,
         metadata,
         artistTagMode: artistTagMode,
@@ -1810,7 +1683,7 @@ class FFmpegService {
   }) async {
     final tempDir = await getTemporaryDirectory();
     final tempOutput = _nextTempEmbedPath(tempDir.path, '.mp3');
-    final lyrics = _extractLyricsForId3(metadata);
+    final lyrics = AudioMetadataMapper.extractLyricsForId3(metadata);
 
     // Try with -c:a copy first (fastest, preserves original codec)
     var result = await _runMp3Embed(
@@ -1928,7 +1801,10 @@ class FFmpegService {
     }
 
     if (metadata != null) {
-      _appendMappedMetadataToArguments(arguments, _convertToId3Tags(metadata));
+      AudioMetadataMapper.appendMappedMetadataArguments(
+        arguments,
+        AudioMetadataMapper.convertToId3Tags(metadata),
+      );
     }
 
     arguments
@@ -1958,23 +1834,6 @@ class FFmpegService {
     return mp3Path;
   }
 
-  static String? _extractLyricsForId3(Map<String, String>? metadata) {
-    if (metadata == null) return null;
-
-    String? fallback;
-    for (final entry in metadata.entries) {
-      final key = entry.key.toUpperCase().replaceAll(RegExp(r'[^A-Z0-9]'), '');
-      if (key != 'UNSYNCEDLYRICS' && key != 'LYRICS') continue;
-
-      final value = entry.value;
-      if (value.trim().isEmpty) continue;
-      if (key == 'UNSYNCEDLYRICS') return value;
-      fallback ??= value;
-    }
-
-    return fallback;
-  }
-
   static Future<void> _ensureMp3UnsyncedLyricsFrame(
     String mp3Path,
     String lyrics,
@@ -1984,7 +1843,7 @@ class FFmpegService {
       if (!await file.exists()) return;
 
       final bytes = await file.readAsBytes();
-      final updated = _writeId3v23UnsyncedLyrics(bytes, lyrics);
+      final updated = Id3v23Lyrics.writeUnsyncedLyrics(bytes, lyrics);
       if (updated == null) {
         _log.w('Skipping MP3 USLT lyrics frame update: unsupported ID3 tag');
         return;
@@ -1995,165 +1854,6 @@ class FFmpegService {
     } catch (e) {
       _log.w('Failed to write MP3 USLT lyrics frame: $e');
     }
-  }
-
-  static Uint8List? _writeId3v23UnsyncedLyrics(Uint8List bytes, String lyrics) {
-    final lyricsFrame = _buildId3v23UnsyncedLyricsFrame(lyrics);
-
-    if (!_hasId3Header(bytes)) {
-      final builder = BytesBuilder(copy: false)
-        ..add(_buildId3v23Tag(lyricsFrame))
-        ..add(bytes);
-      return builder.toBytes();
-    }
-
-    if (bytes.length < 10 || bytes[3] != 3) {
-      return null;
-    }
-
-    final flags = bytes[5];
-    const unsupportedFlags = 0x80 | 0x40 | 0x20;
-    if ((flags & unsupportedFlags) != 0) {
-      return null;
-    }
-
-    final tagSize = _readSynchsafeInt(bytes, 6);
-    if (tagSize == null) return null;
-
-    final tagEnd = 10 + tagSize;
-    if (tagEnd < 10 || tagEnd > bytes.length) {
-      return null;
-    }
-
-    final tagPayload = bytes.sublist(10, tagEnd);
-    final preservedFrames = _removeId3v23Frames(tagPayload, {'USLT'});
-    final newPayload = BytesBuilder(copy: false)
-      ..add(preservedFrames)
-      ..add(lyricsFrame);
-
-    final newTag = _buildId3v23Tag(newPayload.toBytes());
-    final builder = BytesBuilder(copy: false)
-      ..add(newTag)
-      ..add(bytes.sublist(tagEnd));
-    return builder.toBytes();
-  }
-
-  static bool _hasId3Header(Uint8List bytes) {
-    return bytes.length >= 10 &&
-        bytes[0] == 0x49 &&
-        bytes[1] == 0x44 &&
-        bytes[2] == 0x33;
-  }
-
-  static Uint8List _removeId3v23Frames(
-    Uint8List tagPayload,
-    Set<String> frameIds,
-  ) {
-    final builder = BytesBuilder(copy: false);
-    var offset = 0;
-
-    while (offset + 10 <= tagPayload.length) {
-      final idBytes = tagPayload.sublist(offset, offset + 4);
-      if (idBytes.every((byte) => byte == 0)) break;
-
-      final frameId = ascii.decode(idBytes, allowInvalid: true);
-      if (!RegExp(r'^[A-Z0-9]{4}$').hasMatch(frameId)) break;
-
-      final frameSize = _readUint32(tagPayload, offset + 4);
-      if (frameSize <= 0 || offset + 10 + frameSize > tagPayload.length) {
-        break;
-      }
-
-      if (!frameIds.contains(frameId)) {
-        builder.add(tagPayload.sublist(offset, offset + 10 + frameSize));
-      }
-
-      offset += 10 + frameSize;
-    }
-
-    return builder.toBytes();
-  }
-
-  static Uint8List _buildId3v23Tag(Uint8List payload) {
-    final header = Uint8List(10)
-      ..[0] = 0x49
-      ..[1] = 0x44
-      ..[2] = 0x33
-      ..[3] = 3;
-
-    final size = _writeSynchsafeInt(payload.length);
-    header.setRange(6, 10, size);
-
-    final builder = BytesBuilder(copy: false)
-      ..add(header)
-      ..add(payload);
-    return builder.toBytes();
-  }
-
-  static Uint8List _buildId3v23UnsyncedLyricsFrame(String lyrics) {
-    final payload = BytesBuilder(copy: false)
-      ..add(const [0x01, 0x65, 0x6e, 0x67])
-      ..add(const [0xff, 0xfe, 0x00, 0x00])
-      ..add(_utf16LeWithBom(lyrics));
-
-    return _buildId3v23Frame('USLT', payload.toBytes());
-  }
-
-  static Uint8List _buildId3v23Frame(String frameId, Uint8List payload) {
-    final header = Uint8List(10);
-    header.setRange(0, 4, ascii.encode(frameId));
-    final size = _writeUint32(payload.length);
-    header.setRange(4, 8, size);
-
-    final builder = BytesBuilder(copy: false)
-      ..add(header)
-      ..add(payload);
-    return builder.toBytes();
-  }
-
-  static Uint8List _utf16LeWithBom(String value) {
-    final bytes = BytesBuilder(copy: false)..add(const [0xff, 0xfe]);
-    for (final codeUnit in value.codeUnits) {
-      bytes.add([codeUnit & 0xff, (codeUnit >> 8) & 0xff]);
-    }
-    return bytes.toBytes();
-  }
-
-  static int? _readSynchsafeInt(Uint8List bytes, int offset) {
-    if (offset + 4 > bytes.length) return null;
-
-    final b0 = bytes[offset];
-    final b1 = bytes[offset + 1];
-    final b2 = bytes[offset + 2];
-    final b3 = bytes[offset + 3];
-    if ((b0 | b1 | b2 | b3) & 0x80 != 0) return null;
-
-    return (b0 << 21) | (b1 << 14) | (b2 << 7) | b3;
-  }
-
-  static Uint8List _writeSynchsafeInt(int value) {
-    return Uint8List.fromList([
-      (value >> 21) & 0x7f,
-      (value >> 14) & 0x7f,
-      (value >> 7) & 0x7f,
-      value & 0x7f,
-    ]);
-  }
-
-  static int _readUint32(Uint8List bytes, int offset) {
-    return (bytes[offset] << 24) |
-        (bytes[offset + 1] << 16) |
-        (bytes[offset + 2] << 8) |
-        bytes[offset + 3];
-  }
-
-  static Uint8List _writeUint32(int value) {
-    return Uint8List.fromList([
-      (value >> 24) & 0xff,
-      (value >> 16) & 0xff,
-      (value >> 8) & 0xff,
-      value & 0xff,
-    ]);
   }
 
   static Future<String?> embedMetadataToOpus({
@@ -2183,7 +1883,7 @@ class FFmpegService {
     ];
 
     if (metadata != null) {
-      _appendVorbisMetadataToArguments(
+      AudioMetadataMapper.appendVorbisMetadataArguments(
         arguments,
         metadata,
         artistTagMode: artistTagMode,
@@ -2290,9 +1990,9 @@ class FFmpegService {
       }
 
       if (metadata != null) {
-        _appendMappedMetadataToArguments(
+        AudioMetadataMapper.appendMappedMetadataArguments(
           arguments,
-          _convertToM4aTags(metadata),
+          AudioMetadataMapper.convertToM4aTags(metadata),
         );
       }
 
@@ -2668,9 +2368,12 @@ class FFmpegService {
       ..add(isAlac ? '-1' : '0');
 
     if (isAlac) {
-      _appendMappedMetadataToArguments(arguments, _convertToM4aTags(metadata));
+      AudioMetadataMapper.appendMappedMetadataArguments(
+        arguments,
+        AudioMetadataMapper.convertToM4aTags(metadata),
+      );
     } else {
-      _appendVorbisMetadataToArguments(
+      AudioMetadataMapper.appendVorbisMetadataArguments(
         arguments,
         metadata,
         artistTagMode: artistTagMode,
@@ -2753,7 +2456,18 @@ class FFmpegService {
       ),
       processing: processing,
     );
-    arguments.addAll(['-c:a', codec, '-map_metadata', '-1', outputPath, '-y']);
+    arguments.addAll(['-c:a', codec, '-map_metadata', '-1']);
+
+    // Keep a container-native metadata fallback for software that does not
+    // inspect WAV/AIFF ID3 chunks. FFmpeg writes common WAV fields into
+    // LIST/INFO and the fields supported by AIFF into its native text chunks.
+    // The native writer below remains authoritative for the complete field
+    // set (including track/disc totals, lyrics, ReplayGain, and cover art).
+    AudioMetadataMapper.appendMappedMetadataArguments(
+      arguments,
+      AudioMetadataMapper.convertToId3Tags(metadata),
+    );
+    arguments.addAll([outputPath, '-y']);
 
     _log.i(
       'Converting ${inputPath.split(Platform.pathSeparator).last} to '
@@ -2775,9 +2489,11 @@ class FFmpegService {
     if (hasMetadata || hasCover) {
       final ok = await _embedChunkTagsNative(outputPath, metadata, coverPath);
       if (!ok) {
-        _log.w(
-          'Native tag embed failed for $container output (file kept untagged)',
-        );
+        // Metadata/cover preservation is part of the requested conversion.
+        // Publishing an apparently successful but untagged file is data loss.
+        _log.e('Native tag embed failed for $container output');
+        await _cleanupConversionOutput(outputPlan);
+        return null;
       }
     }
 
@@ -2796,304 +2512,24 @@ class FFmpegService {
     Map<String, String> vorbisMetadata,
     String? coverPath,
   ) async {
-    final fields = _vorbisToNativeChunkFields(vorbisMetadata);
+    final fields = AudioMetadataMapper.vorbisToNativeChunkFields(
+      vorbisMetadata,
+    );
     if (coverPath != null && coverPath.trim().isNotEmpty) {
       fields['cover_path'] = coverPath;
     }
     if (fields.isEmpty) return true;
     try {
       final res = await PlatformBridge.editFileMetadata(path, fields);
-      return res['error'] == null;
+      final error = res['error'];
+      if (error != null) {
+        _log.w('editFileMetadata for $path failed: $error');
+        return false;
+      }
+      return res['success'] == true;
     } catch (e) {
       _log.w('editFileMetadata for $path failed: $e');
       return false;
-    }
-  }
-
-  /// Maps Vorbis-comment style metadata (UPPERCASE keys) to the lowercase field
-  /// names consumed by the Go EditFileMetadata native WAV/AIFF tag writer.
-  static Map<String, String> _vorbisToNativeChunkFields(
-    Map<String, String> metadata,
-  ) {
-    final out = <String, String>{};
-
-    void setIndexPair(String numberKey, String totalKey, String value) {
-      final v = value.trim();
-      if (v.isEmpty || v == '0') return;
-      if (v.contains('/')) {
-        final parts = v.split('/');
-        out[numberKey] = parts[0].trim();
-        if (parts.length > 1 && parts[1].trim().isNotEmpty) {
-          out[totalKey] = parts[1].trim();
-        }
-      } else {
-        out[numberKey] = v;
-      }
-    }
-
-    for (final entry in metadata.entries) {
-      final normalizedKey = entry.key.toUpperCase().replaceAll(
-        RegExp(r'[^A-Z0-9]'),
-        '',
-      );
-      final value = entry.value;
-      if (value.trim().isEmpty) continue;
-
-      switch (normalizedKey) {
-        case 'TITLE':
-          out['title'] = value;
-          break;
-        case 'ARTIST':
-          out['artist'] = value;
-          break;
-        case 'ALBUM':
-          out['album'] = value;
-          break;
-        case 'ALBUMARTIST':
-          out['album_artist'] = value;
-          break;
-        case 'TRACKNUMBER':
-        case 'TRACK':
-        case 'TRCK':
-          setIndexPair('track_number', 'track_total', value);
-          break;
-        case 'TRACKTOTAL':
-        case 'TOTALTRACKS':
-          if (value.trim() != '0') out['track_total'] = value.trim();
-          break;
-        case 'DISCNUMBER':
-        case 'DISC':
-        case 'TPOS':
-          setIndexPair('disc_number', 'disc_total', value);
-          break;
-        case 'DISCTOTAL':
-        case 'TOTALDISCS':
-          if (value.trim() != '0') out['disc_total'] = value.trim();
-          break;
-        case 'DATE':
-          out['date'] = value;
-          break;
-        case 'YEAR':
-          if ((out['date'] ?? '').isEmpty) out['date'] = value;
-          break;
-        case 'ISRC':
-          out['isrc'] = value;
-          break;
-        case 'GENRE':
-          out['genre'] = value;
-          break;
-        case 'COMPOSER':
-          out['composer'] = value;
-          break;
-        case 'ORGANIZATION':
-        case 'LABEL':
-        case 'PUBLISHER':
-          out['label'] = value;
-          break;
-        case 'COPYRIGHT':
-          out['copyright'] = value;
-          break;
-        case 'COMMENT':
-        case 'DESCRIPTION':
-          out['comment'] = value;
-          break;
-        case 'LYRICS':
-        case 'UNSYNCEDLYRICS':
-          out['lyrics'] = value;
-          break;
-        case 'REPLAYGAINTRACKGAIN':
-          out['replaygain_track_gain'] = value;
-          break;
-        case 'REPLAYGAINTRACKPEAK':
-          out['replaygain_track_peak'] = value;
-          break;
-        case 'REPLAYGAINALBUMGAIN':
-          out['replaygain_album_gain'] = value;
-          break;
-        case 'REPLAYGAINALBUMPEAK':
-          out['replaygain_album_peak'] = value;
-          break;
-      }
-    }
-
-    return out;
-  }
-
-  /// Normalize metadata keys to standard Vorbis comment names, filtering out
-  /// technical fields (bit_depth, sample_rate, duration, etc.).
-  static Map<String, String> _normalizeToVorbisComments(
-    Map<String, String> metadata,
-  ) {
-    final vorbis = <String, String>{};
-
-    for (final entry in metadata.entries) {
-      final key = entry.key.toUpperCase().replaceAll(RegExp(r'[^A-Z0-9]'), '');
-      final value = entry.value;
-
-      switch (key) {
-        case 'TITLE':
-          vorbis['TITLE'] = value;
-          break;
-        case 'ARTIST':
-          vorbis['ARTIST'] = value;
-          break;
-        case 'ALBUM':
-          vorbis['ALBUM'] = value;
-          break;
-        case 'ALBUMARTIST':
-          vorbis['ALBUMARTIST'] = value;
-          break;
-        case 'TRACKNUMBER':
-        case 'TRACKNBR':
-        case 'TRACK':
-        case 'TRCK':
-          if (value != '0') vorbis['TRACKNUMBER'] = value;
-          break;
-        case 'DISCNUMBER':
-        case 'DISC':
-        case 'TPOS':
-          if (value != '0') vorbis['DISCNUMBER'] = value;
-          break;
-        case 'DATE':
-          vorbis['DATE'] = value;
-          final yearMatch = RegExp(r'^(\d{4})').firstMatch(value);
-          if (yearMatch != null &&
-              (!vorbis.containsKey('YEAR') || vorbis['YEAR']!.isEmpty)) {
-            vorbis['YEAR'] = yearMatch.group(1)!;
-          }
-          break;
-        case 'YEAR':
-          vorbis['YEAR'] = value;
-          if (!vorbis.containsKey('DATE') || vorbis['DATE']!.isEmpty) {
-            vorbis['DATE'] = value;
-          }
-          break;
-        case 'GENRE':
-          vorbis['GENRE'] = value;
-          break;
-        case 'ISRC':
-          vorbis['ISRC'] = value;
-          break;
-        case 'LABEL':
-        case 'ORGANIZATION':
-          vorbis['ORGANIZATION'] = value;
-          break;
-        case 'COPYRIGHT':
-          vorbis['COPYRIGHT'] = value;
-          break;
-        case 'COMPOSER':
-          vorbis['COMPOSER'] = value;
-          break;
-        case 'COMMENT':
-          vorbis['COMMENT'] = value;
-          break;
-        case 'LYRICS':
-        case 'UNSYNCEDLYRICS':
-          vorbis['LYRICS'] = value;
-          vorbis['UNSYNCEDLYRICS'] = value;
-          break;
-        case 'REPLAYGAINTRACKGAIN':
-          vorbis['REPLAYGAIN_TRACK_GAIN'] = value;
-          break;
-        case 'REPLAYGAINTRACKPEAK':
-          vorbis['REPLAYGAIN_TRACK_PEAK'] = value;
-          break;
-        case 'REPLAYGAINALBUMGAIN':
-          vorbis['REPLAYGAIN_ALBUM_GAIN'] = value;
-          break;
-        case 'REPLAYGAINALBUMPEAK':
-          vorbis['REPLAYGAIN_ALBUM_PEAK'] = value;
-          break;
-        case 'R128TRACKGAIN':
-          vorbis['R128_TRACK_GAIN'] = value;
-          break;
-        case 'R128ALBUMGAIN':
-          vorbis['R128_ALBUM_GAIN'] = value;
-          break;
-      }
-    }
-
-    return vorbis;
-  }
-
-  static void _appendVorbisMetadataToArguments(
-    List<String> arguments,
-    Map<String, String> metadata, {
-    String artistTagMode = artistTagModeJoined,
-  }) {
-    for (final entry in _buildVorbisMetadataEntries(
-      metadata,
-      artistTagMode: artistTagMode,
-    )) {
-      arguments
-        ..add('-metadata')
-        ..add('${entry.key}=${entry.value}');
-    }
-  }
-
-  static void _appendMappedMetadataToArguments(
-    List<String> arguments,
-    Map<String, String> metadata,
-  ) {
-    for (final entry in metadata.entries) {
-      arguments
-        ..add('-metadata')
-        ..add('${entry.key}=${entry.value}');
-    }
-  }
-
-  static List<MapEntry<String, String>> _buildVorbisMetadataEntries(
-    Map<String, String> metadata, {
-    String artistTagMode = artistTagModeJoined,
-  }) {
-    final vorbis = _normalizeToVorbisComments(metadata);
-    final entries = <MapEntry<String, String>>[];
-
-    for (final entry in vorbis.entries) {
-      if (entry.key == 'ARTIST' || entry.key == 'ALBUMARTIST') {
-        continue;
-      }
-      entries.add(entry);
-    }
-
-    _appendVorbisArtistEntries(
-      entries,
-      'ARTIST',
-      vorbis['ARTIST'],
-      artistTagMode: artistTagMode,
-    );
-    _appendVorbisArtistEntries(
-      entries,
-      'ALBUMARTIST',
-      vorbis['ALBUMARTIST'],
-      artistTagMode: artistTagMode,
-    );
-
-    return entries;
-  }
-
-  static void _appendVorbisArtistEntries(
-    List<MapEntry<String, String>> entries,
-    String key,
-    String? rawValue, {
-    String artistTagMode = artistTagModeJoined,
-  }) {
-    if (rawValue == null) return;
-    final value = rawValue.trim();
-    if (value.isEmpty) {
-      // Emit an empty entry so that with preserveMetadata the old tag is
-      // overridden (cleared) by FFmpeg's `-metadata key=""`.
-      entries.add(MapEntry(key, ''));
-      return;
-    }
-
-    if (!shouldSplitVorbisArtistTags(artistTagMode)) {
-      entries.add(MapEntry(key, value));
-      return;
-    }
-
-    for (final artist in splitArtistTagValues(value)) {
-      entries.add(MapEntry(key, artist));
     }
   }
 
@@ -3123,153 +2559,6 @@ class FFmpegService {
     } catch (e) {
       _log.w('writeM4AFreeformTags failed for $m4aPath: $e');
     }
-  }
-
-  /// Map Vorbis comment keys to M4A/MP4 metadata tag names for FFmpeg.
-  static Map<String, String> _convertToM4aTags(Map<String, String> metadata) {
-    final m4aMap = <String, String>{};
-
-    for (final entry in metadata.entries) {
-      final key = entry.key.toUpperCase().replaceAll(RegExp(r'[^A-Z0-9]'), '');
-      final value = entry.value;
-
-      switch (key) {
-        case 'TITLE':
-          m4aMap['title'] = value;
-          break;
-        case 'ARTIST':
-          m4aMap['artist'] = value;
-          break;
-        case 'ALBUM':
-          m4aMap['album'] = value;
-          break;
-        case 'ALBUMARTIST':
-          m4aMap['album_artist'] = value;
-          break;
-        case 'TRACKNUMBER':
-        case 'TRACK':
-        case 'TRCK':
-          m4aMap['track'] = value;
-          break;
-        case 'DISCNUMBER':
-        case 'DISC':
-        case 'TPOS':
-          m4aMap['disc'] = value;
-          break;
-        case 'DATE':
-          m4aMap['date'] = value;
-          break;
-        case 'YEAR':
-          if (!m4aMap.containsKey('date') || m4aMap['date']!.isEmpty) {
-            m4aMap['date'] = value;
-          }
-          break;
-        case 'GENRE':
-          m4aMap['genre'] = value;
-          break;
-        case 'ISRC':
-          m4aMap['isrc'] = value;
-          break;
-        case 'COMPOSER':
-          m4aMap['composer'] = value;
-          break;
-        case 'COMMENT':
-          m4aMap['comment'] = value;
-          break;
-        case 'COPYRIGHT':
-          m4aMap['copyright'] = value;
-          break;
-        case 'LABEL':
-        case 'ORGANIZATION':
-          m4aMap['organization'] = value;
-          break;
-        case 'LYRICS':
-        case 'UNSYNCEDLYRICS':
-          m4aMap['lyrics'] = value;
-          break;
-      }
-    }
-
-    return m4aMap;
-  }
-
-  static Map<String, String> _convertToId3Tags(
-    Map<String, String> vorbisMetadata,
-  ) {
-    final id3Map = <String, String>{};
-
-    for (final entry in vorbisMetadata.entries) {
-      final key = entry.key.toUpperCase();
-      final normalizedKey = key.replaceAll(RegExp(r'[^A-Z0-9]'), '');
-      final value = entry.value;
-
-      switch (normalizedKey) {
-        case 'TITLE':
-          id3Map['title'] = value;
-          break;
-        case 'ARTIST':
-          id3Map['artist'] = value;
-          break;
-        case 'ALBUM':
-          id3Map['album'] = value;
-          break;
-        case 'ALBUMARTIST':
-          id3Map['album_artist'] = value;
-          break;
-        case 'TRACKNUMBER':
-        case 'TRACK':
-        case 'TRCK':
-          if (value != '0') {
-            id3Map['track'] = value;
-          }
-          break;
-        case 'DISCNUMBER':
-        case 'DISC':
-        case 'TPOS':
-          if (value != '0') {
-            id3Map['disc'] = value;
-          }
-          break;
-        case 'DATE':
-          id3Map['date'] = value;
-          break;
-        case 'YEAR':
-          if (!id3Map.containsKey('date') || id3Map['date']!.isEmpty) {
-            id3Map['date'] = value;
-          }
-          break;
-        case 'ISRC':
-          id3Map['TSRC'] = value;
-          break;
-        case 'LYRICS':
-        case 'UNSYNCEDLYRICS':
-          id3Map['lyrics'] = value;
-          break;
-        case 'COMPOSER':
-          id3Map['composer'] = value;
-          break;
-        case 'COMMENT':
-          id3Map['comment'] = value;
-          break;
-        // FFmpeg writes these as TXXX frames automatically with uppercase keys
-        case 'REPLAYGAINTRACKGAIN':
-          id3Map['REPLAYGAIN_TRACK_GAIN'] = value;
-          break;
-        case 'REPLAYGAINTRACKPEAK':
-          id3Map['REPLAYGAIN_TRACK_PEAK'] = value;
-          break;
-        case 'REPLAYGAINALBUMGAIN':
-          id3Map['REPLAYGAIN_ALBUM_GAIN'] = value;
-          break;
-        case 'REPLAYGAINALBUMPEAK':
-          id3Map['REPLAYGAIN_ALBUM_PEAK'] = value;
-          break;
-        default:
-          id3Map[key.toLowerCase()] = value;
-      }
-    }
-
-    return id3Map;
   }
 
   /// Split a CUE+audio file into individual track files using FFmpeg.
@@ -3368,7 +2657,7 @@ class FFmpegService {
       if (track.isrc.isNotEmpty) addMeta('ISRC', track.isrc);
       if (track.composer.isNotEmpty) addMeta('COMPOSER', track.composer);
 
-      _appendMappedMetadataToArguments(arguments, cueMetadata);
+      AudioMetadataMapper.appendMappedMetadataArguments(arguments, cueMetadata);
       arguments
         ..add(outputPath)
         ..add('-y');
@@ -3404,86 +2693,4 @@ class FFmpegService {
   }
 }
 
-class CueSplitTrackInfo {
-  final int number;
-  final String title;
-  final String artist;
-  final String isrc;
-  final String composer;
-  final double startSec;
-  final double endSec;
-
-  CueSplitTrackInfo({
-    required this.number,
-    required this.title,
-    required this.artist,
-    this.isrc = '',
-    this.composer = '',
-    required this.startSec,
-    required this.endSec,
-  });
-
-  factory CueSplitTrackInfo.fromJson(Map<String, dynamic> json) {
-    return CueSplitTrackInfo(
-      number: json['number'] as int? ?? 0,
-      title: json['title'] as String? ?? '',
-      artist: json['artist'] as String? ?? '',
-      isrc: json['isrc'] as String? ?? '',
-      composer: json['composer'] as String? ?? '',
-      startSec: (json['start_sec'] as num?)?.toDouble() ?? 0.0,
-      endSec: (json['end_sec'] as num?)?.toDouble() ?? -1.0,
-    );
-  }
-}
-
-class FFmpegResult {
-  final bool success;
-  final int returnCode;
-  final String output;
-
-  FFmpegResult({
-    required this.success,
-    required this.returnCode,
-    required this.output,
-  });
-}
-
 enum _LiveDecryptFormat { flac, m4a }
-
-class LiveDecryptedStreamResult {
-  final String localUrl;
-  final String format;
-  final FFmpegSession session;
-
-  LiveDecryptedStreamResult({
-    required this.localUrl,
-    required this.format,
-    required this.session,
-  });
-}
-
-/// Result of an EBU R128 loudness scan, used to compute ReplayGain tags.
-class ReplayGainResult {
-  /// Track gain in dB, e.g. "-6.50 dB"
-  final String trackGain;
-
-  /// Track peak as a linear ratio, e.g. "0.988831"
-  final String trackPeak;
-
-  /// Raw integrated loudness in LUFS (needed for album gain computation)
-  final double integratedLufs;
-
-  /// Raw true peak as linear ratio (needed for album peak computation)
-  final double truePeakLinear;
-
-  const ReplayGainResult({
-    required this.trackGain,
-    required this.trackPeak,
-    required this.integratedLufs,
-    required this.truePeakLinear,
-  });
-
-  @override
-  String toString() =>
-      'ReplayGainResult(trackGain: $trackGain, trackPeak: $trackPeak)';
-}

@@ -272,21 +272,43 @@ Future<bool> fileExists(String? path) async {
   return File(realPath).exists();
 }
 
-Future<void> deleteFile(String? path) async {
-  if (path == null || path.isEmpty) return;
+/// Deletes [path] and reports whether the file is confirmed absent afterward.
+///
+/// SAF providers are allowed to reject a delete request by returning `false`.
+/// Callers that also remove a Library row must only do so when this returns
+/// `true`, otherwise the app would hide a file that still exists on storage.
+Future<bool> deleteFile(String? path) async {
+  if (path == null || path.isEmpty) return false;
   // CUE virtual paths should NOT be deleted through this function —
   // deleting album.cue would remove ALL tracks. Callers should handle
   // CUE deletion specially (e.g. only delete when all tracks are removed).
-  if (isCueVirtualPath(path)) return;
+  if (isCueVirtualPath(path)) return false;
   if (isContentUri(path)) {
-    await PlatformBridge.safDelete(path);
-    await musicPlayerHandler?.onSourceDeleted(path);
-    return;
+    try {
+      final deleted = await PlatformBridge.safDelete(path);
+      final confirmedAbsent = deleted || !await PlatformBridge.safExists(path);
+      if (confirmedAbsent) {
+        await musicPlayerHandler?.onSourceDeleted(path);
+      }
+      return confirmedAbsent;
+    } catch (_) {
+      return false;
+    }
   }
+
+  final file = File(path);
   try {
-    await File(path).delete();
-  } catch (_) {}
-  await musicPlayerHandler?.onSourceDeleted(path);
+    if (await file.exists()) {
+      await file.delete();
+    }
+    final confirmedAbsent = !await file.exists();
+    if (confirmedAbsent) {
+      await musicPlayerHandler?.onSourceDeleted(path);
+    }
+    return confirmedAbsent;
+  } catch (_) {
+    return false;
+  }
 }
 
 Future<FileAccessStat?> fileStat(String? path) async {

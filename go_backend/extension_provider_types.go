@@ -107,6 +107,7 @@ type ExtDownloadResult struct {
 	BitDepth          int    `json:"bit_depth,omitempty"`
 	SampleRate        int    `json:"sample_rate,omitempty"`
 	AudioCodec        string `json:"audio_codec,omitempty"`
+	DurationMS        int    `json:"duration_ms,omitempty"`
 	ErrorMessage      string `json:"error_message,omitempty"`
 	ErrorType         string `json:"error_type,omitempty"`
 	RetryAfterSeconds int    `json:"retry_after_seconds,omitempty"`

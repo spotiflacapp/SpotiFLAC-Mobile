@@ -207,10 +207,6 @@ func GoLog(format string, args ...any) {
 	GetLogBuffer().Add(level, tag, message)
 }
 
-func GetLogs() string {
-	return GetLogBuffer().GetAll()
-}
-
 func GetLogsSince(index int) string {
 	entries, nextIndex := GetLogBuffer().getSince(index)
 	logsJson, _ := json.Marshal(entries)
@@ -220,10 +216,6 @@ func GetLogsSince(index int) string {
 
 func ClearLogs() {
 	GetLogBuffer().Clear()
-}
-
-func GetLogCount() int {
-	return GetLogBuffer().Count()
 }
 
 func SetLoggingEnabled(enabled bool) {

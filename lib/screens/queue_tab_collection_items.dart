@@ -6,7 +6,7 @@ extension _QueueTabCollectionItemWidgets on _QueueTabState {
     DownloadItem item,
     ColorScheme colorScheme,
   ) {
-    final radius = BorderRadius.circular(8);
+    final radius = context.tokens.borderRadiusThumb;
     final isDownloading = item.status == DownloadStatus.downloading;
     final isFinalizing = item.status == DownloadStatus.finalizing;
     final isQueued = item.status == DownloadStatus.queued;
@@ -19,128 +19,89 @@ extension _QueueTabCollectionItemWidgets on _QueueTabState {
             borderRadius: radius,
             fadeInDuration: const Duration(milliseconds: 180),
           )
-        : Container(
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest,
-              borderRadius: radius,
-            ),
-            child: Icon(Icons.music_note, color: colorScheme.onSurfaceVariant),
-          );
+        : const TrackCoverPlaceholder();
 
-    final onTap = isFailed
+    final onTap = isFailed || item.status == DownloadStatus.skipped
         ? () => _showDownloadErrorDialog(context, item)
-        : item.status == DownloadStatus.skipped
-        ? () => ref.read(downloadQueueProvider.notifier).removeItem(item.id)
         : () => _confirmCancelDownload(context, item);
 
     return SmoothedProgressScope(
       value: item.progress,
       animate: _shouldAnimateDownloadProgress(context, item),
-      child: GestureDetector(
+      child: TrackGridCard(
         onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  ClipRRect(borderRadius: radius, child: cover),
-                  if (isDownloading || isFinalizing || isQueued)
-                    ClipRRect(
-                      borderRadius: radius,
-                      child: ColoredBox(
-                        color: Colors.black.withValues(alpha: 0.45),
-                      ),
-                    ),
-                  if (isDownloading || isFinalizing || isQueued)
-                    Center(
-                      child: isDownloading && progress > 0
-                          ? SmoothedProgressBuilder(
-                              builder: (context, visualProgress, child) =>
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      SizedBox(
-                                        width: 34,
-                                        height: 34,
-                                        child: CircularProgressIndicator(
-                                          value: visualProgress,
-                                          strokeWidth: 3,
-                                          color: Colors.white,
-                                          backgroundColor: Colors.white
-                                              .withValues(alpha: 0.25),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        '${(visualProgress * 100).round()}%',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                            )
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  width: 34,
-                                  height: 34,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 3,
-                                    color: Colors.white,
-                                    backgroundColor: Colors.white.withValues(
-                                      alpha: 0.25,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                    ),
-                  if (isFailed)
-                    Positioned(
-                      right: 4,
-                      top: 4,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: colorScheme.errorContainer,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.error_outline,
-                          color: colorScheme.error,
-                          size: 14,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              item.track.name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
-            ),
-            Text(
-              item.track.artistName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ],
+        semanticLabel: context.l10n.a11yTrackByArtist(
+          item.track.name,
+          item.track.artistName,
         ),
+        cover: cover,
+        overlays: [
+          if (isDownloading || isFinalizing || isQueued)
+            ClipRRect(
+              borderRadius: radius,
+              child: ColoredBox(color: Colors.black.withValues(alpha: 0.45)),
+            ),
+          if (isDownloading || isFinalizing || isQueued)
+            Center(
+              child: isDownloading && progress > 0
+                  ? SmoothedProgressBuilder(
+                      builder: (context, visualProgress, child) => Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: 34,
+                            height: 34,
+                            child: CircularProgressIndicator(
+                              value: visualProgress,
+                              strokeWidth: 3,
+                              color: Colors.white,
+                              backgroundColor: Colors.white.withValues(
+                                alpha: 0.25,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${(visualProgress * 100).round()}%',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox(
+                      width: 34,
+                      height: 34,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: Colors.white,
+                        backgroundColor: Colors.white.withValues(alpha: 0.25),
+                      ),
+                    ),
+            ),
+          if (isFailed)
+            Positioned(
+              right: 4,
+              top: 4,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: colorScheme.errorContainer,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.error_outline,
+                  color: colorScheme.error,
+                  size: 14,
+                ),
+              ),
+            ),
+        ],
+        title: item.track.name,
+        subtitle: Text(item.track.artistName),
       ),
     );
   }
@@ -149,82 +110,48 @@ extension _QueueTabCollectionItemWidgets on _QueueTabState {
     BuildContext context,
     DownloadItem item,
     ColorScheme colorScheme,
-    DownloadHistoryItem? historyItem,
-  ) {
+    DownloadHistoryItem? historyItem, {
+    List<DownloadHistoryItem>? navigationItems,
+    int? navigationIndex,
+  }) {
     final track = item.track;
     final radius = BorderRadius.circular(8);
     final unifiedItem = historyItem == null
         ? null
         : UnifiedLibraryItem.fromDownloadHistory(historyItem);
-    final quality = unifiedItem?.quality ?? track.audioQuality;
+    final quality =
+        unifiedItem?.qualityForMode(_libraryQualityLabelMode) ??
+        track.audioQuality;
     final cover = unifiedItem != null
         ? _buildUnifiedCoverImage(unifiedItem, colorScheme)
         : track.coverUrl != null
         ? CachedCoverImage(imageUrl: track.coverUrl!, borderRadius: radius)
-        : Container(
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest,
-              borderRadius: radius,
-            ),
-            child: Icon(Icons.music_note, color: colorScheme.onSurfaceVariant),
-          );
+        : const TrackCoverPlaceholder();
     final heroTag = historyItem != null
         ? 'cover_lib_dl_${historyItem.id}'
         : 'cover_${item.id}';
     final trackName = historyItem?.trackName ?? track.name;
     final artistName = historyItem?.artistName ?? track.artistName;
-    return Semantics(
-      button: true,
-      label: context.l10n.a11yTrackByArtist(trackName, artistName),
-      child: GestureDetector(
-        onTap: () => historyItem != null
-            ? _navigateToHistoryMetadataScreen(historyItem)
-            : _navigateToMetadataScreen(item),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Hero(
-                    tag: heroTag,
-                    child: ClipRRect(borderRadius: radius, child: cover),
-                  ),
-                  if (quality != null && quality.isNotEmpty)
-                    Positioned(
-                      left: 4,
-                      top: 4,
-                      child: _buildLibraryQualityBadge(
-                        context,
-                        colorScheme,
-                        quality,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              trackName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
-            ),
-            Text(
-              artistName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return TrackGridCard(
+      semanticLabel: context.l10n.a11yTrackByArtist(trackName, artistName),
+      onTap: () => historyItem != null
+          ? _navigateToHistoryMetadataScreen(
+              historyItem,
+              navigationItems: navigationItems,
+              navigationIndex: navigationIndex,
+            )
+          : _navigateToMetadataScreen(item),
+      cover: Hero(tag: heroTag, child: cover),
+      overlays: [
+        if (quality != null && quality.isNotEmpty)
+          Positioned(
+            left: 4,
+            top: 4,
+            child: _buildLibraryQualityBadge(context, colorScheme, quality),
+          ),
+      ],
+      title: trackName,
+      subtitle: Text(artistName),
     );
   }
 
@@ -232,15 +159,19 @@ extension _QueueTabCollectionItemWidgets on _QueueTabState {
     BuildContext context,
     DownloadItem item,
     ColorScheme colorScheme,
-    DownloadHistoryItem? historyItem,
-  ) {
+    DownloadHistoryItem? historyItem, {
+    List<DownloadHistoryItem>? navigationItems,
+    int? navigationIndex,
+  }) {
     final track = item.track;
     final coverSize = _queueCoverSize();
     final radius = BorderRadius.circular(8);
     final unifiedItem = historyItem == null
         ? null
         : UnifiedLibraryItem.fromDownloadHistory(historyItem);
-    final quality = unifiedItem?.quality ?? track.audioQuality;
+    final quality =
+        unifiedItem?.qualityForMode(_libraryQualityLabelMode) ??
+        track.audioQuality;
     final cover = unifiedItem != null
         ? _buildUnifiedCoverImage(unifiedItem, colorScheme, coverSize)
         : track.coverUrl != null
@@ -264,58 +195,41 @@ extension _QueueTabCollectionItemWidgets on _QueueTabState {
         : 'cover_${item.id}';
     final trackName = historyItem?.trackName ?? track.name;
     final artistName = historyItem?.artistName ?? track.artistName;
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => historyItem != null
-            ? _navigateToHistoryMetadataScreen(historyItem)
-            : _navigateToMetadataScreen(item),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              Hero(tag: heroTag, child: cover),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trackName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      artistName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                    if (quality != null && quality.isNotEmpty) ...[
-                      const SizedBox(height: 4),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: _buildLibraryQualityBadge(
-                          context,
-                          colorScheme,
-                          quality,
-                          listStyle: true,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
+    return TrackCard(
+      onTap: () => historyItem != null
+          ? _navigateToHistoryMetadataScreen(
+              historyItem,
+              navigationItems: navigationItems,
+              navigationIndex: navigationIndex,
+            )
+          : _navigateToMetadataScreen(item),
+      leading: Hero(tag: heroTag, child: cover),
+      title: trackName,
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            artistName,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
           ),
-        ),
+          if (quality != null && quality.isNotEmpty) ...[
+            const SizedBox(height: 4),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: _buildLibraryQualityBadge(
+                context,
+                colorScheme,
+                quality,
+                listStyle: true,
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -326,26 +240,27 @@ extension _QueueTabCollectionItemWidgets on _QueueTabState {
     String quality, {
     bool listStyle = false,
   }) {
-    final isHighResolution = quality.startsWith('24');
+    final tokens = context.tokens;
+    final isHighlightedQuality = shouldHighlightAudioQualityBadge(quality);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: listStyle ? 6 : 4, vertical: 2),
+      padding: tokens.badgePadding,
       decoration: BoxDecoration(
-        color: isHighResolution
+        color: isHighlightedQuality
             ? listStyle
                   ? colorScheme.primaryContainer
                   : colorScheme.primary
             : colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: tokens.borderRadiusBadge,
       ),
       child: Text(
         listStyle ? quality : _getQualityBadgeText(quality),
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: isHighResolution
+          color: isHighlightedQuality
               ? listStyle
                     ? colorScheme.onPrimaryContainer
                     : colorScheme.onPrimary
               : colorScheme.onSurfaceVariant,
-          fontSize: listStyle ? 10 : 9,
+          fontSize: tokens.badgeFontSize,
           fontWeight: listStyle ? FontWeight.w500 : FontWeight.w600,
         ),
       ),

@@ -6,6 +6,8 @@ part 'settings.g.dart';
 @JsonSerializable()
 class AppSettings {
   static const String homeFeedProviderOff = '__off__';
+  static const String libraryQualityLabelBitrate = 'bitrate';
+  static const String libraryQualityLabelBitDepth = 'bit_depth';
 
   final String defaultService;
   final String audioQuality;
@@ -34,6 +36,13 @@ class AppSettings {
   final bool filterContributingArtistsInAlbumArtist;
   final String historyViewMode;
   final String historyFilterMode;
+
+  /// Library view opened when switching to the Library tab:
+  /// 'last' (keep last used), 'all', 'albums', 'singles', or 'playlists'.
+  final String defaultLibraryView;
+
+  /// Library badge text: measured bitrate or the legacy bit depth/sample rate.
+  final String libraryQualityLabelMode;
   final bool askQualityBeforeDownload;
   final bool enableLogging;
   final bool useExtensionProviders;
@@ -49,6 +58,11 @@ class AppSettings {
   /// Shared-element (Hero) flights, e.g. the mini player artwork expanding
   /// into the full player. Off skips the flights entirely.
   final bool heroAnimationsEnabled;
+
+  /// Forces the shell's backdrop blur on even when the startup runtime
+  /// profile disabled it for this device tier. Off means "follow the
+  /// device default".
+  final bool forceBackdropBlur;
   final String
   extensionVerificationBrowserMode; // 'external_first' or 'in_app_first'
   final String locale;
@@ -127,6 +141,8 @@ class AppSettings {
     this.filterContributingArtistsInAlbumArtist = false,
     this.historyViewMode = 'grid',
     this.historyFilterMode = 'all',
+    this.defaultLibraryView = 'last',
+    this.libraryQualityLabelMode = libraryQualityLabelBitrate,
     this.askQualityBeforeDownload = true,
     this.enableLogging = false,
     this.useExtensionProviders = true,
@@ -139,6 +155,7 @@ class AppSettings {
     this.albumFolderStructure = 'artist_album',
     this.showExtensionStore = true,
     this.heroAnimationsEnabled = true,
+    this.forceBackdropBlur = false,
     this.extensionVerificationBrowserMode = 'in_app_first',
     this.locale = 'system',
     this.lyricsMode = 'embed',
@@ -196,6 +213,8 @@ class AppSettings {
     bool? filterContributingArtistsInAlbumArtist,
     String? historyViewMode,
     String? historyFilterMode,
+    String? defaultLibraryView,
+    String? libraryQualityLabelMode,
     bool? askQualityBeforeDownload,
     bool? enableLogging,
     bool? useExtensionProviders,
@@ -211,6 +230,7 @@ class AppSettings {
     String? albumFolderStructure,
     bool? showExtensionStore,
     bool? heroAnimationsEnabled,
+    bool? forceBackdropBlur,
     String? extensionVerificationBrowserMode,
     String? locale,
     String? lyricsMode,
@@ -272,6 +292,9 @@ class AppSettings {
           this.filterContributingArtistsInAlbumArtist,
       historyViewMode: historyViewMode ?? this.historyViewMode,
       historyFilterMode: historyFilterMode ?? this.historyFilterMode,
+      defaultLibraryView: defaultLibraryView ?? this.defaultLibraryView,
+      libraryQualityLabelMode:
+          libraryQualityLabelMode ?? this.libraryQualityLabelMode,
       askQualityBeforeDownload:
           askQualityBeforeDownload ?? this.askQualityBeforeDownload,
       enableLogging: enableLogging ?? this.enableLogging,
@@ -293,6 +316,7 @@ class AppSettings {
       showExtensionStore: showExtensionStore ?? this.showExtensionStore,
       heroAnimationsEnabled:
           heroAnimationsEnabled ?? this.heroAnimationsEnabled,
+      forceBackdropBlur: forceBackdropBlur ?? this.forceBackdropBlur,
       extensionVerificationBrowserMode:
           extensionVerificationBrowserMode ??
           this.extensionVerificationBrowserMode,

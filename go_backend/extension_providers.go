@@ -34,49 +34,6 @@ func (m *extensionManager) GetDownloadProviders() []*extensionProviderWrapper {
 	return providers
 }
 
-func (m *extensionManager) SearchTracksWithExtensions(query string, limit int) ([]ExtTrackMetadata, error) {
-	providers := m.GetMetadataProviders()
-	if len(providers) == 0 {
-		return nil, nil
-	}
-
-	providerByID := make(map[string]*extensionProviderWrapper, len(providers))
-	orderedProviders := make([]*extensionProviderWrapper, 0, len(providers))
-	for _, provider := range providers {
-		providerByID[provider.extension.ID] = provider
-	}
-	for _, providerID := range GetMetadataProviderPriority() {
-		if provider := providerByID[providerID]; provider != nil {
-			orderedProviders = append(orderedProviders, provider)
-			delete(providerByID, providerID)
-		}
-	}
-	if len(providerByID) > 0 {
-		remainingIDs := make([]string, 0, len(providerByID))
-		for providerID := range providerByID {
-			remainingIDs = append(remainingIDs, providerID)
-		}
-		sort.Strings(remainingIDs)
-		for _, providerID := range remainingIDs {
-			orderedProviders = append(orderedProviders, providerByID[providerID])
-		}
-	}
-
-	var allTracks []ExtTrackMetadata
-	for _, provider := range orderedProviders {
-		result, err := provider.SearchTracks(query, limit)
-		if err != nil {
-			GoLog("[Extension] Search error from %s: %v\n", provider.extension.ID, err)
-			continue
-		}
-		if result != nil {
-			allTracks = append(allTracks, result.Tracks...)
-		}
-	}
-
-	return allTracks, nil
-}
-
 func metadataTrackDedupKey(track ExtTrackMetadata) string {
 	if isrc := strings.TrimSpace(track.ISRC); isrc != "" {
 		return "isrc:" + strings.ToUpper(isrc)
@@ -92,6 +49,46 @@ func metadataTrackDedupKey(track ExtTrackMetadata) string {
 
 func (m *extensionManager) SearchTracksWithMetadataProviders(query string, limit int, includeExtensions bool) ([]ExtTrackMetadata, error) {
 	return m.SearchTracksWithMetadataProvidersForItemID(query, limit, includeExtensions, "")
+}
+
+// SearchTracksWithMetadataProvider searches one explicitly selected metadata
+// provider. Unlike the priority-based search, this never falls through to a
+// different extension, so callers can reliably attribute the returned fields
+// to the provider selected by the user.
+func (m *extensionManager) SearchTracksWithMetadataProvider(providerID, query string, limit int) ([]ExtTrackMetadata, error) {
+	providerID = strings.TrimSpace(providerID)
+	if providerID == "" {
+		return nil, fmt.Errorf("metadata provider ID is required")
+	}
+	if limit <= 0 {
+		limit = 20
+	}
+
+	ext, err := m.GetExtension(providerID)
+	if err != nil {
+		return nil, err
+	}
+	if ext == nil || ext.Manifest == nil || !ext.Manifest.IsMetadataProvider() {
+		return nil, fmt.Errorf("extension '%s' is not a metadata provider", providerID)
+	}
+	if !ext.Enabled {
+		return nil, fmt.Errorf("extension '%s' is disabled", providerID)
+	}
+	if ext.Error != "" {
+		return nil, fmt.Errorf("extension '%s' is unavailable: %s", providerID, ext.Error)
+	}
+
+	result, err := newExtensionProviderWrapper(ext).SearchTracks(query, limit)
+	if err != nil {
+		return nil, err
+	}
+	if result == nil || len(result.Tracks) <= limit {
+		if result == nil {
+			return []ExtTrackMetadata{}, nil
+		}
+		return result.Tracks, nil
+	}
+	return result.Tracks[:limit], nil
 }
 
 func (m *extensionManager) SearchTracksWithMetadataProvidersForItemID(query string, limit int, includeExtensions bool, itemID string) ([]ExtTrackMetadata, error) {
@@ -176,42 +173,44 @@ func (m *extensionManager) SearchTracksWithMetadataProvidersForItemID(query stri
 	return tracks, nil
 }
 
-func (m *extensionManager) GetSearchProviders() []*extensionProviderWrapper {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-
-	var providers []*extensionProviderWrapper
-	for _, ext := range m.extensions {
-		if ext.Enabled && ext.Manifest.HasCustomSearch() && ext.Error == "" {
-			providers = append(providers, newExtensionProviderWrapper(ext))
-		}
-	}
-	return providers
-}
-
-func (m *extensionManager) GetURLHandlers() []*extensionProviderWrapper {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-
-	var providers []*extensionProviderWrapper
-	for _, ext := range m.extensions {
-		if ext.Enabled && ext.Manifest.HasURLHandler() && ext.Error == "" {
-			providers = append(providers, newExtensionProviderWrapper(ext))
-		}
-	}
-	return providers
-}
-
+// FindURLHandler returns the enabled handler matching the URL. When several
+// extensions match (e.g. two Spotify handlers), the user's metadata provider
+// priority breaks the tie deterministically instead of Go's random map
+// iteration order.
 func (m *extensionManager) FindURLHandler(url string) *extensionProviderWrapper {
 	m.mu.RLock()
-	defer m.mu.RUnlock()
-
+	matches := make([]*loadedExtension, 0, 2)
 	for _, ext := range m.extensions {
 		if ext.Enabled && ext.Manifest.MatchesURL(url) && ext.Error == "" {
-			return newExtensionProviderWrapper(ext)
+			matches = append(matches, ext)
 		}
 	}
-	return nil
+	m.mu.RUnlock()
+
+	if len(matches) == 0 {
+		return nil
+	}
+	if len(matches) > 1 {
+		rank := map[string]int{}
+		for i, id := range GetMetadataProviderPriority() {
+			rank[strings.ToLower(strings.TrimSpace(id))] = i
+		}
+		sort.SliceStable(matches, func(i, j int) bool {
+			ri, oki := rank[strings.ToLower(matches[i].ID)]
+			rj, okj := rank[strings.ToLower(matches[j].ID)]
+			switch {
+			case oki && okj:
+				return ri < rj
+			case oki:
+				return true
+			case okj:
+				return false
+			default:
+				return matches[i].ID < matches[j].ID
+			}
+		})
+	}
+	return newExtensionProviderWrapper(matches[0])
 }
 
 type ExtURLHandleResultWithExtID struct {
@@ -252,21 +251,13 @@ func (m *extensionManager) GetPostProcessingProviders() []*extensionProviderWrap
 	return providers
 }
 
-// runPostProcessingCommon backs both RunPostProcessing (V1) and
-// RunPostProcessingV2. V1 delegates into this shared loop with an equivalent
-// PostProcessInput; preferV2 controls whether each hook is invoked via
-// provider.PostProcessV2 or provider.PostProcess, so V1 keeps calling
-// PostProcess (not PostProcessV2) exactly as it did before.
-func (m *extensionManager) runPostProcessingCommon(input PostProcessInput, metadata map[string]any, preferV2 bool) (*PostProcessResult, error) {
+func (m *extensionManager) RunPostProcessingV2(input PostProcessInput, metadata map[string]any) (*PostProcessResult, error) {
 	providers := m.GetPostProcessingProviders()
 	if len(providers) == 0 {
 		return &PostProcessResult{Success: true, NewFilePath: input.Path, NewFileURI: input.URI}, nil
 	}
 
-	logTag := "[PostProcess]"
-	if preferV2 {
-		logTag = "[PostProcessV2]"
-	}
+	logTag := "[PostProcessV2]"
 
 	currentInput := input
 	for _, provider := range providers {
@@ -295,13 +286,7 @@ func (m *extensionManager) runPostProcessingCommon(input PostProcessInput, metad
 
 			GoLog("%s Running hook %s from %s on %s\n", logTag, hook.ID, provider.extension.ID, currentInput.Path)
 
-			var result *PostProcessResult
-			var err error
-			if preferV2 {
-				result, err = provider.PostProcessV2(currentInput, metadata, hook.ID)
-			} else {
-				result, err = provider.PostProcess(currentInput.Path, metadata, hook.ID)
-			}
+			result, err := provider.PostProcessV2(currentInput, metadata, hook.ID)
 			if err != nil {
 				GoLog("%s Hook %s failed: %v\n", logTag, hook.ID, err)
 				continue
@@ -358,18 +343,6 @@ func validatePostProcessResult(ext *loadedExtension, input PostProcessInput, res
 		}
 	}
 	return fmt.Errorf("replacement file path is outside allowed directories")
-}
-
-func (m *extensionManager) RunPostProcessing(filePath string, metadata map[string]any) (*PostProcessResult, error) {
-	result, err := m.runPostProcessingCommon(PostProcessInput{Path: filePath}, metadata, false)
-	if err != nil {
-		return result, err
-	}
-	return &PostProcessResult{Success: result.Success, NewFilePath: result.NewFilePath}, nil
-}
-
-func (m *extensionManager) RunPostProcessingV2(input PostProcessInput, metadata map[string]any) (*PostProcessResult, error) {
-	return m.runPostProcessingCommon(input, metadata, true)
 }
 
 func (m *extensionManager) GetLyricsProviders() []*extensionProviderWrapper {

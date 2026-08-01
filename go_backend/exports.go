@@ -63,6 +63,16 @@ func SetSongLinkNetworkOptions(allowHTTP, insecureTLS bool) {
 	SetNetworkCompatibilityOptions(allowHTTP, insecureTLS)
 }
 
+// GetTrackPlatformLinksJSON returns {"platforms": {platformID: url}} for a
+// track, resolved via song.link (memory-cached; either ID may be empty).
+func GetTrackPlatformLinksJSON(spotifyTrackID string, isrc string) (string, error) {
+	links, err := NewSongLinkClient().GetTrackPlatformLinks(spotifyTrackID, isrc)
+	if err != nil {
+		return "", err
+	}
+	return marshalJSONString(map[string]any{"platforms": links})
+}
+
 func SetDownloadDirectory(path string) error {
 	return setDownloadDir(path)
 }
@@ -72,17 +82,6 @@ func AllowDownloadDir(path string) {
 		return
 	}
 	AddAllowedDownloadDir(path)
-}
-
-func CheckDuplicate(outputDir, isrc string) (string, error) {
-	existingFile, exists := CheckISRCExists(outputDir, isrc)
-
-	result := map[string]any{
-		"exists":   exists,
-		"filepath": existingFile,
-	}
-
-	return marshalJSONString(result)
 }
 
 func CheckDuplicatesBatch(outputDir, tracksJSON string) (string, error) {

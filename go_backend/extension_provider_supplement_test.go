@@ -92,9 +92,9 @@ func TestExtensionProviderWrapperFullSurface(t *testing.T) {
 		t.Fatalf("url result = %#v", urlResult)
 	}
 
-	post, err := provider.PostProcess(filepath.Join(t.TempDir(), "song.flac"), map[string]any{"title": "Song"}, "hook")
+	post, err := provider.PostProcessV2(PostProcessInput{Path: filepath.Join(t.TempDir(), "song.flac")}, map[string]any{"title": "Song"}, "hook")
 	if err != nil {
-		t.Fatalf("PostProcess: %v", err)
+		t.Fatalf("PostProcessV2: %v", err)
 	}
 	if !post.Success || post.BitDepth != 24 || post.SampleRate != 96000 {
 		t.Fatalf("post = %#v", post)

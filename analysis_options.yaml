@@ -43,6 +43,9 @@ linter:
     type_annotate_public_apis: true
     cancel_subscriptions: true
     close_sinks: true
+    # Catches dead cross-layer chains (Dart wrapper kept alive only by its own
+    # declaration) before they accumulate into another dedup campaign.
+    unreachable_from_main: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

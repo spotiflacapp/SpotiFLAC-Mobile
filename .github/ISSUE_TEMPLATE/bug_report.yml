@@ -1,30 +1,29 @@
 name: Bug Report
-description: Report a bug or unexpected behavior
+description: Report a reproducible bug or unexpected behavior
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug! Please fill out the form below.
+        Thanks for reporting a SpotiFLAC Mobile bug. Please provide enough detail for another person to reproduce it.
 
   - type: checkboxes
     id: checklist
     attributes:
       label: Checklist
-      description: Please confirm the following before submitting
       options:
-        - label: I have searched existing issues and this bug hasn't been reported yet
+        - label: I searched existing issues and did not find this bug.
           required: true
-        - label: I am using the latest version of SpotiFLAC (Stable Version)
+        - label: I can reproduce this on the release channel selected below.
           required: true
 
   - type: textarea
     id: description
     attributes:
-      label: Bug Description
-      description: A clear and concise description of what the bug is
-      placeholder: Describe the bug...
+      label: Description
+      description: What happened, and what did you expect instead?
+      placeholder: Include the visible error and any relevant context.
     validations:
       required: true
 
@@ -32,29 +31,26 @@ body:
     id: steps
     attributes:
       label: Steps to Reproduce
-      description: Steps to reproduce the behavior
       placeholder: |
-        1. Go to '...'
-        2. Click on '...'
-        3. See error
+        1. Open ...
+        2. Enable ...
+        3. Tap ...
+        4. Observe ...
     validations:
       required: true
 
-  - type: textarea
-    id: expected
+  - type: dropdown
+    id: trigger
     attributes:
-      label: Expected Behavior
-      description: What did you expect to happen?
-      placeholder: Describe what you expected...
-    validations:
-      required: true
-
-  - type: textarea
-    id: actual
-    attributes:
-      label: Actual Behavior
-      description: What actually happened?
-      placeholder: Describe what actually happened...
+      label: Area
+      options:
+        - App startup
+        - Search or navigation
+        - Download or verification
+        - Library or metadata
+        - Playback or background service
+        - Audio analysis
+        - Other
     validations:
       required: true
 
@@ -62,62 +58,73 @@ body:
     id: version
     attributes:
       label: App Version
-      description: Which version of SpotiFLAC are you using? (Check in Settings > About)
-      placeholder: "e.g., v2.2.0"
+      description: Find this in Settings > About.
+      placeholder: "e.g. 4.8.1 (139)"
     validations:
       required: true
 
   - type: dropdown
-    id: platform
+    id: channel
     attributes:
-      label: Platform
-      description: Which platform are you using?
+      label: Release Channel
       options:
-        - Android
-        - iOS
+        - Stable
+        - Beta
+        - Local or development build
     validations:
       required: true
 
   - type: input
     id: device
     attributes:
-      label: Device & OS Version
-      description: What device and OS version are you using?
-      placeholder: "e.g., Samsung Galaxy S24, Android 14"
+      label: Device and OS
+      placeholder: "e.g. Samsung Galaxy S24, Android 16"
     validations:
       required: true
 
   - type: dropdown
-    id: download-service
+    id: storage
     attributes:
-      label: Download Service
-      description: Which download service were you using when the bug occurred?
+      label: Download Storage
       options:
-        - Tidal
-        - Qobuz
-        - Amazon Music
-        - Deezer (search only)
+        - SAF folder
+        - App-specific folder
         - Not applicable
+        - Not sure
     validations:
       required: true
+
+  - type: dropdown
+    id: worker
+    attributes:
+      label: Download Worker
+      options:
+        - Native worker
+        - Dart worker
+        - Not applicable
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: Extension or Provider
+      description: If relevant, include the extension/provider name and version.
+      placeholder: "Name, version, and selected priority"
 
   - type: textarea
     id: logs
     attributes:
-      label: Logs / Screenshots
+      label: Logs and Media
       description: |
-        If applicable, add logs or screenshots to help explain your problem.
-        
-        **To get logs:**
-        1. Go to Settings > Options > Detailed Logging (turn ON)
-        2. Reproduce the bug
-        3. Go to Settings > Logs
-        4. Tap Share button to export logs
-      placeholder: Paste logs or drag & drop screenshots here...
+        Enable detailed logging, reproduce the problem, then export logs from Settings > Logs. For an Android cold-start crash, attach `adb logcat -b crash -d`. Add screenshots or a short recording when useful. Remove credentials and personal data first.
+      placeholder: Paste logs or drag files here.
+    validations:
+      required: true
 
   - type: textarea
     id: additional
     attributes:
       label: Additional Context
-      description: Any other context about the problem
-      placeholder: Add any other context...
+      placeholder: Settings, frequency, regression version, or anything else that may help.

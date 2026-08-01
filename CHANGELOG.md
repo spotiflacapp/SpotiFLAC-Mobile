@@ -1,5 +1,513 @@
 # Changelog
 
+## [4.8.5] - 2026-08-01
+
+### Added
+
+- **Searchable Settings**: Search both top-level pages and controls inside them. Opening a nested result now scrolls to the matching control and briefly highlights it.
+- **Album Multi-Select Download**: Select several tracks in an album and choose the provider and quality once for the whole selection.
+- **Player & Queue Controls**: Repeat Off/All/One modes, swipe up from Now Playing to open the queue, move queued tracks up or down, `Download next`, and one-tap retry when connectivity returns.
+- **Playback Session Restore**: Restore the previous queue, track, technical quality, and playback position after the app process is restarted.
+- **Track Navigation**: `Go to Album` is available from track actions, including sparse search results, and `Open on...` exposes supported platform links.
+- **Library Views**: Playlist filtering, a configurable default Library view, a missing-ISRC filter, and clearer horizontally scrollable filter chips.
+- **Quality Labels**: Choose between measured bitrate labels and classic bit-depth/sample-rate labels. High-bitrate tracks receive a distinct badge color, and lossless average bitrate is shown in Track Metadata.
+- **Duplicate Review**: Detect ISRC duplicates beyond FLAC, review matching files, and keep the preferred copy.
+- **M3U Playlists**: Import M3U/M3U8 playlists and export Library collections as M3U8.
+- **Metadata Sources**: Choose a specific extension for online auto-fill, use extension-defined custom search, or manually fetch metadata from MusicBrainz.
+- **Cover Tools**: View the current embedded-cover dimensions, preview the dimensions of a fetched cover, resize embedded artwork, and select the best available online cover candidate.
+- **Android Download Widget**: Monitor the active download queue from the Android home screen.
+- **Appearance Controls**: Adaptive detail-page colors derived from cover art and an optional force-backdrop-blur setting for lower device tiers.
+- **Audio Processing**: Very-high-quality SoXR resampling settings for supported lossless conversions.
+
+### Fixed
+
+- **Provider Matching**: Honor the explicitly selected provider and reject mismatched provider results that could download a cover or unrelated song with the original album metadata.
+- **Verification & Sessions**: Coordinate one verification flow across sequential and parallel album downloads, follow canonical gateway/provider error contracts, block challenged session generations, and prevent stale requests from invalidating a newer session.
+- **Verification Alerts**: Notify the user when downloads pause for verification and recover signed-session bootstrap failures more reliably.
+- **Download Storage**: Recover from an unwritable selected folder, retain published files when bookkeeping fails, and keep cancelled items retryable after app restarts.
+- **Quality Variants**: Complete alternate-quality downloads reliably and append technical quality to filenames only when a real filename collision exists.
+- **Library Stability**: Keep rows and cached history visible during active downloads and refreshes, retain records when deletion fails, and backfill/persist local bitrate metadata without opening every track.
+- **Playback & Lyrics**: Refresh lyrics after automatic track changes and cold starts, reject empty embedded lyric payloads, preserve technical quality between tracks, and restore playback position reliably.
+- **WAV & AIFF Metadata**: Preserve supported tags and artwork through conversion and metadata editing.
+- **Audio Analysis**: Wait for complete FFmpeg metrics, isolate analysis from active downloads, detect effective/full-band spectral cutoff more accurately, and avoid unsupported AC-4 spectrogram analysis.
+- **Startup Compatibility**: Stop forcing the highest Android display mode during every cold start, avoiding OEM-specific crashes and unnecessary GPU load.
+- **User-Facing Errors**: Replace raw `PlatformException` and backend details with concise, sanitized messages.
+- **Metadata UI**: Keep Track Metadata headers readable in light themes and make the online source picker, preview, apply, and feedback flow consistent with the rest of the app.
+- **Selection & Sheets**: Keep selection bars and modal sheets above the app navbar and make download-picker drag dismissal feel natural.
+- **Database Upgrade**: Make playback-session migration safe when an older installation already contains the destination table.
+
+### Improved
+
+- **Now Playing**: Smoother track transitions, consistent custom action sheets, better synced-lyrics positioning, and aligned play/preview controls and hitboxes.
+- **Responsive UI**: More consistent search fields, settings groups, page headers, modal sheets, empty/error states, and collection selection behavior, with improved tablet widths and short-screen setup/tutorial layouts.
+- **Download Performance**: Faster duplicate checks for large playlists, fewer native-widget updates, reduced progress/session write churn, and safer HTTP Range recovery.
+- **Library Performance**: Batched history/index updates, fewer rebuilds during scans, lazy duplicate loading, cached MusicBrainz lookups, and quality probes that avoid unnecessary SAF copies.
+- **Extension Security**: Verify decentralized package integrity, isolate bad registry checksums, anchor URL handlers to their declared hosts, and enforce `minAppVersion` and required runtime features.
+- **Dependencies**: Updated Flutter, Go, FFmpeg, Android notification, and supporting native dependencies.
+
+---
+
+## [4.8.0] - 2026-07-24
+
+### Added
+
+- **Tablet & Landscape UI**: Navigation rail, landscape Now Playing, clamped layouts for track lists, dialogs, sheets, settings, queue lists, and the setup wizard, with adaptive selection-card columns.
+- **Playback Volume Normalization**: ReplayGain/R128 volume normalization for the built-in player (Library > Playback, off by default).
+- **Concurrent Downloads**: Support up to 3 simultaneous downloads.
+- **Download Resume**: Interrupted downloads resume via HTTP Range/If-Range instead of restarting from zero.
+- **Lost Folder Access Recovery**: Detects a lost SAF grant and offers folder re-selection.
+- **Native Tag Editors**: New native MP3 ID3v2, Ogg/Opus Vorbis comment, and M4A ilst tag editors — metadata edits for these formats no longer need FFmpeg.
+- **Shared-Element Transitions**: Hero covers fly from search/recents to detail screens, the player expands from the mini player with drag-to-dismiss, and skeletons crossfade into content.
+- **Player Gestures**: Swipe the mini player away to stop playback.
+- **Convert Options**: Optionally retain original files after conversion, and support same-format lossless re-encoding.
+- **Quality Variants**: Downloads preserve quality variants, named by measured quality.
+- **Explicit Badge**: Explicit tracks show an [E] badge.
+- **iOS Verification**: Extension verification and OAuth run through ASWebAuthenticationSession.
+- **Forced Update**: Force update when 3 or more stable releases behind.
+- **Display**: Requests the highest display refresh rate on Android; fluid bouncing scroll physics on capable devices; shimmer skeletons for home feed and artist screens.
+- **Hero Animation Toggle**: Setting to disable Hero animations.
+- **Network Hardening**: DNS-over-HTTPS fallback and download retry hardening.
+
+### Fixed
+
+- **Safer File Writes**: All SAF and direct-mode downloads are staged then atomically promoted with fsync; FLAC, M4A, and AC-4 tags are written atomically; fixed the endless FLAC-write failures on misnamed files.
+- **Native Worker Reliability**: Recovers from dead runs, keeps batches and retries intact across races, never deletes a published download over bookkeeping failures, and flushes queue persistence when the app is backgrounded.
+- **Download History**: Persisted and reconciled reliably; completed downloads bridge into the library; library records persist before download completion.
+- **Playlist Import Order**: Imported playlists keep their track order (#482).
+- **Playback**: No auto-resume after an audio interruption while backgrounded; stale playback and SAF temp files cleaned up.
+- **M4A Metadata**: stco/co64 chunk offsets shift correctly when the ilst tag resizes.
+- **Extensions**: Data directory removed on uninstall, storage/credential writes serialized across runtimes, stale pending auth challenges expire, package and runtime lifecycle hardened, bounded file reads and cookie state.
+- **Localization**: Deezer requests send Accept-Language so names follow the app language.
+- **arm32 Stability**: Built with Go 1.26.5 for aligned cgo frames.
+- **CSV Import**: Use State's context instead of a stale parameter (#460) — thanks @A831ARD0.
+
+### Improved
+
+- **Broad Performance Pass**: Streaming tag rewrites for Ogg and M4A, streamed PCM analysis, SAF scan results spill to disk, Go heap and image caches released on memory pressure, per-extension goja runtime pool, incremental queue persistence and ISRC index, byte-capped cover disk cache, TTL/ETag-cached update checks, gzip and TLS session resumption, backdrop blur gated by device capability, incremental DB auto-vacuum.
+- **Codebase Health**: Large-scale deduplication across screens, providers, and the Go backend; dead code paths removed.
+
+### Changed
+
+- **Graduated from Beta**: Native download worker and Backup & Restore are now stable.
+- **Terminology**: Extension "store" renamed to "repo" across all layers.
+
+---
+
+## [4.7.1] - 2026-07-02
+
+### Added
+
+- **Full Extension Metadata Embedding**: Full metadata and cover are embedded after extension downloads.
+- **Lossless Conversion Options**: Dither and resampler options.
+- **Verification Browser Preference**: Choose in-app or external browser for extension verification, with manual verification help when browser launch fails.
+
+### Fixed
+
+- **Convert Sheets**: Draggable and scroll-controlled bottom sheets.
+- **Verification**: Defaults to the in-app browser first; native worker verification hands off to the interactive queue; signed-session auth bootstraps and clears pending state correctly.
+- **AC-4**: Truncated sample entries are rejected safely.
+
+---
+
+## [4.7.0] - 2026-07-01
+
+### Added
+
+- **New Playback Experience**: Rebuilt built-in player with media integration, reorderable up-next queue, and playback stability fixes.
+- **Track Previews**: Play short preview snippets from track lists.
+- **Motion Artwork**: HLS motion-artwork header banners (Apple Music style) and audio-quality badges.
+- **Backup & Restore (Beta)**: Settings, download history, library, and installed extensions.
+- **Lossless Conversion Caps**: Cap bit depth/sample rate on lossless conversion, including album batch convert.
+- **ReplayGain**: Opus R128 gain tags.
+- **AC-4 Passthrough**: Download support for AC-4 streams.
+- **Queue**: Tap a failed download to view its error details.
+- **Filename Placeholders**: `{playlist_position}` placeholder.
+- **Playlist Folders**: Rename action.
+- **Network Setting**: Opt-in allow local/private network access.
+
+### Fixed
+
+- **Verification**: Retries tracked per service; signed session files scoped by endpoint and app context; early abort in fallback.
+- **Lyrics**: Provider priority synced to backend, improved fallback and health handling.
+- **Metadata**: Oversized cover art capped, QuickTime/MP4 tag support, native M4A ISRC/label writes, all edited fields read back from file.
+- **Navigation**: Tapping an artist name navigates to the correct artist.
+- **Compatibility**: Impeller disabled on Sony audio players and Vivante GPUs.
+- **Fallback Quality**: Actual output format detected from audio codec; requested quality honored when the fallback provider recognizes it.
+
+### Improved
+
+- **Performance**: Optimized queue/library pagination, counts, scan, and extension runtime.
+
+---
+
+## [4.6.0] - 2026-06-14
+
+### Added
+
+- **WAV & AIFF Support**: Full metadata support with a settings-style metadata menu.
+- **LyricsPlus Provider** and **ReplayGain batch scanning**.
+- **French & German Locales**.
+- **UI Polish**: Blurred backdrop playlist headers, frosted translucent bottom navbar, active downloads shown inside the library grid, actual lyrics source shown in metadata.
+
+### Fixed
+
+- **Downloads**: Selected provider honored when it equals the track source; fallback provider requests its own highest quality; iOS background task handling.
+- **UI**: High-res cover in the track metadata header, centered modals on large screens, modernized edit-metadata and convert sheets, predictive-back page transition override.
+
+### Removed
+
+- **Concurrent Download Option**: Removed during the playback rework (returned in 4.8.0 with proper support).
+
+---
+
+## [4.5.6] - 2026-06-02
+
+### Added
+
+- **Cross-Extension Sharing**: Rebuilt sharing and queue controls; polished search empty state.
+
+### Fixed
+
+- **Sharing & Fallback Routing**: Cross-service sharing aligned with fallback routing.
+- **Metadata**: Stricter matching, `embedLyrics` setting respected, improved Apple Music lyrics; album-only autofill and placeholder re-enrich regressions resolved.
+- **Downloads**: Hardened error handling and re-enrich sidecars.
+- **iOS**: Deployment target aligned for the file picker.
+
+---
+
+## [4.5.5] - 2026-05-15
+
+### Added
+
+- **5 New Lyrics Providers**.
+- **Enhanced Audio Analysis**: Loudness, clipping, and spectral cutoff metrics, with rescan support after a cached result.
+- **AAC Support**: AAC conversion and lossy download target.
+- **Apple Music Word-Synced Lyrics**: Toggle for eLRC word sync.
+- **Launch Announcements**: Remote-config announcements shown on app start.
+- **History**: Codec format and bitrate persisted in download history.
+- **MP4 Codec Detection**: FLAC/ALAC/EAC3/AC3/AC4 detected inside MP4 containers.
+- **Library**: Scroll-to-top and scroll-to-bottom quick buttons.
+
+### Fixed
+
+- **No Fake Lossless**: Codec probes prevent lossy-to-lossless upscale conversions in every branch.
+- **MP3 Lyrics**: Embedded via ID3v2.3 USLT frame.
+- **FLAC**: Native muxer forced when decrypting to .flac output; native handling fixes.
+- **SAF**: Extension-agnostic `.partial` staged filename.
+
+---
+
+## [4.5.1] - 2026-05-08
+
+### Fixed
+
+- **Native Worker**: Avoids the Android binder payload limit.
+- **Extensions**: Missing-extension state shown for returning users.
+- **Downloads**: `dataSync` foreground service type declared; default quality settings restored.
+- **UI**: Settings editor white screens fixed; library search stabilized.
+
+---
+
+## [4.5.0] - 2026-05-06
+
+### Changed
+
+- **All Built-in Download Providers Retired**: Tidal, Qobuz, and Deezer now live as extensions with isolated runtimes. Install them from the Store to keep downloading.
+- **Settings Reorganized**: Split into focused pages — thanks @Amonoman.
+
+### Added
+
+- **Android Native Download Worker (Experimental)**: Downloads continue reliably in the background.
+- **Favorite Artists Collection**.
+- **Extension Service Health**: Health indicators for extension services.
+- **Download Deduplication Setting** — thanks @Amonoman.
+- **New Look**: Google Sans Flex font and monochrome icon support.
+- **Extension APIs**: `skip_fallback` capability, download dedup/ISRC/lyrics APIs, generic provider resolution, progress phases.
+- **Metadata**: MusicBrainz album artist fallback; instrumental lyrics heuristic; audio duration exposed.
+- **Home Feed**: Can be disabled.
+
+### Fixed
+
+- **iOS**: Security-scoped bookmarks for download directory persistence.
+- **SAF**: Filenames and directory segments truncate safely at UTF-8 boundaries.
+- **Native Worker**: Metadata embedding, notification progress, and history schema sync.
+- **Localization**: Missing Crowdin locale variants mapped; unsupported locales fall back to English.
+
+### Improved
+
+- **Database-Backed Pagination**: Queue tab and local library migrated from in-memory lists to paginated database queries — much lower memory use on large libraries.
+- **Performance**: Delta-mode native worker snapshots, reduced bridge/UI churn, improved queue resilience.
+
+---
+
+## [4.3.1] - 2026-04-14
+
+### Added
+
+- **Extension Output Control**: `preserveNativeOutputExtensions` capability; M4A converts to FLAC when the extension doesn't prefer native M4A output; extension download metadata carried through the host pipeline.
+
+### Fixed
+
+- **Container Handling**: `.mp4` treated as alias for `.m4a` throughout the download pipeline; `OutputExt` reset on extension→extension and extension→built-in fallback.
+- **Provider Choice**: User's provider choice respected over source extension priority.
+- **Tidal Metadata**: Copyright and album artist improved; DATE/YEAR tag sync fixed.
+
+---
+
+## [4.3.0] - 2026-04-13
+
+### Added
+
+- **Artist Search Filter** and normalized search filter handling.
+- **Default Search Tab Preference**.
+- **Native M4A ReplayGain** tag writing and SAF picker error handling.
+- **Download Cancel**: Propagates to extension HTTP requests.
+
+### Changed
+
+- **Deezer Search via Extension**: Search flow moved out of the core app.
+- **Extension Manifest**: `author` field removed.
+
+### Fixed
+
+- **iOS**: Extension OAuth callback handled.
+- **M4A**: Existing metadata preserved during embed; ALAC quality parsing improved.
+- **Extensions**: Shared link handling stabilized; genre falls back to extra metadata.
+
+---
+
+## [4.2.2] - 2026-04-06
+
+### Added
+
+- **Configurable Extension Download Fallback**.
+
+### Changed
+
+- **Deezer is now an Extension**: Moved from built-in service to installable extension.
+
+### Fixed
+
+- **Metadata**: Downloaded metadata persisted, re-enrich matching aligned with autofill, composer preserved across Qobuz and history, flat singles output preserved for extension releases.
+
+---
+
+## [4.2.1] - 2026-04-04
+
+### Added
+
+- **Metadata Enrichment**: Composer and track totals.
+
+### Fixed
+
+- **Crash Fix**: Stale audio service manifest entries removed (crashed on some devices).
+- **Stability**: Hardened gomobile extension bindings, M4A cover retention, local convert format and library entries preserved, embedded metadata details preserved.
+
+---
+
+## [4.2.0] - 2026-04-04
+
+### Added
+
+- **ReplayGain Scanning** and APEv2 tag support.
+- **Singles/EP Filename Format**: Separate format setting (#271).
+- **Bulk Re-enrich Field Selection**: Choose which fields to update.
+- **Resolve API**: With SongLink fallback.
+- **Extension API**: `skipLyrics` manifest field; additional search/metadata API with separate rate limiting.
+
+### Fixed
+
+- **Multi-Artist Tags** (#288).
+- **Qobuz 401 Errors**: API calls routed through an authenticated gateway.
+- **Metadata**: Missing track/disc numbers from search downloads, ISRC validation to prevent ID leakage, label/copyright resolved from file metadata.
+- **UI**: System navigation bar matches app theme.
+
+### Improved
+
+- **UI Smoothness**: Memoization, compute isolates, SQL-backed playlist picker, viewport-aware image caching.
+- **Performance**: Incremental queue lookups, async cover cleanup, native JSON decoding on iOS.
+
+### Removed
+
+- **Legacy API Clients**: Including the Yoinkify fallback and an unused lyrics provider.
+
+---
+
+## [4.1.3] - 2026-03-30
+
+### Added
+
+- **Artist Tag Mode**: Setting with split Vorbis support.
+- **Search & Filters**: Metadata filters and extended sort options; Qobuz album-search fallback; stable cover cache keys.
+
+### Fixed
+
+- **Samsung SAF Library Scan**, Qobuz album cover, and M4A metadata save.
+
+---
+
+## [4.1.2] - 2026-03-29
+
+### Added
+
+- **Batch Progress Dialog**: Replaces snackbars for batch operations.
+- **Library**: Haptic feedback when swiping tabs; play button on playlist/library track tiles.
+
+### Fixed
+
+- **Extension Quality**: Tidal quality options used as fallback; DEFAULT quality normalized to prevent API failures.
+- **ALAC**: `attached_pic` disposition for cover art embedding.
+- **Downloads**: `START_NOT_STICKY` prevents DownloadService auto-restart.
+
+### Improved
+
+- **Track Matching**: Scoring-based ReEnrich selection; Spotify URLs routed through extensions.
+
+---
+
+## [4.1.1] - 2026-03-27
+
+### Added
+
+- **Extension Download Progress**: Byte-level progress tracking.
+- **Spectrogram Cache**: Cached as PNG for instant loading on subsequent views.
+
+### Fixed
+
+- **UI**: Artist skeleton polish; SpectrogramView null crash when loading from PNG cache.
+- **SAF**: `artist_album_flat` case added to relative output dir builder.
+
+---
+
+## [4.1.0] - 2026-03-26
+
+Version numbering returns to 4.x, continuing from the 3.x rollback in 3.7.0.
+
+### Added
+
+- **Audio Quality Analysis**: Analysis widget with cached results.
+- **Smart Service Selection**: Recommended download service auto-selected based on content source.
+- **Search Result Sorting**.
+
+### Changed
+
+- **YouTube Downloads**: Extracted to the YouTube Music extension.
+
+### Fixed
+
+- **UI**: Skeleton visibility and artist header in light mode, store URL input flash on startup, unintended home reset on tab switch, embedded cover refresh.
+- **Metadata**: Hi-res cover art for Tidal/Qobuz, album metadata override, FLAC metadata fallback for mismatched files, USLT lyrics detection.
+- **Navigation**: Tidal/Qobuz items from Recent Access open built-in screens.
+
+### Improved
+
+- **Startup**: Lazy extension VM init and incremental startup maintenance.
+- **Deezer Resolution**: Uses Tidal/Qobuz metadata; Qobuz skips SongLink when ISRC is already available.
+
+---
+
+## [3.9.0] - 2026-03-25
+
+### Added
+
+- **Built-in Tidal/Qobuz Search**: With a recommended service picker and a built-in search provider setting.
+- **Home Feed Provider Setting**.
+- **Tidal HIGH Restored**: AAC 320kbps lossy quality option (#242).
+- **Full M4A Tag Engine**: Read engine with atom path fallback, metadata/cover embed across all screens, and library scan support.
+- **Playlist Source Folders**: `createPlaylistFolder` setting for playlist folder prefixes.
+- **Resilient Artist Matching**: Diacritic folding for loose artist name matching.
+
+### Fixed
+
+- **Localization**: Crowdin locale files consolidated, ICU plural warnings fixed.
+
+---
+
+## [3.8.8] - 2026-03-18
+
+### Added
+
+- **Tidal ISRC & Metadata Search**.
+
+### Changed
+
+- **Lyrics Providers**: Migrated to Paxsenix endpoints.
+
+### Fixed
+
+- **Extension Download Reliability** and Qobuz API integration.
+- **Stability**: Library scan IDs, pause queue behavior, and a scan race condition.
+
+---
+
+## [3.8.7] - 2026-03-17
+
+### Fixed
+
+- **Queue**: Active downloads properly stop when pausing; queue-as-FLAC hides when all selected tracks are already FLAC and skips FLAC tracks from selection.
+- **Downloads**: Already-downloaded tracks skipped in library folder download-all; Spotify track availability resolution improved.
+- **Covers**: Deezer and Tidal cover art upgraded to max quality.
+- **Library**: Auto-scan cooldown honored.
+
+---
+
+## [3.8.6] - 2026-03-16
+
+### Added
+
+- **Local Library Auto-Scan** option.
+
+### Fixed
+
+- **Re-downloads**: Tracks converted to a different format are no longer re-downloaded.
+- **iOS**: Folder picker delayed until sheet dismiss; Afkar hosts updated.
+- **UI**: Double horizontal padding removed in the store tab.
+
+---
+
+## [3.8.5] - 2026-03-16
+
+### Added
+
+- **FLAC/ALAC Bidirectional Lossless Conversion**.
+- **Selective Auto-Fill**: Pick fields to auto-fill from online in the Edit Metadata sheet, with improved track resolution.
+- **FLAC Redownload Queue**: Queue FLAC redownloads for local library tracks.
+- **Opus 320kbps Quality** (Tidal HIGH tier removed; restored in 3.9.0).
+- **Bulk Playlist Download**: Download multiple selected playlists — thanks @ViscousPot.
+- **Playlist Import**: Playlist name auto-filled during import — thanks @ViscousPot.
+- **Qobuz Afkar API Provider**: With request metadata preferred for consistent album grouping.
+
+### Fixed
+
+- **Wrong-Track Protection**: Resolved Tidal/Deezer tracks are verified against the download request before downloading.
+- **Download All**: Skips already-downloaded tracks for albums and playlists.
+- **Various Artists**: Album-level artist used instead of the first track's artist.
+- **M4A/ALAC**: Cover art extracted for conversion, embedded lyrics detected, metadata and cover preserved in ALAC/M4A→FLAC conversion.
+- **Batch Convert**: Target formats filtered by source formats.
+
+---
+
+## [3.8.0] - 2026-03-14
+
+### Added
+
+- **Qobuz & Tidal Metadata Search**: Built-in metadata search providers with priority-based unified search, full metadata API, URL parsers, and store support.
+- **Auto-Enrich for Extension Downloads**: Metadata is automatically enriched.
+- **Store Registry URL Management**: With iOS handler support and a cleaner store UI.
+- **Provider Priority**: Deezer entry added to the priority UI.
+
+### Fixed
+
+- **Tidal**: Track resolution and playlist owner info.
+- **iOS**: Stale built-in Spotify bridge handlers removed.
+
+### Improved
+
+- **Performance**: Optimized polling, progress caching, staggered warmup, snapshot-based library scan, SAF metadata reading, CUE sibling resolution, and startup initialization.
+- **Localization**: Hardcoded strings replaced with l10n keys across 13 screens.
+
+---
+
 ## [3.7.2] - 2026-03-07
 
 ### Changed
@@ -745,8 +1253,8 @@ Thank you for your understanding and continued support. This decision was made t
 
 ### Highlights
 
-- **Local Library Scanning** ([#117](https://github.com/zarzet/SpotiFLAC-Mobile/issues/117)): Scan existing music collection to detect duplicates (FLAC, M4A, MP3, Opus, OGG)
-- **Duplicate Detection** ([#117](https://github.com/zarzet/SpotiFLAC-Mobile/issues/117)): "In Library" badge on tracks matching by ISRC or track name + artist
+- **Local Library Scanning** ([#117](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/117)): Scan existing music collection to detect duplicates (FLAC, M4A, MP3, Opus, OGG)
+- **Duplicate Detection** ([#117](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/117)): "In Library" badge on tracks matching by ISRC or track name + artist
 - **Unified Library Tab**: History renamed to Library, shows Downloaded + Local Library tracks with source badges
 
 ### Added
@@ -814,7 +1322,7 @@ Same as 3.3.1 but fixes crash issues caused by FFmpeg.
 
 ### Added
 
-- **Clear All Queue Button**: Cancel all queued downloads with one tap ([#96](https://github.com/zarzet/SpotiFLAC-Mobile/issues/96))
+- **Clear All Queue Button**: Cancel all queued downloads with one tap ([#96](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/96))
 - **IDHS Fallback**: Fallback link resolver when SongLink fails (rate limited 8 req/min)
 - **Lossy Bitrate Options**: MP3 (320/256/192/128kbps), Opus (128/96/64kbps)
 - **Search Filters**: Filter results by type (Tracks, Artists, Albums, Playlists)
@@ -831,10 +1339,10 @@ Same as 3.3.1 but fixes crash issues caused by FFmpeg.
 
 ### Fixed
 
-- **MP3 Download Error 403**: Fixed 403 Forbidden error when downloading MP3 files ([#108](https://github.com/zarzet/SpotiFLAC-Mobile/issues/108))
+- **MP3 Download Error 403**: Fixed 403 Forbidden error when downloading MP3 files ([#108](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/108))
 - **Opus Cover Art**: Implemented METADATA_BLOCK_PICTURE for proper cover embedding
-- **Deezer Pagination**: Fixed >25 tracks only showing first 25 ([#112](https://github.com/zarzet/SpotiFLAC-Mobile/issues/112))
-- **Duplicate Embed Lyrics Setting**: Removed from Options page ([#110](https://github.com/zarzet/SpotiFLAC-Mobile/issues/110))
+- **Deezer Pagination**: Fixed >25 tracks only showing first 25 ([#112](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/112))
+- **Duplicate Embed Lyrics Setting**: Removed from Options page ([#110](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/110))
 
 ---
 
@@ -1047,7 +1555,7 @@ Same as 3.3.1 but fixes crash issues caused by FFmpeg.
   - Spanish: Credits 125 ([@credits125](https://crowdin.com/profile/credits125))
   - Portuguese: Pedro Marcondes ([@justapedro](https://crowdin.com/profile/justapedro))
   - Russian: Владислав ([@odinokiy_kot](https://crowdin.com/profile/odinokiy_kot))
-- **Quick Search Provider Switcher** ([#76](https://github.com/zarzet/SpotiFLAC-Mobile/issues/76)): Dropdown menu in search bar for instant provider switching
+- **Quick Search Provider Switcher** ([#76](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/76)): Dropdown menu in search bar for instant provider switching
   - Tap the search icon to reveal a dropdown menu with all available search providers
   - Shows default provider (Deezer based on metadata source setting) at the top
   - Lists all enabled extensions with custom search capability
@@ -1056,16 +1564,16 @@ Same as 3.3.1 but fixes crash issues caused by FFmpeg.
   - Search hint text updates immediately when switching providers
   - Re-triggers search automatically if there's existing text in the search bar
   - Eliminates need to navigate to Settings > Extensions > Search Provider
-- **Extension Button Setting Type** ([#74](https://github.com/zarzet/SpotiFLAC-Mobile/issues/74)): New setting type for extension actions
+- **Extension Button Setting Type** ([#74](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/74)): New setting type for extension actions
   - Extensions can define `button` type in manifest settings
   - Triggers JavaScript function when tapped (e.g., start OAuth flow)
   - Useful for authentication, manual sync, or any custom action
-- **Genre & Label Metadata** ([#75](https://github.com/zarzet/SpotiFLAC-Mobile/issues/75)): Downloaded tracks now include genre and record label information
+- **Genre & Label Metadata** ([#75](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/75)): Downloaded tracks now include genre and record label information
   - Fetches genre and label from Deezer album API for each track
   - Embeds GENRE, ORGANIZATION (label), and COPYRIGHT tags into FLAC files
   - Works automatically when Deezer track ID is available (via ISRC matching)
   - Supports all download services (Tidal, Qobuz, Amazon) and extension downloads
-- **MP3 Quality Option** ([#69](https://github.com/zarzet/SpotiFLAC-Mobile/issues/69)): Optional MP3 download format with FLAC-to-MP3 conversion
+- **MP3 Quality Option** ([#69](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/69)): Optional MP3 download format with FLAC-to-MP3 conversion
   - New "Enable MP3 Option" toggle in Settings > Download > Audio Quality
   - When enabled, MP3 (320kbps) appears as a quality option alongside FLAC options
   - Available in both the quality picker dialog and default quality settings
@@ -1091,12 +1599,12 @@ Same as 3.3.1 but fixes crash issues caused by FFmpeg.
 - **Artist Name in Album Screen**: Album info card now displays artist name below album title
   - Extracted from first track's artist metadata
   - Styled with `onSurfaceVariant` color for visual hierarchy
-- **Disc Separation for Multi-Disc Albums** ([#70](https://github.com/zarzet/SpotiFLAC-Mobile/issues/70)): Downloaded albums with multiple discs now display tracks grouped by disc
+- **Disc Separation for Multi-Disc Albums** ([#70](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/70)): Downloaded albums with multiple discs now display tracks grouped by disc
   - Visual disc separator header showing "Disc 1", "Disc 2", etc.
   - Tracks sorted by disc number first, then by track number
   - Single-disc albums display normally without separators
   - Fixes confusion when albums have duplicate track numbers across discs
-- **Album Grouping in Recents** ([#70](https://github.com/zarzet/SpotiFLAC-Mobile/issues/70)): Downloads now show as albums instead of individual tracks in the Recent section
+- **Album Grouping in Recents** ([#70](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues/70)): Downloads now show as albums instead of individual tracks in the Recent section
   - Prevents flooding the recents list when downloading full albums
   - Groups tracks by album name and artist
   - Tapping navigates directly to the downloaded album screen
@@ -1236,4 +1744,4 @@ SpotiFLAC 3.0 introduces a powerful extension system that allows third-party int
 
 ---
 
-_For older versions, see [GitHub Releases_](https://github.com/zarzet/SpotiFLAC-Mobile/releases)
+_For older versions, see [GitHub Releases_](https://github.com/spotiflacapp/SpotiFLAC-Mobile/releases)

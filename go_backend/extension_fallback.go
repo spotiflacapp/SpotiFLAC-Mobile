@@ -3,374 +3,9 @@ package gobackend
 import (
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"strings"
 	"time"
 )
-
-func manifestCapabilityStringList(manifest *ExtensionManifest, key string) []string {
-	if manifest == nil || manifest.Capabilities == nil {
-		return nil
-	}
-
-	raw, ok := manifest.Capabilities[key]
-	if !ok {
-		return nil
-	}
-
-	values, ok := raw.([]any)
-	if !ok {
-		return nil
-	}
-
-	result := make([]string, 0, len(values))
-	for _, value := range values {
-		str, ok := value.(string)
-		if !ok {
-			continue
-		}
-		trimmed := strings.ToLower(strings.TrimSpace(str))
-		if trimmed == "" {
-			continue
-		}
-		result = append(result, trimmed)
-	}
-	return result
-}
-
-func extensionReplacesBuiltInProvider(ext *loadedExtension, providerID string) bool {
-	if ext == nil {
-		return false
-	}
-
-	normalized := strings.ToLower(strings.TrimSpace(providerID))
-	if normalized == "" {
-		return false
-	}
-
-	for _, replaced := range manifestCapabilityStringList(ext.Manifest, "replacesBuiltInProviders") {
-		if replaced == normalized {
-			return true
-		}
-	}
-
-	return false
-}
-
-func trimKnownProviderPrefix(trackID, providerID string) string {
-	trimmedID := strings.TrimSpace(trackID)
-	normalizedProvider := strings.ToLower(strings.TrimSpace(providerID))
-	if trimmedID == "" || normalizedProvider == "" {
-		return trimmedID
-	}
-
-	prefix := normalizedProvider + ":"
-	if strings.HasPrefix(strings.ToLower(trimmedID), prefix) {
-		return trimmedID[len(prefix):]
-	}
-
-	return trimmedID
-}
-
-func resolvePreferredTrackIDForExtension(ext *loadedExtension, req DownloadRequest, explicitTrackID string) string {
-	candidates := make([]string, 0, 8)
-	appendCandidate := func(value string) {
-		trimmed := strings.TrimSpace(value)
-		if trimmed == "" {
-			return
-		}
-		for _, existing := range candidates {
-			if existing == trimmed {
-				return
-			}
-		}
-		candidates = append(candidates, trimmed)
-	}
-
-	appendCandidate(explicitTrackID)
-
-	if extensionReplacesBuiltInProvider(ext, "tidal") {
-		appendCandidate(req.TidalID)
-		appendCandidate(trimKnownProviderPrefix(req.SpotifyID, "tidal"))
-	}
-	if extensionReplacesBuiltInProvider(ext, "qobuz") {
-		appendCandidate(req.QobuzID)
-		appendCandidate(trimKnownProviderPrefix(req.SpotifyID, "qobuz"))
-	}
-	if extensionReplacesBuiltInProvider(ext, "deezer") {
-		appendCandidate(req.DeezerID)
-		appendCandidate(trimKnownProviderPrefix(req.SpotifyID, "deezer"))
-	}
-	if extensionReplacesBuiltInProvider(ext, "spotify") {
-		appendCandidate(trimKnownProviderPrefix(req.SpotifyID, "spotify"))
-		appendCandidate(req.SpotifyID)
-	}
-
-	appendCandidate(req.SpotifyID)
-	appendCandidate(req.TidalID)
-	appendCandidate(req.QobuzID)
-	appendCandidate(req.DeezerID)
-
-	if len(candidates) == 0 {
-		return ""
-	}
-	return candidates[0]
-}
-
-func normalizeDownloadResultExtension(candidates ...string) string {
-	for _, candidate := range candidates {
-		ext := strings.TrimSpace(strings.ToLower(candidate))
-		if ext == "" {
-			continue
-		}
-		if !strings.HasPrefix(ext, ".") {
-			ext = "." + ext
-		}
-		if ext == ".mp4" {
-			return ".m4a"
-		}
-		return ext
-	}
-	return ""
-}
-
-func normalizeExtensionDownloadResult(result *ExtDownloadResult) (DownloadResult, bool) {
-	if result == nil {
-		return DownloadResult{}, false
-	}
-
-	downloadResult := DownloadResult{
-		FilePath:                    strings.TrimSpace(result.FilePath),
-		BitDepth:                    result.BitDepth,
-		SampleRate:                  result.SampleRate,
-		AudioCodec:                  strings.TrimSpace(result.AudioCodec),
-		Title:                       result.Title,
-		Artist:                      result.Artist,
-		Album:                       result.Album,
-		ReleaseDate:                 result.ReleaseDate,
-		TrackNumber:                 result.TrackNumber,
-		TotalTracks:                 result.TotalTracks,
-		DiscNumber:                  result.DiscNumber,
-		TotalDiscs:                  result.TotalDiscs,
-		ISRC:                        result.ISRC,
-		CoverURL:                    result.CoverURL,
-		Genre:                       result.Genre,
-		Label:                       result.Label,
-		Copyright:                   result.Copyright,
-		Composer:                    result.Composer,
-		LyricsLRC:                   result.LyricsLRC,
-		DecryptionKey:               result.DecryptionKey,
-		Decryption:                  normalizeDownloadDecryptionInfo(result.Decryption, result.DecryptionKey),
-		ActualExtension:             normalizeDownloadResultExtension(result.ActualExtension, result.OutputExtension),
-		ActualContainer:             strings.TrimSpace(result.ActualContainer),
-		RequiresContainerConversion: result.RequiresContainerConversion,
-	}
-
-	alreadyExists := result.AlreadyExists
-	if strings.HasPrefix(downloadResult.FilePath, "EXISTS:") {
-		alreadyExists = true
-		downloadResult.FilePath = strings.TrimPrefix(downloadResult.FilePath, "EXISTS:")
-	}
-
-	enrichResultQualityFromFile(&downloadResult)
-	return downloadResult, alreadyExists
-}
-
-// overlayStr sets *dst = src when dst is empty and src is not. If field is
-// non-empty it logs "<field> from enrichment: <src>" on overlay.
-func overlayStr(dst *string, src, field string) {
-	if src == "" || *dst != "" {
-		return
-	}
-	*dst = src
-	if field != "" {
-		GoLog("[DownloadWithExtensionFallback] %s from enrichment: %s\n", field, src)
-	}
-}
-
-// overlayStrTrim is overlayStr but treats a whitespace-only dst as empty too.
-func overlayStrTrim(dst *string, src string) {
-	if src == "" || strings.TrimSpace(*dst) != "" {
-		return
-	}
-	*dst = src
-}
-
-// overlayInt sets *dst = src when dst is zero and src is positive. If field is
-// non-empty it logs "<field> from enrichment: <src>" on overlay.
-func overlayInt(dst *int, src int, field string) {
-	if src <= 0 || *dst != 0 {
-		return
-	}
-	*dst = src
-	if field != "" {
-		GoLog("[DownloadWithExtensionFallback] %s from enrichment: %d\n", field, src)
-	}
-}
-
-func overlayExtensionDownloadMetadata(resp *DownloadResponse, result *ExtDownloadResult) {
-	if resp == nil || result == nil {
-		return
-	}
-
-	overlayStrTrim(&resp.Title, result.Title)
-	overlayStrTrim(&resp.Artist, result.Artist)
-	overlayStrTrim(&resp.Album, result.Album)
-	overlayStrTrim(&resp.AlbumArtist, result.AlbumArtist)
-	overlayInt(&resp.TrackNumber, result.TrackNumber, "")
-	overlayInt(&resp.DiscNumber, result.DiscNumber, "")
-	overlayInt(&resp.TotalTracks, result.TotalTracks, "")
-	overlayInt(&resp.TotalDiscs, result.TotalDiscs, "")
-	overlayStrTrim(&resp.ReleaseDate, result.ReleaseDate)
-	overlayStrTrim(&resp.CoverURL, result.CoverURL)
-	overlayStrTrim(&resp.ISRC, result.ISRC)
-	overlayStrTrim(&resp.Genre, result.Genre)
-	overlayStrTrim(&resp.Label, result.Label)
-	overlayStrTrim(&resp.Copyright, result.Copyright)
-	overlayStrTrim(&resp.Composer, result.Composer)
-	if result.LyricsLRC != "" {
-		resp.LyricsLRC = result.LyricsLRC
-	}
-	if result.DecryptionKey != "" {
-		resp.DecryptionKey = result.DecryptionKey
-	}
-	if normalized := normalizeDownloadDecryptionInfo(result.Decryption, result.DecryptionKey); normalized != nil {
-		resp.Decryption = normalized
-	}
-	if ext := normalizeDownloadResultExtension(result.ActualExtension, result.OutputExtension); ext != "" {
-		resp.ActualExtension = ext
-	}
-	if container := strings.TrimSpace(result.ActualContainer); container != "" {
-		resp.ActualContainer = container
-	}
-	if result.RequiresContainerConversion {
-		resp.RequiresContainerConversion = true
-	}
-}
-
-func applyExtensionRequestFallbacks(resp *DownloadResponse, req DownloadRequest) {
-	if resp == nil {
-		return
-	}
-
-	overlayStr(&resp.Album, req.AlbumName, "")
-	overlayStr(&resp.AlbumArtist, req.AlbumArtist, "")
-	overlayStr(&resp.ReleaseDate, req.ReleaseDate, "")
-	overlayStr(&resp.ISRC, req.ISRC, "")
-	overlayInt(&resp.TrackNumber, req.TrackNumber, "")
-	overlayInt(&resp.TotalTracks, req.TotalTracks, "")
-	overlayInt(&resp.DiscNumber, req.DiscNumber, "")
-	overlayInt(&resp.TotalDiscs, req.TotalDiscs, "")
-	overlayStr(&resp.CoverURL, req.CoverURL, "")
-}
-
-func shouldStopProviderFallback(availability *ExtAvailabilityResult) bool {
-	return availability != nil && availability.SkipFallback
-}
-
-func fallbackRuntimeHealthStatus(ext *loadedExtension) string {
-	if ext == nil || ext.Manifest == nil || len(ext.Manifest.ServiceHealth) == 0 {
-		return "unknown"
-	}
-
-	status := strings.ToLower(strings.TrimSpace(CheckExtensionHealthCached(ext).Status))
-	switch status {
-	case "online", "degraded", "offline":
-		return status
-	default:
-		return "unknown"
-	}
-}
-
-func prioritizeFallbackProvidersByHealth(priority []string, extManager *extensionManager, sourceProvider string) []string {
-	if len(priority) == 0 || extManager == nil {
-		return priority
-	}
-
-	online := make([]string, 0, len(priority))
-	degraded := make([]string, 0, len(priority))
-	unknown := make([]string, 0, len(priority))
-
-	for _, rawProviderID := range priority {
-		providerID := strings.TrimSpace(rawProviderID)
-		if providerID == "" {
-			continue
-		}
-		if strings.EqualFold(providerID, sourceProvider) || !isExtensionFallbackAllowed(providerID) {
-			unknown = append(unknown, providerID)
-			continue
-		}
-
-		ext, err := extManager.GetExtension(providerID)
-		if err != nil || ext == nil || !ext.Enabled || ext.Error != "" || ext.Manifest == nil || !ext.Manifest.IsDownloadProvider() {
-			unknown = append(unknown, providerID)
-			continue
-		}
-
-		switch fallbackRuntimeHealthStatus(ext) {
-		case "online":
-			online = append(online, providerID)
-		case "degraded":
-			degraded = append(degraded, providerID)
-		case "offline":
-			GoLog("[DownloadWithExtensionFallback] Skipping extension provider %s (service health offline)\n", providerID)
-		default:
-			unknown = append(unknown, providerID)
-		}
-	}
-
-	result := make([]string, 0, len(online)+len(degraded)+len(unknown))
-	result = append(result, online...)
-	result = append(result, degraded...)
-	result = append(result, unknown...)
-	return result
-}
-
-func resolveExtensionAvailabilityReason(availability *ExtAvailabilityResult, err error) string {
-	if availability != nil {
-		if reason := strings.TrimSpace(availability.Reason); reason != "" {
-			return reason
-		}
-	}
-	if err != nil {
-		return err.Error()
-	}
-	return "extension requested no further fallback"
-}
-
-func buildExtensionFallbackStoppedResponse(providerID string, availability *ExtAvailabilityResult, err error) *DownloadResponse {
-	reason := resolveExtensionAvailabilityReason(availability, err)
-	errorType := classifyDownloadErrorType(reason)
-	if errorType == "unknown" {
-		errorType = "extension_error"
-	}
-	return &DownloadResponse{
-		Success:   false,
-		Error:     fmt.Sprintf("Fallback stopped by %s: %s", providerID, reason),
-		ErrorType: errorType,
-		Service:   providerID,
-	}
-}
-
-func shouldAbortCancelledFallback(itemID string, err error) bool {
-	if errors.Is(err, ErrDownloadCancelled) {
-		return true
-	}
-	return itemID != "" && isDownloadCancelled(itemID)
-}
-
-func normalizeExtensionDownloadErrorType(errorType, message string) string {
-	normalized := strings.TrimSpace(errorType)
-	classified := classifyDownloadErrorType(message)
-	if classified != "" && classified != "unknown" {
-		switch strings.ToLower(normalized) {
-		case "", "unknown", "runtime_error", "api_error", "download_error", "extension_error":
-			return classified
-		}
-	}
-	return normalized
-}
 
 // attemptExtensionDownload runs a single provider.Download attempt: builds the
 // output path, reports progress, and on success assembles the full
@@ -391,6 +26,23 @@ func attemptExtensionDownload(
 	lastRetryAfterSeconds *int,
 ) (resp *DownloadResponse, cancelledOuter bool) {
 	outputPath := buildOutputPathForExtension(req, ext)
+	if shouldReuseExistingOutput(req, outputPath) {
+		result := DownloadResult{FilePath: outputPath}
+		enrichResultQualityFromFile(&result)
+		built := buildDownloadSuccessResponse(
+			req,
+			result,
+			providerLabel,
+			"File already exists",
+			outputPath,
+			true,
+		)
+		if req.ItemID != "" {
+			CompleteItemProgress(req.ItemID)
+		}
+		GoLog("[DownloadWithExtensionFallback] Keeping existing output instead of replacing it: %s\n", outputPath)
+		return &built, false
+	}
 	if req.ItemID != "" {
 		SetItemPreparingStage(req.ItemID, "resolving_stream")
 	}
@@ -408,6 +60,23 @@ func attemptExtensionDownload(
 		}
 	})
 	downloadSucceeded := err == nil && result != nil && result.Success
+	if downloadSucceeded {
+		resolved := resolvedTrackInfo{
+			Title:      result.Title,
+			ArtistName: result.Artist,
+			AlbumName:  result.Album,
+			ISRC:       result.ISRC,
+			Duration:   result.DurationMS / 1000,
+			SkipNameVerification: strings.EqualFold(strings.TrimSpace(req.Source), strings.TrimSpace(providerLabel)) ||
+				ext.Manifest.HasCustomMatching(),
+		}
+		if !trackMatchesRequest(req, resolved, "Extension "+providerLabel) {
+			discardRejectedExtensionOutput(result, outputPath)
+			*lastErr = fmt.Errorf("provider %s returned a different track", providerLabel)
+			*lastErrType = "not_found"
+			return nil, false
+		}
+	}
 	if req.ItemID != "" && downloadSucceeded {
 		SetItemFinalizing(req.ItemID)
 	}
@@ -603,10 +272,35 @@ func attemptVerifiedResumeBeforeMetadata(
 			Service:           selectedProvider,
 		}, false
 	}
+	if lastErr != nil && isOutputStorageWriteFailure(errorType, lastErr.Error()) {
+		return buildOutputStorageFailureResponse(
+			selectedProvider,
+			lastErr,
+			lastRetryAfterSeconds,
+		), false
+	}
 	// A failed fast attempt may still succeed after source enrichment resolves a
 	// better provider-native ID. The normal path below retains strict/stop-
 	// fallback semantics for that prepared retry.
 	return nil, false
+}
+
+func buildOutputStorageFailureResponse(
+	providerID string,
+	err error,
+	retryAfterSeconds int,
+) *DownloadResponse {
+	message := "Output storage is not writable"
+	if err != nil {
+		message = err.Error()
+	}
+	return &DownloadResponse{
+		Success:           false,
+		Error:             "Download failed: " + message,
+		ErrorType:         "permission",
+		RetryAfterSeconds: retryAfterSeconds,
+		Service:           providerID,
+	}
 }
 
 func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, error) {
@@ -859,6 +553,14 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 			if sourceErrType == "" && lastErr != nil {
 				sourceErrType = classifyDownloadErrorType(lastErr.Error())
 			}
+			if lastErr != nil && isOutputStorageWriteFailure(sourceErrType, lastErr.Error()) {
+				GoLog("[DownloadWithExtensionFallback] Source extension %s hit an unwritable output path; stopping provider fallback\n", req.Source)
+				return buildOutputStorageFailureResponse(
+					req.Source,
+					lastErr,
+					lastRetryAfterSeconds,
+				), nil
+			}
 			if strings.EqualFold(sourceErrType, "verification_required") {
 				GoLog("[DownloadWithExtensionFallback] Source extension %s requires verification, not trying other providers\n", req.Source)
 				cachePreparedDownloadRequest(preparationKey, req)
@@ -879,7 +581,7 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 				return &DownloadResponse{
 					Success:           false,
 					Error:             "Download failed: " + lastErr.Error(),
-					ErrorType:         firstNonEmptyString(lastErrType, "extension_error"),
+					ErrorType:         firstNonEmptyTrimmed(lastErrType, "extension_error"),
 					RetryAfterSeconds: lastRetryAfterSeconds,
 					Service:           req.Source,
 				}, nil
@@ -889,7 +591,12 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 		}
 	}
 
-	priority = prioritizeFallbackProvidersByHealth(priority, extManager, req.Source)
+	healthProtectedProvider := selectedProvider
+	if strings.TrimSpace(healthProtectedProvider) == "" {
+		healthProtectedProvider = req.Source
+	}
+	priority = prioritizeFallbackProvidersByHealth(priority, extManager, healthProtectedProvider)
+	priority = moveProviderToFront(priority, selectedProvider)
 
 	for _, providerID := range priority {
 		if isDownloadCancelled(req.ItemID) {
@@ -992,6 +699,14 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 				if effType == "" {
 					effType = classifyDownloadErrorType(lastErr.Error())
 				}
+				if isOutputStorageWriteFailure(effType, lastErr.Error()) {
+					GoLog("[DownloadWithExtensionFallback] %s hit an unwritable output path; stopping provider fallback\n", providerID)
+					return buildOutputStorageFailureResponse(
+						providerID,
+						lastErr,
+						lastRetryAfterSeconds,
+					), nil
+				}
 				if strings.EqualFold(effType, "verification_required") {
 					GoLog("[DownloadWithExtensionFallback] %s requires verification; pausing fallback to open the challenge\n", providerID)
 					cachePreparedDownloadRequest(preparationKey, req)
@@ -1013,7 +728,7 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 	}
 
 	if lastErr != nil {
-		errorType := firstNonEmptyString(lastErrType, classifyDownloadErrorType(lastErr.Error()))
+		errorType := firstNonEmptyTrimmed(lastErrType, classifyDownloadErrorType(lastErr.Error()))
 		if errorType == "unknown" {
 			errorType = "not_found"
 		}
@@ -1030,167 +745,4 @@ func DownloadWithExtensionFallback(req DownloadRequest) (*DownloadResponse, erro
 		Error:     "No extension download providers available",
 		ErrorType: "not_found",
 	}, nil
-}
-
-// buildDownloadFilename renders the sanitized "<name><ext>" filename for req
-// from its template/metadata, defaulting to "<artist> - <title>.flac".
-func buildDownloadFilename(req DownloadRequest) string {
-	metadata := map[string]any{
-		"title":             req.TrackName,
-		"artist":            req.ArtistName,
-		"album":             req.AlbumName,
-		"album_artist":      req.AlbumArtist,
-		"track":             req.TrackNumber,
-		"track_number":      req.TrackNumber,
-		"total_tracks":      req.TotalTracks,
-		"playlist_position": req.PlaylistPosition,
-		"disc":              req.DiscNumber,
-		"disc_number":       req.DiscNumber,
-		"total_discs":       req.TotalDiscs,
-		"year":              extractYear(req.ReleaseDate),
-		"date":              req.ReleaseDate,
-		"release_date":      req.ReleaseDate,
-		"isrc":              req.ISRC,
-		"composer":          req.Composer,
-		"quality":           req.Quality,
-		"quality_variant":   req.QualityVariant,
-	}
-
-	filename := buildFilenameFromTemplate(req.FilenameFormat, metadata)
-	if strings.TrimSpace(filename) == "" {
-		filename = fmt.Sprintf("%s - %s", req.ArtistName, req.TrackName)
-	}
-	filename = sanitizeFilenamePreservingToken(filename, req.QualityVariant)
-
-	ext := strings.TrimSpace(req.OutputExt)
-	if ext == "" {
-		ext = ".flac"
-	} else if !strings.HasPrefix(ext, ".") {
-		ext = "." + ext
-	}
-
-	return filename + ext
-}
-
-func buildOutputPath(req DownloadRequest) string {
-	if strings.TrimSpace(req.OutputPath) != "" {
-		return strings.TrimSpace(req.OutputPath)
-	}
-
-	outputDir := req.OutputDir
-	if strings.TrimSpace(outputDir) == "" {
-		outputDir = filepath.Join(os.TempDir(), "spotiflac-downloads")
-	}
-	os.MkdirAll(outputDir, 0755)
-	AddAllowedDownloadDir(outputDir)
-
-	return filepath.Join(outputDir, buildDownloadFilename(req))
-}
-
-func buildOutputPathForExtension(req DownloadRequest, ext *loadedExtension) string {
-	if strings.TrimSpace(req.OutputPath) != "" {
-		outputPath := strings.TrimSpace(req.OutputPath)
-		AddAllowedDownloadDir(filepath.Dir(outputPath))
-		return outputPath
-	}
-
-	// SAF downloads hand extensions a detached output FD owned by the host.
-	// Extensions still need a real local temp file so Android can copy it into
-	// the target document after provider-specific post-processing completes.
-	if !isFDOutput(req.OutputFD) && strings.TrimSpace(req.OutputDir) != "" {
-		return buildOutputPath(req)
-	}
-
-	tempDir := filepath.Join(ext.DataDir, "downloads")
-	os.MkdirAll(tempDir, 0755)
-	AddAllowedDownloadDir(tempDir)
-
-	return filepath.Join(tempDir, buildDownloadFilename(req))
-}
-
-func canEmbedGenreLabel(filePath string) bool {
-	path := strings.TrimSpace(filePath)
-	if path == "" || strings.HasPrefix(path, "content://") || strings.HasPrefix(path, "/proc/self/fd/") {
-		return false
-	}
-	if strings.ToLower(filepath.Ext(path)) != ".flac" {
-		return false
-	}
-	if !filepath.IsAbs(path) {
-		return false
-	}
-	info, err := os.Stat(path)
-	return err == nil && !info.IsDir() && info.Size() > 0
-}
-
-func embedExtensionDownloadMetadata(resp DownloadResponse, req DownloadRequest, alreadyExists bool) {
-	if alreadyExists || !req.EmbedMetadata {
-		return
-	}
-
-	filePath := strings.TrimSpace(resp.FilePath)
-	if !canEmbedGenreLabel(filePath) {
-		if req.Genre != "" || req.Label != "" || resp.CoverURL != "" || req.CoverURL != "" {
-			GoLog("[DownloadWithExtensionFallback] Skipping metadata/cover embed for non-local FLAC output path: %q\n", filePath)
-		}
-		return
-	}
-
-	coverURL := firstNonEmptyTrimmed(resp.CoverURL, req.CoverURL)
-	var coverData []byte
-	if coverURL != "" {
-		data, err := downloadCoverToMemory(coverURL, req.EmbedMaxQualityCover)
-		if err != nil {
-			GoLog("[DownloadWithExtensionFallback] Warning: failed to download cover for metadata embed: %v\n", err)
-		} else if len(data) > 0 {
-			coverData = data
-		}
-	}
-
-	metadata := Metadata{
-		Title:         firstNonEmptyTrimmed(resp.Title, req.TrackName),
-		Artist:        firstNonEmptyTrimmed(resp.Artist, req.ArtistName),
-		Album:         firstNonEmptyTrimmed(resp.Album, req.AlbumName),
-		AlbumArtist:   firstNonEmptyTrimmed(resp.AlbumArtist, req.AlbumArtist),
-		ArtistTagMode: req.ArtistTagMode,
-		Date:          firstNonEmptyTrimmed(resp.ReleaseDate, req.ReleaseDate),
-		TrackNumber:   firstPositiveInt(resp.TrackNumber, req.TrackNumber),
-		TotalTracks:   firstPositiveInt(resp.TotalTracks, req.TotalTracks),
-		DiscNumber:    firstPositiveInt(resp.DiscNumber, req.DiscNumber),
-		TotalDiscs:    firstPositiveInt(resp.TotalDiscs, req.TotalDiscs),
-		ISRC:          firstNonEmptyTrimmed(resp.ISRC, req.ISRC),
-		Genre:         firstNonEmptyTrimmed(resp.Genre, req.Genre),
-		Label:         firstNonEmptyTrimmed(resp.Label, req.Label),
-		Copyright:     firstNonEmptyTrimmed(resp.Copyright, req.Copyright),
-		Composer:      firstNonEmptyTrimmed(resp.Composer, req.Composer),
-	}
-	if req.EmbedLyrics {
-		metadata.Lyrics = resp.LyricsLRC
-	}
-
-	var err error
-	if len(coverData) > 0 {
-		err = EmbedMetadataWithCoverData(filePath, metadata, coverData)
-	} else {
-		err = EmbedMetadata(filePath, metadata, "")
-	}
-	if err != nil {
-		GoLog("[DownloadWithExtensionFallback] Warning: failed to embed metadata/cover: %v\n", err)
-		return
-	}
-
-	if len(coverData) > 0 {
-		GoLog("[DownloadWithExtensionFallback] Embedded metadata and cover from %q\n", coverURL)
-	} else {
-		GoLog("[DownloadWithExtensionFallback] Embedded metadata without cover\n")
-	}
-}
-
-func firstPositiveInt(values ...int) int {
-	for _, value := range values {
-		if value > 0 {
-			return value
-		}
-	}
-	return 0
 }

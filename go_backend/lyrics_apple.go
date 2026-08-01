@@ -99,36 +99,15 @@ func appleMusicSearchResultMatches(result appleMusicSearchResult, trackName, art
 }
 
 func selectBestAppleMusicSearchResult(results []appleMusicSearchResult, trackName, artistName string, durationSec float64) *appleMusicSearchResult {
-	if len(results) == 0 {
-		return nil
-	}
-
-	bestIndex := -1
-	bestScore := -1
-	for i := range results {
+	best := selectBestLyricsCandidate(len(results), trackName, artistName, durationSec, func(i int) (string, string, float64, bool) {
 		result := &results[i]
-		if !appleMusicSearchResultMatches(*result, trackName, artistName, durationSec) {
-			continue
-		}
-
-		score := scoreLyricsSearchCandidate(
-			result.SongName,
-			result.ArtistName,
-			float64(result.Duration)/1000.0,
-			trackName,
-			artistName,
-			durationSec,
-		)
-		if score > bestScore {
-			bestScore = score
-			bestIndex = i
-		}
-	}
-
-	if bestIndex < 0 {
+		ok := appleMusicSearchResultMatches(*result, trackName, artistName, durationSec)
+		return result.SongName, result.ArtistName, float64(result.Duration) / 1000.0, ok
+	})
+	if best < 0 {
 		return nil
 	}
-	return &results[bestIndex]
+	return &results[best]
 }
 
 func (c *AppleMusicClient) getAppleMusicToken() (string, error) {
@@ -461,26 +440,8 @@ func (c *AppleMusicClient) FetchLyrics(
 		lrcText = rawLyrics
 	}
 
-	lines := parseSyncedLyrics(lrcText)
-	if len(lines) > 0 {
-		return &LyricsResponse{
-			Lines:    lines,
-			SyncType: "LINE_SYNCED",
-			Provider: "Apple Music",
-			Source:   "Apple Music",
-		}, nil
+	if resp := lyricsResponseFromLRCText(lrcText, "Apple Music", "Apple Music"); resp != nil {
+		return resp, nil
 	}
-
-	resultLines := plainTextLyricsLines(lrcText)
-
-	if len(resultLines) > 0 {
-		return &LyricsResponse{
-			Lines:    resultLines,
-			SyncType: "UNSYNCED",
-			Provider: "Apple Music",
-			Source:   "Apple Music",
-		}, nil
-	}
-
 	return nil, lyricsNotFoundErrorf("no lyrics found on apple music")
 }

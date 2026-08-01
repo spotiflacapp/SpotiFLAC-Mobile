@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/theme/cover_palette.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:share_plus/share_plus.dart';
@@ -10,19 +11,22 @@ import 'package:spotiflac_android/services/batch_track_actions.dart';
 import 'package:spotiflac_android/models/unified_library_item.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
+import 'package:spotiflac_android/utils/audio_quality_badge_policy.dart';
 import 'package:spotiflac_android/utils/confirm_and_delete_tracks.dart';
 import 'package:spotiflac_android/utils/cover_art_utils.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/nav_bar_inset.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
+import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/providers/playback_provider.dart';
 import 'package:spotiflac_android/providers/music_player_provider.dart';
 import 'package:spotiflac_android/screens/collapsing_header_scroll_mixin.dart';
 import 'package:spotiflac_android/screens/selection_mode_mixin.dart';
 import 'package:spotiflac_android/screens/track_metadata_screen.dart';
 import 'package:spotiflac_android/services/downloaded_embedded_cover_resolver.dart';
-import 'package:spotiflac_android/widgets/album_scaffold_body.dart';
+import 'package:spotiflac_android/widgets/collection_scaffold.dart';
+import 'package:spotiflac_android/widgets/cached_cover_image.dart';
 import 'package:spotiflac_android/widgets/album_track_tile.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
 import 'package:spotiflac_android/widgets/destructive_selection_button.dart';
@@ -60,6 +64,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
   List<int>? _sortedDiscNumbersCache;
   List<DownloadHistoryItem>? _commonQualitySourceCache;
   String? _commonQualityCache;
+  String? _commonQualityModeCache;
   List<DownloadHistoryItem>? _embeddedCoverSourceCache;
   String? _embeddedCoverPathCache;
   bool _embeddedCoverPathResolved = false;
@@ -117,6 +122,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
     _sortedDiscNumbersCache = null;
     _commonQualitySourceCache = null;
     _commonQualityCache = null;
+    _commonQualityModeCache = null;
     _embeddedCoverSourceCache = null;
     _embeddedCoverPathCache = null;
     _embeddedCoverPathResolved = false;
@@ -156,9 +162,8 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
       deleteItem: (id) async {
         final item = tracksById[id];
         if (item == null) return false;
-        try {
-          await deleteFile(item.filePath);
-        } catch (_) {}
+        final deleted = await deleteFile(item.filePath);
+        if (!deleted) return false;
         historyNotifier.removeFromHistory(id);
         return true;
       },
@@ -181,7 +186,9 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.snackbarCannotOpenFile(e.toString())),
+            content: Text(
+              context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+            ),
           ),
         );
       }
@@ -206,7 +213,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
     required int navigationIndex,
   }) async {
     final navigator = Navigator.of(context);
-    _precacheCover(item.coverUrl);
+    precacheCoverImage(context, item.coverUrl);
     final beforeModTime =
         await DownloadedEmbeddedCoverResolver.readFileModTimeMillis(
           item.filePath,
@@ -230,31 +237,12 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
     );
   }
 
-  void _precacheCover(String? url) {
-    if (url == null || url.isEmpty) return;
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return;
-    }
-    final dpr = MediaQuery.devicePixelRatioOf(
-      context,
-    ).clamp(1.0, 3.0).toDouble();
-    final targetSize = (360 * dpr).round().clamp(512, 1024).toInt();
-    precacheImage(
-      ResizeImage(
-        CachedNetworkImageProvider(
-          url,
-          cacheManager: CoverCacheManager.instance,
-        ),
-        width: targetSize,
-        height: targetSize,
-      ),
-      context,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final qualityLabelMode = ref.watch(
+      settingsProvider.select((s) => s.libraryQualityLabelMode),
+    );
     final bottomPadding = MediaQuery.paddingOf(context).bottom;
     final bottomInset = context.navBarBottomInset;
 
@@ -287,20 +275,19 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
 
     pruneSelection(tracks.map((t) => t.id).toSet());
 
-    return AlbumScaffoldBody(
+    return CollectionScaffold(
       scrollController: scrollController,
       isSelectionMode: isSelectionMode,
       onExitSelectionMode: exitSelectionMode,
-      appBar: _buildAppBar(context, colorScheme, tracks),
-      trackList: _buildTrackList(context, colorScheme, tracks),
-      bottomBar: _buildSelectionBottomBar(
+      appBar: _buildAppBar(context, colorScheme, tracks, qualityLabelMode),
+      slivers: [_buildTrackList(context, colorScheme, tracks)],
+      selectionBar: _buildSelectionBottomBar(
         context,
         colorScheme,
         tracks,
         bottomPadding,
       ),
       bottomInset: bottomInset,
-      bottomPadding: bottomPadding,
     );
   }
 
@@ -329,10 +316,11 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
     BuildContext context,
     ColorScheme colorScheme,
     List<DownloadHistoryItem> tracks,
+    String qualityLabelMode,
   ) {
     final expandedHeight = calculateExpandedHeight(context);
     final embeddedCoverPath = _resolveAlbumEmbeddedCoverPath(tracks);
-    final commonQuality = _getCommonQuality(tracks);
+    final commonQuality = _getCommonQuality(tracks, qualityLabelMode);
 
     final cacheWidth = coverCacheWidthForViewport(context);
     final Widget background = embeddedCoverPath != null
@@ -367,6 +355,7 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
       expandedHeight: expandedHeight,
       showTitleInAppBar: showTitleInAppBar,
       background: background,
+      paletteSource: embeddedCoverPath ?? widget.coverUrl,
       blurAndScrimBackground:
           embeddedCoverPath != null || widget.coverUrl != null,
       coverBuilder: (context, coverSize) => _buildSquareCover(
@@ -378,8 +367,8 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
       ),
       subtitle: Text(
         widget.artistName,
-        style: const TextStyle(
-          color: Colors.white70,
+        style: TextStyle(
+          color: HeaderPalette.of(context).onSurfaceVariant,
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
@@ -480,30 +469,44 @@ class _DownloadedAlbumScreenState extends ConsumerState<DownloadedAlbumScreen>
     );
   }
 
-  String? _getCommonQuality(List<DownloadHistoryItem> tracks) {
-    if (identical(tracks, _commonQualitySourceCache)) {
+  String? _getCommonQuality(List<DownloadHistoryItem> tracks, String mode) {
+    if (identical(tracks, _commonQualitySourceCache) &&
+        mode == _commonQualityModeCache) {
       return _commonQualityCache;
     }
 
     if (tracks.isEmpty) {
       _commonQualitySourceCache = tracks;
+      _commonQualityModeCache = mode;
       _commonQualityCache = null;
       return null;
     }
-    final firstQuality = tracks.first.quality;
+    String? label(DownloadHistoryItem track) => buildLibraryAudioQualityLabel(
+      mode: mode,
+      format: track.format,
+      bitrateKbps: track.bitrate,
+      bitDepth: track.bitDepth,
+      sampleRate: track.sampleRate,
+      storedQuality: track.quality,
+    );
+
+    final firstQuality = label(tracks.first);
     if (firstQuality == null) {
       _commonQualitySourceCache = tracks;
+      _commonQualityModeCache = mode;
       _commonQualityCache = null;
       return null;
     }
     for (final track in tracks) {
-      if (track.quality != firstQuality) {
+      if (label(track) != firstQuality) {
         _commonQualitySourceCache = tracks;
+        _commonQualityModeCache = mode;
         _commonQualityCache = null;
         return null;
       }
     }
     _commonQualitySourceCache = tracks;
+    _commonQualityModeCache = mode;
     _commonQualityCache = firstQuality;
     return firstQuality;
   }

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#000000</color>
+    <color name="widgetBackground">#F3F3F3</color>
+    <color name="widgetTextPrimary">#1C1B1F</color>
+    <color name="widgetTextSecondary">#49454F</color>
+    <color name="widgetAccent">#1DB954</color>
 </resources>

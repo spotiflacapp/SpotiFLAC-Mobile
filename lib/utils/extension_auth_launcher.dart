@@ -177,6 +177,7 @@ Future<bool> showExtensionVerificationHelpDialog(
       : l10n.extensionVerificationHelpMessageWaiting;
   final normalizedExtensionId = extensionId.trim();
   BuildContext? activeDialogContext;
+  var clipboardGrantInFlight = false;
   late final StreamSubscription<ExtensionSessionGrantEvent> grantSub;
   grantSub = PlatformBridge.extensionSessionGrantEvents()
       .where(
@@ -200,69 +201,90 @@ Future<bool> showExtensionVerificationHelpDialog(
       builder: (dialogContext) {
         activeDialogContext = dialogContext;
         final dialogL10n = dialogContext.l10n;
-        return AlertDialog(
-          title: Text(title),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(message),
-              const SizedBox(height: 16),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Theme.of(
-                    dialogContext,
-                  ).colorScheme.surfaceContainerHigh,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: SelectableText(
-                    authUri.toString(),
-                    maxLines: 4,
-                    minLines: 1,
+        return StatefulBuilder(
+          builder: (dialogContext, setDialogState) => AlertDialog(
+            title: Text(title),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(message),
+                const SizedBox(height: 16),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      dialogContext,
+                    ).colorScheme.surfaceContainerHigh,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: SelectableText(
+                      authUri.toString(),
+                      maxLines: 4,
+                      minLines: 1,
+                    ),
                   ),
                 ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: clipboardGrantInFlight
+                    ? null
+                    : () => Navigator.of(dialogContext).pop(),
+                child: Text(dialogL10n.extensionVerificationClose),
+              ),
+              TextButton.icon(
+                icon: const Icon(Icons.copy),
+                label: Text(dialogL10n.extensionVerificationCopyLink),
+                onPressed: clipboardGrantInFlight
+                    ? null
+                    : () {
+                        Clipboard.setData(
+                          ClipboardData(text: authUri.toString()),
+                        );
+                        ScaffoldMessenger.maybeOf(dialogContext)?.showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              dialogL10n.extensionVerificationLinkCopied,
+                            ),
+                          ),
+                        );
+                      },
+              ),
+              TextButton.icon(
+                icon: clipboardGrantInFlight
+                    ? const SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.content_paste),
+                label: const Text('Paste callback'),
+                onPressed: clipboardGrantInFlight
+                    ? null
+                    : () async {
+                        setDialogState(() => clipboardGrantInFlight = true);
+                        await _completeSessionGrantFromClipboard(
+                          dialogContext,
+                          extensionId,
+                        );
+                        if (dialogContext.mounted) {
+                          setDialogState(() => clipboardGrantInFlight = false);
+                        }
+                      },
+              ),
+              FilledButton.icon(
+                icon: const Icon(Icons.open_in_browser),
+                label: Text(dialogL10n.extensionVerificationOpenBrowser),
+                onPressed: clipboardGrantInFlight
+                    ? null
+                    : () {
+                        unawaited(_launchVerificationUrl(authUri, browserMode));
+                      },
               ),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(dialogL10n.extensionVerificationClose),
-            ),
-            TextButton.icon(
-              icon: const Icon(Icons.copy),
-              label: Text(dialogL10n.extensionVerificationCopyLink),
-              onPressed: () {
-                Clipboard.setData(ClipboardData(text: authUri.toString()));
-                ScaffoldMessenger.maybeOf(dialogContext)?.showSnackBar(
-                  SnackBar(
-                    content: Text(dialogL10n.extensionVerificationLinkCopied),
-                  ),
-                );
-              },
-            ),
-            TextButton.icon(
-              icon: const Icon(Icons.content_paste),
-              label: const Text('Paste callback'),
-              onPressed: () {
-                unawaited(
-                  _completeSessionGrantFromClipboard(
-                    dialogContext,
-                    extensionId,
-                  ),
-                );
-              },
-            ),
-            FilledButton.icon(
-              icon: const Icon(Icons.open_in_browser),
-              label: Text(dialogL10n.extensionVerificationOpenBrowser),
-              onPressed: () {
-                unawaited(_launchVerificationUrl(authUri, browserMode));
-              },
-            ),
-          ],
         );
       },
     );
@@ -304,13 +326,14 @@ Future<void> _completeSessionGrantFromClipboard(
         ),
       ),
     );
-    if (success) {
-      Navigator.of(context, rootNavigator: true).pop();
-    }
   } catch (e) {
     if (!context.mounted) return;
     messenger?.showSnackBar(
-      SnackBar(content: Text('Verification callback failed: $e')),
+      SnackBar(
+        content: Text(
+          'Verification callback failed: ${context.friendlyError(e)}',
+        ),
+      ),
     );
   }
 }

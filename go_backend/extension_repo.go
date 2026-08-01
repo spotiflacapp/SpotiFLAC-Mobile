@@ -1,6 +1,8 @@
 package gobackend
 
 import (
+	"crypto/sha256"
+	"crypto/subtle"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -34,10 +36,13 @@ type repoExtension struct {
 	Downloads        int      `json:"downloads"`
 	UpdatedAt        string   `json:"updated_at"`
 	MinAppVersion    string   `json:"min_app_version,omitempty"`
+	SHA256           string   `json:"sha256,omitempty"`
+	ChecksumSHA256   string   `json:"checksum_sha256,omitempty"`
 	DisplayNameAlt   string   `json:"displayName,omitempty"`
 	DownloadURLAlt   string   `json:"downloadUrl,omitempty"`
 	IconURLAlt       string   `json:"iconUrl,omitempty"`
 	MinAppVersionAlt string   `json:"minAppVersion,omitempty"`
+	ChecksumAlt      string   `json:"checksumSha256,omitempty"`
 }
 
 func (e *repoExtension) getDisplayName() string {
@@ -71,6 +76,14 @@ func (e *repoExtension) getMinAppVersion() string {
 	return e.MinAppVersionAlt
 }
 
+func (e *repoExtension) getRawSHA256() string {
+	return firstNonEmptyTrimmed(e.SHA256, e.ChecksumSHA256, e.ChecksumAlt)
+}
+
+func (e *repoExtension) getSHA256() string {
+	return normalizeSHA256(e.getRawSHA256())
+}
+
 type repoRegistry struct {
 	Version    int             `json:"version"`
 	UpdatedAt  string          `json:"updated_at"`
@@ -90,6 +103,7 @@ type repoExtensionResponse struct {
 	Downloads        int      `json:"downloads"`
 	UpdatedAt        string   `json:"updated_at"`
 	MinAppVersion    string   `json:"min_app_version,omitempty"`
+	SHA256           string   `json:"sha256,omitempty"`
 	IsInstalled      bool     `json:"is_installed"`
 	InstalledVersion string   `json:"installed_version,omitempty"`
 	HasUpdate        bool     `json:"has_update"`
@@ -108,6 +122,7 @@ func (e *repoExtension) toResponse() repoExtensionResponse {
 		Downloads:     e.Downloads,
 		UpdatedAt:     e.UpdatedAt,
 		MinAppVersion: e.getMinAppVersion(),
+		SHA256:        e.getSHA256(),
 	}
 
 	if len(e.Tags) > 0 {
@@ -316,6 +331,22 @@ func parseRegistryBody(body []byte) (*repoRegistry, error) {
 		}
 		return nil, fmt.Errorf("failed to parse registry: %w", err)
 	}
+	validExtensions := make([]repoExtension, 0, len(registry.Extensions))
+	for index := range registry.Extensions {
+		ext := &registry.Extensions[index]
+		rawChecksum := ext.getRawSHA256()
+		if rawChecksum != "" && normalizeSHA256(rawChecksum) == "" {
+			LogWarn(
+				"ExtensionRepo",
+				"Skipping registry extension %q at index %d: invalid SHA-256 checksum",
+				ext.ID,
+				index,
+			)
+			continue
+		}
+		validExtensions = append(validExtensions, *ext)
+	}
+	registry.Extensions = validExtensions
 	return &registry, nil
 }
 
@@ -398,19 +429,103 @@ func (s *extensionRepo) downloadExtension(extensionID string, destPath string) e
 		return fmt.Errorf("download returned HTTP %d", resp.StatusCode)
 	}
 
-	out, err := os.Create(destPath)
-	if err != nil {
-		return fmt.Errorf("failed to create file: %w", err)
-	}
-	defer out.Close()
-
-	_, err = io.Copy(out, resp.Body)
-	if err != nil {
-		os.Remove(destPath)
-		return fmt.Errorf("failed to write file: %w", err)
+	if err := writeVerifiedExtensionPackage(
+		resp.Body,
+		destPath,
+		ext.getRawSHA256(),
+	); err != nil {
+		return err
 	}
 
 	LogInfo("ExtensionRepo", "Downloaded %s to %s", ext.getDisplayName(), destPath)
+	return nil
+}
+
+const maxExtensionPackageBytes int64 = 64 * 1024 * 1024
+
+func normalizeSHA256(value string) string {
+	normalized := strings.ToLower(strings.TrimSpace(value))
+	normalized = strings.TrimPrefix(normalized, "sha256:")
+	if len(normalized) != sha256.Size*2 {
+		return ""
+	}
+	for _, char := range normalized {
+		if (char < '0' || char > '9') && (char < 'a' || char > 'f') {
+			return ""
+		}
+	}
+	return normalized
+}
+
+func writeVerifiedExtensionPackage(
+	reader io.Reader,
+	destPath string,
+	expectedSHA256 string,
+) error {
+	if err := os.MkdirAll(filepath.Dir(destPath), 0755); err != nil {
+		return fmt.Errorf("failed to prepare extension download directory: %w", err)
+	}
+
+	tempFile, err := os.CreateTemp(
+		filepath.Dir(destPath),
+		"."+filepath.Base(destPath)+".download-*",
+	)
+	if err != nil {
+		return fmt.Errorf("failed to create extension download: %w", err)
+	}
+	tempPath := tempFile.Name()
+	committed := false
+	defer func() {
+		_ = tempFile.Close()
+		if !committed {
+			_ = os.Remove(tempPath)
+		}
+	}()
+
+	hasher := sha256.New()
+	limited := &io.LimitedReader{R: reader, N: maxExtensionPackageBytes + 1}
+	written, copyErr := io.Copy(io.MultiWriter(tempFile, hasher), limited)
+	if copyErr != nil {
+		return fmt.Errorf("failed to write extension package: %w", copyErr)
+	}
+	if written > maxExtensionPackageBytes {
+		return fmt.Errorf(
+			"extension package exceeds the %d MiB size limit",
+			maxExtensionPackageBytes/(1024*1024),
+		)
+	}
+	if err := tempFile.Sync(); err != nil {
+		return fmt.Errorf("failed to flush extension package: %w", err)
+	}
+	if err := tempFile.Close(); err != nil {
+		return fmt.Errorf("failed to close extension package: %w", err)
+	}
+
+	expected := normalizeSHA256(expectedSHA256)
+	if strings.TrimSpace(expectedSHA256) != "" && expected == "" {
+		return fmt.Errorf("registry contains an invalid extension SHA-256 checksum")
+	}
+	if expected != "" {
+		actual := fmt.Sprintf("%x", hasher.Sum(nil))
+		if subtle.ConstantTimeCompare([]byte(actual), []byte(expected)) != 1 {
+			return fmt.Errorf(
+				"extension package integrity check failed: SHA-256 mismatch",
+			)
+		}
+	} else {
+		LogWarn(
+			"ExtensionRepo",
+			"Registry entry has no SHA-256 checksum; package integrity cannot be verified",
+		)
+	}
+
+	if err := os.Remove(destPath); err != nil && !os.IsNotExist(err) {
+		return fmt.Errorf("failed to replace cached extension package: %w", err)
+	}
+	if err := os.Rename(tempPath, destPath); err != nil {
+		return fmt.Errorf("failed to publish extension package: %w", err)
+	}
+	committed = true
 	return nil
 }
 

@@ -10,6 +10,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"sync"
 	"testing"
@@ -457,6 +458,58 @@ func TestShouldStopProviderFallback(t *testing.T) {
 	}
 }
 
+func TestMoveProviderToFrontPreservesExplicitSelection(t *testing.T) {
+	priority := []string{"qobuz-web", "amazon-web", "tidal-web"}
+	got := moveProviderToFront(priority, "AMAZON-WEB")
+	want := []string{"amazon-web", "qobuz-web", "tidal-web"}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("moveProviderToFront() = %#v, want %#v", got, want)
+	}
+	if !reflect.DeepEqual(priority, []string{"qobuz-web", "amazon-web", "tidal-web"}) {
+		t.Fatalf("moveProviderToFront mutated input: %#v", priority)
+	}
+}
+
+func TestDiscardRejectedExtensionOutputStaysInsideRequestedDirectory(t *testing.T) {
+	outputDir := t.TempDir()
+	requestedPath := filepath.Join(outputDir, "Artist - Song.flac")
+	rejectedPath := filepath.Join(outputDir, "Artist - Song.m4a")
+	outsidePath := filepath.Join(t.TempDir(), "keep.flac")
+	if err := os.WriteFile(rejectedPath, []byte("wrong audio"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(outsidePath, []byte("keep"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	discardRejectedExtensionOutput(&ExtDownloadResult{FilePath: rejectedPath}, requestedPath)
+	if _, err := os.Stat(rejectedPath); !os.IsNotExist(err) {
+		t.Fatalf("rejected output was not removed: %v", err)
+	}
+
+	discardRejectedExtensionOutput(&ExtDownloadResult{FilePath: outsidePath}, requestedPath)
+	if _, err := os.Stat(outsidePath); err != nil {
+		t.Fatalf("output outside requested directory was removed: %v", err)
+	}
+}
+
+func TestDiscardRejectedExtensionOutputPreservesExistingLibraryHit(t *testing.T) {
+	outputDir := t.TempDir()
+	path := filepath.Join(outputDir, "existing.flac")
+	if err := os.WriteFile(path, []byte("existing audio"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	discardRejectedExtensionOutput(&ExtDownloadResult{
+		FilePath:      path,
+		AlreadyExists: true,
+	}, filepath.Join(outputDir, "requested.flac"))
+	if _, err := os.Stat(path); err != nil {
+		t.Fatalf("existing library file was removed: %v", err)
+	}
+}
+
 func TestBuildExtensionFallbackStoppedResponsePrefersAvailabilityReason(t *testing.T) {
 	resp := buildExtensionFallbackStoppedResponse("soundcloud", &ExtAvailabilityResult{
 		Reason:       "direct SoundCloud track ID",
@@ -671,6 +724,7 @@ func TestParseExtensionMetadataAndDownloadResults(t *testing.T) {
 		alreadyExists: true,
 		bitDepth: 24,
 		sampleRate: 96000,
+		durationMs: 181000,
 		title: "Song",
 		albumArtist: "Album Artist",
 		lyricsLrc: "[00:00.00]Line",
@@ -692,6 +746,7 @@ func TestParseExtensionMetadataAndDownloadResults(t *testing.T) {
 		!download.AlreadyExists ||
 		download.BitDepth != 24 ||
 		download.SampleRate != 96000 ||
+		download.DurationMS != 181000 ||
 		download.AlbumArtist != "Album Artist" ||
 		download.LyricsLRC != "[00:00.00]Line" ||
 		download.Decryption == nil ||
@@ -775,5 +830,52 @@ func TestParseExtensionAuxiliaryResults(t *testing.T) {
 		lyrics.Lines[0].StartTimeMs != 1000 ||
 		lyrics.Lines[0].EndTimeMs != 2000 {
 		t.Fatalf("unexpected lyrics result: %+v", lyrics)
+	}
+}
+
+func TestMatchesURLHostAnchored(t *testing.T) {
+	manifest := &ExtensionManifest{
+		URLHandler: &URLHandlerConfig{
+			Enabled:  true,
+			Patterns: []string{"spotify.com", "deezer.page.link", "spotify:"},
+		},
+	}
+
+	for _, urlStr := range []string{
+		"https://open.spotify.com/track/abc",
+		"https://spotify.com/track/abc",
+		"HTTPS://OPEN.SPOTIFY.COM/track/ABC",
+		"https://deezer.page.link/xyz",
+		"spotify:track:abc123",
+	} {
+		if !manifest.MatchesURL(urlStr) {
+			t.Fatalf("expected match for %q", urlStr)
+		}
+	}
+
+	for _, urlStr := range []string{
+		// The old substring matching accepted all of these.
+		"https://evil.example/?next=https://spotify.com/track/abc",
+		"https://notspotify.com/track/abc",
+		"https://spotify.com.evil.example/track/abc",
+		"https://example.com/spotify.com",
+		"not a url at all",
+	} {
+		if manifest.MatchesURL(urlStr) {
+			t.Fatalf("expected no match for %q", urlStr)
+		}
+	}
+
+	withPath := &ExtensionManifest{
+		URLHandler: &URLHandlerConfig{
+			Enabled:  true,
+			Patterns: []string{"youtube.com/watch"},
+		},
+	}
+	if !withPath.MatchesURL("https://www.youtube.com/watch?v=abc") {
+		t.Fatal("expected host+path prefix to match")
+	}
+	if withPath.MatchesURL("https://www.youtube.com/playlist?list=abc") {
+		t.Fatal("expected different path to not match")
 	}
 }

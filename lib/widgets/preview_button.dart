@@ -42,27 +42,21 @@ class PreviewButton extends ConsumerWidget {
     final mainItem = ref.watch(currentMediaItemProvider).value;
     if (_isCurrentMainTrack(mainItem)) {
       final isPlaying = ref.watch(playbackPlayingProvider);
-      return Transform.translate(
-        offset: const Offset(18, 0),
-        child: IconButton(
-          iconSize: size,
-          padding: EdgeInsets.zero,
-          alignment: Alignment.centerRight,
-          visualDensity: VisualDensity.compact,
-          constraints: const BoxConstraints(minWidth: 24, minHeight: 36),
-          icon: Icon(
-            isPlaying
-                ? Icons.pause_circle_filled_rounded
-                : Icons.play_circle_fill_rounded,
-            color: colorScheme.primary,
-          ),
-          tooltip: isPlaying
-              ? context.l10n.previewStop
-              : context.l10n.previewPlay,
-          onPressed: () => ref
-              .read(musicPlayerControllerProvider)
-              .togglePlayPause(isPlaying),
+      return IconButton(
+        iconSize: size,
+        padding: EdgeInsets.zero,
+        constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+        icon: Icon(
+          isPlaying
+              ? Icons.pause_circle_filled_rounded
+              : Icons.play_circle_fill_rounded,
+          color: colorScheme.primary,
         ),
+        tooltip: isPlaying
+            ? context.l10n.previewStop
+            : context.l10n.previewPlay,
+        onPressed: () =>
+            ref.read(musicPlayerControllerProvider).togglePlayPause(isPlaying),
       );
     }
 
@@ -106,18 +100,13 @@ class PreviewButton extends ConsumerWidget {
         break;
     }
 
-    return Transform.translate(
-      offset: const Offset(18, 0),
-      child: IconButton(
-        iconSize: size,
-        padding: EdgeInsets.zero,
-        alignment: Alignment.centerRight,
-        visualDensity: VisualDensity.compact,
-        constraints: const BoxConstraints(minWidth: 24, minHeight: 36),
-        icon: icon,
-        tooltip: tooltip,
-        onPressed: () => _onPressed(context, ref),
-      ),
+    return IconButton(
+      iconSize: size,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+      icon: icon,
+      tooltip: tooltip,
+      onPressed: () => _onPressed(context, ref),
     );
   }
 }

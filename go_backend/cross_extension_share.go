@@ -333,7 +333,7 @@ func resolveCollectionShareURL(ext *loadedExtension, itemType string, track *Ext
 		if url := urlFromExternalLinks(track.ExternalLinks, "album"); url != "" {
 			return url
 		}
-		if url := templateShareURL(ext, "album", firstNonEmptyString(track.AlbumID, collectionID(*track, "album"), track.AlbumURL)); url != "" {
+		if url := templateShareURL(ext, "album", firstNonEmptyTrimmed(track.AlbumID, collectionID(*track, "album"), track.AlbumURL)); url != "" {
 			return url
 		}
 		return ""
@@ -350,7 +350,7 @@ func resolveCollectionShareURL(ext *loadedExtension, itemType string, track *Ext
 	if url := urlFromExternalLinks(track.ExternalLinks, "artist"); url != "" {
 		return url
 	}
-	if url := templateShareURL(ext, "artist", firstNonEmptyString(track.ArtistID, collectionID(*track, "artist"))); url != "" {
+	if url := templateShareURL(ext, "artist", firstNonEmptyTrimmed(track.ArtistID, collectionID(*track, "artist"))); url != "" {
 		return url
 	}
 	return ""
@@ -429,14 +429,4 @@ func stripProviderPrefix(id string) string {
 		return id[index+1:]
 	}
 	return id
-}
-
-func firstNonEmptyString(values ...string) string {
-	for _, value := range values {
-		trimmed := strings.TrimSpace(value)
-		if trimmed != "" {
-			return trimmed
-		}
-	}
-	return ""
 }

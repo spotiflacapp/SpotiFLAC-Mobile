@@ -17,8 +17,8 @@ func TestLogBufferExportedHelpersAndRedaction(t *testing.T) {
 	SetLoggingEnabled(false)
 	LogInfo("test", "ignored access_token=secret")
 	LogError("test", "Authorization: Bearer secret-token api_key=value")
-	if GetLogCount() != 1 {
-		t.Fatalf("disabled logging should keep errors only, got %d", GetLogCount())
+	if GetLogBuffer().Count() != 1 {
+		t.Fatalf("disabled logging should keep errors only, got %d", GetLogBuffer().Count())
 	}
 
 	SetLoggingEnabled(true)
@@ -28,8 +28,8 @@ func TestLogBufferExportedHelpersAndRedaction(t *testing.T) {
 	GoLog("[GoTag] success token=abc")
 
 	var entries []LogEntry
-	if err := json.Unmarshal([]byte(GetLogs()), &entries); err != nil {
-		t.Fatalf("GetLogs JSON: %v", err)
+	if err := json.Unmarshal([]byte(GetLogBuffer().GetAll()), &entries); err != nil {
+		t.Fatalf("GetAll JSON: %v", err)
 	}
 	if len(entries) < 4 {
 		t.Fatalf("expected log entries, got %#v", entries)
@@ -52,8 +52,8 @@ func TestLogBufferExportedHelpersAndRedaction(t *testing.T) {
 	}
 
 	ClearLogs()
-	if GetLogCount() != 0 || GetLogs() != "[]" {
-		t.Fatalf("logs were not cleared: count=%d logs=%s", GetLogCount(), GetLogs())
+	if GetLogBuffer().Count() != 0 || GetLogBuffer().GetAll() != "[]" {
+		t.Fatalf("logs were not cleared: count=%d logs=%s", GetLogBuffer().Count(), GetLogBuffer().GetAll())
 	}
 }
 

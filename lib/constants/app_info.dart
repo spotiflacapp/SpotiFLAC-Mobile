@@ -1,19 +1,19 @@
 import 'package:flutter/foundation.dart';
 
 class AppInfo {
-  static const String version = '4.8.0';
-  static const String buildNumber = '138';
+  static const String version = '4.8.5';
+  static const String buildNumber = '140';
   static const String fullVersion = '$version+$buildNumber';
 
   static String get displayVersion => kDebugMode ? 'Internal' : version;
 
   static const String appName = 'SpotiFLAC Mobile';
-  static const String copyright = '© 2026 SpotiFLAC';
+  static const String copyright = '© 2026 Zarz Eleutherius';
 
   static const String mobileAuthor = 'zarzet';
   static const String originalAuthor = 'afkarxyz';
 
-  static const String githubRepo = 'zarzet/SpotiFLAC-Mobile';
+  static const String githubRepo = 'spotiflacapp/SpotiFLAC-Mobile';
   static const String githubUrl = 'https://github.com/$githubRepo';
   static const String originalGithubUrl =
       'https://github.com/afkarxyz/SpotiFLAC';

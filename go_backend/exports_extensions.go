@@ -432,9 +432,9 @@ func SetExtensionSettingsJSON(extensionID, settingsJSON string) error {
 	return manager.InitializeExtension(extensionID, settings)
 }
 
-func SearchTracksWithExtensionsJSON(query string, limit int) (string, error) {
+func SearchTracksWithMetadataProvidersJSON(query string, limit int, includeExtensions bool) (string, error) {
 	manager := getExtensionManager()
-	tracks, err := manager.SearchTracksWithExtensions(query, limit)
+	tracks, err := manager.SearchTracksWithMetadataProviders(query, limit, includeExtensions)
 	if err != nil {
 		return "", err
 	}
@@ -442,9 +442,9 @@ func SearchTracksWithExtensionsJSON(query string, limit int) (string, error) {
 	return marshalJSONString(tracks)
 }
 
-func SearchTracksWithMetadataProvidersJSON(query string, limit int, includeExtensions bool) (string, error) {
+func SearchTracksWithMetadataProviderJSON(providerID, query string, limit int) (string, error) {
 	manager := getExtensionManager()
-	tracks, err := manager.SearchTracksWithMetadataProviders(query, limit, includeExtensions)
+	tracks, err := manager.SearchTracksWithMetadataProvider(providerID, query, limit)
 	if err != nil {
 		return "", err
 	}
@@ -512,7 +512,17 @@ func DownloadWithExtensionsJSON(requestJSON string) (string, error) {
 	preflightStartedAt := time.Now()
 	verificationRequired, preflightErr := preflightExtensionDownloadSession(sessionProvider)
 	if preflightErr != nil {
-		GoLog("[DownloadWithExtensions] Signed-session preflight for %s was inconclusive after %s: %v\n", sessionProvider, time.Since(preflightStartedAt).Round(time.Millisecond), preflightErr)
+		message := fmt.Sprintf("Could not start verification for %s: %v", sessionProvider, preflightErr)
+		GoLog("[DownloadWithExtensions] Signed-session preflight for %s failed after %s: %v\n", sessionProvider, time.Since(preflightStartedAt).Round(time.Millisecond), preflightErr)
+		if req.ItemID != "" {
+			RemoveItemProgress(req.ItemID)
+		}
+		return marshalJSONString(&DownloadResponse{
+			Success:   false,
+			Error:     message,
+			ErrorType: classifyDownloadErrorType(message),
+			Service:   sessionProvider,
+		})
 	} else if verificationRequired {
 		GoLog("[DownloadWithExtensions] Signed-session verification required for %s after %s; skipping metadata preparation\n", sessionProvider, time.Since(preflightStartedAt).Round(time.Millisecond))
 		cacheUnpreparedDownloadRequest(downloadPreparationKey(req), req)
@@ -566,7 +576,10 @@ func InvokeExtensionActionJSON(extensionID, actionName string) (string, error) {
 }
 
 func GetExtensionPendingAuthJSON(extensionID string) (string, error) {
-	req := ensureExtensionPendingAuthRequest(extensionID)
+	req, err := ensureExtensionPendingAuthRequest(extensionID)
+	if err != nil {
+		return "", err
+	}
 	if req == nil {
 		return "", nil
 	}
@@ -580,15 +593,15 @@ func GetExtensionPendingAuthJSON(extensionID string) (string, error) {
 	return marshalJSONString(result)
 }
 
-func ensureExtensionPendingAuthRequest(extensionID string) *PendingAuthRequest {
+func ensureExtensionPendingAuthRequest(extensionID string) (*PendingAuthRequest, error) {
 	extensionID = strings.TrimSpace(extensionID)
 	if extensionID == "" {
-		return nil
+		return nil, nil
 	}
 
 	if req := GetPendingAuthRequest(extensionID); req != nil {
 		if time.Since(req.CreatedAt) < pendingAuthRequestTTL {
-			return req
+			return req, nil
 		}
 		// The cached challenge is stale (e.g. verification was requested
 		// while the app was backgrounded and never completed); serving it
@@ -599,25 +612,24 @@ func ensureExtensionPendingAuthRequest(extensionID string) *PendingAuthRequest {
 	manager := getExtensionManager()
 	ext, err := manager.GetExtension(extensionID)
 	if err != nil || ext == nil || !ext.Enabled || ext.Manifest == nil || ext.Manifest.SignedSession == nil {
-		return nil
+		return nil, nil
 	}
 
-	if err := ext.ensureRuntimeReady(); err != nil || ext.runtime == nil {
-		return nil
+	if err := ext.ensureRuntimeReady(); err != nil {
+		return nil, err
+	}
+	if ext.runtime == nil {
+		return nil, fmt.Errorf("extension '%s' runtime is unavailable", extensionID)
 	}
 
-	config := signedSessionConfigWithDefaults(ext.Manifest.SignedSession)
-	if config.Namespace == "" || config.BaseURL == "" {
-		return nil
+	verificationRequired, err := ext.runtime.preflightSignedSession()
+	if err != nil {
+		return nil, err
 	}
-	if record, err := ext.runtime.loadSignedSession(config); err == nil {
-		record.SessionID = ""
-		record.SessionSecret = ""
-		record.ExpiresAt = ""
-		_ = ext.runtime.saveSignedSession(config, record)
+	if !verificationRequired {
+		return nil, nil
 	}
-	ext.runtime.startSignedSessionVerification(config, "pending-auth-request")
-	return GetPendingAuthRequest(extensionID)
+	return GetPendingAuthRequest(extensionID), nil
 }
 
 func SetExtensionAuthCodeByID(extensionID, authCode string) {
@@ -771,47 +783,7 @@ func CustomSearchWithExtensionJSONWithRequestID(extensionID, query string, optio
 
 	result := make([]map[string]any, len(tracks))
 	for i, track := range tracks {
-		result[i] = map[string]any{
-			"id":            track.ID,
-			"name":          track.Name,
-			"artists":       track.Artists,
-			"album_name":    track.AlbumName,
-			"album_artist":  track.AlbumArtist,
-			"duration_ms":   track.DurationMS,
-			"images":        track.ResolvedCoverURL(),
-			"preview_url":   track.PreviewURL,
-			"release_date":  track.ReleaseDate,
-			"track_number":  track.TrackNumber,
-			"total_tracks":  track.TotalTracks,
-			"disc_number":   track.DiscNumber,
-			"total_discs":   track.TotalDiscs,
-			"isrc":          track.ISRC,
-			"provider_id":   track.ProviderID,
-			"item_type":     track.ItemType,
-			"album_type":    track.AlbumType,
-			"composer":      track.Composer,
-			"audio_quality": track.AudioQuality,
-			"audio_modes":   track.AudioModes,
-			"explicit":      track.Explicit,
-		}
-	}
-
-	return marshalJSONString(result)
-}
-
-func GetSearchProvidersJSON() (string, error) {
-	manager := getExtensionManager()
-	providers := manager.GetSearchProviders()
-
-	result := make([]map[string]any, 0, len(providers))
-	for _, p := range providers {
-		result = append(result, map[string]any{
-			"id":           p.extension.ID,
-			"display_name": p.extension.Manifest.DisplayName,
-			"placeholder":  p.extension.Manifest.SearchBehavior.Placeholder,
-			"primary":      p.extension.Manifest.SearchBehavior.Primary,
-			"icon":         p.extension.Manifest.SearchBehavior.Icon,
-		})
+		result[i] = normalizeExtensionTrackMetadataMap(track, "", 0)
 	}
 
 	return marshalJSONString(result)
@@ -841,51 +813,13 @@ func HandleURLWithExtensionJSON(url string) (string, error) {
 	}
 
 	if result.Track != nil {
-		response["track"] = map[string]any{
-			"id":           result.Track.ID,
-			"name":         result.Track.Name,
-			"artists":      result.Track.Artists,
-			"album_name":   result.Track.AlbumName,
-			"album_artist": result.Track.AlbumArtist,
-			"duration_ms":  result.Track.DurationMS,
-			"images":       result.Track.ResolvedCoverURL(),
-			"preview_url":  result.Track.PreviewURL,
-			"release_date": result.Track.ReleaseDate,
-			"track_number": result.Track.TrackNumber,
-			"total_tracks": result.Track.TotalTracks,
-			"disc_number":  result.Track.DiscNumber,
-			"total_discs":  result.Track.TotalDiscs,
-			"isrc":         result.Track.ISRC,
-			"provider_id":  result.Track.ProviderID,
-			"composer":     result.Track.Composer,
-			"explicit":     result.Track.Explicit,
-		}
+		response["track"] = normalizeExtensionTrackMetadataMap(*result.Track, "", 0)
 	}
 
 	if len(result.Tracks) > 0 {
 		tracks := make([]map[string]any, len(result.Tracks))
 		for i, track := range result.Tracks {
-			tracks[i] = map[string]any{
-				"id":           track.ID,
-				"name":         track.Name,
-				"artists":      track.Artists,
-				"album_name":   track.AlbumName,
-				"album_artist": track.AlbumArtist,
-				"duration_ms":  track.DurationMS,
-				"images":       track.ResolvedCoverURL(),
-				"preview_url":  track.PreviewURL,
-				"release_date": track.ReleaseDate,
-				"track_number": track.TrackNumber,
-				"total_tracks": track.TotalTracks,
-				"disc_number":  track.DiscNumber,
-				"total_discs":  track.TotalDiscs,
-				"isrc":         track.ISRC,
-				"provider_id":  track.ProviderID,
-				"item_type":    track.ItemType,
-				"album_type":   track.AlbumType,
-				"composer":     track.Composer,
-				"explicit":     track.Explicit,
-			}
+			tracks[i] = normalizeExtensionTrackMetadataMap(track, "", 0)
 		}
 		response["tracks"] = tracks
 	}
@@ -964,26 +898,7 @@ func HandleURLWithExtensionJSON(url string) (string, error) {
 		if len(result.Artist.TopTracks) > 0 {
 			topTracks := make([]map[string]any, len(result.Artist.TopTracks))
 			for i, track := range result.Artist.TopTracks {
-				topTracks[i] = map[string]any{
-					"id":           track.ID,
-					"name":         track.Name,
-					"artists":      track.Artists,
-					"album_name":   track.AlbumName,
-					"album_artist": track.AlbumArtist,
-					"duration_ms":  track.DurationMS,
-					"images":       track.ResolvedCoverURL(),
-					"preview_url":  track.PreviewURL,
-					"release_date": track.ReleaseDate,
-					"track_number": track.TrackNumber,
-					"total_tracks": track.TotalTracks,
-					"disc_number":  track.DiscNumber,
-					"total_discs":  track.TotalDiscs,
-					"isrc":         track.ISRC,
-					"provider_id":  track.ProviderID,
-					"spotify_id":   track.SpotifyID,
-					"composer":     track.Composer,
-					"explicit":     track.Explicit,
-				}
+				topTracks[i] = normalizeExtensionTrackMetadataMap(track, "", 0)
 			}
 			artistResponse["top_tracks"] = topTracks
 		}
@@ -1001,39 +916,6 @@ func FindURLHandlerJSON(url string) string {
 		return ""
 	}
 	return handler.extension.ID
-}
-
-func GetURLHandlersJSON() (string, error) {
-	manager := getExtensionManager()
-	handlers := manager.GetURLHandlers()
-
-	result := make([]map[string]any, 0, len(handlers))
-	for _, h := range handlers {
-		result = append(result, map[string]any{
-			"id":           h.extension.ID,
-			"display_name": h.extension.Manifest.DisplayName,
-			"patterns":     h.extension.Manifest.URLHandler.Patterns,
-		})
-	}
-
-	return marshalJSONString(result)
-}
-
-func RunPostProcessingJSON(filePath, metadataJSON string) (string, error) {
-	var metadata map[string]any
-	if metadataJSON != "" {
-		if err := json.Unmarshal([]byte(metadataJSON), &metadata); err != nil {
-			metadata = make(map[string]any)
-		}
-	}
-
-	manager := getExtensionManager()
-	result, err := manager.RunPostProcessing(filePath, metadata)
-	if err != nil {
-		return "", err
-	}
-
-	return marshalJSONString(result)
 }
 
 func RunPostProcessingV2JSON(inputJSON, metadataJSON string) (string, error) {
@@ -1055,33 +937,6 @@ func RunPostProcessingV2JSON(inputJSON, metadataJSON string) (string, error) {
 	result, err := manager.RunPostProcessingV2(input, metadata)
 	if err != nil {
 		return "", err
-	}
-
-	return marshalJSONString(result)
-}
-
-func GetPostProcessingProvidersJSON() (string, error) {
-	manager := getExtensionManager()
-	providers := manager.GetPostProcessingProviders()
-
-	result := make([]map[string]any, 0, len(providers))
-	for _, p := range providers {
-		hooks := make([]map[string]any, 0)
-		for _, h := range p.extension.Manifest.GetPostProcessingHooks() {
-			hooks = append(hooks, map[string]any{
-				"id":                h.ID,
-				"name":              h.Name,
-				"description":       h.Description,
-				"default_enabled":   h.DefaultEnabled,
-				"supported_formats": h.SupportedFormats,
-			})
-		}
-
-		result = append(result, map[string]any{
-			"id":           p.extension.ID,
-			"display_name": p.extension.Manifest.DisplayName,
-			"hooks":        hooks,
-		})
 	}
 
 	return marshalJSONString(result)
@@ -1163,10 +1018,6 @@ func GetExtensionHomeFeedJSON(extensionID string) (string, error) {
 
 func GetExtensionHomeFeedJSONWithRequestID(extensionID, requestID string) (string, error) {
 	return callExtensionFunctionJSONWithRequestID(extensionID, "getHomeFeed", 60*time.Second, requestID)
-}
-
-func GetExtensionBrowseCategoriesJSON(extensionID string) (string, error) {
-	return callExtensionFunctionJSON(extensionID, "getBrowseCategories", 30*time.Second)
 }
 
 func CancelExtensionRequestJSON(requestID string) {

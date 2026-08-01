@@ -24,7 +24,9 @@ extension _QueueTabNavigation on _QueueTabState {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.snackbarCannotOpenFile(e.toString())),
+            content: Text(
+              context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+            ),
           ),
         );
       }
@@ -60,7 +62,9 @@ extension _QueueTabNavigation on _QueueTabState {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.snackbarCannotOpenFile(e.toString())),
+            content: Text(
+              context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+            ),
           ),
         );
       }
@@ -93,25 +97,6 @@ extension _QueueTabNavigation on _QueueTabState {
     );
   }
 
-  void _precacheCover(String? url) {
-    if (url == null || url.isEmpty) return;
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return;
-    }
-    final dpr = MediaQuery.devicePixelRatioOf(
-      context,
-    ).clamp(1.0, 3.0).toDouble();
-    final targetSize = (360 * dpr).round().clamp(512, 1024).toInt();
-    precacheImage(
-      ResizeImage(
-        cachedCoverImageProvider(url),
-        width: targetSize,
-        height: targetSize,
-      ),
-      context,
-    );
-  }
-
   Future<void> _navigateToMetadataScreen(DownloadItem item) async {
     final historyItem = ref
         .read(downloadHistoryProvider)
@@ -131,7 +116,7 @@ extension _QueueTabNavigation on _QueueTabState {
         );
 
     final navigator = Navigator.of(context);
-    _precacheCover(historyItem.coverUrl);
+    precacheCoverImage(context, historyItem.coverUrl);
     _searchFocusNode.unfocus();
     final beforeModTime = await _readFileModTimeMillis(historyItem.filePath);
     if (!mounted) return;
@@ -159,7 +144,7 @@ extension _QueueTabNavigation on _QueueTabState {
     int? navigationIndex,
   }) async {
     final navigator = Navigator.of(context);
-    _precacheCover(item.coverUrl);
+    precacheCoverImage(context, item.coverUrl);
     _searchFocusNode.unfocus();
     final beforeModTime = await _readFileModTimeMillis(item.filePath);
     if (!mounted) return;

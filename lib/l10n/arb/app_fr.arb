@@ -143,7 +143,7 @@
     "description": "Share button tooltip"
   },
   "@storeFilterLyrics": {
-    "description": "Store filter - lyrics providers"
+    "description": "Repo filter - lyrics providers"
   },
   "extensionsInstallButton": "Installer l'extension",
   "@extensionsInstallButton": {
@@ -317,7 +317,7 @@
   },
   "optionsExtensionStore": "Référentiel d'extensions",
   "@optionsExtensionStore": {
-    "description": "Show/hide store tab"
+    "description": "Show/hide repo tab"
   },
   "libraryDownloadsHistoryExcluded": "{count} dans l'historique des téléchargements (exclu de la liste)",
   "@libraryDownloadsHistoryExcluded": {
@@ -459,7 +459,7 @@
   },
   "storeFilterDownload": "Télécharger",
   "@storeFilterDownload": {
-    "description": "Store filter - download providers"
+    "description": "Repo filter - download providers"
   },
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
@@ -1033,9 +1033,6 @@
   "@libraryFilterMetadataMissingLabel": {
     "description": "Filter option - items missing record label"
   },
-  "@badgeBeta": {
-    "description": "Badge label for beta features"
-  },
   "@audioAnalysisLufs": {
     "description": "Integrated loudness metric label"
   },
@@ -1151,7 +1148,7 @@
   },
   "storeFilterMetadata": "Métadonnées",
   "@storeFilterMetadata": {
-    "description": "Store filter - metadata providers"
+    "description": "Repo filter - metadata providers"
   },
   "shareSheetCopyLink": "Copier le lien",
   "errorRateLimitedMessage": "Trop de requêtes. Veuillez patienter quelques instants avant de relancer la recherche.",
@@ -1732,7 +1729,7 @@
   },
   "storeFilterUtility": "Utilitaire",
   "@storeFilterUtility": {
-    "description": "Store filter - utility extensions"
+    "description": "Repo filter - utility extensions"
   },
   "collectionAddedToPlaylist": "Ajouté à « {playlistName} »",
   "@collectionAddedToPlaylist": {
@@ -2881,7 +2878,6 @@
   "@collectionPlaylistEmptySubtitle": {
     "description": "Playlist empty state subtitle"
   },
-  "badgeBeta": "BÊTA",
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
@@ -3328,7 +3324,7 @@
   },
   "libraryPlayback": "Lecture",
   "@storeFilterAll": {
-    "description": "Store filter - all extensions"
+    "description": "Repo filter - all extensions"
   },
   "aboutApp": "Application",
   "@aboutApp": {
@@ -3348,7 +3344,7 @@
   "logIssueIspBlockingLabel": "BLOCAGE PAR LE FAI DÉTECTÉ",
   "storeFilterIntegration": "Intégration",
   "@storeFilterIntegration": {
-    "description": "Store filter - integrations"
+    "description": "Repo filter - integrations"
   },
   "@lyricsProvidersAtLeastOne": {
     "description": "Snackbar when user tries to disable the last enabled provider"
@@ -3538,7 +3534,7 @@
   },
   "storeTitle": "Répertoire des extensions",
   "@storeTitle": {
-    "description": "Store screen title"
+    "description": "Repo screen title"
   },
   "libraryCleared": "Bibliothèque vidée",
   "@libraryCleared": {
@@ -3853,7 +3849,7 @@
   },
   "lyricsProviderMusixmatchDesc": "La plus grande base de données de paroles (multilingue)",
   "@navStore": {
-    "description": "Bottom navigation - Extension store tab"
+    "description": "Bottom navigation - Extension repo tab"
   },
   "extensionPostProcessing": "Post-traitement",
   "@searchTracks": {
@@ -4444,7 +4440,7 @@
   "appName": "SpotiFLAC Mobile",
   "storeRepoDialogCurrent": "Dépôt actuel :",
   "@optionsExtensionStoreSubtitle": {
-    "description": "Subtitle for extension store toggle"
+    "description": "Subtitle for extension repo toggle"
   },
   "@trackLyrics": {
     "description": "Tab title - lyrics"
@@ -4557,7 +4553,7 @@
   "downloadUseAlbumArtistForFoldersTrackSubtitle": "Dossier nommé d'après la balise « Artiste » de la piste",
   "storeSearch": "Recherche d'extensions...",
   "@storeSearch": {
-    "description": "Store search placeholder"
+    "description": "Repo search placeholder"
   },
   "aboutTelegramChat": "Communauté Telegram",
   "lyricsModeBoth": "Les deux",
@@ -5883,5 +5879,151 @@
   "extensionsSearchProviderDescription": "Choisissez le service que vous souhaitez utiliser pour rechercher des morceaux",
   "albumFolderAlbumOnly": "Album uniquement",
   "nowPlayingOpenInExternalPlayer": "Ouvrir dans un lecteur externe",
-  "cueSplitButton": "Diviser en pistes"
+  "cueSplitButton": "Diviser en pistes",
+  "updateRequiredTitle": "Mise à jour requise",
+  "@updateRequiredTitle": {
+    "description": "Title of the mandatory update dialog shown when the installed version is too old"
+  },
+  "updateRequiredNotice": "Cette version a {count} versions de retard et n'est plus prise en charge. Effectuez la mise à jour pour continuer à utiliser l'application.",
+  "@updateRequiredNotice": {
+    "description": "Subtitle of the mandatory update dialog; explains why the dialog cannot be dismissed",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "appearanceHeroAnimations": "Animations des héros",
+  "@appearanceHeroAnimations": {
+    "description": "Toggle for shared-element (Hero) transitions"
+  },
+  "appearanceHeroAnimationsSubtitle": "Des fenêtres contextuelles apparaissent entre les écrans, par exemple lors de l'ouverture du lecteur",
+  "@appearanceHeroAnimationsSubtitle": {
+    "description": "Subtitle for the Hero animations toggle"
+  },
+  "settingsConcurrentDownloads": "Téléchargements simultanés",
+  "@settingsConcurrentDownloads": {
+    "description": "Setting title - how many tracks download at the same time"
+  },
+  "settingsConcurrentDownloadsSubtitle": "Le téléchargement simultané de plusieurs titres est plus rapide, mais certains fournisseurs peuvent limiter le débit des requêtes parallèles.",
+  "@settingsConcurrentDownloadsSubtitle": {
+    "description": "Subtitle explaining the concurrent downloads picker"
+  },
+  "concurrentDownloadsOne": "1 titre à la fois",
+  "@concurrentDownloadsOne": {
+    "description": "Concurrent downloads option - sequential"
+  },
+  "concurrentDownloadsCount": "Jusqu'à {count} titres à la fois",
+  "@concurrentDownloadsCount": {
+    "description": "Concurrent downloads option - parallel",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryPlaybackNormalization": "Normalisation du volume",
+  "@libraryPlaybackNormalization": {
+    "description": "Toggle title for ReplayGain playback normalization in the built-in player"
+  },
+  "libraryPlaybackNormalizationSubtitle": "Équilibrer le volume entre les morceaux à l'aide des balises ReplayGain ou R128, lorsqu'elles sont présentes",
+  "@libraryPlaybackNormalizationSubtitle": {
+    "description": "Subtitle explaining playback volume normalization"
+  },
+  "cacheAudioAnalysis": "Cache d'analyse audio",
+  "@cacheAudioAnalysis": {
+    "description": "Cache item title for saved audio analysis results"
+  },
+  "cacheAudioAnalysisDesc": "Spectrogrammes et résultats d'analyse enregistrés. Réanalyse prévue lors de la prochaine ouverture.",
+  "@cacheAudioAnalysisDesc": {
+    "description": "Description of what audio analysis cache contains"
+  },
+  "trackConvertKeepOriginal": "Conserver le fichier d'origine",
+  "@trackConvertKeepOriginal": {
+    "description": "Toggle to preserve the source file during conversion"
+  },
+  "trackConvertKeepOriginalDescription": "Ajoutez le fichier converti en tant qu'entrée distincte dans la bibliothèque",
+  "@trackConvertKeepOriginalDescription": {
+    "description": "Description for preserving the source file during conversion"
+  },
+  "trackConvertConfirmKeepOriginal": "Convertir du format {sourceFormat} au format {targetFormat} ?\n\nLe fichier d'origine sera conservé et le fichier converti sera ajouté en tant qu'entrée distincte dans la bibliothèque.",
+  "@trackConvertConfirmKeepOriginal": {
+    "description": "Confirmation message when the source file will be preserved",
+    "placeholders": {
+      "sourceFormat": {
+        "type": "String"
+      },
+      "targetFormat": {
+        "type": "String"
+      }
+    }
+  },
+  "selectionBatchConvertConfirmKeepOriginal": "Convertir {count} {count, plural, =1{titre} other{titres}} au format {format} ?\n\nLes fichiers d'origine seront conservés et les fichiers convertis seront ajoutés sous forme d'entrées distinctes dans la bibliothèque.",
+  "@selectionBatchConvertConfirmKeepOriginal": {
+    "description": "Batch conversion confirmation when source files will be preserved",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  },
+  "downloadFolderAccessLostTitle": "Accès au dossier de téléchargement perdu",
+  "@downloadFolderAccessLostTitle": {
+    "description": "Title of the warning banner shown in Files settings when the saved SAF folder grant is no longer valid"
+  },
+  "downloadFolderAccessLostSubtitle": "Les téléchargements échoueront tant que vous n'aurez pas resélectionné le dossier",
+  "@downloadFolderAccessLostSubtitle": {
+    "description": "Subtitle of the warning banner shown when the saved SAF folder grant is no longer valid"
+  },
+  "downloadFolderReselect": "Sélectionner à nouveau le dossier",
+  "@downloadFolderReselect": {
+    "description": "Button that reopens the folder picker to restore download folder access"
+  },
+  "downloadErrorSafPermissionLost": "Autorisation SAF non valide ou révoquée. Veuillez reconfigurer l'emplacement de téléchargement dans les Paramètres.",
+  "@downloadErrorSafPermissionLost": {
+    "description": "Error shown on downloads that failed because the persisted Android SAF folder grant is no longer valid"
+  },
+  "downloadErrorFolderAccessLost": "Accès au dossier de téléchargement perdu. Veuillez sélectionner à nouveau votre dossier de téléchargement dans les Paramètres.",
+  "@downloadErrorFolderAccessLost": {
+    "description": "Error shown on downloads that failed because the iOS download folder bookmark could not be opened"
+  },
+  "notifVerificationRequiredTitle": "Vérification requise",
+  "@notifVerificationRequiredTitle": {
+    "description": "Notification title shown when a download needs the user to complete a verification challenge but the app is in the background"
+  },
+  "notifVerificationRequiredBody": "Ouvrez l'application pour terminer la vérification et reprendre les téléchargements",
+  "@notifVerificationRequiredBody": {
+    "description": "Notification body prompting the user to return to the app to solve a verification challenge"
+  },
+  "downloadDeduplicationWithQualityVariants": "Les fichiers existants correspondant à la qualité sélectionnée seront ignorés",
+  "@downloadDeduplicationWithQualityVariants": {
+    "description": "Deduplication subtitle when separate quality versions are allowed"
+  },
+  "downloadQualityVariants": "Autoriser différentes versions de qualité",
+  "@downloadQualityVariants": {
+    "description": "Setting to retain multiple quality versions of the same track"
+  },
+  "downloadQualityVariantsDescription": "Conserver chaque version de qualité ; ajouter la qualité mesurée au nom du fichier uniquement si le nom est déjà utilisé",
+  "@downloadQualityVariantsDescription": {
+    "description": "Description for retaining multiple quality versions"
+  },
+  "trackOptionDownloadQualityVariant": "Télécharger une autre version de qualité",
+  "@trackOptionDownloadQualityVariant": {
+    "description": "Track menu action to download another quality version"
+  },
+  "queueCheckingDownloadSession": "Vérification de la session de téléchargement...",
+  "queueResolvingDownloadMetadata": "Récupération des métadonnées du morceau...",
+  "queueResolvingDownloadStream": "Préparation du flux audio...",
+  "queueWaitingForVerification": "En attente de vérification...",
+  "queueResumingAfterVerification": "Reprise après vérification...",
+  "settingsSearchHint": "Rechercher dans les paramètres",
+  "settingsSearchNoResults": "Aucun paramètre ne correspond à « {query} »",
+  "settingsGroupInterface": "Extensions et apparence",
+  "settingsGroupContent": "Contenu et métadonnées",
+  "settingsGroupDownloads": "Téléchargements et fichiers",
+  "settingsGroupSystem": "Système",
+  "settingsGroupHelp": "À propos et assistance"
 }

@@ -436,10 +436,6 @@ class NotificationService {
     );
   }
 
-  Future<void> cancelLibraryScanNotification() async {
-    await _notifications.cancel(id: libraryScanId);
-  }
-
   Future<void> showUpdateDownloadProgress({
     required String version,
     required int received,

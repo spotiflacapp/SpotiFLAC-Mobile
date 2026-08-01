@@ -316,20 +316,7 @@ class TrackNotifier extends Notifier<TrackState> {
     if (explicitProvider != null && explicitProvider.isNotEmpty) {
       resolvedProvider = explicitProvider;
     } else {
-      resolvedProvider =
-          extensionState.extensions
-              .where(
-                (ext) =>
-                    ext.enabled &&
-                    ext.hasCustomSearch &&
-                    ext.searchBehavior?.primary == true,
-              )
-              .map((ext) => ext.id)
-              .firstOrNull ??
-          extensionState.extensions
-              .where((ext) => ext.enabled && ext.hasCustomSearch)
-              .map((ext) => ext.id)
-              .firstOrNull;
+      resolvedProvider = defaultSearchExtension(extensionState.extensions)?.id;
     }
 
     if (resolvedProvider != null &&
@@ -339,20 +326,7 @@ class TrackNotifier extends Notifier<TrackState> {
         ) &&
         settings.searchProvider?.trim() == resolvedProvider) {
       ref.read(settingsProvider.notifier).setSearchProvider(null);
-      resolvedProvider =
-          extensionState.extensions
-              .where(
-                (ext) =>
-                    ext.enabled &&
-                    ext.hasCustomSearch &&
-                    ext.searchBehavior?.primary == true,
-              )
-              .map((ext) => ext.id)
-              .firstOrNull ??
-          extensionState.extensions
-              .where((ext) => ext.enabled && ext.hasCustomSearch)
-              .map((ext) => ext.id)
-              .firstOrNull;
+      resolvedProvider = defaultSearchExtension(extensionState.extensions)?.id;
     }
 
     final isEnabledExtensionProvider =

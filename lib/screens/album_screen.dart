@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/widgets/collection_scaffold.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:spotiflac_android/services/cover_cache_manager.dart';
@@ -12,6 +13,7 @@ import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/utils/cover_art_utils.dart';
 import 'package:spotiflac_android/screens/collapsing_header_scroll_mixin.dart';
+import 'package:spotiflac_android/screens/selection_mode_mixin.dart';
 import 'package:spotiflac_android/widgets/error_card.dart';
 import 'package:spotiflac_android/widgets/album_detail_header.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
@@ -26,6 +28,8 @@ import 'package:spotiflac_android/widgets/cross_extension_share_sheet.dart';
 import 'package:spotiflac_android/widgets/track_list_tile.dart';
 import 'package:spotiflac_android/widgets/motion_header_banner.dart';
 import 'package:spotiflac_android/widgets/track_detail_actions.dart';
+import 'package:spotiflac_android/widgets/selection_action_button.dart';
+import 'package:spotiflac_android/widgets/selection_bottom_bar.dart';
 
 class _AlbumCache {
   static final _cache = TtlCache<List<Track>>(const Duration(minutes: 10));
@@ -67,7 +71,9 @@ class AlbumScreen extends ConsumerStatefulWidget {
 }
 
 class _AlbumScreenState extends ConsumerState<AlbumScreen>
-    with CollapsingHeaderScrollMixin<AlbumScreen> {
+    with
+        SelectionModeMixin<AlbumScreen>,
+        CollapsingHeaderScrollMixin<AlbumScreen> {
   List<Track>? _tracks;
   bool _isLoading = false;
   String? _error;
@@ -126,7 +132,10 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
   }
 
   Future<void> _fetchTracks() async {
-    setState(() => _isLoading = true);
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
     try {
       final directProviderId = _directMetadataProviderId();
       if (directProviderId != null) {
@@ -157,7 +166,7 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
     } catch (e) {
       if (mounted) {
         setState(() {
-          _error = e.toString();
+          _error = context.friendlyError(e);
           _isLoading = false;
         });
       }
@@ -216,6 +225,7 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
         _audioTraits = (audioTraits != null && audioTraits.isNotEmpty)
             ? audioTraits
             : _audioTraits;
+        _error = null;
         _isLoading = false;
       });
     }
@@ -321,34 +331,50 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
     final tracks = _tracks ?? [];
     final pageBackgroundColor = colorScheme.surface;
     final bottomInset = context.navBarBottomInset;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
 
-    return Scaffold(
+    pruneSelection({
+      for (var index = 0; index < tracks.length; index++)
+        _trackSelectionId(tracks[index], index),
+    });
+
+    return CollectionScaffold(
+      scrollController: scrollController,
+      isSelectionMode: isSelectionMode,
+      onExitSelectionMode: exitSelectionMode,
       backgroundColor: pageBackgroundColor,
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          _buildAppBar(context, colorScheme, pageBackgroundColor),
-          if (_isLoading)
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: AlbumTrackListSkeleton(itemCount: 10),
-              ),
-            ),
-          if (_error != null)
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: ErrorCard(error: _error!, colorScheme: colorScheme),
-              ),
-            ),
-          if (!_isLoading && _error == null && tracks.isNotEmpty) ...[
-            _buildTrackList(context, colorScheme, tracks),
-            _buildAlbumFooter(context, colorScheme, tracks),
-          ],
-          SliverToBoxAdapter(child: SizedBox(height: 32 + bottomInset)),
-        ],
+      bottomInset: bottomInset,
+      selectionBar: _buildSelectionBottomBar(
+        context,
+        colorScheme,
+        tracks,
+        bottomPadding,
       ),
+      appBar: _buildAppBar(context, colorScheme, pageBackgroundColor),
+      slivers: [
+        if (_isLoading)
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: AlbumTrackListSkeleton(itemCount: 10),
+            ),
+          ),
+        if (_error != null)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ErrorCard(
+                error: _error!,
+                colorScheme: colorScheme,
+                onRetry: _fetchTracks,
+              ),
+            ),
+          ),
+        if (!_isLoading && _error == null && tracks.isNotEmpty) ...[
+          _buildTrackList(context, colorScheme, tracks),
+          _buildAlbumFooter(context, colorScheme, tracks),
+        ],
+      ],
     );
   }
 
@@ -404,6 +430,7 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
       showTitleInAppBar: showTitleInAppBar,
       backgroundColor: pageBackgroundColor,
       background: background,
+      paletteSource: coverThumbUrl,
       blurAndScrimBackground: showSquareCover,
       coverBuilder: showSquareCover
           ? (context, coverSize) => coverThumbUrl != null
@@ -451,53 +478,51 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
             )
           : null,
       meta: _buildHeaderMeta(context, releaseDate),
-      actions: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildLoveAllButton(),
-          const SizedBox(width: 12),
-          Flexible(
-            child: FilledButton.icon(
-              onPressed: tracks.isEmpty ? null : () => _downloadAll(context),
-              icon: const Icon(Icons.download, size: 18),
-              label: Text(
-                context.l10n.downloadAllCount(tracks.length),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+      actions: isSelectionMode
+          ? null
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildLoveAllButton(),
+                const SizedBox(width: 12),
+                Flexible(
+                  child: HeaderFilledButton(
+                    icon: Icons.download,
+                    label: context.l10n.downloadAllCount(tracks.length),
+                    onPressed: tracks.isEmpty
+                        ? null
+                        : () => _downloadAll(context),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                _buildAddToPlaylistButton(context),
+              ],
+            ),
+      appBarTitle: isSelectionMode
+          ? context.l10n.selectionSelected(selectedIds.length)
+          : null,
+      leading: isSelectionMode
+          ? Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: HeaderCircleButton(
+                icon: Icons.close,
+                tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+                onPressed: exitSelectionMode,
               ),
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black87,
-                disabledBackgroundColor: Colors.white.withValues(alpha: 0.45),
-                disabledForegroundColor: Colors.black54,
-                minimumSize: const Size(0, 48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
+            )
+          : null,
+      appBarActions: isSelectionMode
+          ? const []
+          : [
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: HeaderCircleButton(
+                  icon: Icons.open_in_new_rounded,
+                  tooltip: context.l10n.openInOtherServices,
+                  onPressed: () => _showShareSheet(context, tracks, artistName),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          _buildAddToPlaylistButton(context),
-        ],
-      ),
-      appBarActions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: IconButton(
-            tooltip: context.l10n.openInOtherServices,
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.4),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.open_in_new_rounded, color: Colors.white),
-            ),
-            onPressed: () => _showShareSheet(context, tracks, artistName),
-          ),
-        ),
-      ],
+            ],
     );
   }
 
@@ -527,18 +552,28 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
           final track = tracks[index];
+          final selectionId = _trackSelectionId(track, index);
           final isInHistory = existingHistoryKeys.contains(
             historyLookups[index].lookupKey,
           );
           return KeyedSubtree(
-            key: ValueKey(track.id),
+            key: ValueKey(selectionId),
             child: StaggeredListItem(
               index: index,
               child: TrackListTile(
                 track: track,
                 isInHistory: isInHistory,
-                onDownload: () => _downloadTrack(context, track),
+                onDownload: ({bool forceQualityPicker = false}) =>
+                    _downloadTrack(
+                      context,
+                      track,
+                      forceQualityPicker: forceQualityPicker,
+                    ),
                 clickableArtist: true,
+                isSelectionMode: isSelectionMode,
+                isSelected: selectedIds.contains(selectionId),
+                onToggleSelection: () => toggleSelection(selectionId),
+                onEnterSelectionMode: () => enterSelectionMode(selectionId),
                 leading: SizedBox(
                   width: 32,
                   child: Center(
@@ -559,12 +594,85 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
     );
   }
 
-  void _downloadTrack(BuildContext context, Track track) {
+  String _trackSelectionId(Track track, int index) =>
+      '$index|${track.discNumber ?? 0}|${track.trackNumber ?? 0}|'
+      '${track.id}|${track.name}';
+
+  List<Track> _selectedTracks(List<Track> tracks) => [
+    for (var index = 0; index < tracks.length; index++)
+      if (selectedIds.contains(_trackSelectionId(tracks[index], index)))
+        tracks[index],
+  ];
+
+  Widget _buildSelectionBottomBar(
+    BuildContext barContext,
+    ColorScheme colorScheme,
+    List<Track> tracks,
+    double bottomPadding,
+  ) {
+    final selectedCount = selectedIds.length;
+    final allSelected = tracks.isNotEmpty && selectedCount == tracks.length;
+
+    return SelectionBottomBar(
+      selectedCount: selectedCount,
+      allSelected: allSelected,
+      onClose: exitSelectionMode,
+      onToggleSelectAll: () {
+        if (allSelected) {
+          exitSelectionMode();
+        } else {
+          selectAll([
+            for (var index = 0; index < tracks.length; index++)
+              _trackSelectionId(tracks[index], index),
+          ]);
+        }
+      },
+      bottomPadding: bottomPadding,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: SelectionActionButton(
+            icon: Icons.download_rounded,
+            label: '${barContext.l10n.dialogDownload} ($selectedCount)',
+            onPressed: selectedCount == 0
+                ? null
+                : () => _downloadSelected(context, tracks),
+            colorScheme: colorScheme,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _downloadSelected(
+    BuildContext context,
+    List<Track> tracks,
+  ) async {
+    final selectedTracks = _selectedTracks(tracks);
+    if (selectedTracks.isEmpty) return;
+
+    await queueTracksSkippingDownloaded(
+      context,
+      ref,
+      selectedTracks,
+      artistNameForPicker: widget.albumName,
+      recommendedService: _recommendedDownloadService(),
+      forceQualityPicker: true,
+      onQueued: exitSelectionMode,
+    );
+  }
+
+  void _downloadTrack(
+    BuildContext context,
+    Track track, {
+    bool forceQualityPicker = false,
+  }) {
     downloadSingleTrack(
       context,
       ref,
       track,
       recommendedService: _recommendedDownloadService(),
+      forceQualityPicker: forceQualityPicker,
     );
   }
 
@@ -590,7 +698,7 @@ class _AlbumScreenState extends ConsumerState<AlbumScreen>
 
     return HeaderCircleButton(
       icon: allLoved ? Icons.favorite : Icons.favorite_border,
-      iconColor: allLoved ? Colors.redAccent : Colors.white,
+      iconColor: allLoved ? Theme.of(context).colorScheme.error : null,
       tooltip: allLoved
           ? context.l10n.trackOptionRemoveFromLoved
           : context.l10n.tooltipLoveAll,

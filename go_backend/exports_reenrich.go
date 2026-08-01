@@ -43,6 +43,10 @@ type reEnrichRequest struct {
 	DurationMs    int64    `json:"duration_ms"`
 	SearchOnline  bool     `json:"search_online"`
 	UpdateFields  []string `json:"update_fields,omitempty"`
+	// ReplaceReleaseMetadata lets a deliberate single-file re-enrich action
+	// repair a stale album identity (for example, a playlist name stored as
+	// ALBUM). Batch and older callers keep the conservative mismatch guard.
+	ReplaceReleaseMetadata bool `json:"replace_release_metadata,omitempty"`
 }
 
 // shouldUpdateField returns true if the given field group should be updated.
@@ -92,9 +96,13 @@ func applyReEnrichTrackMetadata(req *reEnrichRequest, track ExtTrackMetadata) {
 		return
 	}
 
-	sameRelease := reEnrichSameRelease(req.AlbumName, track.AlbumName)
+	albumMatches := reEnrichSameRelease(req.AlbumName, track.AlbumName)
+	sameRelease := req.ReplaceReleaseMetadata || albumMatches
 	if !sameRelease {
 		GoLog("[ReEnrich] Candidate album %q differs from file album %q; keeping release identity (album, cover, positions, date)\n",
+			track.AlbumName, req.AlbumName)
+	} else if req.ReplaceReleaseMetadata && !albumMatches {
+		GoLog("[ReEnrich] Candidate album %q differs from file album %q; replacing release identity as requested\n",
 			track.AlbumName, req.AlbumName)
 	}
 

@@ -32,6 +32,123 @@ extension _DownloadQueuePaths on DownloadQueueNotifier {
     return musicDir;
   }
 
+  Future<Directory?> _ensureAndroidAppSpecificOutputDir() async {
+    final externalDir = await getExternalStorageDirectory();
+    if (externalDir == null) return null;
+    final outputDir = Directory(
+      '${externalDir.path}${Platform.pathSeparator}$_defaultOutputFolderName',
+    );
+    if (!await outputDir.exists()) {
+      await outputDir.create(recursive: true);
+    }
+    return outputDir;
+  }
+
+  bool _pathIsInside(String path, String directory) {
+    String normalize(String value) =>
+        value.replaceAll('\\', '/').replaceAll(RegExp(r'/+$'), '');
+    final normalizedPath = normalize(path);
+    final normalizedDirectory = normalize(directory);
+    return normalizedPath == normalizedDirectory ||
+        normalizedPath.startsWith('$normalizedDirectory/');
+  }
+
+  Future<bool> _isDirectoryWritable(Directory directory) async {
+    File? probe;
+    try {
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+      probe = File(
+        '${directory.path}${Platform.pathSeparator}'
+        '.spotiflac-write-${DateTime.now().microsecondsSinceEpoch}',
+      );
+      await probe.writeAsBytes(const [0], flush: true);
+      return await probe.exists();
+    } catch (_) {
+      return false;
+    } finally {
+      if (probe != null) {
+        try {
+          if (await probe.exists()) await probe.delete();
+        } catch (_) {}
+      }
+    }
+  }
+
+  Future<Directory> _findWritableAppFolder({String? failedOutputDir}) async {
+    final candidates = <Future<Directory?> Function()>[
+      if (Platform.isAndroid) _ensureDefaultAndroidMusicOutputDir,
+      if (Platform.isAndroid) _ensureAndroidAppSpecificOutputDir,
+      () async => _ensureDefaultDocumentsOutputDir(),
+    ];
+
+    for (final resolveCandidate in candidates) {
+      try {
+        final candidate = await resolveCandidate();
+        if (candidate == null) continue;
+        if (_rejectedAppFolderRoots.contains(candidate.path)) continue;
+        if (failedOutputDir != null &&
+            failedOutputDir.isNotEmpty &&
+            _pathIsInside(failedOutputDir, candidate.path)) {
+          _rejectedAppFolderRoots.add(candidate.path);
+          continue;
+        }
+        if (await _isDirectoryWritable(candidate)) return candidate;
+      } catch (e) {
+        _log.w('App-folder fallback candidate is not writable: $e');
+      }
+    }
+
+    throw const FileSystemException(
+      'No writable app-managed download folder is available',
+    );
+  }
+
+  /// Switches future requests to a verified writable app-managed directory.
+  /// Concurrent SAF failures share one resolution so an album download does
+  /// not run several write probes or race settings updates.
+  Future<String> _activateAppFolderStorageFallback({
+    String? failedOutputDir,
+  }) async {
+    final existing = _appFolderStorageFallback;
+    if (existing != null) {
+      final existingPath = await existing;
+      if (failedOutputDir == null ||
+          failedOutputDir.isEmpty ||
+          !_pathIsInside(failedOutputDir, existingPath)) {
+        return existingPath;
+      }
+      _rejectedAppFolderRoots.add(existingPath);
+      _appFolderStorageFallback = null;
+    }
+
+    final fallback = () async {
+      final directory = await _findWritableAppFolder(
+        failedOutputDir: failedOutputDir,
+      );
+      state = state.copyWith(outputDir: directory.path);
+      _ensuredDirs.add(directory.path);
+      await ref
+          .read(settingsProvider.notifier)
+          .useAppFolderStorage(directory.path);
+      _log.w(
+        'Storage access failed; switched downloads to app folder: '
+        '${directory.path}',
+      );
+      return directory.path;
+    }();
+    _appFolderStorageFallback = fallback;
+    try {
+      return await fallback;
+    } catch (_) {
+      if (identical(_appFolderStorageFallback, fallback)) {
+        _appFolderStorageFallback = null;
+      }
+      rethrow;
+    }
+  }
+
   Future<void> _initOutputDir() async {
     if (state.outputDir.isEmpty) {
       try {
@@ -205,6 +322,34 @@ extension _DownloadQueuePaths on DownloadQueueNotifier {
         .where((part) => part.isNotEmpty && part != '.' && part != '..')
         .toList(growable: false);
     return parts.join('/');
+  }
+
+  /// Renders the SAF file name for [item]: filename template → sanitized,
+  /// byte-limited SAF name (quality-variant aware).
+  Future<String> _buildSafFileNameForItem(
+    DownloadItem item,
+    Track track, {
+    required String filenameFormat,
+    required String quality,
+    required String outputExt,
+  }) async {
+    final qualityVariant = item.preserveQualityVariant
+        ? qualityVariantStagingLabel(item.id)
+        : '';
+    final baseName = await PlatformBridge.buildFilename(
+      filenameFormat,
+      _filenameMetadataForTrack(
+        track,
+        quality: quality,
+        qualityVariant: qualityVariant,
+        playlistPosition: _validPlaylistPosition(item),
+      ),
+    );
+    return _buildSafFileName(
+      baseName,
+      outputExt,
+      qualityVariant: qualityVariant,
+    );
   }
 
   Future<String> _buildSafFileName(

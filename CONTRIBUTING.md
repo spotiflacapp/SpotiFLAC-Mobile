@@ -1,289 +1,167 @@
-# Contributing to SpotiFLAC
+# Contributing to SpotiFLAC Mobile
 
-First off, thank you for considering contributing to SpotiFLAC! 🎉
+Thank you for helping improve SpotiFLAC Mobile. Bug reports, focused pull
+requests, documentation, and translations are all welcome.
 
-This document provides guidelines and steps for contributing. Following these guidelines helps maintain code quality and ensures a smooth collaboration process.
+Please follow the [Code of Conduct](CODE_OF_CONDUCT.md) when participating in
+the project.
 
-## Table of Contents
+## Before You Start
 
-- [Code of Conduct](#code-of-conduct)
-- [How Can I Contribute?](#how-can-i-contribute)
-  - [Reporting Bugs](#reporting-bugs)
-  - [Suggesting Features](#suggesting-features)
-  - [Code Contributions](#code-contributions)
-  - [Translations](#translations)
-- [Development Setup](#development-setup)
-- [Project Structure](#project-structure)
-- [Coding Guidelines](#coding-guidelines)
-- [Commit Guidelines](#commit-guidelines)
-- [Pull Request Process](#pull-request-process)
+- Search the [existing issues](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues)
+  before opening a new one.
+- Use the issue template that best matches the problem.
+- Keep pull requests focused. Separate unrelated fixes into separate PRs.
+- Never commit credentials, signing files, downloaded media, or generated build
+  artifacts.
 
-## Code of Conduct
+Translations are managed through the
+[SpotiFLAC Mobile Crowdin project](https://crowdin.com/project/spotiflac-mobile).
+The English source strings live in `lib/l10n/arb/app_en.arb`.
 
-This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainers.
+## Toolchain
 
-## How Can I Contribute?
+The repository is the source of truth for tool versions:
 
-### Reporting Bugs
+- Flutter: `.fvmrc`
+- Dart: bundled with the pinned Flutter SDK
+- Go: `go_backend/go.mod`
+- Android SDK, NDK, and Java: `.github/workflows/ci.yml`
+- Xcode: required only for iOS builds
 
-Before creating bug reports, please check the [existing issues](https://github.com/zarzet/SpotiFLAC-Mobile/issues) to avoid duplicates.
-
-When creating a bug report, please use the bug report template and include:
-
-- **Clear and descriptive title**
-- **Steps to reproduce** the issue
-- **Expected behavior** vs **actual behavior**
-- **Screenshots or screen recordings** if applicable
-- **Device information** (model, OS version)
-- **App version**
-- **Logs** from Settings > About > View Logs
-
-### Suggesting Features
-
-Feature requests are welcome! Please use the feature request template and:
-
-- **Check existing issues** to avoid duplicates
-- **Describe the feature** clearly
-- **Explain the use case** - why would this be useful?
-- **Consider the scope** - is this a small enhancement or a major feature?
-
-### Code Contributions
-
-1. **Fork the repository** and create your branch from `main`
-2. **Make your changes** following our coding guidelines
-3. **Test your changes** thoroughly
-4. **Submit a pull request** to the `main` branch
-
-### Translations
-
-We use [Crowdin](https://crowdin.com/project/spotiflac-mobile) for translations. To contribute:
-
-1. Visit our [Crowdin project](https://crowdin.com/project/spotiflac-mobile)
-2. Select your language or request a new one
-3. Start translating!
-
-Translation files are located in `lib/l10n/arb/`.
+[FVM](https://fvm.app/) is recommended. If you do not use FVM, install the
+exact Flutter version declared in `.fvmrc` and replace `fvm flutter` with
+`flutter` (and `fvm dart` with `dart`) in the commands below.
 
 ## Development Setup
 
-### Prerequisites
+1. Fork and clone the repository:
 
-- **Flutter SDK** 3.10.0 or higher
-- **Dart SDK** 3.10.0 or higher
-- **Android Studio** or **VS Code** with Flutter extensions
-- **Git**
-
-### Getting Started
-
-1. **Clone your fork**
    ```bash
    git clone https://github.com/YOUR_USERNAME/SpotiFLAC-Mobile.git
    cd SpotiFLAC-Mobile
-   ```
-
-2. **Add upstream remote**
-   ```bash
    git remote add upstream https://github.com/spotiflacapp/SpotiFLAC-Mobile.git
    ```
 
-3. **Use FVM (Flutter Version: 3.41.5)**
+2. Install the pinned Flutter SDK and Dart dependencies:
+
    ```bash
-   fvm use
+   fvm install
+   fvm flutter pub get
    ```
 
-4. **Install dependencies**
-   ```bash
-   flutter pub get
-   ```
-
-5. **Generate code** (for Riverpod, JSON serialization, etc.)
-   ```bash
-   dart run build_runner build --delete-conflicting-outputs
-   ```
-
-6. **Set up Go environment (Go Version: 1.25.9)**
-
-   Building the Go backend for Android requires the **Android NDK** (r29 is what CI uses). Make sure `ANDROID_NDK_HOME` points to it and `CGO_ENABLED=1`.
+3. Build the Go backend for Android. `ANDROID_NDK_HOME` must point to the NDK
+   version used by CI and `CGO_ENABLED` must be enabled.
 
    ```bash
-   go install golang.org/x/mobile/cmd/gomobile@latest
-   gomobile init
    cd go_backend
+   go mod download
+   go install golang.org/x/mobile/cmd/gomobile
+   gomobile init
    mkdir -p ../android/app/libs
-   gomobile bind -target=android -androidapi 24 -o ../android/app/libs/gobackend.aar .
+   gomobile bind \
+     -target=android/arm,android/arm64 \
+     -androidapi 24 \
+     -o ../android/app/libs/gobackend.aar \
+     .
    cd ..
    ```
 
-7. **Run the app**
+   Running `go install` from `go_backend/` uses the `x/mobile` version pinned by
+   `go.mod`. Do not replace it with `@latest` in project scripts.
+
+4. Run the app:
+
    ```bash
-   flutter run
+   fvm flutter run
    ```
 
-### Building
+For iOS, run `scripts/build_ios.sh` on macOS before opening
+`ios/Runner.xcworkspace`.
+
+## Project Boundaries
+
+```text
+lib/          Flutter UI, state, models, and platform orchestration
+go_backend/   Download pipeline, extension runtime, and shared backend logic
+android/      Android platform bridge and foreground worker
+ios/          iOS platform bridge and application project
+test/         Flutter unit and widget tests
+assets/       Images, fonts, and bundled resources
+docs/         Contributor-facing technical contracts
+scripts/      Reproducible project build helpers
+```
+
+SpotiFLAC Mobile is extension-driven. Extension-specific behavior must be
+declared through a generic manifest field, capability, or reusable app API.
+Do not add provider-name checks such as `if source == 'provider-name'` to the
+main app. The Go backend should parse and expose the generic declaration, and
+Dart should consume that declaration without knowing which extension uses it.
+
+## Generated Files
+
+- After changing ARB files, run `fvm flutter gen-l10n` and commit the resulting
+  localization sources.
+- Run `fvm dart run build_runner build --delete-conflicting-outputs` only when a
+  model or generator input changes, then commit the relevant generated source.
+- Do not commit `build/`, `.dart_tool/`, AAR/XCFramework output, IDE state, or
+  local research directories.
+
+## Validation
+
+Run checks that cover the code you changed. Before opening a PR, the relevant
+commands should pass.
+
+Flutter and Dart:
 
 ```bash
-# Debug build
-flutter build apk --debug
-
-# Release build
-flutter build apk --release
+fvm dart format --output=none --set-exit-if-changed lib test
+fvm flutter analyze
+fvm flutter test
 ```
 
-## Project Structure
-
-```
-lib/
-├── l10n/               # Localization files
-│   └── arb/            # ARB translation files
-├── models/             # Data models
-├── providers/          # Riverpod providers
-├── screens/            # UI screens
-│   └── settings/       # Settings sub-screens
-├── services/           # Business logic services
-├── theme/              # App theming
-├── utils/              # Utility functions
-├── widgets/            # Reusable widgets
-├── app.dart            # App configuration
-└── main.dart           # Entry point
-```
-
-## Coding Guidelines
-
-### General
-
-- Follow [Effective Dart](https://dart.dev/effective-dart) guidelines
-- Use meaningful variable and function names
-- Keep functions small and focused
-- Add comments for complex logic
-
-### Formatting
-
-- Use `dart format` before committing
-- Maximum line length: 80 characters
-- Use trailing commas for better formatting
+Go backend:
 
 ```bash
-dart format .
+cd go_backend
+gofmt -w .
+go vet ./...
+go test ./...
 ```
 
-### Linting
-
-Ensure your code passes all lints:
+Android native code, after building `gobackend.aar`:
 
 ```bash
-flutter analyze
+cd android
+./gradlew :app:compileDebugKotlin :app:testDebugUnitTest
 ```
 
-### State Management
+For user-facing changes, add or update tests where practical and include
+before/after screenshots for UI changes.
 
-We use **Riverpod** for state management, with hand-written `Notifier`s
-(no `riverpod_annotation` code generation). Follow this pattern:
+## Code and Commit Style
 
-```dart
-class MyNotifier extends Notifier<MyState> {
-  @override
-  MyState build() => MyState();
+- Follow `analysis_options.yaml`, `.editorconfig`, and existing module patterns.
+- Keep user-facing strings in the localization files.
+- Prefer small functions and explicit error handling at platform boundaries.
+- Use [Conventional Commits](https://www.conventionalcommits.org/), for example:
 
-  // Methods to update state
-}
+  ```text
+  feat(download): add batch selection
+  fix(storage): handle revoked folder access
+  docs(contributing): refresh Android setup
+  ```
 
-final myProvider = NotifierProvider<MyNotifier, MyState>(MyNotifier.new);
-```
+## Pull Requests
 
-### Localization
+1. Create a branch from an up-to-date `main`.
+2. Make one focused change and include tests or verification evidence.
+3. Complete the pull request template, including any checks that were not run
+   and why.
+4. Link related issues with `Fixes #123` where appropriate.
+5. Respond to review feedback with follow-up commits; maintainers may squash
+   commits when merging.
 
-All user-facing strings should be localized:
-
-```dart
-// Good
-Text(AppLocalizations.of(context)!.downloadComplete)
-
-// Bad
-Text('Download Complete')
-```
-
-To add new strings:
-1. Add the key to `lib/l10n/arb/app_en.arb`
-2. Run `flutter gen-l10n`
-
-## Commit Guidelines
-
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-### Types
-
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `perf`: Performance improvements
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
-
-### Examples
-
-```
-feat(download): add batch download support
-fix(ui): resolve overflow on small screens
-docs: update contributing guidelines
-chore(deps): update flutter_riverpod to 3.1.0
-```
-
-## Pull Request Process
-
-1. **Update your fork**
-   ```bash
-   git fetch upstream
-   git rebase upstream/main
-   ```
-
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feat/my-new-feature
-   ```
-
-3. **Make your changes** and commit following our guidelines
-
-4. **Push to your fork**
-   ```bash
-   git push origin feat/my-new-feature
-   ```
-
-5. **Create a Pull Request**
-   - Target the `main` branch
-   - Fill in the PR template
-   - Link related issues
-
-6. **Address review feedback**
-   - Make requested changes
-   - Push additional commits
-   - Request re-review when ready
-
-### PR Requirements
-
-- [ ] Code follows project conventions
-- [ ] All tests pass
-- [ ] No new linting errors
-- [ ] Documentation updated (if needed)
-- [ ] Commit messages follow guidelines
-- [ ] PR description is clear and complete
-
-CI runs `flutter analyze`, `flutter test`, `go vet`, and `go test` on every pull request — make sure they pass locally before pushing.
-
-## Questions?
-
-If you have questions, feel free to:
-
-- Open a [Discussion](https://github.com/spotiflacapp/SpotiFLAC-Mobile/discussions)
-- Check existing [Issues](https://github.com/spotiflacapp/SpotiFLAC-Mobile/issues)
-
-Thank you for contributing! 💚
+When reporting a crash, include the SpotiFLAC Mobile version, release channel,
+device/OS, exact reproduction steps, storage mode, and exported app logs. For a
+cold-start Android crash, `adb logcat -b crash -d` is especially useful.

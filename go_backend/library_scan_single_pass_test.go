@@ -72,6 +72,33 @@ func TestScanFLACSinglePassReadsMetadataQualityAndCover(t *testing.T) {
 	}
 }
 
+func TestScanFLACPersistsAverageBitrate(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "bitrate.flac")
+	writeSinglePassTestFlac(t, path, nil)
+
+	f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := f.Write(make([]byte, 2_000_000)); err != nil {
+		f.Close()
+		t.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		t.Fatal(err)
+	}
+
+	result := &LibraryScanResult{FilePath: path, Format: "flac"}
+	result, err = scanFLACFile(path, result, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.Bitrate < 1_590 || result.Bitrate > 1_610 {
+		t.Fatalf("average bitrate = %d kbps", result.Bitrate)
+	}
+}
+
 func TestScanM4ASingleOpenReadsMetadataAndCover(t *testing.T) {
 	dir := t.TempDir()
 	path := filepath.Join(dir, "track.m4a")

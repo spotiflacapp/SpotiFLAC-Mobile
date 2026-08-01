@@ -6,7 +6,7 @@ import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/providers/theme_provider.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class AppearanceSettingsPage extends ConsumerWidget {
   const AppearanceSettingsPage({super.key});
@@ -21,7 +21,7 @@ class AppearanceSettingsPage extends ConsumerWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(title: context.l10n.appearanceTitle),
+            AppSliverHeader.page(title: context.l10n.appearanceTitle),
 
             SliverToBoxAdapter(
               child: Padding(
@@ -101,6 +101,15 @@ class AppearanceSettingsPage extends ConsumerWidget {
                     onChanged: (value) => ref
                         .read(settingsProvider.notifier)
                         .setHeroAnimationsEnabled(value),
+                  ),
+                  SettingsSwitchItem(
+                    icon: Icons.blur_on,
+                    title: context.l10n.appearanceForceBlur,
+                    subtitle: context.l10n.appearanceForceBlurSubtitle,
+                    value: settings.forceBackdropBlur,
+                    onChanged: (value) => ref
+                        .read(settingsProvider.notifier)
+                        .setForceBackdropBlur(value),
                     showDivider: false,
                   ),
                 ],
@@ -447,105 +456,33 @@ class _ThemeModeSelector extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: Row(
         children: [
-          _ThemeModeChip(
+          SettingsChoiceChip(
+            expand: true,
+            layout: SettingsChipLayout.column,
             icon: Icons.brightness_auto,
             label: context.l10n.appearanceThemeSystem,
             isSelected: currentMode == ThemeMode.system,
             onTap: () => onChanged(ThemeMode.system),
           ),
           const SizedBox(width: 8),
-          _ThemeModeChip(
+          SettingsChoiceChip(
+            expand: true,
+            layout: SettingsChipLayout.column,
             icon: Icons.light_mode,
             label: context.l10n.appearanceThemeLight,
             isSelected: currentMode == ThemeMode.light,
             onTap: () => onChanged(ThemeMode.light),
           ),
           const SizedBox(width: 8),
-          _ThemeModeChip(
+          SettingsChoiceChip(
+            expand: true,
+            layout: SettingsChipLayout.column,
             icon: Icons.dark_mode,
             label: context.l10n.appearanceThemeDark,
             isSelected: currentMode == ThemeMode.dark,
             onTap: () => onChanged(ThemeMode.dark),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ThemeModeChip extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-  const _ThemeModeChip({
-    required this.icon,
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final unselectedColor = isDark
-        ? Color.alphaBlend(
-            Colors.white.withValues(alpha: 0.05),
-            colorScheme.surface,
-          )
-        : Color.alphaBlend(
-            Colors.black.withValues(alpha: 0.05),
-            colorScheme.surfaceContainerHighest,
-          );
-
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primaryContainer : unselectedColor,
-          borderRadius: BorderRadius.circular(12),
-          border: !isDark && !isSelected
-              ? Border.all(
-                  color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-                  width: 1,
-                )
-              : null,
-        ),
-        child: Material(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(12),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              child: Column(
-                children: [
-                  Icon(
-                    icon,
-                    color: isSelected
-                        ? colorScheme.onPrimaryContainer
-                        : colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                      color: isSelected
-                          ? colorScheme.onPrimaryContainer
-                          : colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -562,7 +499,7 @@ class _HistoryViewSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Padding(
+    final content = Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -578,14 +515,18 @@ class _HistoryViewSelector extends StatelessWidget {
           ),
           Row(
             children: [
-              _ViewModeChip(
+              SettingsChoiceChip(
+                expand: true,
+                layout: SettingsChipLayout.column,
                 icon: Icons.view_list,
                 label: context.l10n.appearanceHistoryViewList,
                 isSelected: currentMode == 'list',
                 onTap: () => onChanged('list'),
               ),
               const SizedBox(width: 8),
-              _ViewModeChip(
+              SettingsChoiceChip(
+                expand: true,
+                layout: SettingsChipLayout.column,
                 icon: Icons.grid_view,
                 label: context.l10n.appearanceHistoryViewGrid,
                 isSelected: currentMode == 'grid',
@@ -596,83 +537,9 @@ class _HistoryViewSelector extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _ViewModeChip extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-  const _ViewModeChip({
-    required this.icon,
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final unselectedColor = isDark
-        ? Color.alphaBlend(
-            Colors.white.withValues(alpha: 0.05),
-            colorScheme.surface,
-          )
-        : Color.alphaBlend(
-            Colors.black.withValues(alpha: 0.05),
-            colorScheme.surfaceContainerHighest,
-          );
-
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primaryContainer : unselectedColor,
-          borderRadius: BorderRadius.circular(12),
-          border: !isDark && !isSelected
-              ? Border.all(
-                  color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-                  width: 1,
-                )
-              : null,
-        ),
-        child: Material(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(12),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              child: Column(
-                children: [
-                  Icon(
-                    icon,
-                    color: isSelected
-                        ? colorScheme.onPrimaryContainer
-                        : colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                      color: isSelected
-                          ? colorScheme.onPrimaryContainer
-                          : colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+    return SettingsSearchTarget(
+      label: context.l10n.appearanceHistoryView,
+      child: content,
     );
   }
 }
@@ -693,18 +560,13 @@ class _LanguageSelector extends StatelessWidget {
     ('es', 'Español', Icons.language),
     ('es_ES', 'Español (España)', Icons.language),
     ('fr', 'Français', Icons.language),
-    ('hi', 'हिन्दी', Icons.language),
     ('ja', '日本語', Icons.language),
     ('ko', '한국어', Icons.language),
-    ('nl', 'Nederlands', Icons.language),
     ('pt', 'Português', Icons.language),
     ('pt_PT', 'Português (Brasil)', Icons.language),
     ('ru', 'Русский', Icons.language),
     ('tr', 'Türkçe', Icons.language),
     ('uk', 'Українська', Icons.language),
-    ('zh', '简体中文', Icons.language),
-    ('zh_CN', '简体中文 (中国)', Icons.language),
-    ('zh_TW', '繁體中文', Icons.language),
   ];
 
   /// Uses filteredLocaleCodes from supported_locales.dart (generated file).
@@ -725,12 +587,16 @@ class _LanguageSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return ListTile(
+    final content = ListTile(
       leading: Icon(Icons.language, color: colorScheme.onSurfaceVariant),
       title: Text(context.l10n.appearanceLanguage),
       subtitle: Text(_getLanguageName(currentLocale)),
       trailing: Icon(Icons.chevron_right, color: colorScheme.onSurfaceVariant),
       onTap: () => _showLanguagePicker(context),
+    );
+    return SettingsSearchTarget(
+      label: context.l10n.appearanceLanguage,
+      child: content,
     );
   }
 
@@ -740,9 +606,6 @@ class _LanguageSelector extends StatelessWidget {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
       builder: (context) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,

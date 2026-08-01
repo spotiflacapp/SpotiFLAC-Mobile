@@ -50,7 +50,7 @@ body:
       options:
         - UI/UX Improvement
         - Download Feature
-        - New Service Integration
+        - Extension System/API
         - Metadata/Tagging
         - Performance
         - Settings/Configuration

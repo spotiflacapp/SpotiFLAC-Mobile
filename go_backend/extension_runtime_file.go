@@ -129,6 +129,7 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 	var onProgress goja.Callable
 	var headers map[string]string
 	var chunkedDownload bool
+	var resumeDownload bool
 	trackItemBytes := true
 	var chunkSize int64
 	if len(call.Arguments) > 2 && !goja.IsUndefined(call.Arguments[2]) && !goja.IsNull(call.Arguments[2]) {
@@ -168,6 +169,11 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 						chunkedDownload = true
 						chunkSize = int64(v)
 					}
+				}
+			}
+			if resume, ok := opts["resume"]; ok {
+				if v, ok := resume.(bool); ok {
+					resumeDownload = v
 				}
 			}
 		}
@@ -286,6 +292,7 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 	}
 
 	var written int64
+	var lastProgressNotify int64
 	buf := make([]byte, 32*1024)
 
 	// copyBody streams resp into progressWriter. fatal is a terminal JS error
@@ -315,7 +322,11 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 					return r.jsError("short write"), nil
 				}
 
-				if onProgress != nil && contentLength > 0 {
+				// Throttle the JS callback like the native progress writer:
+				// per-read invocation is interpreter work inside the copy loop.
+				if onProgress != nil && contentLength > 0 &&
+					(written-lastProgressNotify >= progressUpdateThreshold || written >= contentLength) {
+					lastProgressNotify = written
 					_, _ = onProgress(goja.Undefined(), r.vm.ToValue(written), r.vm.ToValue(contentLength))
 				}
 			}
@@ -328,14 +339,14 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 		}
 	}
 
-	// Mid-body network failures resume from the current offset instead of
-	// failing the whole download. Only attempted when the server gave a
-	// validator (If-Range guards against splicing two versions of the file)
-	// and the caller did not set its own Range. A server that ignores Range
-	// answers 200 and the download restarts from zero — same as today.
+	// Mid-body resume is opt-in because switching networks can route a stable
+	// URL to a different CDN object even when its validator is unchanged. The
+	// safe default is to fail and delete the staged partial file. Extensions
+	// that know their origin supports byte-identical Range resumes can request
+	// it explicitly with { resume: true }.
 	validator := resumeValidator(resp.Header)
 	_, callerSetRange := headers["Range"]
-	canResume := validator != "" && !callerSetRange
+	canResume := resumeDownload && validator != "" && !callerSetRange
 
 	const maxResumes = 3
 	resumes := 0
@@ -401,7 +412,7 @@ func (r *extensionRuntime) fileDownload(call goja.FunctionCall) goja.Value {
 				}
 			}
 			validator = resumeValidator(resp.Header)
-			canResume = validator != ""
+			canResume = resumeDownload && validator != ""
 		default:
 			code := resp.StatusCode
 			resp.Body.Close()
@@ -529,6 +540,7 @@ func (r *extensionRuntime) fileDownloadChunked(client *http.Client, urlStr, full
 	}
 
 	var totalWritten int64
+	var lastProgressNotify int64
 	buf := make([]byte, 32*1024)
 	maxRetries := 3
 
@@ -610,7 +622,9 @@ func (r *extensionRuntime) fileDownloadChunked(client *http.Client, urlStr, full
 					return r.jsError("short write")
 				}
 
-				if onProgress != nil && totalSize > 0 {
+				if onProgress != nil && totalSize > 0 &&
+					(totalWritten-lastProgressNotify >= progressUpdateThreshold || totalWritten >= totalSize) {
+					lastProgressNotify = totalWritten
 					_, _ = onProgress(goja.Undefined(), r.vm.ToValue(totalWritten), r.vm.ToValue(totalSize))
 				}
 			}

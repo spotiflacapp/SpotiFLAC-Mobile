@@ -843,9 +843,7 @@ extension _DownloadQueueEmbedding on DownloadQueueNotifier {
           );
           embeddedNatively = response['method'] != 'ffmpeg';
         } catch (e) {
-          _log.w(
-            'Native $format tag embed failed, falling back to FFmpeg: $e',
-          );
+          _log.w('Native $format tag embed failed, falling back to FFmpeg: $e');
         }
       }
 

@@ -5,12 +5,10 @@ import 'package:spotiflac_android/providers/theme_provider.dart';
 import 'package:spotiflac_android/theme/app_theme.dart';
 
 class DynamicColorWrapper extends ConsumerWidget {
-  final Widget Function(ThemeData light, ThemeData dark, ThemeMode mode) builder;
+  final Widget Function(ThemeData light, ThemeData dark, ThemeMode mode)
+  builder;
 
-  const DynamicColorWrapper({
-    super.key,
-    required this.builder,
-  });
+  const DynamicColorWrapper({super.key, required this.builder});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +19,9 @@ class DynamicColorWrapper extends ConsumerWidget {
         ColorScheme lightScheme;
         ColorScheme darkScheme;
 
-        if (themeSettings.useDynamicColor && lightDynamic != null && darkDynamic != null) {
+        if (themeSettings.useDynamicColor &&
+            lightDynamic != null &&
+            darkDynamic != null) {
           lightScheme = lightDynamic;
           darkScheme = darkDynamic;
         } else {
@@ -41,7 +41,10 @@ class DynamicColorWrapper extends ConsumerWidget {
         }
 
         final lightTheme = AppTheme.light(dynamicScheme: lightScheme);
-        final darkTheme = AppTheme.dark(dynamicScheme: darkScheme, isAmoled: themeSettings.useAmoled);
+        final darkTheme = AppTheme.dark(
+          dynamicScheme: darkScheme,
+          isAmoled: themeSettings.useAmoled,
+        );
 
         return builder(lightTheme, darkTheme, themeSettings.themeMode);
       },

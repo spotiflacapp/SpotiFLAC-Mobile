@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/theme/app_tokens.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 
 /// Small "In Library" chip shown next to a track that already exists in the
@@ -10,24 +11,24 @@ class InLibraryBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      padding: context.tokens.badgePadding,
       decoration: BoxDecoration(
         color: colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: context.tokens.borderRadiusBadge,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             Icons.folder_outlined,
-            size: 10,
+            size: 12,
             color: colorScheme.onPrimaryContainer,
           ),
           const SizedBox(width: 3),
           Text(
             context.l10n.libraryInLibrary,
             style: TextStyle(
-              fontSize: 9,
+              fontSize: context.tokens.badgeFontSize,
               fontWeight: FontWeight.w500,
               color: colorScheme.onPrimaryContainer,
             ),

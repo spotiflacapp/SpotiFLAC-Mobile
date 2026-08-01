@@ -123,9 +123,9 @@ func TestLyricsCacheParsingAndLRCLibClient(t *testing.T) {
 	if err != nil || got.SyncType != "LINE_SYNCED" || len(got.Lines) != 1 {
 		t.Fatalf("FetchLyricsWithMetadata = %#v/%v", got, err)
 	}
-	search, err := client.FetchLyricsFromLRCLibSearch("Artist Song", 180)
+	search, err := client.fetchLyricsFromLRCLibSearch("Artist Song", "", "", 180)
 	if err != nil || len(search.Lines) == 0 {
-		t.Fatalf("FetchLyricsFromLRCLibSearch = %#v/%v", search, err)
+		t.Fatalf("fetchLyricsFromLRCLibSearch = %#v/%v", search, err)
 	}
 	if best := client.findBestLRCLibSearchMatch(
 		[]LRCLibResponse{

@@ -55,6 +55,42 @@ func TestTrackMatchesRequest_SongLinkStillChecksDuration(t *testing.T) {
 	}
 }
 
+func TestTrackMatchesRequestRejectsDifferentAlbumWithoutExactISRC(t *testing.T) {
+	req := DownloadRequest{
+		TrackName:  "Bewafa",
+		ArtistName: "Imran Khan",
+		AlbumName:  "Unforgettable",
+		ISRC:       "GBUM70901234",
+	}
+	resolved := resolvedTrackInfo{
+		Title:      "Bewafa",
+		ArtistName: "Imran Khan, Tarandeep Singh",
+		AlbumName:  "Bewafa",
+		ISRC:       "QZXYZ2600001",
+	}
+
+	if trackMatchesRequest(req, resolved, "test") {
+		t.Fatal("expected same-title cover from a different album to be rejected")
+	}
+}
+
+func TestTrackMatchesRequestAcceptsDifferentEditionWithExactISRC(t *testing.T) {
+	req := DownloadRequest{
+		TrackName: "Song",
+		AlbumName: "Original Album",
+		ISRC:      "USRC17607839",
+	}
+	resolved := resolvedTrackInfo{
+		Title:     "Song",
+		AlbumName: "Deluxe Collection",
+		ISRC:      "usrc17607839",
+	}
+
+	if !trackMatchesRequest(req, resolved, "test") {
+		t.Fatal("expected an exact ISRC match to accept another release edition")
+	}
+}
+
 func TestTitlesMatch_SeparatorVariants(t *testing.T) {
 	if !titlesMatch("Doctor / Cops", "Doctor _ Cops") {
 		t.Fatal("expected tidal titlesMatch to accept / vs _ variant")

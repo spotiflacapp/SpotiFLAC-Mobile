@@ -155,3 +155,41 @@ registerExtension({
 		t.Fatal("expected all extensions unloaded")
 	}
 }
+
+func TestValidateManifestGates(t *testing.T) {
+	originalVersion := GetAppVersion()
+	defer SetAppVersion(originalVersion)
+	SetAppVersion("4.5.0")
+
+	if err := validateManifestGates(nil); err != nil {
+		t.Fatalf("nil manifest = %v", err)
+	}
+	if err := validateManifestGates(&ExtensionManifest{MinAppVersion: "4.9.0"}); err == nil {
+		t.Fatal("expected minAppVersion gate to fail")
+	}
+	if err := validateManifestGates(&ExtensionManifest{MinAppVersion: "4.5.0"}); err != nil {
+		t.Fatalf("equal version should pass: %v", err)
+	}
+	SetAppVersion("")
+	if err := validateManifestGates(&ExtensionManifest{MinAppVersion: "9.9.9"}); err != nil {
+		t.Fatalf("empty app version must skip the gate: %v", err)
+	}
+	SetAppVersion("4.5.0")
+
+	pass := &ExtensionManifest{
+		RequiredRuntimeFeatures: []string{"signedSession@3", "sessionGrant"},
+	}
+	if err := validateManifestGates(pass); err != nil {
+		t.Fatalf("supported features should pass: %v", err)
+	}
+	if err := validateManifestGates(&ExtensionManifest{
+		RequiredRuntimeFeatures: []string{"quantumDecrypt"},
+	}); err == nil {
+		t.Fatal("unknown feature must fail")
+	}
+	if err := validateManifestGates(&ExtensionManifest{
+		RequiredRuntimeFeatures: []string{"signedSession@99"},
+	}); err == nil {
+		t.Fatal("future contract version must fail")
+	}
+}

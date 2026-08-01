@@ -45,8 +45,7 @@ extension _QueueTabSelectionActions on _QueueTabState {
   }
 
   void _hideSelectionOverlay() {
-    _selectionOverlayEntry?.remove();
-    _selectionOverlayEntry = null;
+    _selectionOverlay.hide();
   }
 
   void _syncSelectionOverlay({
@@ -63,40 +62,19 @@ extension _QueueTabSelectionActions on _QueueTabState {
 
     _selectionOverlayItems = items;
     _selectionOverlayBottomPadding = bottomPadding;
-
-    if (_selectionOverlayEntry != null) {
-      _selectionOverlayEntry!.markNeedsBuild();
-      return;
-    }
-
-    final overlay = Overlay.of(context, rootOverlay: true);
-    _selectionOverlayEntry = OverlayEntry(
-      builder: (overlayContext) {
-        final colorScheme = Theme.of(context).colorScheme;
-        return Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: _AnimatedOverlayBottomBar(
-            child: Material(
-              color: Colors.transparent,
-              child: _buildSelectionBottomBar(
-                context,
-                colorScheme,
-                _selectionOverlayItems,
-                _selectionOverlayBottomPadding,
-              ),
-            ),
-          ),
-        );
-      },
+    _selectionOverlay.show(
+      context,
+      (_) => _buildSelectionBottomBar(
+        context,
+        Theme.of(context).colorScheme,
+        _selectionOverlayItems,
+        _selectionOverlayBottomPadding,
+      ),
     );
-    overlay.insert(_selectionOverlayEntry!);
   }
 
   void _hidePlaylistSelectionOverlay() {
-    _playlistSelectionOverlayEntry?.remove();
-    _playlistSelectionOverlayEntry = null;
+    _playlistSelectionOverlay.hide();
   }
 
   void _syncPlaylistSelectionOverlay({
@@ -113,35 +91,15 @@ extension _QueueTabSelectionActions on _QueueTabState {
 
     _playlistSelectionOverlayItems = playlists;
     _playlistSelectionOverlayBottomPadding = bottomPadding;
-
-    if (_playlistSelectionOverlayEntry != null) {
-      _playlistSelectionOverlayEntry!.markNeedsBuild();
-      return;
-    }
-
-    final overlay = Overlay.of(context, rootOverlay: true);
-    _playlistSelectionOverlayEntry = OverlayEntry(
-      builder: (overlayContext) {
-        final colorScheme = Theme.of(context).colorScheme;
-        return Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: _AnimatedOverlayBottomBar(
-            child: Material(
-              color: Colors.transparent,
-              child: _buildPlaylistSelectionBottomBar(
-                context,
-                colorScheme,
-                _playlistSelectionOverlayItems,
-                _playlistSelectionOverlayBottomPadding,
-              ),
-            ),
-          ),
-        );
-      },
+    _playlistSelectionOverlay.show(
+      context,
+      (_) => _buildPlaylistSelectionBottomBar(
+        context,
+        Theme.of(context).colorScheme,
+        _playlistSelectionOverlayItems,
+        _playlistSelectionOverlayBottomPadding,
+      ),
     );
-    overlay.insert(_playlistSelectionOverlayEntry!);
   }
 
   void _enterPlaylistSelectionMode(String playlistId) {
@@ -476,10 +434,9 @@ extension _QueueTabSelectionActions on _QueueTabState {
       for (final id in _selectedIds) {
         final item = itemsById[id];
         if (item != null) {
-          try {
-            final cleanPath = _cleanFilePath(item.filePath);
-            await deleteFile(cleanPath);
-          } catch (_) {}
+          final cleanPath = _cleanFilePath(item.filePath);
+          final fileDeleted = await deleteFile(cleanPath);
+          if (!fileDeleted) continue;
 
           if (item.source == LibraryItemSource.downloaded) {
             historyNotifier.removeFromHistory(item.historyItem!.id);

@@ -72,7 +72,7 @@ func TestExtensionHealthClassificationAndValidation(t *testing.T) {
 }
 
 func TestCoverAndIDHSHelpers(t *testing.T) {
-	if got := upgradeToMaxQuality("https://cdn-images.dzcdn.net/images/cover/abc/500x500-000000-80-0-0.jpg"); !strings.Contains(got, "1800x1800") {
+	if got := upgradeToMaxQuality("https://cdn-images.dzcdn.net/images/cover/abc/500x500-000000-80-0-0.jpg"); !strings.Contains(got, "1900x1900") {
 		t.Fatalf("deezer cover = %q", got)
 	}
 	if got := upgradeToMaxQuality("https://resources.tidal.com/images/id/320x320.jpg"); !strings.Contains(got, "origin.jpg") {

@@ -3,12 +3,72 @@ import 'dart:io';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
 
+final RegExp _lrcDisplayTimestampPattern = RegExp(
+  r'^\[\d{1,3}:\d{1,2}(?:[.:]\d{1,3})?\]',
+);
+final RegExp _lrcDisplayMetadataPattern = RegExp(
+  r'^\[[a-zA-Z][a-zA-Z0-9_]*:.*\]$',
+);
+final RegExp _lrcDisplayInlineTimestampPattern = RegExp(
+  r'<\d{1,3}:\d{1,2}(?:[.:]\d{1,3})?>',
+);
+final RegExp _lrcDisplaySpeakerPrefixPattern = RegExp(
+  r'^(v1|v2):\s*',
+  caseSensitive: false,
+);
+final RegExp _lrcDisplayBackgroundLinePattern = RegExp(
+  r'^\[bg:(.*)\]$',
+  caseSensitive: false,
+);
+
+bool isInstrumentalLyricsMarker(String lyrics) =>
+    lyrics.trim().toLowerCase() == '[instrumental:true]';
+
+/// Converts embedded or fetched LRC into text suitable for the metadata UI.
+/// Header-only payloads intentionally produce an empty string.
+String cleanLyricsForDisplay(String lyrics) {
+  final cleanLines = <String>[];
+
+  for (final line in lyrics.split('\n')) {
+    var cleaned = line.trim();
+
+    if (_lrcDisplayMetadataPattern.hasMatch(cleaned) &&
+        !_lrcDisplayBackgroundLinePattern.hasMatch(cleaned)) {
+      continue;
+    }
+
+    final backgroundMatch = _lrcDisplayBackgroundLinePattern.firstMatch(
+      cleaned,
+    );
+    if (backgroundMatch != null) {
+      cleaned = backgroundMatch.group(1)?.trim() ?? '';
+    }
+
+    while (_lrcDisplayTimestampPattern.hasMatch(cleaned)) {
+      cleaned = cleaned.replaceFirst(_lrcDisplayTimestampPattern, '').trim();
+    }
+    cleaned = cleaned.replaceAll(_lrcDisplayInlineTimestampPattern, '');
+    cleaned = cleaned.replaceFirst(_lrcDisplaySpeakerPrefixPattern, '');
+    cleaned = cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();
+
+    if (cleaned.isNotEmpty) {
+      cleanLines.add(cleaned);
+    }
+  }
+
+  return cleanLines.join('\n');
+}
+
+bool hasUsableLyricsContent(String lyrics) =>
+    isInstrumentalLyricsMarker(lyrics) ||
+    cleanLyricsForDisplay(lyrics).trim().isNotEmpty;
+
 bool hasEmbeddedLyricsMetadata(Map<String, String> metadata) {
   final lyrics = (metadata['LYRICS'] ?? '').trim();
-  if (lyrics.isNotEmpty) return true;
+  if (hasUsableLyricsContent(lyrics)) return true;
 
   final unsyncedLyrics = (metadata['UNSYNCEDLYRICS'] ?? '').trim();
-  if (unsyncedLyrics.isNotEmpty) return true;
+  if (hasUsableLyricsContent(unsyncedLyrics)) return true;
 
   return false;
 }

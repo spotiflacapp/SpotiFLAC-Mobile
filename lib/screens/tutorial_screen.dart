@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/widgets/scroll_edge_fade.dart';
 
 class TutorialScreen extends ConsumerStatefulWidget {
   const TutorialScreen({super.key});
@@ -237,7 +238,11 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
                         decoration: BoxDecoration(
                           color: isActive
                               ? colorScheme.primary
-                              : colorScheme.surfaceContainerHighest,
+                              // Visible on AMOLED black, unlike
+                              // surfaceContainerHighest.
+                              : colorScheme.onSurfaceVariant.withValues(
+                                  alpha: 0.4,
+                                ),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       );
@@ -704,79 +709,95 @@ class _TutorialPage extends StatelessWidget {
       context,
     ).scale(1.0).clamp(1.0, 1.4);
     final scale = (shortestSide / 390).clamp(0.86, 1.05);
-    final topGap = (24 * scale).clamp(16.0, 24.0);
-    final iconPadding = (24 * scale).clamp(18.0, 24.0);
-    final iconSize = (56 * scale).clamp(44.0, 56.0);
-    final iconTextGap = (48 * scale).clamp(28.0, 48.0);
-    final descriptionGap = (20 * scale).clamp(12.0, 20.0);
-    final contentGap = (56 * scale) + ((textScale - 1) * 10);
-    final bottomGap = (32 * scale).clamp(20.0, 32.0);
 
     final isActive = currentIndex == index;
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      physics: const BouncingScrollPhysics(),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 560),
-          child: Column(
-            children: [
-              SizedBox(height: topGap),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeOutBack,
-                transform: Matrix4.translationValues(0, isActive ? 0 : -20, 0),
-                padding: EdgeInsets.all(iconPadding),
-                decoration: BoxDecoration(
-                  color: (iconColor ?? colorScheme.primary).withValues(
-                    alpha: 0.15,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  icon,
-                  size: iconSize,
-                  color: iconColor ?? colorScheme.primary,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Shrink vertical rhythm on short viewports so a page fits with
+        // little or no scrolling.
+        final heightScale = (constraints.maxHeight / 640).clamp(0.6, 1.0);
+        final topGap = (24 * scale).clamp(16.0, 24.0) * heightScale;
+        final iconPadding = (24 * scale).clamp(18.0, 24.0) * heightScale;
+        final iconSize = (56 * scale).clamp(44.0, 56.0) * heightScale;
+        final iconTextGap = (48 * scale).clamp(28.0, 48.0) * heightScale;
+        final descriptionGap = (20 * scale).clamp(12.0, 20.0) * heightScale;
+        final contentGap =
+            ((56 * scale) + ((textScale - 1) * 10)) * heightScale;
+        final bottomGap = (32 * scale).clamp(20.0, 32.0) * heightScale;
+
+        return ScrollEdgeFade(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            physics: const BouncingScrollPhysics(),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 560),
+                child: Column(
+                  children: [
+                    SizedBox(height: topGap),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeOutBack,
+                      transform: Matrix4.translationValues(
+                        0,
+                        isActive ? 0 : -20,
+                        0,
+                      ),
+                      padding: EdgeInsets.all(iconPadding),
+                      decoration: BoxDecoration(
+                        color: (iconColor ?? colorScheme.primary).withValues(
+                          alpha: 0.15,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        icon,
+                        size: iconSize,
+                        color: iconColor ?? colorScheme.primary,
+                      ),
+                    ),
+                    SizedBox(height: iconTextGap),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: isActive ? 1.0 : 0.0,
+                      curve: Curves.easeOut,
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.headlineLarge
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onSurface,
+                              letterSpacing: -0.5,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(height: descriptionGap),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: isActive ? 1.0 : 0.0,
+                      curve: Curves.easeOut,
+                      child: Text(
+                        description,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          height: 1.5,
+                          fontSize: 16 * (1 + ((textScale - 1) * 0.1)),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(height: contentGap),
+                    content, // The content itself now handles its own internal animations
+                    SizedBox(height: bottomGap),
+                  ],
                 ),
               ),
-              SizedBox(height: iconTextGap),
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                opacity: isActive ? 1.0 : 0.0,
-                curve: Curves.easeOut,
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
-                    letterSpacing: -0.5,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: descriptionGap),
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                opacity: isActive ? 1.0 : 0.0,
-                curve: Curves.easeOut,
-                child: Text(
-                  description,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                    height: 1.5,
-                    fontSize: 16 * (1 + ((textScale - 1) * 0.1)),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: contentGap),
-              content, // The content itself now handles its own internal animations
-              SizedBox(height: bottomGap),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

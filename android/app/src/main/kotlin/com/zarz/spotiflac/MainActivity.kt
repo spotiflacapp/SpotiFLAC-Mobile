@@ -71,8 +71,8 @@ class MainActivity: FlutterFragmentActivity() {
     private var backendChannel: MethodChannel? = null
     private val pendingSessionGrantEvents = mutableListOf<Map<String, Any>>()
     private var pendingSafTreeResult: MethodChannel.Result? = null
-    private val safScanLock = Any()
-    private var safScanProgress = SafScanProgress()
+    internal val safScanLock = Any()
+    internal var safScanProgress = SafScanProgress()
     private var downloadProgressStreamJob: Job? = null
     private var downloadProgressEventSink: EventChannel.EventSink? = null
     private var lastDownloadProgressPayload: String? = null
@@ -81,10 +81,10 @@ class MainActivity: FlutterFragmentActivity() {
     private var libraryScanProgressEventSink: EventChannel.EventSink? = null
     private var lastLibraryScanProgressPayload: String? = null
     private var flutterBackCallback: OnBackPressedCallback? = null
-    @Volatile private var safScanCancel = false
-    @Volatile private var safScanActive = false
+    @Volatile internal var safScanCancel = false
+    @Volatile internal var safScanActive = false
     /** Tri-state: null = untested, true = works, false = fails (Samsung SELinux). */
-    @Volatile private var procSelfFdReadable: Boolean? = null
+    @Volatile internal var procSelfFdReadable: Boolean? = null
     private val safTreeLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { activityResult ->
@@ -143,12 +143,6 @@ class MainActivity: FlutterFragmentActivity() {
         }
     }
 
-    private fun buildStableLibraryId(filePath: String): String {
-        val digest = MessageDigest.getInstance("SHA-1")
-        val bytes = digest.digest(filePath.toByteArray(Charsets.UTF_8))
-        val hex = bytes.joinToString("") { "%02x".format(it) }
-        return "lib_$hex"
-    }
 
     data class SafScanProgress(
         var totalFiles: Int = 0,
@@ -342,40 +336,6 @@ class MainActivity: FlutterFragmentActivity() {
             .build()
     }
 
-    private fun resetSafScanProgress() {
-        synchronized(safScanLock) {
-            safScanProgress = SafScanProgress()
-        }
-        // Allow re-probing /proc/self/fd readability on every new scan session.
-        procSelfFdReadable = null
-    }
-
-    private fun updateSafScanProgress(block: (SafScanProgress) -> Unit) {
-        synchronized(safScanLock) {
-            block(safScanProgress)
-        }
-    }
-
-    private fun safProgressToJson(): String {
-        val snapshot = synchronized(safScanLock) { safScanProgress.copy() }
-        val obj = JSONObject()
-        obj.put("total_files", snapshot.totalFiles)
-        obj.put("scanned_files", snapshot.scannedFiles)
-        obj.put("current_file", snapshot.currentFile)
-        obj.put("error_count", snapshot.errorCount)
-        obj.put("progress_pct", snapshot.progressPct)
-        obj.put("is_complete", snapshot.isComplete)
-        return obj.toString()
-    }
-
-    private fun readLibraryScanProgressJsonForStream(): String {
-        return if (safScanActive) {
-            safProgressToJson()
-        } else {
-            Gobackend.getLibraryScanProgressJSON()
-        }
-    }
-
     private fun parseJsonValue(value: Any?): Any? {
         return when (value) {
             null, JSONObject.NULL -> null
@@ -440,7 +400,7 @@ class MainActivity: FlutterFragmentActivity() {
      * payload inline when it is small (same contract as [bridgeJsonResult]),
      * otherwise the spill-file map.
      */
-    private inner class SpillJsonWriter {
+    internal inner class SpillJsonWriter {
         val file = File(cacheDir, "bridge_json_${System.nanoTime()}.json")
         private val writer = file.bufferedWriter(Charsets.UTF_8)
 
@@ -550,1410 +510,6 @@ class MainActivity: FlutterFragmentActivity() {
         lastLibraryScanProgressPayload = null
     }
 
-    private fun loadExistingFilesFromSnapshot(snapshotPath: String): MutableMap<String, Long> {
-        val result = mutableMapOf<String, Long>()
-        if (snapshotPath.isBlank()) {
-            return result
-        }
-
-        val snapshotFile = File(snapshotPath)
-        if (!snapshotFile.exists()) {
-            return result
-        }
-
-        snapshotFile.forEachLine { line ->
-            if (line.isBlank()) return@forEachLine
-            val separatorIndex = line.indexOf('\t')
-            if (separatorIndex <= 0 || separatorIndex >= line.length - 1) {
-                return@forEachLine
-            }
-            val modTime = line.substring(0, separatorIndex).toLongOrNull() ?: 0L
-            val filePath = line.substring(separatorIndex + 1)
-            if (filePath.isNotEmpty()) {
-                result[filePath] = modTime
-            }
-        }
-        return result
-    }
-
-    private fun resolveSafFile(treeUriStr: String, relativeDir: String, fileName: String): String {
-        val obj = JSONObject()
-        if (treeUriStr.isBlank() || fileName.isBlank()) {
-            obj.put("uri", "")
-            obj.put("relative_dir", "")
-            return obj.toString()
-        }
-        val safeRelativeDir = SafDownloadHandler.sanitizeRelativeDir(relativeDir)
-        val safeFileName = SafDownloadHandler.sanitizeFilename(fileName)
-        if (safeFileName.isBlank()) {
-            obj.put("uri", "")
-            obj.put("relative_dir", "")
-            return obj.toString()
-        }
-
-        val treeUri = Uri.parse(treeUriStr)
-        val targetDir = SafDownloadHandler.findDocumentDir(this, treeUri, safeRelativeDir)
-        if (targetDir != null) {
-            val direct = targetDir.findFile(safeFileName)
-            if (direct != null && direct.isFile) {
-                obj.put("uri", direct.uri.toString())
-                obj.put("relative_dir", safeRelativeDir)
-                return obj.toString()
-            }
-        }
-
-        val root = DocumentFile.fromTreeUri(this, treeUri) ?: run {
-            obj.put("uri", "")
-            obj.put("relative_dir", "")
-            return obj.toString()
-        }
-
-        val queue: ArrayDeque<Pair<DocumentFile, String>> = ArrayDeque()
-        queue.add(root to "")
-        var visited = 0
-        val maxVisited = 20000
-
-        while (queue.isNotEmpty()) {
-            if (visited > maxVisited) break
-            val (dir, path) = queue.removeFirst()
-            for (child in dir.listFiles()) {
-                visited++
-                if (child.isDirectory) {
-                    val childName = child.name ?: continue
-                    val childPath = if (path.isBlank()) childName else "$path/$childName"
-                    queue.add(child to childPath)
-                } else if (child.isFile) {
-                    if (child.name == safeFileName) {
-                        obj.put("uri", child.uri.toString())
-                        obj.put("relative_dir", path)
-                        return obj.toString()
-                    }
-                }
-            }
-        }
-
-        obj.put("uri", "")
-        obj.put("relative_dir", "")
-        return obj.toString()
-    }
-
-    private fun errorJson(message: String): String {
-        val obj = JSONObject()
-        obj.put("success", false)
-        obj.put("error", message)
-        obj.put("message", message)
-        return obj.toString()
-    }
-
-    /**
-     * Detect whether a content URI belongs to the MediaStore provider.
-     * Samsung One UI may return MediaStore URIs from SAF tree traversal,
-     * which require READ_MEDIA_AUDIO / READ_EXTERNAL_STORAGE permission
-     * instead of SAF tree permission.
-     */
-    private fun isMediaStoreUri(uri: Uri): Boolean {
-        val authority = uri.authority ?: return false
-        return authority == "media" ||
-               authority.startsWith("media.") ||
-               authority.contains("media")
-    }
-
-    /**
-     * Resolve extension from a MediaStore URI by querying DISPLAY_NAME or MIME_TYPE.
-     */
-    private fun resolveMediaStoreExt(uri: Uri, fallbackExt: String?): String {
-        try {
-            contentResolver.query(uri, arrayOf(android.provider.MediaStore.MediaColumns.DISPLAY_NAME), null, null, null)?.use { cursor ->
-                if (cursor.moveToFirst()) {
-                    val name = cursor.getString(0)?.lowercase(Locale.ROOT) ?: ""
-                    val ext = extFromFileName(name)
-                    if (ext.isNotBlank()) return ext
-                }
-            }
-        } catch (_: Exception) {}
-
-        try {
-            val mime = contentResolver.getType(uri)
-            val ext = extFromMimeType(mime)
-            if (ext.isNotBlank()) return ext
-        } catch (_: Exception) {}
-
-        return fallbackExt ?: ""
-    }
-
-    private fun extFromFileName(name: String): String {
-        return when {
-            name.endsWith(".m4a") -> ".m4a"
-            name.endsWith(".mp4") -> ".mp4"
-            name.endsWith(".aac") -> ".aac"
-            name.endsWith(".mp3") -> ".mp3"
-            name.endsWith(".opus") -> ".opus"
-            name.endsWith(".flac") -> ".flac"
-            name.endsWith(".ogg") -> ".ogg"
-            else -> ""
-        }
-    }
-
-    private fun extFromMimeType(mime: String?): String {
-        return when (mime) {
-            "audio/mp4" -> ".m4a"
-            "audio/aac" -> ".aac"
-            "audio/eac3" -> ".m4a"
-            "audio/ac3" -> ".m4a"
-            "audio/ac4" -> ".m4a"
-            "audio/mpeg" -> ".mp3"
-            "audio/ogg" -> ".opus"
-            "audio/flac" -> ".flac"
-            "audio/wav", "audio/x-wav", "audio/wave", "audio/vnd.wave" -> ".wav"
-            "audio/aiff", "audio/x-aiff" -> ".aiff"
-            else -> ""
-        }
-    }
-
-    private fun copyUriToTemp(uri: Uri, fallbackExt: String? = null): String? {
-        var tempFile: File? = null
-        var success = false
-
-        try {
-            val mime = try { contentResolver.getType(uri) } catch (_: Exception) { null }
-            val nameHint = (
-                try { DocumentFile.fromSingleUri(this, uri)?.name } catch (_: Exception) { null }
-                    ?: uri.lastPathSegment
-                    ?: ""
-            ).lowercase(Locale.ROOT)
-            val extFromName = extFromFileName(nameHint)
-            val extFromMime = extFromMimeType(mime)
-            val ext = if (extFromName.isNotBlank()) extFromName else if (extFromMime.isNotBlank()) extFromMime else (fallbackExt ?: "")
-            val suffix: String? = if (ext.isNotBlank()) ext else null
-            tempFile = File.createTempFile("saf_", suffix, cacheDir)
-
-            contentResolver.openInputStream(uri)?.use { input ->
-                FileOutputStream(tempFile).use { output ->
-                    input.copyTo(output)
-                }
-            } ?: return null
-
-            success = true
-            return tempFile.absolutePath
-        } catch (e: SecurityException) {
-            // SAF permission denied - try MediaStore fallback for Samsung One UI
-            // which may return MediaStore URIs from SAF tree traversal
-            if (isMediaStoreUri(uri)) {
-                android.util.Log.d(
-                    "SpotiFLAC",
-                    "SAF denied for MediaStore URI, trying MediaStore fallback: $uri",
-                )
-                val result = copyMediaStoreUriToTemp(uri, fallbackExt)
-                if (result != null) {
-                    success = true
-                    return result
-                }
-            }
-            android.util.Log.w(
-                "SpotiFLAC",
-                "SAF read denied for $uri: ${e.message}",
-            )
-            return null
-        } catch (e: Exception) {
-            android.util.Log.w(
-                "SpotiFLAC",
-                "Failed copying SAF uri $uri to temp: ${e.message}",
-            )
-            return null
-        } finally {
-            if (!success) {
-                try {
-                    tempFile?.delete()
-                } catch (_: Exception) {}
-            }
-        }
-    }
-
-    /**
-     * Fallback for Samsung One UI: read a MediaStore content URI using
-     * READ_MEDIA_AUDIO / READ_EXTERNAL_STORAGE permission instead of SAF.
-     * This handles the case where SAF tree traversal returns MediaStore URIs
-     * that the SAF document provider cannot access.
-     */
-    private fun copyMediaStoreUriToTemp(uri: Uri, fallbackExt: String?): String? {
-        var tempFile: File? = null
-        try {
-            val ext = resolveMediaStoreExt(uri, fallbackExt)
-            val suffix: String? = if (ext.isNotBlank()) ext else null
-            tempFile = File.createTempFile("ms_", suffix, cacheDir)
-
-            contentResolver.openInputStream(uri)?.use { input ->
-                FileOutputStream(tempFile).use { output ->
-                    input.copyTo(output)
-                }
-            } ?: run {
-                tempFile.delete()
-                return null
-            }
-
-            android.util.Log.d(
-                "SpotiFLAC",
-                "MediaStore fallback succeeded for $uri",
-            )
-            return tempFile.absolutePath
-        } catch (e: Exception) {
-            android.util.Log.w(
-                "SpotiFLAC",
-                "MediaStore fallback also failed for $uri: ${e.message}",
-            )
-            try { tempFile?.delete() } catch (_: Exception) {}
-            return null
-        }
-    }
-
-    private fun buildUriDisplayName(
-        uri: Uri,
-        displayNameHint: String? = null,
-        fallbackExt: String? = null,
-    ): String {
-        val explicitName = displayNameHint?.trim().orEmpty()
-        if (explicitName.isNotEmpty()) return explicitName
-
-        val docName = try { DocumentFile.fromSingleUri(this, uri)?.name } catch (_: Exception) { null }
-        val uriName = uri.lastPathSegment
-        val resolvedName = (docName ?: uriName ?: "").trim()
-        if (resolvedName.isNotEmpty()) return resolvedName
-
-        val ext = when {
-            fallbackExt.isNullOrBlank().not() -> fallbackExt
-            isMediaStoreUri(uri) -> resolveMediaStoreExt(uri, fallbackExt)
-            else -> ""
-        }
-        return if (ext.isNullOrBlank()) "audio" else "audio$ext"
-    }
-
-    private fun buildLibraryCoverCacheKey(stablePath: String, lastModified: Long): String {
-        val normalizedPath = stablePath.trim()
-        if (normalizedPath.isEmpty()) return ""
-        return if (lastModified > 0L) "$normalizedPath|$lastModified" else normalizedPath
-    }
-
-    private fun readAudioMetadataFromUri(
-        uri: Uri,
-        displayNameHint: String? = null,
-        fallbackExt: String? = null,
-        coverCacheKey: String = "",
-    ): JSONObject? {
-        val displayName = buildUriDisplayName(uri, displayNameHint, fallbackExt)
-
-        // Skip /proc/self/fd/ attempt when known to fail (e.g. Samsung SELinux).
-        if (procSelfFdReadable != false) {
-            try {
-                contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
-                    val directPath = "/proc/self/fd/${pfd.fd}"
-                    val metadataJson = Gobackend.readAudioMetadataWithHintAndCoverCacheKeyJSON(
-                        directPath,
-                        displayName,
-                        coverCacheKey,
-                    )
-                    if (metadataJson.isNotBlank()) {
-                        val obj = JSONObject(metadataJson)
-                        val filenameFallback = obj.optBoolean("metadataFromFilename", false)
-                        if (!obj.has("error") && !filenameFallback) {
-                            procSelfFdReadable = true
-                            return obj
-                        }
-                        // Go could not read real metadata from the fd path –
-                        // remember so we skip the attempt for remaining files.
-                        if (procSelfFdReadable == null) {
-                            procSelfFdReadable = false
-                            android.util.Log.d(
-                                "SpotiFLAC",
-                                "Direct /proc/self/fd read not usable on this device, " +
-                                    "using temp-file fallback for remaining files",
-                            )
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                if (procSelfFdReadable == null) {
-                    procSelfFdReadable = false
-                    android.util.Log.d(
-                        "SpotiFLAC",
-                        "Direct /proc/self/fd read not usable on this device, " +
-                            "using temp-file fallback for remaining files",
-                    )
-                }
-            }
-        }
-
-        val tempPath = try {
-            copyUriToTemp(uri, fallbackExt)
-        } catch (e: Exception) {
-            android.util.Log.w(
-                "SpotiFLAC",
-                "SAF metadata fallback copy failed for $uri: ${e.message}",
-            )
-            null
-        } ?: return null
-
-        try {
-            val metadataJson = Gobackend.readAudioMetadataWithHintAndCoverCacheKeyJSON(
-                tempPath,
-                displayName,
-                coverCacheKey,
-            )
-            if (metadataJson.isBlank()) return null
-            val obj = JSONObject(metadataJson)
-            return if (obj.has("error")) null else obj
-        } catch (e: Exception) {
-            android.util.Log.w(
-                "SpotiFLAC",
-                "SAF metadata temp read failed for $uri: ${e.message}",
-            )
-            return null
-        } finally {
-            try {
-                File(tempPath).delete()
-            } catch (_: Exception) {}
-        }
-    }
-
-    private fun writeUriFromPath(uri: Uri, srcPath: String): Boolean {
-        val srcFile = File(srcPath)
-        if (!srcFile.exists()) return false
-        contentResolver.openOutputStream(uri, "wt")?.use { output ->
-            FileInputStream(srcFile).use { input ->
-                input.copyTo(output)
-            }
-        } ?: return false
-        return true
-    }
-
-    /**
-     * Get the parent DocumentFile directory for a SAF document URI.
-     * The child URI must be a tree-based document URI (e.g. from SAF tree scan).
-     * Returns a DocumentFile that supports findFile() for sibling lookup.
-     */
-    private fun safParentDir(childUri: Uri): DocumentFile? {
-        try {
-            val docId = android.provider.DocumentsContract.getDocumentId(childUri)
-            if (docId.isNullOrEmpty()) return null
-            val lastSlash = docId.lastIndexOf('/')
-            if (lastSlash <= 0) return null
-
-            val parentDocId = docId.substring(0, lastSlash)
-            val treeDocId = android.provider.DocumentsContract.getTreeDocumentId(childUri)
-            if (treeDocId.isNullOrEmpty()) return null
-
-            val parentUri = android.provider.DocumentsContract.buildDocumentUriUsingTree(
-                childUri, parentDocId
-            )
-            return DocumentFile.fromTreeUri(this, parentUri)
-                ?: DocumentFile.fromSingleUri(this, parentUri)
-        } catch (e: Exception) {
-            android.util.Log.w("SpotiFLAC", "Failed to get SAF parent dir: ${e.message}")
-            return null
-        }
-    }
-
-    /**
-     * Write a ".lrc" sidecar next to a SAF audio document. The sidecar reuses
-     * the audio file's base name (e.g. "Song.flac" -> "Song.lrc") and is created
-     * in the same parent directory. Used by re-enrich when the user's lyrics
-     * mode requests an external/both sidecar. Best-effort: failures are logged
-     * and swallowed so they never abort the metadata enrichment itself.
-     */
-    private fun writeSafSidecarLrc(audioUri: Uri, lrcContent: String): Boolean {
-        if (lrcContent.isBlank()) return false
-        try {
-            val parent = safParentDir(audioUri) ?: run {
-                android.util.Log.w("SpotiFLAC", "LRC sidecar: no SAF parent dir")
-                return false
-            }
-            val audioName = try {
-                DocumentFile.fromSingleUri(this, audioUri)?.name
-            } catch (_: Exception) {
-                null
-            } ?: return false
-            val baseName = audioName.substringBeforeLast('.', audioName)
-            val lrcName = "$baseName.lrc"
-
-            val target = SafDownloadHandler.createOrReuseDocumentFile(
-                parent,
-                "application/octet-stream",
-                lrcName
-            ) ?: run {
-                android.util.Log.w("SpotiFLAC", "LRC sidecar: failed to create $lrcName")
-                return false
-            }
-
-            contentResolver.openOutputStream(target.uri, "wt")?.use { output ->
-                output.write(lrcContent.toByteArray(Charsets.UTF_8))
-            } ?: return false
-            android.util.Log.d("SpotiFLAC", "LRC sidecar written: $lrcName")
-            return true
-        } catch (e: Exception) {
-            android.util.Log.w("SpotiFLAC", "LRC sidecar write failed: ${e.message}")
-            return false
-        }
-    }
-
-    /**
-     * Extract the audio filename referenced by a CUE sheet file.
-     * Reads the FILE "name" TYPE line from the .cue text.
-     * Returns just the filename (no path), or null if not found.
-     */
-    private fun extractCueAudioFileName(cueTempPath: String): String? {
-        try {
-            val lines = File(cueTempPath).readLines()
-            for (line in lines) {
-                val trimmed = line.trim().let { l ->
-                    if (l.startsWith("\uFEFF")) l.removePrefix("\uFEFF").trim() else l
-                }
-                if (trimmed.uppercase(Locale.ROOT).startsWith("FILE ")) {
-                    val rest = trimmed.substring(5).trim()
-                    val filename = if (rest.startsWith("\"")) {
-                        val endQuote = rest.indexOf('"', 1)
-                        if (endQuote > 0) rest.substring(1, endQuote) else rest
-                    } else {
-                        val parts = rest.split("\\s+".toRegex())
-                        if (parts.size >= 2) parts.dropLast(1).joinToString(" ") else rest
-                    }
-                    return filename.substringAfterLast("/").substringAfterLast("\\")
-                }
-            }
-        } catch (e: Exception) {
-            android.util.Log.w("SpotiFLAC", "Failed to extract audio filename from CUE: ${e.message}")
-        }
-        return null
-    }
-
-    private val cueSiblingAudioExtensions = listOf(
-        ".flac", ".wav", ".ape", ".mp3", ".ogg", ".wv", ".m4a", ".mp4", ".aac"
-    )
-
-    // Audio file extensions that the local library scanner accepts. Must stay in
-    // sync with supportedAudioFormats in go_backend/library_scan.go so that every
-    // format the Go engine can read (FLAC, M4A/MP4/AAC, MP3, Opus/OGG, APE/WV/MPC,
-    // WAV, AIFF) is also enumerated here during the SAF folder walk. (.cue is
-    // handled separately.)
-    private val libraryScanAudioExtensions = setOf(
-        ".flac", ".m4a", ".mp4", ".aac", ".mp3", ".opus", ".ogg",
-        ".ape", ".wv", ".mpc", ".wav", ".aiff", ".aif"
-    )
-
-    private fun getSafChildFileLookup(
-        dir: DocumentFile,
-        cache: MutableMap<String, Map<String, DocumentFile>>,
-    ): Map<String, DocumentFile> {
-        val dirKey = dir.uri.toString()
-        return cache.getOrPut(dirKey) {
-            try {
-                buildMap {
-                    for (child in dir.listFiles()) {
-                        if (!child.isFile) continue
-                        val childName = child.name?.trim().orEmpty()
-                        if (childName.isBlank()) continue
-                        put(childName.lowercase(Locale.ROOT), child)
-                    }
-                }
-            } catch (e: Exception) {
-                android.util.Log.w(
-                    "SpotiFLAC",
-                    "Failed to build SAF child lookup for $dirKey: ${e.message}",
-                )
-                emptyMap()
-            }
-        }
-    }
-
-    private fun resolveCueAudioSibling(
-        parentDir: DocumentFile,
-        cueName: String,
-        audioFileName: String?,
-        childLookupCache: MutableMap<String, Map<String, DocumentFile>>,
-    ): DocumentFile? {
-        val childLookup = getSafChildFileLookup(parentDir, childLookupCache)
-
-        val directMatch = audioFileName
-            ?.trim()
-            ?.takeIf { it.isNotEmpty() }
-            ?.substringAfterLast("/")
-            ?.substringAfterLast("\\")
-            ?.lowercase(Locale.ROOT)
-            ?.let(childLookup::get)
-        if (directMatch != null) {
-            return directMatch
-        }
-
-        val cueBaseName = cueName.substringBeforeLast('.').trim()
-        if (cueBaseName.isBlank()) {
-            return null
-        }
-
-        val cueBaseKey = cueBaseName.lowercase(Locale.ROOT)
-        for (ext in cueSiblingAudioExtensions) {
-            childLookup["$cueBaseKey$ext"]?.let { return it }
-        }
-        return null
-    }
-
-    private fun scanSafTree(treeUriStr: String): Any {
-        if (treeUriStr.isBlank()) return "[]"
-
-        val treeUri = Uri.parse(treeUriStr)
-        val root = DocumentFile.fromTreeUri(this, treeUri) ?: return "[]"
-
-        resetSafScanProgress()
-        safScanCancel = false
-        safScanActive = true
-        updateSafScanProgress {
-            it.currentFile = "Scanning folders..."
-        }
-
-        val supportedAudioExt = libraryScanAudioExtensions
-        val audioFiles = mutableListOf<Pair<DocumentFile, String>>()
-        val cueFiles = mutableListOf<Pair<DocumentFile, DocumentFile>>()
-        val visitedDirUris = mutableSetOf<String>()
-        val safChildLookupCache = mutableMapOf<String, Map<String, DocumentFile>>()
-        var traversalErrors = 0
-
-        val queue: ArrayDeque<Pair<DocumentFile, String>> = ArrayDeque()
-        queue.add(root to "")
-
-        while (queue.isNotEmpty()) {
-            if (safScanCancel) {
-                updateSafScanProgress { it.isComplete = true }
-                return "[]"
-            }
-
-            val (dir, path) = queue.removeFirst()
-            val dirUri = dir.uri.toString()
-            if (!visitedDirUris.add(dirUri)) {
-                continue
-            }
-
-            val children = try {
-                dir.listFiles()
-            } catch (e: Exception) {
-                traversalErrors++
-                updateSafScanProgress { it.errorCount = traversalErrors }
-                android.util.Log.w(
-                    "SpotiFLAC",
-                    "SAF scan: failed listing directory $dirUri: ${e.message}",
-                )
-                continue
-            }
-
-            for (child in children) {
-                if (safScanCancel) {
-                    updateSafScanProgress { it.isComplete = true }
-                    return "[]"
-                }
-
-                try {
-                    if (child.isDirectory) {
-                        val childName = child.name ?: continue
-                        val childPath = if (path.isBlank()) childName else "$path/$childName"
-                        val childUri = child.uri.toString()
-                        if (childUri == dirUri || visitedDirUris.contains(childUri)) {
-                            continue
-                        }
-                        queue.add(child to childPath)
-                    } else if (child.isFile) {
-                        val name = child.name ?: continue
-                        val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
-                        if (ext == "cue") {
-                            cueFiles.add(child to dir)
-                        } else if (ext.isNotBlank() && supportedAudioExt.contains(".$ext")) {
-                            audioFiles.add(child to path)
-                        }
-                    }
-                } catch (e: Exception) {
-                    traversalErrors++
-                    updateSafScanProgress { it.errorCount = traversalErrors }
-                    android.util.Log.w(
-                        "SpotiFLAC",
-                        "SAF scan: skipped child under $dirUri: ${e.message}",
-                    )
-                }
-            }
-        }
-
-        val totalItems = audioFiles.size + cueFiles.size
-        updateSafScanProgress {
-            it.totalFiles = totalItems
-        }
-
-        if (audioFiles.isEmpty() && cueFiles.isEmpty()) {
-            updateSafScanProgress {
-                it.isComplete = true
-                it.progressPct = 100.0
-            }
-            return "[]"
-        }
-
-        // Stream results to a spill file: a full-library scan's JSONArray plus
-        // its serialized string would otherwise hold the whole payload on the
-        // Java heap several times over.
-        val spill = SpillJsonWriter()
-        var resultCount = 0
-        fun putResult(obj: JSONObject) {
-            spill.raw(if (resultCount == 0) "[" else ",")
-            spill.raw(obj.toString())
-            resultCount++
-        }
-        var scanned = 0
-        var errors = traversalErrors
-
-        val cueReferencedAudioUris = mutableSetOf<String>()
-
-        for ((cueDoc, parentDir) in cueFiles) {
-            if (safScanCancel) {
-                updateSafScanProgress { it.isComplete = true }
-                spill.abandon()
-                return "[]"
-            }
-
-            val cueName = try { cueDoc.name ?: "" } catch (_: Exception) { "" }
-            updateSafScanProgress { it.currentFile = cueName }
-
-            var tempCuePath: String? = null
-            var tempAudioPath: String? = null
-            try {
-                tempCuePath = copyUriToTemp(cueDoc.uri, ".cue")
-                if (tempCuePath == null) {
-                    errors++
-                    android.util.Log.w("SpotiFLAC", "SAF scan: failed to copy CUE ${cueDoc.uri}")
-                    scanned++
-                    continue
-                }
-
-                val audioFileName = extractCueAudioFileName(tempCuePath)
-
-                val audioDoc = resolveCueAudioSibling(
-                    parentDir = parentDir,
-                    cueName = cueName,
-                    audioFileName = audioFileName,
-                    childLookupCache = safChildLookupCache,
-                )
-
-                if (audioDoc == null) {
-                    android.util.Log.w("SpotiFLAC", "SAF scan: no audio file found for CUE $cueName")
-                    errors++
-                    scanned++
-                    continue
-                }
-
-                cueReferencedAudioUris.add(audioDoc.uri.toString())
-
-                val tempDir = File(tempCuePath).parent ?: cacheDir.absolutePath
-                val audioName = try { audioDoc.name ?: "audio.flac" } catch (_: Exception) { "audio.flac" }
-                val audioExt = audioName.substringAfterLast('.', "").lowercase(Locale.ROOT)
-                val fallbackAudioExt = if (audioExt.isNotBlank()) ".$audioExt" else null
-                val audioLastModified = try { audioDoc.lastModified() } catch (_: Exception) { cueDoc.lastModified() }
-                val coverCacheKey = buildLibraryCoverCacheKey(
-                    audioDoc.uri.toString(),
-                    audioLastModified,
-                )
-
-                tempAudioPath = copyUriToTemp(audioDoc.uri, fallbackAudioExt)
-                if (tempAudioPath == null) {
-                    android.util.Log.w("SpotiFLAC", "SAF scan: failed to copy audio for CUE $cueName")
-                    errors++
-                    scanned++
-                    continue
-                }
-
-                val renamedAudio = File(tempDir, audioName)
-                val tempAudioFile = File(tempAudioPath)
-                if (renamedAudio.absolutePath != tempAudioFile.absolutePath) {
-                    tempAudioFile.renameTo(renamedAudio)
-                    tempAudioPath = renamedAudio.absolutePath
-                }
-
-                val cueLastModified = try { cueDoc.lastModified() } catch (_: Exception) { 0L }
-
-                val cueResultsJson = Gobackend.scanCueSheetForLibraryWithCoverCacheKey(
-                    tempCuePath,
-                    tempDir,
-                    cueDoc.uri.toString(),
-                    cueLastModified,
-                    coverCacheKey,
-                )
-
-                val cueArray = JSONArray(cueResultsJson)
-                for (j in 0 until cueArray.length()) {
-                    putResult(cueArray.getJSONObject(j))
-                }
-
-                android.util.Log.d(
-                    "SpotiFLAC",
-                    "SAF scan: CUE $cueName -> ${cueArray.length()} tracks"
-                )
-            } catch (e: Exception) {
-                errors++
-                android.util.Log.w("SpotiFLAC", "SAF scan: error processing CUE $cueName: ${e.message}")
-            } finally {
-                try { tempCuePath?.let { File(it).delete() } } catch (_: Exception) {}
-                try { tempAudioPath?.let { File(it).delete() } } catch (_: Exception) {}
-            }
-
-            scanned++
-            val pct = scanned.toDouble() / totalItems.toDouble() * 100.0
-            updateSafScanProgress {
-                it.scannedFiles = scanned
-                it.errorCount = errors
-                it.progressPct = pct
-            }
-        }
-
-        for ((doc, _) in audioFiles) {
-            if (safScanCancel) {
-                updateSafScanProgress { it.isComplete = true }
-                spill.abandon()
-                return "[]"
-            }
-
-            if (cueReferencedAudioUris.contains(doc.uri.toString())) {
-                scanned++
-                val pct = scanned.toDouble() / totalItems.toDouble() * 100.0
-                updateSafScanProgress {
-                    it.scannedFiles = scanned
-                    it.progressPct = pct
-                }
-                continue
-            }
-
-            val name = try { doc.name ?: "" } catch (_: Exception) { "" }
-            updateSafScanProgress {
-                it.currentFile = name
-            }
-
-            val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
-            val fallbackExt = if (ext.isNotBlank()) ".${ext}" else null
-            val lastModified = try { doc.lastModified() } catch (_: Exception) { 0L }
-            val stableUri = doc.uri.toString()
-            val coverCacheKey = buildLibraryCoverCacheKey(stableUri, lastModified)
-            val metadataObj = readAudioMetadataFromUri(
-                doc.uri,
-                name,
-                fallbackExt,
-                coverCacheKey,
-            )
-            if (metadataObj == null) {
-                errors++
-            } else {
-                try {
-                    metadataObj.put("id", buildStableLibraryId(stableUri))
-                    metadataObj.put("filePath", stableUri)
-                    metadataObj.put("fileModTime", lastModified)
-                    putResult(metadataObj)
-                } catch (_: Exception) {
-                    errors++
-                }
-            }
-
-            scanned++
-            val pct = scanned.toDouble() / totalItems.toDouble() * 100.0
-            updateSafScanProgress {
-                it.scannedFiles = scanned
-                it.errorCount = errors
-                it.progressPct = pct
-            }
-        }
-
-        updateSafScanProgress {
-            it.isComplete = true
-            it.progressPct = 100.0
-        }
-
-        spill.raw(if (resultCount == 0) "[]" else "]")
-        return spill.result()
-    }
-
-    /**
-     * Incremental SAF tree scan - only scans new or modified files.
-     * Supports .cue sheets: expands them into virtual track entries and
-     * deduplicates audio files referenced by CUE sheets.
-     * @param treeUriStr The SAF tree URI to scan
-     * @param existingFilesJson JSON object mapping file URI -> lastModified timestamp
-     * @return JSON object with new/changed files and removed URIs
-     */
-    private fun scanSafTreeIncremental(treeUriStr: String, existingFilesJson: String): Any {
-        val existingFiles = mutableMapOf<String, Long>()
-        try {
-            val obj = JSONObject(existingFilesJson)
-            val keys = obj.keys()
-            while (keys.hasNext()) {
-                val key = keys.next()
-                existingFiles[key] = obj.optLong(key, 0)
-            }
-        } catch (_: Exception) {}
-        return scanSafTreeIncremental(treeUriStr, existingFiles)
-    }
-
-    private fun scanSafTreeIncremental(
-        treeUriStr: String,
-        existingFiles: Map<String, Long>,
-    ): Any {
-        if (treeUriStr.isBlank()) {
-            val result = JSONObject()
-            result.put("files", JSONArray())
-            result.put("removedUris", JSONArray())
-            result.put("skippedCount", 0)
-            result.put("totalFiles", 0)
-            return result.toString()
-        }
-
-        val treeUri = Uri.parse(treeUriStr)
-        val root = DocumentFile.fromTreeUri(this, treeUri) ?: run {
-            val result = JSONObject()
-            result.put("files", JSONArray())
-            result.put("removedUris", JSONArray())
-            result.put("skippedCount", 0)
-            result.put("totalFiles", 0)
-            return result.toString()
-        }
-
-        resetSafScanProgress()
-        safScanCancel = false
-        safScanActive = true
-        updateSafScanProgress {
-            it.currentFile = "Scanning folders..."
-        }
-
-        val supportedAudioExt = libraryScanAudioExtensions
-        val audioFiles = mutableListOf<Triple<DocumentFile, String, Long>>()
-        val cueFilesToScan = mutableListOf<Triple<DocumentFile, DocumentFile, Long>>()
-        val unchangedCueFiles = mutableListOf<Pair<DocumentFile, DocumentFile>>()
-        val currentUris = mutableSetOf<String>()
-        val visitedDirUris = mutableSetOf<String>()
-        val safChildLookupCache = mutableMapOf<String, Map<String, DocumentFile>>()
-        var traversalErrors = 0
-
-        val existingCueVirtualPaths = mutableMapOf<String, MutableList<String>>()
-        for (key in existingFiles.keys) {
-            val hashIdx = key.indexOf("#track")
-            if (hashIdx > 0) {
-                val baseCueUri = key.substring(0, hashIdx)
-                existingCueVirtualPaths.getOrPut(baseCueUri) { mutableListOf() }.add(key)
-            }
-        }
-
-        val queue: ArrayDeque<Pair<DocumentFile, String>> = ArrayDeque()
-        queue.add(root to "")
-
-        while (queue.isNotEmpty()) {
-            if (safScanCancel) {
-                updateSafScanProgress { it.isComplete = true }
-                val result = JSONObject()
-                result.put("files", JSONArray())
-                result.put("removedUris", JSONArray())
-                result.put("skippedCount", 0)
-                result.put("totalFiles", 0)
-                result.put("cancelled", true)
-                return result.toString()
-            }
-
-            val (dir, path) = queue.removeFirst()
-            val dirUri = dir.uri.toString()
-            if (!visitedDirUris.add(dirUri)) {
-                continue
-            }
-
-            val children = try {
-                dir.listFiles()
-            } catch (e: Exception) {
-                traversalErrors++
-                updateSafScanProgress { it.errorCount = traversalErrors }
-                android.util.Log.w(
-                    "SpotiFLAC",
-                    "SAF incremental scan: failed listing directory $dirUri: ${e.message}",
-                )
-                continue
-            }
-
-            for (child in children) {
-                if (safScanCancel) {
-                    updateSafScanProgress { it.isComplete = true }
-                    val result = JSONObject()
-                    result.put("files", JSONArray())
-                    result.put("removedUris", JSONArray())
-                    result.put("skippedCount", 0)
-                    result.put("totalFiles", 0)
-                    result.put("cancelled", true)
-                    return result.toString()
-                }
-
-                try {
-                    if (child.isDirectory) {
-                        val childName = child.name ?: continue
-                        val childPath = if (path.isBlank()) childName else "$path/$childName"
-                        val childUri = child.uri.toString()
-                        if (childUri == dirUri || visitedDirUris.contains(childUri)) {
-                            continue
-                        }
-                        queue.add(child to childPath)
-                    } else if (child.isFile) {
-                        val uriStr = child.uri.toString()
-                        currentUris.add(uriStr)
-
-                        val name = child.name ?: continue
-                        val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
-
-                        if (ext == "cue") {
-                            val lastModified = try {
-                                child.lastModified()
-                            } catch (_: Exception) { 0L }
-
-                            val virtualPaths = existingCueVirtualPaths[uriStr]
-                            val existingModified = virtualPaths?.firstOrNull()?.let { existingFiles[it] }
-
-                            if (existingModified != null && existingModified == lastModified) {
-                                unchangedCueFiles.add(child to dir)
-                                for (vp in virtualPaths) {
-                                    currentUris.add(vp)
-                                }
-                            } else {
-                                cueFilesToScan.add(Triple(child, dir, lastModified))
-                            }
-                        } else if (ext.isNotBlank() && supportedAudioExt.contains(".$ext")) {
-                            val existingModified = existingFiles[uriStr]
-                            val lastModified = try {
-                                child.lastModified()
-                            } catch (_: Exception) {
-                                existingModified ?: 0L
-                            }
-
-                            if (existingModified == null || existingModified != lastModified) {
-                                audioFiles.add(Triple(child, path, lastModified))
-                            }
-                        }
-                    }
-                } catch (e: Exception) {
-                    traversalErrors++
-                    updateSafScanProgress { it.errorCount = traversalErrors }
-                    android.util.Log.w(
-                        "SpotiFLAC",
-                        "SAF incremental scan: skipped child under $dirUri: ${e.message}",
-                    )
-                }
-            }
-        }
-
-        val removedUris = existingFiles.keys.filter { !currentUris.contains(it) }
-        val totalFiles = currentUris.size
-        val filesToProcess = audioFiles.size + cueFilesToScan.size
-        val skippedCount = (totalFiles - filesToProcess).coerceAtLeast(0)
-
-        updateSafScanProgress {
-            it.totalFiles = totalFiles
-        }
-
-        if (audioFiles.isEmpty() && cueFilesToScan.isEmpty()) {
-            updateSafScanProgress {
-                it.isComplete = true
-                it.scannedFiles = totalFiles
-                it.progressPct = 100.0
-            }
-            val result = JSONObject()
-            result.put("files", JSONArray())
-            result.put("removedUris", JSONArray(removedUris))
-            result.put("skippedCount", skippedCount)
-            result.put("totalFiles", totalFiles)
-            return result.toString()
-        }
-
-        // Stream changed-file entries to a spill file — after a cache loss an
-        // incremental scan can be as large as a full scan.
-        val spill = SpillJsonWriter()
-        spill.raw("{\"files\":[")
-        var fileCount = 0
-        fun putFile(obj: JSONObject) {
-            if (fileCount > 0) spill.raw(",")
-            spill.raw(obj.toString())
-            fileCount++
-        }
-        var scanned = 0
-        var errors = traversalErrors
-
-        val cueReferencedAudioUris = mutableSetOf<String>()
-
-        for ((cueDoc, parentDir, cueLastModified) in cueFilesToScan) {
-            if (safScanCancel) {
-                updateSafScanProgress { it.isComplete = true }
-                spill.abandon()
-                val result = JSONObject()
-                result.put("files", JSONArray())
-                result.put("removedUris", JSONArray())
-                result.put("skippedCount", skippedCount)
-                result.put("totalFiles", totalFiles)
-                result.put("cancelled", true)
-                return result.toString()
-            }
-
-            val cueName = try { cueDoc.name ?: "" } catch (_: Exception) { "" }
-            updateSafScanProgress { it.currentFile = cueName }
-
-            var tempCuePath: String? = null
-            var tempAudioPath: String? = null
-            try {
-                tempCuePath = copyUriToTemp(cueDoc.uri, ".cue")
-                if (tempCuePath == null) {
-                    errors++
-                    android.util.Log.w("SpotiFLAC", "SAF incremental scan: failed to copy CUE ${cueDoc.uri}")
-                    scanned++
-                    continue
-                }
-
-                val audioFileName = extractCueAudioFileName(tempCuePath)
-
-                val audioDoc = resolveCueAudioSibling(
-                    parentDir = parentDir,
-                    cueName = cueName,
-                    audioFileName = audioFileName,
-                    childLookupCache = safChildLookupCache,
-                )
-
-                if (audioDoc == null) {
-                    android.util.Log.w("SpotiFLAC", "SAF incremental scan: no audio file found for CUE $cueName")
-                    errors++
-                    scanned++
-                    continue
-                }
-
-                cueReferencedAudioUris.add(audioDoc.uri.toString())
-
-                val tempDir = File(tempCuePath).parent ?: cacheDir.absolutePath
-                val audioName = try { audioDoc.name ?: "audio.flac" } catch (_: Exception) { "audio.flac" }
-                val audioExt = audioName.substringAfterLast('.', "").lowercase(Locale.ROOT)
-                val fallbackAudioExt = if (audioExt.isNotBlank()) ".$audioExt" else null
-                val audioLastModified = try { audioDoc.lastModified() } catch (_: Exception) { cueLastModified }
-                val coverCacheKey = buildLibraryCoverCacheKey(
-                    audioDoc.uri.toString(),
-                    audioLastModified,
-                )
-
-                tempAudioPath = copyUriToTemp(audioDoc.uri, fallbackAudioExt)
-                if (tempAudioPath == null) {
-                    android.util.Log.w("SpotiFLAC", "SAF incremental scan: failed to copy audio for CUE $cueName")
-                    errors++
-                    scanned++
-                    continue
-                }
-
-                val renamedAudio = File(tempDir, audioName)
-                val tempAudioFile = File(tempAudioPath)
-                if (renamedAudio.absolutePath != tempAudioFile.absolutePath) {
-                    tempAudioFile.renameTo(renamedAudio)
-                    tempAudioPath = renamedAudio.absolutePath
-                }
-
-                val cueResultsJson = Gobackend.scanCueSheetForLibraryWithCoverCacheKey(
-                    tempCuePath,
-                    tempDir,
-                    cueDoc.uri.toString(),
-                    cueLastModified,
-                    coverCacheKey,
-                )
-
-                val cueArray = JSONArray(cueResultsJson)
-                for (j in 0 until cueArray.length()) {
-                    val trackObj = cueArray.getJSONObject(j)
-                    putFile(trackObj)
-                    val virtualPath = trackObj.optString("filePath", "")
-                    if (virtualPath.isNotBlank()) {
-                        currentUris.add(virtualPath)
-                    }
-                }
-
-                android.util.Log.d(
-                    "SpotiFLAC",
-                    "SAF incremental scan: CUE $cueName -> ${cueArray.length()} tracks"
-                )
-            } catch (e: Exception) {
-                errors++
-                android.util.Log.w("SpotiFLAC", "SAF incremental scan: error processing CUE $cueName: ${e.message}")
-            } finally {
-                try { tempCuePath?.let { File(it).delete() } } catch (_: Exception) {}
-                try { tempAudioPath?.let { File(it).delete() } } catch (_: Exception) {}
-            }
-
-            scanned++
-            val processed = skippedCount + scanned
-            val pct = if (totalFiles > 0) {
-                processed.toDouble() / totalFiles.toDouble() * 100.0
-            } else {
-                100.0
-            }
-            updateSafScanProgress {
-                it.scannedFiles = processed
-                it.errorCount = errors
-                it.progressPct = pct
-            }
-        }
-
-        for ((cueDoc, parentDir) in unchangedCueFiles) {
-            var tempCue: String? = null
-            try {
-                tempCue = copyUriToTemp(cueDoc.uri, ".cue")
-                if (tempCue != null) {
-                    val audioFileName = extractCueAudioFileName(tempCue)
-                    val cueName = try { cueDoc.name ?: "" } catch (_: Exception) { "" }
-                    val audioDoc = resolveCueAudioSibling(
-                        parentDir = parentDir,
-                        cueName = cueName,
-                        audioFileName = audioFileName,
-                        childLookupCache = safChildLookupCache,
-                    )
-                    if (audioDoc != null) {
-                        cueReferencedAudioUris.add(audioDoc.uri.toString())
-                    }
-                }
-            } catch (e: Exception) {
-                android.util.Log.w("SpotiFLAC", "SAF incremental scan: failed to resolve audio for unchanged CUE: ${e.message}")
-            } finally {
-                try { tempCue?.let { File(it).delete() } } catch (_: Exception) {}
-            }
-        }
-
-        for ((doc, _, lastModified) in audioFiles) {
-            if (safScanCancel) {
-                updateSafScanProgress { it.isComplete = true }
-                spill.abandon()
-                val result = JSONObject()
-                result.put("files", JSONArray())
-                result.put("removedUris", JSONArray())
-                result.put("skippedCount", skippedCount)
-                result.put("totalFiles", totalFiles)
-                result.put("cancelled", true)
-                return result.toString()
-            }
-
-            if (cueReferencedAudioUris.contains(doc.uri.toString())) {
-                scanned++
-                val processed = skippedCount + scanned
-                val pct = if (totalFiles > 0) {
-                    processed.toDouble() / totalFiles.toDouble() * 100.0
-                } else {
-                    100.0
-                }
-                updateSafScanProgress {
-                    it.scannedFiles = processed
-                    it.progressPct = pct
-                }
-                continue
-            }
-
-            val name = try { doc.name ?: "" } catch (_: Exception) { "" }
-            updateSafScanProgress {
-                it.currentFile = name
-            }
-
-            val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
-            val fallbackExt = if (ext.isNotBlank()) ".${ext}" else null
-            val safeLastModified = try { doc.lastModified() } catch (_: Exception) { lastModified }
-            val stableUri = doc.uri.toString()
-            val coverCacheKey = buildLibraryCoverCacheKey(stableUri, safeLastModified)
-            val metadataObj = readAudioMetadataFromUri(
-                doc.uri,
-                name,
-                fallbackExt,
-                coverCacheKey,
-            )
-            if (metadataObj == null) {
-                errors++
-            } else {
-                try {
-                    metadataObj.put("id", buildStableLibraryId(stableUri))
-                    metadataObj.put("filePath", stableUri)
-                    metadataObj.put("fileModTime", safeLastModified)
-                    metadataObj.put("lastModified", safeLastModified)
-                    putFile(metadataObj)
-                } catch (_: Exception) {
-                    errors++
-                }
-            }
-
-            scanned++
-            val processed = skippedCount + scanned
-            val pct = if (totalFiles > 0) {
-                processed.toDouble() / totalFiles.toDouble() * 100.0
-            } else {
-                100.0
-            }
-            updateSafScanProgress {
-                it.scannedFiles = processed
-                it.errorCount = errors
-                it.progressPct = pct
-            }
-        }
-
-        val finalRemovedUris = existingFiles.keys.filter { !currentUris.contains(it) }
-
-        updateSafScanProgress {
-            it.isComplete = true
-            it.progressPct = 100.0
-        }
-
-        spill.raw("],\"removedUris\":")
-        spill.raw(JSONArray(finalRemovedUris).toString())
-        spill.raw(",\"skippedCount\":$skippedCount,\"totalFiles\":$totalFiles}")
-        return spill.result()
-    }
-
-    /**
-     * Resolve SAF file last-modified values for a list of content URIs.
-     * Returns JSON object mapping uri -> lastModified (unix millis).
-     */
-    private fun getSafFileModTimes(urisJson: String): String {
-        val result = JSONObject()
-        val uris = try {
-            JSONArray(urisJson)
-        } catch (_: Exception) {
-            JSONArray()
-        }
-
-        for (i in 0 until uris.length()) {
-            val uriStr = uris.optString(i, "")
-            if (uriStr.isBlank()) continue
-            try {
-                val uri = Uri.parse(uriStr)
-                val doc = DocumentFile.fromSingleUri(this, uri)
-                if (doc != null && doc.exists()) {
-                    result.put(uriStr, doc.lastModified())
-                }
-            } catch (_: Exception) {}
-        }
-
-        return result.toString()
-    }
-
-    private fun runPostProcessingSaf(fileUriStr: String, metadataJson: String): String {
-        val uri = Uri.parse(fileUriStr)
-        val doc = DocumentFile.fromSingleUri(this, uri)
-            ?: return errorJson("SAF file not found")
-
-        val tempInput = copyUriToTemp(uri) ?: return errorJson("Failed to copy SAF file to temp")
-        val tempDir = File(tempInput).parentFile?.absolutePath ?: ""
-        if (tempDir.isNotBlank()) {
-            try {
-                Gobackend.allowDownloadDir(tempDir)
-            } catch (_: Exception) {}
-        }
-
-        val response = Gobackend.runPostProcessingJSON(tempInput, metadataJson)
-        val respObj = JSONObject(response)
-        if (!respObj.optBoolean("success", false)) {
-            try {
-                File(tempInput).delete()
-            } catch (_: Exception) {}
-            return response
-        }
-
-        val newPath = respObj.optString("new_file_path", "")
-        val outputPath = if (newPath.isNotBlank()) newPath else tempInput
-        val outputFile = File(outputPath)
-        if (!outputFile.exists()) {
-            try {
-                File(tempInput).delete()
-            } catch (_: Exception) {}
-            respObj.put("success", false)
-            respObj.put("error", "postProcess output not found")
-            return respObj.toString()
-        }
-
-        val newName = outputFile.name
-        if (!newName.isNullOrBlank() && doc.name != null && doc.name != newName) {
-            try {
-                doc.renameTo(newName)
-            } catch (_: Exception) {}
-        }
-
-        val writeOk = writeUriFromPath(uri, outputFile.absolutePath)
-        if (!writeOk) {
-            respObj.put("success", false)
-            respObj.put("error", "failed to write postProcess output to SAF")
-            return respObj.toString()
-        }
-
-        try {
-            if (outputPath != tempInput) {
-                outputFile.delete()
-            }
-            File(tempInput).delete()
-        } catch (_: Exception) {}
-
-        respObj.put("new_file_path", uri.toString())
-        respObj.put("file_path", uri.toString())
-        return respObj.toString()
-    }
-
-    private fun runPostProcessingSafV2(fileUriStr: String, metadataJson: String): String {
-        val uri = Uri.parse(fileUriStr)
-        val doc = DocumentFile.fromSingleUri(this, uri)
-            ?: return errorJson("SAF file not found")
-
-        val tempInput = copyUriToTemp(uri) ?: return errorJson("Failed to copy SAF file to temp")
-        val tempDir = File(tempInput).parentFile?.absolutePath ?: ""
-        if (tempDir.isNotBlank()) {
-            try {
-                Gobackend.allowDownloadDir(tempDir)
-            } catch (_: Exception) {}
-        }
-
-        val inputObj = JSONObject()
-        inputObj.put("path", tempInput)
-        inputObj.put("uri", fileUriStr)
-        inputObj.put("name", doc.name ?: File(tempInput).name)
-        inputObj.put("mime_type", doc.type ?: contentResolver.getType(uri) ?: "")
-        inputObj.put("size", doc.length())
-        inputObj.put("is_saf", true)
-
-        val response = Gobackend.runPostProcessingV2JSON(inputObj.toString(), metadataJson)
-        val respObj = JSONObject(response)
-        if (!respObj.optBoolean("success", false)) {
-            try {
-                File(tempInput).delete()
-            } catch (_: Exception) {}
-            return response
-        }
-
-        val newPath = respObj.optString("new_file_path", "")
-        val outputPath = if (newPath.isNotBlank()) newPath else tempInput
-        val outputFile = File(outputPath)
-        if (!outputFile.exists()) {
-            try {
-                File(tempInput).delete()
-            } catch (_: Exception) {}
-            respObj.put("success", false)
-            respObj.put("error", "postProcess output not found")
-            return respObj.toString()
-        }
-
-        val newName = outputFile.name
-        if (!newName.isNullOrBlank() && doc.name != null && doc.name != newName) {
-            try {
-                doc.renameTo(newName)
-            } catch (_: Exception) {}
-        }
-
-        val writeOk = writeUriFromPath(uri, outputFile.absolutePath)
-        if (!writeOk) {
-            respObj.put("success", false)
-            respObj.put("error", "failed to write postProcess output to SAF")
-            return respObj.toString()
-        }
-
-        try {
-            if (outputPath != tempInput) {
-                outputFile.delete()
-            }
-            File(tempInput).delete()
-        } catch (_: Exception) {}
-
-        respObj.put("new_file_path", uri.toString())
-        respObj.put("file_path", uri.toString())
-        return respObj.toString()
-    }
-
     // Disable Flutter's built-in deep linking so that incoming ACTION_VIEW URLs
     // (Spotify, Deezer, Tidal, YouTube Music) are NOT forwarded to GoRouter.
     // We handle these URLs ourselves via receive_sharing_intent + ShareIntentService.
@@ -2027,29 +583,7 @@ class MainActivity: FlutterFragmentActivity() {
         // delegate looks it up by cached id (see getCachedEngineId above).
         AudioServicePlugin.getFlutterEngine(this)
         super.onCreate(savedInstanceState)
-        requestHighRefreshRate()
         handleExtensionOAuthIntent(intent)
-    }
-
-    // Flutter does not request a display mode, so many devices keep the
-    // activity at 60Hz even on 90/120Hz panels. Prefer the highest refresh
-    // rate available at the current resolution.
-    private fun requestHighRefreshRate() {
-        val display =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) display
-            else @Suppress("DEPRECATION") windowManager.defaultDisplay
-        val current = display?.mode ?: return
-        val best = display.supportedModes
-            .filter {
-                it.physicalWidth == current.physicalWidth &&
-                    it.physicalHeight == current.physicalHeight
-            }
-            .maxByOrNull { it.refreshRate } ?: return
-        if (best.modeId != current.modeId) {
-            window.attributes = window.attributes.apply {
-                preferredDisplayModeId = best.modeId
-            }
-        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -2255,31 +789,11 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(response)
                         }
-                        "getDownloadProgress" -> {
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.getDownloadProgress()
-                            }
-                            result.success(parseJsonPayload(response))
-                        }
                         "getAllDownloadProgress" -> {
                             val response = withContext(Dispatchers.IO) {
                                 Gobackend.getAllDownloadProgress()
                             }
                             result.success(parseJsonPayload(response))
-                        }
-                        "initItemProgress" -> {
-                            val itemId = call.argument<String>("item_id") ?: ""
-                            withContext(Dispatchers.IO) {
-                                Gobackend.initItemProgress(itemId)
-                            }
-                            result.success(null)
-                        }
-                        "finishItemProgress" -> {
-                            val itemId = call.argument<String>("item_id") ?: ""
-                            withContext(Dispatchers.IO) {
-                                Gobackend.finishItemProgress(itemId)
-                            }
-                            result.success(null)
                         }
                         "clearItemProgress" -> {
                             val itemId = call.argument<String>("item_id") ?: ""
@@ -2323,14 +837,6 @@ class MainActivity: FlutterFragmentActivity() {
                                 Gobackend.setAllowPrivateNetwork(allowed)
                             }
                             result.success(null)
-                        }
-                        "checkDuplicate" -> {
-                            val outputDir = call.argument<String>("output_dir") ?: ""
-                            val isrc = call.argument<String>("isrc") ?: ""
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.checkDuplicate(outputDir, isrc)
-                            }
-                            result.success(response)
                         }
                         "checkDuplicatesBatch" -> {
                             val outputDir = call.argument<String>("output_dir") ?: ""
@@ -2474,14 +980,6 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(tempPath)
                         }
-                        "safReplaceFromPath" -> {
-                            val uriStr = call.argument<String>("uri") ?: ""
-                            val srcPath = call.argument<String>("src_path") ?: ""
-                            val ok = withContext(Dispatchers.IO) {
-                                writeUriFromPath(Uri.parse(uriStr), srcPath)
-                            }
-                            result.success(ok)
-                        }
                         "safCreateFromPath" -> {
                             val treeUriStr = call.argument<String>("tree_uri") ?: ""
                             val relativeDir = call.argument<String>("relative_dir") ?: ""
@@ -2520,6 +1018,38 @@ class MainActivity: FlutterFragmentActivity() {
                                     treeUriStr = treeUriStr,
                                     relativeDir = relativeDir,
                                     fileName = fileName,
+                                    mimeType = mimeType,
+                                    srcPath = srcPath,
+                                    preservedSuffix = preservedSuffix,
+                                )?.let { writeResult ->
+                                    JSONObject()
+                                        .put("uri", writeResult.uri)
+                                        .put("file_name", writeResult.fileName)
+                                        .toString()
+                                }
+                            }
+                            result.success(response)
+                        }
+                        "safCreateCollisionAwareFromPath" -> {
+                            val treeUriStr = call.argument<String>("tree_uri") ?: ""
+                            val relativeDir = call.argument<String>("relative_dir") ?: ""
+                            val cleanFileName = call.argument<String>("clean_file_name") ?: ""
+                            val variantFileName = call.argument<String>("variant_file_name") ?: ""
+                            val mimeType = call.argument<String>("mime_type") ?: "application/octet-stream"
+                            val srcPath = call.argument<String>("src_path") ?: ""
+                            val preservedSuffix = call.argument<String>("preserved_suffix") ?: ""
+                            val response = withContext(Dispatchers.IO) {
+                                if (
+                                    treeUriStr.isBlank() ||
+                                    cleanFileName.isBlank() ||
+                                    variantFileName.isBlank()
+                                ) return@withContext null
+                                SafDownloadHandler.writeFileToSafCollisionAware(
+                                    context = this@MainActivity,
+                                    treeUriStr = treeUriStr,
+                                    relativeDir = relativeDir,
+                                    cleanFileName = cleanFileName,
+                                    variantFileName = variantFileName,
                                     mimeType = mimeType,
                                     srcPath = srcPath,
                                     preservedSuffix = preservedSuffix,
@@ -2587,16 +1117,6 @@ class MainActivity: FlutterFragmentActivity() {
                             } catch (e: Exception) {
                                 result.error("share_failed", e.message, null)
                             }
-                        }
-                        "fetchLyrics" -> {
-                            val spotifyId = call.argument<String>("spotify_id") ?: ""
-                            val trackName = call.argument<String>("track_name") ?: ""
-                            val artistName = call.argument<String>("artist_name") ?: ""
-                            val durationMs = call.argument<Int>("duration_ms")?.toLong() ?: 0L
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.fetchLyrics(spotifyId, trackName, artistName, durationMs)
-                            }
-                            result.success(response)
                         }
                         "getLyricsLRC" -> {
                             val spotifyId = call.argument<String>("spotify_id") ?: ""
@@ -3116,14 +1636,6 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(null)
                         }
-                        "getDeezerRelatedArtists" -> {
-                            val artistId = call.argument<String>("artist_id") ?: ""
-                            val limit = call.argument<Int>("limit") ?: 12
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.getDeezerRelatedArtists(artistId, limit.toLong())
-                            }
-                            result.success(response)
-                        }
                         "getProviderMetadata" -> {
                             val providerId = call.argument<String>("provider_id") ?: ""
                             val resourceType = call.argument<String>("resource_type") ?: ""
@@ -3170,12 +1682,6 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(response)
                         }
-                        "getLogs" -> {
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.getLogs()
-                            }
-                            result.success(response)
-                        }
                         "getLogsSince" -> {
                             val index = call.argument<Int>("index") ?: 0
                             val response = withContext(Dispatchers.IO) {
@@ -3213,12 +1719,6 @@ class MainActivity: FlutterFragmentActivity() {
                                 Gobackend.setMetadataLanguage(tag)
                             }
                             result.success(null)
-                        }
-                        "getLogCount" -> {
-                            val count = withContext(Dispatchers.IO) {
-                                Gobackend.getLogCount()
-                            }
-                            result.success(count.toInt())
                         }
                         "setLoggingEnabled" -> {
                             val enabled = call.argument<Boolean>("enabled") ?: false
@@ -3354,20 +1854,25 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(response)
                         }
-                        "searchTracksWithExtensions" -> {
-                            val query = call.argument<String>("query") ?: ""
-                            val limit = call.argument<Int>("limit") ?: 20
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.searchTracksWithExtensionsJSON(query, limit.toLong())
-                            }
-                            result.success(response)
-                        }
                         "searchTracksWithMetadataProviders" -> {
                             val query = call.argument<String>("query") ?: ""
                             val limit = call.argument<Int>("limit") ?: 20
                             val includeExtensions = call.argument<Boolean>("include_extensions") ?: true
                             val response = withContext(Dispatchers.IO) {
                                 Gobackend.searchTracksWithMetadataProvidersJSON(query, limit.toLong(), includeExtensions)
+                            }
+                            result.success(response)
+                        }
+                        "searchTracksWithMetadataProvider" -> {
+                            val extensionId = call.argument<String>("extension_id") ?: ""
+                            val query = call.argument<String>("query") ?: ""
+                            val limit = call.argument<Int>("limit") ?: 20
+                            val response = withContext(Dispatchers.IO) {
+                                Gobackend.searchTracksWithMetadataProviderJSON(
+                                    extensionId,
+                                    query,
+                                    limit.toLong()
+                                )
                             }
                             result.success(response)
                         }
@@ -3499,12 +2004,6 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(null)
                         }
-                        "getSearchProviders" -> {
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.getSearchProvidersJSON()
-                            }
-                            result.success(response)
-                        }
                         "handleURLWithExtension" -> {
                             val url = call.argument<String>("url") ?: ""
                             val response = withContext(Dispatchers.IO) {
@@ -3519,21 +2018,32 @@ class MainActivity: FlutterFragmentActivity() {
                             }
                             result.success(response)
                         }
-                        "getURLHandlers" -> {
+                        "getTrackPlatformLinks" -> {
+                            val spotifyId = call.argument<String>("spotify_id") ?: ""
+                            val isrc = call.argument<String>("isrc") ?: ""
                             val response = withContext(Dispatchers.IO) {
-                                Gobackend.getURLHandlersJSON()
+                                Gobackend.getTrackPlatformLinksJSON(spotifyId, isrc)
                             }
                             result.success(response)
                         }
-                        "runPostProcessing" -> {
-                            val filePath = call.argument<String>("file_path") ?: ""
-                            val metadataJson = call.argument<String>("metadata") ?: ""
+                        "fetchMusicBrainzTags" -> {
+                            val isrc = call.argument<String>("isrc") ?: ""
+                            val albumName = call.argument<String>("album_name") ?: ""
                             val response = withContext(Dispatchers.IO) {
-                                if (filePath.startsWith("content://")) {
-                                    runPostProcessingSaf(filePath, metadataJson)
-                                } else {
-                                    Gobackend.runPostProcessingJSON(filePath, metadataJson)
+                                val genre = try {
+                                    Gobackend.fetchMusicBrainzGenreByISRC(isrc)
+                                } catch (_: Exception) {
+                                    ""
                                 }
+                                val albumArtist = try {
+                                    Gobackend.fetchMusicBrainzAlbumArtistByISRC(isrc, albumName)
+                                } catch (_: Exception) {
+                                    ""
+                                }
+                                JSONObject()
+                                    .put("genre", genre)
+                                    .put("album_artist", albumArtist)
+                                    .toString()
                             }
                             result.success(response)
                         }
@@ -3559,12 +2069,6 @@ class MainActivity: FlutterFragmentActivity() {
                                     }
                                     Gobackend.runPostProcessingV2JSON(inputObj.toString(), metadataJson)
                                 }
-                            }
-                            result.success(response)
-                        }
-                        "getPostProcessingProviders" -> {
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.getPostProcessingProvidersJSON()
                             }
                             result.success(response)
                         }
@@ -3634,13 +2138,6 @@ class MainActivity: FlutterFragmentActivity() {
                             val requestId = call.argument<String>("request_id") ?: ""
                             val response = withContext(Dispatchers.IO) {
                                 Gobackend.getExtensionHomeFeedJSONWithRequestID(extensionId, requestId)
-                            }
-                            result.success(response)
-                        }
-                        "getExtensionBrowseCategories" -> {
-                            val extensionId = call.argument<String>("extension_id") ?: ""
-                            val response = withContext(Dispatchers.IO) {
-                                Gobackend.getExtensionBrowseCategoriesJSON(extensionId)
                             }
                             result.success(response)
                         }

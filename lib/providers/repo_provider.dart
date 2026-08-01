@@ -364,15 +364,33 @@ class RepoNotifier extends Notifier<RepoState> {
     String extensionsDir,
   ) {
     return _runSerialized(
-      () => _installExtensionInternal(extensionId, tempDir, extensionsDir),
+      () => _downloadAndApplyExtension(
+        extensionId,
+        tempDir,
+        action: 'install',
+        apply: (notifier, path) => notifier.installExtension(path),
+      ),
     );
   }
 
-  Future<bool> _installExtensionInternal(
+  Future<bool> updateExtension(String extensionId, String tempDir) {
+    return _runSerialized(
+      () => _downloadAndApplyExtension(
+        extensionId,
+        tempDir,
+        action: 'update',
+        apply: (notifier, path) => notifier.upgradeExtension(path),
+      ),
+    );
+  }
+
+  Future<bool> _downloadAndApplyExtension(
     String extensionId,
-    String tempDir,
-    String extensionsDir,
-  ) async {
+    String tempDir, {
+    required String action,
+    required Future<bool> Function(ExtensionNotifier notifier, String path)
+    apply,
+  }) async {
     state = state.copyWith(
       isDownloading: true,
       downloadingId: extensionId,
@@ -386,64 +404,21 @@ class RepoNotifier extends Notifier<RepoState> {
         tempDir,
       );
 
-      _log.i('Installing extension from: $downloadPath');
-      final extNotifier = ref.read(extensionProvider.notifier);
-      final success = await extNotifier.installExtension(downloadPath);
+      _log.i('Applying $action from: $downloadPath');
+      final success = await apply(
+        ref.read(extensionProvider.notifier),
+        downloadPath,
+      );
 
       if (success) {
-        _log.i('Extension installed: $extensionId');
+        _log.i('Extension $action succeeded: $extensionId');
         await refresh();
       }
 
       state = state.copyWith(isDownloading: false, clearDownloadingId: true);
       return success;
     } catch (e) {
-      _log.e('Failed to install extension: $e');
-      state = state.copyWith(
-        isDownloading: false,
-        clearDownloadingId: true,
-        error: e.toString(),
-      );
-      return false;
-    }
-  }
-
-  Future<bool> updateExtension(String extensionId, String tempDir) {
-    return _runSerialized(
-      () => _updateExtensionInternal(extensionId, tempDir),
-    );
-  }
-
-  Future<bool> _updateExtensionInternal(
-    String extensionId,
-    String tempDir,
-  ) async {
-    state = state.copyWith(
-      isDownloading: true,
-      downloadingId: extensionId,
-      clearError: true,
-    );
-
-    try {
-      _log.i('Downloading update for: $extensionId');
-      final downloadPath = await PlatformBridge.downloadRepoExtension(
-        extensionId,
-        tempDir,
-      );
-
-      _log.i('Upgrading extension from: $downloadPath');
-      final extNotifier = ref.read(extensionProvider.notifier);
-      final success = await extNotifier.upgradeExtension(downloadPath);
-
-      if (success) {
-        _log.i('Extension updated: $extensionId');
-        await refresh();
-      }
-
-      state = state.copyWith(isDownloading: false, clearDownloadingId: true);
-      return success;
-    } catch (e) {
-      _log.e('Failed to update extension: $e');
+      _log.e('Failed to $action extension: $e');
       state = state.copyWith(
         isDownloading: false,
         clearDownloadingId: true,

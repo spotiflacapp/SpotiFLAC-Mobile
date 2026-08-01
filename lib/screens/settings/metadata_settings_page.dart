@@ -5,7 +5,7 @@ import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/utils/artist_utils.dart';
 import 'package:spotiflac_android/screens/settings/metadata_provider_priority_page.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class MetadataSettingsPage extends ConsumerWidget {
   const MetadataSettingsPage({super.key});
@@ -19,7 +19,7 @@ class MetadataSettingsPage extends ConsumerWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(title: context.l10n.settingsMetadata),
+            AppSliverHeader.page(title: context.l10n.settingsMetadata),
 
             SliverToBoxAdapter(
               child: SettingsSectionHeader(title: context.l10n.sectionDownload),
@@ -165,9 +165,6 @@ class MetadataSettingsPage extends ConsumerWidget {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (context) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,

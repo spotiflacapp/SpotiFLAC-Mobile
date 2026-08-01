@@ -12,7 +12,7 @@ require (
 	github.com/go-flac/go-flac/v2 v2.0.4
 	github.com/refraction-networking/utls v1.8.2
 	golang.org/x/crypto v0.54.0
-	golang.org/x/mobile v0.0.0-20260709172247-6129f5bee9d5
+	golang.org/x/mobile v0.0.0-20260730202154-c700fe717e6e
 	golang.org/x/net v0.57.0
 	golang.org/x/text v0.40.0
 )

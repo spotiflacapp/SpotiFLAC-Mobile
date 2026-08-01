@@ -1,12 +1,19 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/theme/app_tokens.dart';
+import 'package:spotiflac_android/theme/cover_palette.dart';
 
 /// Collapsing album-detail header shared by the album, local-album, and
 /// downloaded-album screens: full-bleed [background] (optionally blurred and
 /// scrimmed), bottom gradient, centered square cover, title, optional
 /// subtitle/meta/actions rows, and a circular back button. Content fades out
 /// below 30% expansion; the [title] fades into the toolbar instead.
+///
+/// Colours come from a scheme derived from [paletteSource] (see [CoverPalette])
+/// and are published to descendants through [HeaderPalette], so the header
+/// follows both the artwork and the app's light/dark mode instead of assuming a
+/// black backdrop with white text.
 class AlbumDetailHeader extends StatelessWidget {
   const AlbumDetailHeader({
     super.key,
@@ -14,6 +21,7 @@ class AlbumDetailHeader extends StatelessWidget {
     required this.expandedHeight,
     required this.showTitleInAppBar,
     required this.background,
+    this.paletteSource,
     this.blurAndScrimBackground = true,
     this.coverBuilder,
     this.subtitle,
@@ -31,6 +39,10 @@ class AlbumDetailHeader extends StatelessWidget {
 
   /// Full-bleed background content (cover image, motion banner, placeholder).
   final Widget background;
+
+  /// Cover URL or local path the header palette is derived from. Null keeps the
+  /// app's own colour scheme.
+  final String? paletteSource;
 
   /// Blur the background and dim it 35%; disable for motion banners and
   /// placeholder backgrounds.
@@ -71,21 +83,33 @@ class AlbumDetailHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    return CoverPaletteBuilder(
+      imageSource: paletteSource,
+      builder: (context, headerScheme) => _buildAppBar(context, headerScheme),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context, ColorScheme headerScheme) {
+    final tokens = context.tokens;
+    // Scrim and gradient are drawn from the palette surface instead of black,
+    // so a light theme gets a light header with dark text and a dark theme
+    // keeps the familiar dark treatment — both tinted by the artwork.
+    final scrimColor = headerScheme.surface;
+    final onHeader = headerScheme.onSurface;
 
     return SliverAppBar(
       expandedHeight: expandedHeight,
       pinned: true,
       stretch: true,
-      backgroundColor: backgroundColor ?? colorScheme.surface,
+      backgroundColor: backgroundColor ?? headerScheme.surface,
       surfaceTintColor: Colors.transparent,
       title: AnimatedOpacity(
-        duration: const Duration(milliseconds: 200),
+        duration: tokens.motionFast,
         opacity: showTitleInAppBar ? 1.0 : 0.0,
         child: Text(
           appBarTitle ?? title,
           style: TextStyle(
-            color: colorScheme.onSurface,
+            color: onHeader,
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
@@ -113,20 +137,20 @@ class AlbumDetailHeader extends StatelessWidget {
                 else
                   background,
                 if (blurAndScrimBackground)
-                  Container(color: Colors.black.withValues(alpha: 0.35)),
+                  ColoredBox(color: scrimColor.withValues(alpha: 0.4)),
                 Positioned(
                   left: 0,
                   right: 0,
                   bottom: 0,
                   height: expandedHeight * 0.65,
-                  child: Container(
+                  child: DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.transparent,
-                          Colors.black.withValues(alpha: 0.85),
+                          scrimColor.withValues(alpha: 0),
+                          scrimColor.withValues(alpha: 0.92),
                         ],
                       ),
                     ),
@@ -137,7 +161,7 @@ class AlbumDetailHeader extends StatelessWidget {
                   right: 20,
                   bottom: 40,
                   child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 150),
+                    duration: tokens.motionFast,
                     opacity: showContent ? 1.0 : 0.0,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -153,10 +177,12 @@ class AlbumDetailHeader extends StatelessWidget {
                                 width: coverSize,
                                 height: coverSize,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: BorderRadius.circular(
+                                    tokens.radiusControl,
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(
+                                      color: headerScheme.shadow.withValues(
                                         alpha: 0.45,
                                       ),
                                       blurRadius: 24,
@@ -165,7 +191,9 @@ class AlbumDetailHeader extends StatelessWidget {
                                   ],
                                 ),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: BorderRadius.circular(
+                                    tokens.radiusControl,
+                                  ),
                                   child: coverBuilder!(context, coverSize),
                                 ),
                               );
@@ -176,7 +204,7 @@ class AlbumDetailHeader extends StatelessWidget {
                         Text(
                           title,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: onHeader,
                             fontSize: _titleFontSize(),
                             fontWeight: FontWeight.bold,
                             height: 1.2,
@@ -209,15 +237,15 @@ class AlbumDetailHeader extends StatelessWidget {
       ),
       leading:
           leading ??
-          IconButton(
+          IconButton.filledTonal(
             tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.4),
-                shape: BoxShape.circle,
+            icon: const Icon(Icons.arrow_back),
+            style: IconButton.styleFrom(
+              minimumSize: Size.square(tokens.minTouchTarget),
+              backgroundColor: headerScheme.surfaceContainerHigh.withValues(
+                alpha: 0.75,
               ),
-              child: const Icon(Icons.arrow_back, color: Colors.white),
+              foregroundColor: headerScheme.onSurfaceVariant,
             ),
             onPressed: () => Navigator.pop(context),
           ),
@@ -226,8 +254,8 @@ class AlbumDetailHeader extends StatelessWidget {
   }
 }
 
-/// White "play" pill + translucent shuffle circle used by the local and
-/// downloaded album headers.
+/// Primary "play" pill + shuffle circle used by the local and downloaded album
+/// headers. Colours follow the [HeaderPalette].
 class AlbumPlayActions extends StatelessWidget {
   const AlbumPlayActions({
     super.key,
@@ -244,6 +272,8 @@ class AlbumPlayActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final scheme = HeaderPalette.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -257,25 +287,22 @@ class AlbumPlayActions extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             style: FilledButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black87,
-              minimumSize: const Size(0, 48),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
-              ),
+              backgroundColor: scheme.primary,
+              foregroundColor: scheme.onPrimary,
+              minimumSize: Size(0, tokens.minTouchTarget),
+              shape: const StadiumBorder(),
             ),
           ),
         ),
-        const SizedBox(width: 12),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-            tooltip: shuffleTooltip,
-            onPressed: onShuffle,
-            icon: const Icon(Icons.shuffle, color: Colors.white),
+        SizedBox(width: tokens.gapMd),
+        IconButton.filledTonal(
+          tooltip: shuffleTooltip,
+          onPressed: onShuffle,
+          icon: const Icon(Icons.shuffle),
+          style: IconButton.styleFrom(
+            minimumSize: Size.square(tokens.minTouchTarget),
+            backgroundColor: scheme.secondaryContainer.withValues(alpha: 0.8),
+            foregroundColor: scheme.onSecondaryContainer,
           ),
         ),
       ],
@@ -283,46 +310,76 @@ class AlbumPlayActions extends StatelessWidget {
   }
 }
 
-/// 48x48 translucent-white circle icon button used in album/playlist headers
-/// (add-to-playlist, love-all, ...).
+/// Primary action pill in a detail header (download all, play all). Reads its
+/// colours from [HeaderPalette] so it works on light and dark headers alike.
+class HeaderFilledButton extends StatelessWidget {
+  const HeaderFilledButton({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final scheme = HeaderPalette.of(context);
+    return FilledButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 18),
+      label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+      style: FilledButton.styleFrom(
+        backgroundColor: scheme.primary,
+        foregroundColor: scheme.onPrimary,
+        disabledBackgroundColor: scheme.primary.withValues(alpha: 0.4),
+        disabledForegroundColor: scheme.onPrimary.withValues(alpha: 0.7),
+        minimumSize: Size(0, tokens.minTouchTarget),
+        shape: const StadiumBorder(),
+      ),
+    );
+  }
+}
+
+/// Circular header icon button (add-to-playlist, love-all, ...). Sized to the
+/// minimum touch target and tinted from the [HeaderPalette].
 class HeaderCircleButton extends StatelessWidget {
   const HeaderCircleButton({
     super.key,
     required this.icon,
     required this.tooltip,
     required this.onPressed,
-    this.iconColor = Colors.white,
+    this.iconColor,
   });
 
   final IconData icon;
   final String tooltip;
   final VoidCallback? onPressed;
-  final Color iconColor;
+
+  /// Overrides the palette foreground, e.g. to mark an active "loved" state.
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 48,
-      height: 48,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white.withValues(alpha: 0.15),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: Icon(icon, size: 22, color: iconColor),
-        tooltip: tooltip,
-        padding: EdgeInsets.zero,
+    final tokens = context.tokens;
+    final scheme = HeaderPalette.of(context);
+    return IconButton.filledTonal(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 22),
+      tooltip: tooltip,
+      style: IconButton.styleFrom(
+        minimumSize: Size.square(tokens.minTouchTarget),
+        backgroundColor: scheme.surfaceContainerHighest.withValues(alpha: 0.7),
+        foregroundColor: iconColor ?? scheme.onSurfaceVariant,
       ),
     );
   }
 }
 
-/// "•"-joined row of white [HeaderMetaItem]s shown under the header subtitle
+/// "•"-joined row of [HeaderMetaItem]s shown under the header subtitle
 /// (track count, duration, quality, ...).
 class HeaderMetaRow extends StatelessWidget {
   const HeaderMetaRow({super.key, required this.items});
@@ -331,15 +388,16 @@ class HeaderMetaRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = HeaderPalette.of(context);
     final parts = <Widget>[];
     for (final item in items) {
       if (parts.isNotEmpty) {
         parts.add(
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Text(
               '•',
-              style: TextStyle(color: Colors.white70, fontSize: 12),
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
             ),
           ),
         );
@@ -356,7 +414,7 @@ class HeaderMetaRow extends StatelessWidget {
   }
 }
 
-/// Single white meta label (optional leading icon) for [HeaderMetaRow].
+/// Single meta label (optional leading icon) for [HeaderMetaRow].
 class HeaderMetaItem extends StatelessWidget {
   const HeaderMetaItem(this.label, {super.key, this.icon});
 
@@ -365,8 +423,9 @@ class HeaderMetaItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(
-      color: Colors.white,
+    final scheme = HeaderPalette.of(context);
+    final textStyle = TextStyle(
+      color: scheme.onSurface,
       fontSize: 13,
       fontWeight: FontWeight.w500,
     );
@@ -374,7 +433,7 @@ class HeaderMetaItem extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 15, color: Colors.white),
+        Icon(icon, size: 15, color: scheme.onSurface),
         const SizedBox(width: 4),
         Text(label, style: textStyle),
       ],

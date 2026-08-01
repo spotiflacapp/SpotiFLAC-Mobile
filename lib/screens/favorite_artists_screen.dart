@@ -8,7 +8,7 @@ import 'package:spotiflac_android/services/cover_cache_manager.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/utils/nav_bar_inset.dart';
 import 'package:spotiflac_android/widgets/animation_utils.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class FavoriteArtistsScreen extends ConsumerWidget {
   const FavoriteArtistsScreen({super.key});
@@ -24,7 +24,7 @@ class FavoriteArtistsScreen extends ConsumerWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SettingsSliverAppBar(title: context.l10n.collectionFavoriteArtists),
+          AppSliverHeader.page(title: context.l10n.collectionFavoriteArtists),
           if (artists.isEmpty)
             SliverFillRemaining(
               hasScrollBody: false,

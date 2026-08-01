@@ -188,131 +188,99 @@ extension _QueueTabItemWidgets on _QueueTabState {
         ),
         child: DownloadSuccessOverlay(
           showSuccess: isCompleted,
-          child: Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              onTap: isCompleted
-                  ? () => _navigateToMetadataScreen(item)
-                  : item.status == DownloadStatus.failed
-                  ? () => _showDownloadErrorDialog(context, item)
-                  : null,
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                children: [
-                  if (item.status == DownloadStatus.downloading)
-                    Positioned.fill(
-                      child: SmoothedProgressBuilder(
-                        builder: (context, progress, child) => Align(
-                          alignment: Alignment.centerLeft,
-                          child: FractionallySizedBox(
-                            widthFactor: progress,
-                            child: child,
-                          ),
-                        ),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                colorScheme.primary.withValues(alpha: 0.16),
-                                colorScheme.primary.withValues(alpha: 0.04),
-                              ],
-                            ),
-                          ),
+          child: TrackCard(
+            onTap: isCompleted
+                ? () => _navigateToMetadataScreen(item)
+                : item.status == DownloadStatus.failed ||
+                      item.status == DownloadStatus.skipped
+                ? () => _showDownloadErrorDialog(context, item)
+                : null,
+            onLongPress: item.status == DownloadStatus.queued
+                ? () => _showQueuedItemMenu(context, item)
+                : null,
+            background: item.status == DownloadStatus.downloading
+                ? SmoothedProgressBuilder(
+                    builder: (context, progress, child) => Align(
+                      alignment: Alignment.centerLeft,
+                      child: FractionallySizedBox(
+                        widthFactor: progress,
+                        child: child,
+                      ),
+                    ),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            colorScheme.primary.withValues(alpha: 0.16),
+                            colorScheme.primary.withValues(alpha: 0.04),
+                          ],
                         ),
                       ),
                     ),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      children: [
-                        isCompleted
-                            ? Hero(
-                                tag: 'cover_${item.id}',
-                                child: _buildCoverArt(item, colorScheme),
-                              )
-                            : _buildCoverArt(item, colorScheme),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.track.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 2),
-                              ClickableArtistName(
-                                artistName: item.track.artistName,
-                                artistId: item.track.artistId,
-                                coverUrl: item.track.coverUrl,
-                                extensionId: item.track.source,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(
-                                      color: colorScheme.onSurfaceVariant,
-                                    ),
-                              ),
-                              if (item.status ==
-                                  DownloadStatus.downloading) ...[
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.download_rounded,
-                                      size: 12,
-                                      color: colorScheme.primary,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Expanded(
-                                      child: SmoothedProgressBuilder(
-                                        builder: (context, progress, child) =>
-                                            Text(
-                                              _formatDownloadStatusLine(
-                                                context,
-                                                item,
-                                                visualProgress: progress,
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall
-                                                  ?.copyWith(
-                                                    color: colorScheme.primary,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                      ),
-                                    ),
-                                  ],
+                  )
+                : null,
+            leading: isCompleted
+                ? Hero(
+                    tag: 'cover_${item.id}',
+                    child: _buildCoverArt(item, colorScheme),
+                  )
+                : _buildCoverArt(item, colorScheme),
+            title: item.track.name,
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ClickableArtistName(
+                  artistName: item.track.artistName,
+                  artistId: item.track.artistId,
+                  coverUrl: item.track.coverUrl,
+                  extensionId: item.track.source,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                if (item.status == DownloadStatus.downloading) ...[
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.download_rounded,
+                        size: 12,
+                        color: colorScheme.primary,
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: SmoothedProgressBuilder(
+                          builder: (context, progress, child) => Text(
+                            _formatDownloadStatusLine(
+                              context,
+                              item,
+                              visualProgress: progress,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelSmall
+                                ?.copyWith(
+                                  color: colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                              ],
-                              if (item.status == DownloadStatus.failed) ...[
-                                const SizedBox(height: 4),
-                                _buildDownloadFailureMessage(
-                                  context,
-                                  item,
-                                  colorScheme,
-                                ),
-                              ],
-                            ],
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        _buildActionButtons(context, item, colorScheme),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
+                if (item.status == DownloadStatus.failed) ...[
+                  const SizedBox(height: 4),
+                  _buildDownloadFailureMessage(context, item, colorScheme),
+                ],
+              ],
             ),
+            trailing: _buildActionButtons(context, item, colorScheme),
           ),
         ),
       ),
@@ -328,7 +296,10 @@ extension _QueueTabItemWidgets on _QueueTabState {
     if (raw == downloadFolderAccessLostErrorMessage) {
       return context.l10n.downloadErrorFolderAccessLost;
     }
-    return raw;
+    return context.friendlyError(
+      raw,
+      fallback: context.l10n.updateDownloadFailed,
+    );
   }
 
   Widget _buildDownloadFailureMessage(
@@ -479,6 +450,45 @@ extension _QueueTabItemWidgets on _QueueTabState {
     );
   }
 
+  Future<void> _showQueuedItemMenu(BuildContext context, DownloadItem item) {
+    final notifier = ref.read(downloadQueueProvider.notifier);
+    return showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.skip_next),
+              title: Text(context.l10n.queueDownloadNext),
+              onTap: () {
+                Navigator.of(ctx).pop();
+                notifier.downloadNext(item.id);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.arrow_upward),
+              title: Text(context.l10n.queueMoveUp),
+              onTap: () {
+                Navigator.of(ctx).pop();
+                notifier.moveQueuedItem(item.id, -1);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.arrow_downward),
+              title: Text(context.l10n.queueMoveDown),
+              onTap: () {
+                Navigator.of(ctx).pop();
+                notifier.moveQueuedItem(item.id, 1);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildActionButtons(
     BuildContext context,
     DownloadItem item,
@@ -486,14 +496,34 @@ extension _QueueTabItemWidgets on _QueueTabState {
   ) {
     switch (item.status) {
       case DownloadStatus.queued:
-        return IconButton(
-          onPressed: () =>
-              ref.read(downloadQueueProvider.notifier).cancelItem(item.id),
-          icon: Icon(Icons.close, color: colorScheme.error),
-          tooltip: context.l10n.dialogCancel,
-          style: IconButton.styleFrom(
-            backgroundColor: colorScheme.errorContainer.withValues(alpha: 0.3),
-          ),
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: () => ref
+                  .read(downloadQueueProvider.notifier)
+                  .downloadNext(item.id),
+              icon: Icon(Icons.skip_next, color: colorScheme.primary),
+              tooltip: context.l10n.queueDownloadNext,
+              style: IconButton.styleFrom(
+                backgroundColor: colorScheme.primaryContainer.withValues(
+                  alpha: 0.3,
+                ),
+              ),
+            ),
+            const SizedBox(width: 4),
+            IconButton(
+              onPressed: () =>
+                  ref.read(downloadQueueProvider.notifier).cancelItem(item.id),
+              icon: Icon(Icons.close, color: colorScheme.error),
+              tooltip: context.l10n.dialogCancel,
+              style: IconButton.styleFrom(
+                backgroundColor: colorScheme.errorContainer.withValues(
+                  alpha: 0.3,
+                ),
+              ),
+            ),
+          ],
         );
       case DownloadStatus.downloading:
         return IconButton(
@@ -814,6 +844,7 @@ extension _QueueTabItemWidgets on _QueueTabState {
         '${_QueueTabState._months[date.month - 1]} ${date.day}, ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
 
     final isDownloaded = item.source == LibraryItemSource.downloaded;
+    final quality = item.qualityForMode(_libraryQualityLabelMode);
     final sourceLabel = isDownloaded
         ? context.l10n.librarySourceDownloaded
         : context.l10n.librarySourceLocal;
@@ -827,171 +858,123 @@ extension _QueueTabItemWidgets on _QueueTabState {
     return Semantics(
       label: context.l10n.a11yTrackByArtist(item.trackName, item.artistName),
       selected: isSelected,
-      child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        color: isSelected
-            ? colorScheme.primaryContainer.withValues(alpha: 0.3)
-            : null,
-        child: InkWell(
-          onTap: _isSelectionMode
-              ? () => _toggleSelection(item.id)
-              : isDownloaded
-              ? () => _navigateToHistoryMetadataScreen(
-                  item.historyItem!,
-                  navigationItems: downloadedNavigationItems,
-                  navigationIndex: downloadedNavigationIndex,
-                )
-              : item.localItem != null
-              ? () => _navigateToLocalMetadataScreen(
-                  item.localItem!,
-                  navigationItems: localNavigationItems,
-                  navigationIndex: localNavigationIndex,
-                )
-              : () => _openFile(
-                  item.filePath,
-                  title: item.trackName,
-                  artist: item.artistName,
-                  album: item.albumName,
-                  coverUrl: item.coverUrl ?? item.localCoverPath ?? '',
-                ),
-          onLongPress: _isSelectionMode
-              ? null
-              : () => _enterSelectionMode(item.id),
-          borderRadius: BorderRadius.circular(12),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
+      child: TrackCard(
+        isSelectionMode: _isSelectionMode,
+        isSelected: isSelected,
+        onTap: _isSelectionMode
+            ? () => _toggleSelection(item.id)
+            : isDownloaded
+            ? () => _navigateToHistoryMetadataScreen(
+                item.historyItem!,
+                navigationItems: downloadedNavigationItems,
+                navigationIndex: downloadedNavigationIndex,
+              )
+            : item.localItem != null
+            ? () => _navigateToLocalMetadataScreen(
+                item.localItem!,
+                navigationItems: localNavigationItems,
+                navigationIndex: localNavigationIndex,
+              )
+            : () => _openFile(
+                item.filePath,
+                title: item.trackName,
+                artist: item.artistName,
+                album: item.albumName,
+                coverUrl: item.coverUrl ?? item.localCoverPath ?? '',
+              ),
+        onLongPress: _isSelectionMode
+            ? null
+            : () => _enterSelectionMode(item.id),
+        leading: Hero(
+          tag: 'cover_lib_${item.id}',
+          child: _buildUnifiedCoverImage(
+            item,
+            colorScheme,
+            context.tokens.coverList,
+          ),
+        ),
+        title: item.trackName,
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClickableArtistName(
+              artistName: item.artistName,
+              coverUrl: item.coverUrl,
+              extensionId: item.historyItem?.service,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Row(
               children: [
-                if (_isSelectionMode) ...[
-                  Semantics(
-                    checked: isSelected,
-                    label: isSelected
-                        ? context.l10n.a11yDeselectTrack
-                        : context.l10n.a11ySelectTrack,
-                    child: AnimatedSelectionCheckbox(
-                      visible: true,
-                      selected: isSelected,
-                      colorScheme: colorScheme,
-                      size: 24,
-                    ),
+                Container(
+                  padding: context.tokens.badgePadding,
+                  decoration: BoxDecoration(
+                    color: sourceColor,
+                    borderRadius: context.tokens.borderRadiusBadge,
                   ),
-                  const SizedBox(width: 12),
-                ],
-                Hero(
-                  tag: 'cover_lib_${item.id}',
-                  child: _buildUnifiedCoverImage(item, colorScheme, 56),
-                ),
-                const SizedBox(width: 12),
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.trackName,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      ClickableArtistName(
-                        artistName: item.artistName,
-                        coverUrl: item.coverUrl,
-                        extensionId: item.historyItem?.service,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: sourceColor,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              sourceLabel,
-                              style: Theme.of(context).textTheme.labelSmall
-                                  ?.copyWith(
-                                    color: sourceTextColor,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              dateStr,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.labelSmall
-                                  ?.copyWith(
-                                    color: colorScheme.onSurfaceVariant
-                                        .withValues(alpha: 0.7),
-                                  ),
-                            ),
-                          ),
-                          if (item.quality != null &&
-                              item.quality!.isNotEmpty) ...[
-                            const SizedBox(width: 8),
-                            _buildLibraryQualityBadge(
-                              context,
-                              colorScheme,
-                              item.quality!,
-                              listStyle: true,
-                            ),
-                          ],
-                        ],
-                      ),
-                    ],
+                  child: Text(
+                    sourceLabel,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: sourceTextColor,
+                      fontSize: context.tokens.badgeFontSize,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
-
-                if (!_isSelectionMode)
-                  ValueListenableBuilder<bool>(
-                    valueListenable: fileExistsListenable,
-                    builder: (context, fileExists, child) {
-                      return Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (fileExists)
-                            IconButton(
-                              onPressed: () =>
-                                  _playLibraryItem(item, libraryItems),
-                              icon: Icon(
-                                Icons.play_arrow,
-                                color: colorScheme.primary,
-                              ),
-                              tooltip: context.l10n.tooltipPlay,
-                              style: IconButton.styleFrom(
-                                backgroundColor: colorScheme.primaryContainer
-                                    .withValues(alpha: 0.3),
-                              ),
-                            )
-                          else
-                            Icon(
-                              Icons.error_outline,
-                              color: colorScheme.error,
-                              size: 20,
-                            ),
-                        ],
-                      );
-                    },
+                Flexible(
+                  child: Text(
+                    dateStr,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
+                ),
+                if (quality != null && quality.isNotEmpty) ...[
+                  const SizedBox(width: 8),
+                  _buildLibraryQualityBadge(
+                    context,
+                    colorScheme,
+                    quality,
+                    listStyle: true,
+                  ),
+                ],
               ],
             ),
-          ),
+          ],
+        ),
+        trailing: ValueListenableBuilder<bool>(
+          valueListenable: fileExistsListenable,
+          builder: (context, fileExists, child) {
+            if (fileExists) {
+              return IconButton(
+                onPressed: () => _playLibraryItem(item, libraryItems),
+                icon: Icon(Icons.play_arrow, color: colorScheme.primary),
+                tooltip: context.l10n.tooltipPlay,
+                style: IconButton.styleFrom(
+                  minimumSize: Size.square(context.tokens.minTouchTarget),
+                  backgroundColor: colorScheme.primaryContainer.withValues(
+                    alpha: 0.3,
+                  ),
+                ),
+              );
+            }
+            return Tooltip(
+              message: context.l10n.queueDownloadedFileMissing,
+              child: Icon(
+                Icons.error_outline,
+                color: colorScheme.error,
+                size: 20,
+              ),
+            );
+          },
         ),
       ),
     );
@@ -1010,8 +993,14 @@ extension _QueueTabItemWidgets on _QueueTabState {
     final fileExistsListenable = _fileExistsListenable(item.filePath);
     final isSelected = _selectedIds.contains(item.id);
     final isDownloaded = item.source == LibraryItemSource.downloaded;
+    final quality = item.qualityForMode(_libraryQualityLabelMode);
 
-    return GestureDetector(
+    return TrackGridCard(
+      isSelected: _isSelectionMode && isSelected,
+      semanticLabel: context.l10n.a11yTrackByArtist(
+        item.trackName,
+        item.artistName,
+      ),
       onTap: _isSelectionMode
           ? () => _toggleSelection(item.id)
           : isDownloaded
@@ -1034,156 +1023,116 @@ extension _QueueTabItemWidgets on _QueueTabState {
               coverUrl: item.coverUrl ?? item.localCoverPath ?? '',
             ),
       onLongPress: _isSelectionMode ? null : () => _enterSelectionMode(item.id),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  AspectRatio(
-                    aspectRatio: 1,
-                    child: Hero(
-                      tag: 'cover_lib_${item.id}',
-                      child: _buildUnifiedCoverImage(item, colorScheme),
-                    ),
-                  ),
-                  Positioned(
-                    right: 4,
-                    top: 4,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isDownloaded
-                            ? colorScheme.primaryContainer
-                            : colorScheme.secondaryContainer,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Icon(
-                        isDownloaded ? Icons.download_done : Icons.folder,
-                        size: 12,
-                        color: isDownloaded
-                            ? colorScheme.onPrimaryContainer
-                            : colorScheme.onSecondaryContainer,
-                      ),
-                    ),
-                  ),
-                  if (item.quality != null && item.quality!.isNotEmpty)
-                    Positioned(
-                      left: 4,
-                      top: 4,
-                      child: _buildLibraryQualityBadge(
-                        context,
-                        colorScheme,
-                        item.quality!,
-                      ),
-                    ),
-                  if (!_isSelectionMode)
-                    Positioned(
-                      right: 4,
-                      bottom: 4,
-                      child: ValueListenableBuilder<bool>(
-                        valueListenable: fileExistsListenable,
-                        builder: (context, fileExists, child) {
-                          return fileExists
-                              ? Semantics(
-                                  button: true,
-                                  label: context.l10n.a11yPlayTrackByArtist(
-                                    item.trackName,
-                                    item.artistName,
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () =>
-                                        _playLibraryItem(item, libraryItems),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        color: colorScheme.primary,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: ExcludeSemantics(
-                                        child: Icon(
-                                          Icons.play_arrow,
-                                          color: colorScheme.onPrimary,
-                                          size: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  padding: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.errorContainer,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(
-                                    Icons.error_outline,
-                                    color: colorScheme.error,
-                                    size: 14,
-                                  ),
-                                );
-                        },
-                      ),
-                    ),
-                  if (_isSelectionMode)
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? colorScheme.primary.withValues(alpha: 0.3)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                ],
+      cover: Hero(
+        tag: 'cover_lib_${item.id}',
+        child: _buildUnifiedCoverImage(item, colorScheme),
+      ),
+      overlays: [
+        if (!_isSelectionMode)
+          Positioned(
+            right: 4,
+            top: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              decoration: BoxDecoration(
+                color: isDownloaded
+                    ? colorScheme.primaryContainer
+                    : colorScheme.secondaryContainer,
+                borderRadius: context.tokens.borderRadiusBadge,
               ),
-              const SizedBox(height: 6),
-              Text(
-                item.trackName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
-              ),
-              ClickableArtistName(
-                artistName: item.artistName,
-                coverUrl: item.coverUrl,
-                extensionId: item.historyItem?.service,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-          if (_isSelectionMode)
-            Positioned(
-              right: 4,
-              top: 4,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isSelected ? colorScheme.primary : colorScheme.surface,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: isSelected
-                        ? colorScheme.primary
-                        : colorScheme.outline,
-                    width: 2,
-                  ),
-                ),
-                child: isSelected
-                    ? Icon(Icons.check, color: colorScheme.onPrimary, size: 16)
-                    : const SizedBox(width: 16, height: 16),
+              child: Icon(
+                isDownloaded ? Icons.download_done : Icons.folder,
+                size: 12,
+                color: isDownloaded
+                    ? colorScheme.onPrimaryContainer
+                    : colorScheme.onSecondaryContainer,
               ),
             ),
-        ],
+          ),
+        if (quality != null && quality.isNotEmpty)
+          Positioned(
+            left: 4,
+            top: 4,
+            child: _buildLibraryQualityBadge(context, colorScheme, quality),
+          ),
+        if (!_isSelectionMode)
+          Positioned(
+            right: 4,
+            bottom: 4,
+            child: ValueListenableBuilder<bool>(
+              valueListenable: fileExistsListenable,
+              builder: (context, fileExists, child) {
+                if (fileExists) {
+                  return Semantics(
+                    button: true,
+                    label: context.l10n.a11yPlayTrackByArtist(
+                      item.trackName,
+                      item.artistName,
+                    ),
+                    child: IconButton.filled(
+                      onPressed: () => _playLibraryItem(item, libraryItems),
+                      visualDensity: VisualDensity.compact,
+                      iconSize: 18,
+                      icon: const Icon(Icons.play_arrow),
+                      style: IconButton.styleFrom(
+                        minimumSize: const Size.square(36),
+                        padding: EdgeInsets.zero,
+                      ),
+                    ),
+                  );
+                }
+                return Tooltip(
+                  message: context.l10n.queueDownloadedFileMissing,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: colorScheme.errorContainer,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.error_outline,
+                      color: colorScheme.error,
+                      size: 14,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        if (_isSelectionMode)
+          Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? colorScheme.primary.withValues(alpha: 0.3)
+                    : Colors.transparent,
+                borderRadius: context.tokens.borderRadiusThumb,
+              ),
+            ),
+          ),
+        if (_isSelectionMode)
+          Positioned(
+            right: 4,
+            top: 4,
+            child: AnimatedSelectionCheckbox(
+              visible: true,
+              selected: isSelected,
+              colorScheme: colorScheme,
+              size: 24,
+              unselectedColor: colorScheme.surface,
+            ),
+          ),
+      ],
+      title: item.trackName,
+      subtitle: ClickableArtistName(
+        artistName: item.artistName,
+        coverUrl: item.coverUrl,
+        extensionId: item.historyItem?.service,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: Theme.of(
+          context,
+        ).textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant),
       ),
     );
   }

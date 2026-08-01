@@ -5,13 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/providers/download_history_provider.dart';
 import 'package:spotiflac_android/providers/music_player_provider.dart';
+import 'package:spotiflac_android/screens/downloaded_album_screen.dart';
+import 'package:spotiflac_android/screens/local_album_screen.dart';
 import 'package:spotiflac_android/services/library_database.dart';
-import 'package:spotiflac_android/services/platform_bridge.dart';
+import 'package:spotiflac_android/services/music_player_service.dart';
+import 'package:spotiflac_android/utils/clickable_metadata.dart';
 import 'package:spotiflac_android/utils/file_access.dart';
+import 'package:spotiflac_android/utils/int_utils.dart';
 import 'package:spotiflac_android/utils/lyrics_parser.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
+import 'package:spotiflac_android/utils/synced_lyrics_scroll.dart';
+import 'package:spotiflac_android/widgets/app_bottom_sheet.dart';
 import 'package:spotiflac_android/widgets/player_artwork.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
 
@@ -169,17 +176,27 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
   ProviderSubscription<AsyncValue<MediaItem?>>? _mediaItemSub;
   String? _loadedSource;
   String? _loadedResolvedSource;
+  String? _loadedMetadataPath;
   Map<String, dynamic>? _metadata;
   ParsedLyrics _lyrics = ParsedLyrics.empty;
   bool _loadingMeta = false;
   int _currentPage = 0;
+  bool _bottomDragForwarding = false;
+  double _bottomDragTotal = 0;
+  bool _queueSheetShowing = false;
 
   @override
   void initState() {
     super.initState();
     _mediaItemSub = ref.listenManual<AsyncValue<MediaItem?>>(
       currentMediaItemProvider,
-      (previous, next) => _loadMetadataForItem(next.value),
+      (previous, next) => _loadMetadataForItem(
+        next.value,
+        // When automatic playback advances while Lyrics is already visible,
+        // onPageChanged will not run again. Inspect an unresolved SAF URI now
+        // instead of leaving the new track with an empty Lyrics page.
+        inspectUnresolvedContentUri: _currentPage == 1,
+      ),
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -194,47 +211,74 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
     super.dispose();
   }
 
-  void _loadMetadataForItem(MediaItem? item) {
+  void _loadMetadataForItem(
+    MediaItem? item, {
+    bool inspectUnresolvedContentUri = false,
+  }) {
     if (item == null) return;
     final source = item.extras?['source']?.toString() ?? '';
     if (source.isEmpty) return;
     final resolvedSource = item.extras?['resolvedSource']?.toString();
-    unawaited(_loadMetadataFor(source, resolvedSource: resolvedSource));
+    unawaited(
+      _loadMetadataFor(
+        source,
+        resolvedSource: resolvedSource,
+        fallbackMetadata: playbackAudioMetadataFromMediaItem(item),
+        inspectUnresolvedContentUri: inspectUnresolvedContentUri,
+      ),
+    );
   }
 
-  Future<void> _loadMetadataFor(String source, {String? resolvedSource}) async {
+  Future<void> _loadMetadataFor(
+    String source, {
+    String? resolvedSource,
+    Map<String, dynamic> fallbackMetadata = const {},
+    bool inspectUnresolvedContentUri = false,
+  }) async {
     final effectiveResolvedSource = resolvedSource?.trim();
-    if (source == _loadedSource &&
-        effectiveResolvedSource == _loadedResolvedSource) {
-      return;
-    }
-    _loadedSource = source;
-    _loadedResolvedSource = effectiveResolvedSource;
-    setState(() {
-      _loadingMeta = true;
-      _metadata = null;
-      _lyrics = ParsedLyrics.empty;
-    });
-    try {
-      final path =
-          (effectiveResolvedSource != null &&
-              effectiveResolvedSource.isNotEmpty)
-          ? effectiveResolvedSource
-          : source;
-      if (path == source && source.startsWith('content://')) {
-        if (mounted && _loadedSource == source) {
-          setState(() => _loadingMeta = false);
-        }
-        return;
+    final path =
+        (effectiveResolvedSource != null && effectiveResolvedSource.isNotEmpty)
+        ? effectiveResolvedSource
+        : source;
+    final unresolvedContentUri =
+        path == source && source.startsWith('content://');
+    final sameItem =
+        source == _loadedSource &&
+        effectiveResolvedSource == _loadedResolvedSource;
+
+    if (sameItem) {
+      if (_metadata == null && fallbackMetadata.isNotEmpty) {
+        setState(() => _metadata = fallbackMetadata);
       }
-      final meta = await PlatformBridge.readFileMetadata(path);
+      if (_loadingMeta || _loadedMetadataPath == path) return;
+      if (unresolvedContentUri && !inspectUnresolvedContentUri) return;
+      setState(() => _loadingMeta = true);
+    } else {
+      _loadedSource = source;
+      _loadedResolvedSource = effectiveResolvedSource;
+      _loadedMetadataPath = null;
+      setState(() {
+        _loadingMeta = !unresolvedContentUri || inspectUnresolvedContentUri;
+        _metadata = fallbackMetadata.isEmpty ? null : fallbackMetadata;
+        _lyrics = ParsedLyrics.empty;
+      });
+    }
+
+    // Avoid copying a restored SAF file merely because the player shell became
+    // visible. If the user opens Lyrics before playback resolves a local temp
+    // source, inspect the content URI on demand instead.
+    if (unresolvedContentUri && !inspectUnresolvedContentUri) return;
+
+    try {
+      final meta = await readPlaybackFileMetadataWithRetry(path);
       if (!mounted ||
           _loadedSource != source ||
           _loadedResolvedSource != effectiveResolvedSource) {
         return;
       }
       setState(() {
-        _metadata = meta;
+        _loadedMetadataPath = path;
+        _metadata = mergePlaybackFileMetadata(fallbackMetadata, meta);
         _lyrics = LyricsParser.parse((meta['lyrics'] ?? '').toString());
         _loadingMeta = false;
       });
@@ -246,7 +290,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
         return;
       }
       setState(() {
-        _metadata = null;
+        _metadata = fallbackMetadata.isEmpty ? null : fallbackMetadata;
         _lyrics = ParsedLyrics.empty;
         _loadingMeta = false;
       });
@@ -264,10 +308,10 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
         .toUpperCase();
     if (format.isNotEmpty) parts.add(format);
 
-    final bitDepth = (meta['bit_depth'] as num?)?.toInt() ?? 0;
+    final bitDepth = readPositiveInt(meta['bit_depth']) ?? 0;
     if (bitDepth > 0) parts.add('$bitDepth-bit');
 
-    final sampleRate = (meta['sample_rate'] as num?)?.toDouble() ?? 0;
+    final sampleRate = readPositiveInt(meta['sample_rate'])?.toDouble() ?? 0;
     if (sampleRate > 0) {
       final khz = sampleRate / 1000;
       final khzStr = khz == khz.roundToDouble()
@@ -276,7 +320,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       parts.add('$khzStr kHz');
     }
 
-    final bitrate = (meta['bitrate'] as num?)?.toInt() ?? 0;
+    final bitrate = readPositiveInt(meta['bitrate']) ?? 0;
     if (bitDepth == 0 && bitrate > 0) parts.add('$bitrate kbps');
 
     if (parts.isEmpty) return null;
@@ -334,38 +378,14 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
               icon: const Icon(Icons.queue_music),
               onPressed: () => _showQueueSheet(colorScheme),
             ),
-            PopupMenuButton<String>(
+            IconButton(
+              tooltip: MaterialLocalizations.of(context).moreButtonTooltip,
               icon: const Icon(Icons.more_vert),
-              onSelected: (value) {
-                switch (value) {
-                  case 'details':
-                    _showDetailsSheet(colorScheme);
-                    break;
-                  case 'external':
-                    _openExternally(source);
-                    break;
-                }
-              },
-              itemBuilder: (menuContext) => [
-                PopupMenuItem(
-                  value: 'details',
-                  child: ListTile(
-                    leading: const Icon(Icons.info_outline),
-                    title: Text(menuContext.l10n.nowPlayingDetails),
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 'external',
-                  child: ListTile(
-                    leading: const Icon(Icons.open_in_new),
-                    title: Text(
-                      menuContext.l10n.nowPlayingOpenInExternalPlayer,
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-              ],
+              onPressed: () => _showMoreActions(
+                mediaItem: mediaItem,
+                source: source,
+                colorScheme: colorScheme,
+              ),
             ),
           ],
         ),
@@ -382,6 +402,12 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                     if (_currentPage != page) {
                       setState(() => _currentPage = page);
                     }
+                    if (page == 1) {
+                      _loadMetadataForItem(
+                        ref.read(currentMediaItemProvider).value,
+                        inspectUnresolvedContentUri: true,
+                      );
+                    }
                   },
                   children: [
                     _playerPage(mediaItem, controller, colorScheme),
@@ -389,19 +415,65 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                   ],
                 ),
               ),
-              _PageTabBar(
-                controller: _pageController,
-                colorScheme: colorScheme,
-                labels: [
-                  context.l10n.nowPlayingTabPlayer,
-                  context.l10n.nowPlayingTabLyrics,
-                ],
+              _queueSwipeRegion(
+                colorScheme,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _PageTabBar(
+                      controller: _pageController,
+                      colorScheme: colorScheme,
+                      labels: [
+                        context.l10n.nowPlayingTabPlayer,
+                        context.l10n.nowPlayingTabLyrics,
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
               ),
-              const SizedBox(height: 8),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Swipe up (player content or bottom tab strip) opens the queue sheet; a
+  /// downward drag is forwarded to the route's drag-to-dismiss instead.
+  Widget _queueSwipeRegion(ColorScheme colorScheme, Widget child) {
+    final route = ModalRoute.of(context);
+    final npRoute = route is NowPlayingRoute ? route : null;
+    final pageHeight = MediaQuery.sizeOf(context).height;
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onVerticalDragStart: (_) {
+        _bottomDragForwarding = false;
+        _bottomDragTotal = 0;
+      },
+      onVerticalDragUpdate: (details) {
+        if (_bottomDragForwarding) {
+          npRoute?.updateDrag(details, pageHeight);
+          return;
+        }
+        _bottomDragTotal += details.primaryDelta ?? 0;
+        if (_bottomDragTotal > 12 && npRoute != null) {
+          npRoute.startDrag();
+          _bottomDragForwarding = true;
+        }
+      },
+      onVerticalDragEnd: (details) {
+        if (_bottomDragForwarding) {
+          npRoute?.endDrag(details, pageHeight);
+        } else if ((details.primaryVelocity ?? 0) < -300 ||
+            _bottomDragTotal < -40) {
+          _showQueueSheet(colorScheme);
+        }
+      },
+      onVerticalDragCancel: () {
+        if (_bottomDragForwarding) npRoute?.cancelDrag();
+      },
+      child: child,
     );
   }
 
@@ -437,12 +509,27 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                 child: SizedBox(
                   width: artSize,
                   height: artSize,
-                  child: PlayerArtwork(
-                    artUri: mediaItem.artUri?.toString(),
-                    colorScheme: colorScheme,
-                    cacheWidth:
-                        (artSize * MediaQuery.devicePixelRatioOf(context))
-                            .round(),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 450),
+                    switchInCurve: Curves.easeOutCubic,
+                    switchOutCurve: Curves.easeInCubic,
+                    transitionBuilder: (child, animation) => FadeTransition(
+                      opacity: animation,
+                      child: ScaleTransition(
+                        scale: Tween(begin: 0.94, end: 1.0).animate(animation),
+                        child: child,
+                      ),
+                    ),
+                    child: PlayerArtwork(
+                      key: ValueKey(
+                        mediaItem.artUri?.toString() ?? mediaItem.id,
+                      ),
+                      artUri: mediaItem.artUri?.toString(),
+                      colorScheme: colorScheme,
+                      cacheWidth:
+                          (artSize * MediaQuery.devicePixelRatioOf(context))
+                              .round(),
+                    ),
                   ),
                 ),
               ),
@@ -483,17 +570,25 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
         }
 
         final artSize = (constraints.maxWidth - 64).clamp(0.0, 360.0);
-        return SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraints.maxHeight - 32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                artworkAt(artSize),
-                const SizedBox(height: 32),
-                ..._metadataAndControls(mediaItem, controller, colorScheme),
-              ],
+        // Not user-scrollable: a swipe up here opens the queue instead,
+        // and a swipe down still dismisses the player via the route.
+        return _queueSwipeRegion(
+          colorScheme,
+          SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight - 32,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  artworkAt(artSize),
+                  const SizedBox(height: 32),
+                  ..._metadataAndControls(mediaItem, controller, colorScheme),
+                ],
+              ),
             ),
           ),
         );
@@ -511,29 +606,45 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
     return [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28),
-        child: Column(
-          children: [
-            Text(
-              mediaItem.title,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colorScheme.onSurface,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 350),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder: (child, animation) => FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(
+                begin: const Offset(0, 0.15),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
             ),
-            const SizedBox(height: 6),
-            Text(
-              mediaItem.artist ?? '',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+          ),
+          child: Column(
+            key: ValueKey(mediaItem.id),
+            children: [
+              Text(
+                mediaItem.title,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+              const SizedBox(height: 6),
+              Text(
+                mediaItem.artist ?? '',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
       const SizedBox(height: 24),
@@ -599,10 +710,141 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(context.l10n.snackbarCannotOpenFile(e.toString())),
+          content: Text(
+            context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+          ),
         ),
       );
     }
+  }
+
+  Future<void> _showMoreActions({
+    required MediaItem mediaItem,
+    required String source,
+    required ColorScheme colorScheme,
+  }) async {
+    final action = await showAppBottomSheet<String>(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: colorScheme.surfaceContainerHigh,
+      title: mediaItem.title,
+      subtitle: mediaItem.artist,
+      builder: (sheetContext) => Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: SettingsGroup(
+          children: [
+            if ((mediaItem.album ?? '').trim().isNotEmpty)
+              SettingsItem(
+                icon: Icons.album_outlined,
+                title: sheetContext.l10n.homeGoToAlbum,
+                onTap: () => Navigator.of(sheetContext).pop('album'),
+              ),
+            SettingsItem(
+              icon: Icons.info_outline,
+              title: sheetContext.l10n.nowPlayingDetails,
+              onTap: () => Navigator.of(sheetContext).pop('details'),
+            ),
+            SettingsItem(
+              icon: Icons.open_in_new,
+              title: sheetContext.l10n.nowPlayingOpenInExternalPlayer,
+              trailing: Icon(
+                Icons.open_in_new,
+                size: 18,
+                color: Theme.of(sheetContext).colorScheme.onSurfaceVariant,
+              ),
+              showDivider: false,
+              onTap: () => Navigator.of(sheetContext).pop('external'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (!mounted) return;
+    switch (action) {
+      case 'album':
+        await _goToCurrentAlbum(mediaItem: mediaItem, source: source);
+        break;
+      case 'details':
+        _showDetailsSheet(colorScheme);
+        break;
+      case 'external':
+        await _openExternally(source);
+        break;
+    }
+  }
+
+  Future<void> _goToCurrentAlbum({
+    required MediaItem mediaItem,
+    required String source,
+  }) async {
+    final albumName = (mediaItem.album ?? '').trim();
+    if (albumName.isEmpty) return;
+
+    // Prefer the stored collection so this action remains useful offline and
+    // opens the exact files the user is currently playing.
+    try {
+      final historyItem = source.isEmpty
+          ? null
+          : await ref
+                .read(downloadHistoryProvider.notifier)
+                .getByFilePathAsync(source);
+      if (!mounted) return;
+      if (historyItem != null) {
+        final albumArtist = (historyItem.albumArtist ?? '').trim();
+        pushViaPreferredNavigator(
+          context,
+          (_) => DownloadedAlbumScreen(
+            albumName: historyItem.albumName,
+            artistName: albumArtist.isNotEmpty
+                ? albumArtist
+                : historyItem.artistName,
+            coverUrl: historyItem.coverUrl,
+          ),
+        );
+        return;
+      }
+    } catch (e) {
+      _log.w('Failed to resolve downloaded album: $e');
+    }
+
+    try {
+      final row = await LibraryDatabase.instance.getById(mediaItem.id);
+      if (!mounted) return;
+      if (row != null) {
+        final item = LocalLibraryItem.fromJson(row);
+        final rows = await LibraryDatabase.instance
+            .getQueueLocalAlbumTracksByKey(item.albumKey);
+        if (!mounted) return;
+        final tracks = rows
+            .map(LocalLibraryItem.fromJson)
+            .toList(growable: false);
+        if (tracks.isNotEmpty) {
+          final albumArtist = (item.albumArtist ?? '').trim();
+          pushViaPreferredNavigator(
+            context,
+            (_) => LocalAlbumScreen(
+              albumName: item.albumName,
+              artistName: albumArtist.isNotEmpty
+                  ? albumArtist
+                  : item.artistName,
+              coverPath: item.coverPath,
+              tracks: tracks,
+            ),
+          );
+          return;
+        }
+      }
+    } catch (e) {
+      _log.w('Failed to resolve local album: $e');
+    }
+
+    if (!mounted) return;
+    await navigateToAlbum(
+      context,
+      albumName: albumName,
+      artistName: mediaItem.artist,
+      coverUrl: mediaItem.artUri?.toString(),
+    );
   }
 
   Future<void> _shuffleLibrary(MusicPlayerController controller) async {
@@ -629,7 +871,9 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            context.l10n.nowPlayingShuffleLibraryFailed(e.toString()),
+            context.l10n.nowPlayingShuffleLibraryFailed(
+              context.friendlyError(e),
+            ),
           ),
         ),
       );
@@ -637,14 +881,13 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
   }
 
   void _showQueueSheet(ColorScheme colorScheme) {
+    if (_queueSheetShowing) return;
+    _queueSheetShowing = true;
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (context) {
         return DraggableScrollableSheet(
           expand: false,
@@ -660,6 +903,11 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                 final shuffleOn = ref.watch(
                   playbackStateProvider.select(
                     (s) => s.value?.shuffleMode == AudioServiceShuffleMode.all,
+                  ),
+                );
+                final repeatMode = ref.watch(
+                  playbackStateProvider.select(
+                    (s) => s.value?.repeatMode ?? AudioServiceRepeatMode.none,
                   ),
                 );
                 final textTheme = Theme.of(context).textTheme;
@@ -678,6 +926,33 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
                             ),
                           ),
                           const Spacer(),
+                          IconButton(
+                            tooltip: switch (repeatMode) {
+                              AudioServiceRepeatMode.one =>
+                                context.l10n.nowPlayingRepeatOne,
+                              AudioServiceRepeatMode.none =>
+                                context.l10n.nowPlayingRepeatOff,
+                              _ => context.l10n.nowPlayingRepeatAll,
+                            },
+                            isSelected:
+                                repeatMode != AudioServiceRepeatMode.none,
+                            icon: Icon(
+                              repeatMode == AudioServiceRepeatMode.one
+                                  ? Icons.repeat_one
+                                  : Icons.repeat,
+                            ),
+                            color: repeatMode != AudioServiceRepeatMode.none
+                                ? colorScheme.primary
+                                : null,
+                            onPressed: () =>
+                                controller.setRepeatMode(switch (repeatMode) {
+                                  AudioServiceRepeatMode.none =>
+                                    AudioServiceRepeatMode.all,
+                                  AudioServiceRepeatMode.all =>
+                                    AudioServiceRepeatMode.one,
+                                  _ => AudioServiceRepeatMode.none,
+                                }),
+                          ),
                           IconButton(
                             tooltip: shuffleOn
                                 ? context.l10n.nowPlayingShuffleOn
@@ -787,7 +1062,7 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
           },
         );
       },
-    );
+    ).whenComplete(() => _queueSheetShowing = false);
   }
 
   void _showDetailsSheet(ColorScheme colorScheme) {
@@ -797,9 +1072,6 @@ class _NowPlayingScreenState extends ConsumerState<NowPlayingScreen> {
       isScrollControlled: true,
       showDragHandle: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (context) {
         return DraggableScrollableSheet(
           expand: false,
@@ -846,6 +1118,17 @@ class _PlaybackControls extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final position = ref.watch(playbackPositionProvider);
     final isPlaying = ref.watch(playbackPlayingProvider);
+    final isLoading = ref.watch(playbackLoadingProvider);
+    final shuffleOn = ref.watch(
+      playbackStateProvider.select(
+        (s) => s.value?.shuffleMode == AudioServiceShuffleMode.all,
+      ),
+    );
+    final repeatMode = ref.watch(
+      playbackStateProvider.select(
+        (s) => s.value?.repeatMode ?? AudioServiceRepeatMode.none,
+      ),
+    );
     final maxMs = duration.inMilliseconds > 0
         ? duration.inMilliseconds.toDouble()
         : 1.0;
@@ -867,11 +1150,13 @@ class _PlaybackControls extends ConsumerWidget {
                     alpha: 0.18,
                   ),
                   thumbColor: colorScheme.primary,
+                  // A 7dp thumb was hard to grab; 10dp with a 24dp overlay
+                  // gives the drag gesture a full-size target.
                   thumbShape: const RoundSliderThumbShape(
-                    enabledThumbRadius: 7,
+                    enabledThumbRadius: 10,
                   ),
                   overlayShape: const RoundSliderOverlayShape(
-                    overlayRadius: 16,
+                    overlayRadius: 24,
                   ),
                 ),
                 child: Slider(
@@ -919,6 +1204,18 @@ class _PlaybackControls extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
+              iconSize: 24,
+              tooltip: shuffleOn
+                  ? context.l10n.nowPlayingShuffleOn
+                  : context.l10n.nowPlayingPlayInOrder,
+              color: shuffleOn
+                  ? colorScheme.primary
+                  : colorScheme.onSurfaceVariant,
+              icon: const Icon(Icons.shuffle),
+              onPressed: () => controller.setShuffle(!shuffleOn),
+            ),
+            const SizedBox(width: 8),
+            IconButton(
               iconSize: 44,
               icon: const Icon(Icons.skip_previous),
               onPressed: controller.previous,
@@ -933,8 +1230,15 @@ class _PlaybackControls extends ConsumerWidget {
                 iconSize: 44,
                 padding: const EdgeInsets.all(12),
                 color: colorScheme.onPrimary,
-                icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                onPressed: () => controller.togglePlayPause(isPlaying),
+                icon: isLoading
+                    ? const SizedBox.square(
+                        dimension: 32,
+                        child: CircularProgressIndicator(strokeWidth: 3),
+                      )
+                    : Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                onPressed: isLoading
+                    ? null
+                    : () => controller.togglePlayPause(isPlaying),
               ),
             ),
             const SizedBox(width: 20),
@@ -942,6 +1246,28 @@ class _PlaybackControls extends ConsumerWidget {
               iconSize: 44,
               icon: const Icon(Icons.skip_next),
               onPressed: controller.next,
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              iconSize: 24,
+              tooltip: switch (repeatMode) {
+                AudioServiceRepeatMode.one => context.l10n.nowPlayingRepeatOne,
+                AudioServiceRepeatMode.none => context.l10n.nowPlayingRepeatOff,
+                _ => context.l10n.nowPlayingRepeatAll,
+              },
+              color: repeatMode == AudioServiceRepeatMode.none
+                  ? colorScheme.onSurfaceVariant
+                  : colorScheme.primary,
+              icon: Icon(
+                repeatMode == AudioServiceRepeatMode.one
+                    ? Icons.repeat_one
+                    : Icons.repeat,
+              ),
+              onPressed: () => controller.setRepeatMode(switch (repeatMode) {
+                AudioServiceRepeatMode.none => AudioServiceRepeatMode.all,
+                AudioServiceRepeatMode.all => AudioServiceRepeatMode.one,
+                _ => AudioServiceRepeatMode.none,
+              }),
             ),
           ],
         ),
@@ -968,6 +1294,7 @@ class _SyncedLyricsView extends ConsumerStatefulWidget {
 class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
   final ScrollController _scroll = ScrollController();
   ProviderSubscription<Duration>? _positionSubscription;
+  late List<GlobalKey> _lineKeys;
   int _active = -1;
   bool _userScrolling = false;
   static const double _estimatedLyricExtent = 64;
@@ -975,16 +1302,28 @@ class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
   @override
   void initState() {
     super.initState();
+    _resetLineKeys();
     _syncPositionSubscription();
   }
 
   @override
   void didUpdateWidget(covariant _SyncedLyricsView oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.lyrics != widget.lyrics) {
+      _resetLineKeys();
+    }
     if (oldWidget.isActive != widget.isActive ||
         oldWidget.lyrics != widget.lyrics) {
       _syncPositionSubscription();
     }
+  }
+
+  void _resetLineKeys() {
+    _lineKeys = List<GlobalKey>.generate(
+      widget.lyrics.lines.length,
+      (index) => GlobalKey(debugLabel: 'lyric-line-$index'),
+      growable: false,
+    );
   }
 
   void _syncPositionSubscription() {
@@ -996,6 +1335,9 @@ class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
       widget.lyrics.lines,
       ref.read(playbackPositionProvider),
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(_maybeAutoScroll(_active));
+    });
     _positionSubscription = ref.listenManual<Duration>(
       playbackPositionProvider,
       (previous, next) {
@@ -1003,7 +1345,7 @@ class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
         if (active == _active || !mounted) return;
         setState(() => _active = active);
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) _maybeAutoScroll(active);
+          if (mounted) unawaited(_maybeAutoScroll(active));
         });
       },
     );
@@ -1016,22 +1358,47 @@ class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
     super.dispose();
   }
 
-  void _maybeAutoScroll(int index) {
+  Future<void> _maybeAutoScroll(int index) async {
     if (_userScrolling || index < 0 || !_scroll.hasClients) return;
+    if (index < _lineKeys.length) {
+      final lineContext = _lineKeys[index].currentContext;
+      if (lineContext != null) {
+        await Scrollable.ensureVisible(
+          lineContext,
+          alignment: 0.5,
+          alignmentPolicy: ScrollPositionAlignmentPolicy.explicit,
+          duration: const Duration(milliseconds: 380),
+          curve: Curves.easeOutCubic,
+        );
+        return;
+      }
+    }
+
     final position = _scroll.position;
-    final target =
-        (index * _estimatedLyricExtent) -
-        (position.viewportDimension * 0.35) +
-        24;
+    final target = syncedLyricsEstimatedOffset(
+      index: index,
+      estimatedLineExtent: _estimatedLyricExtent,
+    );
     final clamped = target.clamp(
       position.minScrollExtent,
       position.maxScrollExtent,
     );
-    _scroll.animateTo(
+    await _scroll.animateTo(
       clamped.toDouble(),
       duration: const Duration(milliseconds: 380),
       curve: Curves.easeOutCubic,
     );
+    if (!mounted || _userScrolling || index >= _lineKeys.length) return;
+    final lineContext = _lineKeys[index].currentContext;
+    if (lineContext != null && lineContext.mounted) {
+      await Scrollable.ensureVisible(
+        lineContext,
+        alignment: 0.5,
+        alignmentPolicy: ScrollPositionAlignmentPolicy.explicit,
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
+      );
+    }
   }
 
   @override
@@ -1049,66 +1416,75 @@ class _SyncedLyricsViewState extends ConsumerState<_SyncedLyricsView> {
         }
         return false;
       },
-      child: ListView.builder(
-        controller: _scroll,
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 80),
-        itemCount: lines.length,
-        itemBuilder: (context, index) {
-          final line = lines[index];
-          final isActive = index == active;
-          final isPast = index < active;
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final centerPadding = syncedLyricsCenterPadding(
+            viewportDimension: constraints.maxHeight,
+            estimatedLineExtent: _estimatedLyricExtent,
+          );
+          return ListView.builder(
+            controller: _scroll,
+            padding: EdgeInsets.fromLTRB(24, centerPadding, 24, centerPadding),
+            itemCount: lines.length,
+            itemBuilder: (context, index) {
+              final line = lines[index];
+              final isActive = index == active;
+              final isPast = index < active;
 
-          final color = isActive
-              ? widget.colorScheme.onSurface
-              : isPast
-              ? widget.colorScheme.onSurfaceVariant.withValues(alpha: 0.5)
-              : widget.colorScheme.onSurfaceVariant.withValues(alpha: 0.8);
+              final color = isActive
+                  ? widget.colorScheme.onSurface
+                  : isPast
+                  ? widget.colorScheme.onSurfaceVariant.withValues(alpha: 0.5)
+                  : widget.colorScheme.onSurfaceVariant.withValues(alpha: 0.8);
 
-          final text = line.text.trim().isEmpty
-              ? '\u00b7\u00b7\u00b7'
-              : line.text;
+              final text = line.text.trim().isEmpty
+                  ? '\u00b7\u00b7\u00b7'
+                  : line.text;
 
-          Widget content;
-          if (isActive && line.hasWordTiming) {
-            content = _WordHighlightedLyricLine(
-              line: line,
-              colorScheme: widget.colorScheme,
-            );
-          } else {
-            content = Text(
-              text,
-              textAlign: TextAlign.center,
-              style:
-                  (isActive
-                          ? Theme.of(context).textTheme.headlineSmall
-                          : Theme.of(context).textTheme.titleLarge)
-                      ?.copyWith(
-                        height: 1.4,
-                        fontWeight: isActive
-                            ? FontWeight.bold
-                            : FontWeight.w500,
-                        color: color,
-                      ),
-            );
-          }
+              Widget content;
+              if (isActive && line.hasWordTiming) {
+                content = _WordHighlightedLyricLine(
+                  line: line,
+                  colorScheme: widget.colorScheme,
+                );
+              } else {
+                content = Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style:
+                      (isActive
+                              ? Theme.of(context).textTheme.headlineSmall
+                              : Theme.of(context).textTheme.titleLarge)
+                          ?.copyWith(
+                            height: 1.4,
+                            fontWeight: isActive
+                                ? FontWeight.bold
+                                : FontWeight.w500,
+                            color: color,
+                          ),
+                );
+              }
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: GestureDetector(
-              onTap: () =>
-                  ref.read(musicPlayerControllerProvider).seek(line.time),
-              child: AnimatedScale(
-                scale: isActive ? 1.0 : 0.96,
-                alignment: Alignment.center,
-                duration: const Duration(milliseconds: 280),
-                curve: Curves.easeOutCubic,
-                child: AnimatedOpacity(
-                  opacity: isActive ? 1.0 : (isPast ? 0.55 : 0.85),
-                  duration: const Duration(milliseconds: 280),
-                  child: content,
+              return Padding(
+                key: _lineKeys[index],
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: GestureDetector(
+                  onTap: () =>
+                      ref.read(musicPlayerControllerProvider).seek(line.time),
+                  child: AnimatedScale(
+                    scale: isActive ? 1.0 : 0.96,
+                    alignment: Alignment.center,
+                    duration: const Duration(milliseconds: 280),
+                    curve: Curves.easeOutCubic,
+                    child: AnimatedOpacity(
+                      opacity: isActive ? 1.0 : (isPast ? 0.55 : 0.85),
+                      duration: const Duration(milliseconds: 280),
+                      child: content,
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         },
       ),

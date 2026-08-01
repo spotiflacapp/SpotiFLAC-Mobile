@@ -33,6 +33,10 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
       json['filterContributingArtistsInAlbumArtist'] as bool? ?? false,
   historyViewMode: json['historyViewMode'] as String? ?? 'grid',
   historyFilterMode: json['historyFilterMode'] as String? ?? 'all',
+  defaultLibraryView: json['defaultLibraryView'] as String? ?? 'last',
+  libraryQualityLabelMode:
+      json['libraryQualityLabelMode'] as String? ??
+      AppSettings.libraryQualityLabelBitrate,
   askQualityBeforeDownload: json['askQualityBeforeDownload'] as bool? ?? true,
   enableLogging: json['enableLogging'] as bool? ?? false,
   useExtensionProviders: json['useExtensionProviders'] as bool? ?? true,
@@ -50,6 +54,7 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
       json['albumFolderStructure'] as String? ?? 'artist_album',
   showExtensionStore: json['showExtensionStore'] as bool? ?? true,
   heroAnimationsEnabled: json['heroAnimationsEnabled'] as bool? ?? true,
+  forceBackdropBlur: json['forceBackdropBlur'] as bool? ?? false,
   extensionVerificationBrowserMode:
       json['extensionVerificationBrowserMode'] as String? ?? 'in_app_first',
   locale: json['locale'] as String? ?? 'system',
@@ -121,6 +126,8 @@ Map<String, dynamic> _$AppSettingsToJson(
       instance.filterContributingArtistsInAlbumArtist,
   'historyViewMode': instance.historyViewMode,
   'historyFilterMode': instance.historyFilterMode,
+  'defaultLibraryView': instance.defaultLibraryView,
+  'libraryQualityLabelMode': instance.libraryQualityLabelMode,
   'askQualityBeforeDownload': instance.askQualityBeforeDownload,
   'enableLogging': instance.enableLogging,
   'useExtensionProviders': instance.useExtensionProviders,
@@ -133,6 +140,7 @@ Map<String, dynamic> _$AppSettingsToJson(
   'albumFolderStructure': instance.albumFolderStructure,
   'showExtensionStore': instance.showExtensionStore,
   'heroAnimationsEnabled': instance.heroAnimationsEnabled,
+  'forceBackdropBlur': instance.forceBackdropBlur,
   'extensionVerificationBrowserMode': instance.extensionVerificationBrowserMode,
   'locale': instance.locale,
   'lyricsMode': instance.lyricsMode,

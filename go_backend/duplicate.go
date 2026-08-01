@@ -108,7 +108,7 @@ func buildISRCIndex(outputDir string) *ISRCIndex {
 		}
 
 		ext := strings.ToLower(filepath.Ext(path))
-		if ext != ".flac" {
+		if !isrcIndexExts[ext] {
 			return nil
 		}
 
@@ -141,7 +141,7 @@ func buildISRCIndex(outputDir string) *ISRCIndex {
 			go func() {
 				defer wg.Done()
 				for i := range tasks {
-					isrcs[i] = strings.ToUpper(readFlacISRC(toParse[i].path))
+					isrcs[i] = strings.ToUpper(readFileISRC(toParse[i].path))
 				}
 			}()
 		}
@@ -168,6 +168,38 @@ func buildISRCIndex(outputDir string) *ISRCIndex {
 	isrcIndexCacheMu.Unlock()
 
 	return idx
+}
+
+// isrcIndexExts are the formats the download pipeline can produce; each has
+// a native tag reader that stops at the metadata blocks.
+var isrcIndexExts = map[string]bool{
+	".flac": true,
+	".mp3":  true,
+	".m4a":  true,
+	".ogg":  true,
+	".opus": true,
+}
+
+// readFileISRC reads the ISRC tag using the native reader for the format.
+// Returns "" for unsupported formats, unreadable files, or missing tags.
+func readFileISRC(path string) string {
+	switch strings.ToLower(filepath.Ext(path)) {
+	case ".flac":
+		return readFlacISRC(path)
+	case ".mp3":
+		if meta, err := ReadID3Tags(path); err == nil && meta != nil {
+			return strings.TrimSpace(meta.ISRC)
+		}
+	case ".m4a":
+		if meta, err := ReadM4ATags(path); err == nil && meta != nil {
+			return strings.TrimSpace(meta.ISRC)
+		}
+	case ".ogg", ".opus":
+		if meta, err := ReadOggVorbisComments(path); err == nil && meta != nil {
+			return strings.TrimSpace(meta.ISRC)
+		}
+	}
+	return ""
 }
 
 // readFlacISRC extracts the ISRC Vorbis comment from a FLAC file by walking

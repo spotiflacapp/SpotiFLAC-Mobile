@@ -20,8 +20,8 @@ var (
 // (including "nothing to search for" inputs). Never disables the provider.
 type lyricsNotFoundError struct{ err error }
 
-func (e *lyricsNotFoundError) Error() string { return e.err.Error() }
-func (e *lyricsNotFoundError) Unwrap() error { return e.err }
+func (e *lyricsNotFoundError) Error() string        { return e.err.Error() }
+func (e *lyricsNotFoundError) Unwrap() error        { return e.err }
 func (e *lyricsNotFoundError) Is(target error) bool { return target == errLyricsNotFound }
 
 func lyricsNotFoundErrorf(format string, args ...any) error {

@@ -16,8 +16,7 @@
 
 <div align="center">
 
-[![GitHub Release](https://img.shields.io/github/v/release/zarzet/SpotiFLAC-Mobile?style=for-the-badge&logo=github)](https://github.com/zarzet/SpotiFLAC-Mobile/releases)
-[![VirusTotal](https://img.shields.io/badge/VirusTotal-Safe-brightgreen?style=for-the-badge&logo=virustotal)](https://www.virustotal.com/gui/file/31d1bf3c3b2015c13e83c4f909a7c6093a9423e3e702f0c582a3e0035c849424)
+[![GitHub Release](https://img.shields.io/github/v/release/spotiflacapp/SpotiFLAC-Mobile?style=for-the-badge&logo=github)](https://github.com/spotiflacapp/SpotiFLAC-Mobile/releases)
 [![Crowdin](https://img.shields.io/badge/HELP%20TRANSLATE%20ON-CROWDIN-%2321252b?style=for-the-badge&logo=crowdin)](https://crowdin.com/project/spotiflac-mobile)
 
 [![Telegram Channel](https://img.shields.io/badge/CHANNEL-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/spotiflac)
@@ -52,7 +51,22 @@ Extensions let the community add new music sources and features without waiting 
 ### Developing Extensions
 
 > [!NOTE]
-> Want to build your own extension? The [Extension Development Guide](https://spotiflac.zarz.moe/docs) has everything you need.
+> Want to build your own extension? Start with the
+> [Extension Development Guide](docs/EXTENSION_DEVELOPMENT.md). The
+> [documentation site](https://spotiflac.zarz.moe/docs) contains the expanded
+> API reference.
+
+---
+
+## Development
+
+SpotiFLAC Mobile combines a Flutter/Dart UI, a Go backend compiled with
+`gomobile`, and thin Android/iOS platform bridges. Toolchain versions are
+pinned in [`.fvmrc`](.fvmrc), [`go_backend/go.mod`](go_backend/go.mod), and the
+GitHub Actions workflows.
+
+Start with the [Contributing Guide](CONTRIBUTING.md) for the development setup,
+project boundaries, validation commands, and pull request checklist.
 
 ---
 
@@ -72,7 +86,10 @@ Python library for SpotiFLAC integration, maintained by [@ShuShuzinhuu](https://
 <summary><b>Why does the Store tab ask me to enter a URL?</b></summary>
 <br>
 
-Starting from version 3.8.0, SpotiFLAC uses a decentralized extension repository system extensions are hosted on GitHub repositories rather than a built-in server, so anyone can create and host their own. Enter a repository URL in the Store tab to browse and install extensions.
+Starting from version 3.8.0, SpotiFLAC Mobile uses a decentralized extension
+repository system. Extensions are hosted independently rather than on a
+built-in server, so anyone can create and host a compatible repository. Enter
+a repository URL in the Store tab to browse and install extensions.
 
 </details>
 
@@ -104,7 +121,9 @@ Yes! Just paste the playlist URL in the search bar. The app will fetch all track
 <summary><b>Why do I need to grant storage permission?</b></summary>
 <br>
 
-The app needs permission to save downloaded files to your device. On Android 13+, you may need to grant **All files access** under **Settings > Apps > SpotiFLAC > Permissions**.
+The app needs a writable destination for downloaded files. On Android, choose a
+folder with the system folder picker (SAF), or use the app-specific folder. If
+Android revokes a saved folder grant, select the folder again in Settings.
 
 </details>
 
@@ -112,7 +131,8 @@ The app needs permission to save downloaded files to your device. On Android 13+
 <summary><b>Is this app safe?</b></summary>
 <br>
 
-Yes SpotiFLAC is open source and you can verify the code yourself. Each release is also scanned with VirusTotal (see badge above).
+SpotiFLAC Mobile is open source, so its code and build workflows can be
+inspected directly in this repository.
 
 </details>
 
@@ -125,13 +145,13 @@ Some countries have restricted access to certain streaming service APIs. If down
 </details>
 
 <details>
-<summary><b>Can I add SpotiFLAC to AltStore or SideStore?</b></summary>
+<summary><b>Can I add SpotiFLAC Mobile to AltStore or SideStore?</b></summary>
 <br>
 
 Yes! Add the official source to receive updates directly within the app. Copy this link:
 
 ```
-https://raw.githubusercontent.com/zarzet/SpotiFLAC-Mobile/refs/heads/main/apps.json
+https://raw.githubusercontent.com/spotiflacapp/SpotiFLAC-Mobile/refs/heads/main/apps.json
 ```
 
 In AltStore/SideStore, go to **Browse > Sources**, tap **+**, and paste the link.
@@ -139,7 +159,7 @@ In AltStore/SideStore, go to **Browse > Sources**, tap **+**, and paste the link
 </details>
 
 > [!NOTE]
-> If SpotiFLAC is useful to you, consider supporting development:
+> If SpotiFLAC Mobile is useful to you, consider supporting development:
 >
 > [![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/zarzet)
 
@@ -149,8 +169,8 @@ In AltStore/SideStore, go to **Browse > Sources**, tap **+**, and paste the link
 
 Thanks to everyone who has contributed to SpotiFLAC Mobile!
 
-<a href="https://github.com/zarzet/SpotiFLAC-Mobile/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=zarzet/SpotiFLAC-Mobile" />
+<a href="https://github.com/spotiflacapp/SpotiFLAC-Mobile/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=spotiflacapp/SpotiFLAC-Mobile" />
 </a>
 
 We also appreciate everyone who helped with [translations on Crowdin](https://crowdin.com/project/spotiflac-mobile), reported bugs, suggested features, and spread the word.

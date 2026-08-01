@@ -31,34 +31,6 @@ class _CsvImportOptions {
   });
 }
 
-class _SearchResultBuckets {
-  final List<Track> realTracks;
-  final List<int> realTrackIndexes;
-  final List<Track> albumItems;
-  final List<Track> playlistItems;
-  final List<Track> artistItems;
-
-  const _SearchResultBuckets({
-    required this.realTracks,
-    required this.realTrackIndexes,
-    required this.albumItems,
-    required this.playlistItems,
-    required this.artistItems,
-  });
-}
-
-enum _SearchSortOption {
-  defaultOrder,
-  titleAsc,
-  titleDesc,
-  artistAsc,
-  artistDesc,
-  durationAsc,
-  durationDesc,
-  dateAsc,
-  dateDesc,
-}
-
 const _homeHistoryPreviewLimit = 48;
 
 class _HomeHistoryPreview {

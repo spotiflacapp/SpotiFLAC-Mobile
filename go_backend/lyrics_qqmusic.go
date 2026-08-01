@@ -113,26 +113,8 @@ func (c *QQMusicClient) FetchLyrics(
 		}
 	}
 
-	lines := parseSyncedLyrics(lrcText)
-	if len(lines) > 0 {
-		return &LyricsResponse{
-			Lines:    lines,
-			SyncType: "LINE_SYNCED",
-			Provider: "QQ Music",
-			Source:   "QQ Music",
-		}, nil
+	if resp := lyricsResponseFromLRCText(lrcText, "QQ Music", "QQ Music"); resp != nil {
+		return resp, nil
 	}
-
-	resultLines := plainTextLyricsLines(lrcText)
-
-	if len(resultLines) > 0 {
-		return &LyricsResponse{
-			Lines:    resultLines,
-			SyncType: "UNSYNCED",
-			Provider: "QQ Music",
-			Source:   "QQ Music",
-		}, nil
-	}
-
 	return nil, lyricsNotFoundErrorf("no lyrics found on qqmusic")
 }

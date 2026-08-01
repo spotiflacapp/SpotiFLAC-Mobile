@@ -54,9 +54,6 @@ extension _TrackMetadataFileActions on _TrackMetadataScreenState {
       useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (sheetContext) => _EditMetadataSheet(
         colorScheme: colorScheme,
         initialValues: initialValues,
@@ -76,16 +73,25 @@ extension _TrackMetadataFileActions on _TrackMetadataScreenState {
       try {
         final refreshed = await PlatformBridge.readFileMetadata(cleanFilePath);
         final refreshedLyrics = refreshed['lyrics']?.toString().trim() ?? '';
+        final refreshedInstrumental = isInstrumentalLyricsMarker(
+          refreshedLyrics,
+        );
+        final refreshedDisplayLyrics = cleanLyricsForDisplay(refreshedLyrics);
         _setState(() {
           _editedMetadata = refreshed;
           _lyricsError = null;
-          _isInstrumental = false;
+          _isInstrumental = refreshedInstrumental;
           _embeddedLyricsChecked = true;
-          if (refreshedLyrics.isNotEmpty) {
-            _lyrics = _cleanLrcForDisplay(refreshedLyrics);
+          if (refreshedDisplayLyrics.isNotEmpty) {
+            _lyrics = refreshedDisplayLyrics;
             _rawLyrics = refreshedLyrics;
             _lyricsSource = context.l10n.trackLyricsEmbeddedSource;
             _lyricsEmbedded = true;
+          } else if (refreshedInstrumental) {
+            _lyrics = null;
+            _rawLyrics = null;
+            _lyricsSource = context.l10n.trackLyricsEmbeddedSource;
+            _lyricsEmbedded = false;
           } else {
             _lyrics = null;
             _rawLyrics = null;
@@ -120,33 +126,42 @@ extension _TrackMetadataFileActions on _TrackMetadataScreenState {
           ),
           TextButton(
             onPressed: () async {
+              var fileDeleted = true;
               if (_isLocalItem) {
                 if (_isCueVirtualTrack && _localLibraryItem != null) {
                   await ref
                       .read(localLibraryProvider.notifier)
                       .removeItem(_localLibraryItem!.id);
                 } else {
-                  try {
-                    await deleteFile(cleanFilePath);
-                  } catch (e) {
-                    debugPrint('Failed to delete file: $e');
-                  }
-                  if (_localLibraryItem != null) {
+                  fileDeleted = await deleteFile(cleanFilePath);
+                  if (fileDeleted && _localLibraryItem != null) {
                     await ref
                         .read(localLibraryProvider.notifier)
                         .removeItem(_localLibraryItem!.id);
                   }
                 }
               } else {
-                try {
-                  await deleteFile(cleanFilePath);
-                } catch (e) {
-                  debugPrint('Failed to delete file: $e');
+                fileDeleted = await deleteFile(cleanFilePath);
+                if (fileDeleted) {
+                  ref
+                      .read(downloadHistoryProvider.notifier)
+                      .removeFromHistory(_downloadItem!.id);
                 }
+              }
 
-                ref
-                    .read(downloadHistoryProvider.notifier)
-                    .removeFromHistory(_downloadItem!.id);
+              if (!fileDeleted) {
+                if (screenContext.mounted) {
+                  ScaffoldMessenger.of(screenContext).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        screenContext.l10n.snackbarError(
+                          screenContext.l10n.snackbarFailedToWriteStorage,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                return;
               }
 
               if (dialogContext.mounted) {
@@ -202,7 +217,9 @@ extension _TrackMetadataFileActions on _TrackMetadataScreenState {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.l10n.snackbarCannotOpenFile(e.toString())),
+            content: Text(
+              context.l10n.snackbarCannotOpenFile(context.friendlyError(e)),
+            ),
           ),
         );
       }

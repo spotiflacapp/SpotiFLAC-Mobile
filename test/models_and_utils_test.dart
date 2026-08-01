@@ -11,18 +11,161 @@ import 'package:spotiflac_android/providers/download_queue_provider.dart';
 import 'package:spotiflac_android/services/app_remote_config_service.dart';
 import 'package:spotiflac_android/services/download_request_payload.dart';
 import 'package:spotiflac_android/services/history_database.dart';
+import 'package:spotiflac_android/services/library_database.dart';
 import 'package:spotiflac_android/utils/artist_utils.dart';
 import 'package:spotiflac_android/utils/audio_conversion_utils.dart';
 import 'package:spotiflac_android/utils/audio_format_utils.dart';
+import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/mime_utils.dart';
 import 'package:spotiflac_android/utils/path_match_keys.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 
 void main() {
+  group('file deletion', () {
+    test('confirms a local file is absent before reporting success', () async {
+      final tempDir = await Directory.systemTemp.createTemp(
+        'spotiflac-delete-test-',
+      );
+      addTearDown(() async {
+        if (await tempDir.exists()) {
+          await tempDir.delete(recursive: true);
+        }
+      });
+      final file = File('${tempDir.path}${Platform.pathSeparator}track.flac');
+      await file.writeAsBytes([1, 2, 3]);
+
+      expect(await deleteFile(file.path), isTrue);
+      expect(await file.exists(), isFalse);
+      expect(await deleteFile(file.path), isTrue);
+    });
+
+    test('refuses to delete a virtual CUE track path', () async {
+      expect(await deleteFile('/music/album.cue#track01'), isFalse);
+    });
+  });
+
+  group('native worker progress', () {
+    test('does not publish 100 percent while finalization is pending', () {
+      expect(nativeWorkerFinalizingProgress(0), 0.95);
+      expect(nativeWorkerFinalizingProgress(0.7), 0.7);
+      expect(nativeWorkerFinalizingProgress(1), 0.99);
+    });
+  });
+
+  group('storage write failure detection', () {
+    test('recognizes typed and common Android filesystem failures', () {
+      expect(
+        isStorageWriteFailure(
+          errorType: 'permission',
+          errorMessage: 'provider-specific text',
+        ),
+        isTrue,
+      );
+      expect(
+        isStorageWriteFailure(
+          errorMessage:
+              'failed to create file: open /storage/song.flac.partial: '
+              'operation not permitted',
+        ),
+        isTrue,
+      );
+      expect(
+        isStorageWriteFailure(
+          errorMessage:
+              'Native finalization failed: failed to publish deferred SAF output',
+        ),
+        isTrue,
+      );
+    });
+
+    test(
+      'does not mistake provider or network failures for storage errors',
+      () {
+        expect(
+          isStorageWriteFailure(
+            errorType: 'api_error',
+            errorMessage: 'HTTP 404 for /download',
+          ),
+          isFalse,
+        );
+        expect(
+          isStorageWriteFailure(
+            errorType: 'network',
+            errorMessage: 'Connection reset by peer',
+          ),
+          isFalse,
+        );
+      },
+    );
+  });
+
+  group('local library incremental scan', () {
+    test('rescans legacy metadata rows exactly once', () {
+      expect(
+        libraryIncrementalSnapshotModTime(
+          storedModTime: 1234,
+          storedScanVersion: 0,
+        ),
+        -1,
+      );
+      expect(
+        libraryIncrementalSnapshotModTime(
+          storedModTime: 1234,
+          storedScanVersion: LibraryDatabase.audioMetadataScanVersion,
+        ),
+        1234,
+      );
+    });
+
+    test('keeps a local item current after an audio metadata probe', () {
+      final item = LocalLibraryItem(
+        id: 'local-1',
+        trackName: 'Song',
+        artistName: 'Artist',
+        albumName: 'Album',
+        filePath: '/music/song.flac',
+        scannedAt: DateTime(2026),
+        bitDepth: 24,
+        sampleRate: 96000,
+      );
+
+      final updated = item.withAudioMetadata(bitrate: 1840);
+
+      expect(updated.bitrate, 1840);
+      expect(updated.bitDepth, 24);
+      expect(updated.sampleRate, 96000);
+      expect(updated.trackName, 'Song');
+      expect(updated.filePath, '/music/song.flac');
+    });
+  });
+
+  group('app state database migrations', () {
+    final source = File(
+      'lib/services/app_state_database.dart',
+    ).readAsStringSync();
+
+    test('v1 to v2 tolerates an existing playback session table', () {
+      expect(
+        source,
+        contains('CREATE TABLE IF NOT EXISTS \$_playbackSessionTable'),
+      );
+      expect(
+        RegExp(
+          r'if \(oldVersion < 2\)\s*\{\s*'
+          r'await _createPlaybackSessionTable\(db\);',
+        ).hasMatch(source),
+        isTrue,
+      );
+    });
+  });
+
   group('native worker contracts', () {
     final finalizerSource = File(
       'android/app/src/main/kotlin/com/zarz/spotiflac/'
       'NativeDownloadFinalizer.kt',
+    ).readAsStringSync();
+    final historyDatabaseSource = File(
+      'lib/services/history_database.dart',
     ).readAsStringSync();
 
     int kotlinConstant(String name) {
@@ -46,9 +189,113 @@ void main() {
         HistoryDatabase.schemaVersion,
       );
     });
+
+    Set<String> historyTableColumns(String source) {
+      final match = RegExp(
+        r'CREATE TABLE(?: IF NOT EXISTS)? history\s*\(([\s\S]*?)\n\s*\)',
+      ).firstMatch(source);
+      expect(match, isNotNull, reason: 'Missing history CREATE TABLE');
+      return match!
+          .group(1)!
+          .split(',')
+          .map((definition) => definition.trim().split(RegExp(r'\s+')).first)
+          .where((column) => column.isNotEmpty)
+          .toSet();
+    }
+
+    Map<String, String> historyIndexes(String source) {
+      final indexes = <String, String>{};
+      final pattern = RegExp(
+        r'CREATE INDEX(?: IF NOT EXISTS)?\s+(\w+)\s+'
+        r'ON history\s*\(([^)]+)\)',
+      );
+      for (final match in pattern.allMatches(source)) {
+        indexes[match.group(1)!] = match
+            .group(2)!
+            .replaceAll(RegExp(r'\s+'), ' ')
+            .trim();
+      }
+      return indexes;
+    }
+
+    test('uses the same history columns in Dart and native writers', () {
+      final dartColumns = historyTableColumns(historyDatabaseSource);
+      final nativeColumns = historyTableColumns(finalizerSource);
+      expect(nativeColumns, dartColumns);
+
+      final requiredBlock = RegExp(
+        r'requiredHistoryColumns\s*=\s*setOf\(([\s\S]*?)\n\s*\)',
+      ).firstMatch(finalizerSource);
+      expect(requiredBlock, isNotNull);
+      final requiredColumns = RegExp(
+        r'"([a-z0-9_]+)"',
+      ).allMatches(requiredBlock!.group(1)!).map((m) => m.group(1)!).toSet();
+      expect(requiredColumns, dartColumns);
+
+      final buildHistoryRow = RegExp(
+        r'private fun buildHistoryRow\([\s\S]*?return values',
+      ).firstMatch(finalizerSource);
+      expect(buildHistoryRow, isNotNull);
+      final nativeWrittenColumns = RegExp(
+        r'values\.put\("([a-z0-9_]+)"',
+      ).allMatches(buildHistoryRow!.group(0)!).map((m) => m.group(1)!).toSet();
+      expect(
+        dartColumns,
+        containsAll(nativeWrittenColumns),
+        reason: 'Native finalizer writes a column missing from Dart schema',
+      );
+    });
+
+    test('uses the same history indexes in Dart and native writers', () {
+      expect(
+        historyIndexes(finalizerSource),
+        historyIndexes(historyDatabaseSource),
+      );
+    });
+
+    test('matches shared Dart/native finalization quality cases', () {
+      final fixture = File(
+        'android/app/src/test/resources/finalization_quality_cases.tsv',
+      ).readAsLinesSync();
+      for (final line in fixture) {
+        if (line.isEmpty || line.startsWith('#')) continue;
+        final fields = line.split('\t');
+        expect(fields, hasLength(6), reason: 'Invalid shared fixture: $line');
+        final actual = buildQualityVariantFilenameLabel(
+          detectedFormat: fields[0],
+          bitDepth: int.tryParse(fields[1]),
+          sampleRate: int.tryParse(fields[2]),
+          bitrateKbps: int.tryParse(fields[3]),
+          measuredQuality: fields[4],
+        );
+        final expected = fields[5] == '<null>' ? null : fields[5];
+        expect(actual, expected, reason: 'Shared fixture: $line');
+      }
+    });
   });
 
   group('quality variant filenames', () {
+    test('estimates average bitrate without decoding the audio file', () {
+      expect(
+        estimateAverageBitrateKbps(
+          fileSizeBytes: 42.9 * 1000 * 1000 ~/ 1,
+          durationSeconds: 204,
+        ),
+        1682,
+      );
+      expect(
+        estimateAverageBitrateKbps(fileSizeBytes: null, durationSeconds: 204),
+        isNull,
+      );
+      expect(
+        estimateAverageBitrateKbps(
+          fileSizeBytes: 42 * 1000 * 1000,
+          durationSeconds: 0,
+        ),
+        isNull,
+      );
+    });
+
     test('uses measured lossless specifications instead of request labels', () {
       expect(
         buildQualityVariantFilenameLabel(
@@ -104,6 +351,38 @@ void main() {
           qualityLabel: '16bit-44.1kHz',
         ),
         'Post Processed Song - 16bit-44.1kHz.flac',
+      );
+    });
+
+    test('adds measured quality only when a clean filename collides', () {
+      const staging = 'qv_12345678';
+      const stagedName = 'Artist - Song - qv_12345678.flac';
+      expect(
+        removeQualityVariantStagingLabel(
+          fileName: stagedName,
+          stagingLabel: staging,
+        ),
+        'Artist - Song.flac',
+      );
+      expect(
+        resolveQualityVariantFilename(
+          fileName: stagedName,
+          stagingLabel: staging,
+          qualityLabel: '24bit-96kHz',
+          collisionOnly: true,
+          cleanNameExists: false,
+        ),
+        'Artist - Song.flac',
+      );
+      expect(
+        resolveQualityVariantFilename(
+          fileName: stagedName,
+          stagingLabel: staging,
+          qualityLabel: '24bit-96kHz',
+          collisionOnly: true,
+          cleanNameExists: true,
+        ),
+        'Artist - Song - 24bit-96kHz.flac',
       );
     });
   });
@@ -392,6 +671,10 @@ void main() {
       expect(settings.deduplicateDownloads, isTrue);
       expect(settings.allowQualityVariants, isFalse);
       expect(settings.nativeDownloadWorkerEnabled, isFalse);
+      expect(
+        settings.libraryQualityLabelMode,
+        AppSettings.libraryQualityLabelBitrate,
+      );
     });
 
     test('copyWith updates values and can clear nullable provider fields', () {
@@ -408,6 +691,7 @@ void main() {
         lyricsAppleElrcWordSync: true,
         deduplicateDownloads: false,
         allowQualityVariants: true,
+        libraryQualityLabelMode: AppSettings.libraryQualityLabelBitDepth,
         clearDownloadFallbackExtensionIds: true,
         clearSearchProvider: true,
         clearHomeFeedProvider: true,
@@ -419,6 +703,10 @@ void main() {
       expect(updated.lyricsAppleElrcWordSync, isTrue);
       expect(updated.deduplicateDownloads, isFalse);
       expect(updated.allowQualityVariants, isTrue);
+      expect(
+        updated.libraryQualityLabelMode,
+        AppSettings.libraryQualityLabelBitDepth,
+      );
       expect(updated.downloadFallbackExtensionIds, isNull);
       expect(updated.searchProvider, isNull);
       expect(updated.homeFeedProvider, isNull);
@@ -445,6 +733,7 @@ void main() {
         deduplicateDownloads: false,
         allowQualityVariants: true,
         nativeDownloadWorkerEnabled: true,
+        libraryQualityLabelMode: AppSettings.libraryQualityLabelBitDepth,
       );
 
       final decoded = AppSettings.fromJson(settings.toJson());
@@ -464,6 +753,10 @@ void main() {
       expect(decoded.musixmatchLanguage, 'id');
       expect(decoded.lyricsAppleElrcWordSync, isTrue);
       expect(decoded.lastSeenVersion, '4.5.0');
+      expect(
+        decoded.libraryQualityLabelMode,
+        AppSettings.libraryQualityLabelBitDepth,
+      );
       expect(decoded.deduplicateDownloads, isFalse);
       expect(decoded.allowQualityVariants, isTrue);
       expect(decoded.nativeDownloadWorkerEnabled, isTrue);
@@ -542,6 +835,7 @@ void main() {
         outputExt: '.flac',
         allowQualityVariant: true,
         qualityVariant: 'qv_12345678',
+        qualityVariantCollisionOnly: true,
         songLinkRegion: 'ID',
       );
 
@@ -595,6 +889,7 @@ void main() {
         'requires_container_conversion': false,
         'allow_quality_variant': true,
         'quality_variant': 'qv_12345678',
+        'quality_variant_collision_only': true,
         'songlink_region': 'ID',
       });
     });
@@ -618,6 +913,10 @@ void main() {
       expect(updated.filenameFormat, payload.filenameFormat);
       expect(updated.allowQualityVariant, payload.allowQualityVariant);
       expect(updated.qualityVariant, payload.qualityVariant);
+      expect(
+        updated.qualityVariantCollisionOnly,
+        payload.qualityVariantCollisionOnly,
+      );
     });
   });
 
@@ -639,6 +938,53 @@ void main() {
   });
 
   group('audio conversion utils', () {
+    test('normalizes lightweight library scan metadata for display probes', () {
+      final normalized = normalizeScannedAudioMetadata({
+        'trackName': 'Song',
+        'artistName': 'Artist',
+        'albumName': 'Album',
+        'albumArtist': 'Album Artist',
+        'releaseDate': '2026',
+        'trackNumber': 2,
+        'totalTracks': 10,
+        'discNumber': 1,
+        'totalDiscs': 2,
+        'bitDepth': 24,
+        'sampleRate': 96000,
+        'bitrate': 1840,
+        'format': 'flac',
+      });
+
+      expect(normalized['title'], 'Song');
+      expect(normalized['artist'], 'Artist');
+      expect(normalized['album'], 'Album');
+      expect(normalized['album_artist'], 'Album Artist');
+      expect(normalized['date'], '2026');
+      expect(normalized['track_number'], 2);
+      expect(normalized['total_tracks'], 10);
+      expect(normalized['disc_number'], 1);
+      expect(normalized['total_discs'], 2);
+      expect(normalized['bit_depth'], 24);
+      expect(normalized['sample_rate'], 96000);
+      expect(normalized['bitrate'], 1840);
+      expect(normalized['audio_codec'], 'flac');
+    });
+
+    test('does not replace stored tags with filename scan fallbacks', () {
+      final normalized = normalizeScannedAudioMetadata({
+        'trackName': 'Filename fallback',
+        'artistName': 'Unknown Artist',
+        'albumName': 'Unknown Album',
+        'metadataFromFilename': true,
+        'format': 'flac',
+      });
+
+      expect(normalized['title'], isNull);
+      expect(normalized['artist'], isNull);
+      expect(normalized['album'], isNull);
+      expect(normalized['audio_codec'], 'flac');
+    });
+
     test('distinguishes an ALAC codec from its M4A container', () {
       expect(normalizeAudioFormatValue('ALAC'), 'alac');
       expect(

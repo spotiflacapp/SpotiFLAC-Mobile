@@ -14,7 +14,7 @@ import 'package:spotiflac_android/services/cover_cache_manager.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/string_utils.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class CacheManagementPage extends ConsumerStatefulWidget {
   const CacheManagementPage({super.key});
@@ -55,9 +55,11 @@ class _CacheManagementPageState extends ConsumerState<CacheManagementPage> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.snackbarError(e.toString()))));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(context.l10n.snackbarError(context.friendlyError(e))),
+        ),
+      );
     }
   }
 
@@ -293,9 +295,11 @@ class _CacheManagementPageState extends ConsumerState<CacheManagementPage> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.l10n.snackbarError(e.toString()))));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(context.l10n.snackbarError(context.friendlyError(e))),
+        ),
+      );
     } finally {
       if (mounted) {
         setState(() => _busyAction = null);
@@ -383,7 +387,7 @@ class _CacheManagementPageState extends ConsumerState<CacheManagementPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SettingsSliverAppBar(
+          AppSliverHeader.page(
             title: context.l10n.cacheTitle,
             actions: [
               IconButton(

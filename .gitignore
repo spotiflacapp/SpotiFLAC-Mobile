@@ -1,91 +1,98 @@
-# OS files
+# Operating-system files
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-# IDE
+# Editors and local assistants
 .idea/
 .vscode/
 *.iml
 .cursorignore
 .cursorrules
-
-# Kiro specs (development only)
 .kiro/
+.playwright-mcp/
+.rtk/
+.claude/settings.local.json
+CLAUDE.md
+AGENTS.md
 
-# Design assets (banners, mockups)
-design/
-
-# Reference folder (development only)
-referensi/
-
-# Documentation (development only, published separately)
-docs/
-
-# Old spotiflac_android folder (moved to root)
-spotiflac_android/
-
-# Flutter/Dart
+# Flutter and Dart
 .dart_tool/
+.fvm/
 .packages
-build/
-*.lock
-!pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .metadata
+/build/
+/coverage/
 *.apk
+*.aab
+*.ipa
 
-# Go backend build artifacts
-go_backend/*.aar
-go_backend/*.jar
-go_backend/*.exe
-go_backend/*.xcframework/
+# Local JavaScript tooling (the app itself has no Node dependency)
+/node_modules/
+/bun.lock
+/package-lock.json
 
-# Android
-android/.gradle/
-android/app/libs/gobackend.aar
-android/app/libs/gobackend-sources.jar
-android/local.properties
-android/*.iml
-android/key.properties
-android/*.jks
-android/*.keystore
-android/app/*.jks
+# Go backend build outputs
+/go_backend/*.aar
+/go_backend/*.jar
+/go_backend/*.exe
+/go_backend/*.xcframework/
 
-# iOS
-ios/Frameworks/
-ios/Pods/
-ios/.symlinks/
-ios/Flutter/Flutter.framework/
-ios/Flutter/Flutter.podspec
+# Android build state and signing material
+/android/.gradle/
+/android/.kotlin/
+/android/app/build/
+/android/app/libs/*.aar
+/android/app/libs/*-sources.jar
+/android/local.properties
+/android/*.iml
+/android/key.properties
+/android/*.jks
+/android/*.keystore
+/android/app/*.jks
 
-# Extension folder
-extension/*
-extension/v2/
-extension/v2/**
+# iOS generated state
+/ios/Frameworks/
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/ephemeral/
+/ios/Flutter/Flutter.framework/
+/ios/Flutter/Flutter.podspec
+*.xcarchive
+DerivedData/
 
-# Agent instructions
-AGENTS.md
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+*.mobileprovision
+*.p12
+*.pem
 
-# Temp/misc
-.tmp/
+# Local research and design material
+/design/
+/referensi/
+/extension/
+/tool/
+/spotiflac_android/
+
+# Documentation published separately. Keep the in-repo extension contract
+# available because contribution templates link to it.
+/docs/*
+!/docs/EXTENSION_DEVELOPMENT.md
+
+# Temporary files and logs
+/.tmp/
 nul
 NUL
-network_requests.txt
-*.bak
+/network_requests.txt
 /AndroidManifest.xml
-
-# Log files
+*.bak
+*.orig
+*.swp
+*.tmp
 *.log
 hs_err_*.log
 flutter_*.log
-
-# Development tools
-tool/
-.claude/settings.local.json
-.playwright-mcp/
-.rtk/
-CLAUDE.md
-
-# FVM Version Cache
-.fvm/

@@ -6,7 +6,7 @@ import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/widgets/discard_changes_dialog.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class DownloadFallbackExtensionsPage extends ConsumerStatefulWidget {
   const DownloadFallbackExtensionsPage({super.key});
@@ -68,7 +68,7 @@ class _DownloadFallbackExtensionsPageState
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(
+            AppSliverHeader.page(
               title: context.l10n.extensionsFallbackTitle,
               leading: IconButton(
                 tooltip: MaterialLocalizations.of(context).backButtonTooltip,

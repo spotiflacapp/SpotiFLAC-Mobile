@@ -6,20 +6,6 @@ class _SearchProviderDropdown extends ConsumerWidget {
 
   const _SearchProviderDropdown({this.onProviderChanged});
 
-  Extension? _defaultSearchExtension(List<Extension> extensions) {
-    return extensions
-            .where(
-              (ext) =>
-                  ext.enabled &&
-                  ext.hasCustomSearch &&
-                  ext.searchBehavior?.primary == true,
-            )
-            .firstOrNull ??
-        extensions
-            .where((ext) => ext.enabled && ext.hasCustomSearch)
-            .firstOrNull;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final rawCurrentProvider = ref.watch(
@@ -71,7 +57,7 @@ class _SearchProviderDropdown extends ConsumerWidget {
             rawCurrentProvider.isNotEmpty &&
             searchProviders.any((e) => e.id == rawCurrentProvider)
         ? rawCurrentProvider
-        : _defaultSearchExtension(searchProviders)?.id;
+        : HomeSearchProviderPolicy.defaultExtension(searchProviders)?.id;
     final currentProvider =
         resolvedCurrentProvider != null && resolvedCurrentProvider.isNotEmpty
         ? resolvedCurrentProvider
@@ -211,6 +197,10 @@ class _TrackItemWithStatus extends ConsumerWidget {
   final bool showLocalLibraryIndicator;
   final Map<String, (double, double)> thumbnailSizesByExtensionId;
 
+  /// Resolved by the result page via one batch lookup instead of a per-row
+  /// exists query (which in SAF mode also costs a bridge call per row).
+  final bool isInHistory;
+
   const _TrackItemWithStatus({
     super.key,
     required this.track,
@@ -220,6 +210,7 @@ class _TrackItemWithStatus extends ConsumerWidget {
     required this.searchExtensionId,
     required this.showLocalLibraryIndicator,
     required this.thumbnailSizesByExtensionId,
+    required this.isInHistory,
   });
 
   @override
@@ -231,11 +222,6 @@ class _TrackItemWithStatus extends ConsumerWidget {
         (lookup) => lookup.byTrackId[track.id],
       ),
     );
-
-    final historyLookup = historyLookupForTrack(track);
-    final isInHistory = ref
-        .watch(downloadHistoryExistsProvider(historyLookup))
-        .maybeWhen(data: (exists) => exists, orElse: () => false);
 
     final isInLocalLibrary = showLocalLibraryIndicator
         ? ref.watch(
@@ -278,11 +264,12 @@ class _TrackItemWithStatus extends ConsumerWidget {
             context,
             ref,
             track,
+            hasLocalPlaybackCandidate: isInHistory || isInLocalLibrary,
           ),
           splashColor: colorScheme.primary.withValues(alpha: 0.12),
           highlightColor: colorScheme.primary.withValues(alpha: 0.08),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.fromLTRB(12, 10, 6, 10),
             child: Row(
               children: [
                 ClipRRect(
@@ -350,7 +337,10 @@ class _TrackItemWithStatus extends ConsumerWidget {
                   ),
                 ),
                 PreviewButton(track: track),
-                TrackCollectionQuickActions(track: track),
+                TrackCollectionQuickActions(
+                  track: track,
+                  hasLocalPlaybackCandidate: isInHistory || isInLocalLibrary,
+                ),
               ],
             ),
           ),
@@ -695,7 +685,7 @@ class _LoadingOrErrorScaffold extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              error!,
+              context.friendlyError(error),
               style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
             const SizedBox(height: 16),
@@ -979,7 +969,7 @@ class _ExtensionAlbumScreenState extends ConsumerState<ExtensionAlbumScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = context.l10n.snackbarError(e.toString());
+        _error = context.l10n.snackbarError(context.friendlyError(e));
         _isLoading = false;
       });
     }
@@ -1125,7 +1115,7 @@ class _ExtensionPlaylistScreenState
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = context.l10n.snackbarError(e.toString());
+        _error = context.l10n.snackbarError(context.friendlyError(e));
         _isLoading = false;
       });
     }
@@ -1277,7 +1267,7 @@ class _ExtensionArtistScreenState extends ConsumerState<ExtensionArtistScreen>
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = context.l10n.snackbarError(e.toString());
+        _error = context.l10n.snackbarError(context.friendlyError(e));
         _isLoading = false;
       });
     }
@@ -1544,7 +1534,7 @@ class _QuickPicksPageViewState extends State<_QuickPicksPageView> {
               ),
               onPressed: () => widget.onItemMenu(item),
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+              constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
             ),
           ],
         ),

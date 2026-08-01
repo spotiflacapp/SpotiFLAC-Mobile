@@ -59,6 +59,37 @@ Future<void> addColumnIfMissing(
   }
 }
 
+/// Loads rows whose [column] matches any of [rawValues] (chunked IN clauses)
+/// into [destination], keeping the first row seen per value.
+Future<void> loadRowsByColumn(
+  DatabaseExecutor db, {
+  required String table,
+  required String column,
+  required Iterable<String> rawValues,
+  required Map<String, Map<String, dynamic>> destination,
+  required Map<String, dynamic> Function(Map<String, Object?> row) mapRow,
+  String? orderBy,
+}) async {
+  final values = rawValues.where((value) => value.isNotEmpty).toSet().toList();
+  const chunkSize = 450;
+  for (var start = 0; start < values.length; start += chunkSize) {
+    final end = (start + chunkSize).clamp(0, values.length);
+    final chunk = values.sublist(start, end);
+    final placeholders = List.filled(chunk.length, '?').join(',');
+    final rows = await db.rawQuery(
+      'SELECT * FROM $table WHERE $column IN ($placeholders)'
+      '${orderBy == null ? '' : ' ORDER BY $orderBy'}',
+      chunk,
+    );
+    for (final row in rows) {
+      final key = row[column] as String?;
+      if (key != null && key.isNotEmpty) {
+        destination.putIfAbsent(key, () => mapRow(row));
+      }
+    }
+  }
+}
+
 Future<void> createPathKeyTable(DatabaseExecutor db, String table) async {
   await db.execute('''
     CREATE TABLE IF NOT EXISTS $table (

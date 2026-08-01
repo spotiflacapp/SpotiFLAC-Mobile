@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotiflac_android/theme/app_tokens.dart';
 
 class AudioQualityBadge extends StatelessWidget {
   final String label;
@@ -16,12 +17,12 @@ class AudioQualityBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
       decoration: BoxDecoration(
         color: colorScheme.primaryContainer.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: context.tokens.borderRadiusBadge,
       ),
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 9,
+          fontSize: context.tokens.badgeFontSize,
           fontWeight: FontWeight.w600,
           color: colorScheme.onPrimaryContainer,
           height: 1.3,
@@ -41,17 +42,17 @@ class ExplicitBadge extends StatelessWidget {
     return Tooltip(
       message: 'Explicit',
       child: Container(
-        width: 14,
-        height: 14,
+        width: 18,
+        height: 18,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: colorScheme.onSurfaceVariant.withValues(alpha: 0.85),
-          borderRadius: BorderRadius.circular(3),
+          borderRadius: context.tokens.borderRadiusBadge,
         ),
         child: Text(
           'E',
           style: TextStyle(
-            fontSize: 9,
+            fontSize: context.tokens.badgeFontSize,
             fontWeight: FontWeight.w700,
             color: colorScheme.surface,
             height: 1.0,
@@ -73,7 +74,7 @@ class DolbyAtmosBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
       decoration: BoxDecoration(
         color: colorScheme.tertiaryContainer.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: context.tokens.borderRadiusBadge,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -86,7 +87,7 @@ class DolbyAtmosBadge extends StatelessWidget {
           Text(
             'Atmos',
             style: TextStyle(
-              fontSize: 9,
+              fontSize: context.tokens.badgeFontSize,
               fontWeight: FontWeight.w600,
               color: colorScheme.onTertiaryContainer,
               height: 1.3,

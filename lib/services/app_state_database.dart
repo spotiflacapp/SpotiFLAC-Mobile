@@ -9,11 +9,12 @@ import 'package:spotiflac_android/utils/logger.dart';
 final _log = AppLogger('AppStateDb');
 
 const _dbFileName = 'app_state.db';
-const _dbVersion = 1;
+const _dbVersion = 2;
 
 const _queueTable = 'download_queue_items';
 const _recentTable = 'recent_access_items';
 const _hiddenRecentTable = 'hidden_recent_downloads';
+const _playbackSessionTable = 'playback_session';
 
 const _legacyQueueKey = 'download_queue';
 const _legacyRecentAccessKey = 'recent_access_history';
@@ -90,10 +91,28 @@ class AppStateDatabase {
         updated_at TEXT NOT NULL
       )
     ''');
+
+    await _createPlaybackSessionTable(db);
   }
 
   Future<void> _upgradeDb(Database db, int oldVersion, int newVersion) async {
     _log.i('Upgrading app state database from v$oldVersion to v$newVersion');
+    if (oldVersion < 2) {
+      await _createPlaybackSessionTable(db);
+    }
+  }
+
+  static Future<void> _createPlaybackSessionTable(Database db) {
+    // Keep this idempotent so an interrupted migration or a database restored
+    // from an intermediate build can resume v1 -> v2 without losing queue
+    // state merely because the table was already created.
+    return db.execute('''
+      CREATE TABLE IF NOT EXISTS $_playbackSessionTable (
+        id INTEGER PRIMARY KEY CHECK (id = 1),
+        session_json TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      )
+    ''');
   }
 
   Future<bool> migrateQueueFromSharedPreferences() async {
@@ -253,12 +272,43 @@ class AppStateDatabase {
 
   /// A pending queue is tied to the installation's output grants and worker
   /// lifecycle. It must not resume after Android restores data into a newly
-  /// installed package.
+  /// installed package. The same holds for the playback session, whose
+  /// sources may be content URIs granted to the old installation.
   Future<void> clearPendingQueueAfterInstallationRestore() async {
     await replacePendingDownloadQueueRows(const []);
+    await clearPlaybackSession();
     final prefs = await _prefs;
     await prefs.remove(_legacyQueueKey);
     await prefs.setBool(_queueMigrationKey, true);
+  }
+
+  Future<Map<String, dynamic>?> getPlaybackSession() async {
+    final db = await database;
+    final rows = await db.query(_playbackSessionTable, limit: 1);
+    if (rows.isEmpty) return null;
+    final raw = rows.first['session_json'] as String?;
+    if (raw == null || raw.isEmpty) return null;
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is Map) return Map<String, dynamic>.from(decoded);
+    } catch (e) {
+      _log.w('Discarding unreadable playback session: $e');
+    }
+    return null;
+  }
+
+  Future<void> savePlaybackSession(Map<String, dynamic> session) async {
+    final db = await database;
+    await db.insert(_playbackSessionTable, {
+      'id': 1,
+      'session_json': jsonEncode(session),
+      'updated_at': DateTime.now().toIso8601String(),
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<void> clearPlaybackSession() async {
+    final db = await database;
+    await db.delete(_playbackSessionTable);
   }
 
   Future<void> applyPendingDownloadQueueChanges({

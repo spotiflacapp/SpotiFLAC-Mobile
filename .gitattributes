@@ -1,5 +1,9 @@
 * text=auto eol=lf
 
+# Scripts executed on Unix runners must keep LF line endings.
+*.sh text eol=lf
+gradlew text eol=lf
+
 # Windows scripts
 *.bat text eol=crlf
 *.cmd text eol=crlf

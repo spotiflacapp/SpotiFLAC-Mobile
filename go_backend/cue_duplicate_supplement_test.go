@@ -159,6 +159,40 @@ func writeTestFlacWithISRC(t *testing.T, path, isrc string) {
 	}
 }
 
+func TestISRCIndexCoversNonFlacFormats(t *testing.T) {
+	dir := t.TempDir()
+	flacPath := filepath.Join(dir, "a.flac")
+	mp3Path := filepath.Join(dir, "b.mp3")
+	writeTestFlacWithISRC(t, flacPath, "USAA00000011")
+	mp3Data := buildID3v23Tag(
+		id3TextFrame("TIT2", "Song"),
+		id3TextFrame("TSRC", "usbb00000022"),
+	)
+	if err := os.WriteFile(mp3Path, mp3Data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	// Unsupported/untagged formats must stay invisible to the index.
+	if err := os.WriteFile(filepath.Join(dir, "c.wav"), []byte("RIFF"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	defer InvalidateISRCCache(dir)
+
+	if got := readFileISRC(mp3Path); got != "usbb00000022" {
+		t.Fatalf("readFileISRC mp3 = %q", got)
+	}
+	if got := readFileISRC(filepath.Join(dir, "c.wav")); got != "" {
+		t.Fatalf("readFileISRC wav = %q", got)
+	}
+
+	idx := buildISRCIndex(dir)
+	if path, ok := idx.lookup("USAA00000011"); !ok || path != flacPath {
+		t.Fatalf("flac lookup = %q/%v", path, ok)
+	}
+	if path, ok := idx.lookup("USBB00000022"); !ok || path != mp3Path {
+		t.Fatalf("mp3 lookup = %q/%v", path, ok)
+	}
+}
+
 func TestISRCIndexIncrementalRebuild(t *testing.T) {
 	dir := t.TempDir()
 	trackA := filepath.Join(dir, "a.flac")

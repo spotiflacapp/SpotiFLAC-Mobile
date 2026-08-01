@@ -97,28 +97,9 @@ func (c *MusixmatchClient) FetchLyricsInLanguage(trackName, artistName string, d
 		return nil, err
 	}
 
-	lines := parseSyncedLyrics(lrcText)
-	if len(lines) > 0 {
-		return &LyricsResponse{
-			Lines:       lines,
-			SyncType:    "LINE_SYNCED",
-			PlainLyrics: plainLyricsFromTimedLines(lines),
-			Provider:    "Musixmatch",
-			Source:      fmt.Sprintf("Musixmatch (%s)", lang),
-		}, nil
+	if resp := lyricsResponseFromLRCText(lrcText, "Musixmatch", fmt.Sprintf("Musixmatch (%s)", lang)); resp != nil {
+		return resp, nil
 	}
-
-	plainLines := plainTextLyricsLines(lrcText)
-	if len(plainLines) > 0 {
-		return &LyricsResponse{
-			Lines:       plainLines,
-			SyncType:    "UNSYNCED",
-			PlainLyrics: lrcText,
-			Provider:    "Musixmatch",
-			Source:      fmt.Sprintf("Musixmatch (%s)", lang),
-		}, nil
-	}
-
 	return nil, lyricsNotFoundErrorf("no lyrics found on musixmatch for language %s", lang)
 }
 
@@ -136,27 +117,8 @@ func (c *MusixmatchClient) FetchLyrics(trackName, artistName string, durationSec
 		return nil, err
 	}
 
-	lines := parseSyncedLyrics(lrcText)
-	if len(lines) > 0 {
-		return &LyricsResponse{
-			Lines:       lines,
-			SyncType:    "LINE_SYNCED",
-			PlainLyrics: plainLyricsFromTimedLines(lines),
-			Provider:    "Musixmatch",
-			Source:      "Musixmatch",
-		}, nil
+	if resp := lyricsResponseFromLRCText(lrcText, "Musixmatch", "Musixmatch"); resp != nil {
+		return resp, nil
 	}
-
-	plainLines := plainTextLyricsLines(lrcText)
-	if len(plainLines) > 0 {
-		return &LyricsResponse{
-			Lines:       plainLines,
-			SyncType:    "UNSYNCED",
-			PlainLyrics: lrcText,
-			Provider:    "Musixmatch",
-			Source:      "Musixmatch",
-		}, nil
-	}
-
 	return nil, lyricsNotFoundErrorf("no lyrics found on musixmatch")
 }

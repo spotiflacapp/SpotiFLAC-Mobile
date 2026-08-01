@@ -13,7 +13,7 @@ import 'package:spotiflac_android/services/backup_service.dart';
 import 'package:spotiflac_android/services/history_database.dart';
 import 'package:spotiflac_android/utils/logger.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class BackupRestorePage extends ConsumerStatefulWidget {
   const BackupRestorePage({super.key});
@@ -39,9 +39,7 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
     try {
       final settings = ref.read(settingsProvider).toJson();
       final history = await HistoryDatabase.instance.getAll();
-      final collectionsNotifier = ref.read(
-        libraryCollectionsProvider.notifier,
-      );
+      final collectionsNotifier = ref.read(libraryCollectionsProvider.notifier);
       final collections = await collectionsNotifier.exportCollections();
       final covers = await collectionsNotifier.exportPlaylistCovers();
       final extensions = await ref
@@ -65,9 +63,7 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
       );
     } catch (e, stack) {
       _log.e('Failed to create backup: $e', e, stack);
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.backupCreateFailed)),
-      );
+      messenger.showSnackBar(SnackBar(content: Text(l10n.backupCreateFailed)));
     } finally {
       if (mounted) setState(() => _isExporting = false);
     }
@@ -89,17 +85,13 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
       content = await File(path).readAsString();
     } catch (e) {
       _log.e('Failed to read backup file: $e');
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.backupInvalidFile)),
-      );
+      messenger.showSnackBar(SnackBar(content: Text(l10n.backupInvalidFile)));
       return;
     }
 
     final bundle = BackupService.parse(content);
     if (bundle == null) {
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.backupInvalidFile)),
-      );
+      messenger.showSnackBar(SnackBar(content: Text(l10n.backupInvalidFile)));
       return;
     }
 
@@ -148,9 +140,7 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
       );
     } catch (e, stack) {
       _log.e('Failed to restore backup: $e', e, stack);
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.backupRestoreFailed)),
-      );
+      messenger.showSnackBar(SnackBar(content: Text(l10n.backupRestoreFailed)));
     } finally {
       if (mounted) setState(() => _isImporting = false);
     }
@@ -201,16 +191,12 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
               if (bundle.favoriteArtistCount > 0)
                 _ContentRow(
                   icon: Icons.person_outline,
-                  label: l10n.backupContentsArtists(
-                    bundle.favoriteArtistCount,
-                  ),
+                  label: l10n.backupContentsArtists(bundle.favoriteArtistCount),
                 ),
               if (bundle.extensionCount > 0)
                 _ContentRow(
                   icon: Icons.extension_outlined,
-                  label: l10n.backupContentsExtensions(
-                    bundle.extensionCount,
-                  ),
+                  label: l10n.backupContentsExtensions(bundle.extensionCount),
                 ),
             ],
           ),
@@ -236,11 +222,9 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SettingsSliverAppBar(title: l10n.backupTitle),
+          AppSliverHeader.page(title: l10n.backupTitle),
           SliverToBoxAdapter(
-            child: SettingsSectionHeader(
-              title: l10n.backupExportSectionTitle,
-            ),
+            child: SettingsSectionHeader(title: l10n.backupExportSectionTitle),
           ),
           SliverToBoxAdapter(
             child: SettingsGroup(
@@ -272,9 +256,7 @@ class _BackupRestorePageState extends ConsumerState<BackupRestorePage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: SettingsSectionHeader(
-              title: l10n.backupImportSectionTitle,
-            ),
+            child: SettingsSectionHeader(title: l10n.backupImportSectionTitle),
           ),
           SliverToBoxAdapter(
             child: SettingsGroup(

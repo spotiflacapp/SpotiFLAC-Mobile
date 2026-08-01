@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping improve the SpotiFLAC Extension API! 
+        Thanks for helping improve the SpotiFLAC Mobile Extension API!
         This form is for extension developers who need new features or capabilities that don't exist yet.
 
   - type: checkboxes
@@ -15,7 +15,7 @@ body:
       label: Checklist
       description: Please confirm the following before submitting
       options:
-        - label: I have read the [Extension Development Guide](https://github.com/zarzet/SpotiFLAC-Mobile/blob/main/docs/EXTENSION_DEVELOPMENT.md)
+        - label: I have read the [Extension Development Guide](https://github.com/spotiflacapp/SpotiFLAC-Mobile/blob/main/docs/EXTENSION_DEVELOPMENT.md)
           required: true
         - label: I have searched existing issues and this API feature hasn't been requested yet
           required: true

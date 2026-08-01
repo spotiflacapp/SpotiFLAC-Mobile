@@ -346,11 +346,7 @@ class _CollectionHeaderSkeleton extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
       child: Column(
         children: [
-          SkeletonBox(
-            width: coverSize,
-            height: coverSize,
-            borderRadius: 16,
-          ),
+          SkeletonBox(width: coverSize, height: coverSize, borderRadius: 16),
           const SizedBox(height: 20),
           SkeletonBox(width: screenWidth * 0.6, height: 22, borderRadius: 6),
           const SizedBox(height: 10),

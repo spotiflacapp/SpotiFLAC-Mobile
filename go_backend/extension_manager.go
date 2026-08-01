@@ -4,120 +4,14 @@ import (
 	"archive/zip"
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
-	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
-	"time"
 
 	"github.com/dop251/goja"
 )
-
-func compareVersions(v1, v2 string) int {
-	parts1 := strings.Split(strings.TrimPrefix(v1, "v"), ".")
-	parts2 := strings.Split(strings.TrimPrefix(v2, "v"), ".")
-
-	maxLen := len(parts1)
-	if len(parts2) > maxLen {
-		maxLen = len(parts2)
-	}
-
-	for i := 0; i < maxLen; i++ {
-		var n1, n2 int
-		if i < len(parts1) {
-			n1, _ = strconv.Atoi(parts1[i])
-		}
-		if i < len(parts2) {
-			n2, _ = strconv.Atoi(parts2[i])
-		}
-
-		if n1 < n2 {
-			return -1
-		}
-		if n1 > n2 {
-			return 1
-		}
-	}
-
-	return 0
-}
-
-func isExtensionPackagePath(filePath string) bool {
-	lowerPath := strings.ToLower(filePath)
-	return strings.HasSuffix(lowerPath, ".spotiflac-ext") || strings.HasSuffix(lowerPath, ".sflx")
-}
-
-func managedExtensionPath(root, extensionID string) (string, error) {
-	if root == "" {
-		return "", fmt.Errorf("extension directory is not configured")
-	}
-	if !extensionIDPattern.MatchString(extensionID) {
-		return "", fmt.Errorf("invalid extension ID %q", extensionID)
-	}
-	fullPath := filepath.Join(root, extensionID)
-	if !isPathWithinBase(root, fullPath) {
-		return "", fmt.Errorf("extension path escapes its managed directory")
-	}
-	return fullPath, nil
-}
-
-func safeExtensionAssetPath(root, assetPath string) (string, bool) {
-	if root == "" || assetPath == "" || filepath.IsAbs(assetPath) || strings.Contains(assetPath, `\`) {
-		return "", false
-	}
-	cleaned := path.Clean(assetPath)
-	if cleaned == "." || cleaned == ".." || strings.HasPrefix(cleaned, "../") {
-		return "", false
-	}
-	fullPath := filepath.Join(root, filepath.FromSlash(cleaned))
-	return fullPath, isPathWithinBase(root, fullPath)
-}
-
-func extractExtensionArchive(zipReader *zip.ReadCloser, destination string) error {
-	for _, file := range zipReader.File {
-		if file.FileInfo().IsDir() {
-			continue
-		}
-		if file.FileInfo().Mode()&os.ModeSymlink != 0 || strings.Contains(file.Name, `\`) {
-			return fmt.Errorf("unsafe path in extension archive: %s", file.Name)
-		}
-
-		relPath := path.Clean(file.Name)
-		if relPath == "." || relPath == ".." || strings.HasPrefix(relPath, "../") || path.IsAbs(relPath) {
-			return fmt.Errorf("unsafe path in extension archive: %s", file.Name)
-		}
-		destPath := filepath.Join(destination, filepath.FromSlash(relPath))
-		if !isPathWithinBase(destination, destPath) {
-			return fmt.Errorf("unsafe path in extension archive: %s", file.Name)
-		}
-
-		if err := os.MkdirAll(filepath.Dir(destPath), 0755); err != nil {
-			return fmt.Errorf("failed to create extension directory: %w", err)
-		}
-		destFile, err := os.OpenFile(destPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0600)
-		if err != nil {
-			return fmt.Errorf("failed to create extension file: %w", err)
-		}
-		srcFile, err := file.Open()
-		if err != nil {
-			destFile.Close()
-			return fmt.Errorf("failed to open file in archive: %w", err)
-		}
-		_, copyErr := io.Copy(destFile, srcFile)
-		closeSrcErr := srcFile.Close()
-		closeDestErr := destFile.Close()
-		if copyErr != nil {
-			return fmt.Errorf("failed to extract extension file: %w", copyErr)
-		}
-		if closeSrcErr != nil || closeDestErr != nil {
-			return fmt.Errorf("failed to close extracted extension file")
-		}
-	}
-	return nil
-}
 
 type loadedExtension struct {
 	ID           string             `json:"id"`
@@ -159,6 +53,13 @@ func getExtensionInitSettings(extensionID string) map[string]any {
 }
 
 func ensureRuntimeReadyLocked(ext *loadedExtension, applyStoredSettings bool) error {
+	// Gate enabling too, so a package installed with a failed gate cannot be
+	// switched on anyway.
+	if err := validateManifestGates(ext.Manifest); err != nil {
+		ext.Error = err.Error()
+		ext.Enabled = false
+		return err
+	}
 	if ext.VM == nil || ext.runtime == nil {
 		if err := initializeVMLocked(ext); err != nil {
 			ext.Error = err.Error()
@@ -260,37 +161,9 @@ func (m *extensionManager) loadExtensionFromFileLocked(filePath string) (*loaded
 	}
 	defer zipReader.Close()
 
-	var manifestData []byte
-	var hasIndexJS bool
-	for _, file := range zipReader.File {
-		name := filepath.Base(file.Name)
-		if name == "manifest.json" {
-			rc, err := file.Open()
-			if err != nil {
-				return nil, fmt.Errorf("failed to open manifest.json: %w", err)
-			}
-			manifestData, err = io.ReadAll(rc)
-			rc.Close()
-			if err != nil {
-				return nil, fmt.Errorf("failed to read manifest.json: %w", err)
-			}
-		}
-		if name == "index.js" {
-			hasIndexJS = true
-		}
-	}
-
-	if manifestData == nil {
-		return nil, fmt.Errorf("invalid extension package: manifest.json not found")
-	}
-
-	if !hasIndexJS {
-		return nil, fmt.Errorf("invalid extension package: index.js not found")
-	}
-
-	manifest, err := ParseManifest(manifestData)
+	manifest, err := inspectExtensionPackage(zipReader.File)
 	if err != nil {
-		return nil, fmt.Errorf("invalid extension manifest: %w", err)
+		return nil, err
 	}
 
 	m.mu.RLock()
@@ -377,383 +250,55 @@ func (m *extensionManager) loadExtensionFromFileLocked(filePath string) (*loaded
 	return ext, nil
 }
 
-func initializeVMLocked(ext *loadedExtension) error {
-	ext.VM = nil
-	ext.runtime = nil
-	ext.indexProgram = nil
-	ext.initialized = false
-	vm := goja.New()
-	ext.VM = vm
-
-	indexPath := filepath.Join(ext.SourceDir, "index.js")
-	jsCode, err := os.ReadFile(indexPath)
-	if err != nil {
-		return fmt.Errorf("failed to read index.js: %w", err)
-	}
-	indexProgram, err := goja.Compile(indexPath, string(jsCode), false)
-	if err != nil {
-		return fmt.Errorf("failed to compile extension code: %w", err)
-	}
-	ext.indexProgram = indexProgram
-
-	runtime := newExtensionRuntime(ext)
-	ext.runtime = runtime
-	runtime.RegisterAPIs(vm)
-	runtime.RegisterGoBackendAPIs(vm)
-
-	console := vm.NewObject()
-	console.Set("log", func(call goja.FunctionCall) goja.Value {
-		args := make([]any, len(call.Arguments))
-		for i, arg := range call.Arguments {
-			args[i] = arg.Export()
-		}
-		GoLog("[Extension:%s] %v\n", ext.ID, args)
-		return goja.Undefined()
-	})
-	vm.Set("console", console)
-
-	var registeredExtension goja.Value
-	vm.Set("registerExtension", func(call goja.FunctionCall) goja.Value {
-		if len(call.Arguments) > 0 {
-			registeredExtension = call.Arguments[0]
-			vm.Set("extension", call.Arguments[0])
-		}
-		return goja.Undefined()
-	})
-
-	_, err = vm.RunProgram(indexProgram)
-	if err != nil {
-		return fmt.Errorf("failed to execute extension code: %w", err)
-	}
-
-	if registeredExtension == nil || goja.IsUndefined(registeredExtension) {
-		return fmt.Errorf("extension did not call registerExtension()")
-	}
-
-	return nil
+var supportedRuntimeFeatures = map[string]int{
+	"signedSession":  3,
+	"sessionRefresh": 1,
+	"sessionGrant":   1,
+	"globalAction":   1,
+	"webviewAuth":    1,
 }
 
-func newIsolatedExtensionRuntime(ext *loadedExtension) (*goja.Runtime, *extensionRuntime, error) {
-	vm := goja.New()
-
-	indexProgram := ext.indexProgram
-	if indexProgram == nil {
-		indexPath := filepath.Join(ext.SourceDir, "index.js")
-		jsCode, err := os.ReadFile(indexPath)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to read index.js: %w", err)
-		}
-		indexProgram, err = goja.Compile(indexPath, string(jsCode), false)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to compile extension code: %w", err)
-		}
-	}
-
-	runtime := &extensionRuntime{
-		extensionID: ext.ID,
-		manifest:    ext.Manifest,
-		settings:    make(map[string]any),
-		cookieJar:   nil,
-		dataDir:     ext.DataDir,
-		vm:          vm,
-	}
-	if ext.runtime != nil && ext.runtime.cookieJar != nil {
-		runtime.cookieJar = ext.runtime.cookieJar
-	} else {
-		jar, _ := newSimpleCookieJar()
-		runtime.cookieJar = jar
-	}
-	runtime.httpClient = newExtensionHTTPClient(ext, runtime.cookieJar, extensionHTTPTimeout(ext, 30*time.Second), true)
-	runtime.downloadClient = newExtensionHTTPClient(ext, runtime.cookieJar, DownloadTimeout, false)
-	runtime.RegisterAPIs(vm)
-	runtime.RegisterGoBackendAPIs(vm)
-
-	console := vm.NewObject()
-	console.Set("log", func(call goja.FunctionCall) goja.Value {
-		args := make([]any, len(call.Arguments))
-		for i, arg := range call.Arguments {
-			args[i] = arg.Export()
-		}
-		GoLog("[Extension:%s] %v\n", ext.ID, args)
-		return goja.Undefined()
-	})
-	vm.Set("console", console)
-
-	var registeredExtension goja.Value
-	vm.Set("registerExtension", func(call goja.FunctionCall) goja.Value {
-		if len(call.Arguments) > 0 {
-			registeredExtension = call.Arguments[0]
-			vm.Set("extension", call.Arguments[0])
-		}
-		return goja.Undefined()
-	})
-
-	if _, err := vm.RunProgram(indexProgram); err != nil {
-		runtime.closeStorageFlusher()
-		return nil, nil, fmt.Errorf("failed to execute extension code: %w", err)
-	}
-
-	if registeredExtension == nil || goja.IsUndefined(registeredExtension) {
-		runtime.closeStorageFlusher()
-		return nil, nil, fmt.Errorf("extension did not call registerExtension()")
-	}
-
-	settings := getExtensionInitSettings(ext.ID)
-	if len(settings) > 0 {
-		if err := initializeExtensionRuntimeWithSettings(vm, ext.ID, settings); err != nil {
-			runtime.closeStorageFlusher()
-			return nil, nil, err
-		}
-	}
-
-	return vm, runtime, nil
-}
-
-// A goja runtime plus an executed extension program is several MB of live
-// heap; rebuilding one per download multiplies that by the number of tracks.
-// Extensions already serve many calls on the persistent shared VM, so reusing
-// an initialized isolated runtime for consecutive downloads is the same
-// lifecycle contract.
-const maxIdleIsolatedRuntimes = 1
-
-// acquireIsolatedExtensionRuntime pops an idle pooled runtime or builds one.
-func acquireIsolatedExtensionRuntime(ext *loadedExtension) (*goja.Runtime, *extensionRuntime, error) {
-	ext.isolatedPoolMu.Lock()
-	if n := len(ext.isolatedPool); n > 0 {
-		handle := ext.isolatedPool[n-1]
-		ext.isolatedPool = ext.isolatedPool[:n-1]
-		ext.isolatedPoolMu.Unlock()
-		return handle.vm, handle.runtime, nil
-	}
-	ext.isolatedPoolMu.Unlock()
-
-	ext.VMMu.Lock()
-	defer ext.VMMu.Unlock()
-	return newIsolatedExtensionRuntime(ext)
-}
-
-// releaseIsolatedExtensionRuntime pools a healthy runtime for reuse or tears
-// it down. Pass healthy=false after an interrupt/timeout/script error, whose
-// VM state can't be trusted for reuse.
-func releaseIsolatedExtensionRuntime(ext *loadedExtension, vm *goja.Runtime, runtime *extensionRuntime, healthy, cleanupSafe bool) {
-	if runtime != nil {
-		if err := runtime.flushStorageNow(); err != nil {
-			GoLog("[Extension:%s] isolated download storage flush failed: %v\n", ext.ID, err)
-		}
-	}
-
-	if healthy && vm != nil && runtime != nil && ext.Enabled {
-		ext.isolatedPoolMu.Lock()
-		if len(ext.isolatedPool) < maxIdleIsolatedRuntimes {
-			ext.isolatedPool = append(ext.isolatedPool, &isolatedRuntimeHandle{vm: vm, runtime: runtime})
-			ext.isolatedPoolMu.Unlock()
-			return
-		}
-		ext.isolatedPoolMu.Unlock()
-	}
-
-	if cleanupSafe {
-		if cleanupErr := runCleanupOnVM(vm); cleanupErr != nil {
-			GoLog("[Extension:%s] isolated download cleanup failed: %v\n", ext.ID, cleanupErr)
-		}
-	}
-	if runtime != nil {
-		runtime.closeStorageFlusher()
-	}
-}
-
-// quarantineRuntimeLocked detaches a VM that remained busy after interrupt.
-// The caller holds VMMu. Touching or cleaning up that VM would race its stuck
-// goroutine; a later call will build a fresh runtime from indexProgram.
-func quarantineRuntimeLocked(ext *loadedExtension, vm *goja.Runtime) {
-	if ext == nil || ext.VM != vm {
-		return
-	}
-	ext.VM = nil
-	ext.runtime = nil
-	ext.initialized = false
-	ext.Error = "extension runtime was quarantined after an unresponsive script"
-}
-
-// drainIsolatedRuntimePool tears down idle isolated runtimes. Called on
-// extension teardown and on app-wide memory release.
-func drainIsolatedRuntimePool(ext *loadedExtension) {
-	ext.isolatedPoolMu.Lock()
-	pool := ext.isolatedPool
-	ext.isolatedPool = nil
-	ext.isolatedPoolMu.Unlock()
-
-	for _, handle := range pool {
-		if cleanupErr := runCleanupOnVM(handle.vm); cleanupErr != nil {
-			GoLog("[Extension:%s] isolated pool cleanup failed: %v\n", ext.ID, cleanupErr)
-		}
-		if handle.runtime != nil {
-			if err := handle.runtime.flushStorageNow(); err != nil {
-				GoLog("[Extension:%s] isolated pool storage flush failed: %v\n", ext.ID, err)
-			}
-			handle.runtime.closeStorageFlusher()
-		}
-	}
-}
-
-// drainAllIsolatedRuntimePools releases every extension's idle isolated
-// runtimes (memory-pressure hook).
-func drainAllIsolatedRuntimePools() {
-	m := getExtensionManager()
-	m.mu.RLock()
-	exts := make([]*loadedExtension, 0, len(m.extensions))
-	for _, ext := range m.extensions {
-		exts = append(exts, ext)
-	}
-	m.mu.RUnlock()
-
-	for _, ext := range exts {
-		drainIsolatedRuntimePool(ext)
-	}
-}
-
-func (m *extensionManager) initializeVM(ext *loadedExtension) error {
-	ext.VMMu.Lock()
-	defer ext.VMMu.Unlock()
-	return initializeVMLocked(ext)
-}
-
-func initializeExtensionRuntimeWithSettings(
-	vm *goja.Runtime,
-	extensionID string,
-	settings map[string]any,
-) error {
-	settingsJSON, err := json.Marshal(settings)
-	if err != nil {
-		return fmt.Errorf("failed to save settings")
-	}
-
-	script := fmt.Sprintf(`
-		(function() {
-			var settings = %s;
-			if (typeof extension !== 'undefined' && typeof extension.initialize === 'function') {
-				try {
-					extension.initialize(settings);
-					return { success: true };
-				} catch (e) {
-					return { success: false, error: e.toString() };
-				}
-			}
-			return { success: true, message: 'no initialize function' };
-		})()
-	`, string(settingsJSON))
-
-	result, err := vm.RunString(script)
-	if err != nil {
-		GoLog("[Extension] Initialize error for %s: %v\n", extensionID, err)
-		return err
-	}
-
-	if result != nil && !goja.IsUndefined(result) {
-		exported := result.Export()
-		if resultMap, ok := exported.(map[string]any); ok {
-			if success, ok := resultMap["success"].(bool); ok && !success {
-				errMsg := "unknown error"
-				if e, ok := resultMap["error"].(string); ok {
-					errMsg = e
-				}
-				GoLog("[Extension] Initialize failed for %s: %s\n", extensionID, errMsg)
-				return fmt.Errorf("initialize failed: %s", errMsg)
-			}
-		}
-	}
-
-	return nil
-}
-
-func initializeExtensionWithSettingsLocked(
-	ext *loadedExtension,
-	settings map[string]any,
-) error {
-	if ext.VM == nil {
-		return fmt.Errorf("extension failed to load: please reinstall the extension")
-	}
-
-	if err := initializeExtensionRuntimeWithSettings(ext.VM, ext.ID, settings); err != nil {
-		ext.Error = err.Error()
-		ext.Enabled = false
-		return err
-	}
-
-	ext.initialized = true
-	GoLog("[Extension] Initialized %s\n", ext.ID)
-	return nil
-}
-
-func runCleanupLocked(ext *loadedExtension) error {
-	if ext.VM != nil {
-		if err := runCleanupOnVM(ext.VM); err != nil {
-			return err
-		}
-		if ext.VM.Get("extension") != nil {
-			GoLog("[Extension] Cleanup called for %s\n", ext.ID)
-		}
-	}
-	return nil
-}
-
-func runCleanupOnVM(vm *goja.Runtime) error {
-	if vm == nil {
+// validateManifestGates enforces minAppVersion and requiredRuntimeFeatures
+// on every load path (.sflx install, upgrade, directory load); the Store UI
+// check alone never covered manual installs. An empty app version (tests,
+// dev harnesses) skips the version gate.
+func validateManifestGates(manifest *ExtensionManifest) error {
+	if manifest == nil {
 		return nil
 	}
-
-	script := `
-		(function() {
-			if (typeof extension !== 'undefined' && typeof extension.cleanup === 'function') {
-				try {
-					extension.cleanup();
-					return { success: true };
-				} catch (e) {
-					return { success: false, error: e.toString() };
-				}
-			}
-			return { success: true, message: 'no cleanup function' };
-		})()
-	`
-
-	result, err := vm.RunString(script)
-	if err != nil {
-		return err
+	minVersion := strings.TrimSpace(manifest.MinAppVersion)
+	appVersion := strings.TrimSpace(GetAppVersion())
+	if minVersion != "" && appVersion != "" && compareVersions(appVersion, minVersion) < 0 {
+		return fmt.Errorf("requires app %s or later (installed: %s)", minVersion, appVersion)
 	}
-
-	if result != nil && !goja.IsUndefined(result) {
-		exported := result.Export()
-		if resultMap, ok := exported.(map[string]any); ok {
-			if success, ok := resultMap["success"].(bool); ok && !success {
-				errMsg := "unknown error"
-				if e, ok := resultMap["error"].(string); ok {
-					errMsg = e
-				}
-				return fmt.Errorf("cleanup failed: %s", errMsg)
+	for _, raw := range manifest.RequiredRuntimeFeatures {
+		name := strings.TrimSpace(raw)
+		if name == "" {
+			continue
+		}
+		wantVersion := 1
+		if at := strings.LastIndex(name, "@"); at > 0 {
+			if v, err := strconv.Atoi(name[at+1:]); err == nil && v > 0 {
+				wantVersion = v
 			}
+			name = name[:at]
+		}
+		have, ok := supportedRuntimeFeatures[name]
+		if !ok {
+			return fmt.Errorf("requires runtime feature %q this app build does not provide", name)
+		}
+		if have < wantVersion {
+			return fmt.Errorf("requires runtime feature %s@%d (app provides @%d)", name, wantVersion, have)
 		}
 	}
-
 	return nil
-}
-
-func teardownVMLocked(ext *loadedExtension) {
-	drainIsolatedRuntimePool(ext)
-	if err := runCleanupLocked(ext); err != nil {
-		GoLog("[Extension] Error calling cleanup for %s: %v\n", ext.ID, err)
-	}
-	if ext.runtime != nil {
-		if err := ext.runtime.flushStorageNow(); err != nil {
-			GoLog("[Extension] Failed to flush storage for %s: %v\n", ext.ID, err)
-		}
-		ext.runtime.closeStorageFlusher()
-	}
-	ext.runtime = nil
-	ext.VM = nil
-	ext.initialized = false
 }
 
 func validateExtensionLoad(ext *loadedExtension) error {
+	if err := validateManifestGates(ext.Manifest); err != nil {
+		return err
+	}
+
 	ext.VMMu.Lock()
 	defer ext.VMMu.Unlock()
 
@@ -1006,37 +551,9 @@ func (m *extensionManager) upgradeExtensionLocked(filePath string) (*loadedExten
 	}
 	defer zipReader.Close()
 
-	var manifestData []byte
-	var hasIndexJS bool
-	for _, file := range zipReader.File {
-		name := filepath.Base(file.Name)
-		if name == "manifest.json" {
-			rc, err := file.Open()
-			if err != nil {
-				return nil, fmt.Errorf("failed to open manifest.json: %w", err)
-			}
-			manifestData, err = io.ReadAll(rc)
-			rc.Close()
-			if err != nil {
-				return nil, fmt.Errorf("failed to read manifest.json: %w", err)
-			}
-		}
-		if name == "index.js" {
-			hasIndexJS = true
-		}
-	}
-
-	if manifestData == nil {
-		return nil, fmt.Errorf("invalid extension package: manifest.json not found")
-	}
-
-	if !hasIndexJS {
-		return nil, fmt.Errorf("invalid extension package: index.js not found")
-	}
-
-	newManifest, err := ParseManifest(manifestData)
+	newManifest, err := inspectExtensionPackage(zipReader.File)
 	if err != nil {
-		return nil, fmt.Errorf("invalid extension manifest: %w", err)
+		return nil, err
 	}
 
 	m.mu.RLock()
@@ -1159,30 +676,9 @@ func (m *extensionManager) checkExtensionUpgradeInternal(filePath string) (*Exte
 	}
 	defer zipReader.Close()
 
-	var manifestData []byte
-	for _, file := range zipReader.File {
-		name := filepath.Base(file.Name)
-		if name == "manifest.json" {
-			rc, err := file.Open()
-			if err != nil {
-				return nil, fmt.Errorf("failed to open manifest.json")
-			}
-			manifestData, err = io.ReadAll(rc)
-			rc.Close()
-			if err != nil {
-				return nil, fmt.Errorf("failed to read manifest.json")
-			}
-			break
-		}
-	}
-
-	if manifestData == nil {
-		return nil, fmt.Errorf("manifest.json not found")
-	}
-
-	newManifest, err := ParseManifest(manifestData)
+	newManifest, err := inspectExtensionPackage(zipReader.File)
 	if err != nil {
-		return nil, fmt.Errorf("invalid manifest: %w", err)
+		return nil, err
 	}
 
 	m.mu.RLock()

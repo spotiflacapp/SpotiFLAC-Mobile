@@ -7,29 +7,10 @@ import (
 	"strings"
 )
 
-func FetchLyrics(spotifyID, trackName, artistName string, durationMs int64) (string, error) {
-	client := NewLyricsClient()
-	durationSec := float64(durationMs) / 1000.0
-	lyrics, err := client.FetchLyricsAllSources(spotifyID, trackName, artistName, durationSec)
-	if err != nil {
-		return "", err
-	}
-
-	result := map[string]any{
-		"success":      true,
-		"source":       lyrics.Source,
-		"sync_type":    lyrics.SyncType,
-		"lines":        lyrics.Lines,
-		"instrumental": lyrics.Instrumental,
-	}
-
-	return marshalJSONString(result)
-}
-
 func GetLyricsLRC(spotifyID, trackName, artistName string, filePath string, durationMs int64) (string, error) {
 	if filePath != "" {
 		lyrics, err := ExtractLyrics(filePath)
-		if err == nil && lyrics != "" {
+		if err == nil && rawLyricsHasUsableContent(lyrics) {
 			return lyrics, nil
 		}
 		return "", nil
@@ -53,7 +34,7 @@ func GetLyricsLRC(spotifyID, trackName, artistName string, filePath string, dura
 func GetLyricsLRCWithSource(spotifyID, trackName, artistName string, filePath string, durationMs int64) (string, error) {
 	if filePath != "" {
 		lyrics, err := ExtractLyrics(filePath)
-		if err == nil && lyrics != "" {
+		if err == nil && rawLyricsHasUsableContent(lyrics) {
 			source := extractLyricsSourceFromLRC(lyrics)
 			if source == "" {
 				source = "Embedded"
@@ -62,7 +43,7 @@ func GetLyricsLRCWithSource(spotifyID, trackName, artistName string, filePath st
 				"lyrics":       lyrics,
 				"source":       source,
 				"sync_type":    "EMBEDDED",
-				"instrumental": false,
+				"instrumental": isInstrumentalLyricsMarker(lyrics),
 			}
 			return marshalJSONString(result)
 		}
@@ -119,7 +100,7 @@ func FetchAndSaveLyrics(trackName, artistName, spotifyID string, durationMs int6
 	// use those directly instead of making redundant network requests.
 	if audioFilePath != "" {
 		existing, err := ExtractLyrics(audioFilePath)
-		if err == nil && strings.TrimSpace(existing) != "" {
+		if err == nil && rawLyricsHasUsableContent(existing) {
 			if err := os.WriteFile(outputPath, []byte(existing), 0644); err != nil {
 				return fmt.Errorf("failed to write LRC file: %w", err)
 			}

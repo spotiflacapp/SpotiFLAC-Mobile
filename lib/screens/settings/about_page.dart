@@ -6,7 +6,7 @@ import 'package:spotiflac_android/constants/app_info.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -20,7 +20,7 @@ class AboutPage extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SettingsSliverAppBar(title: context.l10n.aboutTitle),
+            AppSliverHeader.page(title: context.l10n.aboutTitle),
 
             SliverToBoxAdapter(
               child: Padding(
@@ -519,6 +519,18 @@ class _TranslatorsSection extends StatelessWidget {
       language: 'French',
       flag: '🇫🇷',
     ),
+    _Translator(
+      name: 'BrandQc',
+      crowdinUsername: 'BrandQc',
+      language: 'French',
+      flag: '🇫🇷',
+    ),
+    _Translator(
+      name: 'blackgold8282',
+      crowdinUsername: 'blackgold8282',
+      language: 'Korean',
+      flag: '🇰🇷',
+    ),
   ];
 
   @override
@@ -629,7 +641,7 @@ class _AboutSettingsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Column(
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
@@ -685,5 +697,6 @@ class _AboutSettingsItem extends StatelessWidget {
           ),
       ],
     );
+    return SettingsSearchTarget(label: title, child: content);
   }
 }

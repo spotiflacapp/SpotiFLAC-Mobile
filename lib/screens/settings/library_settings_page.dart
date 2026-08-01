@@ -5,12 +5,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/models/settings.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
 import 'package:spotiflac_android/providers/local_library_provider.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
+import 'package:spotiflac_android/widgets/duplicate_review_sheet.dart';
 import 'package:spotiflac_android/widgets/settings_group.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class LibrarySettingsPage extends ConsumerStatefulWidget {
   const LibrarySettingsPage({super.key});
@@ -131,7 +133,9 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  context.l10n.snackbarFolderPickerFailed(e.toString()),
+                  context.l10n.snackbarFolderPickerFailed(
+                    context.friendlyError(e),
+                  ),
                 ),
               ),
             );
@@ -255,9 +259,6 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
       context: context,
       useRootNavigator: true,
       backgroundColor: colorScheme.surfaceContainerHigh,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
       builder: (context) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -336,28 +337,190 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
     );
   }
 
+  String _getDefaultViewLabel(BuildContext context, String view) {
+    switch (view) {
+      case 'all':
+        return context.l10n.historyFilterAll;
+      case 'albums':
+        return context.l10n.historyFilterAlbums;
+      case 'singles':
+        return context.l10n.historyFilterSingles;
+      case 'playlists':
+        return context.l10n.searchPlaylists;
+      default:
+        return context.l10n.libraryDefaultViewLastUsed;
+    }
+  }
+
+  void _showDefaultViewPicker(BuildContext context, String current) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final options = [
+      ('last', Icons.history, context.l10n.libraryDefaultViewLastUsed),
+      ('all', Icons.apps, context.l10n.historyFilterAll),
+      ('albums', Icons.album, context.l10n.historyFilterAlbums),
+      ('singles', Icons.music_note, context.l10n.historyFilterSingles),
+      ('playlists', Icons.queue_music, context.l10n.searchPlaylists),
+    ];
+    showModalBottomSheet<void>(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: colorScheme.surfaceContainerHigh,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+              child: Text(
+                context.l10n.libraryDefaultView,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            for (final (value, icon, label) in options)
+              _AutoScanOption(
+                icon: icon,
+                title: label,
+                selected: current == value,
+                colorScheme: colorScheme,
+                onTap: () {
+                  ref
+                      .read(settingsProvider.notifier)
+                      .setDefaultLibraryView(value);
+                  Navigator.pop(context);
+                },
+              ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getQualityLabelModeLabel(BuildContext context, String mode) {
+    if (mode == AppSettings.libraryQualityLabelBitDepth) {
+      return '${context.l10n.audioAnalysisBitDepth} & '
+          '${context.l10n.audioAnalysisSampleRate}';
+    }
+    return context.l10n.trackConvertBitrate;
+  }
+
+  void _showQualityLabelModePicker(BuildContext context, String current) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final options = [
+      (
+        AppSettings.libraryQualityLabelBitrate,
+        Icons.speed_rounded,
+        context.l10n.trackConvertBitrate,
+      ),
+      (
+        AppSettings.libraryQualityLabelBitDepth,
+        Icons.graphic_eq_rounded,
+        '${context.l10n.audioAnalysisBitDepth} & '
+            '${context.l10n.audioAnalysisSampleRate}',
+      ),
+    ];
+    showModalBottomSheet<void>(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: colorScheme.surfaceContainerHigh,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+              child: Text(
+                context.l10n.trackAudioQuality,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            for (final (value, icon, label) in options)
+              _AutoScanOption(
+                icon: icon,
+                title: label,
+                selected: current == value,
+                colorScheme: colorScheme,
+                onTap: () {
+                  ref
+                      .read(settingsProvider.notifier)
+                      .setLibraryQualityLabelMode(value);
+                  Navigator.pop(context);
+                },
+              ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
-    final libraryState = ref.watch(localLibraryProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SettingsSliverAppBar(title: context.l10n.libraryTitle),
+          AppSliverHeader.page(title: context.l10n.libraryTitle),
+
+          // Scan snapshots land ~2.5x/s; keep the per-snapshot rebuild scoped
+          // to the widgets that actually display scan state instead of the
+          // whole settings page.
+          SliverToBoxAdapter(
+            child: Consumer(
+              builder: (context, ref, _) {
+                final libraryState = ref.watch(localLibraryProvider);
+                return _LibraryHeroCard(
+                  itemCount: libraryState.totalCount,
+                  excludedDownloadedCount: libraryState.excludedDownloadedCount,
+                  isScanning: libraryState.isScanning,
+                  scanIsFinalizing: libraryState.scanIsFinalizing,
+                  scanProgress: libraryState.scanProgress,
+                  scanCurrentFile: libraryState.scanCurrentFile,
+                  scanTotalFiles: libraryState.scanTotalFiles,
+                  scannedFiles: libraryState.scannedFiles,
+                  lastScannedAt: libraryState.lastScannedAt,
+                );
+              },
+            ),
+          ),
 
           SliverToBoxAdapter(
-            child: _LibraryHeroCard(
-              itemCount: libraryState.totalCount,
-              excludedDownloadedCount: libraryState.excludedDownloadedCount,
-              isScanning: libraryState.isScanning,
-              scanIsFinalizing: libraryState.scanIsFinalizing,
-              scanProgress: libraryState.scanProgress,
-              scanCurrentFile: libraryState.scanCurrentFile,
-              scanTotalFiles: libraryState.scanTotalFiles,
-              scannedFiles: libraryState.scannedFiles,
-              lastScannedAt: libraryState.lastScannedAt,
+            child: SettingsGroup(
+              children: [
+                SettingsItem(
+                  icon: Icons.grid_view_rounded,
+                  title: context.l10n.libraryDefaultView,
+                  subtitle: _getDefaultViewLabel(
+                    context,
+                    settings.defaultLibraryView,
+                  ),
+                  onTap: () => _showDefaultViewPicker(
+                    context,
+                    settings.defaultLibraryView,
+                  ),
+                ),
+                SettingsItem(
+                  icon: Icons.graphic_eq_rounded,
+                  title: context.l10n.trackAudioQuality,
+                  subtitle: _getQualityLabelModeLabel(
+                    context,
+                    settings.libraryQualityLabelMode,
+                  ),
+                  onTap: () => _showQualityLabelModePicker(
+                    context,
+                    settings.libraryQualityLabelMode,
+                  ),
+                  showDivider: false,
+                ),
+              ],
             ),
           ),
 
@@ -405,6 +568,12 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
                       .read(settingsProvider.notifier)
                       .setLocalLibraryShowDuplicates(value),
                 ),
+                SettingsItem(
+                  icon: Icons.difference_outlined,
+                  title: context.l10n.libraryReviewDuplicates,
+                  subtitle: context.l10n.libraryReviewDuplicatesSubtitle,
+                  onTap: () => DuplicateReviewSheet.show(context),
+                ),
                 Opacity(
                   opacity: settings.localLibraryEnabled ? 1.0 : 0.5,
                   child: SettingsItem(
@@ -431,7 +600,9 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
             SliverToBoxAdapter(
               child: SettingsSectionHeader(title: context.l10n.libraryActions),
             ),
-            if (libraryState.scanWasCancelled)
+            if (ref.watch(
+              localLibraryProvider.select((s) => s.scanWasCancelled),
+            ))
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
@@ -484,65 +655,77 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
                 ),
               ),
             SliverToBoxAdapter(
-              child: SettingsGroup(
-                children: [
-                  if (libraryState.isScanning)
-                    _ScanProgressTile(
-                      isFinalizing: libraryState.scanIsFinalizing,
-                      progress: libraryState.scanProgress,
-                      currentFile: libraryState.scanCurrentFile,
-                      scannedFiles: libraryState.scannedFiles,
-                      totalFiles: libraryState.scanTotalFiles,
-                      onCancel: _cancelScan,
-                    )
-                  else ...[
-                    Opacity(
-                      opacity: settings.localLibraryPath.isNotEmpty ? 1.0 : 0.5,
-                      child: SettingsItem(
-                        icon: Icons.refresh,
-                        title: context.l10n.libraryScan,
-                        subtitle: settings.localLibraryPath.isEmpty
-                            ? context.l10n.libraryScanSelectFolderFirst
-                            : context.l10n.libraryScanSubtitle,
-                        onTap: settings.localLibraryPath.isNotEmpty
-                            ? _startScan
-                            : null,
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final libraryState = ref.watch(localLibraryProvider);
+                  return SettingsGroup(
+                    children: [
+                      if (libraryState.isScanning)
+                        _ScanProgressTile(
+                          isFinalizing: libraryState.scanIsFinalizing,
+                          progress: libraryState.scanProgress,
+                          currentFile: libraryState.scanCurrentFile,
+                          scannedFiles: libraryState.scannedFiles,
+                          totalFiles: libraryState.scanTotalFiles,
+                          onCancel: _cancelScan,
+                        )
+                      else ...[
+                        Opacity(
+                          opacity: settings.localLibraryPath.isNotEmpty
+                              ? 1.0
+                              : 0.5,
+                          child: SettingsItem(
+                            icon: Icons.refresh,
+                            title: context.l10n.libraryScan,
+                            subtitle: settings.localLibraryPath.isEmpty
+                                ? context.l10n.libraryScanSelectFolderFirst
+                                : context.l10n.libraryScanSubtitle,
+                            onTap: settings.localLibraryPath.isNotEmpty
+                                ? _startScan
+                                : null,
+                          ),
+                        ),
+                        Opacity(
+                          opacity: settings.localLibraryPath.isNotEmpty
+                              ? 1.0
+                              : 0.5,
+                          child: SettingsItem(
+                            icon: Icons.sync,
+                            title: context.l10n.libraryForceFullScan,
+                            subtitle: context.l10n.libraryForceFullScanSubtitle,
+                            onTap: settings.localLibraryPath.isNotEmpty
+                                ? () => _startScan(forceFullScan: true)
+                                : null,
+                          ),
+                        ),
+                      ],
+                      Opacity(
+                        opacity: libraryState.totalCount > 0 ? 1.0 : 0.5,
+                        child: SettingsItem(
+                          icon: Icons.cleaning_services_outlined,
+                          title: context.l10n.libraryCleanupMissingFiles,
+                          subtitle:
+                              context.l10n.libraryCleanupMissingFilesSubtitle,
+                          onTap: libraryState.totalCount > 0
+                              ? _cleanupMissingFiles
+                              : null,
+                        ),
                       ),
-                    ),
-                    Opacity(
-                      opacity: settings.localLibraryPath.isNotEmpty ? 1.0 : 0.5,
-                      child: SettingsItem(
-                        icon: Icons.sync,
-                        title: context.l10n.libraryForceFullScan,
-                        subtitle: context.l10n.libraryForceFullScanSubtitle,
-                        onTap: settings.localLibraryPath.isNotEmpty
-                            ? () => _startScan(forceFullScan: true)
-                            : null,
+                      Opacity(
+                        opacity: libraryState.totalCount > 0 ? 1.0 : 0.5,
+                        child: SettingsItem(
+                          icon: Icons.delete_outline,
+                          title: context.l10n.libraryClear,
+                          subtitle: context.l10n.libraryClearSubtitle,
+                          onTap: libraryState.totalCount > 0
+                              ? _clearLibrary
+                              : null,
+                          showDivider: false,
+                        ),
                       ),
-                    ),
-                  ],
-                  Opacity(
-                    opacity: libraryState.totalCount > 0 ? 1.0 : 0.5,
-                    child: SettingsItem(
-                      icon: Icons.cleaning_services_outlined,
-                      title: context.l10n.libraryCleanupMissingFiles,
-                      subtitle: context.l10n.libraryCleanupMissingFilesSubtitle,
-                      onTap: libraryState.totalCount > 0
-                          ? _cleanupMissingFiles
-                          : null,
-                    ),
-                  ),
-                  Opacity(
-                    opacity: libraryState.totalCount > 0 ? 1.0 : 0.5,
-                    child: SettingsItem(
-                      icon: Icons.delete_outline,
-                      title: context.l10n.libraryClear,
-                      subtitle: context.l10n.libraryClearSubtitle,
-                      onTap: libraryState.totalCount > 0 ? _clearLibrary : null,
-                      showDivider: false,
-                    ),
-                  ),
-                ],
+                    ],
+                  );
+                },
               ),
             ),
           ],
@@ -637,34 +820,11 @@ class _LibrarySettingsPageState extends ConsumerState<LibrarySettingsPage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 20,
-                      color: colorScheme.tertiary,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        context.l10n.libraryBuiltInPlayerInfo,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            child: SettingsInfoCard(
+              icon: Icons.info_outline,
+              tone: SettingsInfoTone.warning,
+              message: context.l10n.libraryBuiltInPlayerInfo,
+              margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             ),
           ),
 

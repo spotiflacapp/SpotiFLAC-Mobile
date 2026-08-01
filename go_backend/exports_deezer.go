@@ -17,22 +17,6 @@ func GetTrackCacheSize() int {
 func ClearTrackIDCache() {
 }
 
-func GetDeezerRelatedArtists(artistID string, limit int) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
-	defer cancel()
-
-	client := GetDeezerClient()
-	artists, err := client.GetRelatedArtists(ctx, artistID, limit)
-	if err != nil {
-		return "", err
-	}
-
-	resp := map[string]any{
-		"artists": artists,
-	}
-	return marshalJSONString(resp)
-}
-
 func GetDeezerMetadata(resourceType, resourceID string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()

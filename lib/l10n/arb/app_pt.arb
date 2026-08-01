@@ -4279,5 +4279,12 @@
   "downloadFallbackExtensionsSubtitle": "Choose which extensions can be used as fallback",
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
-  }
+  },
+  "settingsSearchHint": "Pesquisar configurações",
+  "settingsSearchNoResults": "Nenhuma configuração corresponde a \"{query}\"",
+  "settingsGroupInterface": "Extensões e aparência",
+  "settingsGroupContent": "Conteúdo e metadados",
+  "settingsGroupDownloads": "Downloads e arquivos",
+  "settingsGroupSystem": "Sistema",
+  "settingsGroupHelp": "Sobre e suporte"
 }

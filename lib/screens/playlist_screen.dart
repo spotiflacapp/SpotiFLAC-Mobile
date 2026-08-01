@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spotiflac_android/widgets/album_detail_header.dart';
+import 'package:spotiflac_android/screens/selection_mode_mixin.dart';
+import 'package:spotiflac_android/widgets/collection_scaffold.dart';
+import 'package:spotiflac_android/widgets/selection_bottom_bar.dart';
+import 'package:spotiflac_android/widgets/selection_action_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
@@ -48,7 +52,9 @@ class PlaylistScreen extends ConsumerStatefulWidget {
 }
 
 class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
-    with CollapsingHeaderScrollMixin<PlaylistScreen> {
+    with
+        SelectionModeMixin<PlaylistScreen>,
+        CollapsingHeaderScrollMixin<PlaylistScreen> {
   List<Track>? _fetchedTracks;
   bool _isLoading = false;
   String? _error;
@@ -61,6 +67,67 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
   String? get _coverUrl => _resolvedCoverUrl ?? widget.coverUrl;
   String? get _headerVideoUrl =>
       _resolvedHeaderVideoUrl ?? widget.headerVideoUrl;
+
+  /// Playlists can legitimately contain the same track twice, so selection is
+  /// keyed by position as well as id (matching the album screen).
+  String _trackSelectionId(Track track, int index) => '${track.id}#$index';
+
+  List<Track> get _selectedTracks => [
+    for (var index = 0; index < _tracks.length; index++)
+      if (selectedIds.contains(_trackSelectionId(_tracks[index], index)))
+        _tracks[index],
+  ];
+
+  Widget _buildSelectionBottomBar(
+    BuildContext context,
+    ColorScheme colorScheme,
+    double bottomPadding,
+  ) {
+    final selectedCount = selectedIds.length;
+    final allSelected = _tracks.isNotEmpty && selectedCount == _tracks.length;
+
+    return SelectionBottomBar(
+      selectedCount: selectedCount,
+      allSelected: allSelected,
+      onClose: exitSelectionMode,
+      onToggleSelectAll: () {
+        if (allSelected) {
+          exitSelectionMode();
+        } else {
+          selectAll([
+            for (var index = 0; index < _tracks.length; index++)
+              _trackSelectionId(_tracks[index], index),
+          ]);
+        }
+      },
+      bottomPadding: bottomPadding,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: SelectionActionButton(
+            icon: Icons.download_rounded,
+            label: '${context.l10n.dialogDownload} ($selectedCount)',
+            onPressed: selectedCount == 0 ? null : _downloadSelected,
+            colorScheme: colorScheme,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _downloadSelected() async {
+    final selected = _selectedTracks;
+    if (selected.isEmpty) return;
+    await queueTracksSkippingDownloaded(
+      context,
+      ref,
+      selected,
+      artistNameForPicker: _playlistName,
+      recommendedService: widget.recommendedService,
+      forceQualityPicker: true,
+      onQueued: exitSelectionMode,
+    );
+  }
 
   String? _metadataProviderId(String playlistId) {
     final providerId = legacyProviderIdFromResourceId(playlistId);
@@ -167,7 +234,7 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = e.toString();
+        _error = context.friendlyError(e);
         _isLoading = false;
       });
     }
@@ -176,19 +243,28 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
 
-    return Scaffold(
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          _buildAppBar(context, colorScheme),
-          _buildTrackList(context, colorScheme),
-          _buildPlaylistFooter(context, colorScheme),
-          SliverToBoxAdapter(
-            child: SizedBox(height: 32 + context.navBarBottomInset),
-          ),
-        ],
+    pruneSelection({
+      for (var index = 0; index < _tracks.length; index++)
+        _trackSelectionId(_tracks[index], index),
+    });
+
+    return CollectionScaffold(
+      scrollController: scrollController,
+      isSelectionMode: isSelectionMode,
+      onExitSelectionMode: exitSelectionMode,
+      bottomInset: context.navBarBottomInset,
+      selectionBar: _buildSelectionBottomBar(
+        context,
+        colorScheme,
+        bottomPadding,
       ),
+      appBar: _buildAppBar(context, colorScheme),
+      slivers: [
+        _buildTrackList(context, colorScheme),
+        _buildPlaylistFooter(context, colorScheme),
+      ],
     );
   }
 
@@ -228,6 +304,7 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
       background: hasMotion
           ? MotionHeaderBanner(videoUrl: motionUrl, fallback: coverImage)
           : coverImage,
+      paletteSource: _coverUrl,
       blurAndScrimBackground: !hasMotion && _coverUrl != null,
       coverBuilder: hasMotion
           ? null
@@ -285,7 +362,11 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
       return SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: ErrorCard(error: _error!, colorScheme: colorScheme),
+          child: ErrorCard(
+            error: _error!,
+            colorScheme: colorScheme,
+            onRetry: _fetchTracksIfNeeded,
+          ),
         ),
       );
     }
@@ -319,6 +400,7 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
           final track = _tracks[index];
+          final selectionId = _trackSelectionId(track, index);
           final isInHistory = existingHistoryKeys.contains(
             historyLookups[index].lookupKey,
           );
@@ -329,8 +411,17 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
               child: TrackListTile(
                 track: track,
                 isInHistory: isInHistory,
-                onDownload: () =>
-                    _downloadTrack(context, track, playlistPosition: index + 1),
+                isSelectionMode: isSelectionMode,
+                isSelected: selectedIds.contains(selectionId),
+                onToggleSelection: () => toggleSelection(selectionId),
+                onEnterSelectionMode: () => enterSelectionMode(selectionId),
+                onDownload: ({bool forceQualityPicker = false}) =>
+                    _downloadTrack(
+                      context,
+                      track,
+                      playlistPosition: index + 1,
+                      forceQualityPicker: forceQualityPicker,
+                    ),
                 leading: track.coverUrl != null
                     ? CachedCoverImage(
                         imageUrl: track.coverUrl!,
@@ -364,6 +455,7 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
     BuildContext context,
     Track track, {
     int? playlistPosition,
+    bool forceQualityPicker = false,
   }) {
     downloadSingleTrack(
       context,
@@ -372,6 +464,7 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
       recommendedService: _recommendedDownloadService(),
       playlistName: _playlistName,
       playlistPosition: playlistPosition,
+      forceQualityPicker: forceQualityPicker,
     );
   }
 
@@ -382,7 +475,7 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
 
     return HeaderCircleButton(
       icon: allLoved ? Icons.favorite : Icons.favorite_border,
-      iconColor: allLoved ? Colors.redAccent : Colors.white,
+      iconColor: allLoved ? Theme.of(context).colorScheme.error : null,
       tooltip: allLoved
           ? context.l10n.trackOptionRemoveFromLoved
           : context.l10n.tooltipLoveAll,
@@ -409,20 +502,10 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
   }
 
   Widget _buildDownloadAllCenterButton(BuildContext context) {
-    return FilledButton.icon(
+    return HeaderFilledButton(
+      icon: Icons.download_rounded,
+      label: context.l10n.downloadAllCount(_tracks.length),
       onPressed: _tracks.isEmpty ? null : () => _confirmDownloadAll(context),
-      icon: const Icon(Icons.download_rounded, size: 18),
-      label: Text(
-        context.l10n.downloadAllCount(_tracks.length),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
-      style: FilledButton.styleFrom(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
-        minimumSize: const Size(0, 48),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      ),
     );
   }
 

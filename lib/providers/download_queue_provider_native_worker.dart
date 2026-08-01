@@ -11,6 +11,7 @@ class _NativeWorkerRequestContext {
   final String? downloadTreeUri;
   final String? safRelativeDir;
   final String? safFileName;
+  final bool qualityVariantCollisionOnly;
 
   const _NativeWorkerRequestContext({
     required this.item,
@@ -22,6 +23,7 @@ class _NativeWorkerRequestContext {
     this.downloadTreeUri,
     this.safRelativeDir,
     this.safFileName,
+    this.qualityVariantCollisionOnly = false,
   });
 }
 
@@ -31,6 +33,57 @@ class _NativeWorkerStartupTimeout implements Exception {
 }
 
 extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
+  Future<bool> _recoverNativeWorkerStorageFailure({
+    required _NativeWorkerRequestContext context,
+    required String errorType,
+    required String errorMessage,
+    required Map<String, _NativeWorkerRequestContext> contexts,
+    required Set<String> reconciledIds,
+  }) async {
+    if (!isStorageWriteFailure(
+      errorType: errorType,
+      errorMessage: errorMessage,
+    )) {
+      return false;
+    }
+
+    final failedOutputDir = context.storageMode == 'saf'
+        ? null
+        : context.outputDir;
+    final fallbackRoot = await _activateAppFolderStorageFallback(
+      failedOutputDir: failedOutputDir,
+    );
+    if (context.storageMode != 'saf' &&
+        _pathIsInside(context.outputDir, fallbackRoot)) {
+      // This request already used the verified fallback. Do not create an
+      // infinite retry loop if the failure has another device-specific cause.
+      return false;
+    }
+
+    _log.w(
+      'Native worker could not write its destination; cancelling this run '
+      'and retrying pending items in $fallbackRoot',
+    );
+    try {
+      await PlatformBridge.cancelNativeDownloadWorker();
+    } catch (e) {
+      _log.w('Failed to cancel native worker for storage fallback: $e');
+    }
+
+    for (final pendingId in contexts.keys) {
+      if (reconciledIds.contains(pendingId)) continue;
+      final pending = _findItemById(pendingId);
+      if (pending == null ||
+          pending.status == DownloadStatus.completed ||
+          pending.status == DownloadStatus.skipped) {
+        continue;
+      }
+      reconciledIds.add(pendingId);
+      updateItemStatus(pendingId, DownloadStatus.queued, progress: 0.0);
+    }
+    return true;
+  }
+
   Future<void> _persistNativeFinalizedHistoryFallback(
     _NativeWorkerRequestContext context,
     Map<String, dynamic> result,
@@ -50,9 +103,9 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
         : readPositiveInt(
             result['actual_sample_rate'] ?? result['sample_rate'],
           );
-    final bitrate = isLossy
-        ? readPositiveBitrateKbps(result['actual_bitrate'] ?? result['bitrate'])
-        : null;
+    final bitrate = readPositiveBitrateKbps(
+      result['actual_bitrate'] ?? result['bitrate'],
+    );
     final storedQuality =
         result['quality']?.toString().trim().isNotEmpty == true
         ? result['quality'].toString()
@@ -679,24 +732,16 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
       item,
       baseFilenameFormat,
     );
+    final qualityVariantCollisionOnly =
+        item.preserveQualityVariant &&
+        !_explicitQualityFilenameTokenPattern.hasMatch(baseFilenameFormat);
     if (isSafMode) {
-      final baseName = await PlatformBridge.buildFilename(
-        effectiveFilenameFormat,
-        _filenameMetadataForTrack(
-          item.track,
-          quality: quality,
-          qualityVariant: item.preserveQualityVariant
-              ? qualityVariantStagingLabel(item.id)
-              : '',
-          playlistPosition: _validPlaylistPosition(item),
-        ),
-      );
-      safFileName = await _buildSafFileName(
-        baseName,
-        safOutputExt,
-        qualityVariant: item.preserveQualityVariant
-            ? qualityVariantStagingLabel(item.id)
-            : '',
+      safFileName = await _buildSafFileNameForItem(
+        item,
+        item.track,
+        filenameFormat: effectiveFilenameFormat,
+        quality: quality,
+        outputExt: safOutputExt,
       );
     }
 
@@ -735,6 +780,7 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
       label: extendedMetadata?.label,
       copyright: extendedMetadata?.copyright,
       stageSafForDeferredPublish: isSafMode,
+      qualityVariantCollisionOnly: qualityVariantCollisionOnly,
     ).withStrategy(useExtensions: true, useFallback: state.autoFallback);
 
     return _NativeWorkerRequestContext(
@@ -747,6 +793,7 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
       downloadTreeUri: isSafMode ? settings.downloadTreeUri : null,
       safRelativeDir: isSafMode ? outputDir : null,
       safFileName: safFileName,
+      qualityVariantCollisionOnly: qualityVariantCollisionOnly,
     );
   }
 
@@ -814,7 +861,7 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
         updateItemStatus(
           itemId,
           DownloadStatus.finalizing,
-          progress: progress <= 0 ? 0.95 : progress,
+          progress: nativeWorkerFinalizingProgress(progress),
         );
         continue;
       }
@@ -822,21 +869,43 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
       if (status == 'completed') {
         final result = itemSnapshot['result'];
         if (result is Map) {
-          reconciledIds.add(itemId);
-          await _completeAndroidNativeWorkerItem(
-            context,
-            Map<String, dynamic>.from(result),
-            settings,
-          );
+          try {
+            await _completeAndroidNativeWorkerItem(
+              context,
+              Map<String, dynamic>.from(result),
+              settings,
+            );
+            reconciledIds.add(itemId);
+          } catch (e, stack) {
+            // A native output can be complete while Library persistence or
+            // Dart-side adoption fails. Do not leave the queue permanently at
+            // 100%: surface the reconciliation failure and keep processing
+            // the rest of the worker batch.
+            _log.e(
+              'Failed to reconcile completed native worker item $itemId: $e',
+              e,
+              stack,
+            );
+            if (_findItemById(itemId) != null) {
+              updateItemStatus(
+                itemId,
+                DownloadStatus.failed,
+                error: 'Downloaded file could not be added to the Library: $e',
+                errorType: DownloadErrorType.unknown,
+              );
+              _failedInSession++;
+            }
+            reconciledIds.add(itemId);
+          }
         }
         continue;
       }
 
       if (status == 'failed' || status == 'skipped') {
-        reconciledIds.add(itemId);
         final result = itemSnapshot['result'];
         final error = itemSnapshot['error']?.toString();
         if (status == 'skipped') {
+          reconciledIds.add(itemId);
           updateItemStatus(itemId, DownloadStatus.skipped);
         } else {
           final resultMap = result is Map
@@ -853,6 +922,20 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
           final errorType = backendErrorType == DownloadErrorType.unknown
               ? _downloadErrorTypeFromMessage(errorMsg)
               : backendErrorType;
+          try {
+            if (await _recoverNativeWorkerStorageFailure(
+              context: context,
+              errorType: resultMap?['error_type']?.toString() ?? '',
+              errorMessage: errorMsg,
+              contexts: contexts,
+              reconciledIds: reconciledIds,
+            )) {
+              continue;
+            }
+          } catch (e) {
+            _log.e('Could not recover native-worker storage failure: $e');
+          }
+          reconciledIds.add(itemId);
           if (errorType == DownloadErrorType.verificationRequired) {
             _log.i(
               'Android native worker requires verification for ${current.track.name}; switching back to interactive queue',
@@ -1012,9 +1095,9 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
           result['audio_codec']?.toString() ?? result['format']?.toString(),
         ) ??
         normalizeAudioFormatValue(audioFormatForPath(filePath));
-    var actualBitrate = isLossyAudioFormat(actualFormat)
-        ? readPositiveBitrateKbps(result['bitrate'] ?? result['actual_bitrate'])
-        : null;
+    var actualBitrate = readPositiveBitrateKbps(
+      result['bitrate'] ?? result['actual_bitrate'],
+    );
     final resolvedQuality = resolveDisplayQuality(
       filePath: filePath,
       detectedFormat: actualFormat,
@@ -1101,6 +1184,7 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
         downloadTreeUri: context.downloadTreeUri,
         safRelativeDir: context.safRelativeDir,
         fileName: result['file_name'] as String? ?? context.safFileName,
+        collisionOnly: context.qualityVariantCollisionOnly,
       );
       filePath = variantOutcome.filePath;
       actualBitDepth = readPositiveInt(result['actual_bit_depth']);
@@ -1108,11 +1192,9 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
       actualFormat =
           normalizeAudioFormatValue(result['audio_codec']?.toString()) ??
           normalizeAudioFormatValue(audioFormatForPath(filePath));
-      actualBitrate = isLossyAudioFormat(actualFormat)
-          ? readPositiveBitrateKbps(
-              result['bitrate'] ?? result['actual_bitrate'],
-            )
-          : null;
+      actualBitrate = readPositiveBitrateKbps(
+        result['bitrate'] ?? result['actual_bitrate'],
+      );
       final finalQuality = resolveDisplayQuality(
         filePath: filePath,
         fileName: variantOutcome.fileName,
@@ -1188,7 +1270,7 @@ extension _DownloadQueueNativeWorker on DownloadQueueNotifier {
                     : context.safFileName,
                 bitDepth: isLossyOutput ? null : actualBitDepth,
                 sampleRate: isLossyOutput ? null : actualSampleRate,
-                bitrate: isLossyOutput ? actualBitrate : null,
+                bitrate: actualBitrate,
                 format: historyFormat,
                 genre: normalizeOptionalString(result['genre'] as String?),
                 label: normalizeOptionalString(result['label'] as String?),

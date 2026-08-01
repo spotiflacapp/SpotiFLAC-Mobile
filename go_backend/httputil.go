@@ -126,8 +126,8 @@ var metadataTransport = &http.Transport{
 	ReadBufferSize:        32 * 1024,
 	// Metadata responses are JSON; transparent gzip cuts transfer size several
 	// times over. Downloads stay on sharedTransport with compression disabled.
-	DisableCompression:    false,
-	TLSClientConfig:       newTLSCompatibilityConfig(false),
+	DisableCompression: false,
+	TLSClientConfig:    newTLSCompatibilityConfig(false),
 }
 
 var sharedClient = &http.Client{

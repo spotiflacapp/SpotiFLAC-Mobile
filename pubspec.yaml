@@ -1,7 +1,7 @@
 name: spotiflac_android
-description: Download Spotify tracks in FLAC using extension providers
+description: Extension-driven music metadata and downloads for mobile devices
 publish_to: "none"
-version: 4.8.0+138
+version: 4.8.5+140
 
 environment:
   sdk: ^3.10.0
@@ -40,7 +40,7 @@ dependencies:
   dynamic_color: ^1.8.1
 
   # Permissions
-  permission_handler: ^12.0.3
+  permission_handler: ^13.0.0
 
   # File Picker
   file_picker: 12.0.0-beta.7
@@ -56,7 +56,7 @@ dependencies:
   logger: ^2.7.0
 
   # FFmpeg for audio conversion
-  ffmpeg_kit_flutter_new_full: ^2.4.2
+  ffmpeg_kit_flutter_new_full: ^2.5.2
   open_filex: ^4.7.0
 
   video_player: ^2.13.0
@@ -64,7 +64,7 @@ dependencies:
   xml: ^7.0.1
 
   # Notifications
-  flutter_local_notifications: ^22.1.0
+  flutter_local_notifications: ^22.2.0
   audioplayers: ^6.8.1
   audio_service: ^0.18.19
   audio_session: ^0.2.4
@@ -75,7 +75,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   build_runner: ^2.15.1
   riverpod_lint: ^3.1.4
-  json_serializable: ^6.14.0
+  json_serializable: ^6.14.1
   flutter_launcher_icons: ^0.14.4
 
 flutter_launcher_icons:

@@ -355,6 +355,138 @@ func (s *SongLinkClient) CheckTrackAvailability(spotifyTrackID string, isrc stri
 	return cloneTrackAvailability(availability), nil
 }
 
+const trackPlatformLinksCacheMax = 200
+
+type trackPlatformLinksCacheEntry struct {
+	links     map[string]string
+	err       bool
+	expiresAt time.Time
+}
+
+var (
+	trackPlatformLinksCacheMu sync.Mutex
+	trackPlatformLinksCache   = map[string]trackPlatformLinksCacheEntry{}
+)
+
+// GetTrackPlatformLinks returns every streaming-platform URL song.link knows
+// for a track, keyed by song.link platform ID. Cached in memory like
+// CheckTrackAvailability to spare the same request budget.
+func (s *SongLinkClient) GetTrackPlatformLinks(spotifyTrackID string, isrc string) (map[string]string, error) {
+	spotifyTrackID = strings.TrimSpace(spotifyTrackID)
+	isrc = strings.ToUpper(strings.TrimSpace(isrc))
+
+	var idKey string
+	switch {
+	case spotifyTrackID != "":
+		idKey = "spotify:" + spotifyTrackID
+	case isrc != "":
+		idKey = "isrc:" + isrc
+	default:
+		return nil, fmt.Errorf("spotify track ID and ISRC are empty")
+	}
+	key := GetSongLinkRegion() + "|" + idKey
+
+	if links, hit, cachedErr := trackPlatformLinksCacheLookup(key); hit {
+		if cachedErr {
+			return nil, fmt.Errorf("track platform links unavailable (cached)")
+		}
+		return links, nil
+	}
+
+	links, err := s.fetchTrackPlatformLinks(spotifyTrackID, isrc)
+	trackPlatformLinksCacheStore(key, links, err)
+	if err != nil {
+		return nil, err
+	}
+	return links, nil
+}
+
+func (s *SongLinkClient) fetchTrackPlatformLinks(spotifyTrackID string, isrc string) (map[string]string, error) {
+	var raw map[string]songLinkPlatformLink
+	var err error
+	if spotifyTrackID != "" {
+		raw, err = s.resolveTrackPlatforms(
+			fmt.Sprintf("https://open.spotify.com/track/%s", spotifyTrackID),
+		)
+	} else {
+		ctx, cancel := context.WithTimeout(context.Background(), SongLinkTimeout)
+		defer cancel()
+		track, isrcErr := songLinkSearchByISRC(ctx, isrc)
+		if isrcErr != nil {
+			return nil, fmt.Errorf("failed to resolve Deezer track from ISRC %s: %w", isrc, isrcErr)
+		}
+		deezerTrackID := songLinkExtractDeezerTrackID(track)
+		if deezerTrackID == "" {
+			return nil, fmt.Errorf("failed to resolve Deezer track ID from ISRC %s", isrc)
+		}
+		raw, err = s.resolveTrackPlatformsByPlatform("deezer", "song", deezerTrackID)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	links := make(map[string]string, len(raw))
+	for platform, link := range raw {
+		if url := normalizeShareURL(link.URL); url != "" {
+			links[platform] = url
+		}
+	}
+	if len(links) == 0 {
+		return nil, fmt.Errorf("no platform links found")
+	}
+	return links, nil
+}
+
+func trackPlatformLinksCacheLookup(key string) (map[string]string, bool, bool) {
+	trackPlatformLinksCacheMu.Lock()
+	defer trackPlatformLinksCacheMu.Unlock()
+	e, ok := trackPlatformLinksCache[key]
+	if !ok {
+		return nil, false, false
+	}
+	if time.Now().After(e.expiresAt) {
+		delete(trackPlatformLinksCache, key)
+		return nil, false, false
+	}
+	return cloneStringMap(e.links), true, e.err
+}
+
+func trackPlatformLinksCacheStore(key string, links map[string]string, err error) {
+	ttl := trackAvailabilityCacheTTL
+	if err != nil {
+		ttl = trackAvailabilityNegCacheTTL
+	}
+	trackPlatformLinksCacheMu.Lock()
+	defer trackPlatformLinksCacheMu.Unlock()
+	if _, exists := trackPlatformLinksCache[key]; !exists && len(trackPlatformLinksCache) >= trackPlatformLinksCacheMax {
+		var oldestKey string
+		var oldest time.Time
+		first := true
+		for k, e := range trackPlatformLinksCache {
+			if first || e.expiresAt.Before(oldest) {
+				oldest, oldestKey, first = e.expiresAt, k, false
+			}
+		}
+		delete(trackPlatformLinksCache, oldestKey)
+	}
+	trackPlatformLinksCache[key] = trackPlatformLinksCacheEntry{
+		links:     cloneStringMap(links),
+		err:       err != nil,
+		expiresAt: time.Now().Add(ttl),
+	}
+}
+
+func cloneStringMap(m map[string]string) map[string]string {
+	if m == nil {
+		return nil
+	}
+	c := make(map[string]string, len(m))
+	for k, v := range m {
+		c[k] = v
+	}
+	return c
+}
+
 func cloneTrackAvailability(a *TrackAvailability) *TrackAvailability {
 	if a == nil {
 		return nil

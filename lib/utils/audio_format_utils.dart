@@ -3,11 +3,62 @@ import 'package:spotiflac_android/utils/string_utils.dart';
 
 /// Audio format/quality helpers shared by the download queue and history
 /// providers.
+Map<String, dynamic> normalizeScannedAudioMetadata(
+  Map<String, dynamic> metadata,
+) {
+  dynamic firstValue(String snakeCase, String camelCase) {
+    final snakeValue = metadata[snakeCase];
+    return snakeValue ?? metadata[camelCase];
+  }
+
+  final normalized = <String, dynamic>{...metadata};
+  final metadataFromFilename = metadata['metadataFromFilename'] == true;
+
+  // readAudioMetadata uses the LibraryScanResult contract. Automatic metadata
+  // probes use the same snake_case keys as readFileMetadata so callers can use
+  // the cheaper SAF file-descriptor path without knowing which backend result
+  // shape was returned.
+  if (!metadataFromFilename) {
+    normalized['title'] = firstValue('title', 'trackName');
+    normalized['artist'] = firstValue('artist', 'artistName');
+    normalized['album'] = firstValue('album', 'albumName');
+  }
+  normalized['album_artist'] = firstValue('album_artist', 'albumArtist');
+  normalized['date'] = firstValue('date', 'releaseDate');
+  normalized['track_number'] = firstValue('track_number', 'trackNumber');
+  normalized['total_tracks'] = firstValue('total_tracks', 'totalTracks');
+  normalized['disc_number'] = firstValue('disc_number', 'discNumber');
+  normalized['total_discs'] = firstValue('total_discs', 'totalDiscs');
+  normalized['bit_depth'] = firstValue('bit_depth', 'bitDepth');
+  normalized['sample_rate'] = firstValue('sample_rate', 'sampleRate');
+  normalized['audio_codec'] =
+      firstValue('audio_codec', 'audioCodec') ?? metadata['format'];
+  return normalized;
+}
+
 int? readPositiveBitrateKbps(dynamic value) {
   final parsed = readPositiveInt(value);
   if (parsed == null) return null;
   final kbps = parsed >= 10000 ? (parsed / 1000).round() : parsed;
   return kbps >= 16 ? kbps : null;
+}
+
+/// Estimates average stream bitrate without decoding audio. Older SAF-backed
+/// Library rows can therefore be updated with a cheap size query instead of
+/// copying the complete audio file into app cache.
+int? estimateAverageBitrateKbps({
+  required int? fileSizeBytes,
+  required int? durationSeconds,
+}) {
+  if (fileSizeBytes == null ||
+      fileSizeBytes <= 0 ||
+      durationSeconds == null ||
+      durationSeconds <= 0) {
+    return null;
+  }
+  return readPositiveBitrateKbps(
+    (fileSizeBytes * 8 / durationSeconds / 1000).round(),
+  );
 }
 
 String? audioFormatForPath(String? filePath, {String? fileName}) {
@@ -169,6 +220,44 @@ String applyQualityVariantFilenameLabel({
   final stem = hasExtension ? fileName.substring(0, dotIndex) : fileName;
   final extension = hasExtension ? fileName.substring(dotIndex) : '';
   return '$stem - $qualityLabel$extension';
+}
+
+String removeQualityVariantStagingLabel({
+  required String fileName,
+  required String stagingLabel,
+}) {
+  if (stagingLabel.isEmpty || !fileName.contains(stagingLabel)) {
+    return fileName;
+  }
+  final dotIndex = fileName.lastIndexOf('.');
+  final hasExtension = dotIndex > 0;
+  final stem = hasExtension ? fileName.substring(0, dotIndex) : fileName;
+  final extension = hasExtension ? fileName.substring(dotIndex) : '';
+  final cleanedStem = stem
+      .replaceAll(stagingLabel, '')
+      .replaceFirst(RegExp(r'[\s_-]+$'), '')
+      .trim();
+  return '${cleanedStem.isEmpty ? 'track' : cleanedStem}$extension';
+}
+
+String resolveQualityVariantFilename({
+  required String fileName,
+  required String stagingLabel,
+  required String qualityLabel,
+  required bool collisionOnly,
+  required bool cleanNameExists,
+}) {
+  if (!collisionOnly || cleanNameExists) {
+    return applyQualityVariantFilenameLabel(
+      fileName: fileName,
+      stagingLabel: stagingLabel,
+      qualityLabel: qualityLabel,
+    );
+  }
+  return removeQualityVariantStagingLabel(
+    fileName: fileName,
+    stagingLabel: stagingLabel,
+  );
 }
 
 String lossyFormatForSetting(String value) {

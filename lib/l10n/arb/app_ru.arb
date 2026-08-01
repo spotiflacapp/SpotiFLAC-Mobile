@@ -143,7 +143,7 @@
     "description": "Share button tooltip"
   },
   "@storeFilterLyrics": {
-    "description": "Store filter - lyrics providers"
+    "description": "Repo filter - lyrics providers"
   },
   "extensionsInstallButton": "Установить расширение",
   "@extensionsInstallButton": {
@@ -317,7 +317,7 @@
   },
   "optionsExtensionStore": "Репозиторий расширения",
   "@optionsExtensionStore": {
-    "description": "Show/hide store tab"
+    "description": "Show/hide repo tab"
   },
   "libraryDownloadsHistoryExcluded": "{count} from Downloads history (excluded from list)",
   "@libraryDownloadsHistoryExcluded": {
@@ -459,7 +459,7 @@
   },
   "storeFilterDownload": "Скачивание",
   "@storeFilterDownload": {
-    "description": "Store filter - download providers"
+    "description": "Repo filter - download providers"
   },
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
@@ -1033,9 +1033,6 @@
   "@libraryFilterMetadataMissingLabel": {
     "description": "Filter option - items missing record label"
   },
-  "@badgeBeta": {
-    "description": "Badge label for beta features"
-  },
   "@audioAnalysisLufs": {
     "description": "Integrated loudness metric label"
   },
@@ -1151,7 +1148,7 @@
   },
   "storeFilterMetadata": "Метаданные",
   "@storeFilterMetadata": {
-    "description": "Store filter - metadata providers"
+    "description": "Repo filter - metadata providers"
   },
   "shareSheetCopyLink": "Copy Link",
   "errorRateLimitedMessage": "Слишком много запросов. Пожалуйста, подождите минуту перед повторным поиском.",
@@ -1732,7 +1729,7 @@
   },
   "storeFilterUtility": "Утилиты",
   "@storeFilterUtility": {
-    "description": "Store filter - utility extensions"
+    "description": "Repo filter - utility extensions"
   },
   "collectionAddedToPlaylist": "Добавлено в \"{playlistName}\"",
   "@collectionAddedToPlaylist": {
@@ -2881,7 +2878,6 @@
   "@collectionPlaylistEmptySubtitle": {
     "description": "Playlist empty state subtitle"
   },
-  "badgeBeta": "BETA",
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
@@ -3328,7 +3324,7 @@
   },
   "libraryPlayback": "Playback",
   "@storeFilterAll": {
-    "description": "Store filter - all extensions"
+    "description": "Repo filter - all extensions"
   },
   "aboutApp": "Приложение",
   "@aboutApp": {
@@ -3348,7 +3344,7 @@
   "logIssueIspBlockingLabel": "ISP BLOCKING DETECTED",
   "storeFilterIntegration": "Интеграция",
   "@storeFilterIntegration": {
-    "description": "Store filter - integrations"
+    "description": "Repo filter - integrations"
   },
   "@lyricsProvidersAtLeastOne": {
     "description": "Snackbar when user tries to disable the last enabled provider"
@@ -3538,7 +3534,7 @@
   },
   "storeTitle": "Репозиторий расширения",
   "@storeTitle": {
-    "description": "Store screen title"
+    "description": "Repo screen title"
   },
   "libraryCleared": "Библиотека очищена",
   "@libraryCleared": {
@@ -3853,7 +3849,7 @@
   },
   "lyricsProviderMusixmatchDesc": "Largest lyrics database (multi-language)",
   "@navStore": {
-    "description": "Bottom navigation - Extension store tab"
+    "description": "Bottom navigation - Extension repo tab"
   },
   "extensionPostProcessing": "Постобработка",
   "@searchTracks": {
@@ -4444,7 +4440,7 @@
   "appName": "Spotify",
   "storeRepoDialogCurrent": "Текущий репозиторий:",
   "@optionsExtensionStoreSubtitle": {
-    "description": "Subtitle for extension store toggle"
+    "description": "Subtitle for extension repo toggle"
   },
   "@trackLyrics": {
     "description": "Tab title - lyrics"
@@ -4557,7 +4553,7 @@
   "downloadUseAlbumArtistForFoldersTrackSubtitle": "Папка названная в честь тега Трека Артиста",
   "storeSearch": "Поиск расширений...",
   "@storeSearch": {
-    "description": "Store search placeholder"
+    "description": "Repo search placeholder"
   },
   "aboutTelegramChat": "Сообщество в Telegram",
   "lyricsModeBoth": "Оба варианта",
@@ -5883,5 +5879,151 @@
   "extensionsSearchProviderDescription": "Выберите, какой сервис использовать для поиска треков",
   "albumFolderAlbumOnly": "Только альбом",
   "nowPlayingOpenInExternalPlayer": "Open in external player",
-  "cueSplitButton": "Разделить на Треки"
+  "cueSplitButton": "Разделить на Треки",
+  "updateRequiredTitle": "Update required",
+  "@updateRequiredTitle": {
+    "description": "Title of the mandatory update dialog shown when the installed version is too old"
+  },
+  "updateRequiredNotice": "This version is {count} releases behind and is no longer supported. Update to keep using the app.",
+  "@updateRequiredNotice": {
+    "description": "Subtitle of the mandatory update dialog; explains why the dialog cannot be dismissed",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "appearanceHeroAnimations": "Hero animations",
+  "@appearanceHeroAnimations": {
+    "description": "Toggle for shared-element (Hero) transitions"
+  },
+  "appearanceHeroAnimationsSubtitle": "Fly covers between screens, e.g. when opening the player",
+  "@appearanceHeroAnimationsSubtitle": {
+    "description": "Subtitle for the Hero animations toggle"
+  },
+  "settingsConcurrentDownloads": "Concurrent downloads",
+  "@settingsConcurrentDownloads": {
+    "description": "Setting title - how many tracks download at the same time"
+  },
+  "settingsConcurrentDownloadsSubtitle": "Downloading several tracks at once is faster, but some providers may rate-limit parallel requests.",
+  "@settingsConcurrentDownloadsSubtitle": {
+    "description": "Subtitle explaining the concurrent downloads picker"
+  },
+  "concurrentDownloadsOne": "1 track at a time",
+  "@concurrentDownloadsOne": {
+    "description": "Concurrent downloads option - sequential"
+  },
+  "concurrentDownloadsCount": "Up to {count} tracks at once",
+  "@concurrentDownloadsCount": {
+    "description": "Concurrent downloads option - parallel",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryPlaybackNormalization": "Volume normalization",
+  "@libraryPlaybackNormalization": {
+    "description": "Toggle title for ReplayGain playback normalization in the built-in player"
+  },
+  "libraryPlaybackNormalizationSubtitle": "Even out loudness between tracks using their ReplayGain or R128 tags, when present",
+  "@libraryPlaybackNormalizationSubtitle": {
+    "description": "Subtitle explaining playback volume normalization"
+  },
+  "cacheAudioAnalysis": "Audio analysis cache",
+  "@cacheAudioAnalysis": {
+    "description": "Cache item title for saved audio analysis results"
+  },
+  "cacheAudioAnalysisDesc": "Saved spectrograms and analysis results. Will re-analyze on next open.",
+  "@cacheAudioAnalysisDesc": {
+    "description": "Description of what audio analysis cache contains"
+  },
+  "trackConvertKeepOriginal": "Keep original file",
+  "@trackConvertKeepOriginal": {
+    "description": "Toggle to preserve the source file during conversion"
+  },
+  "trackConvertKeepOriginalDescription": "Add the converted file as a separate library entry",
+  "@trackConvertKeepOriginalDescription": {
+    "description": "Description for preserving the source file during conversion"
+  },
+  "trackConvertConfirmKeepOriginal": "Convert from {sourceFormat} to {targetFormat}?\n\nThe original file will be kept and the converted file will be added as a separate library entry.",
+  "@trackConvertConfirmKeepOriginal": {
+    "description": "Confirmation message when the source file will be preserved",
+    "placeholders": {
+      "sourceFormat": {
+        "type": "String"
+      },
+      "targetFormat": {
+        "type": "String"
+      }
+    }
+  },
+  "selectionBatchConvertConfirmKeepOriginal": "Convert {count} {count, plural, =1{track} other{tracks}} to {format}?\n\nOriginal files will be kept and converted files will be added as separate library entries.",
+  "@selectionBatchConvertConfirmKeepOriginal": {
+    "description": "Batch conversion confirmation when source files will be preserved",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "format": {
+        "type": "String"
+      }
+    }
+  },
+  "downloadFolderAccessLostTitle": "Download folder access lost",
+  "@downloadFolderAccessLostTitle": {
+    "description": "Title of the warning banner shown in Files settings when the saved SAF folder grant is no longer valid"
+  },
+  "downloadFolderAccessLostSubtitle": "Downloads will fail until you re-select the folder",
+  "@downloadFolderAccessLostSubtitle": {
+    "description": "Subtitle of the warning banner shown when the saved SAF folder grant is no longer valid"
+  },
+  "downloadFolderReselect": "Re-select folder",
+  "@downloadFolderReselect": {
+    "description": "Button that reopens the folder picker to restore download folder access"
+  },
+  "downloadErrorSafPermissionLost": "SAF permission invalid or revoked. Please reconfigure download location in Settings.",
+  "@downloadErrorSafPermissionLost": {
+    "description": "Error shown on downloads that failed because the persisted Android SAF folder grant is no longer valid"
+  },
+  "downloadErrorFolderAccessLost": "Download folder access lost. Please re-select your download folder in Settings.",
+  "@downloadErrorFolderAccessLost": {
+    "description": "Error shown on downloads that failed because the iOS download folder bookmark could not be opened"
+  },
+  "notifVerificationRequiredTitle": "Verification required",
+  "@notifVerificationRequiredTitle": {
+    "description": "Notification title shown when a download needs the user to complete a verification challenge but the app is in the background"
+  },
+  "notifVerificationRequiredBody": "Open the app to complete verification and resume downloads",
+  "@notifVerificationRequiredBody": {
+    "description": "Notification body prompting the user to return to the app to solve a verification challenge"
+  },
+  "downloadDeduplicationWithQualityVariants": "Existing files at the selected quality will be skipped",
+  "@downloadDeduplicationWithQualityVariants": {
+    "description": "Deduplication subtitle when separate quality versions are allowed"
+  },
+  "downloadQualityVariants": "Allow different quality versions",
+  "@downloadQualityVariants": {
+    "description": "Setting to retain multiple quality versions of the same track"
+  },
+  "downloadQualityVariantsDescription": "Сохранять каждую версию качества; добавлять измеренное качество к имени файла, только если имя уже занято",
+  "@downloadQualityVariantsDescription": {
+    "description": "Description for retaining multiple quality versions"
+  },
+  "trackOptionDownloadQualityVariant": "Download another quality",
+  "@trackOptionDownloadQualityVariant": {
+    "description": "Track menu action to download another quality version"
+  },
+  "queueCheckingDownloadSession": "Checking download session...",
+  "queueResolvingDownloadMetadata": "Resolving track metadata...",
+  "queueResolvingDownloadStream": "Preparing audio stream...",
+  "queueWaitingForVerification": "Waiting for verification...",
+  "queueResumingAfterVerification": "Resuming after verification...",
+  "settingsSearchHint": "Поиск в настройках",
+  "settingsSearchNoResults": "Нет настроек, соответствующих запросу «{query}»",
+  "settingsGroupInterface": "Расширения и внешний вид",
+  "settingsGroupContent": "Контент и метаданные",
+  "settingsGroupDownloads": "Загрузки и файлы",
+  "settingsGroupSystem": "Система",
+  "settingsGroupHelp": "О приложении и поддержка"
 }

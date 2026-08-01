@@ -83,10 +83,7 @@ class UpdateChecker {
         .timeout(const Duration(seconds: 10));
 
     if (response.statusCode == 304 && cachedBody != null) {
-      await prefs.setInt(
-        _cachedAtKey,
-        DateTime.now().millisecondsSinceEpoch,
-      );
+      await prefs.setInt(_cachedAtKey, DateTime.now().millisecondsSinceEpoch);
       return cachedBody;
     }
     if (response.statusCode != 200) {

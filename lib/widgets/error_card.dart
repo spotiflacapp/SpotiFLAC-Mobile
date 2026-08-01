@@ -1,73 +1,150 @@
 import 'package:flutter/material.dart';
 import 'package:spotiflac_android/l10n/l10n.dart';
+import 'package:spotiflac_android/theme/app_tokens.dart';
 
 /// Error card shown by detail screens: a dedicated rate-limit presentation
 /// when the message looks like an HTTP 429, otherwise a generic error row.
+///
+/// Pass [onRetry] so the card offers a way out; a message with no action leaves
+/// the user stuck on a dead screen.
 class ErrorCard extends StatelessWidget {
-  const ErrorCard({super.key, required this.error, required this.colorScheme});
+  const ErrorCard({
+    super.key,
+    required this.error,
+    required this.colorScheme,
+    this.onRetry,
+  });
 
   final String error;
   final ColorScheme colorScheme;
 
+  /// Re-runs whatever failed. Omit only when the failure is deterministic
+  /// (e.g. an unrecognized URL), where retrying cannot help.
+  final VoidCallback? onRetry;
+
   @override
   Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final displayError = context.friendlyError(error);
     final isRateLimit =
         error.contains('429') ||
         error.toLowerCase().contains('rate limit') ||
         error.toLowerCase().contains('too many requests');
 
-    if (isRateLimit) {
-      return Card(
-        elevation: 0,
-        color: colorScheme.errorContainer,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Icon(Icons.timer_off, color: colorScheme.onErrorContainer),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.l10n.errorRateLimited,
-                      style: TextStyle(
-                        color: colorScheme.onErrorContainer,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      context.l10n.errorRateLimitedMessage,
-                      style: TextStyle(
-                        color: colorScheme.onErrorContainer,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+    final title = isRateLimit ? context.l10n.errorRateLimited : null;
+    final message = isRateLimit
+        ? context.l10n.errorRateLimitedMessage
+        : displayError;
+    final icon = isRateLimit ? Icons.timer_off : Icons.error_outline;
+    final background = isRateLimit
+        ? colorScheme.errorContainer
+        : colorScheme.errorContainer.withValues(alpha: 0.5);
+    final foreground = isRateLimit
+        ? colorScheme.onErrorContainer
+        : colorScheme.error;
 
     return Card(
       elevation: 0,
-      color: colorScheme.errorContainer.withValues(alpha: 0.5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: background,
+      shape: RoundedRectangleBorder(borderRadius: tokens.borderRadiusCard),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(tokens.gapLg),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.error_outline, color: colorScheme.error),
-            const SizedBox(width: 12),
+            Icon(icon, color: foreground),
+            SizedBox(width: tokens.gapMd),
             Expanded(
-              child: Text(error, style: TextStyle(color: colorScheme.error)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (title != null) ...[
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: foreground,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: tokens.gapXs),
+                  ],
+                  Text(
+                    message,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: foreground),
+                  ),
+                  if (onRetry != null) ...[
+                    SizedBox(height: tokens.gapMd),
+                    FilledButton.tonalIcon(
+                      onPressed: onRetry,
+                      icon: const Icon(Icons.refresh, size: 18),
+                      label: Text(context.l10n.dialogRetry),
+                    ),
+                  ],
+                ],
+              ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Empty-state block with an optional call to action.
+///
+/// Screens used to render a bare icon plus a sentence, leaving the user with
+/// nothing to tap. [action] is the way forward (search, pick a folder, install
+/// an extension, ...).
+class EmptyState extends StatelessWidget {
+  const EmptyState({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.message,
+    this.action,
+  });
+
+  final IconData icon;
+  final String title;
+  final String? message;
+  final Widget? action;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(tokens.gapXl),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 64, color: colorScheme.onSurfaceVariant),
+            SizedBox(height: tokens.gapLg),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            if (message != null) ...[
+              SizedBox(height: tokens.gapSm),
+              Text(
+                message!,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+            if (action != null) ...[SizedBox(height: tokens.gapXl), action!],
           ],
         ),
       ),

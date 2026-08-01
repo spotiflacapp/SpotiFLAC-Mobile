@@ -235,9 +235,6 @@ extension _TrackMetadataConvertAndCueSplit on _TrackMetadataScreenState {
       context: context,
       useRootNavigator: true,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
       builder: (sheetContext) => BatchConvertSheet(
         formats: formats,
         title: context.l10n.trackConvertTitle,
@@ -337,9 +334,6 @@ extension _TrackMetadataConvertAndCueSplit on _TrackMetadataScreenState {
         context: this.context,
         useRootNavigator: true,
         isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
         builder: (sheetContext) {
           final colorScheme = Theme.of(sheetContext).colorScheme;
           return SafeArea(
@@ -349,18 +343,7 @@ extension _TrackMetadataConvertAndCueSplit on _TrackMetadataScreenState {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: colorScheme.onSurfaceVariant.withValues(
-                          alpha: 0.4,
-                        ),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
+                  const AppSheetHandle(),
                   const SizedBox(height: 16),
                   Text(
                     sheetContext.l10n.cueSplitTitle,
@@ -1124,7 +1107,11 @@ extension _TrackMetadataConvertAndCueSplit on _TrackMetadataScreenState {
       if (mounted) {
         _setState(() => _isConverting = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.trackSaveFailed(e.toString()))),
+          SnackBar(
+            content: Text(
+              context.l10n.trackSaveFailed(context.friendlyError(e)),
+            ),
+          ),
         );
       }
     } finally {

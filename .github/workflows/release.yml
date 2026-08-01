@@ -70,7 +70,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          go-version: "1.26.5"
+          go-version-file: go_backend/go.mod
           cache-dependency-path: go_backend/go.sum
 
       # Cache Gradle for faster builds
@@ -129,6 +129,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version-file: .fvmrc
           cache: true
 
       - name: Cache pub dependencies
@@ -146,13 +147,11 @@ jobs:
 
       - name: Build APK (Release - unsigned)
         run: |
-          flutter build apk --release --split-per-abi || true
-          # Verify APKs were created
+          flutter build apk --release --split-per-abi \
+            --target-platform android-arm,android-arm64
           ls -la build/app/outputs/flutter-apk/
-          if [ ! -f "build/app/outputs/flutter-apk/app-arm64-v8a-release.apk" ]; then
-            echo "ERROR: APK not found!"
-            exit 1
-          fi
+          test -f build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          test -f build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
 
       - name: Sign APKs
         uses: r0adkll/sign-android-release@v1
@@ -168,12 +167,29 @@ jobs:
 
       - name: Rename APKs
         run: |
-          VERSION=${{ needs.get-version.outputs.version }}
+          VERSION="${{ needs.get-version.outputs.version }}"
           cd build/app/outputs/flutter-apk
-          # Signed files have -signed suffix
-          mv app-arm64-v8a-release-signed.apk SpotiFLAC-${VERSION}-arm64.apk || mv app-arm64-v8a-release.apk SpotiFLAC-${VERSION}-arm64.apk || true
-          mv app-armeabi-v7a-release-signed.apk SpotiFLAC-${VERSION}-arm32.apk || mv app-armeabi-v7a-release.apk SpotiFLAC-${VERSION}-arm32.apk || true
-          mv app-release-signed.apk SpotiFLAC-${VERSION}-universal.apk || mv app-release.apk SpotiFLAC-${VERSION}-universal.apk || true
+
+          rename_required_apk() {
+            unsigned="$1"
+            destination="$2"
+            signed="${unsigned%.apk}-signed.apk"
+            if [ -f "$signed" ]; then
+              mv "$signed" "$destination"
+            elif [ -f "$unsigned" ]; then
+              mv "$unsigned" "$destination"
+            else
+              echo "ERROR: Missing APK: $unsigned"
+              exit 1
+            fi
+          }
+
+          rename_required_apk \
+            app-arm64-v8a-release.apk \
+            "SpotiFLAC-${VERSION}-arm64.apk"
+          rename_required_apk \
+            app-armeabi-v7a-release.apk \
+            "SpotiFLAC-${VERSION}-arm32.apk"
           ls -la
 
       - name: Upload APK artifact
@@ -198,7 +214,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          go-version: "1.26.5"
+          go-version-file: go_backend/go.mod
           cache-dependency-path: go_backend/go.sum
 
       # Cache CocoaPods
@@ -274,6 +290,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version-file: .fvmrc
           cache: true
 
       - name: Cache pub dependencies
@@ -474,7 +491,7 @@ jobs:
 
           jq --arg ver "$VERSION_NUM" \
              --arg date "$DATE" \
-             --arg url "https://github.com/zarzet/SpotiFLAC-Mobile/releases/download/${VERSION}/SpotiFLAC-${VERSION}-ios-unsigned.ipa" \
+             --arg url "https://github.com/${{ github.repository }}/releases/download/${VERSION}/SpotiFLAC-${VERSION}-ios-unsigned.ipa" \
              --argjson size "$IPA_SIZE" \
              '.apps[0].version = $ver | .apps[0].versionDate = $date | .apps[0].downloadURL = $url | .apps[0].size = $size' \
              apps.json > apps.json.tmp && mv apps.json.tmp apps.json

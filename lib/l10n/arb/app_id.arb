@@ -143,7 +143,7 @@
     "description": "Share button tooltip"
   },
   "@storeFilterLyrics": {
-    "description": "Store filter - lyrics providers"
+    "description": "Repo filter - lyrics providers"
   },
   "extensionsInstallButton": "Pasang Ekstensi",
   "@extensionsInstallButton": {
@@ -317,7 +317,7 @@
   },
   "optionsExtensionStore": "Repositori Ekstensi",
   "@optionsExtensionStore": {
-    "description": "Show/hide store tab"
+    "description": "Show/hide repo tab"
   },
   "libraryDownloadsHistoryExcluded": "{count} from Downloads history (excluded from list)",
   "@libraryDownloadsHistoryExcluded": {
@@ -459,7 +459,7 @@
   },
   "storeFilterDownload": "Unduhan",
   "@storeFilterDownload": {
-    "description": "Store filter - download providers"
+    "description": "Repo filter - download providers"
   },
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
@@ -1033,9 +1033,6 @@
   "@libraryFilterMetadataMissingLabel": {
     "description": "Filter option - items missing record label"
   },
-  "@badgeBeta": {
-    "description": "Badge label for beta features"
-  },
   "@audioAnalysisLufs": {
     "description": "Integrated loudness metric label"
   },
@@ -1151,7 +1148,7 @@
   },
   "storeFilterMetadata": "Metadata",
   "@storeFilterMetadata": {
-    "description": "Store filter - metadata providers"
+    "description": "Repo filter - metadata providers"
   },
   "shareSheetCopyLink": "Copy Link",
   "errorRateLimitedMessage": "Terlalu banyak permintaan. Harap tunggu sebentar sebelum mencari lagi.",
@@ -1659,6 +1656,9 @@
     "description": "App bar title for the backup and restore page"
   },
   "trackCoverReplaceNotice": "The selected cover will replace the current embedded cover when you tap Save.",
+  "trackCoverResolution": "Resolusi cover",
+  "trackCoverResolutionHint": "Mengatur sisi terpanjang saat disimpan. Memperbesar gambar tidak menambah detail.",
+  "trackCoverResizeFailed": "Ukuran cover tidak dapat diubah. Coba ukuran atau gambar lain.",
   "cacheSectionMaintenance": "Maintenance",
   "@cacheSectionMaintenance": {
     "description": "Section header for cleanup actions"
@@ -1732,7 +1732,7 @@
   },
   "storeFilterUtility": "Utilitas",
   "@storeFilterUtility": {
-    "description": "Store filter - utility extensions"
+    "description": "Repo filter - utility extensions"
   },
   "collectionAddedToPlaylist": "Added to \"{playlistName}\"",
   "@collectionAddedToPlaylist": {
@@ -1808,7 +1808,7 @@
   "@regionCountryDE": {
     "description": "Country name for SongLink region picker"
   },
-  "optionsAutoFallback": "Cadangan Otomatis",
+  "optionsAutoFallback": "Layanan Cadangan",
   "@optionsAutoFallback": {
     "description": "Auto-retry with other services"
   },
@@ -2388,9 +2388,50 @@
       }
     }
   },
-  "editMetadataAutoFillDesc": "Select fields to fill automatically from online metadata",
+  "editMetadataAutoFillDesc": "Pilih extension metadata dan field, lalu periksa datanya sebelum diterapkan",
   "@editMetadataAutoFillDesc": {
     "description": "Description for the auto-fill section"
+  },
+  "editMetadataAutoFillSource": "Sumber metadata",
+  "@editMetadataAutoFillSource": {
+    "description": "Label for the metadata extension selector in online auto-fill"
+  },
+  "editMetadataAutoFillSourceAutomatic": "Otomatis (prioritas provider)",
+  "@editMetadataAutoFillSourceAutomatic": {
+    "description": "Automatic source option that follows configured metadata provider priority"
+  },
+  "editMetadataAutoFillFind": "Cari metadata",
+  "@editMetadataAutoFillFind": {
+    "description": "Button label for finding an online metadata candidate"
+  },
+  "editMetadataAutoFillPreview": "Data dari {source}",
+  "@editMetadataAutoFillPreview": {
+    "description": "Title for the online metadata preview",
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "editMetadataAutoFillCoverAvailable": "Sampul tersedia",
+  "@editMetadataAutoFillCoverAvailable": {
+    "description": "Preview value when the selected metadata source provides cover artwork"
+  },
+  "editMetadataAutoFillApply": "Terapkan data terpilih",
+  "@editMetadataAutoFillApply": {
+    "description": "Button label for applying the previewed metadata"
+  },
+  "editMetadataAutoFillDoneFromSource": "Mengisi {count} field dari {source}",
+  "@editMetadataAutoFillDoneFromSource": {
+    "description": "Snackbar confirming fields applied from a selected metadata source",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
   },
   "@lyricsProviderExtensionDesc": {
     "description": "Generic description for extension-based lyrics providers"
@@ -2881,7 +2922,6 @@
   "@collectionPlaylistEmptySubtitle": {
     "description": "Playlist empty state subtitle"
   },
-  "badgeBeta": "BETA",
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
@@ -3328,7 +3368,7 @@
   },
   "libraryPlayback": "Playback",
   "@storeFilterAll": {
-    "description": "Store filter - all extensions"
+    "description": "Repo filter - all extensions"
   },
   "aboutApp": "Aplikasi",
   "@aboutApp": {
@@ -3348,7 +3388,7 @@
   "logIssueIspBlockingLabel": "ISP BLOCKING DETECTED",
   "storeFilterIntegration": "Integrasi",
   "@storeFilterIntegration": {
-    "description": "Store filter - integrations"
+    "description": "Repo filter - integrations"
   },
   "@lyricsProvidersAtLeastOne": {
     "description": "Snackbar when user tries to disable the last enabled provider"
@@ -3395,6 +3435,7 @@
     "description": "Cache item title for local library cover art images"
   },
   "audioAnalysisSpectralCutoff": "Spectral Cutoff",
+  "audioAnalysisCutoffNotDetected": "Tidak terdeteksi",
   "dialogDelete": "Hapus",
   "@dialogDelete": {
     "description": "Dialog button - delete item"
@@ -3538,7 +3579,7 @@
   },
   "storeTitle": "Repositori Ekstensi",
   "@storeTitle": {
-    "description": "Store screen title"
+    "description": "Repo screen title"
   },
   "libraryCleared": "Library cleared",
   "@libraryCleared": {
@@ -3853,7 +3894,7 @@
   },
   "lyricsProviderMusixmatchDesc": "Largest lyrics database (multi-language)",
   "@navStore": {
-    "description": "Bottom navigation - Extension store tab"
+    "description": "Bottom navigation - Extension repo tab"
   },
   "extensionPostProcessing": "Pasca-Pemrosesan",
   "@searchTracks": {
@@ -4444,7 +4485,7 @@
   "appName": "SpotiFLAC Mobile",
   "storeRepoDialogCurrent": "Repositori saat ini:",
   "@optionsExtensionStoreSubtitle": {
-    "description": "Subtitle for extension store toggle"
+    "description": "Subtitle for extension repo toggle"
   },
   "@trackLyrics": {
     "description": "Tab title - lyrics"
@@ -4557,7 +4598,7 @@
   "downloadUseAlbumArtistForFoldersTrackSubtitle": "Folder named after Track Artist tag",
   "storeSearch": "Cari ekstensi...",
   "@storeSearch": {
-    "description": "Store search placeholder"
+    "description": "Repo search placeholder"
   },
   "aboutTelegramChat": "Komunitas Telegram",
   "lyricsModeBoth": "Keduanya",
@@ -4978,7 +5019,7 @@
   "@cueSplitButton": {
     "description": "Button text to start CUE splitting"
   },
-  "appearanceHistoryView": "Tampilan Riwayat",
+  "appearanceHistoryView": "Gaya Tampilan Histori",
   "audioAnalysisSampleRate": "Sample Rate",
   "@settingsCache": {
     "description": "Settings menu item - cache management"
@@ -5925,7 +5966,7 @@
   "@downloadQualityVariants": {
     "description": "Pengaturan untuk menyimpan beberapa versi kualitas dari lagu yang sama"
   },
-  "downloadQualityVariantsDescription": "Tambahkan kualitas yang dipilih ke nama file dan simpan setiap versi di riwayat unduhan",
+  "downloadQualityVariantsDescription": "Simpan setiap versi kualitas; tambahkan kualitas terukur ke nama file hanya jika namanya sudah digunakan",
   "@downloadQualityVariantsDescription": {
     "description": "Deskripsi penyimpanan beberapa versi kualitas"
   },
@@ -5936,5 +5977,98 @@
   "downloadDeduplicationWithQualityVariants": "File yang sudah ada pada kualitas yang dipilih akan dilewati",
   "@downloadDeduplicationWithQualityVariants": {
     "description": "Subtitle deduplikasi ketika versi kualitas terpisah diizinkan"
-  }
+  },
+  "updateRequiredTitle": "Update required",
+  "@updateRequiredTitle": {
+    "description": "Title of the mandatory update dialog shown when the installed version is too old"
+  },
+  "updateRequiredNotice": "This version is {count} releases behind and is no longer supported. Update to keep using the app.",
+  "@updateRequiredNotice": {
+    "description": "Subtitle of the mandatory update dialog; explains why the dialog cannot be dismissed",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "appearanceHeroAnimations": "Hero animations",
+  "@appearanceHeroAnimations": {
+    "description": "Toggle for shared-element (Hero) transitions"
+  },
+  "appearanceHeroAnimationsSubtitle": "Fly covers between screens, e.g. when opening the player",
+  "@appearanceHeroAnimationsSubtitle": {
+    "description": "Subtitle for the Hero animations toggle"
+  },
+  "settingsConcurrentDownloads": "Concurrent downloads",
+  "@settingsConcurrentDownloads": {
+    "description": "Setting title - how many tracks download at the same time"
+  },
+  "settingsConcurrentDownloadsSubtitle": "Downloading several tracks at once is faster, but some providers may rate-limit parallel requests.",
+  "@settingsConcurrentDownloadsSubtitle": {
+    "description": "Subtitle explaining the concurrent downloads picker"
+  },
+  "concurrentDownloadsOne": "1 track at a time",
+  "@concurrentDownloadsOne": {
+    "description": "Concurrent downloads option - sequential"
+  },
+  "concurrentDownloadsCount": "Up to {count} tracks at once",
+  "@concurrentDownloadsCount": {
+    "description": "Concurrent downloads option - parallel",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryPlaybackNormalization": "Volume normalization",
+  "@libraryPlaybackNormalization": {
+    "description": "Toggle title for ReplayGain playback normalization in the built-in player"
+  },
+  "libraryPlaybackNormalizationSubtitle": "Even out loudness between tracks using their ReplayGain or R128 tags, when present",
+  "@libraryPlaybackNormalizationSubtitle": {
+    "description": "Subtitle explaining playback volume normalization"
+  },
+  "cacheAudioAnalysis": "Audio analysis cache",
+  "@cacheAudioAnalysis": {
+    "description": "Cache item title for saved audio analysis results"
+  },
+  "cacheAudioAnalysisDesc": "Saved spectrograms and analysis results. Will re-analyze on next open.",
+  "@cacheAudioAnalysisDesc": {
+    "description": "Description of what audio analysis cache contains"
+  },
+  "downloadFolderAccessLostTitle": "Download folder access lost",
+  "@downloadFolderAccessLostTitle": {
+    "description": "Title of the warning banner shown in Files settings when the saved SAF folder grant is no longer valid"
+  },
+  "downloadFolderAccessLostSubtitle": "Downloads will fail until you re-select the folder",
+  "@downloadFolderAccessLostSubtitle": {
+    "description": "Subtitle of the warning banner shown when the saved SAF folder grant is no longer valid"
+  },
+  "downloadFolderReselect": "Re-select folder",
+  "@downloadFolderReselect": {
+    "description": "Button that reopens the folder picker to restore download folder access"
+  },
+  "downloadErrorSafPermissionLost": "SAF permission invalid or revoked. Please reconfigure download location in Settings.",
+  "@downloadErrorSafPermissionLost": {
+    "description": "Error shown on downloads that failed because the persisted Android SAF folder grant is no longer valid"
+  },
+  "downloadErrorFolderAccessLost": "Download folder access lost. Please re-select your download folder in Settings.",
+  "@downloadErrorFolderAccessLost": {
+    "description": "Error shown on downloads that failed because the iOS download folder bookmark could not be opened"
+  },
+  "notifVerificationRequiredTitle": "Verification required",
+  "@notifVerificationRequiredTitle": {
+    "description": "Notification title shown when a download needs the user to complete a verification challenge but the app is in the background"
+  },
+  "notifVerificationRequiredBody": "Open the app to complete verification and resume downloads",
+  "@notifVerificationRequiredBody": {
+    "description": "Notification body prompting the user to return to the app to solve a verification challenge"
+  },
+  "settingsSearchHint": "Cari pengaturan",
+  "settingsSearchNoResults": "Tidak ada pengaturan yang cocok dengan \"{query}\"",
+  "settingsGroupInterface": "Ekstensi & tampilan",
+  "settingsGroupContent": "Konten & metadata",
+  "settingsGroupDownloads": "Unduhan & file",
+  "settingsGroupSystem": "Sistem",
+  "settingsGroupHelp": "Tentang & dukungan"
 }

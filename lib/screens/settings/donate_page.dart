@@ -6,10 +6,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:spotiflac_android/services/app_remote_config_service.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
 import 'package:spotiflac_android/widgets/donate_icons.dart';
-import 'package:spotiflac_android/widgets/settings_sliver_app_bar.dart';
+import 'package:spotiflac_android/widgets/app_sliver_header.dart';
 
 class DonatePage extends StatefulWidget {
-  const DonatePage({super.key});
+  final AppRemoteConfigService? remoteConfigService;
+
+  const DonatePage({super.key, this.remoteConfigService});
 
   @override
   State<DonatePage> createState() => _DonatePageState();
@@ -26,11 +28,11 @@ class _DonatePageState extends State<DonatePage> {
     if (_hasRequestedConfig) return;
 
     _hasRequestedConfig = true;
-    _loadConfig(Localizations.localeOf(context).toLanguageTag());
+    unawaited(_loadConfig(Localizations.localeOf(context).toLanguageTag()));
   }
 
   Future<void> _loadConfig(String locale) async {
-    final service = AppRemoteConfigService();
+    final service = widget.remoteConfigService ?? AppRemoteConfigService();
     final cached = await service.readCachedConfig();
     if (!mounted) return;
 
@@ -38,11 +40,9 @@ class _DonatePageState extends State<DonatePage> {
       _applyRemoteConfig(cached);
     }
 
-    unawaited(_refreshConfigCache(locale));
-  }
-
-  Future<void> _refreshConfigCache(String locale) async {
-    await AppRemoteConfigService().fetchConfigSnapshot(locale: locale);
+    final refreshed = await service.fetchConfigSnapshot(locale: locale);
+    if (!mounted || refreshed == null) return;
+    _applyRemoteConfig(refreshed);
   }
 
   void _applyRemoteConfig(RemoteConfigSnapshot snapshot) {
@@ -61,7 +61,7 @@ class _DonatePageState extends State<DonatePage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SettingsSliverAppBar(title: 'Donate'),
+          AppSliverHeader.page(title: 'Donate'),
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(

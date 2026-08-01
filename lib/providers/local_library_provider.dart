@@ -1031,93 +1031,17 @@ final localLibraryFirstCoverProvider = FutureProvider.autoDispose
       ref.watch(
         localLibraryProvider.select((state) => state.loadedIndexVersion),
       );
-      for (final track in request.tracks) {
-        final cover = _nonEmptyCoverPath(
-          await LibraryDatabase.instance.findExisting(
+      final rows = await LibraryDatabase.instance.findExistingBatch([
+        for (final track in request.tracks)
+          LocalLibraryBatchLookupRequest(
             isrc: track.isrc,
             trackName: track.trackName,
             artistName: track.artistName,
           ),
-        );
+      ]);
+      for (final row in rows) {
+        final cover = _nonEmptyCoverPath(row);
         if (cover != null) return cover;
       }
       return null;
-    });
-
-final localLibraryPageProvider = FutureProvider.autoDispose
-    .family<List<LocalLibraryItem>, LocalLibraryPageRequest>((
-      ref,
-      request,
-    ) async {
-      ref.watch(
-        localLibraryProvider.select((state) => state.loadedIndexVersion),
-      );
-      final rows = await LibraryDatabase.instance.getPage(request);
-      return rows.map(LocalLibraryItem.fromJson).toList(growable: false);
-    });
-
-final localLibraryPageCountProvider = FutureProvider.autoDispose
-    .family<int, LocalLibraryPageRequest>((ref, request) async {
-      ref.watch(
-        localLibraryProvider.select((state) => state.loadedIndexVersion),
-      );
-      return LibraryDatabase.instance.getPageCount(request);
-    });
-
-class LocalLibraryAlbumPageRequest {
-  final int limit;
-  final int offset;
-  final LocalLibraryFilterMode filterMode;
-  final LocalLibrarySortMode sortMode;
-  final String? searchQuery;
-
-  const LocalLibraryAlbumPageRequest({
-    this.limit = 100,
-    this.offset = 0,
-    this.filterMode = LocalLibraryFilterMode.albums,
-    this.sortMode = LocalLibrarySortMode.album,
-    this.searchQuery,
-  });
-
-  @override
-  bool operator ==(Object other) {
-    return other is LocalLibraryAlbumPageRequest &&
-        other.limit == limit &&
-        other.offset == offset &&
-        other.filterMode == filterMode &&
-        other.sortMode == sortMode &&
-        other.searchQuery == searchQuery;
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(limit, offset, filterMode, sortMode, searchQuery);
-}
-
-final localLibraryAlbumPageProvider = FutureProvider.autoDispose
-    .family<List<LocalLibraryAlbumGroup>, LocalLibraryAlbumPageRequest>((
-      ref,
-      request,
-    ) async {
-      ref.watch(
-        localLibraryProvider.select((state) => state.loadedIndexVersion),
-      );
-      return LibraryDatabase.instance.getAlbumPage(
-        limit: request.limit,
-        offset: request.offset,
-        filterMode: request.filterMode,
-        sortMode: request.sortMode,
-        searchQuery: request.searchQuery,
-      );
-    });
-
-final localLibraryAlbumCountProvider = FutureProvider.autoDispose
-    .family<int, LocalLibraryAlbumPageRequest>((ref, request) async {
-      ref.watch(
-        localLibraryProvider.select((state) => state.loadedIndexVersion),
-      );
-      return LibraryDatabase.instance.getAlbumCount(
-        filterMode: request.filterMode,
-        searchQuery: request.searchQuery,
-      );
     });

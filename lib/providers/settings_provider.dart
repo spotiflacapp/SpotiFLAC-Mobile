@@ -96,6 +96,13 @@ class SettingsNotifier extends Notifier<AppSettings> {
     'album',
     'playlist',
   };
+  static const Set<String> _libraryViewValues = {
+    'last',
+    'all',
+    'albums',
+    'singles',
+    'playlists',
+  };
   static const Set<String> _extensionVerificationBrowserModeValues = {
     'external_first',
     'in_app_first',
@@ -149,6 +156,12 @@ class SettingsNotifier extends Notifier<AppSettings> {
               loaded.downloadFallbackExtensionIds != null &&
               sanitizedDownloadFallbackExtensionIds == null,
           defaultSearchTab: sanitizedDefaultSearchTab,
+          defaultLibraryView: _normalizeDefaultLibraryView(
+            loaded.defaultLibraryView,
+          ),
+          libraryQualityLabelMode: _normalizeLibraryQualityLabelMode(
+            loaded.libraryQualityLabelMode,
+          ),
           defaultService: loaded.defaultService,
           searchProvider: loaded.searchProvider,
           extensionVerificationBrowserMode:
@@ -353,6 +366,18 @@ class SettingsNotifier extends Notifier<AppSettings> {
     return 'all';
   }
 
+  String _normalizeDefaultLibraryView(String value) {
+    final normalized = value.trim().toLowerCase();
+    if (_libraryViewValues.contains(normalized)) return normalized;
+    return 'last';
+  }
+
+  String _normalizeLibraryQualityLabelMode(String value) {
+    return value == AppSettings.libraryQualityLabelBitDepth
+        ? AppSettings.libraryQualityLabelBitDepth
+        : AppSettings.libraryQualityLabelBitrate;
+  }
+
   String _normalizeExtensionVerificationBrowserMode(String value) {
     final normalized = value.trim().toLowerCase();
     if (_extensionVerificationBrowserModeValues.contains(normalized)) {
@@ -433,6 +458,21 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final normalized = mode == 'saf' ? 'saf' : 'app';
     state = state.copyWith(storageMode: normalized);
     _saveSettings();
+  }
+
+  /// Atomically leaves SAF and persists a writable app-managed destination.
+  ///
+  /// Keeping these fields in one update avoids an intermediate saved state
+  /// where app-folder mode still points at the SAF display name, or where an
+  /// invalid tree URI can switch the mode back to SAF.
+  Future<void> useAppFolderStorage(String directory) async {
+    state = state.copyWith(
+      storageMode: 'app',
+      downloadDirectory: directory,
+      downloadDirectoryBookmark: '',
+      downloadTreeUri: '',
+    );
+    await _saveSettings();
   }
 
   void setDownloadTreeUri(String uri, {String? displayName}) {
@@ -607,6 +647,20 @@ class SettingsNotifier extends Notifier<AppSettings> {
     _saveSettings();
   }
 
+  void setDefaultLibraryView(String view) {
+    state = state.copyWith(
+      defaultLibraryView: _normalizeDefaultLibraryView(view),
+    );
+    _saveSettings();
+  }
+
+  void setLibraryQualityLabelMode(String mode) {
+    state = state.copyWith(
+      libraryQualityLabelMode: _normalizeLibraryQualityLabelMode(mode),
+    );
+    _saveSettings();
+  }
+
   void setHomeFeedProvider(String? provider) {
     if (provider == null || provider.isEmpty) {
       state = state.copyWith(clearHomeFeedProvider: true);
@@ -655,6 +709,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
 
   void setHeroAnimationsEnabled(bool enabled) {
     state = state.copyWith(heroAnimationsEnabled: enabled);
+    _saveSettings();
+  }
+
+  void setForceBackdropBlur(bool enabled) {
+    state = state.copyWith(forceBackdropBlur: enabled);
     _saveSettings();
   }
 

@@ -22,7 +22,7 @@ class ApkDownloader {
 
     final client = http.Client();
     IOSink? sink;
-    
+
     try {
       final request = http.Request('GET', uri);
       final response = await client.send(request);
@@ -33,7 +33,7 @@ class ApkDownloader {
       }
 
       final contentLength = response.contentLength ?? 0;
-      
+
       final dir = await getExternalStorageDirectory();
       if (dir == null) {
         _log.e('Could not get storage directory');
@@ -42,7 +42,7 @@ class ApkDownloader {
 
       final filePath = '${dir.path}/SpotiFLAC-$version.apk';
       final file = File(filePath);
-      
+
       if (await file.exists()) {
         await file.delete();
       }

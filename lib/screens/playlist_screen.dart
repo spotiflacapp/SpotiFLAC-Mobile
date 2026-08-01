@@ -11,6 +11,10 @@ import 'package:spotiflac_android/models/track.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
 import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/providers/library_collections_provider.dart';
+import 'package:spotiflac_android/providers/music_player_provider.dart';
+import 'package:spotiflac_android/providers/playback_provider.dart';
+import 'package:spotiflac_android/services/history_database.dart';
+import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/utils/image_cache_utils.dart';
 import 'package:spotiflac_android/utils/cover_art_utils.dart';
 import 'package:spotiflac_android/utils/adaptive_layout.dart';
@@ -326,6 +330,8 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
         children: [
           _buildLoveAllButton(),
           const SizedBox(width: 12),
+          Flexible(child: _buildPlayDownloadedButton(context)),
+          const SizedBox(width: 8),
           Flexible(child: _buildDownloadAllCenterButton(context)),
           const SizedBox(width: 12),
           _buildAddToPlaylistButton(context),
@@ -477,6 +483,24 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
     );
   }
 
+  Widget _buildPlayDownloadedButton(BuildContext context) {
+    return FilledButton.icon(
+      onPressed: _tracks.isEmpty ? null : () => _playDownloadedPlaylist(context),
+      icon: const Icon(Icons.play_arrow_rounded, size: 20),
+      label: Text(
+        context.l10n.tooltipPlay,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      style: FilledButton.styleFrom(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        minimumSize: const Size(0, 48),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
+    );
+  }
+
   Widget _buildDownloadAllCenterButton(BuildContext context) {
     return HeaderFilledButton(
       icon: Icons.download_rounded,
@@ -510,6 +534,71 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
 
   Future<void> _loveAll(List<Track> tracks) =>
       loveAllTracks(context, ref, tracks);
+
+  Future<void> _playDownloadedPlaylist(BuildContext context) async {
+    final tracks = List<Track>.from(_tracks, growable: false);
+    if (tracks.isEmpty) return;
+
+    try {
+      final historyRows = await HistoryDatabase.instance.findExistingTracks(
+        tracks.map(historyLookupForTrack).toList(growable: false),
+      );
+      final historyNotifier = ref.read(downloadHistoryProvider.notifier);
+      final existsChecks = <String, Future<bool>>{};
+      final playable = <DownloadHistoryItem>[];
+      var skippedCueVirtualTrack = false;
+
+      Future<bool> pathExists(String path) =>
+          existsChecks.putIfAbsent(path, () => fileExists(path));
+
+      for (final row in historyRows) {
+        if (row == null) continue;
+
+        final item = DownloadHistoryItem.fromJson(row);
+        final path = item.filePath.trim();
+        if (path.isEmpty) continue;
+        if (isCueVirtualPath(path)) {
+          skippedCueVirtualTrack = true;
+          continue;
+        }
+
+        bool exists;
+        try {
+          exists = await pathExists(path);
+        } catch (_) {
+          continue;
+        }
+
+        if (exists) {
+          playable.add(item);
+        } else {
+          historyNotifier.removeFromHistory(item.id);
+        }
+      }
+
+      if (!mounted || !context.mounted) return;
+
+      if (playable.isEmpty) {
+        final message = skippedCueVirtualTrack
+            ? cueVirtualTrackRequiresSplitMessage
+            : 'No downloaded tracks from this playlist are available.';
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+        return;
+      }
+
+      await ref.read(musicPlayerControllerProvider).setShuffle(false);
+      await ref
+          .read(playbackProvider.notifier)
+          .playHistoryQueue(playable, startItem: playable.first);
+    } catch (e) {
+      if (!mounted || !context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.snackbarCannotOpenFile('$e'))),
+      );
+    }
+  }
 
   void _downloadAll(BuildContext context) {
     _downloadTracks(context, _tracks);

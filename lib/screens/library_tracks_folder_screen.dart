@@ -17,6 +17,7 @@ import 'package:spotiflac_android/utils/file_access.dart';
 import 'package:spotiflac_android/providers/download_queue_provider.dart';
 import 'package:spotiflac_android/providers/extension_provider.dart';
 import 'package:spotiflac_android/providers/library_collections_provider.dart';
+import 'package:spotiflac_android/providers/music_player_provider.dart';
 import 'package:spotiflac_android/providers/playback_provider.dart';
 import 'package:spotiflac_android/providers/local_library_provider.dart';
 import 'package:spotiflac_android/providers/settings_provider.dart';
@@ -595,11 +596,9 @@ class _LibraryTracksFolderScreenState
           ? Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildHeaderActionPlaceholder(),
-                const SizedBox(width: 12),
-                _buildDownloadAllCenterButton(entries),
-                const SizedBox(width: 12),
-                _buildHeaderActionPlaceholder(),
+                Flexible(child: _buildPlayAllCenterButton(entries)),
+                const SizedBox(width: 8),
+                Flexible(child: _buildDownloadAllCenterButton(entries)),
               ],
             )
           : null,
@@ -677,15 +676,16 @@ class _LibraryTracksFolderScreenState
     );
   }
 
-  Widget _buildHeaderActionPlaceholder() =>
-      const SizedBox(width: 48, height: 48);
-
-  Widget _buildDownloadAllCenterButton(List<CollectionTrackEntry> entries) {
+  Widget _buildPlayAllCenterButton(List<CollectionTrackEntry> entries) {
     final tracks = entries.map((e) => e.track).toList(growable: false);
     return FilledButton.icon(
-      onPressed: tracks.isEmpty ? null : () => _confirmDownloadAll(tracks),
-      icon: const Icon(Icons.download_rounded, size: 18),
-      label: Text(context.l10n.downloadAllCount(tracks.length)),
+      onPressed: tracks.isEmpty ? null : () => _playAll(tracks),
+      icon: const Icon(Icons.play_arrow_rounded, size: 20),
+      label: Text(
+        context.l10n.tooltipPlay,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
       style: FilledButton.styleFrom(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
@@ -693,6 +693,39 @@ class _LibraryTracksFolderScreenState
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
     );
+  }
+
+  Widget _buildDownloadAllCenterButton(List<CollectionTrackEntry> entries) {
+    final tracks = entries.map((e) => e.track).toList(growable: false);
+    return FilledButton.icon(
+      onPressed: tracks.isEmpty ? null : () => _confirmDownloadAll(tracks),
+      icon: const Icon(Icons.download_rounded, size: 18),
+      label: Text(
+        context.l10n.downloadAllCount(tracks.length),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      style: FilledButton.styleFrom(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        minimumSize: const Size(0, 48),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
+    );
+  }
+
+  Future<void> _playAll(List<Track> tracks) async {
+    if (tracks.isEmpty) return;
+
+    try {
+      await ref.read(musicPlayerControllerProvider).setShuffle(false);
+      await ref.read(playbackProvider.notifier).playTrackList(tracks);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.l10n.snackbarCannotOpenFile('$e'))),
+      );
+    }
   }
 
   void _confirmDownloadAll(List<Track> tracks) {

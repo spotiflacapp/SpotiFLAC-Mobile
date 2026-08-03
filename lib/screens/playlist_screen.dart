@@ -31,6 +31,7 @@ class PlaylistScreen extends ConsumerStatefulWidget {
   final String? headerVideoUrl;
   final List<Track> tracks;
   final String? playlistId;
+  final String? metadataProviderId;
   final String? recommendedService;
 
   const PlaylistScreen({
@@ -40,6 +41,7 @@ class PlaylistScreen extends ConsumerStatefulWidget {
     this.headerVideoUrl,
     required this.tracks,
     this.playlistId,
+    this.metadataProviderId,
     this.recommendedService,
   });
 
@@ -126,7 +128,10 @@ class _PlaylistScreenState extends ConsumerState<PlaylistScreen>
   }
 
   String? _metadataProviderId(String playlistId) {
-    final providerId = legacyProviderIdFromResourceId(playlistId);
+    final providerId = resolvePreferredMetadataProviderId(
+      widget.metadataProviderId,
+      playlistId,
+    );
     if (providerId == null) return null;
     final effective = resolveEffectiveMetadataProvider(
       providerId,

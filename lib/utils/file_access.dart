@@ -6,6 +6,30 @@ import 'package:spotiflac_android/services/music_player_service.dart';
 import 'package:spotiflac_android/services/platform_bridge.dart';
 import 'package:spotiflac_android/utils/mime_utils.dart';
 
+/// Whether the queue should run its iOS output-directory path-shape check
+/// (which can replace [outputDir] with the default Documents folder when the
+/// path looks like iCloud Drive or an invalid container path).
+///
+/// A security-scoped bookmark is the source of truth for a folder picked
+/// from Files: its persisted path may legitimately contain substrings that
+/// look like iCloud Drive, or fail the structural writable-path check, even
+/// though the bookmark itself grants real write access. Running the
+/// path-shape check anyway would reset - and via setDownloadDirectory,
+/// permanently drop - a perfectly valid bookmarked folder. When a bookmark
+/// is present, the queue's later bookmark-resolution step is authoritative
+/// instead.
+bool shouldValidateIosOutputDir({
+  required bool isIOS,
+  required bool isSafMode,
+  required String outputDir,
+  required String downloadDirectoryBookmark,
+}) {
+  return isIOS &&
+      !isSafMode &&
+      outputDir.isNotEmpty &&
+      downloadDirectoryBookmark.isEmpty;
+}
+
 /// Regular expression to detect iOS app container paths.
 /// Matches paths like /var/mobile/Containers/Data/Application/{UUID}
 /// or /private/var/mobile/Containers/Data/Application/{UUID}

@@ -1357,8 +1357,15 @@ class DownloadQueueNotifier extends Notifier<DownloadQueueState> {
       await _initOutputDir();
     }
 
-    // iOS: Validate that outputDir is writable (not iCloud Drive which Go can't access)
-    if (!isSafMode && Platform.isIOS && state.outputDir.isNotEmpty) {
+    // iOS: Validate that outputDir is writable (not iCloud Drive which Go
+    // can't access), unless a bookmark makes this app-Documents path-shape
+    // check irrelevant (see shouldValidateIosOutputDir).
+    if (shouldValidateIosOutputDir(
+      isIOS: Platform.isIOS,
+      isSafMode: isSafMode,
+      outputDir: state.outputDir,
+      downloadDirectoryBookmark: settings.downloadDirectoryBookmark,
+    )) {
       final isICloudPath =
           state.outputDir.contains('Mobile Documents') ||
           state.outputDir.contains('CloudDocs') ||

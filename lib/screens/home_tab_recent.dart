@@ -342,6 +342,7 @@ extension _HomeTabRecentUI on _HomeTabState {
                 coverUrl: item.imageUrl,
                 tracks: const [],
                 playlistId: item.id,
+                metadataProviderId: item.providerId,
               ),
             ),
           );

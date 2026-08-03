@@ -724,7 +724,11 @@ func (p *extensionProviderWrapper) customSearch(query string, options map[string
 }
 
 type ExtURLHandleResult struct {
-	Type        string             `json:"type"`
+	Type string `json:"type"`
+	// ID identifies the handled resource itself (e.g. a playlist ID). Track,
+	// album, and artist results already carry their own ID inside their
+	// nested metadata; this covers result types with no such nested object.
+	ID          string             `json:"id,omitempty"`
 	Track       *ExtTrackMetadata  `json:"track,omitempty"`
 	Tracks      []ExtTrackMetadata `json:"tracks,omitempty"`
 	Album       *ExtAlbumMetadata  `json:"album,omitempty"`

@@ -522,6 +522,7 @@ func parseExtensionURLHandleValue(vm *goja.Runtime, value goja.Value) (ExtURLHan
 	obj := value.ToObject(vm)
 	handleResult := ExtURLHandleResult{
 		Type:        gojaObjectString(obj, "type"),
+		ID:          gojaObjectString(obj, "id"),
 		Name:        gojaObjectString(obj, "name"),
 		CoverURL:    gojaObjectString(obj, "cover_url", "coverUrl"),
 		HeaderImage: gojaObjectString(obj, "header_image", "headerImage"),

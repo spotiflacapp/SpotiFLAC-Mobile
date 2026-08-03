@@ -805,6 +805,7 @@ func HandleURLWithExtensionJSON(url string) (string, error) {
 
 	response := map[string]any{
 		"type":         result.Type,
+		"id":           result.ID,
 		"extension_id": extensionID,
 		"name":         result.Name,
 		"cover_url":    result.CoverURL,

@@ -19,6 +19,7 @@ class TrackState {
   final String? albumId;
   final String? albumName;
   final String? playlistName;
+  final String? playlistId;
   final String? artistId;
   final String? artistName;
   final String? coverUrl;
@@ -40,6 +41,7 @@ class TrackState {
     this.albumId,
     this.albumName,
     this.playlistName,
+    this.playlistId,
     this.artistId,
     this.artistName,
     this.coverUrl,
@@ -64,6 +66,7 @@ class TrackState {
     String? albumId,
     String? albumName,
     String? playlistName,
+    String? playlistId,
     String? artistId,
     String? artistName,
     String? coverUrl,
@@ -87,6 +90,7 @@ class TrackState {
       albumId: albumId ?? this.albumId,
       albumName: albumName ?? this.albumName,
       playlistName: playlistName ?? this.playlistName,
+      playlistId: playlistId ?? this.playlistId,
       artistId: artistId ?? this.artistId,
       artistName: artistName ?? this.artistName,
       coverUrl: coverUrl ?? this.coverUrl,
@@ -241,6 +245,7 @@ class TrackNotifier extends Notifier<TrackState> {
                 result['name'] as String? ??
                 (result['album'] as Map<String, dynamic>?)?['name'] as String?,
             playlistName: type == 'playlist' ? result['name'] as String? : null,
+            playlistId: type == 'playlist' ? result['id'] as String? : null,
             coverUrl: normalizeCoverReference(result['cover_url']?.toString()),
             headerVideoUrl: normalizeRemoteHttpUrl(
               result['header_video']?.toString(),

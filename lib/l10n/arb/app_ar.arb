@@ -461,6 +461,18 @@
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
+  "aboutUnituneDesc": "Open-source music link resolver by Flaze, used for cross-platform fallback matching.",
+  "@aboutUnituneDesc": {
+    "description": "Credit for the UniTune resolver"
+  },
+  "aboutMusicBrainzDesc": "Open music database maintained by MetaBrainz and its community, used for recording cross-references.",
+  "@aboutMusicBrainzDesc": {
+    "description": "Credit for the MusicBrainz database"
+  },
+  "aboutSquiglyDesc": "Universal music link service by Liam Macmillan, used as a final cross-platform resolver fallback.",
+  "@aboutSquiglyDesc": {
+    "description": "Credit for the Squigly resolver"
+  },
   "aboutAppDescription": "البحث عن بيانات التعريف الموسيقي، وإدارة الملحقات، وتنظيم مكتبتك.",
   "@aboutAppDescription": {
     "description": "App description in header card"
@@ -1885,7 +1897,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "تم تثبيت {installed} من أصل {attempted} إضافات",
+  "extensionsInstallPartialSuccess": "تم تثبيت {count} من أصل {attempted} إضافات",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -3889,7 +3901,7 @@
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, via proxy)",
+  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, direct API)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
@@ -6046,6 +6058,45 @@
   "nowPlayingDetails": "Details",
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
+  },
+  "nowPlayingSleepTimer": "Sleep timer",
+  "@nowPlayingSleepTimer": {
+    "description": "Menu item and sheet title for the playback sleep timer"
+  },
+  "nowPlayingSleepTimerActive": "Ends at {time}",
+  "@nowPlayingSleepTimerActive": {
+    "description": "Active sleep timer deadline shown in the player menu",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 minute} other{{minutes} minutes}}",
+  "@nowPlayingSleepTimerMinutes": {
+    "description": "Duration choice for the playback sleep timer",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "nowPlayingSleepTimerOff": "Turn off sleep timer",
+  "@nowPlayingSleepTimerOff": {
+    "description": "Action to cancel the active playback sleep timer"
+  },
+  "nowPlayingSleepTimerSet": "Sleep timer set for {duration}",
+  "@nowPlayingSleepTimerSet": {
+    "description": "Confirmation after setting the playback sleep timer",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "nowPlayingSleepTimerCancelled": "Sleep timer turned off",
+  "@nowPlayingSleepTimerCancelled": {
+    "description": "Confirmation after cancelling the playback sleep timer"
   },
   "nowPlayingOpenInExternalPlayer": "Open in external player",
   "@nowPlayingOpenInExternalPlayer": {

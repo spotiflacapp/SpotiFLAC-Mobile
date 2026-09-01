@@ -6094,7 +6094,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerCancelled": "취침 타이머가 꺼졌습니다",
+  "nowPlayingSleepTimerCancelled": "취침 타이머가 꺼짐",
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },

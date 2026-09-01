@@ -1879,7 +1879,7 @@
   "@extensionsInstallButton": {
     "description": "Button to install extension from file"
   },
-  "extensionsInfoTip": "확장 기능은 새 메타데이터와 다운로드 제공자를 추가할 수 있습니다. 신뢰할 수 있는 출처의 확장 기능만 설치하세요",
+  "extensionsInfoTip": "확장 기능은 새 메타데이터와 다운로드 제공자를 추가할 수 있습니다. 신뢰할 수 있는 확장 기능만 설치하세요",
   "@extensionsInfoTip": {
     "description": "Security warning about extensions"
   },
@@ -4256,7 +4256,7 @@
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
-  "downloadNetworkCompatibilityModeEnabled": "레거시 HTTP 엔드포인트를 허용합니다; TLS 인증서 검증은 계속 활성화되어 있습니다",
+  "downloadNetworkCompatibilityModeEnabled": "레거시 HTTP 엔드포인트 허용; TLS 인증서 검증은 계속 활성화됨",
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },

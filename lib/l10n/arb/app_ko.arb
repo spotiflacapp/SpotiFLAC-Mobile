@@ -461,15 +461,15 @@
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutUnituneDesc": "Open-source music link resolver by Flaze, used for cross-platform fallback matching.",
+  "aboutUnituneDesc": "Flaze가 개발한 오픈소스 음악 링크 확인 도구로, 플랫폼 간 대체 매칭에 사용됩니다",
   "@aboutUnituneDesc": {
     "description": "Credit for the UniTune resolver"
   },
-  "aboutMusicBrainzDesc": "Open music database maintained by MetaBrainz and its community, used for recording cross-references.",
+  "aboutMusicBrainzDesc": "MetaBrainz와 커뮤니티가 관리하는 오픈 음악 데이터베이스로, 음원 간 상호 참조 정보를 기록하는데 사용됩니다",
   "@aboutMusicBrainzDesc": {
     "description": "Credit for the MusicBrainz database"
   },
-  "aboutSquiglyDesc": "Universal music link service by Liam Macmillan, used as a final cross-platform resolver fallback.",
+  "aboutSquiglyDesc": "Liam Macmillan이 개발한 범용 음악 링크 서비스로, 플랫폼 간 링크 확인을 위한 최종 대체 수단으로 사용됩니다",
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
@@ -1576,7 +1576,7 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "libraryQualityLabelFileFormat": "File format",
+  "libraryQualityLabelFileFormat": "파일 형식",
   "@libraryQualityLabelFileFormat": {
     "description": "Library audio quality label mode that shows the detected file format"
   },
@@ -3901,7 +3901,7 @@
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, direct API)",
+  "lyricsProviderQqMusicDesc": "QQ Music (중국 노래에 적합, 직접 API)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
@@ -4256,7 +4256,7 @@
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
-  "downloadNetworkCompatibilityModeEnabled": "Allowing legacy HTTP endpoints; TLS verification remains enabled",
+  "downloadNetworkCompatibilityModeEnabled": "레거시 HTTP 엔드포인트를 허용합니다; TLS 인증서 검증은 계속 활성화되어 있습니다",
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },
@@ -5216,7 +5216,7 @@
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
-  "queueCheckingDownloadedFile": "Checking downloaded file...",
+  "queueCheckingDownloadedFile": "다운로드된 파일을 확인하는 중...",
   "@queueCheckingDownloadedFile": {
     "description": "Accessibility label while the app checks whether a just-completed download has appeared at its final path yet. Not about authentication or a download session."
   },
@@ -6059,11 +6059,11 @@
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingSleepTimer": "Sleep timer",
+  "nowPlayingSleepTimer": "취침 타이머",
   "@nowPlayingSleepTimer": {
     "description": "Menu item and sheet title for the playback sleep timer"
   },
-  "nowPlayingSleepTimerActive": "Ends at {time}",
+  "nowPlayingSleepTimerActive": "{time}에 종료",
   "@nowPlayingSleepTimerActive": {
     "description": "Active sleep timer deadline shown in the player menu",
     "placeholders": {
@@ -6072,7 +6072,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 minute} other{{minutes} minutes}}",
+  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 분} other{{minutes} 분}}",
   "@nowPlayingSleepTimerMinutes": {
     "description": "Duration choice for the playback sleep timer",
     "placeholders": {
@@ -6081,11 +6081,11 @@
       }
     }
   },
-  "nowPlayingSleepTimerOff": "Turn off sleep timer",
+  "nowPlayingSleepTimerOff": "취침 타이머 끄기",
   "@nowPlayingSleepTimerOff": {
     "description": "Action to cancel the active playback sleep timer"
   },
-  "nowPlayingSleepTimerSet": "Sleep timer set for {duration}",
+  "nowPlayingSleepTimerSet": "{duration} 동안 취침 타이머가 설정됨",
   "@nowPlayingSleepTimerSet": {
     "description": "Confirmation after setting the playback sleep timer",
     "placeholders": {
@@ -6094,7 +6094,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerCancelled": "Sleep timer turned off",
+  "nowPlayingSleepTimerCancelled": "취침 타이머가 꺼졌습니다",
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },
@@ -6505,43 +6505,43 @@
   "@settingsGroupHelp": {
     "description": "Settings group covering the about page and donations"
   },
-  "libraryFilterMetadataMissingLyrics": "Missing lyrics",
+  "libraryFilterMetadataMissingLyrics": "가사 누락",
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
-  "trackOptionCopyTrackName": "Copy track name",
+  "trackOptionCopyTrackName": "트랙 이름 복사",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
   },
-  "trackOptionCopyArtist": "Copy artist",
+  "trackOptionCopyArtist": "아티스트 복사",
   "@trackOptionCopyArtist": {
     "description": "Track menu action that copies the artist name"
   },
-  "trackOptionCopyTrackAndArtist": "Copy track and artist",
+  "trackOptionCopyTrackAndArtist": "트랙 및 아티스트 복사",
   "@trackOptionCopyTrackAndArtist": {
     "description": "Track menu action that copies the track title and artist"
   },
-  "metadataCopyValue": "Copy value",
+  "metadataCopyValue": "값 복사",
   "@metadataCopyValue": {
     "description": "Metadata menu action that copies only the selected value"
   },
-  "metadataCopyField": "Copy field and value",
+  "metadataCopyField": "필드 및 값 복사",
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "metadataCopyAll": "Copy all metadata",
+  "metadataCopyAll": "모든 메타데이터 복사",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
   },
-  "optionsEmbeddedCoverSize": "Embedded Cover Size",
+  "optionsEmbeddedCoverSize": "내장된 앨범 커버 크기",
   "@optionsEmbeddedCoverSize": {
     "description": "Metadata setting that limits downloaded artwork resolution before it is embedded"
   },
-  "optionsEmbeddedCoverSizeDescription": "Downscale remotely downloaded cover art before embedding it. Images already within the limit are kept unchanged.",
+  "optionsEmbeddedCoverSizeDescription": "원격으로 다운로드된 앨범 커버를 내장하기 전에 크기를 줄입니다. 이미 제한 내에 있는 이미지는 변경되지 않습니다",
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "optionsEmbeddedCoverSizeOriginal": "Original resolution",
+  "optionsEmbeddedCoverSizeOriginal": "원본 해상도",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"
   }

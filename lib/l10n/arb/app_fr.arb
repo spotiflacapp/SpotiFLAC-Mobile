@@ -2513,11 +2513,11 @@
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
-  "libraryAddFolder": "Add library folder",
+  "libraryAddFolder": "Ajouter un dossier de bibliothèque",
   "@libraryAddFolder": {
     "description": "Action to add another local library source"
   },
-  "libraryAddFolderSubtitle": "Internal storage, SD card, SSD, or another external drive",
+  "libraryAddFolderSubtitle": "Mémoire interne, carte SD, SSD ou autre disque externe",
   "@libraryAddFolderSubtitle": {
     "description": "Supported storage locations for local library sources"
   },
@@ -2529,7 +2529,7 @@
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
-  "librarySourceDisabled": "Disabled",
+  "librarySourceDisabled": "Désactivé",
   "@librarySourceDisabled": {
     "description": "Library source has been disabled by the user"
   },
@@ -2548,7 +2548,7 @@
       }
     }
   },
-  "libraryExternalStorage": "External storage",
+  "libraryExternalStorage": "Stockage externe",
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },

@@ -2019,7 +2019,7 @@
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
-  "downloadAutoConvertMp3Subtitle": "Best compatibility across players and devices",
+  "downloadAutoConvertMp3Subtitle": "Compatibilité optimale entre les lecteurs et les appareils",
   "@downloadAutoConvertMp3Subtitle": {
     "description": "MP3 automatic conversion option description"
   },
@@ -2027,7 +2027,7 @@
   "@downloadAutoConvertM4aSubtitle": {
     "description": "M4A AAC automatic conversion option description"
   },
-  "downloadAutoConvertOpusSubtitle": "Best efficiency for modern players",
+  "downloadAutoConvertOpusSubtitle": "Une efficacité optimale pour les lecteurs d'aujourd'hui",
   "@downloadAutoConvertOpusSubtitle": {
     "description": "Opus automatic conversion option description"
   },
@@ -2309,7 +2309,7 @@
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
-  "recentClearAllMessage": "Clear all recent activity? Download history and music files will not be deleted.",
+  "recentClearAllMessage": "Effacer toutes les activités récentes ? L'historique des téléchargements et les fichiers musicaux ne seront pas supprimés.",
   "@recentClearAllMessage": {
     "description": "Confirmation message before clearing all recent activity"
   },

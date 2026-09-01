@@ -40,7 +40,7 @@ void main() {
         _log.e('Uncaught Flutter error: ${details.exceptionAsString()}');
       };
       WidgetsBinding.instance.platformDispatcher.onError = (error, stack) {
-        _log.e('Uncaught platform error: $error');
+        _log.e('Uncaught platform error: $error', error, stack);
         return true;
       };
 
@@ -82,7 +82,7 @@ void main() {
       );
     },
     (error, stack) {
-      _log.e('Uncaught zone error: $error');
+      _log.e('Uncaught zone error: $error', error, stack);
     },
   );
 }
@@ -109,10 +109,8 @@ Future<void> _prepareAndroidInstallationState(SharedPreferences prefs) async {
     await prefs.remove(_runtimeProfileTierKey);
     await prefs.remove(localLibraryLastScannedAtKey);
     await AppStateDatabase.instance.clearPendingQueueAfterInstallationRestore();
-  } catch (e) {
-    // Startup SAF validation remains the second line of defense if an OEM or
-    // bridge implementation prevents install-marker inspection.
-    _log.w('Failed to inspect restored installation state: $e');
+  } catch (e, stack) {
+    _log.w('Failed to inspect restored installation state: $e', e, stack);
   }
 }
 
@@ -128,10 +126,8 @@ Future<bool> _detectInitialSafAccessLoss(AppSettings settings) async {
     return !await PlatformBridge.validateSafTreeAccess(
       settings.downloadTreeUri,
     );
-  } catch (e) {
-    // A transient bridge failure must not trap the user at launch. Download
-    // preflight validates strictly again before any write starts.
-    _log.w('Failed to validate SAF access during startup: $e');
+  } catch (e, stack) {
+    _log.w('Failed to validate SAF access during startup: $e', e, stack);
     return false;
   }
 }
@@ -159,20 +155,18 @@ Future<_RuntimeProfile> _resolveRuntimeProfile(SharedPreferences prefs) async {
     final profile = (isArm32Only || isLowRamDevice)
         ? const _RuntimeProfile.low()
         : androidInfo.physicalRamSize >= 6000
-        ? const _RuntimeProfile.high()
-        : defaults;
+            ? const _RuntimeProfile.high()
+            : defaults;
     await prefs.setString(_runtimeProfileTierKey, profile.tier);
     return profile;
-  } catch (e) {
-    debugPrint('Failed to resolve runtime profile: $e');
+  } catch (e, stack) {
+    _log.w('Failed to resolve runtime profile: $e', e, stack);
     return defaults;
   }
 }
 
 void _configureImageCache(_RuntimeProfile runtimeProfile) {
   final imageCache = PaintingBinding.instance.imageCache;
-  // Keep memory cache bounded so cover-heavy pages don't retain too many
-  // full-resolution images simultaneously.
   imageCache.maximumSize = runtimeProfile.imageCacheMaximumSize;
   imageCache.maximumSizeBytes = runtimeProfile.imageCacheMaximumSizeBytes;
 }
@@ -193,38 +187,38 @@ class _RuntimeProfile {
   });
 
   const _RuntimeProfile.low()
-    : this._(
-        tier: 'low',
-        imageCacheMaximumSize: 120,
-        imageCacheMaximumSizeBytes: 24 << 20,
-        disableOverscrollEffects: true,
-        enableBackdropBlur: false,
-      );
+      : this._(
+          tier: 'low',
+          imageCacheMaximumSize: 120,
+          imageCacheMaximumSizeBytes: 24 << 20,
+          disableOverscrollEffects: true,
+          enableBackdropBlur: false,
+        );
 
   const _RuntimeProfile.standard()
-    : this._(
-        tier: 'standard',
-        imageCacheMaximumSize: 240,
-        imageCacheMaximumSizeBytes: 60 << 20,
-        disableOverscrollEffects: false,
-        enableBackdropBlur: false,
-      );
+      : this._(
+          tier: 'standard',
+          imageCacheMaximumSize: 240,
+          imageCacheMaximumSizeBytes: 60 << 20,
+          disableOverscrollEffects: false,
+          enableBackdropBlur: false,
+        );
 
   const _RuntimeProfile.high()
-    : this._(
-        tier: 'high',
-        imageCacheMaximumSize: 320,
-        imageCacheMaximumSizeBytes: 80 << 20,
-        disableOverscrollEffects: false,
-        enableBackdropBlur: true,
-      );
+      : this._(
+          tier: 'high',
+          imageCacheMaximumSize: 320,
+          imageCacheMaximumSizeBytes: 80 << 20,
+          disableOverscrollEffects: false,
+          enableBackdropBlur: true,
+        );
 
   static _RuntimeProfile? fromTier(String tier) => switch (tier) {
-    'low' => const _RuntimeProfile.low(),
-    'standard' => const _RuntimeProfile.standard(),
-    'high' => const _RuntimeProfile.high(),
-    _ => null,
-  };
+        'low' => const _RuntimeProfile.low(),
+        'standard' => const _RuntimeProfile.standard(),
+        'high' => const _RuntimeProfile.high(),
+        _ => null,
+      };
 }
 
 class _EagerInitialization extends ConsumerStatefulWidget {
@@ -273,7 +267,10 @@ class _EagerInitializationState extends ConsumerState<_EagerInitialization>
         unawaited(
           ref
               .read(localLibraryProvider.notifier)
-              .refreshSourceAvailability(scanReconnected: true),
+              .refreshSourceAvailability(scanReconnected: true)
+              .catchError((Object e, StackTrace stack) {
+            _log.w('Failed to refresh library availability: $e', e, stack);
+          }),
         );
       }
       if (ref.exists(downloadQueueProvider)) {
@@ -282,30 +279,37 @@ class _EagerInitializationState extends ConsumerState<_EagerInitialization>
             .resumePendingDownloadsOnForeground();
       }
     } else if (state == AppLifecycleState.paused) {
-      // Last reliable moment before the OS may kill the process: make sure
-      // any debounced download-queue persistence reaches disk.
       if (ref.exists(downloadQueueProvider)) {
         unawaited(
-          ref.read(downloadQueueProvider.notifier).flushQueuePersistence(),
+          ref.read(downloadQueueProvider.notifier).flushQueuePersistence()
+              .catchError((Object e, StackTrace stack) {
+            _log.w('Failed to flush queue persistence: $e', e, stack);
+          }),
         );
       }
-      // Backgrounded: return the Go heap's high-water mark to the OS so the
-      // process is a smaller kill target.
-      unawaited(PlatformBridge.releaseNativeMemory());
+      unawaited(
+        PlatformBridge.releaseNativeMemory()
+            .catchError((Object e, StackTrace stack) {
+          _log.w('Failed to release native memory: $e', e, stack);
+        }),
+      );
     }
   }
 
   @override
   void didHaveMemoryPressure() {
-    // OS memory pressure: drop decoded bitmaps (disk caches stay intact) and
-    // have the Go side release freed heap back to the OS.
     final imageCache = PaintingBinding.instance.imageCache;
     imageCache.clear();
     imageCache.clearLiveImages();
     if (CoverCacheManager.isInitialized) {
       CoverCacheManager.instance.store.emptyMemoryCache();
     }
-    unawaited(PlatformBridge.releaseNativeMemory(underPressure: true));
+    unawaited(
+      PlatformBridge.releaseNativeMemory(underPressure: true)
+          .catchError((Object e, StackTrace stack) {
+        _log.w('Failed to release memory under pressure: $e', e, stack);
+      }),
+    );
   }
 
   void _initializeDeferredProviders() {
@@ -328,32 +332,45 @@ class _EagerInitializationState extends ConsumerState<_EagerInitialization>
       },
     );
 
-    // Streaming engine: restore the last engine savepoint (queue/modes) so
-    // recovery can offer "resume?" after a kill, and warm the failover hook
-    // before the first play request.
-    unawaited(ref.read(engineSavepointProvider.notifier).load());
     unawaited(
-      ref.read(streamingEngineControllerProvider).ensureFailureHook(),
+      ref.read(engineSavepointProvider.notifier).load()
+          .catchError((Object e, StackTrace stack) {
+        _log.w('Failed to load engine savepoint: $e', e, stack);
+      }),
+    );
+    unawaited(
+      ref.read(streamingEngineControllerProvider).ensureFailureHook()
+          .catchError((Object e, StackTrace stack) {
+        _log.w('Failed to ensure failure hook: $e', e, stack);
+      }),
     );
 
-    // Download scheduling settings must be restored before the queue can
-    // decide whether a new download should wait behind a closed window.
     unawaited(
       SharedPreferences.getInstance()
-          .then(ref.read(downloadScheduleSettingsProvider.notifier).attach),
+          .then((prefs) =>
+              ref.read(downloadScheduleSettingsProvider.notifier).attach(prefs))
+          .catchError((Object e, StackTrace stack) {
+        _log.w('Failed to attach download schedule settings: $e', e, stack);
+      }),
     );
 
-    // Privacy-first listening statistics: restore stored stats and install
-    // the player observer so play/completion events are recorded locally.
     final statsNotifier = ref.read(playbackStatisticsProvider.notifier);
-    unawaited(statsNotifier.load());
+    unawaited(
+      statsNotifier.load().catchError((Object e, StackTrace stack) {
+        _log.w('Failed to load playback statistics: $e', e, stack);
+      }),
+    );
     installPlaybackStatisticsRecording(ref);
   }
 
   Timer _scheduleProviderWarmup(Duration delay, VoidCallback action) {
     return Timer(delay, () {
       if (!mounted) return;
-      action();
+      try {
+        action();
+      } catch (e, stack) {
+        _log.w('Failed during provider warmup: $e', e, stack);
+      }
     });
   }
 
@@ -413,12 +430,15 @@ class _EagerInitializationState extends ConsumerState<_EagerInitialization>
     try {
       await CoverCacheManager.initialize();
       CoverCacheManager.scheduleMaintenance();
-      await Future.wait([
-        NotificationService().initialize(),
-        ShareIntentService().initialize(),
-      ]);
-    } catch (e) {
-      debugPrint('Failed to initialize app services: $e');
+      await Future.wait(
+        [
+          NotificationService().initialize(),
+          ShareIntentService().initialize(),
+        ],
+        eagerError: true,
+      );
+    } catch (e, stack) {
+      _log.e('Failed to initialize app services: $e', e, stack);
     }
   }
 
@@ -434,8 +454,8 @@ class _EagerInitializationState extends ConsumerState<_EagerInitialization>
       await ref
           .read(extensionProvider.notifier)
           .initialize(extensionsDir, dataDir);
-    } catch (e) {
-      debugPrint('Failed to initialize extensions: $e');
+    } catch (e, stack) {
+      _log.e('Failed to initialize extensions: $e', e, stack);
     }
   }
 

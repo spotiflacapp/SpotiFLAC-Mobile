@@ -461,15 +461,15 @@
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutUnituneDesc": "Open-source music link resolver by Flaze, used for cross-platform fallback matching.",
+  "aboutUnituneDesc": "محلل رابط الموسيقى المفتوح المصدر بواسطة Flaze، يستخدم لمطابقة الظهر عبر المنصات.",
   "@aboutUnituneDesc": {
     "description": "Credit for the UniTune resolver"
   },
-  "aboutMusicBrainzDesc": "Open music database maintained by MetaBrainz and its community, used for recording cross-references.",
+  "aboutMusicBrainzDesc": "فتح قاعدة بيانات الموسيقى التي يحتفظ بها ميتابراينز ومجتمعه، تستخدم لتسجيل الإحالات المرجعية.",
   "@aboutMusicBrainzDesc": {
     "description": "Credit for the MusicBrainz database"
   },
-  "aboutSquiglyDesc": "Universal music link service by Liam Macmillan, used as a final cross-platform resolver fallback.",
+  "aboutSquiglyDesc": "خدمة وصلة موسيقية عالمية من قبل ليام ماكميلان، تستخدم كمرجع نهائي للحلول عبر المنصات.",
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
@@ -606,7 +606,7 @@
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
-  "setupDownloadInFlac": "Download music in lossless and Hi-Res quality",
+  "setupDownloadInFlac": "تحميل الموسيقى بجودة عالية و عالية",
   "@setupDownloadInFlac": {
     "description": "App tagline in setup"
   },
@@ -792,7 +792,7 @@
   "@dialogImportPlaylistTitle": {
     "description": "Dialog title - import CSV playlist"
   },
-  "dialogImportPlaylistMessage": "Found {count} tracks in the playlist file. Add them to download queue?",
+  "dialogImportPlaylistMessage": "تم العثور على {count} مسارات في ملف قائمة التشغيل. إضافتها لتنزيل؟",
   "csvImportTracks": "{count} مسارات من CSV",
   "@csvImportTracks": {
     "description": "Label shown in quality picker for CSV import",
@@ -802,11 +802,11 @@
       }
     }
   },
-  "collectionExportM3u": "Export as M3U8",
+  "collectionExportM3u": "تصدير كـ M3U8",
   "@collectionExportM3u": {
     "description": "Tooltip on the collection screen action that exports the track list as an M3U8 playlist file"
   },
-  "collectionExportM3uDone": "Exported {exported} of {total} tracks",
+  "collectionExportM3uDone": "تصدير {exported} من مسارات {total}",
   "@collectionExportM3uDone": {
     "description": "Snackbar after M3U8 export; tracks without a local file are not exported",
     "placeholders": {
@@ -818,43 +818,43 @@
       }
     }
   },
-  "collectionExportM3uNone": "No downloaded files to export",
+  "collectionExportM3uNone": "لا توجد ملفات تم تنزيلها للتصدير",
   "@collectionExportM3uNone": {
     "description": "Snackbar when an M3U8 export finds no local files"
   },
-  "collectionExportM3uFailed": "Export failed",
+  "collectionExportM3uFailed": "فشل التصدير",
   "@collectionExportM3uFailed": {
     "description": "Snackbar when writing or sharing the M3U8 export fails"
   },
-  "trackOpenOn": "Open on...",
+  "trackOpenOn": "فتح على...",
   "@trackOpenOn": {
     "description": "Track option and sheet title listing streaming platforms where the track can be opened"
   },
-  "trackOpenOnNoLinks": "No platform links found for this track.",
+  "trackOpenOnNoLinks": "لم يتم العثور على روابط منصة لهذا المسار.",
   "@trackOpenOnNoLinks": {
     "description": "Shown in the Open on sheet when song.link returns no links"
   },
-  "libraryReviewDuplicates": "Review duplicates",
+  "libraryReviewDuplicates": "مراجعة التكرار",
   "@libraryReviewDuplicates": {
     "description": "Library settings row opening the duplicate review sheet"
   },
-  "libraryReviewDuplicatesSubtitle": "Find tracks stored more than once",
+  "libraryReviewDuplicatesSubtitle": "العثور على المسارات المخزنة أكثر من مرة",
   "@libraryReviewDuplicatesSubtitle": {
     "description": "Subtitle for the duplicate review settings row"
   },
-  "duplicatesTitle": "Duplicates",
+  "duplicatesTitle": "مكرر",
   "@duplicatesTitle": {
     "description": "Title of the duplicate review sheet"
   },
-  "duplicatesEmpty": "No duplicate tracks found.",
+  "duplicatesEmpty": "لم يتم العثور على مسارات مكررة.",
   "@duplicatesEmpty": {
     "description": "Shown when the duplicate review sheet finds nothing"
   },
-  "duplicatesKeepBest": "Keep best",
+  "duplicatesKeepBest": "احتفظ بأفضل",
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
   },
-  "duplicatesKeepBestMessage": "Delete {count} lower-quality copies of \"{trackName}\"?",
+  "duplicatesKeepBestMessage": "حذف {count} نسخ أقل جودة من \"{trackName}\"؟",
   "@duplicatesKeepBestMessage": {
     "description": "Confirmation message for the keep-best action",
     "placeholders": {
@@ -866,7 +866,7 @@
       }
     }
   },
-  "duplicatesDeleteCopyMessage": "Delete this copy of \"{trackName}\"?",
+  "duplicatesDeleteCopyMessage": "حذف هذه النسخة من \"{trackName}\"؟",
   "@duplicatesDeleteCopyMessage": {
     "description": "Confirmation message for deleting one duplicate copy",
     "placeholders": {
@@ -1227,11 +1227,11 @@
   "@updateNewVersionReady": {
     "description": "Update subtitle"
   },
-  "updateRequiredTitle": "Update required",
+  "updateRequiredTitle": "التحديث مطلوب",
   "@updateRequiredTitle": {
     "description": "Title of the mandatory update dialog shown when the installed version is too old"
   },
-  "updateRequiredNotice": "This version is {count} releases behind and is no longer supported. Update to keep using the app.",
+  "updateRequiredNotice": "هذا الإصدار هو إصدارات {count} وراءه ولم يعد مدعوماً. قم بالتحديث لمواصلة استخدام التطبيق.",
   "@updateRequiredNotice": {
     "description": "Subtitle of the mandatory update dialog; explains why the dialog cannot be dismissed",
     "placeholders": {
@@ -1576,7 +1576,7 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "libraryQualityLabelFileFormat": "File format",
+  "libraryQualityLabelFileFormat": "صيغة الملف",
   "@libraryQualityLabelFileFormat": {
     "description": "Library audio quality label mode that shows the detected file format"
   },
@@ -1943,27 +1943,27 @@
   "@extensionsNoMetadataProvider": {
     "description": "Empty state - no metadata providers"
   },
-  "extensionsSearchProvider": "Search Provider",
+  "extensionsSearchProvider": "مزود البحث",
   "@extensionsSearchProvider": {
     "description": "Setting - search provider selection"
   },
-  "extensionsNoCustomSearch": "No extensions with custom search",
+  "extensionsNoCustomSearch": "لا توجد ملحقات مع بحث مخصص",
   "@extensionsNoCustomSearch": {
     "description": "Empty state - no search providers"
   },
-  "extensionsSearchProviderDescription": "Choose which service to use for searching tracks",
+  "extensionsSearchProviderDescription": "اختر الخدمة التي يمكن استخدامها للبحث عن المسارات",
   "@extensionsSearchProviderDescription": {
     "description": "Search provider setting description"
   },
-  "extensionsCustomSearch": "Custom search",
+  "extensionsCustomSearch": "بحث مخصص",
   "@extensionsCustomSearch": {
     "description": "Label for custom search provider"
   },
-  "extensionsErrorLoading": "Error loading extension",
+  "extensionsErrorLoading": "خطأ في تحميل الملحق",
   "@extensionsErrorLoading": {
     "description": "Error message when extension fails to load"
   },
-  "qualityFlacLossless": "FLAC Lossless",
+  "qualityFlacLossless": "عدم فقدان الدقة FLAC",
   "@qualityFlacLossless": {
     "description": "Quality option - CD quality FLAC"
   },
@@ -1995,39 +1995,39 @@
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadAutoConvert": "Auto-convert after download",
+  "downloadAutoConvert": "التحويل التلقائي بعد التحميل",
   "@downloadAutoConvert": {
     "description": "Toggle for automatic post-download audio conversion"
   },
-  "downloadAutoConvertSubtitle": "Convert completed downloads to a smaller lossy format. The original is replaced only after conversion succeeds.",
+  "downloadAutoConvertSubtitle": "تحويل التنزيلات المكتملة إلى تنسيق أقل خسارة. يتم استبدال الأصل فقط بعد نجاح التحويل.",
   "@downloadAutoConvertSubtitle": {
     "description": "Explanation of safe automatic post-download conversion"
   },
-  "downloadAutoConvertFormat": "Output format",
+  "downloadAutoConvertFormat": "تنسيق الإخراج",
   "@downloadAutoConvertFormat": {
     "description": "Automatic conversion output format setting"
   },
-  "downloadAutoConvertFormatSubtitle": "Choose the lossy format used for newly completed downloads.",
+  "downloadAutoConvertFormatSubtitle": "اختر التنسيق  المستخدم للتنزيلات المكتملة حديثا.",
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
-  "downloadAutoConvertBitrate": "Output quality",
+  "downloadAutoConvertBitrate": "جودة الإخراج",
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
-  "downloadAutoConvertBitrateSubtitle": "Higher bitrates preserve more detail but create larger files.",
+  "downloadAutoConvertBitrateSubtitle": "معدلات البتات الأعلى تحافظ على المزيد من التفاصيل ولكن تنشئ ملفات أكبر.",
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
-  "downloadAutoConvertMp3Subtitle": "Best compatibility across players and devices",
+  "downloadAutoConvertMp3Subtitle": "أفضل توافق عبر اللاعبين والأجهزة",
   "@downloadAutoConvertMp3Subtitle": {
     "description": "MP3 automatic conversion option description"
   },
-  "downloadAutoConvertM4aSubtitle": "Efficient AAC audio in an M4A container",
+  "downloadAutoConvertM4aSubtitle": "صوت AC فعال في حاوية M4A",
   "@downloadAutoConvertM4aSubtitle": {
     "description": "M4A AAC automatic conversion option description"
   },
-  "downloadAutoConvertOpusSubtitle": "Best efficiency for modern players",
+  "downloadAutoConvertOpusSubtitle": "أفضل كفاءة للاعبين الجدد",
   "@downloadAutoConvertOpusSubtitle": {
     "description": "Opus automatic conversion option description"
   },
@@ -2087,7 +2087,7 @@
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "albumFolderStructureDescription": "اختر كيف يتم تنظيم مجلدات الألبوم",
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },
@@ -2123,19 +2123,19 @@
   "@appearanceAmoledDarkSubtitle": {
     "description": "Subtitle for AMOLED dark"
   },
-  "appearanceHeroAnimations": "Hero animations",
+  "appearanceHeroAnimations": "الرسوم المتحركة ",
   "@appearanceHeroAnimations": {
     "description": "Toggle for shared-element (Hero) transitions"
   },
-  "appearanceHeroAnimationsSubtitle": "Fly covers between screens, e.g. when opening the player",
+  "appearanceHeroAnimationsSubtitle": "أغطية الطيران بين الشاشات، على سبيل المثال عند فتح اللاعب",
   "@appearanceHeroAnimationsSubtitle": {
     "description": "Subtitle for the Hero animations toggle"
   },
-  "appearanceForceBlur": "Always use blur effects",
+  "appearanceForceBlur": "استخدام تأثيرات الضبابية دائمًا",
   "@appearanceForceBlur": {
     "description": "Toggle that forces backdrop blur on even when the device profile disabled it"
   },
-  "appearanceForceBlurSubtitle": "Enable the navigation bar blur even on devices where it is off by default. May cost performance.",
+  "appearanceForceBlurSubtitle": "تمكين شريط التنقل يطمس حتى على الأجهزة حيث يتم إيقافه بشكل افتراضي. قد يكون أداء التكلفة.",
   "@appearanceForceBlurSubtitle": {
     "description": "Subtitle for the force-blur toggle"
   },
@@ -2171,19 +2171,19 @@
   "@settingsDownloadNetworkSubtitle": {
     "description": "Subtitle explaining network preference"
   },
-  "settingsConcurrentDownloads": "Concurrent downloads",
+  "settingsConcurrentDownloads": "عدد التنزيلات في نفس الوقت",
   "@settingsConcurrentDownloads": {
     "description": "Setting title - how many tracks download at the same time"
   },
-  "settingsConcurrentDownloadsSubtitle": "Downloading several tracks at once is faster, but some providers may rate-limit parallel requests.",
+  "settingsConcurrentDownloadsSubtitle": "تنزيل عدة مسارات في وقت واحد أسرع، ولكن بعض مقدمي الخدمات قد يحدون من الطلبات الموازية.",
   "@settingsConcurrentDownloadsSubtitle": {
     "description": "Subtitle explaining the concurrent downloads picker"
   },
-  "concurrentDownloadsOne": "1 track at a time",
+  "concurrentDownloadsOne": "مسار واحد في وقت واحد",
   "@concurrentDownloadsOne": {
     "description": "Concurrent downloads option - sequential"
   },
-  "concurrentDownloadsCount": "Up to {count} tracks at once",
+  "concurrentDownloadsCount": "حتى {count} مسارات في وقت واحد",
   "@concurrentDownloadsCount": {
     "description": "Concurrent downloads option - parallel",
     "placeholders": {
@@ -2240,11 +2240,11 @@
   "@albumFolderArtistAlbumFlatSubtitle": {
     "description": "Folder structure example for flat singles"
   },
-  "downloadedAlbumDeleteSelected": "Delete Selected",
+  "downloadedAlbumDeleteSelected": "حذف المحدد",
   "@downloadedAlbumDeleteSelected": {
     "description": "Button - delete selected tracks"
   },
-  "downloadedAlbumDeleteMessage": "Delete {count} {count, plural, =1{track} other{tracks}} from this album?\n\nThis will also delete the files from storage.",
+  "downloadedAlbumDeleteMessage": "حذف {count} {count, plural, zero {} one {المسارات} two {أغنيتين} few {أغانٍ} many {أغنية}=1{أغنية} other{الأغاني}} من التاريخ؟\n\nسيؤدي هذا أيضا إلى حذف الملفات من وحدة التخزين.",
   "@downloadedAlbumDeleteMessage": {
     "description": "Delete confirmation with count",
     "placeholders": {
@@ -2253,7 +2253,7 @@
       }
     }
   },
-  "downloadedAlbumSelectedCount": "{count} selected",
+  "downloadedAlbumSelectedCount": "تم تحديد {count}",
   "@downloadedAlbumSelectedCount": {
     "description": "Selection count indicator",
     "placeholders": {
@@ -2262,11 +2262,11 @@
       }
     }
   },
-  "downloadedAlbumTapToSelect": "Tap tracks to select",
+  "downloadedAlbumTapToSelect": "اضغط على المسارات لتحديد",
   "@downloadedAlbumTapToSelect": {
     "description": "Selection hint"
   },
-  "downloadedAlbumDeleteCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "downloadedAlbumDeleteCount": "تم حذف {count} {count, plural, zero {} one {أغنيتين} two {أغنيتين} few {أغانٍ} many {أغنية}=1{أغنية} other{أغانٍ}}",
   "@downloadedAlbumDeleteCount": {
     "description": "Delete button text with count",
     "placeholders": {
@@ -2275,11 +2275,11 @@
       }
     }
   },
-  "downloadedAlbumSelectToDelete": "Select tracks to delete",
+  "downloadedAlbumSelectToDelete": "حدد الأغاني المراد حذفها",
   "@downloadedAlbumSelectToDelete": {
     "description": "Placeholder when nothing selected"
   },
-  "downloadedAlbumDiscHeader": "Disc {discNumber}",
+  "downloadedAlbumDiscHeader": "قرص {discNumber}",
   "@downloadedAlbumDiscHeader": {
     "description": "Header for disc separator in multi-disc albums",
     "placeholders": {
@@ -2289,11 +2289,11 @@
       }
     }
   },
-  "recentTypeArtist": "Artist",
+  "recentTypeArtist": "الفنان",
   "@recentTypeArtist": {
     "description": "Recent access item type - artist"
   },
-  "recentTypeAlbum": "Album",
+  "recentTypeAlbum": "الألبوم",
   "@recentTypeAlbum": {
     "description": "Recent access item type - album"
   },
@@ -2564,75 +2564,75 @@
   "@libraryShowDuplicateIndicator": {
     "description": "Toggle for duplicate indicator in search"
   },
-  "libraryShowDuplicateIndicatorSubtitle": "Show when searching for existing tracks",
+  "libraryShowDuplicateIndicatorSubtitle": "إظهار عند البحث عن المسارات الموجودة",
   "@libraryShowDuplicateIndicatorSubtitle": {
     "description": "Subtitle for duplicate indicator toggle"
   },
-  "libraryAutoScan": "Auto Scan",
+  "libraryAutoScan": "فحص تلقائي",
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
-  "libraryAutoScanSubtitle": "Automatically scan your library for new files",
+  "libraryAutoScanSubtitle": "مسح مكتبتك تلقائياً للملفات الجديدة",
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
-  "libraryAutoScanOff": "Off",
+  "libraryAutoScanOff": "إيقاف",
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
-  "libraryAutoScanOnOpen": "Every app open",
+  "libraryAutoScanOnOpen": "كل مرة يتم فيها فتح التطبيق",
   "@libraryAutoScanOnOpen": {
     "description": "Auto scan when app opens"
   },
-  "libraryAutoScanDaily": "Daily",
+  "libraryAutoScanDaily": "يومياً",
   "@libraryAutoScanDaily": {
     "description": "Auto scan once per day"
   },
-  "libraryAutoScanWeekly": "Weekly",
+  "libraryAutoScanWeekly": "أسبوعيًا",
   "@libraryAutoScanWeekly": {
     "description": "Auto scan once per week"
   },
-  "libraryActions": "Actions",
+  "libraryActions": "الإجراءات",
   "@libraryActions": {
     "description": "Section header for library actions"
   },
-  "libraryScan": "Scan Library",
+  "libraryScan": "تفحص المكتبة",
   "@libraryScan": {
     "description": "Button to start library scan"
   },
-  "libraryScanSubtitle": "Scan for audio files",
+  "libraryScanSubtitle": "البحث عن الملفات الصوتية",
   "@libraryScanSubtitle": {
     "description": "Subtitle for scan button"
   },
-  "libraryScanSelectFolderFirst": "Select a folder first",
+  "libraryScanSelectFolderFirst": "حدد مجلد أولاً",
   "@libraryScanSelectFolderFirst": {
     "description": "Message when trying to scan without folder"
   },
-  "libraryCleanupMissingFiles": "Cleanup Missing Files",
+  "libraryCleanupMissingFiles": "تنظيف الملفات المفقودة",
   "@libraryCleanupMissingFiles": {
     "description": "Button to remove entries for missing files"
   },
-  "libraryCleanupMissingFilesSubtitle": "Remove entries for files that no longer exist",
+  "libraryCleanupMissingFilesSubtitle": "إزالة المدخلات للملفات التي لم تعد موجودة",
   "@libraryCleanupMissingFilesSubtitle": {
     "description": "Subtitle for cleanup button"
   },
-  "libraryClear": "Clear Library",
+  "libraryClear": "مسح المكتبة",
   "@libraryClear": {
     "description": "Button to clear all library entries"
   },
-  "libraryClearSubtitle": "Remove all scanned tracks",
+  "libraryClearSubtitle": "إزالة جميع المسارات الممسوحة ضوئيا",
   "@libraryClearSubtitle": {
     "description": "Subtitle for clear button"
   },
-  "libraryClearConfirmTitle": "Clear Library",
+  "libraryClearConfirmTitle": "مسح المكتبة",
   "@libraryClearConfirmTitle": {
     "description": "Dialog title for clear confirmation"
   },
-  "libraryClearConfirmMessage": "This will remove all scanned tracks from your library. Your actual music files will not be deleted.",
+  "libraryClearConfirmMessage": "سيؤدي هذا إلى إزالة جميع المسارات التي تم فحصها من مكتبتك. لن يتم حذف ملفات الموسيقى الفعلية الخاصة بك.",
   "@libraryClearConfirmMessage": {
     "description": "Dialog message for clear confirmation"
   },
-  "libraryAbout": "About Local Library",
+  "libraryAbout": "حول المكتبة المحلية",
   "@libraryAbout": {
     "description": "Section header for about info"
   },
@@ -2640,7 +2640,7 @@
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },
-  "libraryTracksUnit": "{count, plural, =1{track} other{tracks}}",
+  "libraryTracksUnit": "{count, plural, zero {لا توجد أغاني محددة} one {{count} مسارات} two {أغنيتين} few {{count} أغانٍ} many {{count} أغانٍ}=1{أغنية واحدة} other{{count} أغانٍ}}",
   "@libraryTracksUnit": {
     "description": "Unit label for tracks count (without the number itself)",
     "placeholders": {
@@ -2649,7 +2649,7 @@
       }
     }
   },
-  "libraryFilesUnit": "{count, plural, =1{file} other{files}}",
+  "libraryFilesUnit": "{count, plural, zero {} one {ملفات} two {ملفات} few {ملفات} many {ملفات}=1{ملف} other{ملفات}}",
   "@libraryFilesUnit": {
     "description": "Unit label for files count during library scanning",
     "placeholders": {
@@ -2658,7 +2658,7 @@
       }
     }
   },
-  "libraryLastScanned": "Last scanned: {time}",
+  "libraryLastScanned": "آخر مسح: {time}",
   "@libraryLastScanned": {
     "description": "Last scan time display",
     "placeholders": {
@@ -2667,19 +2667,19 @@
       }
     }
   },
-  "libraryLastScannedNever": "Never",
+  "libraryLastScannedNever": "مطلقًا",
   "@libraryLastScannedNever": {
     "description": "Shown when library has never been scanned"
   },
-  "libraryScanning": "Scanning...",
+  "libraryScanning": "جارٍ الفحص...",
   "@libraryScanning": {
     "description": "Status during scan"
   },
-  "libraryScanFinalizing": "Finalizing library...",
+  "libraryScanFinalizing": "الانتهاء من المكتبة...",
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
-  "libraryScanProgress": "{progress}% of {total} files",
+  "libraryScanProgress": "{progress}% من ملفات {total}",
   "@libraryScanProgress": {
     "description": "Scan progress display",
     "placeholders": {
@@ -2691,11 +2691,11 @@
       }
     }
   },
-  "libraryInLibrary": "In Library",
+  "libraryInLibrary": "في المكتبة",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
-  "libraryRemovedMissingFiles": "Removed {count} missing files from library",
+  "libraryRemovedMissingFiles": "إزالة الملفات المفقودة {count} من المكتبة",
   "@libraryRemovedMissingFiles": {
     "description": "Snackbar after cleanup",
     "placeholders": {
@@ -2704,59 +2704,59 @@
       }
     }
   },
-  "libraryCleared": "Library cleared",
+  "libraryCleared": "تم مسح السجل",
   "@libraryCleared": {
     "description": "Snackbar after clearing library"
   },
-  "libraryStorageAccessRequired": "Storage Access Required",
+  "libraryStorageAccessRequired": "إذن دخول وحدة التخزين مطلوب",
   "@libraryStorageAccessRequired": {
     "description": "Dialog title for storage permission"
   },
-  "libraryStorageAccessMessage": "SpotiFLAC needs storage access to scan your music library. Please grant permission in settings.",
+  "libraryStorageAccessMessage": "SpotiFLAC يحتاج إلى الوصول إلى التخزين لمسح مكتبة الموسيقى الخاصة بك. الرجاء منح الإذن في الإعدادات.",
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
-  "libraryFolderNotExist": "Selected folder does not exist",
+  "libraryFolderNotExist": "المجلد المحدد غير موجود",
   "@libraryFolderNotExist": {
     "description": "Error when folder doesn't exist"
   },
-  "librarySourceDownloaded": "Downloaded",
+  "librarySourceDownloaded": "تم التنزيل",
   "@librarySourceDownloaded": {
     "description": "Badge for tracks downloaded via SpotiFLAC"
   },
-  "librarySourceLocal": "Local",
+  "librarySourceLocal": "محلي",
   "@librarySourceLocal": {
     "description": "Badge for tracks from local library scan"
   },
-  "libraryFilterAll": "All",
+  "libraryFilterAll": "الكل",
   "@libraryFilterAll": {
     "description": "Filter chip - show all library items"
   },
-  "libraryFilterDownloaded": "Downloaded",
+  "libraryFilterDownloaded": "تم التنزيل",
   "@libraryFilterDownloaded": {
     "description": "Filter chip - show only downloaded items"
   },
-  "libraryFilterLocal": "Local",
+  "libraryFilterLocal": "محلي",
   "@libraryFilterLocal": {
     "description": "Filter chip - show only local library items"
   },
-  "libraryFilterTitle": "Filters",
+  "libraryFilterTitle": "المرشحات",
   "@libraryFilterTitle": {
     "description": "Filter bottom sheet title"
   },
-  "libraryFilterReset": "Reset",
+  "libraryFilterReset": "إعادة الضبط",
   "@libraryFilterReset": {
     "description": "Reset all filters button"
   },
-  "libraryFilterApply": "Apply",
+  "libraryFilterApply": "تطبيق",
   "@libraryFilterApply": {
     "description": "Apply filters button"
   },
-  "libraryFilterSource": "Source",
+  "libraryFilterSource": "المصدر",
   "@libraryFilterSource": {
     "description": "Filter section - source type"
   },
-  "libraryFilterQuality": "Quality",
+  "libraryFilterQuality": "الجودة",
   "@libraryFilterQuality": {
     "description": "Filter section - audio quality"
   },
@@ -2764,35 +2764,35 @@
   "@libraryFilterQualityHiRes": {
     "description": "Filter option - high resolution audio"
   },
-  "libraryFilterQualityCD": "CD (16bit)",
+  "libraryFilterQualityCD": "قرص مدمج (16bit)",
   "@libraryFilterQualityCD": {
     "description": "Filter option - CD quality audio"
   },
-  "libraryFilterQualityLossy": "Lossy",
+  "libraryFilterQualityLossy": "فقدان",
   "@libraryFilterQualityLossy": {
     "description": "Filter option - lossy compressed audio"
   },
-  "libraryFilterFormat": "Format",
+  "libraryFilterFormat": "التنسيق",
   "@libraryFilterFormat": {
     "description": "Filter section - file format"
   },
-  "libraryFilterMetadata": "Metadata",
+  "libraryFilterMetadata": "البيانات الوصفية (Metadata)",
   "@libraryFilterMetadata": {
     "description": "Filter section - metadata completeness"
   },
-  "libraryFilterMetadataComplete": "Complete metadata",
+  "libraryFilterMetadataComplete": "أكمل البيانات الوصفية",
   "@libraryFilterMetadataComplete": {
     "description": "Filter option - items with complete metadata"
   },
-  "libraryFilterMetadataMissingAny": "Missing any metadata",
+  "libraryFilterMetadataMissingAny": "بيانات التعريف مفقودة",
   "@libraryFilterMetadataMissingAny": {
     "description": "Filter option - items missing any tracked metadata field"
   },
-  "libraryFilterMetadataMissingYear": "Missing year",
+  "libraryFilterMetadataMissingYear": "السنة المفقودة",
   "@libraryFilterMetadataMissingYear": {
     "description": "Filter option - items missing release year/date"
   },
-  "libraryFilterMetadataMissingGenre": "Missing genre",
+  "libraryFilterMetadataMissingGenre": "السنة المفقودة",
   "@libraryFilterMetadataMissingGenre": {
     "description": "Filter option - items missing genre"
   },
@@ -3016,11 +3016,11 @@
   "@cacheAppDirectoryDesc": {
     "description": "Description of what app cache directory contains"
   },
-  "cacheTempDirectory": "Temporary directory",
+  "cacheTempDirectory": "مجلد مؤقت",
   "@cacheTempDirectory": {
     "description": "Cache item title for temporary files directory"
   },
-  "cacheTempDirectoryDesc": "Temporary files from downloads and audio conversion.",
+  "cacheTempDirectoryDesc": "الملفات المؤقتة من التنزيلات وتحويل الصوت.",
   "@cacheTempDirectoryDesc": {
     "description": "Description of what temporary directory contains"
   },

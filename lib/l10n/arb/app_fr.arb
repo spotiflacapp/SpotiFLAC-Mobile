@@ -2533,7 +2533,7 @@
   "@librarySourceDisabled": {
     "description": "Library source has been disabled by the user"
   },
-  "librarySourceScanCount": "{scanned} of {total} files scanned ({progress}%)",
+  "librarySourceScanCount": "{scanned} fichiers analysés sur {total} ({progress} %)",
   "@librarySourceScanCount": {
     "description": "Live progress for one library folder scan",
     "placeholders": {
@@ -2938,7 +2938,7 @@
   "@tutorialSettingsTip1": {
     "description": "Tutorial settings tip 1"
   },
-  "tutorialSettingsTip2": "Set quality, concurrency, filenames, and conversion preferences",
+  "tutorialSettingsTip2": "Définissez la qualité, le nombre de tâches simultanées, les noms de fichiers et les préférences de conversion",
   "@tutorialSettingsTip2": {
     "description": "Tutorial settings tip 2"
   },
@@ -3224,7 +3224,7 @@
   "@trackReEnrichModeIsrcSubtitle": {
     "description": "Explanation for the ISRC-only batch metadata mode"
   },
-  "trackReEnrichModeMissing": "Fill missing tags",
+  "trackReEnrichModeMissing": "Compléter les balises manquantes",
   "@trackReEnrichModeMissing": {
     "description": "Batch metadata mode that fills only empty tags"
   },
@@ -3240,11 +3240,11 @@
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
   },
-  "trackReEnrichFieldsTitle": "Tags to update",
+  "trackReEnrichFieldsTitle": "Balises à mettre à jour",
   "@trackReEnrichFieldsTitle": {
     "description": "Heading above batch re-enrich field checkboxes"
   },
-  "trackReEnrichReview": "Review changes",
+  "trackReEnrichReview": "Vérifier les modifications",
   "@trackReEnrichReview": {
     "description": "Button that searches metadata and opens the batch change review"
   },

@@ -469,7 +469,7 @@
   "@aboutMusicBrainzDesc": {
     "description": "Credit for the MusicBrainz database"
   },
-  "aboutSquiglyDesc": "Universal music link service by Liam Macmillan, used as a final cross-platform resolver fallback.",
+  "aboutSquiglyDesc": "Service de liens musicaux universel développé par Liam Macmillan, utilisé comme solution de secours finale pour la résolution multiplateforme.",
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
@@ -606,7 +606,7 @@
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
-  "setupDownloadInFlac": "Download music in lossless and Hi-Res quality",
+  "setupDownloadInFlac": "Télécharger de la musique en qualité sans perte et haute résolution",
   "@setupDownloadInFlac": {
     "description": "App tagline in setup"
   },
@@ -2015,7 +2015,7 @@
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
-  "downloadAutoConvertBitrateSubtitle": "Higher bitrates preserve more detail but create larger files.",
+  "downloadAutoConvertBitrateSubtitle": "Des débits binaires plus élevés permettent de conserver davantage de détails, mais génèrent des fichiers plus volumineux.",
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
@@ -2023,7 +2023,7 @@
   "@downloadAutoConvertMp3Subtitle": {
     "description": "MP3 automatic conversion option description"
   },
-  "downloadAutoConvertM4aSubtitle": "Efficient AAC audio in an M4A container",
+  "downloadAutoConvertM4aSubtitle": "Fichier audio AAC de haute qualité au format M4A",
   "@downloadAutoConvertM4aSubtitle": {
     "description": "M4A AAC automatic conversion option description"
   },
@@ -2521,11 +2521,11 @@
   "@libraryAddFolderSubtitle": {
     "description": "Supported storage locations for local library sources"
   },
-  "librarySourceOnline": "Online",
+  "librarySourceOnline": "En ligne",
   "@librarySourceOnline": {
     "description": "Library source is connected and accessible"
   },
-  "librarySourceOffline": "Offline. Reconnect the storage to restore these tracks",
+  "librarySourceOffline": "Hors ligne. Reconnectez le périphérique de stockage pour restaurer ces morceaux.",
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
@@ -2552,11 +2552,11 @@
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },
-  "libraryRemoveFolder": "Remove library folder",
+  "libraryRemoveFolder": "Supprimer le dossier de la bibliothèque",
   "@libraryRemoveFolder": {
     "description": "Action to remove one indexed library source"
   },
-  "libraryRemoveFolderMessage": "Remove this folder and its indexed tracks from SpotiFLAC Mobile? Audio files on the storage will not be deleted.",
+  "libraryRemoveFolderMessage": "Supprimer ce dossier et les morceaux indexés qu'il contient de SpotiFLAC Mobile ? Les fichiers audio présents sur le périphérique de stockage ne seront pas supprimés.",
   "@libraryRemoveFolderMessage": {
     "description": "Confirmation shown before removing a library source"
   },
@@ -2854,19 +2854,19 @@
   "@tutorialWelcomeTitle": {
     "description": "Tutorial welcome page title"
   },
-  "tutorialWelcomeDesc": "Learn how to find music with extensions, choose the quality you want, and manage downloads in SpotiFLAC Mobile.",
+  "tutorialWelcomeDesc": "Découvrez comment rechercher de la musique avec des extensions, choisir la qualité souhaitée et gérer vos téléchargements dans SpotiFLAC Mobile.",
   "@tutorialWelcomeDesc": {
     "description": "Tutorial welcome page description"
   },
-  "tutorialWelcomeTip1": "Search with an installed extension or paste a supported music link",
+  "tutorialWelcomeTip1": "Effectuez une recherche à l'aide d'une extension installée ou collez un lien musical pris en charge",
   "@tutorialWelcomeTip1": {
     "description": "Tutorial welcome tip 1"
   },
-  "tutorialWelcomeTip2": "Choose from the audio qualities offered by your download provider",
+  "tutorialWelcomeTip2": "Choisissez parmi les qualités audio proposées par votre fournisseur de téléchargement",
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
-  "tutorialWelcomeTip3": "Embed metadata, cover art, lyrics, and release information automatically",
+  "tutorialWelcomeTip3": "Intégrez automatiquement les métadonnées, la pochette, les paroles et les informations relatives à la sortie",
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },
@@ -2874,7 +2874,7 @@
   "@tutorialSearchTitle": {
     "description": "Tutorial search page title"
   },
-  "tutorialSearchDesc": "Search with your selected extension or paste a supported music link.",
+  "tutorialSearchDesc": "Effectuez une recherche à l'aide de l'extension que vous avez sélectionnée ou collez un lien musical pris en charge.",
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
@@ -2882,7 +2882,7 @@
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
-  "tutorialDownloadDesc": "Pick an available quality, start the download, and follow its progress in the queue.",
+  "tutorialDownloadDesc": "Choisissez une qualité disponible, lancez le téléchargement et suivez sa progression dans la file d'attente.",
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
@@ -2890,19 +2890,19 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "Downloaded and locally scanned music is organized in your Library.",
+  "tutorialLibraryDesc": "La musique téléchargée et numérisée localement est classée dans votre bibliothèque.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
-  "tutorialLibraryTip1": "Manage active, pending, and completed downloads from the Library queue",
+  "tutorialLibraryTip1": "Gérez les téléchargements en cours, en attente et terminés depuis la file d'attente de la bibliothèque",
   "@tutorialLibraryTip1": {
     "description": "Tutorial library tip 1"
   },
-  "tutorialLibraryTip2": "Tap a track to play it with the built-in player",
+  "tutorialLibraryTip2": "Appuyez sur un morceau pour le lire avec le lecteur intégré",
   "@tutorialLibraryTip2": {
     "description": "Tutorial library tip 2"
   },
-  "tutorialLibraryTip3": "Browse tracks, albums, and playlists in list or grid views",
+  "tutorialLibraryTip3": "Parcourez les titres, les albums et les playlists sous forme de liste ou de grille",
   "@tutorialLibraryTip3": {
     "description": "Tutorial library tip 3"
   },
@@ -2910,7 +2910,7 @@
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
-  "tutorialExtensionsDesc": "Extensions add search, download, metadata, lyrics, and other integrations.",
+  "tutorialExtensionsDesc": "Les extensions permettent d'ajouter des fonctionnalités de recherche, de téléchargement, de métadonnées, de paroles de morceaux et d'autres intégrations.",
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
@@ -2918,11 +2918,11 @@
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
-  "tutorialExtensionsTip2": "Choose providers for search, downloads, metadata, and fallbacks",
+  "tutorialExtensionsTip2": "Choisissez les fournisseurs pour la recherche, les téléchargements, les métadonnées et les solutions de secours",
   "@tutorialExtensionsTip2": {
     "description": "Tutorial extensions tip 2"
   },
-  "tutorialExtensionsTip3": "Connect accounts when required and keep extensions up to date",
+  "tutorialExtensionsTip3": "Connectez les comptes lorsque cela est nécessaire et veillez à ce que les extensions soient à jour",
   "@tutorialExtensionsTip3": {
     "description": "Tutorial extensions tip 3"
   },
@@ -2930,7 +2930,7 @@
   "@tutorialSettingsTitle": {
     "description": "Tutorial settings page title"
   },
-  "tutorialSettingsDesc": "Fine-tune downloads, playback, Library behavior, appearance, and storage.",
+  "tutorialSettingsDesc": "Personnalisez les téléchargements, la lecture, le fonctionnement de la bibliothèque, l'apparence et le stockage.",
   "@tutorialSettingsDesc": {
     "description": "Tutorial settings page description"
   },
@@ -2946,7 +2946,7 @@
   "@tutorialSettingsTip3": {
     "description": "Tutorial settings tip 3"
   },
-  "tutorialReadyMessage": "You're ready. Select your extensions, then search or paste a supported link.",
+  "tutorialReadyMessage": "Vous êtes prêt. Sélectionnez vos extensions, puis effectuez une recherche ou collez un lien compatible.",
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
@@ -3216,11 +3216,11 @@
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackReEnrichModeIsrc": "ISRC only",
+  "trackReEnrichModeIsrc": "ISRC uniquement",
   "@trackReEnrichModeIsrc": {
     "description": "Batch metadata mode that only writes ISRC"
   },
-  "trackReEnrichModeIsrcSubtitle": "Find and add the recording identifier without changing other tags",
+  "trackReEnrichModeIsrcSubtitle": "Rechercher et ajouter l'identifiant de l'enregistrement sans modifier les autres balises",
   "@trackReEnrichModeIsrcSubtitle": {
     "description": "Explanation for the ISRC-only batch metadata mode"
   },
@@ -3228,15 +3228,15 @@
   "@trackReEnrichModeMissing": {
     "description": "Batch metadata mode that fills only empty tags"
   },
-  "trackReEnrichModeMissingSubtitle": "Keep existing values and fill only fields that are empty",
+  "trackReEnrichModeMissingSubtitle": "Conserver les valeurs existantes et ne remplir que les champs vides",
   "@trackReEnrichModeMissingSubtitle": {
     "description": "Explanation for the fill-missing batch metadata mode"
   },
-  "trackReEnrichModeReplace": "Update selected tags",
+  "trackReEnrichModeReplace": "Mettre à jour les balises sélectionnées",
   "@trackReEnrichModeReplace": {
     "description": "Batch metadata mode that replaces selected tag groups"
   },
-  "trackReEnrichModeReplaceSubtitle": "Choose which existing values may be replaced by online metadata",
+  "trackReEnrichModeReplaceSubtitle": "Sélectionnez les valeurs existantes pouvant être remplacées par des métadonnées en ligne",
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
   },
@@ -3248,11 +3248,11 @@
   "@trackReEnrichReview": {
     "description": "Button that searches metadata and opens the batch change review"
   },
-  "trackReEnrichReviewTitle": "Review metadata changes",
+  "trackReEnrichReviewTitle": "Vérifier les modifications apportées aux métadonnées",
   "@trackReEnrichReviewTitle": {
     "description": "Title of the batch metadata review sheet"
   },
-  "trackReEnrichReviewSubtitle": "{changeCount} proposed changes across {trackCount} tracks",
+  "trackReEnrichReviewSubtitle": "{changeCount} modifications proposées sur {trackCount} titres",
   "@trackReEnrichReviewSubtitle": {
     "description": "Summary shown above proposed batch metadata changes",
     "placeholders": {
@@ -3264,15 +3264,15 @@
       }
     }
   },
-  "trackReEnrichNoChanges": "No metadata changes were found for the selected tracks.",
+  "trackReEnrichNoChanges": "Aucune modification des métadonnées n'a été détectée pour les morceaux sélectionnés.",
   "@trackReEnrichNoChanges": {
     "description": "Message when batch metadata preview has no proposed changes"
   },
-  "trackReEnrichApplyChanges": "Apply changes",
+  "trackReEnrichApplyChanges": "Appliquer les modifications",
   "@trackReEnrichApplyChanges": {
     "description": "Confirmation button in the batch metadata review sheet"
   },
-  "trackReEnrichRefreshOnline": "Refresh from online",
+  "trackReEnrichRefreshOnline": "Actualiser depuis Internet",
   "@trackReEnrichRefreshOnline": {
     "description": "Proposed value when lyrics will be refreshed during re-enrich"
   },
@@ -3901,7 +3901,7 @@
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, direct API)",
+  "lyricsProviderQqMusicDesc": "QQ Music (idéal pour les morceaux chinois, API directe)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
@@ -4256,7 +4256,7 @@
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
-  "downloadNetworkCompatibilityModeEnabled": "Allowing legacy HTTP endpoints; TLS verification remains enabled",
+  "downloadNetworkCompatibilityModeEnabled": "Les points de terminaison HTTP hérités sont autorisés ; la vérification TLS reste activée",
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },
@@ -5216,7 +5216,7 @@
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
-  "queueCheckingDownloadedFile": "Checking downloaded file...",
+  "queueCheckingDownloadedFile": "Vérification du fichier téléchargé...",
   "@queueCheckingDownloadedFile": {
     "description": "Accessibility label while the app checks whether a just-completed download has appeared at its final path yet. Not about authentication or a download session."
   },
@@ -5527,7 +5527,7 @@
   "@editMetadataFieldComment": {
     "description": "Label for comment field in the edit metadata sheet"
   },
-  "trackAlbumType": "Release Type",
+  "trackAlbumType": "Type de publication",
   "@trackAlbumType": {
     "description": "Label for an album or release type metadata value"
   },

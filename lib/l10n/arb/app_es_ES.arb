@@ -461,7 +461,7 @@
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutUnituneDesc": "Resolvedor de links de música por Flaze, usado para coincidencias multiplataforma.",
+  "aboutUnituneDesc": "Resolvedor de links de música por Flaze, usado para coincidencias multiplataforma de respaldo.",
   "@aboutUnituneDesc": {
     "description": "Credit for the UniTune resolver"
   },
@@ -469,7 +469,7 @@
   "@aboutMusicBrainzDesc": {
     "description": "Credit for the MusicBrainz database"
   },
-  "aboutSquiglyDesc": "Universal music link service by Liam Macmillan, used as a final cross-platform resolver fallback.",
+  "aboutSquiglyDesc": "Servicio de enlaces de música universal por Liam Macmillan, usado como resolvedor multiplataforma final de respaldo.",
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
@@ -606,7 +606,7 @@
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
-  "setupDownloadInFlac": "Download music in lossless and Hi-Res quality",
+  "setupDownloadInFlac": "Descarga música sin pérdida y Hi-Res",
   "@setupDownloadInFlac": {
     "description": "App tagline in setup"
   },
@@ -1576,7 +1576,7 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "libraryQualityLabelFileFormat": "File format",
+  "libraryQualityLabelFileFormat": "Formato de archivo",
   "@libraryQualityLabelFileFormat": {
     "description": "Library audio quality label mode that shows the detected file format"
   },
@@ -1995,39 +1995,39 @@
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadAutoConvert": "Auto-convert after download",
+  "downloadAutoConvert": "Autoconvertir después de descargar",
   "@downloadAutoConvert": {
     "description": "Toggle for automatic post-download audio conversion"
   },
-  "downloadAutoConvertSubtitle": "Convert completed downloads to a smaller lossy format. The original is replaced only after conversion succeeds.",
+  "downloadAutoConvertSubtitle": "Convierte descargas completadas a un formato con pérdidas más pequeño. El original solo es reemplazado después que la conversión sea exitosa.",
   "@downloadAutoConvertSubtitle": {
     "description": "Explanation of safe automatic post-download conversion"
   },
-  "downloadAutoConvertFormat": "Output format",
+  "downloadAutoConvertFormat": "Formato de salida",
   "@downloadAutoConvertFormat": {
     "description": "Automatic conversion output format setting"
   },
-  "downloadAutoConvertFormatSubtitle": "Choose the lossy format used for newly completed downloads.",
+  "downloadAutoConvertFormatSubtitle": "Elige el formato con pérdidas para descargas completadas nuevas.",
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
-  "downloadAutoConvertBitrate": "Output quality",
+  "downloadAutoConvertBitrate": "Calidad de salida",
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
-  "downloadAutoConvertBitrateSubtitle": "Higher bitrates preserve more detail but create larger files.",
+  "downloadAutoConvertBitrateSubtitle": "Las tasas de bits más altas preservan más detalles pero hacen archivos más grandes.",
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
-  "downloadAutoConvertMp3Subtitle": "Best compatibility across players and devices",
+  "downloadAutoConvertMp3Subtitle": "Mejor compatibilidad en reproductores y dispositivos",
   "@downloadAutoConvertMp3Subtitle": {
     "description": "MP3 automatic conversion option description"
   },
-  "downloadAutoConvertM4aSubtitle": "Efficient AAC audio in an M4A container",
+  "downloadAutoConvertM4aSubtitle": "Audio AAC eficiente en un contenedor M4A",
   "@downloadAutoConvertM4aSubtitle": {
     "description": "M4A AAC automatic conversion option description"
   },
-  "downloadAutoConvertOpusSubtitle": "Best efficiency for modern players",
+  "downloadAutoConvertOpusSubtitle": "Mejor eficiencia para reproductores modernos",
   "@downloadAutoConvertOpusSubtitle": {
     "description": "Opus automatic conversion option description"
   },
@@ -2309,7 +2309,7 @@
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
-  "recentClearAllMessage": "Clear all recent activity? Download history and music files will not be deleted.",
+  "recentClearAllMessage": "¿Borrar toda la actividad reciente? No se eliminarán los archivos del historial de descargas y de música.",
   "@recentClearAllMessage": {
     "description": "Confirmation message before clearing all recent activity"
   },
@@ -2513,11 +2513,11 @@
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
-  "libraryAddFolder": "Add library folder",
+  "libraryAddFolder": "Añadir carpeta de biblioteca",
   "@libraryAddFolder": {
     "description": "Action to add another local library source"
   },
-  "libraryAddFolderSubtitle": "Internal storage, SD card, SSD, or another external drive",
+  "libraryAddFolderSubtitle": "Almacenamiento interno, tarjeta SD, o otro drive externo",
   "@libraryAddFolderSubtitle": {
     "description": "Supported storage locations for local library sources"
   },
@@ -2525,15 +2525,15 @@
   "@librarySourceOnline": {
     "description": "Library source is connected and accessible"
   },
-  "librarySourceOffline": "Offline. Reconnect the storage to restore these tracks",
+  "librarySourceOffline": "Offline. Reconecta el almacenamiento para restaurar estas pistas",
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
-  "librarySourceDisabled": "Disabled",
+  "librarySourceDisabled": "Desactivado",
   "@librarySourceDisabled": {
     "description": "Library source has been disabled by the user"
   },
-  "librarySourceScanCount": "{scanned} of {total} files scanned ({progress}%)",
+  "librarySourceScanCount": "{scanned} archivos de {total} escaneados ({progress}%)",
   "@librarySourceScanCount": {
     "description": "Live progress for one library folder scan",
     "placeholders": {
@@ -2548,11 +2548,11 @@
       }
     }
   },
-  "libraryExternalStorage": "External storage",
+  "libraryExternalStorage": "Almacenamiento externo",
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },
-  "libraryRemoveFolder": "Remove library folder",
+  "libraryRemoveFolder": "Eliminar carpeta de biblioteca",
   "@libraryRemoveFolder": {
     "description": "Action to remove one indexed library source"
   },

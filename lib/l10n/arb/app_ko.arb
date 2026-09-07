@@ -237,7 +237,7 @@
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
   "replayGainBatchSuccess": "{total} 개의 트랙 중 {success} 개에 리플레이게인이 추가됨",
-  "replayGainUnsupportedDecoder": "Some tracks could not be analyzed because their audio codec is not supported by the ReplayGain decoder. Their files were not changed.",
+  "replayGainUnsupportedDecoder": "일부 트랙은 리플레이게인 디코더에서 지원하지 않는 오디오 코덱을 사용하기 때문에 분석할 수 없습니다. 해당 파일은 변경되지 않았습니다",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -855,11 +855,11 @@
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
   },
-  "duplicatesKeepBestAll": "Keep best for all",
+  "duplicatesKeepBestAll": "모두에 대해 최상의 파일 유지",
   "@duplicatesKeepBestAll": {
     "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
   },
-  "duplicatesKeepBestAllMessage": "Keep the best copy of {groupCount} {groupCount, plural, =1{track} other{tracks}} and delete {count} lower-quality {count, plural, =1{copy} other{copies}}?\n\nThe deleted files will be removed from storage.",
+  "duplicatesKeepBestAllMessage": "{groupCount} 개의 {groupCount, plural, =1{트랙} other{트랙}} 중 가장 좋은 음질의 복사본을 유지하고, {count} 개의 품질이 낮은 {count, plural, =1{복사본} other{복사본}}을 삭제하시겠습니까?\n\n삭제된 파일은 저장소에서 제거됩니다",
   "@duplicatesKeepBestAllMessage": {
     "description": "Confirmation message for keeping the best copy across every duplicate group",
     "placeholders": {
@@ -3205,7 +3205,7 @@
   "@trackReEnrichOnlineSubtitle": {
     "description": "Subtitle for re-enrich metadata action for local items"
   },
-  "trackReEnrichBatchSubtitle": "Choose an online or manual update, then review every change before writing",
+  "trackReEnrichBatchSubtitle": "온라인 업데이트 또는 수동 업데이트를 선택한 다음, 변경 사항을 모두 검토한 후 적용하세요",
   "@trackReEnrichBatchSubtitle": {
     "description": "Subtitle for batch metadata update choices"
   },
@@ -3261,19 +3261,19 @@
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
   },
-  "trackReEnrichModeManual": "Set common values",
+  "trackReEnrichModeManual": "공통 값 설정",
   "@trackReEnrichModeManual": {
     "description": "Batch metadata mode that applies shared values to every selected track"
   },
-  "trackReEnrichModeManualSubtitle": "Apply the same values to every selected track",
+  "trackReEnrichModeManualSubtitle": "선택한 모든 트랙에 동일한 값 적용",
   "@trackReEnrichModeManualSubtitle": {
     "description": "Explanation for the manual shared-value batch metadata mode"
   },
-  "trackReEnrichManualFieldsTitle": "Values to apply",
+  "trackReEnrichManualFieldsTitle": "적용할 값",
   "@trackReEnrichManualFieldsTitle": {
     "description": "Heading above manual batch metadata inputs"
   },
-  "trackReEnrichManualHint": "Leave a field empty to keep its current value. Track titles, numbers, and ISRCs stay unchanged.",
+  "trackReEnrichManualHint": "현재 값을 유지하려면 필드를 비워 두세요. 트랙 제목, 번호 및 ISRC는 변경되지 않습니다",
   "@trackReEnrichManualHint": {
     "description": "Safety explanation for manual batch metadata inputs"
   },
@@ -3347,7 +3347,7 @@
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
   },
-  "trackReEnrichPreparing": "Preparing metadata changes...",
+  "trackReEnrichPreparing": "메타데이터 변경 준비 중...",
   "@trackReEnrichPreparing": {
     "description": "Progress message while preparing manual batch metadata changes"
   },
@@ -6135,7 +6135,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerCancelled": "취침 타이머가 꺼짐",
+  "nowPlayingSleepTimerCancelled": "취침 타이머 꺼짐",
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },
@@ -6481,7 +6481,7 @@
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },
-  "extensionVerificationUnavailable": "No verification page is available for {extension}. Retry the download to request a new challenge.",
+  "extensionVerificationUnavailable": "\"{extension}\"에 대한 인증 페이지를 사용할 수 없습니다. 새 인증을 요청하려면 다운로드를 다시 시도하세요",
   "@extensionVerificationUnavailable": {
     "description": "Shown when the app cannot retrieve a pending verification challenge",
     "placeholders": {

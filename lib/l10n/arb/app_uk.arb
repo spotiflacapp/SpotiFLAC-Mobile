@@ -237,6 +237,7 @@
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
   "replayGainBatchSuccess": "ReplayGain added to {success} of {total} tracks",
+  "replayGainUnsupportedDecoder": "Some tracks could not be analyzed because their audio codec is not supported by the ReplayGain decoder. Their files were not changed.",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -853,6 +854,22 @@
   "duplicatesKeepBest": "Keep best",
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
+  },
+  "duplicatesKeepBestAll": "Keep best for all",
+  "@duplicatesKeepBestAll": {
+    "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
+  },
+  "duplicatesKeepBestAllMessage": "Keep the best copy of {groupCount} {groupCount, plural, =1{track} other{tracks}} and delete {count} lower-quality {count, plural, =1{copy} other{copies}}?\n\nThe deleted files will be removed from storage.",
+  "@duplicatesKeepBestAllMessage": {
+    "description": "Confirmation message for keeping the best copy across every duplicate group",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "groupCount": {
+        "type": "int"
+      }
+    }
   },
   "duplicatesKeepBestMessage": "Delete {count} lower-quality copies of \"{trackName}\"?",
   "@duplicatesKeepBestMessage": {
@@ -3188,6 +3205,10 @@
   "@trackReEnrichOnlineSubtitle": {
     "description": "Subtitle for re-enrich metadata action for local items"
   },
+  "trackReEnrichBatchSubtitle": "Choose an online or manual update, then review every change before writing",
+  "@trackReEnrichBatchSubtitle": {
+    "description": "Subtitle for batch metadata update choices"
+  },
   "trackReEnrichFieldCover": "Обкладинка",
   "@trackReEnrichFieldCover": {
     "description": "Checkbox label for cover art field in re-enrich"
@@ -3239,6 +3260,22 @@
   "trackReEnrichModeReplaceSubtitle": "Choose which existing values may be replaced by online metadata",
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
+  },
+  "trackReEnrichModeManual": "Set common values",
+  "@trackReEnrichModeManual": {
+    "description": "Batch metadata mode that applies shared values to every selected track"
+  },
+  "trackReEnrichModeManualSubtitle": "Apply the same values to every selected track",
+  "@trackReEnrichModeManualSubtitle": {
+    "description": "Explanation for the manual shared-value batch metadata mode"
+  },
+  "trackReEnrichManualFieldsTitle": "Values to apply",
+  "@trackReEnrichManualFieldsTitle": {
+    "description": "Heading above manual batch metadata inputs"
+  },
+  "trackReEnrichManualHint": "Leave a field empty to keep its current value. Track titles, numbers, and ISRCs stay unchanged.",
+  "@trackReEnrichManualHint": {
+    "description": "Safety explanation for manual batch metadata inputs"
   },
   "trackReEnrichFieldsTitle": "Tags to update",
   "@trackReEnrichFieldsTitle": {
@@ -3309,6 +3346,10 @@
   "trackReEnrichSearching": "Пошук метаданих в Інтернеті...",
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
+  },
+  "trackReEnrichPreparing": "Preparing metadata changes...",
+  "@trackReEnrichPreparing": {
+    "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Метадані повторно збагачені успішно",
   "@trackReEnrichSuccess": {
@@ -6439,6 +6480,15 @@
   "extensionVerificationBrowserInApp": "In-app",
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
+  },
+  "extensionVerificationUnavailable": "No verification page is available for {extension}. Retry the download to request a new challenge.",
+  "@extensionVerificationUnavailable": {
+    "description": "Shown when the app cannot retrieve a pending verification challenge",
+    "placeholders": {
+      "extension": {
+        "type": "String"
+      }
+    }
   },
   "extensionVerificationHelpTitleManual": "Open verification manually",
   "@extensionVerificationHelpTitleManual": {

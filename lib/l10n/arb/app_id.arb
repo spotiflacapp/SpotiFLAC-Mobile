@@ -237,7 +237,7 @@
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
   "replayGainBatchSuccess": "ReplayGain ditambahkan ke {success} dari {total} trek",
-  "replayGainUnsupportedDecoder": "Some tracks could not be analyzed because their audio codec is not supported by the ReplayGain decoder. Their files were not changed.",
+  "replayGainUnsupportedDecoder": "Beberapa lagu tidak dapat dianalisis karena decoder ReplayGain tidak mendukung codec audio-nya. File tidak diubah.",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {

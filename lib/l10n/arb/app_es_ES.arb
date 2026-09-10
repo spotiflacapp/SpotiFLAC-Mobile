@@ -2927,7 +2927,7 @@
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
-  "tutorialExtensionsDesc": "Extensions add search, download, metadata, lyrics, and other integrations.",
+  "tutorialExtensionsDesc": "Las extensiones añaden funciones de búsqueda, descarga, metadatos, letras de canciones y otras integraciones.",
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
@@ -2935,11 +2935,11 @@
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
-  "tutorialExtensionsTip2": "Choose providers for search, downloads, metadata, and fallbacks",
+  "tutorialExtensionsTip2": "Selecciona proveedores para búsquedas, descargas, metadatos y opciones alternativas",
   "@tutorialExtensionsTip2": {
     "description": "Tutorial extensions tip 2"
   },
-  "tutorialExtensionsTip3": "Connect accounts when required and keep extensions up to date",
+  "tutorialExtensionsTip3": "Conecta las cuentas cuando sea necesario y mantén las extensiones actualizadas",
   "@tutorialExtensionsTip3": {
     "description": "Tutorial extensions tip 3"
   },
@@ -4843,7 +4843,7 @@
   "@cancelDownloadKeep": {
     "description": "Dialog button - keep the active download (do not cancel)"
   },
-  "queueCancelledTitle": "Download cancelled",
+  "queueCancelledTitle": "Descarga cancelada",
   "@queueCancelledTitle": {
     "description": "Dialog title when opening a cancelled queue item"
   },
@@ -5042,7 +5042,7 @@
       }
     }
   },
-  "notifLibraryScanFailed": "Library scan failed",
+  "notifLibraryScanFailed": "Error al escanear la biblioteca",
   "@notifLibraryScanFailed": {
     "description": "Notification title when library scan fails"
   },

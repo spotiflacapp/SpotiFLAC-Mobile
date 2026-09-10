@@ -2879,11 +2879,11 @@
   "@tutorialWelcomeTip1": {
     "description": "Tutorial welcome tip 1"
   },
-  "tutorialWelcomeTip2": "Choose from the audio qualities offered by your download provider",
+  "tutorialWelcomeTip2": "Elige entre las calidades de audio que ofrece tu proveedor de descargas",
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
-  "tutorialWelcomeTip3": "Embed metadata, cover art, lyrics, and release information automatically",
+  "tutorialWelcomeTip3": "Incorpora metadatos, portadas, letras e información sobre el lanzamiento automáticamente",
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },
@@ -2891,7 +2891,7 @@
   "@tutorialSearchTitle": {
     "description": "Tutorial search page title"
   },
-  "tutorialSearchDesc": "Search with your selected extension or paste a supported music link.",
+  "tutorialSearchDesc": "Busca con la extensión que hayas seleccionado o pega un enlace de música compatible.",
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
@@ -2899,7 +2899,7 @@
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
-  "tutorialDownloadDesc": "Pick an available quality, start the download, and follow its progress in the queue.",
+  "tutorialDownloadDesc": "Elige una calidad disponible, inicia la descarga y sigue su avance en la fila.",
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
@@ -2907,19 +2907,19 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "Downloaded and locally scanned music is organized in your Library.",
+  "tutorialLibraryDesc": "La música descargada y escaneada localmente se organiza en tu biblioteca.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
-  "tutorialLibraryTip1": "Manage active, pending, and completed downloads from the Library queue",
+  "tutorialLibraryTip1": "Administra las descargas activas, pendientes y completadas desde la cola de la Biblioteca",
   "@tutorialLibraryTip1": {
     "description": "Tutorial library tip 1"
   },
-  "tutorialLibraryTip2": "Tap a track to play it with the built-in player",
+  "tutorialLibraryTip2": "Toca una canción para reproducirla con el reproductor integrado",
   "@tutorialLibraryTip2": {
     "description": "Tutorial library tip 2"
   },
-  "tutorialLibraryTip3": "Browse tracks, albums, and playlists in list or grid views",
+  "tutorialLibraryTip3": "Explora canciones, álbumes y listas de reproducción en vista de lista o de cuadrícula",
   "@tutorialLibraryTip3": {
     "description": "Tutorial library tip 3"
   },

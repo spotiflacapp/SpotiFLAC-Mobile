@@ -237,7 +237,7 @@
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
   "replayGainBatchSuccess": "{total} 개의 트랙 중 {success} 개에 리플레이게인이 추가됨",
-  "replayGainUnsupportedDecoder": "일부 트랙은 리플레이게인 디코더에서 지원하지 않는 오디오 코덱을 사용하기 때문에 분석할 수 없습니다. 해당 파일은 변경되지 않았습니다",
+  "replayGainUnsupportedDecoder": "Certains titres n'ont pas pu être analysées car leur codec audio n'est pas pris en charge par le décodeur ReplayGain. Leurs fichiers n'ont pas été modifiés.",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -855,7 +855,7 @@
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
   },
-  "duplicatesKeepBestAll": "모두에 대해 최상의 파일 유지",
+  "duplicatesKeepBestAll": "Faites ce qu'il y a de mieux pour tout le monde",
   "@duplicatesKeepBestAll": {
     "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
   },

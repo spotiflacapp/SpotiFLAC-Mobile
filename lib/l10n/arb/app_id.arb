@@ -2494,7 +2494,7 @@
   "@settingsLocalLibrary": {
     "description": "Settings menu item - local library"
   },
-  "settingsLocalLibrarySubtitle": "Pindah musik & deteksi file ganda",
+  "settingsLocalLibrarySubtitle": "Scan music & detect duplicates",
   "@settingsLocalLibrarySubtitle": {
     "description": "Subtitle for local library settings"
   },
@@ -2506,7 +2506,7 @@
   "@settingsCacheSubtitle": {
     "description": "Subtitle for cache management menu"
   },
-  "libraryTitle": "Pustaka Lokal",
+  "libraryTitle": "Local Library",
   "@libraryTitle": {
     "description": "Library settings page title"
   },
@@ -2522,7 +2522,7 @@
   "@libraryEnableLocalLibrarySubtitle": {
     "description": "Subtitle for enable toggle"
   },
-  "libraryFolder": "Folder Pustaka",
+  "libraryFolder": "Library Folder",
   "@libraryFolder": {
     "description": "Folder selection setting"
   },
@@ -2975,15 +2975,15 @@
   "@libraryForceFullScanSubtitle": {
     "description": "Subtitle for force full scan button"
   },
-  "cleanupOrphanedDownloads": "Bersihkan Sampah",
+  "cleanupOrphanedDownloads": "Cleanup Orphaned Downloads",
   "@cleanupOrphanedDownloads": {
     "description": "Button to remove history entries for deleted files"
   },
-  "cleanupOrphanedDownloadsSubtitle": "Hapus sampah dari histori",
+  "cleanupOrphanedDownloadsSubtitle": "Remove history entries for files that no longer exist",
   "@cleanupOrphanedDownloadsSubtitle": {
     "description": "Subtitle for orphaned cleanup button"
   },
-  "cleanupOrphanedDownloadsResult": "Menghapus {count} sampah dari hisyori",
+  "cleanupOrphanedDownloadsResult": "Removed {count} orphaned entries from history",
   "@cleanupOrphanedDownloadsResult": {
     "description": "Snackbar after orphan cleanup",
     "placeholders": {

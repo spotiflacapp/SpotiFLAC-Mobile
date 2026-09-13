@@ -54,14 +54,61 @@ extension _HomeTabSearchResultsUI on _HomeTabState {
         error.toLowerCase().contains('rate limit') ||
         error.toLowerCase().contains('too many requests');
     final isUrlNotRecognized = error == 'url_not_recognized';
+    final trackState = ref.read(trackProvider);
+    final isVerificationRequired =
+        isExtensionVerificationRequired(error) &&
+        trackState.searchExtensionId != null;
     // Re-runs the current query. Skipped for an unrecognized URL, where the
     // outcome is deterministic and retrying would just fail again.
     final retry = _urlController.text.trim().isEmpty
         ? null
         : () => _performSearch(_urlController.text.trim());
 
-    if (isRateLimit) {
-      return ErrorCard(error: error, colorScheme: colorScheme, onRetry: retry);
+    if (isRateLimit || isVerificationRequired) {
+      final verificationRetry = isVerificationRequired
+          ? () async {
+              final extensionId = trackState.searchExtensionId!;
+              final query = _urlController.text.trim();
+              final cancellation = Completer<void>();
+              _searchVerificationCancellation?.complete();
+              _searchVerificationCancellation = cancellation;
+              late final bool verified;
+              try {
+                verified = await ref
+                    .read(trackProvider.notifier)
+                    .requestSearchVerification(
+                      extensionId,
+                      browserMode: ref
+                          .read(settingsProvider)
+                          .extensionVerificationBrowserMode,
+                      cancellationSignal: cancellation.future,
+                    );
+              } finally {
+                if (identical(
+                  _searchVerificationCancellation,
+                  cancellation,
+                )) {
+                  _searchVerificationCancellation = null;
+                }
+              }
+              if (!mounted ||
+                  !verified ||
+                  _urlController.text.trim() != query) {
+                return;
+              }
+              _lastSearchQuery = null;
+              await _performSearch(query);
+            }
+          : null;
+      return ErrorCard(
+        error: error,
+        colorScheme: colorScheme,
+        onRetry: verificationRetry ?? retry,
+        retryLabel: isVerificationRequired
+            ? context.l10n.extensionVerificationOpenBrowser
+            : null,
+        retryIcon: isVerificationRequired ? Icons.verified_user : null,
+      );
     }
 
     if (isUrlNotRecognized) {
@@ -825,16 +872,15 @@ extension _HomeTabSearchResultsUI on _HomeTabState {
 
     final text = _urlController.text.trim();
     if (text.isEmpty) return;
+    _searchFocusNode.unfocus();
 
     if (looksLikeUrlOrSpotifyUri(text)) {
       _fetchMetadata();
-      _searchFocusNode.unfocus();
       return;
     }
 
     if (text.length >= 2) {
       _performSearch(text);
     }
-    _searchFocusNode.unfocus();
   }
 }

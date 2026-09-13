@@ -13,6 +13,8 @@ class ErrorCard extends StatelessWidget {
     required this.error,
     required this.colorScheme,
     this.onRetry,
+    this.retryLabel,
+    this.retryIcon,
   });
 
   final String error;
@@ -21,6 +23,8 @@ class ErrorCard extends StatelessWidget {
   /// Re-runs whatever failed. Omit only when the failure is deterministic
   /// (e.g. an unrecognized URL), where retrying cannot help.
   final VoidCallback? onRetry;
+  final String? retryLabel;
+  final IconData? retryIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +83,8 @@ class ErrorCard extends StatelessWidget {
                     SizedBox(height: tokens.gapMd),
                     FilledButton.tonalIcon(
                       onPressed: onRetry,
-                      icon: const Icon(Icons.refresh, size: 18),
-                      label: Text(context.l10n.dialogRetry),
+                      icon: Icon(retryIcon ?? Icons.refresh, size: 18),
+                      label: Text(retryLabel ?? context.l10n.dialogRetry),
                     ),
                   ],
                 ],

@@ -644,6 +644,13 @@ class PlatformBridge {
     _homeFeedInFlight.clear();
   }
 
+  static void cancelExtensionSearchRequests() {
+    for (final inFlight in _customSearchInFlight.values) {
+      _cancelExtensionRequestUnawaited(inFlight.requestId);
+    }
+    _customSearchInFlight.clear();
+  }
+
   static int _lookupCacheSize() {
     _pruneExpiredBridgeCache(_metadataCache);
     return _metadataCache.length;

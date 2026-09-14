@@ -137,6 +137,9 @@ class ArtistAlbum {
 
 class TrackNotifier extends Notifier<TrackState> {
   int _currentRequestId = 0;
+  static const _verificationRequestCooldown = Duration(seconds: 15);
+  final Map<String, DateTime> _lastVerificationRequests = {};
+  final Map<String, Future<bool>> _verificationRequests = {};
 
   @override
   TrackState build() {
@@ -144,6 +147,16 @@ class TrackNotifier extends Notifier<TrackState> {
   }
 
   bool _isRequestValid(int requestId) => requestId == _currentRequestId;
+
+  void cancelSearch() {
+    _currentRequestId++;
+    PlatformBridge.cancelExtensionSearchRequests();
+    state = TrackState(
+      hasSearchText: state.hasSearchText,
+      isShowingRecentAccess: state.isShowingRecentAccess,
+      selectedSearchFilter: state.selectedSearchFilter,
+    );
+  }
 
   Future<void> fetchFromUrl(String url, {bool useDeezerFallback = true}) async {
     final requestId = ++_currentRequestId;
@@ -422,6 +435,8 @@ class TrackNotifier extends Notifier<TrackState> {
     Map<String, dynamic>? options,
     String? selectedFilter,
     bool allowVerificationRetry = true,
+    Future<void>? cancellationSignal,
+    void Function()? onVerificationDeferred,
   }) async {
     final requestId = ++_currentRequestId;
     final currentFilter = selectedFilter ?? state.selectedSearchFilter;
@@ -472,6 +487,9 @@ class TrackNotifier extends Notifier<TrackState> {
     } catch (e, stackTrace) {
       if (!_isRequestValid(requestId)) return;
       _log.e('Custom search failed: $e', e, stackTrace);
+      if (isExtensionVerificationRequired(e)) {
+        onVerificationDeferred?.call();
+      }
       if (allowVerificationRetry && isExtensionVerificationRequired(e)) {
         _log.i(
           'Custom search requires verification; waiting for $extensionId grant',
@@ -488,21 +506,35 @@ class TrackNotifier extends Notifier<TrackState> {
           browserMode: ref
               .read(settingsProvider)
               .extensionVerificationBrowserMode,
+          cancellationSignal: cancellationSignal,
         );
         if (!_isRequestValid(requestId)) return;
-        if (verified) {
-          _log.i(
-            'Verification complete for $extensionId; retrying custom search',
-          );
-          await customSearch(
-            extensionId,
-            query,
-            options: options,
-            selectedFilter: currentFilter,
-            allowVerificationRetry: false,
+        if (!verified) {
+          onVerificationDeferred?.call();
+          state = TrackState(
+            isLoading: false,
+            error: cancellationSignal == null ? e.toString() : null,
+            hasSearchText: state.hasSearchText,
+            isShowingRecentAccess: state.isShowingRecentAccess,
+            searchExtensionId: extensionId,
+            selectedSearchFilter: currentFilter,
           );
           return;
         }
+
+        _log.i(
+          'Verification complete for $extensionId; retrying custom search',
+        );
+        await customSearch(
+          extensionId,
+          query,
+          options: options,
+          selectedFilter: currentFilter,
+          allowVerificationRetry: false,
+          cancellationSignal: cancellationSignal,
+          onVerificationDeferred: onVerificationDeferred,
+        );
+        return;
       }
       state = TrackState(
         isLoading: false,
@@ -512,6 +544,41 @@ class TrackNotifier extends Notifier<TrackState> {
         selectedSearchFilter: currentFilter,
       );
     }
+  }
+
+  Future<bool> requestSearchVerification(
+    String extensionId, {
+    required String browserMode,
+    Future<void>? cancellationSignal,
+  }) async {
+    final normalizedExtensionId = extensionId.trim();
+    if (normalizedExtensionId.isEmpty) return Future.value(false);
+    final key = normalizedExtensionId.toLowerCase();
+    final activeRequest = _verificationRequests[key];
+    if (activeRequest != null) return activeRequest;
+
+    final now = DateTime.now();
+    final lastRequest = _lastVerificationRequests[key];
+    if (lastRequest != null &&
+        now.difference(lastRequest) < _verificationRequestCooldown) {
+      return false;
+    }
+
+    await PlatformBridge.clearExtensionPendingAuth(normalizedExtensionId);
+
+    late final Future<bool> request;
+    request = openVerificationAndAwaitGrant(
+      normalizedExtensionId,
+      browserMode: browserMode,
+      cancellationSignal: cancellationSignal,
+    ).whenComplete(() {
+      if (identical(_verificationRequests[key], request)) {
+        _verificationRequests.remove(key);
+      }
+    });
+    _lastVerificationRequests[key] = now;
+    _verificationRequests[key] = request;
+    return request;
   }
 
   void clear() {

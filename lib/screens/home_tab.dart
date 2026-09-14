@@ -72,6 +72,8 @@ class _HomeTabState extends ConsumerState<HomeTab>
   late final ProviderSubscription<bool> _homeFeedExtSub;
 
   Timer? _liveSearchDebounce;
+  Completer<void>? _searchVerificationCancellation;
+  String? _deferredVerificationQuery;
   int _searchGeneration = 0;
   static const int _minLiveSearchChars = 3;
   static const Duration _liveSearchDelay = Duration(milliseconds: 800);
@@ -228,6 +230,7 @@ class _HomeTabState extends ConsumerState<HomeTab>
   @override
   void dispose() {
     _liveSearchDebounce?.cancel();
+    _cancelSearchAttempt();
     _trackStateSub.close();
     _extensionInitSub.close();
     _homeFeedExtSub.close();
@@ -332,7 +335,15 @@ class _HomeTabState extends ConsumerState<HomeTab>
       setState(() {});
     }
     if (_searchFocusNode.hasFocus) {
+      _cancelSearchAttempt(cancelProvider: false);
       ref.read(trackProvider.notifier).setShowingRecentAccess(true);
+    } else {
+      final query = _urlController.text.trim();
+      if (_deferredVerificationQuery == query && query.isNotEmpty) {
+        _deferredVerificationQuery = null;
+        _lastSearchQuery = null;
+        unawaited(_performSearch(query));
+      }
     }
   }
 
@@ -367,6 +378,11 @@ class _HomeTabState extends ConsumerState<HomeTab>
 
   void _onSearchChanged() {
     final text = _urlController.text.trim();
+    _cancelSearchAttempt();
+    if (_deferredVerificationQuery != null &&
+        _deferredVerificationQuery != text) {
+      _deferredVerificationQuery = null;
+    }
 
     ref.read(trackProvider.notifier).setSearchText(text.isNotEmpty);
 
@@ -405,6 +421,9 @@ class _HomeTabState extends ConsumerState<HomeTab>
 
   Future<void> _performSearch(String query, {String? filterOverride}) async {
     final generation = ++_searchGeneration;
+    _searchVerificationCancellation?.complete();
+    final verificationCancellation = Completer<void>();
+    _searchVerificationCancellation = verificationCancellation;
     var extState = ref.read(extensionProvider);
     if (!extState.isInitialized && extState.error == null) {
       await ref.read(extensionProvider.notifier).waitForInitialization();
@@ -472,6 +491,14 @@ class _HomeTabState extends ConsumerState<HomeTab>
             query,
             options: options,
             selectedFilter: selectedFilter,
+            allowVerificationRetry: !_searchFocusNode.hasFocus,
+            cancellationSignal: verificationCancellation.future,
+            onVerificationDeferred: () {
+              if (_searchFocusNode.hasFocus &&
+                  _urlController.text.trim() == query) {
+                _deferredVerificationQuery = query;
+              }
+            },
           );
     } else {
       if (searchProvider != null &&
@@ -485,6 +512,9 @@ class _HomeTabState extends ConsumerState<HomeTab>
     }
     if (mounted && generation == _searchGeneration) {
       ref.read(settingsProvider.notifier).setHasSearchedBefore();
+    }
+    if (identical(_searchVerificationCancellation, verificationCancellation)) {
+      _searchVerificationCancellation = null;
     }
   }
 
@@ -1153,6 +1183,14 @@ class _HomeTabState extends ConsumerState<HomeTab>
         setState(() {});
       }
     });
+  }
+
+  void _cancelSearchAttempt({bool cancelProvider = true}) {
+    _searchVerificationCancellation?.complete();
+    _searchVerificationCancellation = null;
+    if (cancelProvider) {
+      ref.read(trackProvider.notifier).cancelSearch();
+    }
   }
 
   Widget _buildRecentDownloads(

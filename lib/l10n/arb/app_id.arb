@@ -5820,7 +5820,7 @@
   "@extensionServiceHealth": {
     "description": "Extension capability label for service health checks"
   },
-  "extensionHealthChecksConfigured": "{count} {count, plural, =1{check} other{checks}} configured",
+  "extensionHealthChecksConfigured": "{count} {count, plural, =1{check} other{pemeriksaaan}} berhasil",
   "@extensionHealthChecksConfigured": {
     "description": "Extension service health check count",
     "placeholders": {
@@ -5846,19 +5846,19 @@
   "@extensionRefreshStatus": {
     "description": "Tooltip for refreshing extension service health status"
   },
-  "extensionCustomUrlHandling": "Custom URL Handling",
+  "extensionCustomUrlHandling": "Penanganan URL Kustom",
   "@extensionCustomUrlHandling": {
     "description": "Extension detail section title for custom URL handling"
   },
-  "extensionCustomUrlHandlingSubtitle": "This extension can handle links from these sites",
+  "extensionCustomUrlHandlingSubtitle": "Ekstensi ini dapat menangani link dari situs ini",
   "@extensionCustomUrlHandlingSubtitle": {
     "description": "Extension detail subtitle for custom URL handling"
   },
-  "extensionCustomUrlHandlingShareHint": "Share links from these sites to SpotiFLAC Mobile and this extension will handle them.",
+  "extensionCustomUrlHandlingShareHint": "Bagikan link dari situs ini ke SpotiFLAC Mobile dan ekstensi ini akan menanganinya.",
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
-  "extensionSettingsCount": "{count} {count, plural, =1{setting} other{settings}}",
+  "extensionSettingsCount": "{count} {count, plural, =1{setelan} other{setelan}}",
   "@extensionSettingsCount": {
     "description": "Count of settings exposed by an extension quality option",
     "placeholders": {
@@ -5871,51 +5871,51 @@
   "@extensionHealthOnline": {
     "description": "Extension service health status - online"
   },
-  "extensionHealthDegraded": "Degraded",
+  "extensionHealthDegraded": "Sedang Down",
   "@extensionHealthDegraded": {
     "description": "Extension service health status - degraded"
   },
-  "extensionHealthOffline": "Offline",
+  "extensionHealthOffline": "Ofline",
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
-  "extensionHealthNotConfigured": "Not configured",
+  "extensionHealthNotConfigured": "Belum diatur",
   "@extensionHealthNotConfigured": {
     "description": "Extension service health status - not configured"
   },
-  "extensionHealthUnknown": "Unknown",
+  "extensionHealthUnknown": "Tidak Tahu",
   "@extensionHealthUnknown": {
     "description": "Extension service health status - unknown"
   },
-  "extensionHealthRequired": "required",
+  "extensionHealthRequired": "dibutuhkan",
   "@extensionHealthRequired": {
     "description": "Label for a required extension service health check"
   },
-  "extensionSettingNotSet": "Not set",
+  "extensionSettingNotSet": "Tidak diatur",
   "@extensionSettingNotSet": {
     "description": "Value shown when an extension setting has no value"
   },
-  "extensionActionFailed": "Action failed",
+  "extensionActionFailed": "Tindakan gagal",
   "@extensionActionFailed": {
     "description": "Fallback error when an extension action fails without details"
   },
-  "extensionEnterValue": "Enter value",
+  "extensionEnterValue": "Masukkan isi",
   "@extensionEnterValue": {
     "description": "Hint for editing an extension setting value"
   },
-  "extensionHealthServiceOnline": "Service online",
+  "extensionHealthServiceOnline": "Layanan online",
   "@extensionHealthServiceOnline": {
     "description": "Tooltip for online extension service"
   },
-  "extensionHealthServiceDegraded": "Service degraded",
+  "extensionHealthServiceDegraded": "Layanan sedang down",
   "@extensionHealthServiceDegraded": {
     "description": "Tooltip for degraded extension service"
   },
-  "extensionHealthServiceOffline": "Service offline",
+  "extensionHealthServiceOffline": "Layanan offline",
   "@extensionHealthServiceOffline": {
     "description": "Tooltip for offline extension service"
   },
-  "extensionHealthServiceUnknown": "Service status unknown",
+  "extensionHealthServiceUnknown": "Status layanan tidak diketahui",
   "@extensionHealthServiceUnknown": {
     "description": "Tooltip for unknown extension service health"
   },
@@ -5927,7 +5927,7 @@
   "@audioAnalysisMono": {
     "description": "Audio channel layout label - mono"
   },
-  "trackOpenInService": "Open in {serviceName}",
+  "trackOpenInService": "Buka {serviceName}",
   "@trackOpenInService": {
     "description": "Button label to open a track in a named music service",
     "placeholders": {
@@ -5936,15 +5936,15 @@
       }
     }
   },
-  "trackLyricsEmbeddedSource": "Embedded",
+  "trackLyricsEmbeddedSource": "Tersemat",
   "@trackLyricsEmbeddedSource": {
     "description": "Lyrics source label for embedded lyrics"
   },
-  "unknownAlbum": "Unknown Album",
+  "unknownAlbum": "Album Tak Dikenal",
   "@unknownAlbum": {
     "description": "Fallback album name when metadata is missing"
   },
-  "unknownArtist": "Unknown Artist",
+  "unknownArtist": "Artis Tak Dikenal",
   "@unknownArtist": {
     "description": "Fallback artist name when metadata is missing"
   },
@@ -5952,19 +5952,19 @@
   "@permissionAudio": {
     "description": "Audio permission type label"
   },
-  "permissionStorage": "Storage",
+  "permissionStorage": "Penyimpanan",
   "@permissionStorage": {
     "description": "Storage permission type label"
   },
-  "permissionNotification": "Notification",
+  "permissionNotification": "Notifikasi",
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
-  "errorInvalidFolderSelected": "Invalid folder selected",
+  "errorInvalidFolderSelected": "Folder tidak valid",
   "@errorInvalidFolderSelected": {
     "description": "Error when the selected folder is invalid"
   },
-  "storeAnyVersion": "Any",
+  "storeAnyVersion": "Mana saja",
   "@storeAnyVersion": {
     "description": "Store detail value when any app version is accepted"
   },
@@ -5976,27 +5976,27 @@
   "@storeCategoryDownload": {
     "description": "Store extension category - download"
   },
-  "storeCategoryUtility": "Utility",
+  "storeCategoryUtility": "Utilitas",
   "@storeCategoryUtility": {
     "description": "Store extension category - utility"
   },
-  "storeCategoryLyrics": "Lyrics",
+  "storeCategoryLyrics": "Lirik",
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
-  "storeCategoryIntegration": "Integration",
+  "storeCategoryIntegration": "Integrasi",
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
-  "artistReleases": "Releases",
+  "artistReleases": "Rilis",
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },
-  "editMetadataSelectNone": "None",
+  "editMetadataSelectNone": "Kosong",
   "@editMetadataSelectNone": {
     "description": "Button to clear selected fields for auto-fill"
   },
-  "queueRetryAllFailed": "Retry {count} failed",
+  "queueRetryAllFailed": "Percobaan {count} gagal",
   "@queueRetryAllFailed": {
     "description": "Button to retry every failed download in the queue",
     "placeholders": {
@@ -6005,106 +6005,106 @@
       }
     }
   },
-  "settingsSaveDownloadHistory": "Save download history",
+  "settingsSaveDownloadHistory": "Simpan histori download",
   "@settingsSaveDownloadHistory": {
     "description": "Settings switch title for storing completed downloads in history"
   },
-  "settingsSaveDownloadHistorySubtitle": "Keep completed downloads in history and library views",
+  "settingsSaveDownloadHistorySubtitle": "Simpan download selesai di tampilan histori dan koleksi",
   "@settingsSaveDownloadHistorySubtitle": {
     "description": "Settings switch subtitle for storing completed downloads in history"
   },
-  "dialogDisableHistoryTitle": "Turn off download history?",
+  "dialogDisableHistoryTitle": "Matikan histori download?",
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
-  "dialogDisableHistoryMessage": "Existing history will be cleared. Downloaded files will not be deleted.",
+  "dialogDisableHistoryMessage": "Histori yang sudah ada akan dihapus. File terdownload akan tetap ada.",
   "@dialogDisableHistoryMessage": {
     "description": "Confirmation dialog message shown before disabling download history"
   },
-  "dialogDisableAndClear": "Turn off and clear",
+  "dialogDisableAndClear": "Matikan dan hapus",
   "@dialogDisableAndClear": {
     "description": "Confirmation action to disable download history and clear existing entries"
   },
-  "openInOtherServices": "Open in Other Services",
+  "openInOtherServices": "Buka di Layanan Lain",
   "@openInOtherServices": {
     "description": "Title and tooltip for finding the current collection in other services"
   },
-  "shareSheetNoExtensions": "No other compatible services",
+  "shareSheetNoExtensions": "Tidak ada layanan yang kompatibel",
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
-  "shareSheetNotFound": "Not found",
+  "shareSheetNotFound": "Tidak ditemukan",
   "@shareSheetNotFound": {
     "description": "Cross-service share sheet row subtitle when a service has no match"
   },
-  "shareSheetCopyLink": "Copy Link",
+  "shareSheetCopyLink": "Salin Link",
   "@shareSheetCopyLink": {
     "description": "Tooltip for copying a cross-service link"
   },
-  "shareSheetLinkCopied": "{service} link copied",
+  "shareSheetLinkCopied": "{service} link tersalin",
   "@shareSheetLinkCopied": {
     "description": "Snackbar after copying a cross-service link",
     "placeholders": {
       "service": {}
     }
   },
-  "libraryPlayback": "Playback",
+  "libraryPlayback": "Pemutaran",
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
-  "libraryExternalPlayer": "External player",
+  "libraryExternalPlayer": "Pemutar eksternal",
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
-  "libraryExternalPlayerSubtitle": "Recommended for listening, best quality, gapless playback, EQ, and wider format support",
+  "libraryExternalPlayerSubtitle": "Bagus untuk mendengarkan harian, kualitas terbaik, pemutaran lancar, EQ, dan dukungan format luas",
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "Built-in preview player",
+  "libraryBuiltInPreviewPlayer": "Pemutar bawaan beta",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Only for quick local previews inside SpotiFLAC Mobile, not recommended for regular listening",
+  "libraryBuiltInPreviewPlayerSubtitle": "Hanya untuk dengar pratinjau lagu di SpotiFLAC Mobile, tidak bagus untuk mendengarkan sehari-hari",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
-  "libraryBuiltInPlayerInfo": "The built-in player is a preview tool for checking local tracks quickly. Use an external music player for actual listening.",
+  "libraryBuiltInPlayerInfo": "Pemutar built-in masih tahap beta untuk memeriksa lagu dengan cepat. Gunakan pemutar musik eksternal untuk mendengarkan.",
   "@libraryBuiltInPlayerInfo": {
     "description": "Info note explaining the built-in player is for previews only"
   },
-  "nowPlayingTitle": "Now Playing",
+  "nowPlayingTitle": "Sedang Memutar",
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
-  "nowPlayingNothingPlaying": "Nothing is playing",
+  "nowPlayingNothingPlaying": "Tidak memutar apapun",
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
-  "nowPlayingMinimize": "Minimize",
+  "nowPlayingMinimize": "Perkecil",
   "@nowPlayingMinimize": {
     "description": "Tooltip for minimizing the now playing screen"
   },
-  "nowPlayingUpNext": "Up next",
+  "nowPlayingUpNext": "Selanjutnya",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
-  "nowPlayingPreviousTrack": "Previous track",
+  "nowPlayingPreviousTrack": "Lagu Sebelumnya",
   "@nowPlayingPreviousTrack": {
     "description": "Tooltip for the previous-track playback control"
   },
-  "nowPlayingNextTrack": "Next track",
+  "nowPlayingNextTrack": "Lagu Selanjutnya",
   "@nowPlayingNextTrack": {
     "description": "Tooltip for the next-track playback control"
   },
-  "nowPlayingDetails": "Details",
+  "nowPlayingDetails": "Detail",
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingSleepTimer": "Sleep timer",
+  "nowPlayingSleepTimer": "Timer Tidur",
   "@nowPlayingSleepTimer": {
     "description": "Menu item and sheet title for the playback sleep timer"
   },
-  "nowPlayingSleepTimerActive": "Ends at {time}",
+  "nowPlayingSleepTimerActive": "Berhenti pada {time}",
   "@nowPlayingSleepTimerActive": {
     "description": "Active sleep timer deadline shown in the player menu",
     "placeholders": {
@@ -6113,7 +6113,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 minute} other{{minutes} minutes}}",
+  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 menit} other{{minutes} menit}}",
   "@nowPlayingSleepTimerMinutes": {
     "description": "Duration choice for the playback sleep timer",
     "placeholders": {
@@ -6122,11 +6122,11 @@
       }
     }
   },
-  "nowPlayingSleepTimerOff": "Turn off sleep timer",
+  "nowPlayingSleepTimerOff": "Matikan timer tidur",
   "@nowPlayingSleepTimerOff": {
     "description": "Action to cancel the active playback sleep timer"
   },
-  "nowPlayingSleepTimerSet": "Sleep timer set for {duration}",
+  "nowPlayingSleepTimerSet": "Timer tidur diatur selama",
   "@nowPlayingSleepTimerSet": {
     "description": "Confirmation after setting the playback sleep timer",
     "placeholders": {
@@ -6135,31 +6135,31 @@
       }
     }
   },
-  "nowPlayingSleepTimerCancelled": "Sleep timer turned off",
+  "nowPlayingSleepTimerCancelled": "Timer tidur dimatikan",
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },
-  "nowPlayingOpenInExternalPlayer": "Open in external player",
+  "nowPlayingOpenInExternalPlayer": "Buka di pemutar eksternal",
   "@nowPlayingOpenInExternalPlayer": {
     "description": "Menu item to open the current track in an external player"
   },
-  "nowPlayingTabPlayer": "Player",
+  "nowPlayingTabPlayer": "Pemutar",
   "@nowPlayingTabPlayer": {
     "description": "Tab label for the player view"
   },
-  "nowPlayingTabLyrics": "Lyrics",
+  "nowPlayingTabLyrics": "Lirik",
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
-  "nowPlayingNoLyrics": "No lyrics in this file",
+  "nowPlayingNoLyrics": "Tidak ada lirik",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
-  "nowPlayingLibraryEmpty": "Your library is empty",
+  "nowPlayingLibraryEmpty": "Koleksi Anda kosong",
   "@nowPlayingLibraryEmpty": {
     "description": "Snackbar when shuffle library is requested but library has no tracks"
   },
-  "nowPlayingShuffleLibraryFailed": "Could not shuffle library: {error}",
+  "nowPlayingShuffleLibraryFailed": "Tidak dapat mengacak koleksi: {error}",
   "@nowPlayingShuffleLibraryFailed": {
     "description": "Snackbar when shuffling the library fails",
     "placeholders": {
@@ -6168,31 +6168,31 @@
       }
     }
   },
-  "nowPlayingShuffleOn": "Shuffle on",
+  "nowPlayingShuffleOn": "Acak hidup",
   "@nowPlayingShuffleOn": {
     "description": "Tooltip when shuffle mode is enabled"
   },
-  "nowPlayingPlayInOrder": "Play in order",
+  "nowPlayingPlayInOrder": "Putar berurutan",
   "@nowPlayingPlayInOrder": {
     "description": "Tooltip when shuffle mode is disabled"
   },
-  "nowPlayingShuffleLibrary": "Shuffle library",
+  "nowPlayingShuffleLibrary": "Acak koleksi",
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
-  "nowPlayingQueueEmpty": "Queue is empty",
+  "nowPlayingQueueEmpty": "Antrean kosong",
   "@nowPlayingQueueEmpty": {
     "description": "Empty state when the playback queue has no items"
   },
-  "nowPlayingNoMetadata": "No metadata available",
+  "nowPlayingNoMetadata": "Metadata tidak tersedia",
   "@nowPlayingNoMetadata": {
     "description": "Empty state when track metadata cannot be loaded"
   },
-  "announcementUnableToOpenLink": "Unable to open link. Please try again.",
+  "announcementUnableToOpenLink": "Tidak dapat membuka link. Coba lagi.",
   "@announcementUnableToOpenLink": {
     "description": "Snackbar shown when an announcement CTA link cannot be opened"
   },
-  "trackConvertLosslessOutputWithCap": "Lossless output with {quality} cap",
+  "trackConvertLosslessOutputWithCap": "Output loseless dengan batas {quality}",
   "@trackConvertLosslessOutputWithCap": {
     "description": "Hint shown when lossless conversion will cap bit depth or sample rate",
     "placeholders": {
@@ -6201,7 +6201,7 @@
       }
     }
   },
-  "trackConvertConfirmMessageLosslessCapped": "Convert from {sourceFormat} to {targetFormat} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original file will be deleted after conversion.",
+  "trackConvertConfirmMessageLosslessCapped": "Ubah format {sourceFormat} ke {targetFormat} ({quality})?\n\nOutput tetap menggunakan codec loseless, tapi bit depth/laju sampel akan dibatasi. File asli akan dihapus setelah diubah.",
   "@trackConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless conversion of a single file",
     "placeholders": {
@@ -6216,7 +6216,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLosslessCapped": "Convert {count} {count, plural, =1{track} other{tracks}} to {format} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original files will be deleted after conversion.",
+  "selectionBatchConvertConfirmMessageLosslessCapped": "Ubah format {count} {count, plural, =1{lagu} other{lagu}} ke {format} ({quality})?\n\nOutput tetap menggunakan codec loseless, tapi bit depth/laju sampel akan dibatasi. File asli akan dihapus setelah diubah.",
   "@selectionBatchConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless batch conversion",
     "placeholders": {
@@ -6261,19 +6261,19 @@
       }
     }
   },
-  "aboutPaxsenixSubtitle": "Lyrics proxy for Musixmatch, Netease, Apple Music, QQ Music, Spotify, Deezer, YouTube, Kugou, and Genius",
+  "aboutPaxsenixSubtitle": "Proxy lirik untuk Musixmatch, Netease, Apple Music, QQ Music, Spotify, Deezer, YouTube, Kugou, dan Genius",
   "@aboutPaxsenixSubtitle": {
     "description": "Subtitle for Paxsenix special thanks entry on the about page"
   },
-  "snackbarPlayingNext": "Playing next",
+  "snackbarPlayingNext": "Memutar lagu berikutnya",
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },
-  "snackbarAddedToQueueGeneric": "Added to queue",
+  "snackbarAddedToQueueGeneric": "Ditambahkan ke antrean",
   "@snackbarAddedToQueueGeneric": {
     "description": "Snackbar when a track is added to the playback queue without naming it"
   },
-  "selectionDeletePlaylistsCount": "Delete {count} {count, plural, =1{playlist} other{playlists}}",
+  "selectionDeletePlaylistsCount": "Hapus {count} {count, plural, =1{playlist} other{playlist}}",
   "@selectionDeletePlaylistsCount": {
     "description": "Button label for deleting multiple selected playlists",
     "placeholders": {
@@ -6282,35 +6282,35 @@
       }
     }
   },
-  "actionShuffle": "Shuffle",
+  "actionShuffle": "Acak",
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
-  "downloadPrimaryArtistOnlyOn": "Primary only: On",
+  "downloadPrimaryArtistOnlyOn": "Utama saja: Hidup",
   "@downloadPrimaryArtistOnlyOn": {
     "description": "Status label when primary-artist-only folder naming is enabled"
   },
-  "downloadPrimaryArtistOnlyOff": "Primary only: Off",
+  "downloadPrimaryArtistOnlyOff": "Utama saja: Mati",
   "@downloadPrimaryArtistOnlyOff": {
     "description": "Status label when primary-artist-only folder naming is disabled"
   },
-  "downloadAlbumArtistMetadataPrimaryOnly": "Album Artist metadata: Primary only",
+  "downloadAlbumArtistMetadataPrimaryOnly": "Metadata Artis Album: Utama saja",
   "@downloadAlbumArtistMetadataPrimaryOnly": {
     "description": "Status label when album-artist folder filtering uses primary artist only"
   },
-  "downloadAlbumArtistMetadataFull": "Album Artist metadata: Full",
+  "downloadAlbumArtistMetadataFull": "Metadata Artis Album: Semua",
   "@downloadAlbumArtistMetadataFull": {
     "description": "Status label when album-artist folder filtering uses full metadata"
   },
-  "trackConvertOriginal": "Original",
+  "trackConvertOriginal": "Asli",
   "@trackConvertOriginal": {
     "description": "Label for keeping original bit depth or sample rate during conversion"
   },
-  "trackConvertOriginalQuality": "Original quality",
+  "trackConvertOriginalQuality": "Kualitas asli",
   "@trackConvertOriginalQuality": {
     "description": "Label when no bit depth or sample rate cap is applied during lossless conversion"
   },
-  "trackConvertLosslessSuffix": "Lossless",
+  "trackConvertLosslessSuffix": "Loseless",
   "@trackConvertLosslessSuffix": {
     "description": "Suffix used in converted lossless quality labels"
   },
@@ -6322,7 +6322,7 @@
   "@trackConvertResampler": {
     "description": "Section label for lossless conversion resampler options"
   },
-  "trackConvertDitherNone": "None",
+  "trackConvertDitherNone": "Tidak Ada",
   "@trackConvertDitherNone": {
     "description": "Lossless conversion dither option with no dithering applied"
   },
@@ -6330,7 +6330,7 @@
   "@trackConvertDitherTriangular": {
     "description": "Lossless conversion triangular probability density function dither option"
   },
-  "trackConvertDitherTriangularHp": "Triangular HP",
+  "trackConvertDitherTriangularHp": "HP Triangular",
   "@trackConvertDitherTriangularHp": {
     "description": "Lossless conversion high-pass triangular dither option"
   },
@@ -6338,27 +6338,27 @@
   "@trackConvertResamplerSwr": {
     "description": "Lossless conversion default FFmpeg swresample resampler option"
   },
-  "trackConvertResamplerSoxr": "SoXr",
+  "trackConvertResamplerSoxr": "SoXR",
   "@trackConvertResamplerSoxr": {
     "description": "Lossless conversion SoX resampler option"
   },
-  "updateSeeReleaseNotes": "See release notes for details.",
+  "updateSeeReleaseNotes": "Lihat catatan yang baru untuk detail",
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },
-  "unknownTitle": "Unknown title",
+  "unknownTitle": "Judul tidak diketahui",
   "@unknownTitle": {
     "description": "Fallback track title when metadata is missing"
   },
-  "trackPlayNext": "Play next",
+  "trackPlayNext": "Putar selanjutnya",
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "Add to queue",
+  "trackAddToQueue": "Tambah ke antrean",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },
-  "snackbarExtensionInstalledEnable": "{extensionName} installed. Enable it in Settings > Extensions",
+  "snackbarExtensionInstalledEnable": "{extensionName} terinstal. Hidupkan di Setelan > Ekstensi",
   "@snackbarExtensionInstalledEnable": {
     "description": "Snackbar after installing an extension from the repo tab",
     "placeholders": {
@@ -6367,7 +6367,7 @@
       }
     }
   },
-  "snackbarExtensionUpdatedVersion": "{extensionName} updated to v{version}",
+  "snackbarExtensionUpdatedVersion": "{extensionName} diupdate ke v{version}",
   "@snackbarExtensionUpdatedVersion": {
     "description": "Snackbar after updating an extension from the repo tab",
     "placeholders": {
@@ -6379,7 +6379,7 @@
       }
     }
   },
-  "snackbarFailedToInstallNamed": "Failed to install {extensionName}",
+  "snackbarFailedToInstallNamed": "Gagal menginstal {extensionName}",
   "@snackbarFailedToInstallNamed": {
     "description": "Snackbar when extension install fails in the repo tab",
     "placeholders": {
@@ -6388,7 +6388,7 @@
       }
     }
   },
-  "snackbarFailedToUpdateNamed": "Failed to update {extensionName}",
+  "snackbarFailedToUpdateNamed": "Gagal mengupdate {extensionName}",
   "@snackbarFailedToUpdateNamed": {
     "description": "Snackbar when extension update fails in the repo tab",
     "placeholders": {
@@ -6401,35 +6401,35 @@
   "@releaseTypeEp": {
     "description": "Badge label for EP releases"
   },
-  "releaseTypeSingle": "Single",
+  "releaseTypeSingle": "SIngle",
   "@releaseTypeSingle": {
     "description": "Badge label for single releases"
   },
-  "trackCoverOnline": "Online cover",
+  "trackCoverOnline": "Cover internet",
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },
-  "regionCountryUS": "United States",
+  "regionCountryUS": "Amerika Serikat",
   "@regionCountryUS": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryGB": "United Kingdom",
+  "regionCountryGB": "Inggris Raya",
   "@regionCountryGB": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryFR": "France",
+  "regionCountryFR": "Prancis",
   "@regionCountryFR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryDE": "Germany",
+  "regionCountryDE": "Jerman",
   "@regionCountryDE": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryJP": "Japan",
+  "regionCountryJP": "Jepang",
   "@regionCountryJP": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryKR": "South Korea",
+  "regionCountryKR": "Korea Selatan",
   "@regionCountryKR": {
     "description": "Country name for SongLink region picker"
   },
@@ -6445,7 +6445,7 @@
   "@regionCountryBR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryMX": "Mexico",
+  "regionCountryMX": "Meksiko",
   "@regionCountryMX": {
     "description": "Country name for SongLink region picker"
   },
@@ -6453,7 +6453,7 @@
   "@regionCountryAU": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryCA": "Canada",
+  "regionCountryCA": "Kanada",
   "@regionCountryCA": {
     "description": "Country name for SongLink region picker"
   },
@@ -6461,27 +6461,27 @@
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
   },
-  "extensionVerificationBrowserTitle": "Verification browser",
+  "extensionVerificationBrowserTitle": "Browser verifikasi",
   "@extensionVerificationBrowserTitle": {
     "description": "Settings option title for extension verification browser preference"
   },
-  "extensionVerificationBrowserSubtitleExternal": "Open challenges in the default browser first",
+  "extensionVerificationBrowserSubtitleExternal": "Buka verifikasi di browser default dulu",
   "@extensionVerificationBrowserSubtitleExternal": {
     "description": "Subtitle when external browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserSubtitleInApp": "Open challenges in the in-app browser first",
+  "extensionVerificationBrowserSubtitleInApp": "Buka verifikasi di browser aplikasi dulu",
   "@extensionVerificationBrowserSubtitleInApp": {
     "description": "Subtitle when in-app browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserExternal": "External",
+  "extensionVerificationBrowserExternal": "Eksternal",
   "@extensionVerificationBrowserExternal": {
     "description": "Chip label for external browser verification mode"
   },
-  "extensionVerificationBrowserInApp": "In-app",
+  "extensionVerificationBrowserInApp": "Aplikasi",
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },
-  "extensionVerificationUnavailable": "No verification page is available for {extension}. Retry the download to request a new challenge.",
+  "extensionVerificationUnavailable": "Tidak ada halaman verifikasi untuk {extension}. Ulang download untuk meminta verifikasi baru.",
   "@extensionVerificationUnavailable": {
     "description": "Shown when the app cannot retrieve a pending verification challenge",
     "placeholders": {
@@ -6490,43 +6490,43 @@
       }
     }
   },
-  "extensionVerificationHelpTitleManual": "Open verification manually",
+  "extensionVerificationHelpTitleManual": "Buka verifikasi secara manual",
   "@extensionVerificationHelpTitleManual": {
     "description": "Dialog title when automatic browser launch for verification fails"
   },
-  "extensionVerificationHelpTitleWaiting": "Verification still waiting",
+  "extensionVerificationHelpTitleWaiting": "Menunggu verifikasi",
   "@extensionVerificationHelpTitleWaiting": {
     "description": "Dialog title when verification is taking longer than expected"
   },
-  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile could not open the browser automatically. Open this link in your browser, or copy it manually.",
+  "extensionVerificationHelpMessageManual": "SpotiFLAC mobile tidak dapat membuka browser secara otomatis. Buka link ini di browser Anda, atau salin manual.",
   "@extensionVerificationHelpMessageManual": {
     "description": "Dialog message when automatic browser launch for verification fails"
   },
-  "extensionVerificationHelpMessageWaiting": "If the browser did not open, or verification finished but did not return to SpotiFLAC Mobile, open this link again or copy it manually.",
+  "extensionVerificationHelpMessageWaiting": "Jika browser tidak terbuka, atau verifikasi berhasil tapi tidak langsung kembali ke SpotiFLAC Mobile, buka link ini lagu atau salin manual.",
   "@extensionVerificationHelpMessageWaiting": {
     "description": "Dialog message when verification may need manual browser help"
   },
-  "extensionVerificationClose": "Close",
+  "extensionVerificationClose": "Tutup",
   "@extensionVerificationClose": {
     "description": "Button to dismiss the extension verification help dialog"
   },
-  "extensionVerificationCopyLink": "Copy link",
+  "extensionVerificationCopyLink": "Salin link",
   "@extensionVerificationCopyLink": {
     "description": "Button to copy the extension verification URL"
   },
-  "extensionVerificationLinkCopied": "Verification link copied",
+  "extensionVerificationLinkCopied": "Link verifikasi disalin",
   "@extensionVerificationLinkCopied": {
     "description": "Snackbar after copying the extension verification URL"
   },
-  "extensionVerificationOpenBrowser": "Open browser",
+  "extensionVerificationOpenBrowser": "Buka browser",
   "@extensionVerificationOpenBrowser": {
     "description": "Button to open the extension verification URL in a browser"
   },
-  "settingsSearchHint": "Search settings",
+  "settingsSearchHint": "Telusuri setelan",
   "@settingsSearchHint": {
     "description": "Placeholder of the search field on the Settings tab"
   },
-  "settingsSearchNoResults": "No settings match \"{query}\"",
+  "settingsSearchNoResults": "Tidak ada setelan \"{query}\"",
   "@settingsSearchNoResults": {
     "description": "Shown when a Settings search returns nothing",
     "placeholders": {
@@ -6535,63 +6535,63 @@
       }
     }
   },
-  "settingsGroupInterface": "Extensions & appearance",
+  "settingsGroupInterface": "Ekstensi & tampilan",
   "@settingsGroupInterface": {
     "description": "Settings group covering look and feel"
   },
-  "settingsGroupContent": "Content & metadata",
+  "settingsGroupContent": "Konten & metadata",
   "@settingsGroupContent": {
     "description": "Settings group covering the library, metadata and lyrics"
   },
-  "settingsGroupDownloads": "Downloads & files",
+  "settingsGroupDownloads": "Download & file",
   "@settingsGroupDownloads": {
     "description": "Settings group covering download behaviour and storage"
   },
-  "settingsGroupSystem": "System",
+  "settingsGroupSystem": "Sistem",
   "@settingsGroupSystem": {
     "description": "Settings group covering app-level data, cache and logs"
   },
-  "settingsGroupHelp": "About & support",
+  "settingsGroupHelp": "Tentang & dukungan",
   "@settingsGroupHelp": {
     "description": "Settings group covering the about page and donations"
   },
-  "libraryFilterMetadataMissingLyrics": "Missing lyrics",
+  "libraryFilterMetadataMissingLyrics": "Lirik hilang",
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
-  "trackOptionCopyTrackName": "Copy track name",
+  "trackOptionCopyTrackName": "Salin nama lagu",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
   },
-  "trackOptionCopyArtist": "Copy artist",
+  "trackOptionCopyArtist": "Salin artis",
   "@trackOptionCopyArtist": {
     "description": "Track menu action that copies the artist name"
   },
-  "trackOptionCopyTrackAndArtist": "Copy track and artist",
+  "trackOptionCopyTrackAndArtist": "Salin lagu dan artis",
   "@trackOptionCopyTrackAndArtist": {
     "description": "Track menu action that copies the track title and artist"
   },
-  "metadataCopyValue": "Copy value",
+  "metadataCopyValue": "Salin isi",
   "@metadataCopyValue": {
     "description": "Metadata menu action that copies only the selected value"
   },
-  "metadataCopyField": "Copy field and value",
+  "metadataCopyField": "Salin isi kolom",
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "metadataCopyAll": "Copy all metadata",
+  "metadataCopyAll": "Salin semua metadata",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
   },
-  "optionsEmbeddedCoverSize": "Embedded Cover Size",
+  "optionsEmbeddedCoverSize": "Ukuran Cover Tersemat",
   "@optionsEmbeddedCoverSize": {
     "description": "Metadata setting that limits downloaded artwork resolution before it is embedded"
   },
-  "optionsEmbeddedCoverSizeDescription": "Downscale remotely downloaded cover art before embedding it. Images already within the limit are kept unchanged.",
+  "optionsEmbeddedCoverSizeDescription": "Downscale foto cover terdownload sebelum menyematkannya. Foto yang berada di batasnya tidak akan dimodifikasi.",
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "optionsEmbeddedCoverSizeOriginal": "Original resolution",
+  "optionsEmbeddedCoverSizeOriginal": "Resolusi asli",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"
   }

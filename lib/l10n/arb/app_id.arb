@@ -4504,11 +4504,11 @@
   "@editMetadataAutoFillCoverAvailable": {
     "description": "Preview value when the selected metadata source provides cover artwork"
   },
-  "editMetadataAutoFillApply": "Apply selected data",
+  "editMetadataAutoFillApply": "Terapkan data yang dipilih",
   "@editMetadataAutoFillApply": {
     "description": "Button label for applying the previewed metadata"
   },
-  "editMetadataAutoFillDoneFromSource": "Filled {count} {count, plural, =1{field} other{fields}} from {source}",
+  "editMetadataAutoFillDoneFromSource": "Berhasil mengisi {count} {count, plural, =1{kolom} other{kolom}} dari {source}",
   "@editMetadataAutoFillDoneFromSource": {
     "description": "Snackbar confirming fields applied from a selected metadata source",
     "placeholders": {
@@ -4520,19 +4520,19 @@
       }
     }
   },
-  "editMetadataAutoFillFetch": "Fetch & Fill",
+  "editMetadataAutoFillFetch": "Cari & Isi",
   "@editMetadataAutoFillFetch": {
     "description": "Button label to fetch online metadata and fill selected fields"
   },
-  "editMetadataAutoFillSearching": "Searching online...",
+  "editMetadataAutoFillSearching": "Mencari online...",
   "@editMetadataAutoFillSearching": {
     "description": "Snackbar shown while searching for online metadata"
   },
-  "editMetadataAutoFillNoResults": "No matching metadata found online",
+  "editMetadataAutoFillNoResults": "Metadata yang sesuai tidak ditemukan di internet",
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
-  "editMetadataAutoFillDone": "Filled {count} {count, plural, =1{field} other{fields}} from online metadata",
+  "editMetadataAutoFillDone": "Berhasil mengisi {count} {count, plural, =1{kolom} other{kolom}} dari metadata online",
   "@editMetadataAutoFillDone": {
     "description": "Snackbar confirming how many fields were auto-filled",
     "placeholders": {
@@ -4541,15 +4541,15 @@
       }
     }
   },
-  "editMetadataAutoFillNoneSelected": "Select at least one field to auto-fill",
+  "editMetadataAutoFillNoneSelected": "Pilih minimal satu kolom untuk diisi otomatis",
   "@editMetadataAutoFillNoneSelected": {
     "description": "Snackbar when user taps Fetch without selecting any fields"
   },
-  "editMetadataFieldTitle": "Title",
+  "editMetadataFieldTitle": "Judul",
   "@editMetadataFieldTitle": {
     "description": "Chip label for title field in auto-fill selector"
   },
-  "editMetadataFieldArtist": "Artist",
+  "editMetadataFieldArtist": "Artis",
   "@editMetadataFieldArtist": {
     "description": "Chip label for artist field in auto-fill selector"
   },
@@ -4557,19 +4557,19 @@
   "@editMetadataFieldAlbum": {
     "description": "Chip label for album field in auto-fill selector"
   },
-  "editMetadataFieldAlbumArtist": "Album Artist",
+  "editMetadataFieldAlbumArtist": "Album Artis",
   "@editMetadataFieldAlbumArtist": {
     "description": "Chip label for album artist field in auto-fill selector"
   },
-  "editMetadataFieldDate": "Date",
+  "editMetadataFieldDate": "Tanggal",
   "@editMetadataFieldDate": {
     "description": "Chip label for date field in auto-fill selector"
   },
-  "editMetadataFieldTrackNum": "Track #",
+  "editMetadataFieldTrackNum": "Trek #",
   "@editMetadataFieldTrackNum": {
     "description": "Chip label for track number field in auto-fill selector"
   },
-  "editMetadataFieldDiscNum": "Disc #",
+  "editMetadataFieldDiscNum": "Disk #",
   "@editMetadataFieldDiscNum": {
     "description": "Chip label for disc number field in auto-fill selector"
   },
@@ -4585,23 +4585,23 @@
   "@editMetadataFieldLabel": {
     "description": "Chip label for label field in auto-fill selector"
   },
-  "editMetadataFieldCopyright": "Copyright",
+  "editMetadataFieldCopyright": "Hak Cipta",
   "@editMetadataFieldCopyright": {
     "description": "Chip label for copyright field in auto-fill selector"
   },
-  "editMetadataFieldCover": "Cover Art",
+  "editMetadataFieldCover": "Sampul Album",
   "@editMetadataFieldCover": {
     "description": "Chip label for cover art field in auto-fill selector"
   },
-  "editMetadataSelectAll": "All",
+  "editMetadataSelectAll": "Semua",
   "@editMetadataSelectAll": {
     "description": "Button to select all fields for auto-fill"
   },
-  "editMetadataSelectEmpty": "Empty only",
+  "editMetadataSelectEmpty": "Hanya kolom kosong",
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
-  "queueDownloadingCount": "Downloading ({count})",
+  "queueDownloadingCount": "Mengunduh ({count})",
   "@queueDownloadingCount": {
     "description": "Header for active downloads section with count",
     "placeholders": {
@@ -4610,11 +4610,11 @@
       }
     }
   },
-  "queueFilteringIndicator": "Filtering...",
+  "queueFilteringIndicator": "Menyaring...",
   "@queueFilteringIndicator": {
     "description": "Shown while filter results are being computed"
   },
-  "queueTrackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
+  "queueTrackCount": "{count, plural, =1{1 lagu} other{{count} lagu}}",
   "@queueTrackCount": {
     "description": "Track count label with plural support",
     "placeholders": {
@@ -4623,7 +4623,7 @@
       }
     }
   },
-  "queueAlbumCount": "{count, plural, =1{1 album} other{{count} albums}}",
+  "queueAlbumCount": "{count, plural, =1{1 album} other{{count} album}}",
   "@queueAlbumCount": {
     "description": "Album count label with plural support",
     "placeholders": {
@@ -4632,23 +4632,23 @@
       }
     }
   },
-  "queueEmptyAlbums": "No album downloads",
+  "queueEmptyAlbums": "Belum ada unduhan album",
   "@queueEmptyAlbums": {
     "description": "Empty state title when no album downloads exist"
   },
-  "queueEmptyAlbumsSubtitle": "Download multiple tracks from an album to see them here",
+  "queueEmptyAlbumsSubtitle": "Unduh beberapa trek dari sebuah album untuk melihatnya di sini",
   "@queueEmptyAlbumsSubtitle": {
     "description": "Empty state subtitle for album downloads"
   },
-  "queueEmptySingles": "No single downloads",
+  "queueEmptySingles": "Tidak ada unduhan single",
   "@queueEmptySingles": {
     "description": "Empty state title when no single track downloads exist"
   },
-  "queueEmptySinglesSubtitle": "Single track downloads will appear here",
+  "queueEmptySinglesSubtitle": "Unduhan trek single akan muncul di sini",
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
-  "queuePlaylistCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "queuePlaylistCount": "{count, plural, =1{1 daftar putar} other{{count} daftar putar}}",
   "@queuePlaylistCount": {
     "description": "Playlist count label with plural support",
     "placeholders": {
@@ -4657,47 +4657,47 @@
       }
     }
   },
-  "queueEmptyPlaylistsSubtitle": "Create a playlist to organize your tracks",
+  "queueEmptyPlaylistsSubtitle": "Buat daftar putar untuk mengatur trek Anda",
   "@queueEmptyPlaylistsSubtitle": {
     "description": "Empty state subtitle for the playlists library view"
   },
-  "libraryDefaultView": "Default view",
+  "libraryDefaultView": "Tampilan bawaan",
   "@libraryDefaultView": {
     "description": "Setting title - which library view opens when switching to the Library tab"
   },
-  "libraryDefaultViewLastUsed": "Last used",
+  "libraryDefaultViewLastUsed": "Terakhir digunakan",
   "@libraryDefaultViewLastUsed": {
     "description": "Default view option - keep the last used library view"
   },
-  "queueEmptyHistory": "No download history",
+  "queueEmptyHistory": "Tidak ada riwayat unduhan",
   "@queueEmptyHistory": {
     "description": "Empty state title when download history is empty"
   },
-  "queueEmptyHistorySubtitle": "Downloaded tracks will appear here",
+  "queueEmptyHistorySubtitle": "Trek yang diunduh akan muncul di sini",
   "@queueEmptyHistorySubtitle": {
     "description": "Empty state subtitle for download history"
   },
-  "selectionAllPlaylistsSelected": "All playlists selected",
+  "selectionAllPlaylistsSelected": "Semua daftar putar dipilih",
   "@selectionAllPlaylistsSelected": {
     "description": "Shown when all playlists are selected in selection mode"
   },
-  "selectionTapPlaylistsToSelect": "Tap playlists to select",
+  "selectionTapPlaylistsToSelect": "Ketuk daftar putar untuk memilih",
   "@selectionTapPlaylistsToSelect": {
     "description": "Hint shown in playlist selection mode"
   },
-  "selectionSelectPlaylistsToDelete": "Select playlists to delete",
+  "selectionSelectPlaylistsToDelete": "Pilih daftar putar untuk dihapus",
   "@selectionSelectPlaylistsToDelete": {
     "description": "Hint shown when no playlists are selected for deletion"
   },
-  "audioAnalysisTitle": "Audio Quality Analysis",
+  "audioAnalysisTitle": "Analisis Kualitas Audio",
   "@audioAnalysisTitle": {
     "description": "Title for audio analysis section"
   },
-  "audioAnalysisDescription": "Verify lossless quality with spectrum analysis",
+  "audioAnalysisDescription": "Verifikasi kualitas lossless dengan analisis spektrum",
   "@audioAnalysisDescription": {
     "description": "Description for audio analysis tap-to-analyze prompt"
   },
-  "audioAnalysisAnalyzing": "Analyzing audio...",
+  "audioAnalysisAnalyzing": "Menganalisis audio...",
   "@audioAnalysisAnalyzing": {
     "description": "Loading text while analyzing audio"
   },
@@ -4705,27 +4705,27 @@
   "@audioAnalysisSampleRate": {
     "description": "Sample rate metric label"
   },
-  "audioAnalysisCodec": "Codec",
+  "audioAnalysisCodec": "Kodek",
   "@audioAnalysisCodec": {
     "description": "Audio codec metric label"
   },
-  "audioAnalysisContainer": "Container",
+  "audioAnalysisContainer": "Wadah",
   "@audioAnalysisContainer": {
     "description": "Audio container metric label"
   },
-  "audioAnalysisDecodedFormat": "Decoded Format",
+  "audioAnalysisDecodedFormat": "Format Dekode",
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },
-  "audioAnalysisBitDepth": "Bit Depth",
+  "audioAnalysisBitDepth": "Kedalaman Bit",
   "@audioAnalysisBitDepth": {
     "description": "Bit depth metric label"
   },
-  "audioAnalysisChannels": "Channels",
+  "audioAnalysisChannels": "Saluran",
   "@audioAnalysisChannels": {
     "description": "Channels metric label"
   },
-  "audioAnalysisDuration": "Duration",
+  "audioAnalysisDuration": "Durasi",
   "@audioAnalysisDuration": {
     "description": "Duration metric label"
   },
@@ -4733,15 +4733,15 @@
   "@audioAnalysisNyquist": {
     "description": "Nyquist frequency metric label"
   },
-  "audioAnalysisFileSize": "Size",
+  "audioAnalysisFileSize": "Ukuran",
   "@audioAnalysisFileSize": {
     "description": "File size metric label"
   },
-  "audioAnalysisDynamicRange": "Dynamic Range",
+  "audioAnalysisDynamicRange": "Rentang Dinamis",
   "@audioAnalysisDynamicRange": {
     "description": "Dynamic range metric label"
   },
-  "audioAnalysisPeak": "Peak",
+  "audioAnalysisPeak": "Puncak",
   "@audioAnalysisPeak": {
     "description": "Peak amplitude metric label"
   },

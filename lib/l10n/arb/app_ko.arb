@@ -434,7 +434,7 @@
   "@aboutTelegramChannelSubtitle": {
     "description": "Subtitle for Telegram channel"
   },
-  "aboutTelegramChat": "텔레그램 커뮤니티",
+  "aboutTelegramChat": "텔레그램 그룹",
   "@aboutTelegramChat": {
     "description": "Link to Telegram chat group"
   },
@@ -859,7 +859,7 @@
   "@duplicatesKeepBestAll": {
     "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
   },
-  "duplicatesKeepBestAllMessage": "{groupCount} 개의 {groupCount, plural, =1{트랙} other{트랙}} 중 가장 좋은 음질의 복사본을 유지하고, {count} 개의 품질이 낮은 {count, plural, =1{복사본} other{복사본}}을 삭제하시겠습니까?\n\n삭제된 파일은 저장소에서 제거됩니다",
+  "duplicatesKeepBestAllMessage": "{groupCount} 개의 {groupCount, plural, =1{트랙} other{트랙}} 중 가장 음질이 좋은 복사본을 유지하고, {count} 개의 음질이 낮은 {count, plural, =1{복사본} other{복사본}}을 삭제하시겠습니까?\n\n삭제된 파일은 저장소에서 제거됩니다",
   "@duplicatesKeepBestAllMessage": {
     "description": "Confirmation message for keeping the best copy across every duplicate group",
     "placeholders": {
@@ -1561,7 +1561,7 @@
   "@trackOpenInSpotify": {
     "description": "Action - open track in Spotify app"
   },
-  "trackTrackName": "트랙 이름",
+  "trackTrackName": "트랙 제목",
   "@trackTrackName": {
     "description": "Metadata label - track title"
   },
@@ -3867,7 +3867,7 @@
       }
     }
   },
-  "downloadedAlbumDownloadedCount": "{count} 개 다운로드됨",
+  "downloadedAlbumDownloadedCount": "{count} 개의 트랙 다운로드됨",
   "@downloadedAlbumDownloadedCount": {
     "description": "Downloaded tracks count badge",
     "placeholders": {
@@ -6481,7 +6481,7 @@
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },
-  "extensionVerificationUnavailable": "\"{extension}\"에 대한 인증 페이지를 사용할 수 없습니다. 새 인증을 요청하려면 다운로드를 다시 시도하세요",
+  "extensionVerificationUnavailable": "'{extension}'에 대한 인증 페이지를 사용할 수 없습니다. 새 인증을 요청하려면 다운로드를 다시 시도하세요",
   "@extensionVerificationUnavailable": {
     "description": "Shown when the app cannot retrieve a pending verification challenge",
     "placeholders": {
@@ -6559,7 +6559,7 @@
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
-  "trackOptionCopyTrackName": "트랙 이름 복사",
+  "trackOptionCopyTrackName": "트랙 제목 복사",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
   },

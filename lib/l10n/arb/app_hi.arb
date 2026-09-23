@@ -1,4 +1,48 @@
 {
+  "upgradeIntroWelcome": "Welcome to\nSpotiFLAC-Mobile 5.0",
+  "upgradeIntroThemeTitle": "Make it\nyour own.",
+  "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
+  "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
+  "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
+  "upgradeIntroRustTitle": "A new engine.\nBuilt with Rust.",
+  "upgradeIntroRustBody": "In 5.0, the app’s backend has moved from Go to Rust. It is the engine working behind the screens you use every day.",
+  "upgradeIntroRustEngineTitle": "Working behind the scenes",
+  "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
+  "upgradeIntroRustMemoryTitle": "More careful with memory",
+  "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
+  "upgradeIntroRustKeepTitle": "Keep your music",
+  "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
+  "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
+  "upgradeIntroMornyeBody": "A new look for your player, lyrics and navigation.",
+  "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
+  "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
+  "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
+  "upgradeIntroLibraryBody": "In Mornye, browse by category or find your albums in Recently Added.",
+  "upgradeIntroDownloadsBody": "Pause and retry from Downloads at the top right. Finished music moves to Recently Added.",
+  "upgradeIntroSearchBody": "Search saved music here. The separate Search tab looks through your extensions.",
+  "upgradeIntroPlayerTitle": "Set up\nyour player.",
+  "upgradeIntroPlayerBody": "You can change your theme and playback options at any time. Here is where to find them.",
+  "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
+  "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
+  "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
+  "upgradeIntroSkip": "Skip",
+  "upgradeIntroContinue": "Continue",
+  "upgradeIntroDone": "Start listening",
+  "upgradeIntroReplay": "What’s new in 5.0",
+  "cacheMotionArtwork": "Offline motion covers",
+  "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
+  "nowPlayingVolume": "Volume",
+  "@nowPlayingVolume": {
+    "description": "System volume control label in the Mornye player"
+  },
+  "appearanceStyle": "App Style",
+  "@appearanceStyle": {
+    "description": "Appearance section for choosing the app visual style"
+  },
+  "discordRichPresence": "Discord Rich Presence",
+  "discordPresenceDescription": "Share the track playing in the built-in player on Discord. Requires Discord to be installed and signed in.",
+  "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
+  "discordPresenceUnavailable": "Discord Rich Presence is unavailable in this build or on this device.",
   "@@locale": "hi",
   "@@last_modified": "2026-04-28",
   "appName": "Dd",
@@ -57,6 +101,11 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
+  "libraryRecentlyAdded": "Recently Added",
+  "libraryDownloads": "Downloads",
+  "libraryNoActiveDownloads": "No active downloads",
+  "librarySearchHint": "Search your library",
+  "libraryEmptyCollection": "Your music will appear here",
   "historySearchHint": "Search history...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
@@ -1592,6 +1641,22 @@
   "trackAudioQuality": "Audio quality",
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
+  },
+  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "@trackReplayGainTrackGain": {
+    "description": "Metadata label - ReplayGain track gain"
+  },
+  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "@trackReplayGainTrackPeak": {
+    "description": "Metadata label - ReplayGain track peak"
+  },
+  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "@trackReplayGainAlbumGain": {
+    "description": "Metadata label - ReplayGain album gain"
+  },
+  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "@trackReplayGainAlbumPeak": {
+    "description": "Metadata label - ReplayGain album peak"
   },
   "libraryQualityLabelFileFormat": "File format",
   "@libraryQualityLabelFileFormat": {
@@ -3352,6 +3417,10 @@
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Metadata re-enriched successfully",
+  "trackReEnrichMetadataSaved": "Metadata saved",
+  "trackReEnrichLyricsUpdated": "Lyrics updated",
+  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
+  "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
@@ -4054,6 +4123,14 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
+  "backupSettingsOnly": "Settings only",
+  "backupSelectHistory": "Download history",
+  "backupSelectCollections": "Library collections",
+  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
+  "backupSelectExtensions": "Extensions and their settings",
+  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
+  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
+  "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
   "backupContentsSettings": "App settings",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
@@ -4217,6 +4294,10 @@
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
+  "storageAutomaticFolder": "Automatic folder",
+  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
+  "storageSafRecommended": "Choose folder (Recommended)",
+  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
   "storageModeAppFolder": "App Folder (Recommended)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
@@ -6064,7 +6145,7 @@
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Only for quick local previews inside SpotiFLAC Mobile, not recommended for regular listening",
+  "libraryBuiltInPreviewPlayerSubtitle": "Quick local previews inside SpotiFLAC Mobile",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
@@ -6579,6 +6660,9 @@
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
+  "mornyeShowTabs": "Show tabs",
+  "mornyeSearch": "Search",
+  "mornyeContinuePlaying": "Continue Playing",
   "metadataCopyAll": "Copy all metadata",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
@@ -6591,6 +6675,28 @@
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
+  "mornyeFavorite": "Favorite",
+  "mornyeGoToArtist": "Go to Artist",
+  "@mornyeFavorite": {
+    "description": "Compact context menu action that adds a track to Loved"
+  },
+  "mornyeFavorited": "Favorited",
+  "@mornyeFavorited": {
+    "description": "Selected state of the compact favorite action"
+  },
+  "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
+  "autoMixOn": "AutoMix on",
+  "autoMixOff": "AutoMix off",
+  "profileTitle": "Profile",
+  "profileSetUp": "Set up your profile",
+  "profileEdit": "Edit name and photo",
+  "backupIncludesProfile": "Includes your profile name and photo",
+  "profileName": "Name",
+  "profileNameHint": "Your name",
+  "profileChangePhoto": "Choose photo",
+  "profileRemovePhoto": "Remove photo",
+  "profilePhotoError": "Choose a valid image smaller than 20 MB.",
+  "profileSaveError": "Could not save your profile. Please try again.",
   "optionsEmbeddedCoverSizeOriginal": "Original resolution",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

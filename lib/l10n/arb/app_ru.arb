@@ -102,7 +102,7 @@
     "description": "Filter chip - show singles only"
   },
   "libraryRecentlyAdded": "Недавно добавленные",
-  "libraryDownloads": "Downloads",
+  "libraryDownloads": "Загрузки",
   "libraryNoActiveDownloads": "Нет активных загрузок",
   "librarySearchHint": "Search your library",
   "libraryEmptyCollection": "Ваша музыка появится здесь",
@@ -6427,15 +6427,15 @@
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },
-  "unknownTitle": "Unknown title",
+  "unknownTitle": "Неизвестное название",
   "@unknownTitle": {
     "description": "Fallback track title when metadata is missing"
   },
-  "trackPlayNext": "Play next",
+  "trackPlayNext": "Играть далее",
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "Add to queue",
+  "trackAddToQueue": "Добавить в очередь",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },
@@ -6448,7 +6448,7 @@
       }
     }
   },
-  "snackbarExtensionUpdatedVersion": "{extensionName} updated to v{version}",
+  "snackbarExtensionUpdatedVersion": "{extensionName} обновлено до v{version}",
   "@snackbarExtensionUpdatedVersion": {
     "description": "Snackbar after updating an extension from the repo tab",
     "placeholders": {
@@ -6460,7 +6460,7 @@
       }
     }
   },
-  "snackbarFailedToInstallNamed": "Failed to install {extensionName}",
+  "snackbarFailedToInstallNamed": "Не удалось установить {extensionName}",
   "@snackbarFailedToInstallNamed": {
     "description": "Snackbar when extension install fails in the repo tab",
     "placeholders": {
@@ -6482,11 +6482,11 @@
   "@releaseTypeEp": {
     "description": "Badge label for EP releases"
   },
-  "releaseTypeSingle": "Single",
+  "releaseTypeSingle": "Сингл",
   "@releaseTypeSingle": {
     "description": "Badge label for single releases"
   },
-  "trackCoverOnline": "Online cover",
+  "trackCoverOnline": "Обложка из сети",
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },
@@ -6542,7 +6542,7 @@
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
   },
-  "extensionVerificationBrowserTitle": "Verification browser",
+  "extensionVerificationBrowserTitle": "Браузер для верификаций",
   "@extensionVerificationBrowserTitle": {
     "description": "Settings option title for extension verification browser preference"
   },
@@ -6558,7 +6558,7 @@
   "@extensionVerificationBrowserExternal": {
     "description": "Chip label for external browser verification mode"
   },
-  "extensionVerificationBrowserInApp": "In-app",
+  "extensionVerificationBrowserInApp": "В приложении",
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },
@@ -6571,7 +6571,7 @@
       }
     }
   },
-  "extensionVerificationHelpTitleManual": "Open verification manually",
+  "extensionVerificationHelpTitleManual": "Открыть верификацию вручную",
   "@extensionVerificationHelpTitleManual": {
     "description": "Dialog title when automatic browser launch for verification fails"
   },
@@ -6603,11 +6603,11 @@
   "@extensionVerificationOpenBrowser": {
     "description": "Button to open the extension verification URL in a browser"
   },
-  "settingsSearchHint": "Search settings",
+  "settingsSearchHint": "Настройки поиска",
   "@settingsSearchHint": {
     "description": "Placeholder of the search field on the Settings tab"
   },
-  "settingsSearchNoResults": "No settings match \"{query}\"",
+  "settingsSearchNoResults": "Нет настроек, соответствующих \"{query}\"",
   "@settingsSearchNoResults": {
     "description": "Shown when a Settings search returns nothing",
     "placeholders": {
@@ -6624,15 +6624,15 @@
   "@settingsGroupContent": {
     "description": "Settings group covering the library, metadata and lyrics"
   },
-  "settingsGroupDownloads": "Downloads & files",
+  "settingsGroupDownloads": "Загрузки и файлы",
   "@settingsGroupDownloads": {
     "description": "Settings group covering download behaviour and storage"
   },
-  "settingsGroupSystem": "System",
+  "settingsGroupSystem": "Система",
   "@settingsGroupSystem": {
     "description": "Settings group covering app-level data, cache and logs"
   },
-  "settingsGroupHelp": "About & support",
+  "settingsGroupHelp": "О сервисе и поддержка",
   "@settingsGroupHelp": {
     "description": "Settings group covering the about page and donations"
   },
@@ -6676,7 +6676,7 @@
     "description": "Description shown in the embedded cover size picker"
   },
   "mornyeFavorite": "Favorite",
-  "mornyeGoToArtist": "Go to Artist",
+  "mornyeGoToArtist": "Перейти к исполнителю",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
@@ -6687,16 +6687,16 @@
   "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
   "autoMixOn": "AutoMix on",
   "autoMixOff": "AutoMix off",
-  "profileTitle": "Profile",
-  "profileSetUp": "Set up your profile",
-  "profileEdit": "Edit name and photo",
-  "backupIncludesProfile": "Includes your profile name and photo",
-  "profileName": "Name",
-  "profileNameHint": "Your name",
-  "profileChangePhoto": "Choose photo",
-  "profileRemovePhoto": "Remove photo",
-  "profilePhotoError": "Choose a valid image smaller than 20 MB.",
-  "profileSaveError": "Could not save your profile. Please try again.",
+  "profileTitle": "Профиль",
+  "profileSetUp": "Настройте свой профиль",
+  "profileEdit": "Изменить имя и фото",
+  "backupIncludesProfile": "Включает в себя имя профиля и фото",
+  "profileName": "Имя",
+  "profileNameHint": "Ваше имя",
+  "profileChangePhoto": "Выбрать фото",
+  "profileRemovePhoto": "Удалить фото",
+  "profilePhotoError": "Выберите изображение размером менее 20 МБ.",
+  "profileSaveError": "Не удалось сохранить ваш профиль. Пожалуйста, попробуйте еще раз.",
   "optionsEmbeddedCoverSizeOriginal": "Оригинальное разрешение",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

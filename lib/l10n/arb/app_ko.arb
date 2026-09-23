@@ -4,7 +4,7 @@
   "upgradeIntroThemeBody": "스타일을 선택하세요. 선택한 스타일은 즉시 적용되며, 나중에 디자인 설정에서 변경할 수 있습니다",
   "upgradeIntroThemeMaterialBody": "Material 디자인 컨트롤과 선택한 강조 색상이 적용된 익숙한 레이아웃",
   "upgradeIntroThemeMornyeBody": "글래스 스타일의 네비게이션 메뉴, 새롭게 디자인된 라이브러리, 그리고 몰입감 있는 플레이어를 제공합니다",
-  "upgradeIntroRustTitle": "Rust로 제작된 새로운 엔진",
+  "upgradeIntroRustTitle": "Rust로 제작된\n새로운 엔진",
   "upgradeIntroRustBody": "5.0 버전에서는 앱의 백엔드가 Go에서 Rust로 변경되었습니다. 이는 여러분이 매일 사용하는 화면 뒤에서 작동하는 핵심 엔진입니다",
   "upgradeIntroRustEngineTitle": "백그라운드에서 작동",
   "upgradeIntroRustEngineBody": "Rust는 Android와 iOS에서 다운로드, 오디오 메타데이터, 라이브러리 검색, 확장 기능 런타임을 처리합니다",

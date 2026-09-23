@@ -1,9 +1,9 @@
 {
   "upgradeIntroWelcome": "Добро пожаловать в SpotiFLAC-Mobile 5.0",
   "upgradeIntroThemeTitle": "Make it\nyour own.",
-  "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
-  "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
-  "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
+  "upgradeIntroThemeBody": "Выберите внешний вид. Изменения применятся сразу, и вы можете потом изменить его позже в настройках.",
+  "upgradeIntroThemeMaterialBody": "Привычный интерфейс с элементами Material и вашим акцентным цветом.",
+  "upgradeIntroThemeMornyeBody": "Эффект стекла в навигации, обновленная медиатека и плеер с эффектом погружения.",
   "upgradeIntroRustTitle": "Новый движок построенный на Rust.",
   "upgradeIntroRustBody": "В 5.0 бэкенд приложения переехал из Go to Rust. Это движок, работающий за экранами, которые вы используете каждый день.",
   "upgradeIntroRustEngineTitle": "Работа за сценой",
@@ -11,9 +11,9 @@
   "upgradeIntroRustMemoryTitle": "Больше осторожности с памятью",
   "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
   "upgradeIntroRustKeepTitle": "Keep your music",
-  "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
+  "upgradeIntroRustKeepBody": "Скачивать медиатеку заново не придётся. Ваша музыка и настройки на месте, повторная настройка не нужна.",
   "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
-  "upgradeIntroMornyeBody": "A new look for your player, lyrics and navigation.",
+  "upgradeIntroMornyeBody": "Новый облик плеера, экрана текстов песен и навигации.",
   "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
   "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
   "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
@@ -53,7 +53,7 @@
   "@navHome": {
     "description": "Bottom navigation - Home tab"
   },
-  "navLibrary": "Библиотека",
+  "navLibrary": "Медиатека",
   "@navLibrary": {
     "description": "Bottom navigation - Library tab"
   },
@@ -908,7 +908,7 @@
   "@duplicatesKeepBestAll": {
     "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
   },
-  "duplicatesKeepBestAllMessage": "Keep the best copy of {groupCount} {groupCount, plural, =1{track} other{tracks}} and delete {count} lower-quality {count, plural, =1{copy} other{copies}}?\n\nThe deleted files will be removed from storage.",
+  "duplicatesKeepBestAllMessage": "Сохранить лучшую копию из {groupCount} {groupCount, plural, =1{трека} few{треков} other{треков}} и удалить {count} {count, plural, =1{копию} few{копии} other{копий}} более низкого качества?\n\nУдалённые файлы будут стерты из хранилища.",
   "@duplicatesKeepBestAllMessage": {
     "description": "Confirmation message for keeping the best copy across every duplicate group",
     "placeholders": {
@@ -920,7 +920,7 @@
       }
     }
   },
-  "duplicatesKeepBestMessage": "Delete {count} lower-quality copies of \"{trackName}\"?",
+  "duplicatesKeepBestMessage": "Удалить {count} копий {trackName} низкого качества?",
   "@duplicatesKeepBestMessage": {
     "description": "Confirmation message for the keep-best action",
     "placeholders": {
@@ -1342,7 +1342,7 @@
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
-  "providerPriorityFallbackExtensionsDescription": "Choose which installed download extensions can be used during automatic fallback.",
+  "providerPriorityFallbackExtensionsDescription": "Выберите, какие из установленных расширений использовать как резервные.",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
@@ -1642,19 +1642,19 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "trackReplayGainTrackGain": "ReplayGain Усилие трека",
   "@trackReplayGainTrackGain": {
     "description": "Metadata label - ReplayGain track gain"
   },
-  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "trackReplayGainTrackPeak": "ReplayGain Пик трека",
   "@trackReplayGainTrackPeak": {
     "description": "Metadata label - ReplayGain track peak"
   },
-  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "trackReplayGainAlbumGain": "ReplayGain Усилие трека",
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "trackReplayGainAlbumPeak": "ReplayGain Пик альбома",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
@@ -2081,7 +2081,7 @@
   "@downloadAutoConvert": {
     "description": "Toggle for automatic post-download audio conversion"
   },
-  "downloadAutoConvertSubtitle": "Convert completed downloads to a smaller lossy format. The original is replaced only after conversion succeeds.",
+  "downloadAutoConvertSubtitle": "Конвертировать завершенные загрузки в меньший формат с потерями. Оригинал будет заменён только после успешной конвертации.",
   "@downloadAutoConvertSubtitle": {
     "description": "Explanation of safe automatic post-download conversion"
   },
@@ -2089,7 +2089,7 @@
   "@downloadAutoConvertFormat": {
     "description": "Automatic conversion output format setting"
   },
-  "downloadAutoConvertFormatSubtitle": "Choose the lossy format used for newly completed downloads.",
+  "downloadAutoConvertFormatSubtitle": "Выберите формат с потерями для новых завершённых загрузок.",
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
@@ -2097,7 +2097,7 @@
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
-  "downloadAutoConvertBitrateSubtitle": "Higher bitrates preserve more detail but create larger files.",
+  "downloadAutoConvertBitrateSubtitle": "Выше битрейт — больше деталей, но и размер файла будет выше.",
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
@@ -2117,7 +2117,7 @@
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
-  "downloadLossy320FormatDesc": "Choose the output format for 320kbps lossy downloads. The original stream will be converted to your selected format when needed.",
+  "downloadLossy320FormatDesc": "Выберите выходной формат для загрузок с потерями в 320 кбит/с. При необходимости исходный поток будет конвертирован в выбранный вами формат.",
   "@downloadLossy320FormatDesc": {
     "description": "Description in the lossy format picker"
   },
@@ -2555,7 +2555,7 @@
   "@allFilesAccessDisabledMessage": {
     "description": "Snackbar message when user disables all files access"
   },
-  "settingsLocalLibrary": "Локальная библиотека",
+  "settingsLocalLibrary": "Локальная медиатека",
   "@settingsLocalLibrary": {
     "description": "Settings menu item - local library"
   },
@@ -2571,7 +2571,7 @@
   "@settingsCacheSubtitle": {
     "description": "Subtitle for cache management menu"
   },
-  "libraryTitle": "Локальная библиотека",
+  "libraryTitle": "Локальная медиатека",
   "@libraryTitle": {
     "description": "Library settings page title"
   },
@@ -2722,7 +2722,7 @@
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },
-  "libraryTracksUnit": "{count, plural, =1{track} other{tracks}}",
+  "libraryTracksUnit": "{count, plural, =1{трек} few{трека} other{треков}}",
   "@libraryTracksUnit": {
     "description": "Unit label for tracks count (without the number itself)",
     "placeholders": {
@@ -2786,7 +2786,7 @@
       }
     }
   },
-  "libraryCleared": "Библиотека очищена",
+  "libraryCleared": "Медиатека очищена",
   "@libraryCleared": {
     "description": "Snackbar after clearing library"
   },
@@ -2914,7 +2914,7 @@
   "@timeJustNow": {
     "description": "Relative time - less than a minute ago"
   },
-  "timeMinutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "timeMinutesAgo": "{count, plural, =1{1 минуту назад} one{{count} минуту назад} few{{count} минуты назад} other{{count} минут назад}}",
   "@timeMinutesAgo": {
     "description": "Relative time - minutes ago",
     "placeholders": {
@@ -2923,7 +2923,7 @@
       }
     }
   },
-  "timeHoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "timeHoursAgo": "{count, plural, =1{1 час назад} one{{count} час назад} few{{count} часа назад} other{{count} часов назад}}",
   "@timeHoursAgo": {
     "description": "Relative time - hours ago",
     "placeholders": {
@@ -2968,7 +2968,7 @@
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
-  "tutorialLibraryTitle": "Ваша библиотека",
+  "tutorialLibraryTitle": "Ваша медиатека",
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
@@ -5399,7 +5399,7 @@
   "@logIssueRateLimitedDescription": {
     "description": "Diagnostic badge description for rate limiting"
   },
-  "logIssueRateLimitedSuggestion": "Wait a few minutes before trying again",
+  "logIssueRateLimitedSuggestion": "Подождите несколько минут, прежде чем повторить попытку",
   "@logIssueRateLimitedSuggestion": {
     "description": "Diagnostic badge suggestion for rate limiting"
   },

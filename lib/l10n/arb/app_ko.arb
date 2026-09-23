@@ -69,7 +69,7 @@
   "@homeTitle": {
     "description": "Home screen title"
   },
-  "homeSubtitle": "지원되는 URL을 붙여넣거나, 이름으로 검색하세요",
+  "homeSubtitle": "지원 URL 붙여넣기 또는 이름으로 검색",
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
@@ -103,7 +103,7 @@
   },
   "libraryRecentlyAdded": "최근 추가됨",
   "libraryDownloads": "다운로드",
-  "libraryNoActiveDownloads": "활성 다운로드가 없습니다",
+  "libraryNoActiveDownloads": "활성 다운로드가 없음",
   "librarySearchHint": "라이브러리 검색",
   "libraryEmptyCollection": "음악이 여기에 표시됩니다",
   "historySearchHint": "기록 검색...",

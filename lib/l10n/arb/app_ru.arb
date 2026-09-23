@@ -1,14 +1,14 @@
 {
-  "upgradeIntroWelcome": "Welcome to\nSpotiFLAC-Mobile 5.0",
+  "upgradeIntroWelcome": "Добро пожаловать в SpotiFLAC-Mobile 5.0",
   "upgradeIntroThemeTitle": "Make it\nyour own.",
   "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
   "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
   "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
-  "upgradeIntroRustTitle": "A new engine.\nBuilt with Rust.",
-  "upgradeIntroRustBody": "In 5.0, the app’s backend has moved from Go to Rust. It is the engine working behind the screens you use every day.",
-  "upgradeIntroRustEngineTitle": "Working behind the scenes",
+  "upgradeIntroRustTitle": "Новый движок построенный на Rust.",
+  "upgradeIntroRustBody": "В 5.0 бэкенд приложения переехал из Go to Rust. Это движок, работающий за экранами, которые вы используете каждый день.",
+  "upgradeIntroRustEngineTitle": "Работа за сценой",
   "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
-  "upgradeIntroRustMemoryTitle": "More careful with memory",
+  "upgradeIntroRustMemoryTitle": "Больше осторожности с памятью",
   "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
   "upgradeIntroRustKeepTitle": "Keep your music",
   "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
@@ -25,17 +25,17 @@
   "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
   "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
   "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
-  "upgradeIntroSkip": "Skip",
-  "upgradeIntroContinue": "Continue",
-  "upgradeIntroDone": "Start listening",
-  "upgradeIntroReplay": "What’s new in 5.0",
+  "upgradeIntroSkip": "Пропустить",
+  "upgradeIntroContinue": "Далее",
+  "upgradeIntroDone": "Начать слушать",
+  "upgradeIntroReplay": "Что нового в 5.0",
   "cacheMotionArtwork": "Offline motion covers",
   "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
-  "nowPlayingVolume": "Volume",
+  "nowPlayingVolume": "Громкость",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
-  "appearanceStyle": "App Style",
+  "appearanceStyle": "Стиль приложения",
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
   },
@@ -101,11 +101,11 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "libraryRecentlyAdded": "Recently Added",
+  "libraryRecentlyAdded": "Недавно добавленные",
   "libraryDownloads": "Downloads",
-  "libraryNoActiveDownloads": "No active downloads",
+  "libraryNoActiveDownloads": "Нет активных загрузок",
   "librarySearchHint": "Search your library",
-  "libraryEmptyCollection": "Your music will appear here",
+  "libraryEmptyCollection": "Ваша музыка появится здесь",
   "historySearchHint": "Поиск в истории...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
@@ -656,7 +656,7 @@
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
-  "setupDownloadInFlac": "Download music in lossless and Hi-Res quality",
+  "setupDownloadInFlac": "Скачивайте музыку в Lossless и Hi-Res качестве",
   "@setupDownloadInFlac": {
     "description": "App tagline in setup"
   },
@@ -852,7 +852,7 @@
       }
     }
   },
-  "collectionExportM3u": "Export as M3U8",
+  "collectionExportM3u": "Экспорт в M3U8",
   "@collectionExportM3u": {
     "description": "Tooltip on the collection screen action that exports the track list as an M3U8 playlist file"
   },
@@ -872,11 +872,11 @@
   "@collectionExportM3uNone": {
     "description": "Snackbar when an M3U8 export finds no local files"
   },
-  "collectionExportM3uFailed": "Export failed",
+  "collectionExportM3uFailed": "Ошибка экспорта",
   "@collectionExportM3uFailed": {
     "description": "Snackbar when writing or sharing the M3U8 export fails"
   },
-  "trackOpenOn": "Open on...",
+  "trackOpenOn": "Открыть на...",
   "@trackOpenOn": {
     "description": "Track option and sheet title listing streaming platforms where the track can be opened"
   },
@@ -892,15 +892,15 @@
   "@libraryReviewDuplicatesSubtitle": {
     "description": "Subtitle for the duplicate review settings row"
   },
-  "duplicatesTitle": "Duplicates",
+  "duplicatesTitle": "Дубликаты",
   "@duplicatesTitle": {
     "description": "Title of the duplicate review sheet"
   },
-  "duplicatesEmpty": "No duplicate tracks found.",
+  "duplicatesEmpty": "Дублированные треки не найдены.",
   "@duplicatesEmpty": {
     "description": "Shown when the duplicate review sheet finds nothing"
   },
-  "duplicatesKeepBest": "Keep best",
+  "duplicatesKeepBest": "Оставить лучшее",
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
   },
@@ -932,7 +932,7 @@
       }
     }
   },
-  "duplicatesDeleteCopyMessage": "Delete this copy of \"{trackName}\"?",
+  "duplicatesDeleteCopyMessage": "Удалить эту копию \"{trackName}\"?",
   "@duplicatesDeleteCopyMessage": {
     "description": "Confirmation message for deleting one duplicate copy",
     "placeholders": {
@@ -1658,7 +1658,7 @@
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
-  "libraryQualityLabelFileFormat": "File format",
+  "libraryQualityLabelFileFormat": "Формат файла",
   "@libraryQualityLabelFileFormat": {
     "description": "Library audio quality label mode that shows the detected file format"
   },
@@ -1842,7 +1842,7 @@
   "@storeLoadError": {
     "description": "Error heading when the store cannot be loaded"
   },
-  "storeEmptyNoExtensions": "No extensions available",
+  "storeEmptyNoExtensions": "Нет доступных расширений",
   "@storeEmptyNoExtensions": {
     "description": "Message when store has no extensions"
   },
@@ -1969,7 +1969,7 @@
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} extensions installed successfully",
+  "extensionsInstalledCount": "{count} расширений успешно установлено",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -1979,7 +1979,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "Installed {installed} of {attempted} extensions",
+  "extensionsInstallPartialSuccess": "Установлено {installed} из {attempted} расширений",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -2077,7 +2077,7 @@
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadAutoConvert": "Auto-convert after download",
+  "downloadAutoConvert": "Автоконвертация после загрузки",
   "@downloadAutoConvert": {
     "description": "Toggle for automatic post-download audio conversion"
   },
@@ -2085,7 +2085,7 @@
   "@downloadAutoConvertSubtitle": {
     "description": "Explanation of safe automatic post-download conversion"
   },
-  "downloadAutoConvertFormat": "Output format",
+  "downloadAutoConvertFormat": "Выходной формат",
   "@downloadAutoConvertFormat": {
     "description": "Automatic conversion output format setting"
   },
@@ -2093,7 +2093,7 @@
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
-  "downloadAutoConvertBitrate": "Output quality",
+  "downloadAutoConvertBitrate": "Качество выхода",
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
@@ -2101,15 +2101,15 @@
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
-  "downloadAutoConvertMp3Subtitle": "Best compatibility across players and devices",
+  "downloadAutoConvertMp3Subtitle": "Наилучшая совместимость между плеерами и устройствами",
   "@downloadAutoConvertMp3Subtitle": {
     "description": "MP3 automatic conversion option description"
   },
-  "downloadAutoConvertM4aSubtitle": "Efficient AAC audio in an M4A container",
+  "downloadAutoConvertM4aSubtitle": "Эффективность AAC аудио в M4A контейнере",
   "@downloadAutoConvertM4aSubtitle": {
     "description": "M4A AAC automatic conversion option description"
   },
-  "downloadAutoConvertOpusSubtitle": "Best efficiency for modern players",
+  "downloadAutoConvertOpusSubtitle": "Лучшая эффективность для современных плееров",
   "@downloadAutoConvertOpusSubtitle": {
     "description": "Opus automatic conversion option description"
   },
@@ -2133,7 +2133,7 @@
   "@downloadLossyAac": {
     "description": "Lossy format option - AAC in M4A container at 320kbps"
   },
-  "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
+  "downloadLossyAacSubtitle": "Лучшая мобильная совместимость, контейнер M4A",
   "@downloadLossyAacSubtitle": {
     "description": "Subtitle for AAC/M4A 320kbps lossy option"
   },
@@ -2141,7 +2141,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "Best quality Opus, ~8MB per track",
+  "downloadLossyOpus256Subtitle": "Лучшее качество Opus, ~8MB на трек",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2213,7 +2213,7 @@
   "@appearanceHeroAnimationsSubtitle": {
     "description": "Subtitle for the Hero animations toggle"
   },
-  "appearanceForceBlur": "Always use blur effects",
+  "appearanceForceBlur": "Всегда использовать эффект размытия",
   "@appearanceForceBlur": {
     "description": "Toggle that forces backdrop blur on even when the device profile disabled it"
   },
@@ -2253,7 +2253,7 @@
   "@settingsDownloadNetworkSubtitle": {
     "description": "Subtitle explaining network preference"
   },
-  "settingsConcurrentDownloads": "Concurrent downloads",
+  "settingsConcurrentDownloads": "Одновременные загрузки",
   "@settingsConcurrentDownloads": {
     "description": "Setting title - how many tracks download at the same time"
   },
@@ -2261,7 +2261,7 @@
   "@settingsConcurrentDownloadsSubtitle": {
     "description": "Subtitle explaining the concurrent downloads picker"
   },
-  "concurrentDownloadsOne": "1 track at a time",
+  "concurrentDownloadsOne": "1 трек за раз",
   "@concurrentDownloadsOne": {
     "description": "Concurrent downloads option - sequential"
   },
@@ -2595,15 +2595,15 @@
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
-  "libraryAddFolder": "Add library folder",
+  "libraryAddFolder": "Добавить папку библиотеки",
   "@libraryAddFolder": {
     "description": "Action to add another local library source"
   },
-  "libraryAddFolderSubtitle": "Internal storage, SD card, SSD, or another external drive",
+  "libraryAddFolderSubtitle": "Внутреннее хранилище, SD-карта, SSD или другой внешний диск",
   "@libraryAddFolderSubtitle": {
     "description": "Supported storage locations for local library sources"
   },
-  "librarySourceOnline": "Online",
+  "librarySourceOnline": "Онлайн",
   "@librarySourceOnline": {
     "description": "Library source is connected and accessible"
   },
@@ -2611,11 +2611,11 @@
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
-  "librarySourceDisabled": "Disabled",
+  "librarySourceDisabled": "Отключено",
   "@librarySourceDisabled": {
     "description": "Library source has been disabled by the user"
   },
-  "librarySourceScanCount": "{scanned} of {total} files scanned ({progress}%)",
+  "librarySourceScanCount": "{scanned} из {total} сканированных файлов ({progress}%)",
   "@librarySourceScanCount": {
     "description": "Live progress for one library folder scan",
     "placeholders": {
@@ -2630,11 +2630,11 @@
       }
     }
   },
-  "libraryExternalStorage": "External storage",
+  "libraryExternalStorage": "Внешнее хранилище",
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },
-  "libraryRemoveFolder": "Remove library folder",
+  "libraryRemoveFolder": "Удалить папку библиотеки",
   "@libraryRemoveFolder": {
     "description": "Action to remove one indexed library source"
   },
@@ -2654,11 +2654,11 @@
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
-  "libraryAutoScanSubtitle": "Automatically scan your library for new files",
+  "libraryAutoScanSubtitle": "Автоматически сканировать библиотеку на новые файлы",
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
-  "libraryAutoScanOff": "Off",
+  "libraryAutoScanOff": "Выкл.",
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
@@ -2862,7 +2862,7 @@
   "@libraryFilterMetadata": {
     "description": "Filter section - metadata completeness"
   },
-  "libraryFilterMetadataComplete": "Complete metadata",
+  "libraryFilterMetadataComplete": "Полные метаданные",
   "@libraryFilterMetadataComplete": {
     "description": "Filter option - items with complete metadata"
   },
@@ -2932,7 +2932,7 @@
       }
     }
   },
-  "tutorialWelcomeTitle": "Welcome to SpotiFLAC Mobile!",
+  "tutorialWelcomeTitle": "Добро пожаловать в SpotiFLAC Mobile!",
   "@tutorialWelcomeTitle": {
     "description": "Tutorial welcome page title"
   },
@@ -3000,7 +3000,7 @@
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
-  "tutorialExtensionsTip2": "Choose providers for search, downloads, metadata, and fallbacks",
+  "tutorialExtensionsTip2": "Выберите провайдеров для поиска, загрузки, метаданных и опций",
   "@tutorialExtensionsTip2": {
     "description": "Tutorial extensions tip 2"
   },
@@ -3122,7 +3122,7 @@
   "@cacheLibraryCoverDesc": {
     "description": "Description of what library cover cache contains"
   },
-  "libraryPlaybackNormalization": "Volume normalization",
+  "libraryPlaybackNormalization": "Нормализация громкости",
   "@libraryPlaybackNormalization": {
     "description": "Toggle title for ReplayGain playback normalization in the built-in player"
   },
@@ -3130,7 +3130,7 @@
   "@libraryPlaybackNormalizationSubtitle": {
     "description": "Subtitle explaining playback volume normalization"
   },
-  "cacheAudioAnalysis": "Audio analysis cache",
+  "cacheAudioAnalysis": "Кэш аудиоанализа",
   "@cacheAudioAnalysis": {
     "description": "Cache item title for saved audio analysis results"
   },
@@ -3302,7 +3302,7 @@
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackReEnrichModeIsrc": "ISRC only",
+  "trackReEnrichModeIsrc": "Только ISRC",
   "@trackReEnrichModeIsrc": {
     "description": "Batch metadata mode that only writes ISRC"
   },
@@ -3310,7 +3310,7 @@
   "@trackReEnrichModeIsrcSubtitle": {
     "description": "Explanation for the ISRC-only batch metadata mode"
   },
-  "trackReEnrichModeMissing": "Fill missing tags",
+  "trackReEnrichModeMissing": "Заполнить недостающие теги",
   "@trackReEnrichModeMissing": {
     "description": "Batch metadata mode that fills only empty tags"
   },
@@ -3318,7 +3318,7 @@
   "@trackReEnrichModeMissingSubtitle": {
     "description": "Explanation for the fill-missing batch metadata mode"
   },
-  "trackReEnrichModeReplace": "Update selected tags",
+  "trackReEnrichModeReplace": "Обновить выбранные теги",
   "@trackReEnrichModeReplace": {
     "description": "Batch metadata mode that replaces selected tag groups"
   },
@@ -3334,7 +3334,7 @@
   "@trackReEnrichModeManualSubtitle": {
     "description": "Explanation for the manual shared-value batch metadata mode"
   },
-  "trackReEnrichManualFieldsTitle": "Values to apply",
+  "trackReEnrichManualFieldsTitle": "Значения для применения",
   "@trackReEnrichManualFieldsTitle": {
     "description": "Heading above manual batch metadata inputs"
   },
@@ -3342,15 +3342,15 @@
   "@trackReEnrichManualHint": {
     "description": "Safety explanation for manual batch metadata inputs"
   },
-  "trackReEnrichFieldsTitle": "Tags to update",
+  "trackReEnrichFieldsTitle": "Теги для обновления",
   "@trackReEnrichFieldsTitle": {
     "description": "Heading above batch re-enrich field checkboxes"
   },
-  "trackReEnrichReview": "Review changes",
+  "trackReEnrichReview": "Просмотр изменений",
   "@trackReEnrichReview": {
     "description": "Button that searches metadata and opens the batch change review"
   },
-  "trackReEnrichReviewTitle": "Review metadata changes",
+  "trackReEnrichReviewTitle": "Проверка изменений метаданных",
   "@trackReEnrichReviewTitle": {
     "description": "Title of the batch metadata review sheet"
   },
@@ -3370,11 +3370,11 @@
   "@trackReEnrichNoChanges": {
     "description": "Message when batch metadata preview has no proposed changes"
   },
-  "trackReEnrichApplyChanges": "Apply changes",
+  "trackReEnrichApplyChanges": "Применить изменения",
   "@trackReEnrichApplyChanges": {
     "description": "Confirmation button in the batch metadata review sheet"
   },
-  "trackReEnrichRefreshOnline": "Refresh from online",
+  "trackReEnrichRefreshOnline": "Обновить из сети",
   "@trackReEnrichRefreshOnline": {
     "description": "Proposed value when lyrics will be refreshed during re-enrich"
   },
@@ -3417,8 +3417,8 @@
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Метаданные успешно обновлены",
-  "trackReEnrichMetadataSaved": "Metadata saved",
-  "trackReEnrichLyricsUpdated": "Lyrics updated",
+  "trackReEnrichMetadataSaved": "Метаданные сохранены",
+  "trackReEnrichLyricsUpdated": "Текст обновлён",
   "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
   "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
   "@trackReEnrichSuccess": {
@@ -3482,7 +3482,7 @@
   "@trackConvertBitrate": {
     "description": "Label for bitrate selection"
   },
-  "trackConvertKeepOriginal": "Keep original file",
+  "trackConvertKeepOriginal": "Оставить исходный файл",
   "@trackConvertKeepOriginal": {
     "description": "Toggle to preserve the source file during conversion"
   },
@@ -4011,7 +4011,7 @@
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, direct API)",
+  "lyricsProviderQqMusicDesc": "QQ Музыка (хорошо подходит для китайских песен, прямой API)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
@@ -4039,27 +4039,27 @@
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
-  "settingsDonate": "Support Development",
+  "settingsDonate": "Поддержка разработки",
   "@settingsDonate": {
     "description": "Settings menu item - donate page"
   },
-  "settingsDonateSubtitle": "Buy the developer a coffee",
+  "settingsDonateSubtitle": "Купить разработчику кофе",
   "@settingsDonateSubtitle": {
     "description": "Subtitle for donate menu item"
   },
-  "settingsBackup": "Backup & Restore",
+  "settingsBackup": "Резервирование и восстановление",
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
-  "settingsBackupSubtitle": "Move your library, history and settings to a new device",
+  "settingsBackupSubtitle": "Переместить свою библиотеку, историю и настройки на новое устройство",
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
-  "backupTitle": "Backup & Restore",
+  "backupTitle": "Резервирование и восстановление",
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
-  "backupExportSectionTitle": "Create backup",
+  "backupExportSectionTitle": "Создать резервную копию",
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
@@ -4067,31 +4067,31 @@
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
-  "backupExportButton": "Create backup file",
+  "backupExportButton": "Создать файл резервной копии",
   "@backupExportButton": {
     "description": "Button to create and share a backup file"
   },
-  "backupImportSectionTitle": "Restore backup",
+  "backupImportSectionTitle": "Восстановить резервную копию",
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
-  "backupImportSectionDescription": "Pick a backup file to restore your data. This replaces the current settings, history and library on this device.",
+  "backupImportSectionDescription": "Выберите файл резервной копии для восстановления данных. Это заменит текущие настройки, историю и библиотеку на этом устройстве.",
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
-  "backupImportButton": "Choose backup file",
+  "backupImportButton": "Выберите файл резервной копии",
   "@backupImportButton": {
     "description": "Button to pick a backup file to restore"
   },
-  "backupCreated": "Backup created",
+  "backupCreated": "Резервная копия создана",
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
-  "backupCreateFailed": "Failed to create backup",
+  "backupCreateFailed": "Не удалось создать резервную копию",
   "@backupCreateFailed": {
     "description": "Snackbar when backup creation fails"
   },
-  "backupRestoreConfirmTitle": "Restore this backup?",
+  "backupRestoreConfirmTitle": "Восстановить эту резервную копию?",
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
@@ -4099,23 +4099,23 @@
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
-  "backupRestoreConfirmButton": "Restore",
+  "backupRestoreConfirmButton": "Восстановить",
   "@backupRestoreConfirmButton": {
     "description": "Confirm button to proceed with restore"
   },
-  "backupRestored": "Backup restored successfully",
+  "backupRestored": "Резервная копия успешно восстановлена",
   "@backupRestored": {
     "description": "Snackbar after a successful restore"
   },
-  "backupRestoreFailed": "Failed to restore backup",
+  "backupRestoreFailed": "Не удалось восстановить резервную копию",
   "@backupRestoreFailed": {
     "description": "Snackbar when restore fails"
   },
-  "backupInvalidFile": "This file is not a valid SpotiFLAC backup",
+  "backupInvalidFile": "Этот файл не является резервной копией SpotiFLAC",
   "@backupInvalidFile": {
     "description": "Snackbar when the chosen file is not a valid backup"
   },
-  "backupRestoreRestartHint": "Restart the app to make sure every change is applied.",
+  "backupRestoreRestartHint": "Перезапустите приложение, чтобы убедиться, что все изменения применяются.",
   "@backupRestoreRestartHint": {
     "description": "Hint shown after restoring that an app restart is recommended"
   },
@@ -4123,15 +4123,15 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
-  "backupSelectHistory": "Download history",
-  "backupSelectCollections": "Library collections",
+  "backupSettingsOnly": "Только настройки",
+  "backupSelectHistory": "История загрузок",
+  "backupSelectCollections": "Коллекции библиотеки",
   "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
-  "backupSelectExtensions": "Extensions and their settings",
+  "backupSelectExtensions": "Расширения и их настройки",
   "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
-  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
+  "backupSelectAtLeastOne": "Выберите хотя бы одну категорию для создания резервной копии.",
   "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
-  "backupContentsSettings": "App settings",
+  "backupContentsSettings": "Настройки приложения",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
@@ -4245,7 +4245,7 @@
       }
     }
   },
-  "homeSkipAlreadyDownloaded": "Skip already downloaded songs",
+  "homeSkipAlreadyDownloaded": "Пропустить уже загруженные треки",
   "@homeSkipAlreadyDownloaded": {
     "description": "Checkbox label in import dialog to skip already-downloaded songs"
   },
@@ -4253,7 +4253,7 @@
   "@homeGoToAlbum": {
     "description": "Context menu item to navigate to the album page"
   },
-  "homeAlbumInfoUnavailable": "Album info not available",
+  "homeAlbumInfoUnavailable": "Информация об альбоме недоступна",
   "@homeAlbumInfoUnavailable": {
     "description": "Snackbar when album info cannot be loaded"
   },
@@ -4265,11 +4265,11 @@
   "@snackbarMetadataSaved": {
     "description": "Snackbar after successfully saving track metadata"
   },
-  "snackbarFailedToEmbedLyrics": "Failed to embed lyrics",
+  "snackbarFailedToEmbedLyrics": "Не удалось встроить текст",
   "@snackbarFailedToEmbedLyrics": {
     "description": "Snackbar when lyrics embedding fails"
   },
-  "snackbarFailedToWriteStorage": "Failed to write back to storage",
+  "snackbarFailedToWriteStorage": "Не удалось записать в хранилище",
   "@snackbarFailedToWriteStorage": {
     "description": "Snackbar when writing metadata back to file fails"
   },
@@ -4296,7 +4296,7 @@
   },
   "storageAutomaticFolder": "Automatic folder",
   "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
-  "storageSafRecommended": "Choose folder (Recommended)",
+  "storageSafRecommended": "Выбрать папку (Рекомендуется)",
   "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
   "storageModeAppFolder": "App Folder (Recommended)",
   "@storageModeAppFolder": {
@@ -4334,7 +4334,7 @@
   "@downloadErrorFolderAccessLost": {
     "description": "Error shown on downloads that failed because the iOS download folder bookmark could not be opened"
   },
-  "downloadFilenameDescription": "Use {artist}, {title}, {album}, {track}, {year}, {date}, {disc} as placeholders.",
+  "downloadFilenameDescription": "Использовать {artist}, {title}, {album}, {track}, {year}, {date}, {disc} в качестве заполнителей.",
   "@downloadFilenameDescription": {
     "description": "Description shown in filename format editor"
   },
@@ -4374,7 +4374,7 @@
   "@downloadSongLinkRegion": {
     "description": "Setting for SongLink region used during fallback resolution"
   },
-  "downloadNetworkCompatibilityMode": "Network Compatibility Mode",
+  "downloadNetworkCompatibilityMode": "Режим сетевой совместимости",
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
@@ -4386,7 +4386,7 @@
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadAllowLocalNetwork": "Allow Local Network Access",
+  "downloadAllowLocalNetwork": "Разрешить доступ к локальной сети",
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
@@ -4494,7 +4494,7 @@
   "@downloadMusixmatchAuto": {
     "description": "Button to clear Musixmatch language (use auto)"
   },
-  "downloadNetworkAnySubtitle": "Use WiFi or mobile data",
+  "downloadNetworkAnySubtitle": "Использовать Wi-Fi или мобильные данные",
   "@downloadNetworkAnySubtitle": {
     "description": "Subtitle for any-network option in picker"
   },
@@ -4568,7 +4568,7 @@
   "@editMetadataAutoFillSourceAutomatic": {
     "description": "Automatic source option that follows configured metadata provider priority"
   },
-  "editMetadataAutoFillFind": "Find metadata",
+  "editMetadataAutoFillFind": "Найти метаданные",
   "@editMetadataAutoFillFind": {
     "description": "Button label for finding an online metadata candidate"
   },
@@ -4742,11 +4742,11 @@
   "@queueEmptyPlaylistsSubtitle": {
     "description": "Empty state subtitle for the playlists library view"
   },
-  "libraryDefaultView": "Default view",
+  "libraryDefaultView": "Вид по умолчанию",
   "@libraryDefaultView": {
     "description": "Setting title - which library view opens when switching to the Library tab"
   },
-  "libraryDefaultViewLastUsed": "Last used",
+  "libraryDefaultViewLastUsed": "Последнее использованное",
   "@libraryDefaultViewLastUsed": {
     "description": "Default view option - keep the last used library view"
   },
@@ -4770,15 +4770,15 @@
   "@selectionSelectPlaylistsToDelete": {
     "description": "Hint shown when no playlists are selected for deletion"
   },
-  "audioAnalysisTitle": "Audio Quality Analysis",
+  "audioAnalysisTitle": "Анализ качества аудио",
   "@audioAnalysisTitle": {
     "description": "Title for audio analysis section"
   },
-  "audioAnalysisDescription": "Verify lossless quality with spectrum analysis",
+  "audioAnalysisDescription": "Проверка на Lossless качество с помощью анализа спектра",
   "@audioAnalysisDescription": {
     "description": "Description for audio analysis tap-to-analyze prompt"
   },
-  "audioAnalysisAnalyzing": "Analyzing audio...",
+  "audioAnalysisAnalyzing": "Анализ аудио...",
   "@audioAnalysisAnalyzing": {
     "description": "Loading text while analyzing audio"
   },
@@ -4838,19 +4838,19 @@
   "@audioAnalysisTruePeak": {
     "description": "True peak metric label"
   },
-  "audioAnalysisClipping": "Clipping",
+  "audioAnalysisClipping": "Клиппинг",
   "@audioAnalysisClipping": {
     "description": "Clipping metric label"
   },
-  "audioAnalysisNoClipping": "No clipping",
+  "audioAnalysisNoClipping": "Нет клиппинга",
   "@audioAnalysisNoClipping": {
     "description": "Displayed when no clipped samples were detected"
   },
-  "audioAnalysisSpectralCutoff": "Spectral Cutoff",
+  "audioAnalysisSpectralCutoff": "Спектральный срез",
   "@audioAnalysisSpectralCutoff": {
     "description": "Estimated spectral cutoff metric label"
   },
-  "audioAnalysisCutoffNotDetected": "Not detected",
+  "audioAnalysisCutoffNotDetected": "Не обнаружено",
   "@audioAnalysisCutoffNotDetected": {
     "description": "Displayed when no reliable broadband spectral cutoff can be detected"
   },
@@ -5245,19 +5245,19 @@
   "@trackCoverReplace": {
     "description": "Button label for replacing selected cover art"
   },
-  "trackCoverPick": "Pick Cover",
+  "trackCoverPick": "Выбрать обложку",
   "@trackCoverPick": {
     "description": "Button label for selecting cover art"
   },
-  "trackCoverClearSelected": "Clear selected cover",
+  "trackCoverClearSelected": "Очистить выбранную обложку",
   "@trackCoverClearSelected": {
     "description": "Tooltip for clearing the newly selected cover art"
   },
-  "trackCoverCurrent": "Current cover",
+  "trackCoverCurrent": "Текущая обложка",
   "@trackCoverCurrent": {
     "description": "Label for the currently embedded cover preview"
   },
-  "trackCoverSelected": "Selected cover",
+  "trackCoverSelected": "Выбранная обложка",
   "@trackCoverSelected": {
     "description": "Label for the newly selected cover preview"
   },
@@ -5265,7 +5265,7 @@
   "@trackCoverReplaceNotice": {
     "description": "Notice shown when a new cover has been selected but not saved yet"
   },
-  "trackCoverResolution": "Cover resolution",
+  "trackCoverResolution": "Разрешение обложки",
   "@trackCoverResolution": {
     "description": "Label for selecting the embedded cover art resolution"
   },
@@ -5277,7 +5277,7 @@
   "@trackCoverResizeFailed": {
     "description": "Error shown when resizing cover art before saving metadata fails"
   },
-  "actionStop": "Stop",
+  "actionStop": "Стоп",
   "@actionStop": {
     "description": "Generic action - stop"
   },
@@ -5297,11 +5297,11 @@
   "@queueMoveDown": {
     "description": "Queue item menu action - move the queued item one position later"
   },
-  "editMetadataMusicBrainzButton": "Fetch from MusicBrainz",
+  "editMetadataMusicBrainzButton": "Извлечь из MusicBrainz",
   "@editMetadataMusicBrainzButton": {
     "description": "Tag editor button that fills genre and album artist from MusicBrainz by ISRC"
   },
-  "editMetadataMusicBrainzFilled": "Updated from MusicBrainz",
+  "editMetadataMusicBrainzFilled": "Обновлено из MusicBrainz",
   "@editMetadataMusicBrainzFilled": {
     "description": "Snackbar after MusicBrainz suggestions were applied to the tag editor fields"
   },
@@ -5375,11 +5375,11 @@
   "@logCopyLogs": {
     "description": "Tooltip for copying logs"
   },
-  "logClearSearch": "Clear search",
+  "logClearSearch": "Очистить поиск",
   "@logClearSearch": {
     "description": "Tooltip for clearing the log search field"
   },
-  "logIssueIspBlockingLabel": "ISP BLOCKING DETECTED",
+  "logIssueIspBlockingLabel": "ОБНАРУЖЕНА БЛОКИРОВКА ИНТЕРНЕТ ПРОВАЙДЕРОМ",
   "@logIssueIspBlockingLabel": {
     "description": "Diagnostic badge label when ISP blocking is detected"
   },
@@ -5387,7 +5387,7 @@
   "@logIssueIspBlockingDescription": {
     "description": "Diagnostic badge description for ISP blocking"
   },
-  "logIssueIspBlockingSuggestion": "Try using a VPN or change DNS to 1.1.1.1 or 8.8.8.8",
+  "logIssueIspBlockingSuggestion": "Попробуйте с VPN либо смените DNS на 1.1.1.1 или 8.8.8.8",
   "@logIssueIspBlockingSuggestion": {
     "description": "Diagnostic badge suggestion for ISP blocking"
   },
@@ -5395,7 +5395,7 @@
   "@logIssueRateLimitedLabel": {
     "description": "Diagnostic badge label when the service rate limits requests"
   },
-  "logIssueRateLimitedDescription": "Too many requests to the service",
+  "logIssueRateLimitedDescription": "Слишком много запросов к сервису",
   "@logIssueRateLimitedDescription": {
     "description": "Diagnostic badge description for rate limiting"
   },
@@ -5403,11 +5403,11 @@
   "@logIssueRateLimitedSuggestion": {
     "description": "Diagnostic badge suggestion for rate limiting"
   },
-  "logIssueNetworkErrorLabel": "NETWORK ERROR",
+  "logIssueNetworkErrorLabel": "ОШИБКА СЕТИ",
   "@logIssueNetworkErrorLabel": {
     "description": "Diagnostic badge label for generic network errors"
   },
-  "logIssueNetworkErrorDescription": "Connection issues detected",
+  "logIssueNetworkErrorDescription": "Обнаружены проблемы с подключением",
   "@logIssueNetworkErrorDescription": {
     "description": "Diagnostic badge description for generic network errors"
   },
@@ -5452,11 +5452,11 @@
   "@extensionUtilityFunctions": {
     "description": "Capability label for utility-only extensions"
   },
-  "actionDismiss": "Dismiss",
+  "actionDismiss": "Отклонить",
   "@actionDismiss": {
     "description": "Generic action - dismiss"
   },
-  "setupChangeFolderTooltip": "Change folder",
+  "setupChangeFolderTooltip": "Сменить папку",
   "@setupChangeFolderTooltip": {
     "description": "Tooltip for editing the selected download folder"
   },
@@ -5577,11 +5577,11 @@
   "@sectionMetadataProviders": {
     "description": "Settings section header for metadata providers"
   },
-  "sectionDuplicates": "Duplicates",
+  "sectionDuplicates": "Дубликаты",
   "@sectionDuplicates": {
     "description": "Settings section header for deduplication"
   },
-  "sectionLyricsProviderOptions": "Provider Options",
+  "sectionLyricsProviderOptions": "Параметры провайдера",
   "@sectionLyricsProviderOptions": {
     "description": "Settings section header for per-provider lyrics options"
   },
@@ -5617,7 +5617,7 @@
   "@downloadQualityVariantsDescription": {
     "description": "Description for retaining multiple quality versions"
   },
-  "trackOptionDownloadQualityVariant": "Download another quality",
+  "trackOptionDownloadQualityVariant": "Скачать в другом качестве",
   "@trackOptionDownloadQualityVariant": {
     "description": "Track menu action to download another quality version"
   },
@@ -5629,11 +5629,11 @@
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
   },
-  "editMetadataFieldDateHint": "YYYY-MM-DD or YYYY",
+  "editMetadataFieldDateHint": "ГГГГ-ММ-ДД либо ГГГГ",
   "@editMetadataFieldDateHint": {
     "description": "Hint text for the edit metadata date field"
   },
-  "editMetadataFieldTrackTotal": "Track Total",
+  "editMetadataFieldTrackTotal": "Всего треков",
   "@editMetadataFieldTrackTotal": {
     "description": "Label for total tracks field in the edit metadata sheet"
   },
@@ -5641,7 +5641,7 @@
   "@editMetadataFieldDiscTotal": {
     "description": "Label for total discs field in the edit metadata sheet"
   },
-  "editMetadataFieldComposer": "Composer",
+  "editMetadataFieldComposer": "Композитор",
   "@editMetadataFieldComposer": {
     "description": "Label for composer field in the edit metadata sheet"
   },
@@ -5669,7 +5669,7 @@
   "@metadataExplicitValue": {
     "description": "Displayed value when a track is marked explicit"
   },
-  "editMetadataFieldUpc": "UPC / Barcode",
+  "editMetadataFieldUpc": "UPC / Штрихкод",
   "@editMetadataFieldUpc": {
     "description": "Label for the release barcode metadata field"
   },
@@ -5677,7 +5677,7 @@
   "@editMetadataFieldUpcHint": {
     "description": "Hint for the release barcode metadata field"
   },
-  "editMetadataAdvanced": "Advanced",
+  "editMetadataAdvanced": "Расширенные",
   "@editMetadataAdvanced": {
     "description": "Expandable section label for advanced metadata fields"
   },
@@ -5693,7 +5693,7 @@
   "@libraryFilterMetadataMissingArtist": {
     "description": "Filter option - items missing artist"
   },
-  "libraryFilterMetadataIncorrectIsrcFormat": "Incorrect ISRC format",
+  "libraryFilterMetadataIncorrectIsrcFormat": "Некорректный формат ISRC",
   "@libraryFilterMetadataIncorrectIsrcFormat": {
     "description": "Filter option - items with an invalid ISRC format"
   },
@@ -5792,12 +5792,12 @@
       }
     }
   },
-  "queueDownloadStarting": "Starting...",
+  "queueDownloadStarting": "Запуск...",
   "queueCheckingDownloadSession": "Checking download session...",
   "queueResolvingDownloadMetadata": "Resolving track metadata...",
   "queueResolvingDownloadStream": "Preparing audio stream...",
-  "queueWaitingForVerification": "Waiting for verification...",
-  "queueResumingAfterVerification": "Resuming after verification...",
+  "queueWaitingForVerification": "Ожидание верификации...",
+  "queueResumingAfterVerification": "Продолжение после верификации...",
   "@queueDownloadStarting": {
     "description": "Queue status before download progress is available"
   },
@@ -5948,7 +5948,7 @@
       }
     }
   },
-  "extensionHealthOnline": "Online",
+  "extensionHealthOnline": "Онлайн",
   "@extensionHealthOnline": {
     "description": "Extension service health status - online"
   },
@@ -5956,7 +5956,7 @@
   "@extensionHealthDegraded": {
     "description": "Extension service health status - degraded"
   },
-  "extensionHealthOffline": "Offline",
+  "extensionHealthOffline": "Оффлайн",
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
@@ -6000,15 +6000,15 @@
   "@extensionHealthServiceUnknown": {
     "description": "Tooltip for unknown extension service health"
   },
-  "audioAnalysisStereo": "Stereo",
+  "audioAnalysisStereo": "Стерео",
   "@audioAnalysisStereo": {
     "description": "Audio channel layout label - stereo"
   },
-  "audioAnalysisMono": "Mono",
+  "audioAnalysisMono": "Моно",
   "@audioAnalysisMono": {
     "description": "Audio channel layout label - mono"
   },
-  "trackOpenInService": "Open in {serviceName}",
+  "trackOpenInService": "Открыть в {serviceName}",
   "@trackOpenInService": {
     "description": "Button label to open a track in a named music service",
     "placeholders": {
@@ -6017,27 +6017,27 @@
       }
     }
   },
-  "trackLyricsEmbeddedSource": "Embedded",
+  "trackLyricsEmbeddedSource": "Встроенный",
   "@trackLyricsEmbeddedSource": {
     "description": "Lyrics source label for embedded lyrics"
   },
-  "unknownAlbum": "Unknown Album",
+  "unknownAlbum": "Неизвестный альбом",
   "@unknownAlbum": {
     "description": "Fallback album name when metadata is missing"
   },
-  "unknownArtist": "Unknown Artist",
+  "unknownArtist": "Неизвестный исполнитель",
   "@unknownArtist": {
     "description": "Fallback artist name when metadata is missing"
   },
-  "permissionAudio": "Audio",
+  "permissionAudio": "Аудио",
   "@permissionAudio": {
     "description": "Audio permission type label"
   },
-  "permissionStorage": "Storage",
+  "permissionStorage": "Хранилище",
   "@permissionStorage": {
     "description": "Storage permission type label"
   },
-  "permissionNotification": "Notification",
+  "permissionNotification": "Уведомление",
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
@@ -6049,7 +6049,7 @@
   "@storeAnyVersion": {
     "description": "Store detail value when any app version is accepted"
   },
-  "storeCategoryMetadata": "Metadata",
+  "storeCategoryMetadata": "Метаданные",
   "@storeCategoryMetadata": {
     "description": "Store extension category - metadata"
   },
@@ -6065,7 +6065,7 @@
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
-  "storeCategoryIntegration": "Integration",
+  "storeCategoryIntegration": "Интеграция",
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
@@ -6114,7 +6114,7 @@
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
-  "shareSheetNotFound": "Not found",
+  "shareSheetNotFound": "Не найдено",
   "@shareSheetNotFound": {
     "description": "Cross-service share sheet row subtitle when a service has no match"
   },
@@ -6133,7 +6133,7 @@
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
-  "libraryExternalPlayer": "External player",
+  "libraryExternalPlayer": "Внешний плеер",
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
@@ -6232,7 +6232,7 @@
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
-  "nowPlayingNoLyrics": "No lyrics in this file",
+  "nowPlayingNoLyrics": "В файле нет текста",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -6490,55 +6490,55 @@
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },
-  "regionCountryUS": "United States",
+  "regionCountryUS": "США",
   "@regionCountryUS": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryGB": "United Kingdom",
+  "regionCountryGB": "Великобритания",
   "@regionCountryGB": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryFR": "France",
+  "regionCountryFR": "Франция",
   "@regionCountryFR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryDE": "Germany",
+  "regionCountryDE": "Германия",
   "@regionCountryDE": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryJP": "Japan",
+  "regionCountryJP": "Япония",
   "@regionCountryJP": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryKR": "South Korea",
+  "regionCountryKR": "Южная Корея",
   "@regionCountryKR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryIN": "India",
+  "regionCountryIN": "Индия",
   "@regionCountryIN": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryID": "Indonesia",
+  "regionCountryID": "Индонезия",
   "@regionCountryID": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryBR": "Brazil",
+  "regionCountryBR": "Бразилия",
   "@regionCountryBR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryMX": "Mexico",
+  "regionCountryMX": "Мексика",
   "@regionCountryMX": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryAU": "Australia",
+  "regionCountryAU": "Австралия",
   "@regionCountryAU": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryCA": "Canada",
+  "regionCountryCA": "Канада",
   "@regionCountryCA": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryXK": "Kosovo",
+  "regionCountryXK": "Косово",
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
   },
@@ -6575,11 +6575,11 @@
   "@extensionVerificationHelpTitleManual": {
     "description": "Dialog title when automatic browser launch for verification fails"
   },
-  "extensionVerificationHelpTitleWaiting": "Verification still waiting",
+  "extensionVerificationHelpTitleWaiting": "Ожидание верификации",
   "@extensionVerificationHelpTitleWaiting": {
     "description": "Dialog title when verification is taking longer than expected"
   },
-  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile could not open the browser automatically. Open this link in your browser, or copy it manually.",
+  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile не смог автоматически открыть браузер. Откройте эту ссылку в браузере или скопируйте её вручную.",
   "@extensionVerificationHelpMessageManual": {
     "description": "Dialog message when automatic browser launch for verification fails"
   },
@@ -6587,19 +6587,19 @@
   "@extensionVerificationHelpMessageWaiting": {
     "description": "Dialog message when verification may need manual browser help"
   },
-  "extensionVerificationClose": "Close",
+  "extensionVerificationClose": "Закрыть",
   "@extensionVerificationClose": {
     "description": "Button to dismiss the extension verification help dialog"
   },
-  "extensionVerificationCopyLink": "Copy link",
+  "extensionVerificationCopyLink": "Копировать",
   "@extensionVerificationCopyLink": {
     "description": "Button to copy the extension verification URL"
   },
-  "extensionVerificationLinkCopied": "Verification link copied",
+  "extensionVerificationLinkCopied": "Ссылка на верификацию скопирована",
   "@extensionVerificationLinkCopied": {
     "description": "Snackbar after copying the extension verification URL"
   },
-  "extensionVerificationOpenBrowser": "Open browser",
+  "extensionVerificationOpenBrowser": "Открыть браузер",
   "@extensionVerificationOpenBrowser": {
     "description": "Button to open the extension verification URL in a browser"
   },
@@ -6636,7 +6636,7 @@
   "@settingsGroupHelp": {
     "description": "Settings group covering the about page and donations"
   },
-  "libraryFilterMetadataMissingLyrics": "Missing lyrics",
+  "libraryFilterMetadataMissingLyrics": "Текст отсутствует",
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
@@ -6661,9 +6661,9 @@
     "description": "Metadata menu action that copies the selected key and value"
   },
   "mornyeShowTabs": "Show tabs",
-  "mornyeSearch": "Search",
+  "mornyeSearch": "Поиск",
   "mornyeContinuePlaying": "Continue Playing",
-  "metadataCopyAll": "Copy all metadata",
+  "metadataCopyAll": "Скопировать все метаданные",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
   },
@@ -6697,7 +6697,7 @@
   "profileRemovePhoto": "Remove photo",
   "profilePhotoError": "Choose a valid image smaller than 20 MB.",
   "profileSaveError": "Could not save your profile. Please try again.",
-  "optionsEmbeddedCoverSizeOriginal": "Original resolution",
+  "optionsEmbeddedCoverSizeOriginal": "Оригинальное разрешение",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"
   }

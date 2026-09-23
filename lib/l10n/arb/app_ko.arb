@@ -1,48 +1,48 @@
 {
-  "upgradeIntroWelcome": "Welcome to\nSpotiFLAC-Mobile 5.0",
-  "upgradeIntroThemeTitle": "Make it\nyour own.",
-  "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
-  "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
-  "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
-  "upgradeIntroRustTitle": "A new engine.\nBuilt with Rust.",
-  "upgradeIntroRustBody": "In 5.0, the app’s backend has moved from Go to Rust. It is the engine working behind the screens you use every day.",
-  "upgradeIntroRustEngineTitle": "Working behind the scenes",
-  "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
-  "upgradeIntroRustMemoryTitle": "More careful with memory",
-  "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
-  "upgradeIntroRustKeepTitle": "Keep your music",
-  "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
-  "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
-  "upgradeIntroMornyeBody": "A new look for your player, lyrics and navigation.",
-  "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
-  "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
-  "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
-  "upgradeIntroLibraryBody": "In Mornye, browse by category or find your albums in Recently Added.",
-  "upgradeIntroDownloadsBody": "Pause and retry from Downloads at the top right. Finished music moves to Recently Added.",
-  "upgradeIntroSearchBody": "Search saved music here. The separate Search tab looks through your extensions.",
-  "upgradeIntroPlayerTitle": "Set up\nyour player.",
-  "upgradeIntroPlayerBody": "You can change your theme and playback options at any time. Here is where to find them.",
-  "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
-  "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
-  "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
-  "upgradeIntroSkip": "Skip",
-  "upgradeIntroContinue": "Continue",
-  "upgradeIntroDone": "Start listening",
-  "upgradeIntroReplay": "What’s new in 5.0",
-  "cacheMotionArtwork": "Offline motion covers",
-  "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
-  "nowPlayingVolume": "Volume",
+  "upgradeIntroWelcome": "SpotiFLAC Mobile 5.0에 \n오신 것을 환영 합니다",
+  "upgradeIntroThemeTitle": "나만의 스타일로\n꾸며보세요",
+  "upgradeIntroThemeBody": "스타일을 선택하세요. 선택한 스타일은 즉시 적용되며, 나중에 디자인 설정에서 변경할 수 있습니다",
+  "upgradeIntroThemeMaterialBody": "Material 디자인 컨트롤과 선택한 강조 색상이 적용된 익숙한 레이아웃",
+  "upgradeIntroThemeMornyeBody": "글래스 스타일의 네비게이션 메뉴, 새롭게 디자인된 라이브러리, 그리고 몰입감 있는 플레이어를 제공합니다",
+  "upgradeIntroRustTitle": "Rust로 제작된 새로운 엔진",
+  "upgradeIntroRustBody": "5.0 버전에서는 앱의 백엔드가 Go에서 Rust로 변경되었습니다. 이는 여러분이 매일 사용하는 화면 뒤에서 작동하는 핵심 엔진입니다",
+  "upgradeIntroRustEngineTitle": "백그라운드에서 작동",
+  "upgradeIntroRustEngineBody": "Rust는 Android와 iOS에서 다운로드, 오디오 메타데이터, 라이브러리 검색, 확장 기능 런타임을 처리합니다",
+  "upgradeIntroRustMemoryTitle": "메모리를 더욱 신중하게 사용",
+  "upgradeIntroRustMemoryBody": "버퍼를 재사용하고 데이터 복사 횟수를 줄여, 아트워크와 확장 기능 데이터를 처리할 때 발생하는 임시 메모리 할당을 줄였습니다",
+  "upgradeIntroRustKeepTitle": "음악을 유지하세요",
+  "upgradeIntroRustKeepBody": "컬렉션을 다시 다운로드할 필요가 없습니다. 저장된 음악과 설 정이 그대로 유지되며, 새로 설정할 필요도 없습니다",
+  "upgradeIntroWelcomeBody": "변경된 내용과 해당 기능을 찾을 수 있는 위치를 간단히 확인해 보세요",
+  "upgradeIntroMornyeBody": "플레이어, 가사 및 하단바 화면이 새로운 모습으로 바뀌었습니다",
+  "upgradeIntroLibrarySummary": "재생목록, 아티스트 또는 앨범별로 음악을 탐색할 수 있습니다",
+  "upgradeIntroRepoSummary": "확장 기능을 통해 음악 소스와 제공자를 선택할 수 있습니다",
+  "upgradeIntroLibraryTitle": "라이브러리를\n알아보세요",
+  "upgradeIntroLibraryBody": "Mornye에서는 카테고리별로 음악을 탐색하거나, 최근 추가됨에서 앨범을 찾을 수 있습니다",
+  "upgradeIntroDownloadsBody": "오른쪽 상단의 다운로드에서 일시정지하거나 다시 시도할 수 있습니다. 다운로드가 완료된 음악은 최근 추가됨으로 이동합니다",
+  "upgradeIntroSearchBody": "여기에서 저장된 음악을 검색할 수 있습니다. 별도의 검색 탭에서는 확장 기능을 통해 제공되는 음악까지 검색합니다",
+  "upgradeIntroPlayerTitle": "플레이어를\n설정하세요",
+  "upgradeIntroPlayerBody": "테마와 재생 옵션은 언제든지 변경할 수 있습니다. 여기에 서 해당 설정을 찾을 수 있습니다",
+  "upgradeIntroAppearanceBody": "[설정 → 디자인]에서 테마를 변경할 수 있습니다. Mornye에서는 아래로 스크롤하면 탐색 메뉴가 축소되고, 위로 스크롤하면 다시 확장됩니다",
+  "upgradeIntroAutoMixBody": "트랙 간 템포와 비트를 맞춥니다. [설정 → 로컬 라이브러리 → 재생]에서 활성화하세요. 기본적으로 비활성화되어 있습니다",
+  "upgradeIntroSettingsBody": "Mornye에서 홈 화면의 프로필을 탭하면 설정을 열어 이름과 사진을 수정할 수 있습니다",
+  "upgradeIntroSkip": "건너뛰기",
+  "upgradeIntroContinue": "계속",
+  "upgradeIntroDone": "듣기 시작",
+  "upgradeIntroReplay": "5.0의 새로운 기능",
+  "cacheMotionArtwork": "오프라인 모션 커버",
+  "cacheMotionArtworkDesc": "앨범 동영상은 다운로드할 때 함께 저장됩니다. 동영상을 삭제해도 음악 파일과 정적 앨범 커버는 그대로 유지됩니다",
+  "nowPlayingVolume": "볼륨",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
-  "appearanceStyle": "App Style",
+  "appearanceStyle": "앱 스타일",
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
   },
-  "discordRichPresence": "Discord Rich Presence",
-  "discordPresenceDescription": "Share the track playing in the built-in player on Discord. Requires Discord to be installed and signed in.",
-  "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
-  "discordPresenceUnavailable": "Discord Rich Presence is unavailable in this build or on this device.",
+  "discordRichPresence": "디스코드 리치 프레즌스",
+  "discordPresenceDescription": "내부 플레이어에서 재생 중인 트랙을 디스코드에 공유합니다. 디스코드가 설치되어 있고 로그인되어 있어야 합니다",
+  "discordPresenceMissing": "디스코드를 설치하고 로그인한 다음 이 설정을 비활성화했다가 다시 활성화하세요",
+  "discordPresenceUnavailable": "이 빌드 또는 이 기기에서는 디스코드 리치 프레즌스를 사용할 수 없습니다",
   "@@locale": "ko",
   "@@last_modified": "2026-04-28",
   "appName": "SpotiFLAC Mobile",
@@ -101,11 +101,11 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "libraryRecentlyAdded": "Recently Added",
-  "libraryDownloads": "Downloads",
-  "libraryNoActiveDownloads": "No active downloads",
-  "librarySearchHint": "Search your library",
-  "libraryEmptyCollection": "Your music will appear here",
+  "libraryRecentlyAdded": "최근 추가됨",
+  "libraryDownloads": "다운로드",
+  "libraryNoActiveDownloads": "활성 다운로드가 없습니다",
+  "librarySearchHint": "라이브러리 검색",
+  "libraryEmptyCollection": "음악이 여기에 표시됩니다",
   "historySearchHint": "기록 검색...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
@@ -1642,19 +1642,19 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "trackReplayGainTrackGain": "리플레이게인 트랙 게인",
   "@trackReplayGainTrackGain": {
     "description": "Metadata label - ReplayGain track gain"
   },
-  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "trackReplayGainTrackPeak": "리플레이게인 트랙 피크",
   "@trackReplayGainTrackPeak": {
     "description": "Metadata label - ReplayGain track peak"
   },
-  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "trackReplayGainAlbumGain": "리플레이게인 앨범 게인",
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "trackReplayGainAlbumPeak": "리플레이게인 앨범 피크",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
@@ -3417,10 +3417,10 @@
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "메타데이터 재구성 성공",
-  "trackReEnrichMetadataSaved": "Metadata saved",
-  "trackReEnrichLyricsUpdated": "Lyrics updated",
-  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
-  "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
+  "trackReEnrichMetadataSaved": "메타데이터 저장됨",
+  "trackReEnrichLyricsUpdated": "가사 업데이트됨",
+  "trackReEnrichLyricsPreserved": "새 가사가 없습니다; 기존 가사가 유지됩니다",
+  "trackReEnrichLyricsDisabled": "가사가 업데이트되지 않았습니다. 설정에서 가사 다운로드가 비활성화되어 있습니다",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
@@ -4123,14 +4123,14 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
-  "backupSelectHistory": "Download history",
-  "backupSelectCollections": "Library collections",
-  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
-  "backupSelectExtensions": "Extensions and their settings",
-  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
-  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
-  "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
+  "backupSettingsOnly": "설정 만",
+  "backupSelectHistory": "다운로드 기록",
+  "backupSelectCollections": "라이브러리 컬렉션",
+  "backupSelectCollectionsDescription": "좋아요 표시한 음악, 위시리스트, 즐겨찾는 아티스트, 재생목록 및 재생목록 커버",
+  "backupSelectExtensions": "확장 기능 및 설정",
+  "backupSelectedExportDescription": "선택한 카테고리를 백업 파일에 저장합니다. 오디오 파일은 포함되지 않습니다",
+  "backupSelectAtLeastOne": "백업을 생성하려면 최소 하나 이상의 카테고리를 선택하세요",
+  "backupSelectedRestoreMessage": "아래 나열된 카테고리만 복원됩니다. 이 백업에 포함되지 않은 카테고리는 변경되지 않습니다. 복원하면 기존 데이터가 덮어쓰여질 수 있으며 되돌릴 수 없습니다",
   "backupContentsSettings": "앱 설정",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
@@ -4294,10 +4294,10 @@
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageAutomaticFolder": "Automatic folder",
-  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
-  "storageSafRecommended": "Choose folder (Recommended)",
-  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
+  "storageAutomaticFolder": "자동 폴더",
+  "storageAutomaticDownloadFolder": "쓰기 가능하면 Download/SpotiFLAC을 사용하고, 그렇지 않으면 앱 저장소를 사용합니다",
+  "storageSafRecommended": "폴더 선택 (추천)",
+  "storageDownloadFolderHint": "안드로이드 폴더 선택기에서 Download 폴더를 열고 SpotiFLAC을 선택하세요.\n해당 폴더가 없다면 '새 폴더'를 사용해 만든 다음, '이 폴더 사용'을 탭하여 접근 권한을 허용하세요",
   "storageModeAppFolder": "앱 폴더 (추천)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
@@ -6145,7 +6145,7 @@
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Quick local previews inside SpotiFLAC Mobile",
+  "libraryBuiltInPreviewPlayerSubtitle": "SpotiFLAC Mobile 내에서 빠른 로컬 미리 보기",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
@@ -6660,9 +6660,9 @@
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "mornyeShowTabs": "Show tabs",
-  "mornyeSearch": "Search",
-  "mornyeContinuePlaying": "Continue Playing",
+  "mornyeShowTabs": "탭 표시",
+  "mornyeSearch": "검색",
+  "mornyeContinuePlaying": "계속 재생",
   "metadataCopyAll": "모든 메타데이터 복사",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
@@ -6675,28 +6675,28 @@
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "mornyeFavorite": "Favorite",
-  "mornyeGoToArtist": "Go to Artist",
+  "mornyeFavorite": "즐겨찾기",
+  "mornyeGoToArtist": "아티스트로 이동",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
-  "mornyeFavorited": "Favorited",
+  "mornyeFavorited": "즐겨추가에 추가됨",
   "@mornyeFavorited": {
     "description": "Selected state of the compact favorite action"
   },
-  "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
-  "autoMixOn": "AutoMix on",
-  "autoMixOff": "AutoMix off",
-  "profileTitle": "Profile",
-  "profileSetUp": "Set up your profile",
-  "profileEdit": "Edit name and photo",
-  "backupIncludesProfile": "Includes your profile name and photo",
-  "profileName": "Name",
-  "profileNameHint": "Your name",
-  "profileChangePhoto": "Choose photo",
-  "profileRemovePhoto": "Remove photo",
-  "profilePhotoError": "Choose a valid image smaller than 20 MB.",
-  "profileSaveError": "Could not save your profile. Please try again.",
+  "autoMixDescription": "곡을 비트에 맞춰 믹싱하고, 음정은 유지한 채 템포를 조절합니다. 비트를 맞출 수 없는 경우에는 크로스페이드를 사용합니다",
+  "autoMixOn": "자동믹스 켜짐",
+  "autoMixOff": "자동믹스 꺼짐",
+  "profileTitle": "프로필",
+  "profileSetUp": "프로필 설정",
+  "profileEdit": "이름 및 사진 편집",
+  "backupIncludesProfile": "프로필 이름과 사진 포함",
+  "profileName": "이름",
+  "profileNameHint": "당신의 이름을 입력하세요",
+  "profileChangePhoto": "사진 선택",
+  "profileRemovePhoto": "사진 삭제",
+  "profilePhotoError": "20MB보다 작은 유효한 이미지를 선택하세요",
+  "profileSaveError": "프로필을 저장할 수 없습니다. 다시 시도하세요",
   "optionsEmbeddedCoverSizeOriginal": "원본 해상도",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

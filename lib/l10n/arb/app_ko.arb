@@ -1,17 +1,17 @@
 {
-  "upgradeIntroWelcome": "SpotiFLAC Mobile 5.0에 \n오신 것을 환영 합니다",
+  "upgradeIntroWelcome": "SpotiFLAC Mobile 5.0에 오신 것을 환영 합니다",
   "upgradeIntroThemeTitle": "나만의 스타일로\n꾸며보세요",
   "upgradeIntroThemeBody": "스타일을 선택하세요. 선택한 스타일은 즉시 적용되며, 나중에 디자인 설정에서 변경할 수 있습니다",
   "upgradeIntroThemeMaterialBody": "Material 디자인 컨트롤과 선택한 강조 색상이 적용된 익숙한 레이아웃",
-  "upgradeIntroThemeMornyeBody": "글래스 스타일의 네비게이션 메뉴, 새롭게 디자인된 라이브러리, 그리고 몰입감 있는 플레이어를 제공합니다",
+  "upgradeIntroThemeMornyeBody": "글래스 스타일의 하단바, 새롭게 디자인된 라이브러리, 그리고 몰입감 있는 플레이어",
   "upgradeIntroRustTitle": "Rust로 제작된\n새로운 엔진",
   "upgradeIntroRustBody": "5.0 버전에서는 앱의 백엔드가 Go에서 Rust로 변경되었습니다. 이는 여러분이 매일 사용하는 화면 뒤에서 작동하는 핵심 엔진입니다",
-  "upgradeIntroRustEngineTitle": "백그라운드에서 작동",
+  "upgradeIntroRustEngineTitle": "화면 뒤에서 작동",
   "upgradeIntroRustEngineBody": "Rust는 Android와 iOS에서 다운로드, 오디오 메타데이터, 라이브러리 검색, 확장 기능 런타임을 처리합니다",
   "upgradeIntroRustMemoryTitle": "메모리를 더욱 신중하게 사용",
   "upgradeIntroRustMemoryBody": "버퍼를 재사용하고 데이터 복사 횟수를 줄여, 아트워크와 확장 기능 데이터를 처리할 때 발생하는 임시 메모리 할당을 줄였습니다",
-  "upgradeIntroRustKeepTitle": "음악을 유지하세요",
-  "upgradeIntroRustKeepBody": "컬렉션을 다시 다운로드할 필요가 없습니다. 저장된 음악과 설 정이 그대로 유지되며, 새로 설정할 필요도 없습니다",
+  "upgradeIntroRustKeepTitle": "음악을 그대로 유지",
+  "upgradeIntroRustKeepBody": "컬렉션을 다시 다운로드할 필요가 없습니다. 저장된 음악과 설정이 그대로 유지되며, 새로 설정할 필요도 없습니다",
   "upgradeIntroWelcomeBody": "변경된 내용과 해당 기능을 찾을 수 있는 위치를 간단히 확인해 보세요",
   "upgradeIntroMornyeBody": "플레이어, 가사 및 하단바 화면이 새로운 모습으로 바뀌었습니다",
   "upgradeIntroLibrarySummary": "재생목록, 아티스트 또는 앨범별로 음악을 탐색할 수 있습니다",
@@ -21,9 +21,9 @@
   "upgradeIntroDownloadsBody": "오른쪽 상단의 다운로드에서 일시정지하거나 다시 시도할 수 있습니다. 다운로드가 완료된 음악은 최근 추가됨으로 이동합니다",
   "upgradeIntroSearchBody": "여기에서 저장된 음악을 검색할 수 있습니다. 별도의 검색 탭에서는 확장 기능을 통해 제공되는 음악까지 검색합니다",
   "upgradeIntroPlayerTitle": "플레이어를\n설정하세요",
-  "upgradeIntroPlayerBody": "테마와 재생 옵션은 언제든지 변경할 수 있습니다. 여기에 서 해당 설정을 찾을 수 있습니다",
-  "upgradeIntroAppearanceBody": "[설정 → 디자인]에서 테마를 변경할 수 있습니다. Mornye에서는 아래로 스크롤하면 탐색 메뉴가 축소되고, 위로 스크롤하면 다시 확장됩니다",
-  "upgradeIntroAutoMixBody": "트랙 간 템포와 비트를 맞춥니다. [설정 → 로컬 라이브러리 → 재생]에서 활성화하세요. 기본적으로 비활성화되어 있습니다",
+  "upgradeIntroPlayerBody": "테마와 재생 옵션은 언제든지 변경할 수 있습니다. 여기에서 해당 설정을 찾을 수 있습니다",
+  "upgradeIntroAppearanceBody": "'설정 → 디자인'에서 테마를 변경할 수 있습니다. Mornye에서는 아래로 스크롤하면 탐색 메뉴가 축소되고, 위로 스크롤하면 다시 확장됩니다",
+  "upgradeIntroAutoMixBody": "트랙 간 템포와 비트를 맞춥니다. '설정 → 로컬 라이브러리 → 재생'에서 활성화하세요. 기본적으로 비활성화되어 있습니다",
   "upgradeIntroSettingsBody": "Mornye에서 홈 화면의 프로필을 탭하면 설정을 열어 이름과 사진을 수정할 수 있습니다",
   "upgradeIntroSkip": "건너뛰기",
   "upgradeIntroContinue": "계속",
@@ -103,7 +103,7 @@
   },
   "libraryRecentlyAdded": "최근 추가됨",
   "libraryDownloads": "다운로드",
-  "libraryNoActiveDownloads": "활성 다운로드가 없음",
+  "libraryNoActiveDownloads": "활성화된 다운로드가 없음",
   "librarySearchHint": "라이브러리 검색",
   "libraryEmptyCollection": "음악이 여기에 표시됩니다",
   "historySearchHint": "기록 검색...",
@@ -251,7 +251,7 @@
   "@trackReplayGainScanning": {
     "description": "Snackbar/progress message while scanning ReplayGain for a single track"
   },
-  "trackReplayGainSuccess": "리플레이게인 태그가 추가됨",
+  "trackReplayGainSuccess": "리플레이게인 태그 추가됨",
   "@trackReplayGainSuccess": {
     "description": "Snackbar message after ReplayGain tags written for a single track"
   },
@@ -569,7 +569,7 @@
   "@trackMetadataDelete": {
     "description": "Action button - delete track"
   },
-  "setupGrantPermission": "권한을 부여해 주세요",
+  "setupGrantPermission": "권한 부여",
   "@setupGrantPermission": {
     "description": "Button to request permission"
   },
@@ -1695,11 +1695,11 @@
       }
     }
   },
-  "trackLyricsNotAvailable": "이 트랙의 가사를 사용할 수 없습니다",
+  "trackLyricsNotAvailable": "이 트랙의 가사를 사용할 수 없음",
   "@trackLyricsNotAvailable": {
     "description": "Message when lyrics not found"
   },
-  "trackLyricsNotInFile": "이 파일에서 가사를 찾을 수 없습니다",
+  "trackLyricsNotInFile": "이 파일에서 가사를 찾을 수 없음",
   "@trackLyricsNotInFile": {
     "description": "Message when no embedded lyrics in audio file"
   },
@@ -2932,7 +2932,7 @@
       }
     }
   },
-  "tutorialWelcomeTitle": "SpotiFLAC Mobile에 어서오세요!",
+  "tutorialWelcomeTitle": "SpotiFLAC Mobile에 오신 것을 환영합니다!",
   "@tutorialWelcomeTitle": {
     "description": "Tutorial welcome page title"
   },
@@ -3057,7 +3057,7 @@
       }
     }
   },
-  "cleanupOrphanedDownloadsNone": "불필요한 항목이 없습니다",
+  "cleanupOrphanedDownloadsNone": "불필요한 항목이 없음",
   "@cleanupOrphanedDownloadsNone": {
     "description": "Snackbar when no orphans found"
   },
@@ -3626,7 +3626,7 @@
   "@cueSplitFailed": {
     "description": "Snackbar when CUE split fails"
   },
-  "cueSplitNoAudioFile": "이 CUE 시트에 대한 오디오 파일을 찾을 수 없습니다",
+  "cueSplitNoAudioFile": "이 CUE 시트에 대한 오디오 파일을 찾을 수 없음",
   "@cueSplitNoAudioFile": {
     "description": "Error when CUE audio file is missing"
   },
@@ -4318,7 +4318,7 @@
   "@downloadFolderAccessLostTitle": {
     "description": "Title of the warning banner shown in Files settings when the saved SAF folder grant is no longer valid"
   },
-  "downloadFolderAccessLostSubtitle": "폴더를 다시 선택할 때까지 다운로드할 수 없습니다",
+  "downloadFolderAccessLostSubtitle": "폴더를 다시 선택할 때까지 다운로드할 수 없음",
   "@downloadFolderAccessLostSubtitle": {
     "description": "Subtitle of the warning banner shown when the saved SAF folder grant is no longer valid"
   },
@@ -4539,7 +4539,7 @@
   "@bulkDownloadSelectPlaylists": {
     "description": "Button label when no playlists are selected for download"
   },
-  "snackbarSelectedPlaylistsEmpty": "선택한 재생목록에 트랙이 없습니다",
+  "snackbarSelectedPlaylistsEmpty": "선택한 재생목록에 트랙이 없음",
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
@@ -5419,7 +5419,7 @@
   "@logIssueTrackNotFoundLabel": {
     "description": "Diagnostic badge label when a track is unavailable"
   },
-  "logIssueTrackNotFoundDescription": "일부 트랙은 다운로드 서비스에서 찾을 수 없습니다",
+  "logIssueTrackNotFoundDescription": "일부 트랙은 다운로드 서비스에서 찾을 수 없음",
   "@logIssueTrackNotFoundDescription": {
     "description": "Diagnostic badge description when a track is unavailable"
   },

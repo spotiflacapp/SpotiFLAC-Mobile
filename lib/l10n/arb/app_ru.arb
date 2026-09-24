@@ -2326,7 +2326,7 @@
   "@downloadedAlbumDeleteSelected": {
     "description": "Button - delete selected tracks"
   },
-  "downloadedAlbumDeleteMessage": "Delete {count} {count, plural, =1{track} other{tracks}} from this album?\n\nThis will also delete the files from storage.",
+  "downloadedAlbumDeleteMessage": "Удалить {count} {count, plural, =1{трек} few{трека} other{треков}} из этого альбома?\n\nЭто также приведёт к удалению файлов из хранилища.",
   "@downloadedAlbumDeleteMessage": {
     "description": "Delete confirmation with count",
     "placeholders": {
@@ -2348,7 +2348,7 @@
   "@downloadedAlbumTapToSelect": {
     "description": "Selection hint"
   },
-  "downloadedAlbumDeleteCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "downloadedAlbumDeleteCount": "Удалить {count} {count, plural, =1{трек} few{трека} other{треков}}",
   "@downloadedAlbumDeleteCount": {
     "description": "Delete button text with count",
     "placeholders": {
@@ -2731,7 +2731,7 @@
       }
     }
   },
-  "libraryFilesUnit": "{count, plural, =1{file} other{files}}",
+  "libraryFilesUnit": "{count, plural, =1{файл} few{файла} other{файлов}}",
   "@libraryFilesUnit": {
     "description": "Unit label for files count during library scanning",
     "placeholders": {
@@ -2878,7 +2878,7 @@
   "@libraryFilterMetadataMissingGenre": {
     "description": "Filter option - items missing genre"
   },
-  "libraryFilterMetadataMissingAlbumArtist": "Missing album artist",
+  "libraryFilterMetadataMissingAlbumArtist": "Отсутствует исполнитель альбома",
   "@libraryFilterMetadataMissingAlbumArtist": {
     "description": "Filter option - items missing album artist"
   },
@@ -3670,7 +3670,7 @@
   "@collectionNoPlaylistsYet": {
     "description": "Empty state title when user has no playlists"
   },
-  "collectionPlaylistTracks": "{count, plural, =1{1 track} other{{count} tracks}}",
+  "collectionPlaylistTracks": "{count, plural, =1{1 трек} one{{count} трек} few{{count} трека} other{{count} треков}}",
   "@collectionPlaylistTracks": {
     "description": "Track count label for custom playlists",
     "placeholders": {
@@ -3679,7 +3679,7 @@
       }
     }
   },
-  "collectionArtistCount": "{count, plural, =1{1 artist} other{{count} artists}}",
+  "collectionArtistCount": "{count, plural, =1{1 исполнитель} one{{count} исполнитель} few{{count} исполнителя} other{{count} исполнителей}}",
   "@collectionArtistCount": {
     "description": "Artist count label for favorite artists",
     "placeholders": {
@@ -4135,7 +4135,7 @@
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
-  "backupContentsHistory": "{count} history {count, plural, =1{item} other{items}}",
+  "backupContentsHistory": "{count} {count, plural, =1{элемент истории} few{элемента истории} other{элементов истории}}",
   "@backupContentsHistory": {
     "description": "Backup contents row for history count",
     "placeholders": {
@@ -4144,7 +4144,7 @@
       }
     }
   },
-  "backupContentsLiked": "{count} liked {count, plural, =1{track} other{tracks}}",
+  "backupContentsLiked": "{count} {count, plural, =1{понравившийся трек} few{понравившихся трека} other{понравившихся треков}}",
   "@backupContentsLiked": {
     "description": "Backup contents row for liked tracks count",
     "placeholders": {
@@ -4153,7 +4153,7 @@
       }
     }
   },
-  "backupContentsWishlist": "{count} wishlist {count, plural, =1{track} other{tracks}}",
+  "backupContentsWishlist": "{count} {count, plural, =1{трек из списка желаний} few{трека из списка желаний} other{треков из списка желаний}}",
   "@backupContentsWishlist": {
     "description": "Backup contents row for wishlist tracks count",
     "placeholders": {
@@ -4162,7 +4162,7 @@
       }
     }
   },
-  "backupContentsPlaylists": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "backupContentsPlaylists": "{count, plural, =1{1 плейлист} one{{count} плейлист} few{{count} плейлиста} other{{count} плейлистов}}",
   "@backupContentsPlaylists": {
     "description": "Backup contents row for playlist count",
     "placeholders": {
@@ -4171,7 +4171,7 @@
       }
     }
   },
-  "backupContentsArtists": "{count, plural, =1{1 favorite artist} other{{count} favorite artists}}",
+  "backupContentsArtists": "{count, plural, =1{1 любимый исполнитель} one{{count} любимый исполнитель} few{{count} любимых исполнителя} other{{count} любимых исполнителей}}",
   "@backupContentsArtists": {
     "description": "Backup contents row for favorite artists count",
     "placeholders": {
@@ -4180,7 +4180,7 @@
       }
     }
   },
-  "backupContentsExtensions": "{count, plural, =1{1 extension} other{{count} extensions}}",
+  "backupContentsExtensions": "{count, plural, =1{1 расширение} one{{count} расширение} few{{count} расширения} other{{count} расширений}}",
   "@backupContentsExtensions": {
     "description": "Backup contents row for installed extensions count",
     "placeholders": {
@@ -4197,7 +4197,7 @@
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
-  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the repo.",
+  "backupExtensionsRestoreFailed": "Не удалось переустановить {count} {count, plural, =1{расширение} few{расширения} other{расширений}}. Установите их вручную из репозитория.",
   "@backupExtensionsRestoreFailed": {
     "description": "Snackbar/hint when some extensions failed to reinstall during restore",
     "placeholders": {
@@ -4514,7 +4514,7 @@
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
-  "dialogDownloadPlaylistsMessage": "Download {trackCount} {trackCount, plural, =1{track} other{tracks}} from {playlistCount} {playlistCount, plural, =1{playlist} other{playlists}}?",
+  "dialogDownloadPlaylistsMessage": "Скачать {trackCount} {trackCount, plural, =1{трек} few{трека} other{треков}} из {playlistCount} {playlistCount, plural, =1{плейлиста} few{плейлистов} other{плейлистов}}?",
   "@dialogDownloadPlaylistsMessage": {
     "description": "Dialog message for bulk playlist download confirmation",
     "placeholders": {
@@ -4526,7 +4526,7 @@
       }
     }
   },
-  "bulkDownloadPlaylistsButton": "Download {count} {count, plural, =1{playlist} other{playlists}}",
+  "bulkDownloadPlaylistsButton": "Скачать {count} {count, plural, =1{плейлист} few{плейлиста} other{плейлистов}}",
   "@bulkDownloadPlaylistsButton": {
     "description": "Button label for bulk downloading selected playlists",
     "placeholders": {
@@ -4543,7 +4543,7 @@
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
-  "playlistsCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "playlistsCount": "{count, plural, =1{1 плейлист} one{{count} плейлист} few{{count} плейлиста} other{{count} плейлистов}}",
   "@playlistsCount": {
     "description": "Playlist count display",
     "placeholders": {
@@ -4589,7 +4589,7 @@
   "@editMetadataAutoFillApply": {
     "description": "Button label for applying the previewed metadata"
   },
-  "editMetadataAutoFillDoneFromSource": "Filled {count} {count, plural, =1{field} other{fields}} from {source}",
+  "editMetadataAutoFillDoneFromSource": "Заполнено {count} {count, plural, =1{поле} few{поля} other{полей}} из {source}",
   "@editMetadataAutoFillDoneFromSource": {
     "description": "Snackbar confirming fields applied from a selected metadata source",
     "placeholders": {
@@ -4613,7 +4613,7 @@
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
-  "editMetadataAutoFillDone": "Filled {count} {count, plural, =1{field} other{fields}} from online metadata",
+  "editMetadataAutoFillDone": "Заполнено {count} {count, plural, =1{поле} few{поля} other{полей}} из онлайн-метаданных",
   "@editMetadataAutoFillDone": {
     "description": "Snackbar confirming how many fields were auto-filled",
     "placeholders": {
@@ -4695,7 +4695,7 @@
   "@queueFilteringIndicator": {
     "description": "Shown while filter results are being computed"
   },
-  "queueTrackCount": "{count, plural, =1{1 track} other{{count} tracks}}",
+  "queueTrackCount": "{count, plural, =1{1 трек} one{{count} трек} few{{count} трека} other{{count} треков}}",
   "@queueTrackCount": {
     "description": "Track count label with plural support",
     "placeholders": {
@@ -4704,7 +4704,7 @@
       }
     }
   },
-  "queueAlbumCount": "{count, plural, =1{1 album} other{{count} albums}}",
+  "queueAlbumCount": "{count, plural, =1{1 альбом} one{{count} альбом} few{{count} альбома} other{{count} альбомов}}",
   "@queueAlbumCount": {
     "description": "Album count label with plural support",
     "placeholders": {
@@ -4729,7 +4729,7 @@
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
-  "queuePlaylistCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "queuePlaylistCount": "{count, plural, =1{1 плейлист} one{{count} плейлист} few{{count} плейлиста} other{{count} плейлистов}}",
   "@queuePlaylistCount": {
     "description": "Playlist count label with plural support",
     "placeholders": {
@@ -5027,7 +5027,7 @@
   "@notifAllDownloadsComplete": {
     "description": "Notification title when all downloads finish successfully"
   },
-  "notifTracksDownloadedSuccess": "{count, plural, =1{1 track downloaded successfully} other{{count} tracks downloaded successfully}}",
+  "notifTracksDownloadedSuccess": "{count, plural, =1{1 трек успешно скачан} one{{count} трек успешно скачан} few{{count} трека успешно скачано} other{{count} треков успешно скачано}}",
   "@notifTracksDownloadedSuccess": {
     "description": "Notification body for queue complete - how many tracks were downloaded",
     "placeholders": {
@@ -5036,7 +5036,7 @@
       }
     }
   },
-  "notifDownloadsFinishedBody": "{completed, plural, =1{1 track downloaded} other{{completed} tracks downloaded}}, {failed, plural, =1{1 failed} other{{failed} failed}}",
+  "notifDownloadsFinishedBody": "{completed, plural, =1{1 трек скачан} one{{completed} трек скачан} few{{completed} трека скачано} other{{completed} треков скачано}}, {failed, plural, =1{1 с ошибкой} one{{failed} с ошибкой} few{{failed} с ошибками} other{{failed} с ошибками}}",
   "@notifDownloadsFinishedBody": {
     "description": "Notification body when queue finishes with failures",
     "placeholders": {
@@ -5052,7 +5052,7 @@
   "@notifDownloadsCanceledTitle": {
     "description": "Notification title when downloads are canceled by the user"
   },
-  "notifDownloadsCanceledBody": "{count, plural, =1{1 download canceled by user} other{{count} downloads canceled by user}}",
+  "notifDownloadsCanceledBody": "{count, plural, =1{1 загрузка отменена пользователем} one{{count} загрузка отменена пользователем} few{{count} загрузки отменены пользователем} other{{count} загрузок отменены пользователем}}",
   "@notifDownloadsCanceledBody": {
     "description": "Notification body when downloads are canceled by the user",
     "placeholders": {
@@ -5484,7 +5484,7 @@
       }
     }
   },
-  "a11yOpenItemCount": "Open {title}, {count} {count, plural, =1{item} other{items}}",
+  "a11yOpenItemCount": "Открыть {title}, {count} {count, plural, =1{элемент} few{элемента} other{элементов}}",
   "@a11yOpenItemCount": {
     "description": "Accessibility label for opening a grouped item with count",
     "placeholders": {
@@ -5750,7 +5750,7 @@
       }
     }
   },
-  "itemCount": "{count} {count, plural, =1{item} other{items}}",
+  "itemCount": "{count} {count, plural, =1{элемент} few{элемента} other{элементов}}",
   "@itemCount": {
     "description": "Generic item count label",
     "placeholders": {
@@ -5774,7 +5774,7 @@
       }
     }
   },
-  "selectionDeleteTracksCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "selectionDeleteTracksCount": "Удалить {count} {count, plural, =1{трек} few{трека} other{треков}}",
   "@selectionDeleteTracksCount": {
     "description": "Button label for deleting selected tracks",
     "placeholders": {
@@ -5824,7 +5824,7 @@
       }
     }
   },
-  "storeExtensionsCount": "{count} {count, plural, =1{extension} other{extensions}}",
+  "storeExtensionsCount": "{count} {count, plural, =1{расширение} few{расширения} other{расширений}}",
   "@storeExtensionsCount": {
     "description": "Store extension result count",
     "placeholders": {
@@ -5901,7 +5901,7 @@
   "@extensionServiceHealth": {
     "description": "Extension capability label for service health checks"
   },
-  "extensionHealthChecksConfigured": "{count} {count, plural, =1{check} other{checks}} configured",
+  "extensionHealthChecksConfigured": "Настроено {count} {count, plural, =1{проверка} few{проверки} other{проверок}}",
   "@extensionHealthChecksConfigured": {
     "description": "Extension service health check count",
     "placeholders": {
@@ -5939,7 +5939,7 @@
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
-  "extensionSettingsCount": "{count} {count, plural, =1{setting} other{settings}}",
+  "extensionSettingsCount": "{count} {count, plural, =1{настройка} few{настройки} other{настроек}}",
   "@extensionSettingsCount": {
     "description": "Count of settings exposed by an extension quality option",
     "placeholders": {
@@ -6194,7 +6194,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 minute} other{{minutes} minutes}}",
+  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 минута} one{{minutes} минута} few{{minutes} минуты} other{{minutes} минут}}",
   "@nowPlayingSleepTimerMinutes": {
     "description": "Duration choice for the playback sleep timer",
     "placeholders": {
@@ -6297,7 +6297,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLosslessCapped": "Convert {count} {count, plural, =1{track} other{tracks}} to {format} ({quality})?\n\nThe output stays in a lossless codec, but bit depth/sample rate will be capped. Original files will be deleted after conversion.",
+  "selectionBatchConvertConfirmMessageLosslessCapped": "Конвертировать {count} {count, plural, =1{трек} few{трека} other{треков}} в {format} ({quality})?\n\nРезультат останется в кодеке lossless, но разрядность и частота дискретизации будут ограничены. Исходные файлы будут удалены после конвертации.",
   "@selectionBatchConvertConfirmMessageLosslessCapped": {
     "description": "Confirmation dialog message for capped lossless batch conversion",
     "placeholders": {

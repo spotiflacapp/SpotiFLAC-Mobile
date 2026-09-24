@@ -4866,6 +4866,131 @@
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
+  "downloadRedownloadFakeHiRes": "Re-download fake Hi-Res",
+  "@downloadRedownloadFakeHiRes": {
+    "description": "Setting title: automatically replace downloads that measure as fake Hi-Res"
+  },
+  "downloadRedownloadFakeHiResSubtitle": "Off by default. Check Hi-Res downloads and replace only when every audio sample is preserved. Keep the original if verification or processing fails",
+  "@downloadRedownloadFakeHiResSubtitle": {
+    "description": "Setting subtitle for the fake Hi-Res re-download toggle"
+  },
+  "hiResCheckVerdictFakeCertain": "Fake Hi-Res",
+  "@hiResCheckVerdictFakeCertain": {
+    "description": "Verdict: an exact fingerprint (padded bits or upsampling pattern) proves the file is not real Hi-Res"
+  },
+  "hiResCheckVerdictFakeSuspect": "Possibly a filtered master",
+  "@hiResCheckVerdictFakeSuspect": {
+    "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
+  },
+  "hiResCheckReasonSampleHold": "Every sample is repeated: upsampled by duplication",
+  "@hiResCheckReasonSampleHold": {
+    "description": "Reason: sample-and-hold upsampling detected"
+  },
+  "hiResCheckReasonInterpolation": "In-between samples are linearly interpolated",
+  "@hiResCheckReasonInterpolation": {
+    "description": "Reason: linear-interpolation upsampling detected"
+  },
+  "hiResCheckReasonImaging": "Content above 22 kHz mirrors the audible band",
+  "@hiResCheckReasonImaging": {
+    "description": "Reason: spectral imaging from upsampling detected"
+  },
+  "hiResCheckMusicContent": "Musical content",
+  "@hiResCheckMusicContent": {
+    "description": "Label for the highest frequency that still moves with the music"
+  },
+  "hiResCheckUltrasonicNoise": "Above {cutoff} only steady noise (typical of DSD or analog tape transfers): a {rate} file would hold all the music",
+  "@hiResCheckUltrasonicNoise": {
+    "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
+    "placeholders": {
+      "cutoff": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "hiResCheckTitle": "Hi-Res Authenticity",
+  "@hiResCheckTitle": {
+    "description": "Title of the fake Hi-Res check card"
+  },
+  "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
+  "@hiResCheckDescription": {
+    "description": "Explains what the Hi-Res authenticity check does"
+  },
+  "hiResCheckRun": "Check",
+  "@hiResCheckRun": {
+    "description": "Button that starts the Hi-Res authenticity check"
+  },
+  "hiResCheckChecking": "Checking Hi-Res authenticity...",
+  "@hiResCheckChecking": {
+    "description": "Loading text while the Hi-Res check runs"
+  },
+  "hiResCheckVerdictFake": "Likely fake Hi-Res",
+  "@hiResCheckVerdictFake": {
+    "description": "Verdict: the file claims Hi-Res but does not measure as it"
+  },
+  "hiResCheckVerdictGenuine": "Measures as genuine Hi-Res",
+  "@hiResCheckVerdictGenuine": {
+    "description": "Verdict: no upsampling or padded bit depth found"
+  },
+  "hiResCheckVerdictStandard": "Standard definition, nothing to flag",
+  "@hiResCheckVerdictStandard": {
+    "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
+  },
+  "hiResCheckVerdictInconclusive": "Inconclusive: the analyzed segment is too quiet or short",
+  "@hiResCheckVerdictInconclusive": {
+    "description": "Verdict: analysis could not reach a reliable conclusion"
+  },
+  "hiResCheckUnsupported": "Only FLAC and WAV files can be checked",
+  "@hiResCheckUnsupported": {
+    "description": "Shown when the file format cannot be decoded by the Hi-Res check"
+  },
+  "hiResCheckCutoff": "Content cutoff",
+  "@hiResCheckCutoff": {
+    "description": "Label for the highest frequency with real content"
+  },
+  "hiResCheckBitsInUse": "Bits in use",
+  "@hiResCheckBitsInUse": {
+    "description": "Label for effective vs declared bit depth"
+  },
+  "hiResCheckDisclaimer": "The spectrum stops early, but nothing proves it was upsampled: it may be a genuine master low-pass filtered in mastering. It is not replaced automatically.",
+  "@hiResCheckDisclaimer": {
+    "description": "Caveat shown under a fake Hi-Res verdict"
+  },
+  "hiResCheckFailed": "Hi-Res check failed: {error}",
+  "@hiResCheckFailed": {
+    "description": "Error shown when the Hi-Res check fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "hiResCheckReasonRate": "Declares {sampleRate} but content stops at ~{cutoff}",
+  "@hiResCheckReasonRate": {
+    "description": "Reason for a fake verdict caused by upsampling",
+    "placeholders": {
+      "sampleRate": {
+        "type": "String"
+      },
+      "cutoff": {
+        "type": "String"
+      }
+    }
+  },
+  "hiResCheckReasonDepth": "Declares {declared}-bit but only {effective} bits carry data",
+  "@hiResCheckReasonDepth": {
+    "description": "Reason for a fake verdict caused by padded bit depth",
+    "placeholders": {
+      "declared": {
+        "type": "int"
+      },
+      "effective": {
+        "type": "int"
+      }
+    }
+  },
   "audioAnalysisRescanning": "Re-analyzing audio...",
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"

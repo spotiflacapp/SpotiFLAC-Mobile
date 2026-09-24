@@ -41,7 +41,7 @@
   },
   "discordRichPresence": "Discord Rich Presence",
   "discordPresenceDescription": "Share the track playing in the built-in player on Discord. Requires Discord to be installed and signed in.",
-  "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
+  "discordPresenceMissing": "Установите Discord и войдите в систему, а затем отключите и снова включите этот параметр.",
   "discordPresenceUnavailable": "Discord Rich Presence не доступен в этой сборке или на этом устройстве.",
   "@@locale": "ru",
   "@@last_modified": "2026-04-28",
@@ -2944,11 +2944,11 @@
   "@tutorialWelcomeTip1": {
     "description": "Tutorial welcome tip 1"
   },
-  "tutorialWelcomeTip2": "Choose from the audio qualities offered by your download provider",
+  "tutorialWelcomeTip2": "Выберите одно из предложенных поставщиком загрузки значений качества звука",
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
-  "tutorialWelcomeTip3": "Embed metadata, cover art, lyrics, and release information automatically",
+  "tutorialWelcomeTip3": "Автоматически вставлять метаданные, обложку, тексты песен и информацию о релизе",
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },

@@ -1,35 +1,35 @@
 {
   "upgradeIntroWelcome": "Добро пожаловать в SpotiFLAC-Mobile 5.0",
-  "upgradeIntroThemeTitle": "Make it\nyour own.",
+  "upgradeIntroThemeTitle": "Создайте свой\nсобственный стиль.",
   "upgradeIntroThemeBody": "Выберите внешний вид. Изменения применятся сразу, и вы можете потом изменить его позже в настройках.",
   "upgradeIntroThemeMaterialBody": "Привычный интерфейс с элементами Material и вашим акцентным цветом.",
   "upgradeIntroThemeMornyeBody": "Эффект стекла в навигации, обновленная медиатека и плеер с эффектом погружения.",
   "upgradeIntroRustTitle": "Новый движок построенный на Rust.",
   "upgradeIntroRustBody": "В 5.0 бэкенд приложения переехал из Go to Rust. Это движок, работающий за экранами, которые вы используете каждый день.",
   "upgradeIntroRustEngineTitle": "Работа за сценой",
-  "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
+  "upgradeIntroRustEngineBody": "Rust обеспечивает обработку загрузок, аудиометаданных, сканирование библиотек и выполнение расширений на Android и iOS.",
   "upgradeIntroRustMemoryTitle": "Больше осторожности с памятью",
-  "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
+  "upgradeIntroRustMemoryBody": "Повторное использование буферов и сокращение количества копий позволяют уменьшить количество временных выделений памяти при обработке графических объектов и данных расширений.",
   "upgradeIntroRustKeepTitle": "Keep your music",
   "upgradeIntroRustKeepBody": "Скачивать медиатеку заново не придётся. Ваша музыка и настройки на месте, повторная настройка не нужна.",
-  "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
+  "upgradeIntroWelcomeBody": "Быстро расскажем, что изменилось и где это искать.",
   "upgradeIntroMornyeBody": "Новый облик плеера, экрана текстов песен и навигации.",
-  "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
-  "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
-  "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
+  "upgradeIntroLibrarySummary": "Просматривайте свою музыку по плейлистам, исполнителям или альбомам.",
+  "upgradeIntroRepoSummary": "Выбирайте источники музыки и провайдеров с помощью расширений.",
+  "upgradeIntroLibraryTitle": "Познакомьтесь со\nсвоей медиатекой.",
   "upgradeIntroLibraryBody": "In Mornye, browse by category or find your albums in Recently Added.",
-  "upgradeIntroDownloadsBody": "Pause and retry from Downloads at the top right. Finished music moves to Recently Added.",
-  "upgradeIntroSearchBody": "Search saved music here. The separate Search tab looks through your extensions.",
-  "upgradeIntroPlayerTitle": "Set up\nyour player.",
-  "upgradeIntroPlayerBody": "You can change your theme and playback options at any time. Here is where to find them.",
+  "upgradeIntroDownloadsBody": "Управляйте загрузками в правом верхнем углу. Готовая музыка переносится в «Недавно добавленные».",
+  "upgradeIntroSearchBody": "Здесь можно искать сохраненную музыку. На отдельной вкладке «Поиск» осуществляется поиск по вашим расширениям.",
+  "upgradeIntroPlayerTitle": "Настройте\nсвой плеер.",
+  "upgradeIntroPlayerBody": "Вы можете в любой момент изменить тему и настройки воспроизведения. Вот где их найти.",
   "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
-  "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
+  "upgradeIntroAutoMixBody": "Синхронизировать темп и ритм между треками. Включить эту функцию можно в разделе «Настройки» → «Локальная медиатека» → «Воспроизведение». По умолчанию эта функция отключена.",
   "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
   "upgradeIntroSkip": "Пропустить",
   "upgradeIntroContinue": "Далее",
   "upgradeIntroDone": "Начать слушать",
   "upgradeIntroReplay": "Что нового в 5.0",
-  "cacheMotionArtwork": "Offline motion covers",
+  "cacheMotionArtwork": "Офлайн обложки с анимацией",
   "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
   "nowPlayingVolume": "Громкость",
   "@nowPlayingVolume": {
@@ -2209,7 +2209,7 @@
   "@appearanceHeroAnimations": {
     "description": "Toggle for shared-element (Hero) transitions"
   },
-  "appearanceHeroAnimationsSubtitle": "Fly covers between screens, e.g. when opening the player",
+  "appearanceHeroAnimationsSubtitle": "Переходы между экранами, например, при открытии плеера",
   "@appearanceHeroAnimationsSubtitle": {
     "description": "Subtitle for the Hero animations toggle"
   },
@@ -2217,7 +2217,7 @@
   "@appearanceForceBlur": {
     "description": "Toggle that forces backdrop blur on even when the device profile disabled it"
   },
-  "appearanceForceBlurSubtitle": "Enable the navigation bar blur even on devices where it is off by default. May cost performance.",
+  "appearanceForceBlurSubtitle": "Включить размытие панели навигации даже на устройствах, где по умолчанию эта функция отключена. Может негативно повлиять на производительность.",
   "@appearanceForceBlurSubtitle": {
     "description": "Subtitle for the force-blur toggle"
   },
@@ -2257,7 +2257,7 @@
   "@settingsConcurrentDownloads": {
     "description": "Setting title - how many tracks download at the same time"
   },
-  "settingsConcurrentDownloadsSubtitle": "Downloading several tracks at once is faster, but some providers may rate-limit parallel requests.",
+  "settingsConcurrentDownloadsSubtitle": "Скачивание нескольких треков одновременно происходит быстрее, но некоторые провайдеры могут ограничивать скорость параллельных запросов.",
   "@settingsConcurrentDownloadsSubtitle": {
     "description": "Subtitle explaining the concurrent downloads picker"
   },
@@ -2265,7 +2265,7 @@
   "@concurrentDownloadsOne": {
     "description": "Concurrent downloads option - sequential"
   },
-  "concurrentDownloadsCount": "Up to {count} tracks at once",
+  "concurrentDownloadsCount": "До {count} {count, plural, one {трек} few {трека} many {треков} other{треков}} одновременно",
   "@concurrentDownloadsCount": {
     "description": "Concurrent downloads option - parallel",
     "placeholders": {
@@ -2314,11 +2314,11 @@
   "@albumFolderArtistAlbumSinglesSubtitle": {
     "description": "Folder structure example"
   },
-  "albumFolderArtistAlbumFlat": "Artist / Album (Singles flat)",
+  "albumFolderArtistAlbumFlat": "Исполнитель / Альбом (синглы)",
   "@albumFolderArtistAlbumFlat": {
     "description": "Album folder option with singles directly in artist folder"
   },
-  "albumFolderArtistAlbumFlatSubtitle": "Artist/Album/ and Artist/song.flac",
+  "albumFolderArtistAlbumFlatSubtitle": "Исполнитель/Альбом/ и Исполнитель/песня.flac",
   "@albumFolderArtistAlbumFlatSubtitle": {
     "description": "Folder structure example for flat singles"
   },
@@ -2391,7 +2391,7 @@
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
-  "recentClearAllMessage": "Clear all recent activity? Download history and music files will not be deleted.",
+  "recentClearAllMessage": "Очистить все недавние действия? История загрузок и музыкальные файлы не будут удалены.",
   "@recentClearAllMessage": {
     "description": "Confirmation message before clearing all recent activity"
   },

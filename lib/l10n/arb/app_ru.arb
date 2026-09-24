@@ -30,7 +30,7 @@
   "upgradeIntroDone": "Начать слушать",
   "upgradeIntroReplay": "Что нового в 5.0",
   "cacheMotionArtwork": "Офлайн обложки с анимацией",
-  "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
+  "cacheMotionArtworkDesc": "Видео из альбомов сохраняются вместе с загруженными файлами. При их удалении музыкальные файлы и статичные обложки остаются.",
   "nowPlayingVolume": "Громкость",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
@@ -42,7 +42,7 @@
   "discordRichPresence": "Discord Rich Presence",
   "discordPresenceDescription": "Share the track playing in the built-in player on Discord. Requires Discord to be installed and signed in.",
   "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
-  "discordPresenceUnavailable": "Discord Rich Presence is unavailable in this build or on this device.",
+  "discordPresenceUnavailable": "Discord Rich Presence не доступен в этой сборке или на этом устройстве.",
   "@@locale": "ru",
   "@@last_modified": "2026-04-28",
   "appName": "Spotify",
@@ -104,7 +104,7 @@
   "libraryRecentlyAdded": "Недавно добавленные",
   "libraryDownloads": "Загрузки",
   "libraryNoActiveDownloads": "Нет активных загрузок",
-  "librarySearchHint": "Search your library",
+  "librarySearchHint": "Поиск в вашей медиатеке",
   "libraryEmptyCollection": "Ваша музыка появится здесь",
   "historySearchHint": "Поиск в истории...",
   "@historySearchHint": {
@@ -286,7 +286,7 @@
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
   "replayGainBatchSuccess": "ReplayGain добавлен к {success} треков {total}",
-  "replayGainUnsupportedDecoder": "Some tracks could not be analyzed because their audio codec is not supported by the ReplayGain decoder. Their files were not changed.",
+  "replayGainUnsupportedDecoder": "Некоторые треки не могут быть проанализированы, так как их аудио кодек не поддерживается декодером ReplayGain, их файлы не были изменены.",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
     "placeholders": {
@@ -503,23 +503,23 @@
   "@aboutVersion": {
     "description": "Version info label"
   },
-  "aboutBinimumDesc": "The creator of QQDL & HiFi API. This project helped shape lossless download support.",
+  "aboutBinimumDesc": "Создатель QQDL и HiFi API. Этот проект помог реализовать поддержку скачивания музыки в lossless-качестве.",
   "@aboutBinimumDesc": {
     "description": "Credit description for binimum"
   },
-  "aboutSachinsenalDesc": "The original HiFi project creator. A foundation for lossless-source integration.",
+  "aboutSachinsenalDesc": "Создатель оригинального проекта HiFi. Заложил основу для интеграции lossless-источников.",
   "@aboutSachinsenalDesc": {
     "description": "Credit description for sachinsenal0x64"
   },
-  "aboutUnituneDesc": "Open-source music link resolver by Flaze, used for cross-platform fallback matching.",
+  "aboutUnituneDesc": "Открытый распознаватель музыкальных ссылок от Flaze, используемый для резервного кроссплатформенного сопоставления.",
   "@aboutUnituneDesc": {
     "description": "Credit for the UniTune resolver"
   },
-  "aboutMusicBrainzDesc": "Open music database maintained by MetaBrainz and its community, used for recording cross-references.",
+  "aboutMusicBrainzDesc": "Открытая музыкальная база данных, поддерживаемая MetaBrainz и сообществом. Используется для сопоставления перекрестных ссылок.",
   "@aboutMusicBrainzDesc": {
     "description": "Credit for the MusicBrainz database"
   },
-  "aboutSquiglyDesc": "Universal music link service by Liam Macmillan, used as a final cross-platform resolver fallback.",
+  "aboutSquiglyDesc": "Универсальный сервис музыкальных ссылок от Лиама Макмиллана, используемый в качестве последнего резервного кроссплатформенного распознавателя.",
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
@@ -868,7 +868,7 @@
       }
     }
   },
-  "collectionExportM3uNone": "No downloaded files to export",
+  "collectionExportM3uNone": "Нет загруженных файлов для экспорта",
   "@collectionExportM3uNone": {
     "description": "Snackbar when an M3U8 export finds no local files"
   },
@@ -880,15 +880,15 @@
   "@trackOpenOn": {
     "description": "Track option and sheet title listing streaming platforms where the track can be opened"
   },
-  "trackOpenOnNoLinks": "No platform links found for this track.",
+  "trackOpenOnNoLinks": "Для этого трека ссылки не найдены.",
   "@trackOpenOnNoLinks": {
     "description": "Shown in the Open on sheet when song.link returns no links"
   },
-  "libraryReviewDuplicates": "Review duplicates",
+  "libraryReviewDuplicates": "Проверка дубликатов",
   "@libraryReviewDuplicates": {
     "description": "Library settings row opening the duplicate review sheet"
   },
-  "libraryReviewDuplicatesSubtitle": "Find tracks stored more than once",
+  "libraryReviewDuplicatesSubtitle": "Поиск треков, сохраненных более одного раза",
   "@libraryReviewDuplicatesSubtitle": {
     "description": "Subtitle for the duplicate review settings row"
   },
@@ -1063,7 +1063,7 @@
   "@snackbarFailedToUpdate": {
     "description": "Snackbar - extension update error"
   },
-  "errorRateLimited": "Слишком много запросов",
+  "errorRateLimited": "Превышение запросов",
   "@errorRateLimited": {
     "description": "Error title - too many requests"
   },
@@ -2001,11 +2001,11 @@
   "@extensionsDownloadPrioritySubtitle": {
     "description": "Subtitle for download priority"
   },
-  "extensionsFallbackTitle": "Fallback Extensions",
+  "extensionsFallbackTitle": "Резервные расширения",
   "@extensionsFallbackTitle": {
     "description": "Setting and page title for choosing which download extensions can be used during fallback"
   },
-  "extensionsFallbackSubtitle": "Choose which installed download extensions can be used as fallback",
+  "extensionsFallbackSubtitle": "Выберите, какие из установленных расширений использовать как резервные",
   "@extensionsFallbackSubtitle": {
     "description": "Subtitle for download fallback extensions menu"
   },
@@ -2169,7 +2169,7 @@
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "albumFolderStructureDescription": "Выберите, как структурировать папки альбомов",
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },
@@ -2607,7 +2607,7 @@
   "@librarySourceOnline": {
     "description": "Library source is connected and accessible"
   },
-  "librarySourceOffline": "Offline. Reconnect the storage to restore these tracks",
+  "librarySourceOffline": "Офлайн. Подключите накопитель, чтобы восстановить доступ к этим трекам",
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
@@ -2638,7 +2638,7 @@
   "@libraryRemoveFolder": {
     "description": "Action to remove one indexed library source"
   },
-  "libraryRemoveFolderMessage": "Remove this folder and its indexed tracks from SpotiFLAC Mobile? Audio files on the storage will not be deleted.",
+  "libraryRemoveFolderMessage": "Удалить эту папку и проиндексированные треки из SpotiFLAC Mobile? Аудио файлы на накопителе не будут удалены.",
   "@libraryRemoveFolderMessage": {
     "description": "Confirmation shown before removing a library source"
   },
@@ -2658,7 +2658,7 @@
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
-  "libraryAutoScanOff": "Выкл.",
+  "libraryAutoScanOff": "Выкл",
   "@libraryAutoScanOff": {
     "description": "Auto scan disabled"
   },
@@ -3020,7 +3020,7 @@
   "@tutorialSettingsTip1": {
     "description": "Tutorial settings tip 1"
   },
-  "tutorialSettingsTip2": "Set quality, concurrency, filenames, and conversion preferences",
+  "tutorialSettingsTip2": "Настройка качества, параллельных потоков, имён файлов и параметров конвертации",
   "@tutorialSettingsTip2": {
     "description": "Tutorial settings tip 2"
   },
@@ -3028,7 +3028,7 @@
   "@tutorialSettingsTip3": {
     "description": "Tutorial settings tip 3"
   },
-  "tutorialReadyMessage": "You're ready. Select your extensions, then search or paste a supported link.",
+  "tutorialReadyMessage": "Всё готово. Выберите расширения, а затем введите поисковый запрос или вставьте поддерживаемую ссылку.",
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
@@ -3521,7 +3521,7 @@
       }
     }
   },
-  "trackConvertConfirmKeepOriginal": "Convert from {sourceFormat} to {targetFormat}?\n\nThe original file will be kept and the converted file will be added as a separate library entry.",
+  "trackConvertConfirmKeepOriginal": "Конвертировать из {sourceFormat} в {targetFormat}?\n\nОригинальный файл сохранится, а сконвертированный добавится в медиатеку как отдельный трек.",
   "@trackConvertConfirmKeepOriginal": {
     "description": "Confirmation message when the source file will be preserved",
     "placeholders": {
@@ -4023,19 +4023,19 @@
   "@lyricsProviderExtensionDesc": {
     "description": "Generic description for extension-based lyrics providers"
   },
-  "safMigrationTitle": "Storage Update Required",
+  "safMigrationTitle": "Требуется обновление хранилища",
   "@safMigrationTitle": {
     "description": "Title of SAF migration dialog"
   },
-  "safMigrationMessage1": "SpotiFLAC now uses Android Storage Access Framework (SAF) for downloads. This fixes \"permission denied\" errors on Android 10+.",
+  "safMigrationMessage1": "Теперь SpotiFLAC использует Android Storage Access Framework (SAF) для загрузки файлов. Это устраняет ошибки «доступ запрещен» на устройствах с Android 10 и выше.",
   "@safMigrationMessage1": {
     "description": "First paragraph of SAF migration dialog"
   },
-  "safMigrationMessage2": "Please select your download folder again to switch to the new storage system.",
+  "safMigrationMessage2": "Пожалуйста, выберите папку для загрузки заново, чтобы перейти на новую систему хранения.",
   "@safMigrationMessage2": {
     "description": "Second paragraph of SAF migration dialog"
   },
-  "safMigrationSuccess": "Download folder updated to SAF mode",
+  "safMigrationSuccess": "Папка загрузок обновлена в SAF режим",
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
@@ -4119,16 +4119,16 @@
   "@backupRestoreRestartHint": {
     "description": "Hint shown after restoring that an app restart is recommended"
   },
-  "backupContentsTitle": "Backup contents",
+  "backupContentsTitle": "Содержимое резервной копии",
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
   "backupSettingsOnly": "Только настройки",
   "backupSelectHistory": "История загрузок",
   "backupSelectCollections": "Коллекции библиотеки",
-  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
+  "backupSelectCollectionsDescription": "Любимые треки, список желаний, любимые исполнители, плейлисты и обложки плейлистов.",
   "backupSelectExtensions": "Расширения и их настройки",
-  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
+  "backupSelectedExportDescription": "Сохранить выбранные категории в файл резервной копии. Аудио файлы не включены.",
   "backupSelectAtLeastOne": "Выберите хотя бы одну категорию для создания резервной копии.",
   "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
   "backupContentsSettings": "Настройки приложения",
@@ -4294,11 +4294,11 @@
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageAutomaticFolder": "Automatic folder",
+  "storageAutomaticFolder": "Автоматическая папка",
   "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
   "storageSafRecommended": "Выбрать папку (Рекомендуется)",
   "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
-  "storageModeAppFolder": "App Folder (Recommended)",
+  "storageModeAppFolder": "Папка приложения (рекомендуется)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
   },
@@ -4306,11 +4306,11 @@
   "@storageModeAppFolderSubtitle": {
     "description": "Subtitle for app folder storage mode"
   },
-  "storageModeSaf": "Custom Folder (SAF)",
+  "storageModeSaf": "Пользовательская папка (SAF)",
   "@storageModeSaf": {
     "description": "Storage mode option - Storage Access Framework"
   },
-  "storageModeSafSubtitle": "Pick any folder, including SD card",
+  "storageModeSafSubtitle": "Выберите любую папку, включая SD-карту",
   "@storageModeSafSubtitle": {
     "description": "Subtitle for SAF storage mode"
   },
@@ -4322,7 +4322,7 @@
   "@downloadFolderAccessLostSubtitle": {
     "description": "Subtitle of the warning banner shown when the saved SAF folder grant is no longer valid"
   },
-  "downloadFolderReselect": "Re-select folder",
+  "downloadFolderReselect": "Выбрать папку заново",
   "@downloadFolderReselect": {
     "description": "Button that reopens the folder picker to restore download folder access"
   },
@@ -4350,7 +4350,7 @@
   "@downloadSeparateSinglesDisabled": {
     "description": "Subtitle when separate singles folder is off"
   },
-  "downloadArtistNameFilters": "Artist Name Filters",
+  "downloadArtistNameFilters": "Фильтры по имени исполнителя",
   "@downloadArtistNameFilters": {
     "description": "Setting title for artist folder filter options"
   },
@@ -4382,7 +4382,7 @@
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },
-  "downloadNetworkCompatibilityModeDisabled": "Using standard network settings",
+  "downloadNetworkCompatibilityModeDisabled": "Использование стандартных параметров сети",
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
@@ -4418,19 +4418,19 @@
   "@downloadNeteaseIncludeTranslationDisabled": {
     "description": "Subtitle when Netease translation is off"
   },
-  "downloadNeteaseIncludeRomanization": "Netease: Include Romanization",
+  "downloadNeteaseIncludeRomanization": "NetEase: транскрипция латиницей",
   "@downloadNeteaseIncludeRomanization": {
     "description": "Setting to include romanized lyrics from Netease"
   },
-  "downloadNeteaseIncludeRomanizationEnabled": "Romanization lines included",
+  "downloadNeteaseIncludeRomanizationEnabled": "Строки транскрипции включены",
   "@downloadNeteaseIncludeRomanizationEnabled": {
     "description": "Subtitle when Netease romanization is on"
   },
-  "downloadNeteaseIncludeRomanizationDisabled": "No romanization",
+  "downloadNeteaseIncludeRomanizationDisabled": "Без транскрипции",
   "@downloadNeteaseIncludeRomanizationDisabled": {
     "description": "Subtitle when Netease romanization is off"
   },
-  "downloadAppleQqMultiPerson": "Apple / QQ: Multi-Person Lyrics",
+  "downloadAppleQqMultiPerson": "Apple / QQ: разделение текста по исполнителям",
   "@downloadAppleQqMultiPerson": {
     "description": "Setting for word-by-word multi-person lyrics from Apple Music and QQ Music"
   },
@@ -4762,7 +4762,7 @@
   "@selectionAllPlaylistsSelected": {
     "description": "Shown when all playlists are selected in selection mode"
   },
-  "selectionTapPlaylistsToSelect": "Tap playlists to select",
+  "selectionTapPlaylistsToSelect": "Нажмите на плейлисты для выбора",
   "@selectionTapPlaylistsToSelect": {
     "description": "Hint shown in playlist selection mode"
   },
@@ -4870,7 +4870,7 @@
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
-  "extensionsHomeFeedProvider": "Home Feed Provider",
+  "extensionsHomeFeedProvider": "Провайдер домашней ленты",
   "@extensionsHomeFeedProvider": {
     "description": "Extensions page - label for home feed provider selector"
   },
@@ -4886,7 +4886,7 @@
   "@extensionsHomeFeedAutoSubtitle": {
     "description": "Extensions page - subtitle for auto home feed option"
   },
-  "extensionsHomeFeedOff": "Выкл.",
+  "extensionsHomeFeedOff": "Выкл",
   "@extensionsHomeFeedOff": {
     "description": "Extensions page - home feed provider option: off"
   },
@@ -4894,7 +4894,7 @@
   "@extensionsHomeFeedOffSubtitle": {
     "description": "Extensions page - subtitle for off home feed option"
   },
-  "extensionsHomeFeedUse": "Use {extensionName} home feed",
+  "extensionsHomeFeedUse": "Использовать домашнюю ленту {extensionName}",
   "@extensionsHomeFeedUse": {
     "description": "Extensions page - subtitle for a specific extension home feed option",
     "placeholders": {
@@ -4958,7 +4958,7 @@
       }
     }
   },
-  "notifFinalizingTrack": "Finalizing {trackName}",
+  "notifFinalizingTrack": "Завершение работы с {trackName}",
   "@notifFinalizingTrack": {
     "description": "Notification title while finalizing (embedding metadata) a track",
     "placeholders": {
@@ -5201,7 +5201,7 @@
   "@homeImportCsvTooltip": {
     "description": "Tooltip for importing a CSV or M3U playlist file into Home search"
   },
-  "homeChangeSearchProviderTooltip": "Change search provider",
+  "homeChangeSearchProviderTooltip": "Изменить поставщика поиска",
   "@homeChangeSearchProviderTooltip": {
     "description": "Tooltip for the Home search provider picker"
   },
@@ -5237,7 +5237,7 @@
   "@optionsEmbedMetadataSubtitleOff": {
     "description": "Subtitle when metadata embedding is disabled"
   },
-  "trackCoverNoEmbeddedArt": "No embedded album art found",
+  "trackCoverNoEmbeddedArt": "Не найдено встроенных обложек альбома",
   "@trackCoverNoEmbeddedArt": {
     "description": "Message shown when a track file has no embedded cover art"
   },
@@ -5281,7 +5281,7 @@
   "@actionStop": {
     "description": "Generic action - stop"
   },
-  "queueFinalizingDownload": "Finalizing download",
+  "queueFinalizingDownload": "Завершение загрузки",
   "@queueFinalizingDownload": {
     "description": "Accessibility label for a queue item that is finalizing"
   },
@@ -5309,19 +5309,19 @@
   "@editMetadataMusicBrainzNothing": {
     "description": "Snackbar when the MusicBrainz lookup returns no data"
   },
-  "editMetadataMusicBrainzNeedsIsrc": "Requires an ISRC tag",
+  "editMetadataMusicBrainzNeedsIsrc": "Требуется ISRC тег",
   "@editMetadataMusicBrainzNeedsIsrc": {
     "description": "Snackbar when the MusicBrainz lookup is tapped without an ISRC"
   },
-  "nowPlayingRepeatOff": "Repeat off",
+  "nowPlayingRepeatOff": "Повтор выключен",
   "@nowPlayingRepeatOff": {
     "description": "Repeat toggle tooltip when repeat is disabled"
   },
-  "nowPlayingRepeatAll": "Repeat all",
+  "nowPlayingRepeatAll": "Повторять всё",
   "@nowPlayingRepeatAll": {
     "description": "Repeat toggle tooltip when the whole queue repeats"
   },
-  "nowPlayingRepeatOne": "Repeat one",
+  "nowPlayingRepeatOne": "Повтор трека",
   "@nowPlayingRepeatOne": {
     "description": "Repeat toggle tooltip when the current track repeats"
   },
@@ -5334,11 +5334,11 @@
       }
     }
   },
-  "queueDownloadedFileMissing": "Downloaded file missing",
+  "queueDownloadedFileMissing": "Загруженный файл отсутствует",
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
-  "queueCheckingDownloadedFile": "Checking downloaded file...",
+  "queueCheckingDownloadedFile": "Проверка загруженного файла...",
   "@queueCheckingDownloadedFile": {
     "description": "Accessibility label while the app checks whether a just-completed download has appeared at its final path yet. Not about authentication or a download session."
   },
@@ -5363,11 +5363,11 @@
       }
     }
   },
-  "logAutoScrollOn": "Auto-scroll ON",
+  "logAutoScrollOn": "Автопрокрутка ВКЛ",
   "@logAutoScrollOn": {
     "description": "Tooltip when auto-scroll is enabled on the log screen"
   },
-  "logAutoScrollOff": "Auto-scroll OFF",
+  "logAutoScrollOff": "Автопрокрутка ВЫКЛ",
   "@logAutoScrollOff": {
     "description": "Tooltip when auto-scroll is disabled on the log screen"
   },
@@ -5383,7 +5383,7 @@
   "@logIssueIspBlockingLabel": {
     "description": "Diagnostic badge label when ISP blocking is detected"
   },
-  "logIssueIspBlockingDescription": "Your ISP may be blocking access to download services",
+  "logIssueIspBlockingDescription": "Ваш провайдер может блокировать доступ к сервисам скачивания",
   "@logIssueIspBlockingDescription": {
     "description": "Diagnostic badge description for ISP blocking"
   },
@@ -5391,7 +5391,7 @@
   "@logIssueIspBlockingSuggestion": {
     "description": "Diagnostic badge suggestion for ISP blocking"
   },
-  "logIssueRateLimitedLabel": "RATE LIMITED",
+  "logIssueRateLimitedLabel": "ЛИМИТ ЗАПРОСОВ",
   "@logIssueRateLimitedLabel": {
     "description": "Diagnostic badge label when the service rate limits requests"
   },
@@ -5411,19 +5411,19 @@
   "@logIssueNetworkErrorDescription": {
     "description": "Diagnostic badge description for generic network errors"
   },
-  "logIssueNetworkErrorSuggestion": "Check your internet connection",
+  "logIssueNetworkErrorSuggestion": "Проверьте подключение к Интернету",
   "@logIssueNetworkErrorSuggestion": {
     "description": "Diagnostic badge suggestion for generic network errors"
   },
-  "logIssueTrackNotFoundLabel": "TRACK NOT FOUND",
+  "logIssueTrackNotFoundLabel": "ТРЕК НЕ НАЙДЕН",
   "@logIssueTrackNotFoundLabel": {
     "description": "Diagnostic badge label when a track is unavailable"
   },
-  "logIssueTrackNotFoundDescription": "Some tracks could not be found on download services",
+  "logIssueTrackNotFoundDescription": "Некоторые треки не найдены в сервисах загрузки",
   "@logIssueTrackNotFoundDescription": {
     "description": "Diagnostic badge description when a track is unavailable"
   },
-  "logIssueTrackNotFoundSuggestion": "The track may not be available in lossless quality",
+  "logIssueTrackNotFoundSuggestion": "Трек может быть недоступен в lossless формате",
   "@logIssueTrackNotFoundSuggestion": {
     "description": "Diagnostic badge suggestion when a track is unavailable"
   },
@@ -5992,7 +5992,7 @@
   "@extensionHealthServiceDegraded": {
     "description": "Tooltip for degraded extension service"
   },
-  "extensionHealthServiceOffline": "Service offline",
+  "extensionHealthServiceOffline": "Служба оффлайн",
   "@extensionHealthServiceOffline": {
     "description": "Tooltip for offline extension service"
   },

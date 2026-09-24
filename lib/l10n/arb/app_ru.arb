@@ -2956,7 +2956,7 @@
   "@tutorialSearchTitle": {
     "description": "Tutorial search page title"
   },
-  "tutorialSearchDesc": "Search with your selected extension or paste a supported music link.",
+  "tutorialSearchDesc": "Выполните поиск с помощью выбранного расширения или вставьте ссылку на музыкальный файл, поддерживаемый сервисом.",
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
@@ -2964,7 +2964,7 @@
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
-  "tutorialDownloadDesc": "Pick an available quality, start the download, and follow its progress in the queue.",
+  "tutorialDownloadDesc": "Выберите доступное качество, запустите загрузку и следите за её ходом в очереди.",
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
@@ -2972,19 +2972,19 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "Downloaded and locally scanned music is organized in your Library.",
+  "tutorialLibraryDesc": "Загруженная и отсканированная локально музыка систематизируется в вашей медиатеке.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
-  "tutorialLibraryTip1": "Manage active, pending, and completed downloads from the Library queue",
+  "tutorialLibraryTip1": "Управление активными, ожидающими и завершёнными загрузками из очереди медиатеки",
   "@tutorialLibraryTip1": {
     "description": "Tutorial library tip 1"
   },
-  "tutorialLibraryTip2": "Tap a track to play it with the built-in player",
+  "tutorialLibraryTip2": "Нажмите на трек, чтобы воспроизвести его с помощью встроенного проигрывателя",
   "@tutorialLibraryTip2": {
     "description": "Tutorial library tip 2"
   },
-  "tutorialLibraryTip3": "Browse tracks, albums, and playlists in list or grid views",
+  "tutorialLibraryTip3": "Просматривайте треки, альбомы и плейлисты в виде списка или сетки",
   "@tutorialLibraryTip3": {
     "description": "Tutorial library tip 3"
   },
@@ -2992,11 +2992,11 @@
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
-  "tutorialExtensionsDesc": "Extensions add search, download, metadata, lyrics, and other integrations.",
+  "tutorialExtensionsDesc": "Расширения добавляют функции поиска, загрузки, метаданных, текстов песен и другие интеграции.",
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
-  "tutorialExtensionsTip1": "Browse the Repo tab to discover useful extensions",
+  "tutorialExtensionsTip1": "Перейдите на вкладку «Репозиторий», чтобы найти полезные расширения",
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
@@ -3004,7 +3004,7 @@
   "@tutorialExtensionsTip2": {
     "description": "Tutorial extensions tip 2"
   },
-  "tutorialExtensionsTip3": "Connect accounts when required and keep extensions up to date",
+  "tutorialExtensionsTip3": "При необходимости связывайте учетные записи и обновляйте расширения",
   "@tutorialExtensionsTip3": {
     "description": "Tutorial extensions tip 3"
   },
@@ -3012,7 +3012,7 @@
   "@tutorialSettingsTitle": {
     "description": "Tutorial settings page title"
   },
-  "tutorialSettingsDesc": "Fine-tune downloads, playback, Library behavior, appearance, and storage.",
+  "tutorialSettingsDesc": "Настройте параметры загрузки, воспроизведения, работы медиатеки, внешнего вида и хранения.",
   "@tutorialSettingsDesc": {
     "description": "Tutorial settings page description"
   },
@@ -3126,7 +3126,7 @@
   "@libraryPlaybackNormalization": {
     "description": "Toggle title for ReplayGain playback normalization in the built-in player"
   },
-  "libraryPlaybackNormalizationSubtitle": "Even out loudness between tracks using their ReplayGain or R128 tags, when present",
+  "libraryPlaybackNormalizationSubtitle": "Выравнивайте уровень громкости между треками с помощью тегов ReplayGain или R128, если они имеются",
   "@libraryPlaybackNormalizationSubtitle": {
     "description": "Subtitle explaining playback volume normalization"
   },
@@ -3270,7 +3270,7 @@
   "@trackReEnrichOnlineSubtitle": {
     "description": "Subtitle for re-enrich metadata action for local items"
   },
-  "trackReEnrichBatchSubtitle": "Choose an online or manual update, then review every change before writing",
+  "trackReEnrichBatchSubtitle": "Выберите обновление через Интернет или вручную, а затем проверьте все изменения перед записью",
   "@trackReEnrichBatchSubtitle": {
     "description": "Subtitle for batch metadata update choices"
   },
@@ -5897,7 +5897,7 @@
   "@extensionServiceStatus": {
     "description": "Extension detail section header for service status"
   },
-  "extensionServiceHealth": "Service health",
+  "extensionServiceHealth": "Состояние сервиса",
   "@extensionServiceHealth": {
     "description": "Extension capability label for service health checks"
   },
@@ -5914,7 +5914,7 @@
   "@extensionOauthConnectHint": {
     "description": "Hint for an OAuth login link field before connecting Spotify"
   },
-  "extensionLastChecked": "Last checked {time}",
+  "extensionLastChecked": "Последняя проверка {time}",
   "@extensionLastChecked": {
     "description": "Timestamp for the latest extension service health check",
     "placeholders": {
@@ -5927,15 +5927,15 @@
   "@extensionRefreshStatus": {
     "description": "Tooltip for refreshing extension service health status"
   },
-  "extensionCustomUrlHandling": "Custom URL Handling",
+  "extensionCustomUrlHandling": "Обработка пользовательских URL",
   "@extensionCustomUrlHandling": {
     "description": "Extension detail section title for custom URL handling"
   },
-  "extensionCustomUrlHandlingSubtitle": "This extension can handle links from these sites",
+  "extensionCustomUrlHandlingSubtitle": "Это расширение поддерживает ссылки с этих сайтов",
   "@extensionCustomUrlHandlingSubtitle": {
     "description": "Extension detail subtitle for custom URL handling"
   },
-  "extensionCustomUrlHandlingShareHint": "Share links from these sites to SpotiFLAC Mobile and this extension will handle them.",
+  "extensionCustomUrlHandlingShareHint": "Отправляйте ссылки с этих сайтов в SpotiFLAC Mobile, и это расширение обработает их.",
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
@@ -5960,7 +5960,7 @@
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
-  "extensionHealthNotConfigured": "Not configured",
+  "extensionHealthNotConfigured": "Не настроено",
   "@extensionHealthNotConfigured": {
     "description": "Extension service health status - not configured"
   },
@@ -5968,23 +5968,23 @@
   "@extensionHealthUnknown": {
     "description": "Extension service health status - unknown"
   },
-  "extensionHealthRequired": "required",
+  "extensionHealthRequired": "обязательно",
   "@extensionHealthRequired": {
     "description": "Label for a required extension service health check"
   },
-  "extensionSettingNotSet": "Not set",
+  "extensionSettingNotSet": "Не задано",
   "@extensionSettingNotSet": {
     "description": "Value shown when an extension setting has no value"
   },
-  "extensionActionFailed": "Action failed",
+  "extensionActionFailed": "Не удалось выполнить действие",
   "@extensionActionFailed": {
     "description": "Fallback error when an extension action fails without details"
   },
-  "extensionEnterValue": "Enter value",
+  "extensionEnterValue": "Введите значение",
   "@extensionEnterValue": {
     "description": "Hint for editing an extension setting value"
   },
-  "extensionHealthServiceOnline": "Service online",
+  "extensionHealthServiceOnline": "Сервис онлайн",
   "@extensionHealthServiceOnline": {
     "description": "Tooltip for online extension service"
   },
@@ -6057,11 +6057,11 @@
   "@storeCategoryDownload": {
     "description": "Store extension category - download"
   },
-  "storeCategoryUtility": "Utility",
+  "storeCategoryUtility": "Утилиты",
   "@storeCategoryUtility": {
     "description": "Store extension category - utility"
   },
-  "storeCategoryLyrics": "Lyrics",
+  "storeCategoryLyrics": "Тексты песен",
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
@@ -6073,7 +6073,7 @@
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },
-  "editMetadataSelectNone": "None",
+  "editMetadataSelectNone": "Ничего",
   "@editMetadataSelectNone": {
     "description": "Button to clear selected fields for auto-fill"
   },

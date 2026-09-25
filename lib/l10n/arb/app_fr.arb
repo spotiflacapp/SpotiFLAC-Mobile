@@ -14,7 +14,7 @@
   "upgradeIntroRustKeepBody": "Inutile de télécharger à nouveau votre bibliothèque. Votre musique et vos paramètres enregistrés sont conservés, aucune nouvelle configuration n'est nécessaire.",
   "upgradeIntroWelcomeBody": "Un aperçu rapide des changements apportés et des endroits où les trouver.",
   "upgradeIntroMornyeBody": "Un nouveau look pour votre lecteur, les paroles et la navigation.",
-  "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
+  "upgradeIntroLibrarySummary": "Parcourez votre musique par playlist, artiste ou album.",
   "upgradeIntroRepoSummary": "Choisissez vos sources musicales et vos fournisseurs grâce aux extensions.",
   "upgradeIntroLibraryTitle": "Découvrez\nvotre bibliothèque.",
   "upgradeIntroLibraryBody": "Sur Mornye, parcourez les albums par catégorie ou retrouvez vos albums dans la section « Ajouts récents ».",
@@ -41,8 +41,8 @@
   },
   "discordRichPresence": "Discord Rich Presence",
   "discordPresenceDescription": "Partagez le morceau en cours de lecture dans le lecteur intégré à Discord. Cela nécessite que Discord soit installé et que vous soyez connecté.",
-  "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
-  "discordPresenceUnavailable": "Discord Rich Presence is unavailable in this build or on this device.",
+  "discordPresenceMissing": "Installez Discord et connectez-vous, puis désactivez puis réactivez ce paramètre.",
+  "discordPresenceUnavailable": "La fonctionnalité « Rich Presence » de Discord n'est pas disponible dans cette version ni sur cet appareil.",
   "@@locale": "fr",
   "@@last_modified": "2026-04-28",
   "appName": "SpotiFLAC Mobile",
@@ -101,11 +101,11 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "libraryRecentlyAdded": "Recently Added",
-  "libraryDownloads": "Downloads",
-  "libraryNoActiveDownloads": "No active downloads",
-  "librarySearchHint": "Search your library",
-  "libraryEmptyCollection": "Your music will appear here",
+  "libraryRecentlyAdded": "Ajouts récents",
+  "libraryDownloads": "Téléchargements",
+  "libraryNoActiveDownloads": "Aucun téléchargement en cours",
+  "librarySearchHint": "Rechercher dans votre bibliothèque",
+  "libraryEmptyCollection": "Votre musique apparaîtra ici",
   "historySearchHint": "Historique de recherche...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
@@ -1642,19 +1642,19 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "trackReplayGainTrackGain": "ReplayGain - Gain par piste",
   "@trackReplayGainTrackGain": {
     "description": "Metadata label - ReplayGain track gain"
   },
-  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "trackReplayGainTrackPeak": "ReplayGain – Pic de piste",
   "@trackReplayGainTrackPeak": {
     "description": "Metadata label - ReplayGain track peak"
   },
-  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "trackReplayGainAlbumGain": "ReplayGain - Gain de l'album",
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "trackReplayGainAlbumPeak": "ReplayGain – Valeur maximale de l'album",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
@@ -3417,10 +3417,10 @@
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Métadonnées réenrichies avec succès",
-  "trackReEnrichMetadataSaved": "Metadata saved",
-  "trackReEnrichLyricsUpdated": "Lyrics updated",
-  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
-  "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
+  "trackReEnrichMetadataSaved": "Métadonnées enregistrées",
+  "trackReEnrichLyricsUpdated": "Paroles mises à jour",
+  "trackReEnrichLyricsPreserved": "Aucune nouvelle parole n'a été trouvée ; les paroles existantes ont été conservées",
+  "trackReEnrichLyricsDisabled": "Paroles non mises à jour : le téléchargement des paroles est désactivé dans les paramètres",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
@@ -4123,14 +4123,14 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
-  "backupSelectHistory": "Download history",
-  "backupSelectCollections": "Library collections",
-  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
-  "backupSelectExtensions": "Extensions and their settings",
-  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
-  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
-  "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
+  "backupSettingsOnly": "Paramètres uniquement",
+  "backupSelectHistory": "Historique des téléchargements",
+  "backupSelectCollections": "Fonds de la bibliothèque",
+  "backupSelectCollectionsDescription": "Titres appréciés, liste de souhaits, artistes préférés, playlists et pochettes de playlists.",
+  "backupSelectExtensions": "Les extensions et leurs paramètres",
+  "backupSelectedExportDescription": "Enregistrez les catégories sélectionnées dans un fichier de sauvegarde. Les fichiers audio ne sont pas inclus.",
+  "backupSelectAtLeastOne": "Sélectionnez au moins une catégorie pour créer une sauvegarde.",
+  "backupSelectedRestoreMessage": "Seules les catégories répertoriées ci-dessous seront restaurées. Les catégories non incluses dans cette sauvegarde resteront inchangées. La restauration peut remplacer les données existantes et ne peut pas être annulée.",
   "backupContentsSettings": "Paramètres de l'application",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
@@ -4294,10 +4294,10 @@
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageAutomaticFolder": "Automatic folder",
-  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
-  "storageSafRecommended": "Choose folder (Recommended)",
-  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
+  "storageAutomaticFolder": "Dossier automatique",
+  "storageAutomaticDownloadFolder": "Utilise « Download/SpotiFLAC » si l'espace de stockage est accessible en écriture, sinon le stockage de l'application",
+  "storageSafRecommended": "Choisir un dossier (recommandé)",
+  "storageDownloadFolderHint": "Dans le sélecteur de dossiers Android, ouvrez le dossier « Téléchargements » et sélectionnez « SpotiFLAC ». S'il n'existe pas, créez-le à l'aide de l'option « Nouveau dossier », puis appuyez sur « Utiliser ce dossier » pour autoriser l'accès.",
   "storageModeAppFolder": "Dossier « Applications » (recommandé)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
@@ -4866,39 +4866,39 @@
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
-  "downloadRedownloadFakeHiRes": "Re-download fake Hi-Res",
+  "downloadRedownloadFakeHiRes": "Télécharger à nouveau la fausse version haute résolution",
   "@downloadRedownloadFakeHiRes": {
     "description": "Setting title: automatically replace downloads that measure as fake Hi-Res"
   },
-  "downloadRedownloadFakeHiResSubtitle": "Off by default. Check Hi-Res downloads and replace only when every audio sample is preserved. Keep the original if verification or processing fails",
+  "downloadRedownloadFakeHiResSubtitle": "Désactivé par défaut. Cochez « Téléchargements haute résolution » et ne remplacez les fichiers que si tous les échantillons audio sont conservés. Conservez l'original en cas d'échec de la vérification ou du traitement.",
   "@downloadRedownloadFakeHiResSubtitle": {
     "description": "Setting subtitle for the fake Hi-Res re-download toggle"
   },
-  "hiResCheckVerdictFakeCertain": "Fake Hi-Res",
+  "hiResCheckVerdictFakeCertain": "Fausse haute résolution",
   "@hiResCheckVerdictFakeCertain": {
     "description": "Verdict: an exact fingerprint (padded bits or upsampling pattern) proves the file is not real Hi-Res"
   },
-  "hiResCheckVerdictFakeSuspect": "Possibly a filtered master",
+  "hiResCheckVerdictFakeSuspect": "Peut-être une piste principale filtrée",
   "@hiResCheckVerdictFakeSuspect": {
     "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
   },
-  "hiResCheckReasonSampleHold": "Every sample is repeated: upsampled by duplication",
+  "hiResCheckReasonSampleHold": "Chaque échantillon est répété : suréchantillonné par duplication",
   "@hiResCheckReasonSampleHold": {
     "description": "Reason: sample-and-hold upsampling detected"
   },
-  "hiResCheckReasonInterpolation": "In-between samples are linearly interpolated",
+  "hiResCheckReasonInterpolation": "Les échantillons intermédiaires sont interpolés de manière linéaire",
   "@hiResCheckReasonInterpolation": {
     "description": "Reason: linear-interpolation upsampling detected"
   },
-  "hiResCheckReasonImaging": "Content above 22 kHz mirrors the audible band",
+  "hiResCheckReasonImaging": "Les fréquences supérieures à 22 kHz reflètent la bande audible",
   "@hiResCheckReasonImaging": {
     "description": "Reason: spectral imaging from upsampling detected"
   },
-  "hiResCheckMusicContent": "Musical content",
+  "hiResCheckMusicContent": "Contenu musical",
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
-  "hiResCheckUltrasonicNoise": "Above {cutoff} only steady noise (typical of DSD or analog tape transfers): a {rate} file would hold all the music",
+  "hiResCheckUltrasonicNoise": "Au-dessus de {cutoff}, on n'entend qu'un bruit constant (typique du DSD ou des transferts à partir de bandes analogiques) : un fichier {rate} contiendrait l'intégralité de la musique",
   "@hiResCheckUltrasonicNoise": {
     "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
     "placeholders": {
@@ -4910,31 +4910,31 @@
       }
     }
   },
-  "hiResCheckTitle": "Hi-Res Authenticity",
+  "hiResCheckTitle": "Authenticité haute résolution",
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
+  "hiResCheckDescription": "Détecter les faux fichiers « haute résolution » issus d'un suréchantillonnage ou d'un remplissage binaire",
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
   },
-  "hiResCheckRun": "Check",
+  "hiResCheckRun": "Vérifier",
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Checking Hi-Res authenticity...",
+  "hiResCheckChecking": "Vérification de l'authenticité de la haute résolution...",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },
-  "hiResCheckVerdictFake": "Likely fake Hi-Res",
+  "hiResCheckVerdictFake": "Probablement une fausse image haute résolution",
   "@hiResCheckVerdictFake": {
     "description": "Verdict: the file claims Hi-Res but does not measure as it"
   },
-  "hiResCheckVerdictGenuine": "Measures as genuine Hi-Res",
+  "hiResCheckVerdictGenuine": "Offre une véritable haute résolution",
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Standard definition, nothing to flag",
+  "hiResCheckVerdictStandard": "Définition standard, rien à signaler",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },

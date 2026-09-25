@@ -1,46 +1,46 @@
 {
-  "upgradeIntroWelcome": "Welcome to\nSpotiFLAC-Mobile 5.0",
-  "upgradeIntroThemeTitle": "Make it\nyour own.",
-  "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
-  "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
-  "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
-  "upgradeIntroRustTitle": "A new engine.\nBuilt with Rust.",
-  "upgradeIntroRustBody": "In 5.0, the app’s backend has moved from Go to Rust. It is the engine working behind the screens you use every day.",
+  "upgradeIntroWelcome": "Bienvenue dans\nSpotiFLAC-Mobile 5.0",
+  "upgradeIntroThemeTitle": "Faites-en\nvotre propre version.",
+  "upgradeIntroThemeBody": "Choisissez un thème. Votre choix s'applique immédiatement, et vous pourrez le modifier ultérieurement dans la section « Apparence ».",
+  "upgradeIntroThemeMaterialBody": "Une mise en page familière, avec les commandes Material et votre couleur d'accent.",
+  "upgradeIntroThemeMornyeBody": "Navigation en verre, bibliothèque repensée et lecteur immersif.",
+  "upgradeIntroRustTitle": "Un nouveau moteur.\nDéveloppé avec Rust.",
+  "upgradeIntroRustBody": "Dans la version 5.0, le backend de l'application est passé de Go à Rust. Il s'agit du moteur qui fonctionne en arrière-plan des écrans que vous utilisez tous les jours.",
   "upgradeIntroRustEngineTitle": "Travaille en arrière-plan",
-  "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
-  "upgradeIntroRustMemoryTitle": "More careful with memory",
-  "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
-  "upgradeIntroRustKeepTitle": "Keep your music",
-  "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
-  "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
-  "upgradeIntroMornyeBody": "A new look for your player, lyrics and navigation.",
+  "upgradeIntroRustEngineBody": "Rust gère les téléchargements, les métadonnées audio, l'analyse des bibliothèques et l'exécution des extensions sur Android et iOS.",
+  "upgradeIntroRustMemoryTitle": "Faire plus attention à sa mémoire",
+  "upgradeIntroRustMemoryBody": "La réutilisation des tampons et la réduction du nombre de copies permettent de limiter les allocations temporaires lors du traitement des illustrations et des données d'extension.",
+  "upgradeIntroRustKeepTitle": "Conservez votre musique",
+  "upgradeIntroRustKeepBody": "Inutile de télécharger à nouveau votre bibliothèque. Votre musique et vos paramètres enregistrés sont conservés, aucune nouvelle configuration n'est nécessaire.",
+  "upgradeIntroWelcomeBody": "Un aperçu rapide des changements apportés et des endroits où les trouver.",
+  "upgradeIntroMornyeBody": "Un nouveau look pour votre lecteur, les paroles et la navigation.",
   "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
-  "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
-  "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
-  "upgradeIntroLibraryBody": "In Mornye, browse by category or find your albums in Recently Added.",
-  "upgradeIntroDownloadsBody": "Pause and retry from Downloads at the top right. Finished music moves to Recently Added.",
-  "upgradeIntroSearchBody": "Search saved music here. The separate Search tab looks through your extensions.",
-  "upgradeIntroPlayerTitle": "Set up\nyour player.",
-  "upgradeIntroPlayerBody": "You can change your theme and playback options at any time. Here is where to find them.",
-  "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
-  "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
-  "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
-  "upgradeIntroSkip": "Skip",
-  "upgradeIntroContinue": "Continue",
-  "upgradeIntroDone": "Start listening",
-  "upgradeIntroReplay": "What’s new in 5.0",
-  "cacheMotionArtwork": "Offline motion covers",
-  "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
+  "upgradeIntroRepoSummary": "Choisissez vos sources musicales et vos fournisseurs grâce aux extensions.",
+  "upgradeIntroLibraryTitle": "Découvrez\nvotre bibliothèque.",
+  "upgradeIntroLibraryBody": "Sur Mornye, parcourez les albums par catégorie ou retrouvez vos albums dans la section « Ajouts récents ».",
+  "upgradeIntroDownloadsBody": "Mettez en pause, puis réessayez depuis la rubrique « Téléchargements » en haut à droite. Les morceaux terminés sont déplacés vers la rubrique « Ajoutés récemment ».",
+  "upgradeIntroSearchBody": "Recherchez ici la musique que vous avez enregistrée. L'onglet « Recherche » distinct passe en revue vos extensions.",
+  "upgradeIntroPlayerTitle": "Configurez\nvotre lecteur.",
+  "upgradeIntroPlayerBody": "Vous pouvez modifier votre thème et vos options de lecture à tout moment. Voici où les trouver.",
+  "upgradeIntroAppearanceBody": "Pour changer de thème, rendez-vous dans Paramètres → Apparence. Dans Mornye, faites défiler vers le bas pour afficher la navigation compacte ; faites défiler vers le haut pour l'agrandir.",
+  "upgradeIntroAutoMixBody": "Synchroniser le tempo et les temps entre les morceaux. Activez cette option dans Paramètres → Bibliothèque locale → Lecture. Désactivée par défaut.",
+  "upgradeIntroSettingsBody": "Dans Mornye, appuyez sur votre profil depuis la page d'accueil pour ouvrir les Paramètres et modifier votre nom et votre photo.",
+  "upgradeIntroSkip": "Passer",
+  "upgradeIntroContinue": "Continuer",
+  "upgradeIntroDone": "Commencez à écouter",
+  "upgradeIntroReplay": "Nouveautés de la version 5.0",
+  "cacheMotionArtwork": "Couverture de mouvement hors ligne",
+  "cacheMotionArtworkDesc": "Les clips vidéo des albums sont enregistrés avec les téléchargements. Si vous les supprimez, vos fichiers musicaux et vos pochettes d'album resteront intacts.",
   "nowPlayingVolume": "Volume",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
-  "appearanceStyle": "App Style",
+  "appearanceStyle": "Style de l'application",
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
   },
   "discordRichPresence": "Discord Rich Presence",
-  "discordPresenceDescription": "Share the track playing in the built-in player on Discord. Requires Discord to be installed and signed in.",
+  "discordPresenceDescription": "Partagez le morceau en cours de lecture dans le lecteur intégré à Discord. Cela nécessite que Discord soit installé et que vous soyez connecté.",
   "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
   "discordPresenceUnavailable": "Discord Rich Presence is unavailable in this build or on this device.",
   "@@locale": "fr",
@@ -4938,27 +4938,27 @@
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
-  "hiResCheckVerdictInconclusive": "Inconclusive: the analyzed segment is too quiet or short",
+  "hiResCheckVerdictInconclusive": "Résultat non concluant : le segment analysé est trop silencieux ou trop court",
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
-  "hiResCheckUnsupported": "Only FLAC and WAV files can be checked",
+  "hiResCheckUnsupported": "Seuls les fichiers FLAC et WAV peuvent être vérifiés",
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
-  "hiResCheckCutoff": "Content cutoff",
+  "hiResCheckCutoff": "Fin du contenu",
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
-  "hiResCheckBitsInUse": "Bits in use",
+  "hiResCheckBitsInUse": "Bits utilisés",
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },
-  "hiResCheckDisclaimer": "The spectrum stops early, but nothing proves it was upsampled: it may be a genuine master low-pass filtered in mastering. It is not replaced automatically.",
+  "hiResCheckDisclaimer": "Le spectre s'arrête prématurément, mais rien ne prouve qu'il ait été suréchantillonné : il peut s'agir d'un master authentique ayant subi un filtrage passe-bas lors du mastering. Il n'est pas remplacé automatiquement.",
   "@hiResCheckDisclaimer": {
     "description": "Caveat shown under a fake Hi-Res verdict"
   },
-  "hiResCheckFailed": "Hi-Res check failed: {error}",
+  "hiResCheckFailed": "Échec de la vérification haute résolution : {error}",
   "@hiResCheckFailed": {
     "description": "Error shown when the Hi-Res check fails",
     "placeholders": {
@@ -4967,7 +4967,7 @@
       }
     }
   },
-  "hiResCheckReasonRate": "Declares {sampleRate} but content stops at ~{cutoff}",
+  "hiResCheckReasonRate": "Indique {sampleRate}, mais le contenu s'arrête à environ {cutoff}",
   "@hiResCheckReasonRate": {
     "description": "Reason for a fake verdict caused by upsampling",
     "placeholders": {
@@ -4979,7 +4979,7 @@
       }
     }
   },
-  "hiResCheckReasonDepth": "Declares {declared}-bit but only {effective} bits carry data",
+  "hiResCheckReasonDepth": "Déclare {declared} bits, mais seuls les {effective} bits contiennent des données",
   "@hiResCheckReasonDepth": {
     "description": "Reason for a fake verdict caused by padded bit depth",
     "placeholders": {
@@ -6270,7 +6270,7 @@
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Quick local previews inside SpotiFLAC Mobile",
+  "libraryBuiltInPreviewPlayerSubtitle": "Aperçus rapides en local dans SpotiFLAC Mobile",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
@@ -6785,9 +6785,9 @@
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "mornyeShowTabs": "Show tabs",
-  "mornyeSearch": "Search",
-  "mornyeContinuePlaying": "Continue Playing",
+  "mornyeShowTabs": "Afficher les onglets",
+  "mornyeSearch": "Rechercher",
+  "mornyeContinuePlaying": "Continuer à lire",
   "metadataCopyAll": "Copier toutes les métadonnées",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
@@ -6800,28 +6800,28 @@
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "mornyeFavorite": "Favorite",
-  "mornyeGoToArtist": "Go to Artist",
+  "mornyeFavorite": "Favoris",
+  "mornyeGoToArtist": "Aller à la page de l'artiste",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
-  "mornyeFavorited": "Favorited",
+  "mornyeFavorited": "Ajouté aux favoris",
   "@mornyeFavorited": {
     "description": "Selected state of the compact favorite action"
   },
-  "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
-  "autoMixOn": "AutoMix on",
-  "autoMixOff": "AutoMix off",
-  "profileTitle": "Profile",
-  "profileSetUp": "Set up your profile",
-  "profileEdit": "Edit name and photo",
-  "backupIncludesProfile": "Includes your profile name and photo",
-  "profileName": "Name",
-  "profileNameHint": "Your name",
-  "profileChangePhoto": "Choose photo",
-  "profileRemovePhoto": "Remove photo",
-  "profilePhotoError": "Choose a valid image smaller than 20 MB.",
-  "profileSaveError": "Could not save your profile. Please try again.",
+  "autoMixDescription": "Mélangez des morceaux grâce à la synchronisation des rythmes et à l'ajustement du tempo tout en conservant la hauteur tonale. Utilise un fondu enchaîné lorsque les rythmes ne peuvent pas être synchronisés.",
+  "autoMixOn": "AutoMix activé",
+  "autoMixOff": "AutoMix désactivé",
+  "profileTitle": "Profil",
+  "profileSetUp": "Configurez votre profil",
+  "profileEdit": "Modifier le nom et la photo",
+  "backupIncludesProfile": "Comprend le nom et la photo de votre profil",
+  "profileName": "Nom",
+  "profileNameHint": "Votre nom",
+  "profileChangePhoto": "Choisir une photo",
+  "profileRemovePhoto": "Supprimer la photo",
+  "profilePhotoError": "Choisissez une image valide dont la taille est inférieure à 20 Mo.",
+  "profileSaveError": "Impossible d'enregistrer votre profil. Veuillez réessayer.",
   "optionsEmbeddedCoverSizeOriginal": "Résolution originale",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

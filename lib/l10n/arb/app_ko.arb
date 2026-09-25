@@ -4898,7 +4898,7 @@
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
-  "hiResCheckUltrasonicNoise": "{cutoff} 이상에서는 일정한 노이즈만 존재합니다 (일반적으로 DSD 또는 아날로그 테이프 전송에서 나타나는 특성): {rate} 파일이면 모든 음악 정보를 담을 수 있습니다",
+  "hiResCheckUltrasonicNoise": "{cutoff} 이상에서는 일정한 노이즈만 존재함 (일반적으로 DSD 또는 아날로그 테이프 전송에서 나타나는 특성): {rate} 파일이면 모든 음악 정보를 담을 수 있음",
   "@hiResCheckUltrasonicNoise": {
     "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
     "placeholders": {
@@ -4934,15 +4934,15 @@
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "일반 음질이며, 특별히 의심되는 사항이 없습니다",
+  "hiResCheckVerdictStandard": "일반 음질이며, 특별히 의심되는 사항이 없음",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
-  "hiResCheckVerdictInconclusive": "판단할 수 없음: 분석한 구간의 음량이 너무 작거나 길이가 너무 짧습니다",
+  "hiResCheckVerdictInconclusive": "판단할 수 없음: 분석한 구간의 음량이 너무 작거나 길이가 너무 짧음",
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
-  "hiResCheckUnsupported": "FLAC 및 WAV 파일만 확인할 수 있습니다",
+  "hiResCheckUnsupported": "FLAC 및 WAV 파일만 확인할 수 있음",
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
@@ -4967,7 +4967,7 @@
       }
     }
   },
-  "hiResCheckReasonRate": "{sampleRate}를 선언했지만 콘텐츠가 ~{cutoff}에서 멈춥니다",
+  "hiResCheckReasonRate": "{sampleRate}를 선언했지만 콘텐츠가 약 {cutoff}에서 멈춥니다",
   "@hiResCheckReasonRate": {
     "description": "Reason for a fake verdict caused by upsampling",
     "placeholders": {
@@ -4979,7 +4979,7 @@
       }
     }
   },
-  "hiResCheckReasonDepth": "{declared}-비트로 표시되어 있지만 실제 데이터는 {effective} 비트만 사용합니다",
+  "hiResCheckReasonDepth": "{declared}-비트를 선언했지만 실제 데이터는 {effective} 비트만 전달합니다",
   "@hiResCheckReasonDepth": {
     "description": "Reason for a fake verdict caused by padded bit depth",
     "placeholders": {

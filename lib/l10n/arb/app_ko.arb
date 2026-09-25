@@ -4922,7 +4922,7 @@
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Hi-Res 진위 여부 확인 중...",
+  "hiResCheckChecking": "Hi-Res 진위 여부 검사 중...",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },

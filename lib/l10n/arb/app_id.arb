@@ -2,7 +2,7 @@
   "upgradeIntroWelcome": "Selamat datang di SpotiFLAC-Mobile 5.9",
   "upgradeIntroThemeTitle": "Pilih tampilan Anda",
   "upgradeIntroThemeBody": "Pilih tampilan yang Anda suka. Pilihan langsung diterapkan dan Anda dapat mengubahnya lewat Tampilan.",
-  "upgradeIntroThemeMaterialBody": "Tampilan yang familiar, estetika Material dengan warna aksen pilihan Anda. ",
+  "upgradeIntroThemeMaterialBody": "Tampilan yang familiar, estetika Material dengan warna aksen pilihan Anda.",
   "upgradeIntroThemeMornyeBody": "Tampilan Liquid Glass, Koleksi yang didesain ulang dengan pemutar yang cantik.",
   "upgradeIntroRustTitle": "Engine baru.\nDibuat dengan Rust.",
   "upgradeIntroRustBody": "Di versi 5.0, backend aplikasi dialihkan dari Go ke Rust. Ini adalah engine yang bekerja di balik layar yang Anda gunakan tiap hari.",
@@ -19,11 +19,11 @@
   "upgradeIntroLibraryTitle": "Mengenal Koleksi Anda.",
   "upgradeIntroLibraryBody": "Di tampilan Mornye, telusuri dengan kategori atau cari album Anda di Baru Ditambahkan.",
   "upgradeIntroDownloadsBody": "Jeda dan coba lagi dari Download di kanan atas. Lagu yang terdownload akan muncul di Baru Ditambahkan.",
-  "upgradeIntroSearchBody": "Telusuri lagu tersimpan di sini. ",
+  "upgradeIntroSearchBody": "Telusuri lagu tersimpan di sini. Tab Penelusuran kini dipisah dan ada di kanan Repo.",
   "upgradeIntroPlayerTitle": "Atur\npemutar Anda.",
-  "upgradeIntroPlayerBody": "Anda dapat mengatur setelan tema dan pemutana kapan saja. Temukan itu di sini.",
+  "upgradeIntroPlayerBody": "Anda dapat mengatur setelan tema dan pemutaran kapan saja. Atur saja di sini.",
   "upgradeIntroAppearanceBody": "Atur tema lewat Setelan → Tampilan. Di Mornye, gulir bawah akan mengecilkan bilah navigasi; dan sebaliknya akan mengembalikannya.",
-  "upgradeIntroAutoMixBody": "Cocokkan tempo dan beat pada setiap lagu. Hidupkan di Setelan → Koleksi Lokal → Pemutaran. Defaultnya dimatikkan.",
+  "upgradeIntroAutoMixBody": "Cocokkan tempo dan beat pada setiap lagu. Hidupkan di Setelan → Koleksi Lokal → Pemutaran. Defaultnya dimatikan.",
   "upgradeIntroSettingsBody": "Di Mornye, ketuk foto profil di kanan atas untuk membuka Setelan dan mengedit nama dan foto profil.",
   "upgradeIntroSkip": "Lewati",
   "upgradeIntroContinue": "Lanjut",
@@ -258,8 +258,8 @@
   "trackRemoveReplayGain": "Hapus ReplayGain",
   "trackRemoveReplayGainSuccess": "Tag ReplayGain dihapus",
   "trackRemoveReplayGainFailed": "Gagal menghapus tag ReplayGain",
-  "replayGainRemoving": "Menghapus ReplayGain",
-  "replayGainRemoveConfirmMessage": "Hapus tag ReplayGain dari {count} lagu? Audio, cover, dan metadata lain akan tetap disimpan. ",
+  "replayGainRemoving": "Menghapus ReplayGain...",
+  "replayGainRemoveConfirmMessage": "Hapus tag ReplayGain dari {count} lagu? Audio, cover, dan metadata lain akan tetap disimpan.",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
       "count": {
@@ -2678,11 +2678,11 @@
   "@libraryShowDuplicateIndicatorSubtitle": {
     "description": "Subtitle for duplicate indicator toggle"
   },
-  "libraryAutoScan": "Pindai Oto",
+  "libraryAutoScan": "Pindai Otomatis",
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
-  "libraryAutoScanSubtitle": "Otomatis memindai pustaka Anda",
+  "libraryAutoScanSubtitle": "Otomatis memindai file baru di koleksi Anda",
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
@@ -4518,7 +4518,7 @@
   "@downloadMusixmatchLanguageDesc": {
     "description": "Description in Musixmatch language picker"
   },
-  "downloadMusixmatchAuto": "Oto",
+  "downloadMusixmatchAuto": "Otomatis",
   "@downloadMusixmatchAuto": {
     "description": "Button to clear Musixmatch language (use auto)"
   },
@@ -5086,7 +5086,7 @@
   "@extensionsHomeFeedDescription": {
     "description": "Extensions page - description for home feed provider picker"
   },
-  "extensionsHomeFeedAuto": "Oto",
+  "extensionsHomeFeedAuto": "Otomatis",
   "@extensionsHomeFeedAuto": {
     "description": "Label for auto-selected search provider"
   },
@@ -5571,11 +5571,11 @@
       }
     }
   },
-  "logAutoScrollOn": "Gulir oto HIDUP",
+  "logAutoScrollOn": "Gulir otomatis HIDUP",
   "@logAutoScrollOn": {
     "description": "Tooltip when auto-scroll is enabled on the log screen"
   },
-  "logAutoScrollOff": "Gulir oto MATI",
+  "logAutoScrollOff": "Gulir otomatis MATI",
   "@logAutoScrollOff": {
     "description": "Tooltip when auto-scroll is disabled on the log screen"
   },

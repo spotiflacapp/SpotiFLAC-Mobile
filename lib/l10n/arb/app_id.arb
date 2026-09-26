@@ -792,7 +792,7 @@
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Hentikan Preview",
+  "previewStop": "Hentikan preview",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
@@ -1464,7 +1464,7 @@
   "@channelStable": {
     "description": "Update channel - stable releases"
   },
-  "channelPreview": "Pratinjau",
+  "channelPreview": "Preview",
   "@channelPreview": {
     "description": "Update channel - beta/preview releases"
   },
@@ -6349,11 +6349,11 @@
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "Pemutar bawaan beta",
+  "libraryBuiltInPreviewPlayer": "Pemutar bawaan preview",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Pemutar bawaan pratinjau SpotiFLAC Mobile",
+  "libraryBuiltInPreviewPlayerSubtitle": "Pemutar bawaan preview SpotiFLAC Mobile",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },

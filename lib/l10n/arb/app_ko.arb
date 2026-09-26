@@ -267,7 +267,7 @@
       }
     }
   },
-  "selectionRemoveReplayGainCount": "RG ({count}) 제거",
+  "selectionRemoveReplayGainCount": "RG 제거 ({count})",
   "@selectionRemoveReplayGainCount": {
     "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
     "placeholders": {
@@ -601,7 +601,7 @@
   "@setupGrantPermission": {
     "description": "Button to request permission"
   },
-  "setupSkip": "다음에 할래요",
+  "setupSkip": "건너뛰기",
   "@setupSkip": {
     "description": "Skip current step button"
   },
@@ -728,7 +728,7 @@
   "@setupNotificationBackgroundDescription": {
     "description": "Detailed notification explanation"
   },
-  "setupSkipForNow": "다음에 할래요",
+  "setupSkipForNow": "건너뛰기",
   "@setupSkipForNow": {
     "description": "Skip button text"
   },
@@ -916,7 +916,7 @@
   "@libraryReviewDuplicates": {
     "description": "Library settings row opening the duplicate review sheet"
   },
-  "libraryReviewDuplicatesSubtitle": "중복 저장된 트랙 찾기",
+  "libraryReviewDuplicatesSubtitle": "중복 저장된 트랙을 찾을 수 있습니다",
   "@libraryReviewDuplicatesSubtitle": {
     "description": "Subtitle for the duplicate review settings row"
   },
@@ -2674,7 +2674,7 @@
   "@libraryShowDuplicateIndicator": {
     "description": "Toggle for duplicate indicator in search"
   },
-  "libraryShowDuplicateIndicatorSubtitle": "기존 트랙을 검색할 때 표시",
+  "libraryShowDuplicateIndicatorSubtitle": "기존 트랙을 검색할 때 표시합니다",
   "@libraryShowDuplicateIndicatorSubtitle": {
     "description": "Subtitle for duplicate indicator toggle"
   },
@@ -2730,7 +2730,7 @@
   "@libraryClear": {
     "description": "Button to clear all library entries"
   },
-  "libraryClearSubtitle": "스캔된 모든 트랙 제거",
+  "libraryClearSubtitle": "스캔된 모든 트랙을 제거합니다",
   "@libraryClearSubtitle": {
     "description": "Subtitle for clear button"
   },
@@ -4962,11 +4962,11 @@
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "hiResCheckBandwidthExplanation": "더 낮은 컷오프는 마스터링 과정에서 발생할 수 있습니다. 이것만으로 업샘플링이라고 단정할 수는 없습니다",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "hiResCheckSampledExplanation": "{seconds} 초 분량의 오디오를 기반으로 분석하였습니다. 이 분석만으로 원본 마스터를 인증할 수는 없습니다",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -4975,11 +4975,11 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "hiResCheckImagingEvidence": "스펙트럼에 업샘플링과 일치하는 미러링된 대역이 나타납니다",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
-  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "hiResCheckRateEvidence": "{cutoff} 부근에서 급격한 롤오프가 나타나며, 측정된 노이즈 플로어를 고려하면 더 낮은 샘플레이트의 소스에서 비롯되었을 가능성이 있습니다",
   "@hiResCheckRateEvidence": {
     "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
     "placeholders": {
@@ -4988,7 +4988,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "hiResCheckSteadyEnergy": "{cutoff} 이상의 에너지는 분석 구간에서 대부분 일정하며, 노이즈일 가능성이 있습니다",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -6353,7 +6353,7 @@
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "SpotiFLAC Mobile 내에서 빠른 로컬 미리 보기",
+  "libraryBuiltInPreviewPlayerSubtitle": "SpotiFLAC Mobile에서 빠르게 미리 들을 수 있습니다 ",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
@@ -6392,8 +6392,8 @@
     }
   },
   "concertGetTickets": "티켓 구매",
-  "concertSetList": "콘서트 셋 리스트",
-  "concertSetListButton": "셋 리스트",
+  "concertSetList": "콘서트 세트리스트",
+  "concertSetListButton": "세트리스트",
   "concertAddToCalendar": "캘린더에 추가",
   "concertOpenMaps": "지도 열기",
   "concertDetailsUnavailable": "콘서트 세부 정보를 현재 사용할 수 없습니다",
@@ -6475,9 +6475,9 @@
     "description": "Tooltip for the player menu that shows or hides existing lyric pronunciation and translation"
   },
   "nowPlayingHidePronunciation": "발음 숨기기",
-  "nowPlayingShowPronunciation": "발음 표시",
+  "nowPlayingShowPronunciation": "발음 보기",
   "nowPlayingHideTranslation": "번역 숨기기",
-  "nowPlayingShowTranslation": "번역 표시",
+  "nowPlayingShowTranslation": "번역 보기",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -6930,8 +6930,8 @@
     "description": "Selected state of the compact favorite action"
   },
   "autoMixDescription": "곡을 비트에 맞춰 믹싱하고, 음정은 유지한 채 템포를 조절합니다. 비트를 맞출 수 없는 경우에는 크로스페이드를 사용합니다",
-  "autoMixOn": "자동믹스 켜짐",
-  "autoMixOff": "자동믹스 꺼짐",
+  "autoMixOn": "AutoMix 켜짐",
+  "autoMixOff": "AutoMix 꺼짐",
   "profileTitle": "프로필",
   "profileSetUp": "프로필 설정",
   "profileEdit": "이름 및 사진 편집",

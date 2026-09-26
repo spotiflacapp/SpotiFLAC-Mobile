@@ -1,41 +1,41 @@
 {
-  "upgradeIntroWelcome": "Welcome to\nSpotiFLAC-Mobile 5.0",
-  "upgradeIntroThemeTitle": "Make it\nyour own.",
-  "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
-  "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
-  "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
-  "upgradeIntroRustTitle": "A new engine.\nBuilt with Rust.",
-  "upgradeIntroRustBody": "In 5.0, the app’s backend has moved from Go to Rust. It is the engine working behind the screens you use every day.",
-  "upgradeIntroRustEngineTitle": "Working behind the scenes",
-  "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
-  "upgradeIntroRustMemoryTitle": "More careful with memory",
-  "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
-  "upgradeIntroRustKeepTitle": "Keep your music",
-  "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
-  "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
-  "upgradeIntroMornyeBody": "A new look for your player, lyrics and navigation.",
-  "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
-  "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
-  "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
-  "upgradeIntroLibraryBody": "In Mornye, browse by category or find your albums in Recently Added.",
-  "upgradeIntroDownloadsBody": "Pause and retry from Downloads at the top right. Finished music moves to Recently Added.",
-  "upgradeIntroSearchBody": "Search saved music here. The separate Search tab looks through your extensions.",
-  "upgradeIntroPlayerTitle": "Set up\nyour player.",
-  "upgradeIntroPlayerBody": "You can change your theme and playback options at any time. Here is where to find them.",
-  "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
-  "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
-  "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
-  "upgradeIntroSkip": "Skip",
-  "upgradeIntroContinue": "Continue",
-  "upgradeIntroDone": "Start listening",
-  "upgradeIntroReplay": "What’s new in 5.0",
-  "cacheMotionArtwork": "Offline motion covers",
-  "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
+  "upgradeIntroWelcome": "Selamat datang di SpotiFLAC-Mobile 5.9",
+  "upgradeIntroThemeTitle": "Pilih tampilan Anda",
+  "upgradeIntroThemeBody": "Pilih tampilan yang Anda suka. Pilihan langsung diterapkan dan Anda dapat mengubahnya lewat Tampilan.",
+  "upgradeIntroThemeMaterialBody": "Tampilan yang familiar, estetika Material dengan warna aksen pilihan Anda. ",
+  "upgradeIntroThemeMornyeBody": "Tampilan Liquid Glass, Koleksi yang didesain ulang dengan pemutar yang cantik.",
+  "upgradeIntroRustTitle": "Engine baru.\nDibuat dengan Rust.",
+  "upgradeIntroRustBody": "Di versi 5.0, backend aplikasi dialihkan dari Go ke Rust. Ini adalah engine yang bekerja di balik layar yang Anda gunakan tiap hari.",
+  "upgradeIntroRustEngineTitle": "Bekerja di balik layar",
+  "upgradeIntroRustEngineBody": "Rust menangani download, metadata audio, pemindaian koleksi, dan runtime ekstensi di Android dan iOS.",
+  "upgradeIntroRustMemoryTitle": "Lebih hemat penggunaan memori",
+  "upgradeIntroRustMemoryBody": "Pemakaian ulang buffer dan pengurangan penyalinan data dapat mengurangi penggunaan memori saat memroses artwork dan data ekstensi.",
+  "upgradeIntroRustKeepTitle": "Musik Anda tetap ada",
+  "upgradeIntroRustKeepBody": "Tidak perlu mendownload ulang koleksi Anda. Musik tersimpan dan setelan Anda masih sama, tidak perlu penyiapan ulang.",
+  "upgradeIntroWelcomeBody": "Sedikit pemahaman mengenai apa yang baru, dan di mana mencarinya.",
+  "upgradeIntroMornyeBody": "Tampilan pemutar, lirik, dan navigasi baru Anda.",
+  "upgradeIntroLibrarySummary": "Telusuri musik Anda lewat playlist, artis, atau album.",
+  "upgradeIntroRepoSummary": "Pilih sumber musik dan provider Anda melalui ekstensi.",
+  "upgradeIntroLibraryTitle": "Mengenal Koleksi Anda.",
+  "upgradeIntroLibraryBody": "Di tampilan Mornye, telusuri dengan kategori atau cari album Anda di Baru Ditambahkan.",
+  "upgradeIntroDownloadsBody": "Jeda dan coba lagi dari Download di kanan atas. Lagu yang terdownload akan muncul di Baru Ditambahkan.",
+  "upgradeIntroSearchBody": "Telusuri lagu tersimpan di sini. ",
+  "upgradeIntroPlayerTitle": "Atur\npemutar Anda.",
+  "upgradeIntroPlayerBody": "Anda dapat mengatur setelan tema dan pemutana kapan saja. Temukan itu di sini.",
+  "upgradeIntroAppearanceBody": "Atur tema lewat Setelan → Tampilan. Di Mornye, gulir bawah akan mengecilkan bilah navigasi; dan sebaliknya akan mengembalikannya.",
+  "upgradeIntroAutoMixBody": "Cocokkan tempo dan beat pada setiap lagu. Hidupkan di Setelan → Koleksi Lokal → Pemutaran. Defaultnya dimatikkan.",
+  "upgradeIntroSettingsBody": "Di Mornye, ketuk foto profil di kanan atas untuk membuka Setelan dan mengedit nama dan foto profil.",
+  "upgradeIntroSkip": "Lewati",
+  "upgradeIntroContinue": "Lanjut",
+  "upgradeIntroDone": "Mulai mendengarkan",
+  "upgradeIntroReplay": "Yang baru di versi 5.0",
+  "cacheMotionArtwork": "Cover bergerak offline",
+  "cacheMotionArtworkDesc": "Video album yang terdownload. Menghapusnya tidak akan menghapus file musik dan cover biasa.",
   "nowPlayingVolume": "Volume",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
-  "appearanceStyle": "App Style",
+  "appearanceStyle": "Gaya Aplikasi",
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
   },
@@ -97,11 +97,11 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "libraryRecentlyAdded": "Recently Added",
-  "libraryDownloads": "Downloads",
-  "libraryNoActiveDownloads": "No active downloads",
-  "librarySearchHint": "Search your library",
-  "libraryEmptyCollection": "Your music will appear here",
+  "libraryRecentlyAdded": "Baru Ditambahkan",
+  "libraryDownloads": "Download",
+  "libraryNoActiveDownloads": "Tidak sedang download",
+  "librarySearchHint": "Telusuri koleksi Anda",
+  "libraryEmptyCollection": "Musik Anda akan muncul di sini",
   "historySearchHint": "Telusuri histori...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
@@ -146,7 +146,7 @@
   "@downloadSingleFilenameFormatDescription": {
     "description": "Subtitle description for single filename format setting"
   },
-  "downloadFolderOrganization": "Organisasi Folder",
+  "downloadFolderOrganization": "Atur Folder",
   "@downloadFolderOrganization": {
     "description": "Title of the folder organization picker bottom sheet"
   },
@@ -255,11 +255,11 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "trackRemoveReplayGain": "Remove ReplayGain",
-  "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
-  "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
-  "replayGainRemoving": "Removing ReplayGain...",
-  "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
+  "trackRemoveReplayGain": "Hapus ReplayGain",
+  "trackRemoveReplayGainSuccess": "Tag ReplayGain dihapus",
+  "trackRemoveReplayGainFailed": "Gagal menghapus tag ReplayGain",
+  "replayGainRemoving": "Menghapus ReplayGain",
+  "replayGainRemoveConfirmMessage": "Hapus tag ReplayGain dari {count} lagu? Audio, cover, dan metadata lain akan tetap disimpan. ",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
       "count": {
@@ -267,7 +267,7 @@
       }
     }
   },
-  "selectionRemoveReplayGainCount": "Remove RG ({count})",
+  "selectionRemoveReplayGainCount": "Hapus RG ({count})",
   "@selectionRemoveReplayGainCount": {
     "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
     "placeholders": {
@@ -276,7 +276,7 @@
       }
     }
   },
-  "replayGainRemoveBatchSuccess": "ReplayGain removed from {success} of {total} tracks",
+  "replayGainRemoveBatchSuccess": "ReplayGain dihapus pada {success} dari {total} lagu",
   "@replayGainRemoveBatchSuccess": {
     "placeholders": {
       "success": {
@@ -350,7 +350,7 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "Repo Ekstensi",
+  "optionsExtensionStore": "Repo",
   "@optionsExtensionStore": {
     "description": "Show/hide repo tab"
   },
@@ -423,7 +423,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "Repo Ekstensi",
+  "storeTitle": "Repo",
   "@storeTitle": {
     "description": "Repo screen title"
   },
@@ -1670,19 +1670,19 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "trackReplayGainTrackGain": "ReplayGain Gain Lagu",
   "@trackReplayGainTrackGain": {
     "description": "Metadata label - ReplayGain track gain"
   },
-  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "trackReplayGainTrackPeak": "ReplayGain Peak Lagu",
   "@trackReplayGainTrackPeak": {
     "description": "Metadata label - ReplayGain track peak"
   },
-  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "trackReplayGainAlbumGain": "ReplayGain Gain Album",
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "trackReplayGainAlbumPeak": "ReplayGain Peak Album",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
@@ -1810,7 +1810,7 @@
   "@storeFilterMetadata": {
     "description": "Repo filter - metadata providers"
   },
-  "storeFilterDownload": "Unduhan",
+  "storeFilterDownload": "Download",
   "@storeFilterDownload": {
     "description": "Repo filter - download providers"
   },
@@ -2285,7 +2285,7 @@
   "@settingsConcurrentDownloads": {
     "description": "Setting title - how many tracks download at the same time"
   },
-  "settingsConcurrentDownloadsSubtitle": "Mendownload beberapa lagu sekaligus lebih cepat, tetapi beberapa penyedia mungkin membatasi permintaan paralel.",
+  "settingsConcurrentDownloadsSubtitle": "Mendownload banyak lagu sekaligus lebih cepat, tapi provider mungkin membatasi permintaan paralel.",
   "@settingsConcurrentDownloadsSubtitle": {
     "description": "Subtitle explaining the concurrent downloads picker"
   },
@@ -2746,7 +2746,7 @@
   "@libraryAbout": {
     "description": "Section header for about info"
   },
-  "libraryAboutDescription": "Memindai koleksi musik yang sudah ada untuk mendeteksi duplikat saat mengunduh. Mendukung format FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF, dan APE. Metadata dibaca dari tag file jika tersedia.",
+  "libraryAboutDescription": "Memindai koleksi musik yang sudah ada untuk mendeteksi duplikat saat mendownload. Mendukung format FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF, dan APE. Metadata dibaca dari tag file jika tersedia.",
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },
@@ -2988,7 +2988,7 @@
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
-  "tutorialDownloadTitle": "Mengunduh Musik",
+  "tutorialDownloadTitle": "Mendownload Musik",
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
@@ -3024,7 +3024,7 @@
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
-  "tutorialExtensionsTip1": "Jelajahi menu Repositori untuk menemukan berbagai ekstensi.",
+  "tutorialExtensionsTip1": "Jelajahi menu Repo untuk menemukan berbagai ekstensi.",
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
@@ -3445,10 +3445,10 @@
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Metadata berhasil diupdate",
-  "trackReEnrichMetadataSaved": "Metadata saved",
-  "trackReEnrichLyricsUpdated": "Lyrics updated",
-  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
-  "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
+  "trackReEnrichMetadataSaved": "Metadata disimpan",
+  "trackReEnrichLyricsUpdated": "Lirik diupdate",
+  "trackReEnrichLyricsPreserved": "Tidak menemukan lirik baru; lirik tidak diubah",
+  "trackReEnrichLyricsDisabled": "Lirik tidak diupdate, download lirik dimatikan di Setelan",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
@@ -4151,14 +4151,14 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
-  "backupSelectHistory": "Download history",
-  "backupSelectCollections": "Library collections",
-  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
-  "backupSelectExtensions": "Extensions and their settings",
-  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
-  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
-  "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
+  "backupSettingsOnly": "Setelan saja",
+  "backupSelectHistory": "Histori download",
+  "backupSelectCollections": "Koleksi saya",
+  "backupSelectCollectionsDescription": "Lagu, wishlist, artis favorit, playlist, dan cover playlist yang disukai.",
+  "backupSelectExtensions": "Ekstensi dan setelannya",
+  "backupSelectedExportDescription": "Buat file cadangan dari kategori terpilih. Tidak termasuk file audio.",
+  "backupSelectAtLeastOne": "Pilih setidaknya satu kategori untuk dicadangkan.",
+  "backupSelectedRestoreMessage": "Hanya kategori di bawah yang akan dipulihkan. Yang tidak ada di daftar tidak akan diubah. Pemulihan akan mengganti data yang sudah ada dan tidak dapat diurungkan.",
   "backupContentsSettings": "Setelan aplikasi",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
@@ -4322,10 +4322,10 @@
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageAutomaticFolder": "Automatic folder",
-  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
-  "storageSafRecommended": "Choose folder (Recommended)",
-  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
+  "storageAutomaticFolder": "Folder bawaan",
+  "storageAutomaticDownloadFolder": "Menyimpan di folder Download/SpotiFLAC, atau di data aplikasi",
+  "storageSafRecommended": "Pilih folder (Disarankan)",
+  "storageDownloadFolderHint": "Begitu pemilih folder Android terbuka, buka folder Download dan pilih SpotiFLAC. Jika belum ada, buat folder baru, lalu ketuk Gunakan folder ini untuk memberi akses.",
   "storageModeAppFolder": "Folder Aplikasi (Direkomendasikan)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
@@ -4894,39 +4894,39 @@
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
-  "downloadRedownloadFakeHiRes": "Re-download fake Hi-Res",
+  "downloadRedownloadFakeHiRes": "Download ulang Hi-Res palsu",
   "@downloadRedownloadFakeHiRes": {
     "description": "Setting title: automatically replace downloads that measure as fake Hi-Res"
   },
-  "downloadRedownloadFakeHiResSubtitle": "Off by default. Check Hi-Res downloads and replace only when every audio sample is preserved. Keep the original if verification or processing fails",
+  "downloadRedownloadFakeHiResSubtitle": "Dimatikan secara default. Memeriksa download Hi-Res dan menggantinya bila terdeteksi bukan kualitas Hi-Res. Tidak menghapus lagu bila verifikasi atau pemrosesan gagal.",
   "@downloadRedownloadFakeHiResSubtitle": {
     "description": "Setting subtitle for the fake Hi-Res re-download toggle"
   },
-  "hiResCheckVerdictFakeCertain": "Fake Hi-Res",
+  "hiResCheckVerdictFakeCertain": "Hi-Res Palsu",
   "@hiResCheckVerdictFakeCertain": {
     "description": "Verdict: an exact fingerprint (padded bits or upsampling pattern) proves the file is not real Hi-Res"
   },
-  "hiResCheckVerdictFakeSuspect": "Possibly a filtered master",
+  "hiResCheckVerdictFakeSuspect": "Kemungkinan low-passnya difilter",
   "@hiResCheckVerdictFakeSuspect": {
     "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
   },
-  "hiResCheckReasonSampleHold": "Every sample is repeated: upsampled by duplication",
+  "hiResCheckReasonSampleHold": "Data suara terulang: diupsample dengan menggandakan data",
   "@hiResCheckReasonSampleHold": {
     "description": "Reason: sample-and-hold upsampling detected"
   },
-  "hiResCheckReasonInterpolation": "In-between samples are linearly interpolated",
+  "hiResCheckReasonInterpolation": "Data antar suara diinterpolasi secara linear",
   "@hiResCheckReasonInterpolation": {
     "description": "Reason: linear-interpolation upsampling detected"
   },
-  "hiResCheckReasonImaging": "Content above 22 kHz mirrors the audible band",
+  "hiResCheckReasonImaging": "Data suara di atas 22 kHz menjiplak data yang ada",
   "@hiResCheckReasonImaging": {
     "description": "Reason: spectral imaging from upsampling detected"
   },
-  "hiResCheckMusicContent": "Musical content",
+  "hiResCheckMusicContent": "Konten musikal",
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
-  "hiResCheckUltrasonicNoise": "Above {cutoff} only steady noise (typical of DSD or analog tape transfers): a {rate} file would hold all the music",
+  "hiResCheckUltrasonicNoise": "Di atas {cutoff} hanya ada desis statis (mirip hasil rekam ulang kaset DSD/analog): file {rate} itu sudah cukup.",
   "@hiResCheckUltrasonicNoise": {
     "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
     "placeholders": {
@@ -4938,35 +4938,35 @@
       }
     }
   },
-  "hiResCheckTitle": "Hi-Res Authenticity",
+  "hiResCheckTitle": "Keaslian Hi-Res",
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "hiResCheckSummary": "Periksa spektrum dan bit depth aktif untuk mendeteksi tanda upsampling atau padding.",
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
-  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "hiResCheckLimitedBandwidth": "Bandwidth terbatas",
   "@hiResCheckLimitedBandwidth": {
     "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
   },
-  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "hiResCheckNoEvidence": "Tidak terdeteksi upsampling atau padding",
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "hiResCheckEstimatedCutoff": "Cutoff terestimasi",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
-  "hiResCheckActiveBits": "Active / stored bits",
+  "hiResCheckActiveBits": "Bit aktif/tersimpan",
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "hiResCheckBandwidthExplanation": "Cutoff rendah juga dapat berasal dari mastering. Bukan selalu hasil upsampling,",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "hiResCheckSampledExplanation": "Hasil analisis dari {seconds} detik audio. Jangan gunakan hasil sebagai bukti keaslian. ",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -4975,11 +4975,11 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "hiResCheckImagingEvidence": "Ada spektrum band yang saling berbalik yang mungkin ini hasil upsampling",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
-  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "hiResCheckRateEvidence": "Ada frekuensi yang terputus di {cutoff} dan desis yang berarti ini berkualitas rendah.",
   "@hiResCheckRateEvidence": {
     "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
     "placeholders": {
@@ -4988,7 +4988,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "hiResCheckSteadyEnergy": "Energi di atas {cutoff} terlalu stabil di bagian teranalisis dan kemungkinan itu desisan.",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -4997,51 +4997,51 @@
       }
     }
   },
-  "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
+  "hiResCheckDescription": "Periksa file Hi-Res palsu yang diupsample atau dibit-pad",
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
   },
-  "hiResCheckRun": "Check",
+  "hiResCheckRun": "Periksa",
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Checking Hi-Res authenticity...",
+  "hiResCheckChecking": "Memeriksa keaslian Hi-Res",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },
-  "hiResCheckVerdictFake": "Likely fake Hi-Res",
+  "hiResCheckVerdictFake": "Sepertinya Hi-Res palsu",
   "@hiResCheckVerdictFake": {
     "description": "Verdict: the file claims Hi-Res but does not measure as it"
   },
-  "hiResCheckVerdictGenuine": "Measures as genuine Hi-Res",
+  "hiResCheckVerdictGenuine": "Tergolong Hi-Res asli",
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Standard definition, nothing to flag",
+  "hiResCheckVerdictStandard": "Kualitas biasa, tidak ada yang aneh.",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
-  "hiResCheckVerdictInconclusive": "Inconclusive: the analyzed segment is too quiet or short",
+  "hiResCheckVerdictInconclusive": "Tidak yakin: bagian teranalisis terlalu diam atau pendek",
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
-  "hiResCheckUnsupported": "Only FLAC and WAV files can be checked",
+  "hiResCheckUnsupported": "Hanya file FLAC dan WAV yang dapat diperiksa",
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
-  "hiResCheckCutoff": "Content cutoff",
+  "hiResCheckCutoff": "Cutoff konten",
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
-  "hiResCheckBitsInUse": "Bits in use",
+  "hiResCheckBitsInUse": "Bit digunakan",
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },
-  "hiResCheckDisclaimer": "The spectrum stops early, but nothing proves it was upsampled: it may be a genuine master low-pass filtered in mastering. It is not replaced automatically.",
+  "hiResCheckDisclaimer": "Grafik spektrum berhenti di awal, tidak ada bukti itu diupsample: mungkin ini file master asli yang di filter low-pass saat mastering. File tidak diganti otomatis.",
   "@hiResCheckDisclaimer": {
     "description": "Caveat shown under a fake Hi-Res verdict"
   },
-  "hiResCheckFailed": "Hi-Res check failed: {error}",
+  "hiResCheckFailed": "Pemeriksaan Hi-Res gagal: {error}",
   "@hiResCheckFailed": {
     "description": "Error shown when the Hi-Res check fails",
     "placeholders": {
@@ -5050,7 +5050,7 @@
       }
     }
   },
-  "hiResCheckReasonRate": "Declares {sampleRate} but content stops at ~{cutoff}",
+  "hiResCheckReasonRate": "Tertulis {sampleRate} tapi data musik berhenti di ~{cutoff}",
   "@hiResCheckReasonRate": {
     "description": "Reason for a fake verdict caused by upsampling",
     "placeholders": {
@@ -5062,7 +5062,7 @@
       }
     }
   },
-  "hiResCheckReasonDepth": "Declares {declared}-bit but only {effective} bits carry data",
+  "hiResCheckReasonDepth": "Tertulis {declared}-bit tapi hanya {effective} bit yang berdata",
   "@hiResCheckReasonDepth": {
     "description": "Reason for a fake verdict caused by padded bit depth",
     "placeholders": {
@@ -6353,7 +6353,7 @@
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Quick local previews inside SpotiFLAC Mobile",
+  "libraryBuiltInPreviewPlayerSubtitle": "Pemutar bawaan pratinjau SpotiFLAC Mobile",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
@@ -6374,8 +6374,8 @@
     "description": "Tooltip for minimizing the now playing screen"
   },
   "nowPlayingUpNext": "Selanjutnya",
-  "nowPlayingAudioOutput": "Audio Output",
-  "nowPlayingWrittenBy": "Written by: {writers}",
+  "nowPlayingAudioOutput": "Output Audio",
+  "nowPlayingWrittenBy": "Ditulis oleh: {writers}",
   "@nowPlayingWrittenBy": {
     "placeholders": {
       "writers": {
@@ -6383,7 +6383,7 @@
       }
     }
   },
-  "nowPlayingLyricsProvider": "Lyrics: {provider}",
+  "nowPlayingLyricsProvider": "Lirik: {provider}",
   "@nowPlayingLyricsProvider": {
     "placeholders": {
       "provider": {
@@ -6391,14 +6391,14 @@
       }
     }
   },
-  "concertGetTickets": "Get Tickets",
-  "concertSetList": "Concert Set List",
-  "concertSetListButton": "Set List",
-  "concertAddToCalendar": "Add to Calendar",
-  "concertOpenMaps": "Open Maps",
-  "concertDetailsUnavailable": "Concert details are currently unavailable.",
-  "concertCalendarUnavailable": "Unable to open the calendar.",
-  "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
+  "concertGetTickets": "Dapatkan Tiket",
+  "concertSetList": "Daftar Set Konser",
+  "concertSetListButton": "Atur Daftar",
+  "concertAddToCalendar": "Tambah ke Kalender",
+  "concertOpenMaps": "Buka Maps",
+  "concertDetailsUnavailable": "Detail konser sekarang belum tersedia",
+  "concertCalendarUnavailable": "Tidak dapat membuka kalender.",
+  "nowPlayingAudioOutputUnavailable": "Tidak dapat membuka setelan output audio.",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
@@ -6470,14 +6470,14 @@
   "@nowPlayingInstrumental": {
     "description": "Accessibility label for the three-dot countdown during an instrumental break before lyrics resume"
   },
-  "nowPlayingLyricsLanguageOptions": "Lyrics language options",
+  "nowPlayingLyricsLanguageOptions": "Opsi bahasa lirik",
   "@nowPlayingLyricsLanguageOptions": {
     "description": "Tooltip for the player menu that shows or hides existing lyric pronunciation and translation"
   },
-  "nowPlayingHidePronunciation": "Hide Pronunciation",
-  "nowPlayingShowPronunciation": "Show Pronunciation",
-  "nowPlayingHideTranslation": "Hide Translation",
-  "nowPlayingShowTranslation": "Show Translation",
+  "nowPlayingHidePronunciation": "Sembunyikan Pengucapan",
+  "nowPlayingShowPronunciation": "Tampilkan Pengucapan",
+  "nowPlayingHideTranslation": "Sembunyikan Terjemahan",
+  "nowPlayingShowTranslation": "Tampilkan Terjemahan",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -6905,9 +6905,9 @@
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "mornyeShowTabs": "Show tabs",
-  "mornyeSearch": "Search",
-  "mornyeContinuePlaying": "Continue Playing",
+  "mornyeShowTabs": "Tampilkan tab",
+  "mornyeSearch": "Telusuri",
+  "mornyeContinuePlaying": "Lanjut Memutar",
   "metadataCopyAll": "Salin semua metadata",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
@@ -6920,31 +6920,31 @@
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "mornyeFavorite": "Favorite",
-  "mornyeGoToArtist": "Go to Artist",
+  "mornyeFavorite": "Favorit",
+  "mornyeGoToArtist": "Buka Artis",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
-  "mornyeFavorited": "Favorited",
+  "mornyeFavorited": "Terfavorit",
   "@mornyeFavorited": {
     "description": "Selected state of the compact favorite action"
   },
-  "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
-  "autoMixOn": "AutoMix on",
-  "autoMixOff": "AutoMix off",
-  "profileTitle": "Profile",
-  "profileSetUp": "Set up your profile",
-  "profileEdit": "Edit name and photo",
-  "backupIncludesProfile": "Includes your profile name and photo",
-  "profileName": "Name",
-  "profileNameHint": "Your name",
-  "profileChangePhoto": "Choose photo",
-  "profileRemovePhoto": "Remove photo",
-  "profilePhotoError": "Choose a valid image smaller than 20 MB.",
-  "profileSaveError": "Could not save your profile. Please try again.",
-  "artistUpcomingConcerts": "Upcoming Concerts",
-  "artistAllUpcomingConcerts": "All Upcoming Concerts",
-  "artistNoUpcomingConcerts": "No upcoming concerts.",
+  "autoMixDescription": "Padukan musik dengan pencocokan bit dan penyesuaian tempo. Menggunakan crossfade bila beat tidak dapat dicocokkan.",
+  "autoMixOn": "AutoMix hidup",
+  "autoMixOff": "AutoMix mati",
+  "profileTitle": "Profil",
+  "profileSetUp": "Atur profil Anda",
+  "profileEdit": "Edit nama dan foto",
+  "backupIncludesProfile": "Termasuk nama dan foto profil",
+  "profileName": "Nama",
+  "profileNameHint": "Nama Anda",
+  "profileChangePhoto": "Pilih foto",
+  "profileRemovePhoto": "Hapus foto",
+  "profilePhotoError": "Pilih foto yang di bawah 20MB.",
+  "profileSaveError": "Tidak dapat menyimpan profil Anda. Coba lagi.",
+  "artistUpcomingConcerts": "Konser Mendatang",
+  "artistAllUpcomingConcerts": "Semua Konser Mendatang",
+  "artistNoUpcomingConcerts": "Tiada konser mendatang.",
   "optionsEmbeddedCoverSizeOriginal": "Resolusi asli",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

@@ -39,10 +39,6 @@
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
   },
-  "discordRichPresence": "Discord Rich Presence",
-  "discordPresenceDescription": "Share the track playing in the built-in player on Discord. Requires Discord to be installed and signed in.",
-  "discordPresenceMissing": "Install Discord and sign in, then turn this setting off and on again.",
-  "discordPresenceUnavailable": "Discord Rich Presence is unavailable in this build or on this device.",
   "@@locale": "it",
   "@@last_modified": "2026-04-28",
   "appName": "SpotiFLAC Mobile",
@@ -258,6 +254,38 @@
   "trackReplayGainFailed": "Failed to add ReplayGain tags",
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
+  },
+  "trackRemoveReplayGain": "Remove ReplayGain",
+  "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
+  "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
+  "replayGainRemoving": "Removing ReplayGain...",
+  "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
+  "@replayGainRemoveConfirmMessage": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "selectionRemoveReplayGainCount": "Remove RG ({count})",
+  "@selectionRemoveReplayGainCount": {
+    "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "replayGainRemoveBatchSuccess": "ReplayGain removed from {success} of {total} tracks",
+  "@replayGainRemoveBatchSuccess": {
+    "placeholders": {
+      "success": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   },
   "selectionReplayGainCount": "ReplayGain ({count})",
   "@selectionReplayGainCount": {
@@ -4914,6 +4942,61 @@
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
+  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "@hiResCheckSummary": {
+    "description": "Introductory text for the sampled Hi-Res analysis"
+  },
+  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "@hiResCheckLimitedBandwidth": {
+    "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
+  },
+  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "@hiResCheckNoEvidence": {
+    "description": "No evidence was detected; this does not certify the master"
+  },
+  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "@hiResCheckEstimatedCutoff": {
+    "description": "Estimated upper spectral edge at the analysis threshold"
+  },
+  "hiResCheckActiveBits": "Active / stored bits",
+  "@hiResCheckActiveBits": {
+    "description": "Active integer bit depth versus the container depth in the sampled segment"
+  },
+  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "@hiResCheckBandwidthExplanation": {
+    "description": "Explains why the limited-bandwidth finding is neutral"
+  },
+  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "@hiResCheckSampledExplanation": {
+    "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "@hiResCheckImagingEvidence": {
+    "description": "Spectral imaging is suggestive evidence rather than proof"
+  },
+  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "@hiResCheckRateEvidence": {
+    "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
+    "placeholders": {
+      "cutoff": {
+        "type": "String"
+      }
+    }
+  },
+  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "@hiResCheckSteadyEnergy": {
+    "description": "An observation about ultrasonic energy, not proof that removing it is safe",
+    "placeholders": {
+      "cutoff": {
+        "type": "String"
+      }
+    }
+  },
   "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
@@ -6291,6 +6374,31 @@
     "description": "Tooltip for minimizing the now playing screen"
   },
   "nowPlayingUpNext": "Up next",
+  "nowPlayingAudioOutput": "Audio Output",
+  "nowPlayingWrittenBy": "Written by: {writers}",
+  "@nowPlayingWrittenBy": {
+    "placeholders": {
+      "writers": {
+        "type": "String"
+      }
+    }
+  },
+  "nowPlayingLyricsProvider": "Lyrics: {provider}",
+  "@nowPlayingLyricsProvider": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "concertGetTickets": "Get Tickets",
+  "concertSetList": "Concert Set List",
+  "concertSetListButton": "Set List",
+  "concertAddToCalendar": "Add to Calendar",
+  "concertOpenMaps": "Open Maps",
+  "concertDetailsUnavailable": "Concert details are currently unavailable.",
+  "concertCalendarUnavailable": "Unable to open the calendar.",
+  "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
@@ -6358,6 +6466,18 @@
     "description": "Tab label for the lyrics view"
   },
   "nowPlayingNoLyrics": "No lyrics in this file",
+  "nowPlayingInstrumental": "Instrumental",
+  "@nowPlayingInstrumental": {
+    "description": "Accessibility label for the three-dot countdown during an instrumental break before lyrics resume"
+  },
+  "nowPlayingLyricsLanguageOptions": "Lyrics language options",
+  "@nowPlayingLyricsLanguageOptions": {
+    "description": "Tooltip for the player menu that shows or hides existing lyric pronunciation and translation"
+  },
+  "nowPlayingHidePronunciation": "Hide Pronunciation",
+  "nowPlayingShowPronunciation": "Show Pronunciation",
+  "nowPlayingHideTranslation": "Hide Translation",
+  "nowPlayingShowTranslation": "Show Translation",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -6822,6 +6942,9 @@
   "profileRemovePhoto": "Remove photo",
   "profilePhotoError": "Choose a valid image smaller than 20 MB.",
   "profileSaveError": "Could not save your profile. Please try again.",
+  "artistUpcomingConcerts": "Upcoming Concerts",
+  "artistAllUpcomingConcerts": "All Upcoming Concerts",
+  "artistNoUpcomingConcerts": "No upcoming concerts.",
   "optionsEmbeddedCoverSizeOriginal": "Original resolution",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

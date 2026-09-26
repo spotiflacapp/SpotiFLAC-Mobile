@@ -257,7 +257,7 @@
   },
   "trackRemoveReplayGain": "Удалить ReplayGain",
   "trackRemoveReplayGainSuccess": "Теги ReplayGain удалены",
-  "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
+  "trackRemoveReplayGainFailed": "Не удалось удалить теги ReplayGain",
   "replayGainRemoving": "Удаление ReplayGain...",
   "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
   "@replayGainRemoveConfirmMessage": {

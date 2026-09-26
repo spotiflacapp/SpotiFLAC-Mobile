@@ -6004,7 +6004,7 @@
   "queueCheckingDownloadSession": "Memeriksa sesi download...",
   "queueResolvingDownloadMetadata": "Menelusuri metadata lagu...",
   "queueResolvingDownloadStream": "Menyiapkan stream audio...",
-  "queueWaitingForVerification": "Menunggu veridikasi...",
+  "queueWaitingForVerification": "Menunggu verifikasi...",
   "queueResumingAfterVerification": "Melanjutkan setelah verifikasi...",
   "@queueDownloadStarting": {
     "description": "Queue status before download progress is available"

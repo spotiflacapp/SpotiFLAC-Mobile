@@ -267,7 +267,7 @@
       }
     }
   },
-  "selectionRemoveReplayGainCount": "Remove RG ({count})",
+  "selectionRemoveReplayGainCount": "Удалить RG ({count})",
   "@selectionRemoveReplayGainCount": {
     "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
     "placeholders": {
@@ -551,7 +551,7 @@
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
-  "aboutAppDescription": "Ищите метаданных музыки, управляйте расширениями и организуйте свою медиатеку.",
+  "aboutAppDescription": "Поиск метаданных, управление расширениями и организация медиатеки.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },
@@ -2233,7 +2233,7 @@
   "@appearanceAmoledDarkSubtitle": {
     "description": "Subtitle for AMOLED dark"
   },
-  "appearanceHeroAnimations": "Hero animations",
+  "appearanceHeroAnimations": "Hero-анимации",
   "@appearanceHeroAnimations": {
     "description": "Toggle for shared-element (Hero) transitions"
   },
@@ -3354,7 +3354,7 @@
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
   },
-  "trackReEnrichModeManual": "Set common values",
+  "trackReEnrichModeManual": "Установка общих значений",
   "@trackReEnrichModeManual": {
     "description": "Batch metadata mode that applies shared values to every selected track"
   },
@@ -3440,14 +3440,14 @@
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
   },
-  "trackReEnrichPreparing": "Preparing metadata changes...",
+  "trackReEnrichPreparing": "Подготовка изменений метаданных...",
   "@trackReEnrichPreparing": {
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Метаданные успешно обновлены",
   "trackReEnrichMetadataSaved": "Метаданные сохранены",
   "trackReEnrichLyricsUpdated": "Текст обновлён",
-  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
+  "trackReEnrichLyricsPreserved": "Новые тексты не найдены; старые сохранены",
   "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
@@ -3460,7 +3460,7 @@
   "@queueFlacAction": {
     "description": "Action/button label for queueing FLAC redownloads for local tracks"
   },
-  "queueFlacConfirmMessage": "Search online matches for the selected tracks and queue FLAC downloads.\n\nExisting files will not be modified or deleted.\n\nOnly high-confidence matches are queued automatically.\n\n{count} selected",
+  "queueFlacConfirmMessage": "Поиск сетевых совпадений для выбранных треков и добавление FLAC в очередь скачивания.\n\nСуществующие файлы не изменяются и не удаляются.\n\nВ очередь автоматически попадают только точные совпадения.\n\nВыбрано: {count}",
   "@queueFlacConfirmMessage": {
     "description": "Confirmation dialog body before queueing FLAC redownloads for local tracks",
     "placeholders": {
@@ -3469,7 +3469,7 @@
       }
     }
   },
-  "queueFlacNoReliableMatches": "No reliable online matches found for the selection",
+  "queueFlacNoReliableMatches": "Не найдено надежных онлайн совпадений из выбранных",
   "@queueFlacNoReliableMatches": {
     "description": "Snackbar when no safe FLAC redownload matches were found"
   },
@@ -4023,7 +4023,7 @@
   "@lyricsProvidersDiscardContent": {
     "description": "Body text of the discard-changes dialog on lyrics provider page"
   },
-  "lyricsProviderLrclibDesc": "Open-source synced lyrics database",
+  "lyricsProviderLrclibDesc": "База данных синхронизированных текстов песен с открытым исходным кодом",
   "@lyricsProviderLrclibDesc": {
     "description": "Description for LRCLIB provider"
   },
@@ -4091,7 +4091,7 @@
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
-  "backupExportSectionDescription": "Save your settings, download history, liked tracks, wishlist, favorite artists and playlists into a single file you can keep or move to another phone.",
+  "backupExportSectionDescription": "Сохраните свои настройки, историю загрузок, понравившиеся треки, список желаний, любимых исполнителей и плейлисты в одном файле, который можно сохранить или перенести на другой телефон.",
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
@@ -4123,7 +4123,7 @@
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
-  "backupRestoreConfirmMessage": "This will replace your current settings, download history, liked tracks, wishlist and playlists with the contents of the backup. This cannot be undone.",
+  "backupRestoreConfirmMessage": "Ваши текущие настройки, история загрузок, понравившиеся треки, список желаний и плейлисты будут заменены содержимым резервной копии. Это действие нельзя отменить.",
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
@@ -4310,22 +4310,22 @@
       }
     }
   },
-  "snackbarNoActionDefined": "No action defined for this button",
+  "snackbarNoActionDefined": "Для этой кнопки не задано действие",
   "@snackbarNoActionDefined": {
     "description": "Snackbar when an extension button has no action configured"
   },
-  "noTracksFoundForAlbum": "No tracks found for this album",
+  "noTracksFoundForAlbum": "Трек-лист для этого альбома не найден",
   "@noTracksFoundForAlbum": {
     "description": "Empty state message when an album has no tracks"
   },
-  "downloadLocationSubtitle": "Choose where to save your downloaded tracks",
+  "downloadLocationSubtitle": "Выберите, где сохранять загруженные треки",
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
   "storageAutomaticFolder": "Автоматическая папка",
-  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
+  "storageAutomaticDownloadFolder": "Использует папку «Download/SpotiFLAC», если она доступна для записи, в противном случае — хранилище приложения",
   "storageSafRecommended": "Выбрать папку (Рекомендуется)",
-  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
+  "storageDownloadFolderHint": "В окне выбора папок Android откройте папку «Загрузки» и выберите SpotiFLAC. Если этой папки нет, создайте её, нажав «Новая папка», а затем нажмите «Использовать эту папку», чтобы предоставить доступ.",
   "storageModeAppFolder": "Папка приложения (рекомендуется)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
@@ -4358,7 +4358,7 @@
   "@downloadErrorSafPermissionLost": {
     "description": "Error shown on downloads that failed because the persisted Android SAF folder grant is no longer valid"
   },
-  "downloadErrorFolderAccessLost": "Download folder access lost. Please re-select your download folder in Settings.",
+  "downloadErrorFolderAccessLost": "Доступ к папке потерян. Пожалуйста, выберите папку для скачивания заново в Настройках.",
   "@downloadErrorFolderAccessLost": {
     "description": "Error shown on downloads that failed because the iOS download folder bookmark could not be opened"
   },
@@ -4370,11 +4370,11 @@
   "@downloadFilenameInsertTag": {
     "description": "Label above filename tag chips"
   },
-  "downloadSeparateSinglesEnabled": "Singles and EPs saved in a separate folder",
+  "downloadSeparateSinglesEnabled": "Синглы и EP, сохраненные в отдельной папке",
   "@downloadSeparateSinglesEnabled": {
     "description": "Subtitle when separate singles folder is on"
   },
-  "downloadSeparateSinglesDisabled": "Singles and albums saved in the same folder",
+  "downloadSeparateSinglesDisabled": "Синглы и альбомы будут в одной папке",
   "@downloadSeparateSinglesDisabled": {
     "description": "Subtitle when separate singles folder is off"
   },
@@ -4382,19 +4382,19 @@
   "@downloadArtistNameFilters": {
     "description": "Setting title for artist folder filter options"
   },
-  "downloadCreatePlaylistSourceFolder": "Playlist Source Folder",
+  "downloadCreatePlaylistSourceFolder": "Папка-источник плейлиста",
   "@downloadCreatePlaylistSourceFolder": {
     "description": "Setting to create a subfolder per playlist source"
   },
-  "downloadCreatePlaylistSourceFolderEnabled": "A subfolder is created for each playlist",
+  "downloadCreatePlaylistSourceFolderEnabled": "Для каждого плейлиста создается подпапка",
   "@downloadCreatePlaylistSourceFolderEnabled": {
     "description": "Subtitle when playlist folder is enabled"
   },
-  "downloadCreatePlaylistSourceFolderDisabled": "All tracks saved directly to download folder",
+  "downloadCreatePlaylistSourceFolderDisabled": "Все треки будут сохранены непосредственно в папку для загрузки",
   "@downloadCreatePlaylistSourceFolderDisabled": {
     "description": "Subtitle when playlist folder is disabled"
   },
-  "downloadCreatePlaylistSourceFolderRedundant": "Handled by folder organization setting",
+  "downloadCreatePlaylistSourceFolderRedundant": "Обрабатывается настройками организации папок",
   "@downloadCreatePlaylistSourceFolderRedundant": {
     "description": "Subtitle when folder organization is already set to playlist"
   },
@@ -4406,7 +4406,7 @@
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
-  "downloadNetworkCompatibilityModeEnabled": "Allowing legacy HTTP endpoints; TLS verification remains enabled",
+  "downloadNetworkCompatibilityModeEnabled": "Разрешить устаревшие HTTP-адреса; проверка TLS по-прежнему включена",
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },
@@ -4418,15 +4418,15 @@
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
-  "downloadAllowLocalNetworkEnabled": "Requests to local/private addresses are allowed (for local proxy or custom DNS)",
+  "downloadAllowLocalNetworkEnabled": "Разрешить запросы на локальные или частные адреса (для локального прокси или пользовательского DNS)",
   "@downloadAllowLocalNetworkEnabled": {
     "description": "Subtitle when allow local network access is on"
   },
-  "downloadAllowLocalNetworkDisabled": "Local/private addresses are blocked for security",
+  "downloadAllowLocalNetworkDisabled": "Локальные/приватные адреса заблокированы для безопасности",
   "@downloadAllowLocalNetworkDisabled": {
     "description": "Subtitle when allow local network access is off"
   },
-  "downloadSelectServiceToEnable": "Select a provider with quality options to enable this option",
+  "downloadSelectServiceToEnable": "Выберите провайдера с параметрами качества, чтобы включить эту функцию",
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
@@ -4442,7 +4442,7 @@
   "@downloadNeteaseIncludeTranslationEnabled": {
     "description": "Subtitle when Netease translation is on"
   },
-  "downloadNeteaseIncludeTranslationDisabled": "Original lyrics only",
+  "downloadNeteaseIncludeTranslationDisabled": "Только оригинал текста",
   "@downloadNeteaseIncludeTranslationDisabled": {
     "description": "Subtitle when Netease translation is off"
   },
@@ -4470,7 +4470,7 @@
   "@downloadAppleQqMultiPersonDisabled": {
     "description": "Subtitle when multi-person lyrics is off"
   },
-  "downloadAppleElrcWordSync": "Apple Music eLRC Word Sync",
+  "downloadAppleElrcWordSync": "Apple Music eLRC синхронизация слов",
   "@downloadAppleElrcWordSync": {
     "description": "Setting for preserving Apple Music word-by-word eLRC timestamps"
   },
@@ -4502,7 +4502,7 @@
   "@downloadFilterContributingDisabled": {
     "description": "Subtitle when contributing artist filter is off"
   },
-  "downloadProvidersNoneEnabled": "No providers enabled",
+  "downloadProvidersNoneEnabled": "Нет включенных провайдеров",
   "@downloadProvidersNoneEnabled": {
     "description": "Shown when no lyrics providers are active"
   },
@@ -4510,7 +4510,7 @@
   "@downloadMusixmatchLanguageCode": {
     "description": "Label for Musixmatch language input field"
   },
-  "downloadMusixmatchLanguageHint": "e.g. en, de, ja",
+  "downloadMusixmatchLanguageHint": "например: en, de, ja",
   "@downloadMusixmatchLanguageHint": {
     "description": "Placeholder for Musixmatch language input"
   },
@@ -4563,11 +4563,11 @@
       }
     }
   },
-  "bulkDownloadSelectPlaylists": "Select playlists to download",
+  "bulkDownloadSelectPlaylists": "Выберите плейлисты для загрузки",
   "@bulkDownloadSelectPlaylists": {
     "description": "Button label when no playlists are selected for download"
   },
-  "snackbarSelectedPlaylistsEmpty": "Selected playlists have no tracks",
+  "snackbarSelectedPlaylistsEmpty": "У выбранных плейлистов нет треков",
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
@@ -4613,7 +4613,7 @@
   "@editMetadataAutoFillCoverAvailable": {
     "description": "Preview value when the selected metadata source provides cover artwork"
   },
-  "editMetadataAutoFillApply": "Apply selected data",
+  "editMetadataAutoFillApply": "Применить выбранные данные",
   "@editMetadataAutoFillApply": {
     "description": "Button label for applying the previewed metadata"
   },
@@ -4749,11 +4749,11 @@
   "@queueEmptyAlbumsSubtitle": {
     "description": "Empty state subtitle for album downloads"
   },
-  "queueEmptySingles": "No single downloads",
+  "queueEmptySingles": "Нет скачанных синглов",
   "@queueEmptySingles": {
     "description": "Empty state title when no single track downloads exist"
   },
-  "queueEmptySinglesSubtitle": "Single track downloads will appear here",
+  "queueEmptySinglesSubtitle": "Здесь будут отображаться загрузки отдельных треков",
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
@@ -4766,7 +4766,7 @@
       }
     }
   },
-  "queueEmptyPlaylistsSubtitle": "Create a playlist to organize your tracks",
+  "queueEmptyPlaylistsSubtitle": "Создайте плейлист для организации ваших треков",
   "@queueEmptyPlaylistsSubtitle": {
     "description": "Empty state subtitle for the playlists library view"
   },
@@ -4794,7 +4794,7 @@
   "@selectionTapPlaylistsToSelect": {
     "description": "Hint shown in playlist selection mode"
   },
-  "selectionSelectPlaylistsToDelete": "Select playlists to delete",
+  "selectionSelectPlaylistsToDelete": "Выберите плейлисты для удаления",
   "@selectionSelectPlaylistsToDelete": {
     "description": "Hint shown when no playlists are selected for deletion"
   },
@@ -4902,7 +4902,7 @@
   "@downloadRedownloadFakeHiResSubtitle": {
     "description": "Setting subtitle for the fake Hi-Res re-download toggle"
   },
-  "hiResCheckVerdictFakeCertain": "Fake Hi-Res",
+  "hiResCheckVerdictFakeCertain": "Фейковый Hi-Res",
   "@hiResCheckVerdictFakeCertain": {
     "description": "Verdict: an exact fingerprint (padded bits or upsampling pattern) proves the file is not real Hi-Res"
   },
@@ -4918,15 +4918,15 @@
   "@hiResCheckReasonInterpolation": {
     "description": "Reason: linear-interpolation upsampling detected"
   },
-  "hiResCheckReasonImaging": "Content above 22 kHz mirrors the audible band",
+  "hiResCheckReasonImaging": "Частоты выше 22 кГц дублируют слышимый диапазон",
   "@hiResCheckReasonImaging": {
     "description": "Reason: spectral imaging from upsampling detected"
   },
-  "hiResCheckMusicContent": "Musical content",
+  "hiResCheckMusicContent": "Музыкальный контент",
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
-  "hiResCheckUltrasonicNoise": "Above {cutoff} only steady noise (typical of DSD or analog tape transfers): a {rate} file would hold all the music",
+  "hiResCheckUltrasonicNoise": "Выше {cutoff} слышен только постоянный шум (характерный для DSD или аналоговых записей с ленты): файл с {rate} будет содержать всю музыку",
   "@hiResCheckUltrasonicNoise": {
     "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
     "placeholders": {
@@ -4938,11 +4938,11 @@
       }
     }
   },
-  "hiResCheckTitle": "Hi-Res Authenticity",
+  "hiResCheckTitle": "Hi-Res проверка",
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "hiResCheckSummary": "Проверяет спектр и глубину активных битов на наличие признаков повышения частоты дискретизации или добавления заполняющих битов.",
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
@@ -4958,15 +4958,15 @@
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
-  "hiResCheckActiveBits": "Active / stored bits",
+  "hiResCheckActiveBits": "Активные / сохранённые биты",
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "hiResCheckBandwidthExplanation": "Низкая частота среза может быть результатом мастеринга. Сама по себе она не доказывает апсемплинг.",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "hiResCheckSampledExplanation": "Основано на {seconds} секундах звука. Этот анализ не может определить изначальный мастеринг.",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -4975,7 +4975,7 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "hiResCheckImagingEvidence": "Спектр содержит зеркальные полосы, характерные для апсемплинга.",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
@@ -4997,27 +4997,27 @@
       }
     }
   },
-  "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
+  "hiResCheckDescription": "Обнаружение поддельных файлов высокого разрешения с увеличенной частотой дискретизации или с повышением битности",
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
   },
-  "hiResCheckRun": "Check",
+  "hiResCheckRun": "Проверка",
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Checking Hi-Res authenticity...",
+  "hiResCheckChecking": "Проверка подлинности Hi-Res...",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },
-  "hiResCheckVerdictFake": "Likely fake Hi-Res",
+  "hiResCheckVerdictFake": "Вероятно поддельный Hi-Res",
   "@hiResCheckVerdictFake": {
     "description": "Verdict: the file claims Hi-Res but does not measure as it"
   },
-  "hiResCheckVerdictGenuine": "Measures as genuine Hi-Res",
+  "hiResCheckVerdictGenuine": "Оценено как подлинный Hi-Res",
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Standard definition, nothing to flag",
+  "hiResCheckVerdictStandard": "Стандартное разрешение, ничего примечательного",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
@@ -5025,7 +5025,7 @@
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
-  "hiResCheckUnsupported": "Only FLAC and WAV files can be checked",
+  "hiResCheckUnsupported": "Только файлы FLAC и WAV могут быть проверены",
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
@@ -5033,15 +5033,15 @@
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
-  "hiResCheckBitsInUse": "Bits in use",
+  "hiResCheckBitsInUse": "Используемые биты",
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },
-  "hiResCheckDisclaimer": "The spectrum stops early, but nothing proves it was upsampled: it may be a genuine master low-pass filtered in mastering. It is not replaced automatically.",
+  "hiResCheckDisclaimer": "Спектр обрывается рано, но нет никаких доказательств того, что он был подвергнут повышающению дискретизации: возможно, это подлинный мастер, пропущенный через фильтр при мастеринге. Он не заменяется автоматически.",
   "@hiResCheckDisclaimer": {
     "description": "Caveat shown under a fake Hi-Res verdict"
   },
-  "hiResCheckFailed": "Hi-Res check failed: {error}",
+  "hiResCheckFailed": "Hi-Res проверка не удалась: {error}",
   "@hiResCheckFailed": {
     "description": "Error shown when the Hi-Res check fails",
     "placeholders": {
@@ -5753,7 +5753,7 @@
   "@settingsFiles": {
     "description": "Settings menu item - file and folder settings"
   },
-  "settingsFilesSubtitle": "Download location, filename, folder structure",
+  "settingsFilesSubtitle": "Расположение загрузок, имя файла и структура папок",
   "@settingsFilesSubtitle": {
     "description": "Subtitle for files & folders settings"
   },
@@ -6612,15 +6612,15 @@
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
-  "downloadPrimaryArtistOnlyOn": "Primary only: On",
+  "downloadPrimaryArtistOnlyOn": "Только основной: вкл",
   "@downloadPrimaryArtistOnlyOn": {
     "description": "Status label when primary-artist-only folder naming is enabled"
   },
-  "downloadPrimaryArtistOnlyOff": "Primary only: Off",
+  "downloadPrimaryArtistOnlyOff": "Только основной: выкл",
   "@downloadPrimaryArtistOnlyOff": {
     "description": "Status label when primary-artist-only folder naming is disabled"
   },
-  "downloadAlbumArtistMetadataPrimaryOnly": "Album Artist metadata: Primary only",
+  "downloadAlbumArtistMetadataPrimaryOnly": "Метаданные исполнителя альбома: только основные",
   "@downloadAlbumArtistMetadataPrimaryOnly": {
     "description": "Status label when album-artist folder filtering uses primary artist only"
   },

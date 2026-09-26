@@ -4600,7 +4600,7 @@
   "@editMetadataAutoFillFind": {
     "description": "Button label for finding an online metadata candidate"
   },
-  "editMetadataAutoFillPreview": "Data from {source}",
+  "editMetadataAutoFillPreview": "Данные из {source}",
   "@editMetadataAutoFillPreview": {
     "description": "Title for the online metadata preview",
     "placeholders": {
@@ -4609,7 +4609,7 @@
       }
     }
   },
-  "editMetadataAutoFillCoverAvailable": "Cover artwork available",
+  "editMetadataAutoFillCoverAvailable": "Обложка доступна",
   "@editMetadataAutoFillCoverAvailable": {
     "description": "Preview value when the selected metadata source provides cover artwork"
   },
@@ -4637,7 +4637,7 @@
   "@editMetadataAutoFillSearching": {
     "description": "Snackbar shown while searching for online metadata"
   },
-  "editMetadataAutoFillNoResults": "No matching metadata found online",
+  "editMetadataAutoFillNoResults": "Подходящие метаданные не найдены",
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
@@ -4946,15 +4946,15 @@
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
-  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "hiResCheckLimitedBandwidth": "Ограниченный диапазон частот",
   "@hiResCheckLimitedBandwidth": {
     "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
   },
-  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "hiResCheckNoEvidence": "Не обнаружено ни апсэмплинга, ни добавления \"заполняющих нулей\"",
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "hiResCheckEstimatedCutoff": "Примерная частота среза",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
@@ -4979,7 +4979,7 @@
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
-  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "hiResCheckRateEvidence": "Крутой срез в районе {cutoff} и измеренный уровень шума свидетельствуют об исходнике с меньшей частотой.",
   "@hiResCheckRateEvidence": {
     "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
     "placeholders": {
@@ -4988,7 +4988,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "hiResCheckSteadyEnergy": "Энергия выше {cutoff} в проанализированном сегменте преимущественно стабильна и может являться шумом.",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -5021,7 +5021,7 @@
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
-  "hiResCheckVerdictInconclusive": "Inconclusive: the analyzed segment is too quiet or short",
+  "hiResCheckVerdictInconclusive": "Недостаточно данных: проанализированный сегмент слишком тихий или короткий",
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
@@ -5029,7 +5029,7 @@
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
-  "hiResCheckCutoff": "Content cutoff",
+  "hiResCheckCutoff": "Срез содержимого",
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
@@ -5050,7 +5050,7 @@
       }
     }
   },
-  "hiResCheckReasonRate": "Declares {sampleRate} but content stops at ~{cutoff}",
+  "hiResCheckReasonRate": "Заявлена частота {sampleRate}, но содержимое обрывается на ~{cutoff}",
   "@hiResCheckReasonRate": {
     "description": "Reason for a fake verdict caused by upsampling",
     "placeholders": {
@@ -5062,7 +5062,7 @@
       }
     }
   },
-  "hiResCheckReasonDepth": "Declares {declared}-bit but only {effective} bits carry data",
+  "hiResCheckReasonDepth": "Формат {declared}-бит, но фактически используется {effective} бит",
   "@hiResCheckReasonDepth": {
     "description": "Reason for a fake verdict caused by padded bit depth",
     "placeholders": {
@@ -5082,7 +5082,7 @@
   "@extensionsHomeFeedProvider": {
     "description": "Extensions page - label for home feed provider selector"
   },
-  "extensionsHomeFeedDescription": "Choose which extension provides the home feed on the main screen",
+  "extensionsHomeFeedDescription": "Выберите расширение, предоставляющее ленту на главном экране",
   "@extensionsHomeFeedDescription": {
     "description": "Extensions page - description for home feed provider picker"
   },
@@ -5090,7 +5090,7 @@
   "@extensionsHomeFeedAuto": {
     "description": "Label for auto-selected search provider"
   },
-  "extensionsHomeFeedAutoSubtitle": "Automatically select the best available",
+  "extensionsHomeFeedAutoSubtitle": "Автоматический выбор лучшего из доступных",
   "@extensionsHomeFeedAutoSubtitle": {
     "description": "Extensions page - subtitle for auto home feed option"
   },
@@ -5227,7 +5227,7 @@
   "@notifVerificationRequiredTitle": {
     "description": "Notification title shown when a download needs the user to complete a verification challenge but the app is in the background"
   },
-  "notifVerificationRequiredBody": "Open the app to complete verification and resume downloads",
+  "notifVerificationRequiredBody": "Откройте приложение, чтобы завершить проверку и возобновить загрузку",
   "@notifVerificationRequiredBody": {
     "description": "Notification body prompting the user to return to the app to solve a verification challenge"
   },
@@ -5513,7 +5513,7 @@
   "@editMetadataMusicBrainzFilled": {
     "description": "Snackbar after MusicBrainz suggestions were applied to the tag editor fields"
   },
-  "editMetadataMusicBrainzNothing": "Nothing found on MusicBrainz",
+  "editMetadataMusicBrainzNothing": "На MusicBrainz ничего не найдено",
   "@editMetadataMusicBrainzNothing": {
     "description": "Snackbar when the MusicBrainz lookup returns no data"
   },
@@ -5562,7 +5562,7 @@
   "@queueRateLimitMessage": {
     "description": "Explanation shown on a failed queue item when the download service rate limits requests"
   },
-  "appearanceSelectAccentColor": "Select accent color {hex}",
+  "appearanceSelectAccentColor": "Выберите цвет акцента {hex}",
   "@appearanceSelectAccentColor": {
     "description": "Accessibility label for picking an accent color",
     "placeholders": {
@@ -5579,7 +5579,7 @@
   "@logAutoScrollOff": {
     "description": "Tooltip when auto-scroll is disabled on the log screen"
   },
-  "logCopyLogs": "Copy logs",
+  "logCopyLogs": "Скопировать логи",
   "@logCopyLogs": {
     "description": "Tooltip for copying logs"
   },
@@ -5635,11 +5635,11 @@
   "@logIssueTrackNotFoundSuggestion": {
     "description": "Diagnostic badge suggestion when a track is unavailable"
   },
-  "clickableLookingUpArtist": "Looking up artist...",
+  "clickableLookingUpArtist": "Поиск исполнителя...",
   "@clickableLookingUpArtist": {
     "description": "Snackbar shown while clickable artist metadata is being resolved"
   },
-  "clickableInformationUnavailable": "{type} information not available",
+  "clickableInformationUnavailable": "Информация о {type} недоступна",
   "@clickableInformationUnavailable": {
     "description": "Snackbar shown when clickable metadata cannot open a destination",
     "placeholders": {
@@ -5668,7 +5668,7 @@
   "@setupChangeFolderTooltip": {
     "description": "Tooltip for editing the selected download folder"
   },
-  "a11yOpenTrackByArtist": "Open track {trackName} by {artistName}",
+  "a11yOpenTrackByArtist": "Открыть трек {trackName} от {artistName}",
   "@a11yOpenTrackByArtist": {
     "description": "Accessibility label for opening a track item",
     "placeholders": {
@@ -5680,7 +5680,7 @@
       }
     }
   },
-  "a11yOpenItem": "Open {itemType} {name}",
+  "a11yOpenItem": "Открыть {itemType} {name}",
   "@a11yOpenItem": {
     "description": "Accessibility label for opening a generic item",
     "placeholders": {
@@ -5801,23 +5801,23 @@
   "@metadataProvidersSubtitle": {
     "description": "Subtitle for metadata provider priority item"
   },
-  "downloadDeduplication": "Skip Duplicate Downloads",
+  "downloadDeduplication": "Пропустить дублирование загрузок",
   "@downloadDeduplication": {
     "description": "Setting - skip tracks already in download history"
   },
-  "downloadDeduplicationEnabled": "Already-downloaded tracks will be skipped",
+  "downloadDeduplicationEnabled": "Уже загруженные треки будут пропущены",
   "@downloadDeduplicationEnabled": {
     "description": "Subtitle when deduplication is on"
   },
-  "downloadDeduplicationWithQualityVariants": "Existing files at the selected quality will be skipped",
+  "downloadDeduplicationWithQualityVariants": "Существующие файлы в выбранном качестве будут пропущены",
   "@downloadDeduplicationWithQualityVariants": {
     "description": "Deduplication subtitle when separate quality versions are allowed"
   },
-  "downloadDeduplicationDisabled": "All tracks will be downloaded regardless of history",
+  "downloadDeduplicationDisabled": "Все треки будут загружены независимо от истории",
   "@downloadDeduplicationDisabled": {
     "description": "Subtitle when deduplication is off"
   },
-  "downloadQualityVariants": "Allow different quality versions",
+  "downloadQualityVariants": "Разрешить скачивание версий в другом качестве",
   "@downloadQualityVariants": {
     "description": "Setting to retain multiple quality versions of the same track"
   },
@@ -5845,7 +5845,7 @@
   "@editMetadataFieldTrackTotal": {
     "description": "Label for total tracks field in the edit metadata sheet"
   },
-  "editMetadataFieldDiscTotal": "Disc Total",
+  "editMetadataFieldDiscTotal": "Всего дисков",
   "@editMetadataFieldDiscTotal": {
     "description": "Label for total discs field in the edit metadata sheet"
   },
@@ -5861,7 +5861,7 @@
   "@trackAlbumType": {
     "description": "Label for an album or release type metadata value"
   },
-  "editMetadataFieldAlbumTypeHint": "Album, single, EP, compilation...",
+  "editMetadataFieldAlbumTypeHint": "Альбом, сингл, EP, сборник...",
   "@editMetadataFieldAlbumTypeHint": {
     "description": "Hint for the release type metadata field"
   },
@@ -6054,11 +6054,11 @@
   "@actionGo": {
     "description": "Generic action button label"
   },
-  "logIssueSummary": "Issue Summary",
+  "logIssueSummary": "Краткое описание проблемы",
   "@logIssueSummary": {
     "description": "Header for log issue analysis summary"
   },
-  "logTotalErrors": "Total errors: {count}",
+  "logTotalErrors": "Всего ошибок: {count}",
   "@logTotalErrors": {
     "description": "Total error count in log issue analysis",
     "placeholders": {
@@ -6067,7 +6067,7 @@
       }
     }
   },
-  "logAffectedDomains": "Affected: {domains}",
+  "logAffectedDomains": "Затронуто: {domains}",
   "@logAffectedDomains": {
     "description": "Affected domains in log issue analysis",
     "placeholders": {
@@ -6118,7 +6118,7 @@
       }
     }
   },
-  "extensionOauthConnectHint": "Tap Connect to Spotify to fill this field.",
+  "extensionOauthConnectHint": "Нажмите Подключиться к Spotify для заполнения этого поля.",
   "@extensionOauthConnectHint": {
     "description": "Hint for an OAuth login link field before connecting Spotify"
   },
@@ -6302,7 +6302,7 @@
   "@settingsSaveDownloadHistorySubtitle": {
     "description": "Settings switch subtitle for storing completed downloads in history"
   },
-  "dialogDisableHistoryTitle": "Turn off download history?",
+  "dialogDisableHistoryTitle": "Отключить историю загрузок?",
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
@@ -6314,11 +6314,11 @@
   "@dialogDisableAndClear": {
     "description": "Confirmation action to disable download history and clear existing entries"
   },
-  "openInOtherServices": "Open in Other Services",
+  "openInOtherServices": "Открыть в других сервисах",
   "@openInOtherServices": {
     "description": "Title and tooltip for finding the current collection in other services"
   },
-  "shareSheetNoExtensions": "No other compatible services",
+  "shareSheetNoExtensions": "Нет других совместимых сервисов",
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
@@ -6374,7 +6374,7 @@
     "description": "Tooltip for minimizing the now playing screen"
   },
   "nowPlayingUpNext": "Up next",
-  "nowPlayingAudioOutput": "Audio Output",
+  "nowPlayingAudioOutput": "Аудиовыход",
   "nowPlayingWrittenBy": "Written by: {writers}",
   "@nowPlayingWrittenBy": {
     "placeholders": {
@@ -6391,14 +6391,14 @@
       }
     }
   },
-  "concertGetTickets": "Get Tickets",
-  "concertSetList": "Concert Set List",
+  "concertGetTickets": "Получить билеты",
+  "concertSetList": "Список Концертов",
   "concertSetListButton": "Set List",
-  "concertAddToCalendar": "Add to Calendar",
-  "concertOpenMaps": "Open Maps",
-  "concertDetailsUnavailable": "Concert details are currently unavailable.",
-  "concertCalendarUnavailable": "Unable to open the calendar.",
-  "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
+  "concertAddToCalendar": "Добавить в календарь",
+  "concertOpenMaps": "Открыть карты",
+  "concertDetailsUnavailable": "Детали концерта в настоящее время недоступны.",
+  "concertCalendarUnavailable": "Невозможно открыть календарь.",
+  "nowPlayingAudioOutputUnavailable": "Невозможно открыть настройки аудиовыхода.",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
@@ -6410,11 +6410,11 @@
   "@nowPlayingNextTrack": {
     "description": "Tooltip for the next-track playback control"
   },
-  "nowPlayingDetails": "Details",
+  "nowPlayingDetails": "Подробности",
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingSleepTimer": "Sleep timer",
+  "nowPlayingSleepTimer": "Таймер сна",
   "@nowPlayingSleepTimer": {
     "description": "Menu item and sheet title for the playback sleep timer"
   },
@@ -6436,7 +6436,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerOff": "Turn off sleep timer",
+  "nowPlayingSleepTimerOff": "Отключить таймер сна",
   "@nowPlayingSleepTimerOff": {
     "description": "Action to cancel the active playback sleep timer"
   },
@@ -6449,35 +6449,35 @@
       }
     }
   },
-  "nowPlayingSleepTimerCancelled": "Sleep timer turned off",
+  "nowPlayingSleepTimerCancelled": "Таймер сна отключен",
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },
-  "nowPlayingOpenInExternalPlayer": "Open in external player",
+  "nowPlayingOpenInExternalPlayer": "Открыть во внешнем плеере",
   "@nowPlayingOpenInExternalPlayer": {
     "description": "Menu item to open the current track in an external player"
   },
-  "nowPlayingTabPlayer": "Player",
+  "nowPlayingTabPlayer": "Плеер",
   "@nowPlayingTabPlayer": {
     "description": "Tab label for the player view"
   },
-  "nowPlayingTabLyrics": "Lyrics",
+  "nowPlayingTabLyrics": "Текст песни",
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
   "nowPlayingNoLyrics": "В файле нет текста",
-  "nowPlayingInstrumental": "Instrumental",
+  "nowPlayingInstrumental": "Инструментальный",
   "@nowPlayingInstrumental": {
     "description": "Accessibility label for the three-dot countdown during an instrumental break before lyrics resume"
   },
-  "nowPlayingLyricsLanguageOptions": "Lyrics language options",
+  "nowPlayingLyricsLanguageOptions": "Параметры языка текстов песен",
   "@nowPlayingLyricsLanguageOptions": {
     "description": "Tooltip for the player menu that shows or hides existing lyric pronunciation and translation"
   },
-  "nowPlayingHidePronunciation": "Hide Pronunciation",
-  "nowPlayingShowPronunciation": "Show Pronunciation",
-  "nowPlayingHideTranslation": "Hide Translation",
-  "nowPlayingShowTranslation": "Show Translation",
+  "nowPlayingHidePronunciation": "Скрыть произношение",
+  "nowPlayingShowPronunciation": "Показать произношение",
+  "nowPlayingHideTranslation": "Скрыть перевод",
+  "nowPlayingShowTranslation": "Показать перевод",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -6494,15 +6494,15 @@
       }
     }
   },
-  "nowPlayingShuffleOn": "Shuffle on",
+  "nowPlayingShuffleOn": "Перемешивание вкл",
   "@nowPlayingShuffleOn": {
     "description": "Tooltip when shuffle mode is enabled"
   },
-  "nowPlayingPlayInOrder": "Play in order",
+  "nowPlayingPlayInOrder": "Играть в очереди",
   "@nowPlayingPlayInOrder": {
     "description": "Tooltip when shuffle mode is disabled"
   },
-  "nowPlayingShuffleLibrary": "Shuffle library",
+  "nowPlayingShuffleLibrary": "Перемешать медиатеку",
   "@nowPlayingShuffleLibrary": {
     "description": "Button label to shuffle and play the entire local library"
   },
@@ -6514,7 +6514,7 @@
   "@nowPlayingNoMetadata": {
     "description": "Empty state when track metadata cannot be loaded"
   },
-  "announcementUnableToOpenLink": "Unable to open link. Please try again.",
+  "announcementUnableToOpenLink": "Не удалось открыть ссылку. Пожалуйста, попробуйте еще раз.",
   "@announcementUnableToOpenLink": {
     "description": "Snackbar shown when an announcement CTA link cannot be opened"
   },
@@ -6591,7 +6591,7 @@
   "@aboutPaxsenixSubtitle": {
     "description": "Subtitle for Paxsenix special thanks entry on the about page"
   },
-  "snackbarPlayingNext": "Playing next",
+  "snackbarPlayingNext": "Следующий в очереди",
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },
@@ -6608,7 +6608,7 @@
       }
     }
   },
-  "actionShuffle": "Shuffle",
+  "actionShuffle": "Перемешать",
   "@actionShuffle": {
     "description": "Tooltip for shuffle playback action"
   },
@@ -6668,7 +6668,7 @@
   "@trackConvertResamplerSoxr": {
     "description": "Lossless conversion SoX resampler option"
   },
-  "updateSeeReleaseNotes": "See release notes for details.",
+  "updateSeeReleaseNotes": "Смотрите примечания к релизу для подробностей.",
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },
@@ -6930,8 +6930,8 @@
     "description": "Selected state of the compact favorite action"
   },
   "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
-  "autoMixOn": "AutoMix on",
-  "autoMixOff": "AutoMix off",
+  "autoMixOn": "Автомикс вкл",
+  "autoMixOff": "Автомикс выкл",
   "profileTitle": "Профиль",
   "profileSetUp": "Настройте свой профиль",
   "profileEdit": "Изменить имя и фото",
@@ -6942,9 +6942,9 @@
   "profileRemovePhoto": "Удалить фото",
   "profilePhotoError": "Выберите изображение размером менее 20 МБ.",
   "profileSaveError": "Не удалось сохранить ваш профиль. Пожалуйста, попробуйте еще раз.",
-  "artistUpcomingConcerts": "Upcoming Concerts",
-  "artistAllUpcomingConcerts": "All Upcoming Concerts",
-  "artistNoUpcomingConcerts": "No upcoming concerts.",
+  "artistUpcomingConcerts": "Предстоящие концерты",
+  "artistAllUpcomingConcerts": "Все предстоящие концерты",
+  "artistNoUpcomingConcerts": "Нет предстоящих концертов.",
   "optionsEmbeddedCoverSizeOriginal": "Оригинальное разрешение",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

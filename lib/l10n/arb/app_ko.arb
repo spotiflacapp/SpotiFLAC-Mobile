@@ -4011,7 +4011,7 @@
       }
     }
   },
-  "lyricsProvidersAtLeastOne": "최소 한 명의 제공자가 활성화된 상태로 유지되어야 합니다",
+  "lyricsProvidersAtLeastOne": "최소 한 개의 제공자가 활성화된 상태로 유지되어야 합니다",
   "@lyricsProvidersAtLeastOne": {
     "description": "Snackbar when user tries to disable the last enabled provider"
   },

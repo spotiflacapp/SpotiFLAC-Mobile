@@ -1,6 +1,6 @@
 {
-  "upgradeIntroWelcome": "Selamat datang di SpotiFLAC-Mobile 5.9",
-  "upgradeIntroThemeTitle": "Pilih tampilan Anda",
+  "upgradeIntroWelcome": "Selamat datang di SpotiFLAC-Mobile 5.0",
+  "upgradeIntroThemeTitle": "Pilih \ntampilan Anda.",
   "upgradeIntroThemeBody": "Pilih tampilan yang Anda suka. Pilihan langsung diterapkan dan Anda dapat mengubahnya lewat Tampilan.",
   "upgradeIntroThemeMaterialBody": "Tampilan yang familiar, estetika Material dengan warna aksen pilihan Anda.",
   "upgradeIntroThemeMornyeBody": "Tampilan Liquid Glass, Koleksi yang didesain ulang dengan pemutar yang cantik.",
@@ -300,7 +300,7 @@
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },
-  "replayGainBatchConfirmMessage": "Analisis kenyaringan dan tulis tag ReplayGain ke {count} trek?",
+  "replayGainBatchConfirmMessage": "Analisis kenyaringan dan tambah tag ReplayGain ke {count} lagu?",
   "@replayGainBatchConfirmMessage": {
     "description": "Message of the batch ReplayGain confirmation dialog",
     "placeholders": {
@@ -313,7 +313,7 @@
   "@replayGainBatchAnalyzing": {
     "description": "Progress dialog title while batch scanning ReplayGain"
   },
-  "replayGainBatchSuccess": "ReplayGain ditambahkan ke {success} dari {total} trek",
+  "replayGainBatchSuccess": "ReplayGain ditambah ke {success} dari {total} lagu",
   "replayGainUnsupportedDecoder": "Beberapa lagu tidak dapat dianalisis karena decoder ReplayGain tidak mendukung codec audio-nya. File tidak diubah.",
   "@replayGainBatchSuccess": {
     "description": "Snackbar after batch ReplayGain completes",
@@ -338,7 +338,7 @@
   "@optionsArtistTagModeJoined": {
     "description": "Artist tag mode option that joins multiple artists into one value"
   },
-  "optionsArtistTagModeJoinedSubtitle": "Tulis semua ARTIS dalam satu tag \"Artis A, Artis B\", mendukung lebih banyak pemutar,",
+  "optionsArtistTagModeJoinedSubtitle": "Tulis semua ARTIS dalam satu tag \"Artis A, Artis B\", mendukung lebih banyak pemutar.",
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
@@ -455,7 +455,7 @@
   "@aboutMobileDeveloper": {
     "description": "Role description for mobile dev"
   },
-  "aboutOriginalCreator": "Pencipta SpotiFLAC asli",
+  "aboutOriginalCreator": "Pembuat SpotiFLAC asli",
   "@aboutOriginalCreator": {
     "description": "Role description for original creator"
   },
@@ -543,7 +543,7 @@
   "@aboutUnituneDesc": {
     "description": "Credit for the UniTune resolver"
   },
-  "aboutMusicBrainzDesc": "Database musik terbuka dimaintain oleh MetaBrainz dan komunitasnya, untuk merekam cross-reference.",
+  "aboutMusicBrainzDesc": "Database musik terbuka yang dirawat oleh MetaBrainz dan komunitasnya, untuk merekam cross-reference.",
   "@aboutMusicBrainzDesc": {
     "description": "Credit for the MusicBrainz database"
   },
@@ -609,7 +609,7 @@
   "@setupStorageAccessRequired": {
     "description": "Title when storage access needed"
   },
-  "setupStorageAccessMessageAndroid11": "Android 11+ memerlukan izin \"Akses semua file\" untuk menyimpan file ke folder unduhan pilihan Anda.",
+  "setupStorageAccessMessageAndroid11": "Android 11+ butuh izin \"Akses semua file\" untuk menyimpan file ke folder download pilihan Anda.",
   "@setupStorageAccessMessageAndroid11": {
     "description": "Android 11+ specific explanation"
   },
@@ -631,7 +631,7 @@
       }
     }
   },
-  "setupPermissionRequiredMessage": "Izin {permissionType} diperlukan untuk pengalaman terbaik. Anda dapat mengubahnya nanti di Pengaturan.",
+  "setupPermissionRequiredMessage": "Izin {permissionType} diperlukan untuk pengalaman terbaik. Anda dapat mengubahnya nanti di Setelan.",
   "@setupPermissionRequiredMessage": {
     "description": "Generic permission required message",
     "placeholders": {
@@ -656,7 +656,7 @@
   "@setupDownloadLocationTitle": {
     "description": "Download location dialog title"
   },
-  "setupDownloadLocationIosMessage": "Di iOS, unduhan disimpan ke folder Documents aplikasi. Anda dapat mengaksesnya melalui aplikasi Files.",
+  "setupDownloadLocationIosMessage": "Di iOS, download disimpan ke folder Documents aplikasi. Anda dapat mengaksesnya melalui aplikasi Files.",
   "@setupDownloadLocationIosMessage": {
     "description": "iOS-specific folder info"
   },
@@ -664,7 +664,7 @@
   "@setupAppDocumentsFolder": {
     "description": "iOS documents folder option"
   },
-  "setupAppDocumentsFolderSubtitle": "Direkomendasikan - dapat diakses via aplikasi Files",
+  "setupAppDocumentsFolderSubtitle": "Disarankan - dapat diakses via aplikasi Files",
   "@setupAppDocumentsFolderSubtitle": {
     "description": "Subtitle for documents folder"
   },
@@ -728,7 +728,7 @@
   "@setupNotificationBackgroundDescription": {
     "description": "Detailed notification explanation"
   },
-  "setupSkipForNow": "Lewati untuk sekarang",
+  "setupSkipForNow": "Lewati saja",
   "@setupSkipForNow": {
     "description": "Skip button text"
   },
@@ -845,7 +845,7 @@
       }
     }
   },
-  "dialogClearHistoryTitle": "Hapus Riwayat",
+  "dialogClearHistoryTitle": "Hapus Histori",
   "@dialogClearHistoryTitle": {
     "description": "Dialog title - clear download history"
   },
@@ -916,7 +916,7 @@
   "@libraryReviewDuplicates": {
     "description": "Library settings row opening the duplicate review sheet"
   },
-  "libraryReviewDuplicatesSubtitle": "Telusuri lagu yang disimpan lebih dari sekali",
+  "libraryReviewDuplicatesSubtitle": "Tinjau file lagu ganda di perangkat",
   "@libraryReviewDuplicatesSubtitle": {
     "description": "Subtitle for the duplicate review settings row"
   },
@@ -928,11 +928,11 @@
   "@duplicatesEmpty": {
     "description": "Shown when the duplicate review sheet finds nothing"
   },
-  "duplicatesKeepBest": "Simpan lagu kualitas terbaik",
+  "duplicatesKeepBest": "Simpan kualitas terbaik",
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
   },
-  "duplicatesKeepBestAll": "Simpan kualitas terbaik",
+  "duplicatesKeepBestAll": "Simpan semua kualitas terbaik",
   "@duplicatesKeepBestAll": {
     "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
   },
@@ -1305,7 +1305,7 @@
   "@updateLater": {
     "description": "Update button - dismiss"
   },
-  "updateStartingDownload": "Download dimulai...",
+  "updateStartingDownload": "Memulai download...",
   "@updateStartingDownload": {
     "description": "Update status - initializing"
   },
@@ -1346,7 +1346,7 @@
   "@updateDownloading": {
     "description": "Update status - downloading"
   },
-  "updateWhatsNew": "Yang baru",
+  "updateWhatsNew": "Yang Baru",
   "@updateWhatsNew": {
     "description": "Changelog section title"
   },
@@ -1370,11 +1370,11 @@
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
-  "providerPriorityFallbackExtensionsDescription": "Pilih ekstensi download terinstal yang digunakan selama fallback otomatis.",
+  "providerPriorityFallbackExtensionsDescription": "Pilih ekstensi download terinstal yang akan digunakan sebagai cadangan.",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
-  "providerPriorityFallbackExtensionsHint": "Hanya ekstensi dengan provider download  yang sudah aktif yang ada di sini.",
+  "providerPriorityFallbackExtensionsHint": "Hanya ekstensi dengan provider download aktif yang ada di sini.",
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
@@ -1390,7 +1390,7 @@
   "@metadataProviderPriorityDescription": {
     "description": "Metadata priority page description"
   },
-  "metadataProviderPriorityInfo": "Deezer tidak ada rate limit dan direkomendasikan jadi utama. Spotify mungkin ada bila banyak permintaan.",
+  "metadataProviderPriorityInfo": "Deezer tidak punya pembatasan dan disarankan jadi utama. Spotify mungkin ada bila banyak permintaan.",
   "@metadataProviderPriorityInfo": {
     "description": "Info tip about rate limits"
   },
@@ -1910,7 +1910,7 @@
   "@extensionQualityOptions": {
     "description": "Capability - quality selection"
   },
-  "extensionPostProcessingHooks": "Hook Post-Processing",
+  "extensionPostProcessingHooks": "Hook Pasca-Pemrosesan",
   "@extensionPostProcessingHooks": {
     "description": "Capability - post-processing"
   },
@@ -1938,7 +1938,7 @@
   "@extensionCustomTrackMatching": {
     "description": "Capability - custom track matching algorithm"
   },
-  "extensionPostProcessing": "Post-Processing",
+  "extensionPostProcessing": "Pasca-Pemrosesan",
   "@extensionPostProcessing": {
     "description": "Capability - post-download processing"
   },
@@ -2125,7 +2125,7 @@
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
-  "downloadAutoConvertBitrateSubtitle": "Bitrate yang tinggi menjaga banyak detail tapi ukuran file akan besar",
+  "downloadAutoConvertBitrateSubtitle": "Bitrate yang tinggi menjaga banyak detail tapi ukuran file akan besar.",
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
@@ -2153,7 +2153,7 @@
   "@downloadLossyMp3": {
     "description": "Lossy format option - MP3 320kbps"
   },
-  "downloadLossyMp3Subtitle": "Putar di mana saja, ~10MB per trek",
+  "downloadLossyMp3Subtitle": "Putar di mana saja, ~10MB per lagu",
   "@downloadLossyMp3Subtitle": {
     "description": "Subtitle for MP3 320kbps lossy option"
   },
@@ -3101,7 +3101,7 @@
   "@cacheSummarySubtitle": {
     "description": "Helper text for cache summary card"
   },
-  "cacheEstimatedTotal": "Total cache yang digunakan:",
+  "cacheEstimatedTotal": "Total cache yang digunakan: {size}",
   "@cacheEstimatedTotal": {
     "description": "Total cache size shown in summary",
     "placeholders": {
@@ -3138,7 +3138,7 @@
   "@cacheCoverImage": {
     "description": "Cache item title for persistent cover images"
   },
-  "cacheCoverImageDesc": "Foto cover album dan lagu yang terdownload. Akan didownload ulang bila dilihat. ",
+  "cacheCoverImageDesc": "Foto cover album dan lagu yang terdownload. Akan didownload ulang bila dilihat.",
   "@cacheCoverImageDesc": {
     "description": "Description of what cover image cache contains"
   },
@@ -3182,7 +3182,7 @@
   "@cacheTrackLookupDesc": {
     "description": "Description of what track lookup cache contains"
   },
-  "cacheCleanupUnusedDesc": "Menghapus sisa-sisa histori download dan file hilang di koleksi",
+  "cacheCleanupUnusedDesc": "Menghapus sisa-sisa histori download dan file hilang di koleksi.",
   "@cacheCleanupUnusedDesc": {
     "description": "Description of what cleanup unused data does"
   },
@@ -3880,7 +3880,7 @@
   "@collectionPlaylistRemoveCover": {
     "description": "Bottom sheet action to remove custom cover image from a playlist"
   },
-  "selectionShareCount": "Bagikan {count}{count, plural,=1{lagu} other{ lagu}}",
+  "selectionShareCount": "Bagikan {count} {count, plural, =1{lagu} other{lagu}}",
   "@selectionShareCount": {
     "description": "Share button text with count in selection mode",
     "placeholders": {
@@ -3893,7 +3893,7 @@
   "@selectionShareNoFiles": {
     "description": "Snackbar when no selected files exist on disk"
   },
-  "selectionConvertCount": "Ubah format {count}{count, plural,=1{lagu}other{ lagu}}",
+  "selectionConvertCount": "Ubah format {count} {count, plural, =1{lagu} other{lagu}}",
   "@selectionConvertCount": {
     "description": "Convert button text with count in selection mode",
     "placeholders": {
@@ -3910,7 +3910,7 @@
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
-  "selectionBatchConvertConfirmMessage": "Ubah format {count}{count, plural,=1{lagu}other{ lagu}} ke format {format} dengan bitrate {bitrate}?\n\nFile asli akan dihapus setelah perubahan.",
+  "selectionBatchConvertConfirmMessage": "Ubah format {count} {count, plural, =1{lagu} other{lagu}} ke {format} dengan {bitrate}?\n\nFile asli akan dihapus setelah perubahan.",
   "@selectionBatchConvertConfirmMessage": {
     "description": "Confirmation dialog message for batch conversion",
     "placeholders": {
@@ -3925,7 +3925,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmMessageLossless": "Ubah format {count}{count, plural,=1{lagu}other{ lagu}} ke format {format} dengan kualitas loseless?\n\nFile asli akan dihapus setelah perubahan.",
+  "selectionBatchConvertConfirmMessageLossless": "Ubah format {count} {count, plural, =1{lagu} other{lagu}} ke {format}? (Lossless — kualitas dipertahankan)\n\nFile asli akan dihapus setelah perubahan.",
   "@selectionBatchConvertConfirmMessageLossless": {
     "description": "Confirmation dialog message for lossless batch conversion",
     "placeholders": {
@@ -3937,7 +3937,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmKeepOriginal": "Ubah format {count} {count, plural, =1{lagu} other{lagu}} ke format {format}?\n\nFile asli akan disimpan dan file format baru akan ditambah ke koleksi baru.",
+  "selectionBatchConvertConfirmKeepOriginal": "Ubah format {count} {count, plural, =1{lagu} other{lagu}} ke {format}?\n\nFile asli akan disimpan dan file format baru akan ditambah ke koleksi baru.",
   "@selectionBatchConvertConfirmKeepOriginal": {
     "description": "Batch conversion confirmation when source files will be preserved",
     "placeholders": {
@@ -3949,7 +3949,7 @@
       }
     }
   },
-  "selectionBatchConvertSuccess": "Berhasil mengubah format {success} dari {total} lagu ke format {format}",
+  "selectionBatchConvertSuccess": "Berhasil mengubah format {success} dari {total} lagu ke {format}",
   "@selectionBatchConvertSuccess": {
     "description": "Snackbar after batch conversion completes",
     "placeholders": {
@@ -4326,7 +4326,7 @@
   "storageAutomaticDownloadFolder": "Menyimpan di folder Download/SpotiFLAC, atau di data aplikasi",
   "storageSafRecommended": "Pilih folder (Disarankan)",
   "storageDownloadFolderHint": "Begitu pemilih folder Android terbuka, buka folder Download dan pilih SpotiFLAC. Jika belum ada, buat folder baru, lalu ketuk Gunakan folder ini untuk memberi akses.",
-  "storageModeAppFolder": "Folder Aplikasi (Direkomendasikan)",
+  "storageModeAppFolder": "Folder Aplikasi (Disarankan)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
   },
@@ -4374,7 +4374,7 @@
   "@downloadSeparateSinglesEnabled": {
     "description": "Subtitle when separate singles folder is on"
   },
-  "downloadSeparateSinglesDisabled": "Single dan EP disimpan di folder yang sama",
+  "downloadSeparateSinglesDisabled": "Single dan album disimpan di folder yang sama",
   "@downloadSeparateSinglesDisabled": {
     "description": "Subtitle when separate singles folder is off"
   },
@@ -4438,7 +4438,7 @@
   "@downloadNeteaseIncludeTranslation": {
     "description": "Setting to include translated lyrics from Netease"
   },
-  "downloadNeteaseIncludeTranslationEnabled": "Lirik terjemahan tionghoa dimasukkan",
+  "downloadNeteaseIncludeTranslationEnabled": "Lirik terjemahan Tionghoa dimasukkan",
   "@downloadNeteaseIncludeTranslationEnabled": {
     "description": "Subtitle when Netease translation is on"
   },
@@ -4486,7 +4486,7 @@
   "@downloadMusixmatchLanguage": {
     "description": "Setting for Musixmatch lyrics translation language"
   },
-  "downloadMusixmatchLanguageAuto": "Oto (bahasa aasli)",
+  "downloadMusixmatchLanguageAuto": "Otomatis (bahasa asli)",
   "@downloadMusixmatchLanguageAuto": {
     "description": "Subtitle when no language is set"
   },
@@ -4538,7 +4538,7 @@
   "@snackbarUnsupportedAudioFormat": {
     "description": "Snackbar when the audio format is not supported for the requested operation"
   },
-  "cacheRefresh": "Refresh",
+  "cacheRefresh": "Muat Ulang",
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
@@ -4719,7 +4719,7 @@
       }
     }
   },
-  "queueFilteringIndicator": "Menyaring...",
+  "queueFilteringIndicator": "Memfilter...",
   "@queueFilteringIndicator": {
     "description": "Shown while filter results are being computed"
   },
@@ -4846,7 +4846,7 @@
   "@audioAnalysisFileSize": {
     "description": "File size metric label"
   },
-  "audioAnalysisDynamicRange": "Rentang Dinamis",
+  "audioAnalysisDynamicRange": "Dynamic Range",
   "@audioAnalysisDynamicRange": {
     "description": "Dynamic range metric label"
   },
@@ -4898,7 +4898,7 @@
   "@downloadRedownloadFakeHiRes": {
     "description": "Setting title: automatically replace downloads that measure as fake Hi-Res"
   },
-  "downloadRedownloadFakeHiResSubtitle": "Dimatikan secara default. Memeriksa download Hi-Res dan menggantinya bila terdeteksi bukan kualitas Hi-Res. Tidak menghapus lagu bila verifikasi atau pemrosesan gagal.",
+  "downloadRedownloadFakeHiResSubtitle": "Dimatikan secara default. Memeriksa download Hi-Res dan menggantinya bila terdeteksi bukan kualitas Hi-Res. Tidak menghapus lagu bila verifikasi atau pemrosesan gagal",
   "@downloadRedownloadFakeHiResSubtitle": {
     "description": "Setting subtitle for the fake Hi-Res re-download toggle"
   },
@@ -4926,7 +4926,7 @@
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
-  "hiResCheckUltrasonicNoise": "Di atas {cutoff} hanya ada desis statis (mirip hasil rekam ulang kaset DSD/analog): file {rate} itu sudah cukup.",
+  "hiResCheckUltrasonicNoise": "Di atas {cutoff} hanya ada desis statis (mirip hasil rekam ulang kaset DSD/analog): file {rate} itu sudah cukup",
   "@hiResCheckUltrasonicNoise": {
     "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
     "placeholders": {
@@ -4962,11 +4962,11 @@
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "Cutoff rendah juga dapat berasal dari mastering. Bukan selalu hasil upsampling,",
+  "hiResCheckBandwidthExplanation": "Cutoff rendah juga dapat berasal dari mastering. Bukan selalu hasil upsampling.",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Hasil analisis dari {seconds} detik audio. Jangan gunakan hasil sebagai bukti keaslian. ",
+  "hiResCheckSampledExplanation": "Hasil analisis dari {seconds} detik audio. Jangan gunakan hasil sebagai bukti keaslian.",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -4975,7 +4975,7 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "Ada spektrum band yang saling berbalik yang mungkin ini hasil upsampling",
+  "hiResCheckImagingEvidence": "Ada spektrum band yang saling berbalik yang mungkin ini hasil upsampling.",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
@@ -5005,7 +5005,7 @@
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Memeriksa keaslian Hi-Res",
+  "hiResCheckChecking": "Memeriksa keaslian Hi-Res...",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },
@@ -5017,7 +5017,7 @@
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Kualitas biasa, tidak ada yang aneh.",
+  "hiResCheckVerdictStandard": "Kualitas biasa, tidak ada yang aneh",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
@@ -5352,7 +5352,7 @@
       }
     }
   },
-  "notifUpdateProgress": "{received}/{total}MB  • {percentage}%",
+  "notifUpdateProgress": "{received}/{total}MB • {percentage}%",
   "@notifUpdateProgress": {
     "description": "Notification body showing update download progress",
     "placeholders": {
@@ -5417,7 +5417,7 @@
   "@actionPaste": {
     "description": "Generic action - paste from clipboard"
   },
-  "tutorialSearchHint": "Tempel atau telusuri",
+  "tutorialSearchHint": "Tempel atau telusuri...",
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
@@ -5668,7 +5668,7 @@
   "@setupChangeFolderTooltip": {
     "description": "Tooltip for editing the selected download folder"
   },
-  "a11yOpenTrackByArtist": "Buka lagu {trackName} oleh ",
+  "a11yOpenTrackByArtist": "Buka lagu {trackName} oleh {artistName}",
   "@a11yOpenTrackByArtist": {
     "description": "Accessibility label for opening a track item",
     "placeholders": {
@@ -5777,7 +5777,7 @@
   "@settingsApp": {
     "description": "Settings menu item - app settings"
   },
-  "settingsAppSubtitle": "Update, data, repo ekstensi, debug",
+  "settingsAppSubtitle": "Update, data, repo, debug",
   "@settingsAppSubtitle": {
     "description": "Subtitle for app settings"
   },
@@ -5837,7 +5837,7 @@
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
   },
-  "editMetadataFieldDateHint": "HH-BB-TTTT atau TTTT",
+  "editMetadataFieldDateHint": "TTTT-BB-HH atau TTTT",
   "@editMetadataFieldDateHint": {
     "description": "Hint text for the edit metadata date field"
   },
@@ -5869,7 +5869,7 @@
   "@editMetadataFieldExplicit": {
     "description": "Label for the explicit content metadata field"
   },
-  "editMetadataFieldExplicitHint": "Tandai lagu bila mengandung konten eksplisit",
+  "editMetadataFieldExplicitHint": "Tandai lagu mengandung konten eksplisit",
   "@editMetadataFieldExplicitHint": {
     "description": "Description for the explicit content metadata switch"
   },
@@ -6396,7 +6396,7 @@
   "concertSetListButton": "Atur Daftar",
   "concertAddToCalendar": "Tambah ke Kalender",
   "concertOpenMaps": "Buka Maps",
-  "concertDetailsUnavailable": "Detail konser sekarang belum tersedia",
+  "concertDetailsUnavailable": "Detail konser sekarang belum tersedia.",
   "concertCalendarUnavailable": "Tidak dapat membuka kalender.",
   "nowPlayingAudioOutputUnavailable": "Tidak dapat membuka setelan output audio.",
   "@nowPlayingUpNext": {
@@ -6440,7 +6440,7 @@
   "@nowPlayingSleepTimerOff": {
     "description": "Action to cancel the active playback sleep timer"
   },
-  "nowPlayingSleepTimerSet": "Timer tidur diatur selama",
+  "nowPlayingSleepTimerSet": "Timer tidur diatur selama {duration}",
   "@nowPlayingSleepTimerSet": {
     "description": "Confirmation after setting the playback sleep timer",
     "placeholders": {
@@ -6668,7 +6668,7 @@
   "@trackConvertResamplerSoxr": {
     "description": "Lossless conversion SoX resampler option"
   },
-  "updateSeeReleaseNotes": "Lihat catatan yang baru untuk detail",
+  "updateSeeReleaseNotes": "Lihat catatan yang baru untuk detail.",
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },

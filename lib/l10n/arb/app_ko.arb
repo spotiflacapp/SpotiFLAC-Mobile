@@ -1,5 +1,5 @@
 {
-  "upgradeIntroWelcome": "SpotiFLAC Mobile 5.0\n에 오신 것을 환영 합니다",
+  "upgradeIntroWelcome": "SpotiFLAC Mobile 5.0\n에 오신 것을 환영합니다",
   "upgradeIntroThemeTitle": "나만의 스타일로\n꾸며보세요",
   "upgradeIntroThemeBody": "스타일을 선택하세요. 선택한 스타일은 즉시 적용되며, 나중에 디자인 설정에서 변경할 수 있습니다",
   "upgradeIntroThemeMaterialBody": "Material 디자인 컨트롤과 선택한 강조 색상이 적용된 익숙한 레이아웃",
@@ -255,11 +255,11 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "trackRemoveReplayGain": "Remove ReplayGain",
-  "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
-  "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
-  "replayGainRemoving": "Removing ReplayGain...",
-  "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
+  "trackRemoveReplayGain": "리플레이게인 제거",
+  "trackRemoveReplayGainSuccess": "리플레이게인 태그 제거됨",
+  "trackRemoveReplayGainFailed": "리플레이게인 태그 제거 실패",
+  "replayGainRemoving": "리플레이게인 제거 중...",
+  "replayGainRemoveConfirmMessage": "{count} 개의 트랙에서 트랙 및 앨범 리플레이게인 태그를 제거하시겠습니까? 오디오, 앨범 아트 및 기타 메타데이터는 보존됩니다",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
       "count": {
@@ -267,7 +267,7 @@
       }
     }
   },
-  "selectionRemoveReplayGainCount": "Remove RG ({count})",
+  "selectionRemoveReplayGainCount": "RG ({count}) 제거",
   "@selectionRemoveReplayGainCount": {
     "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
     "placeholders": {
@@ -276,7 +276,7 @@
       }
     }
   },
-  "replayGainRemoveBatchSuccess": "ReplayGain removed from {success} of {total} tracks",
+  "replayGainRemoveBatchSuccess": "{total} 개 중 {success} 개의 트랙에서 리플레이게인이 제거됨",
   "@replayGainRemoveBatchSuccess": {
     "placeholders": {
       "success": {
@@ -4942,23 +4942,23 @@
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "hiResCheckSummary": "스펙트럼과 활성 비트 깊이를 검사하여 업샘플링 또는 패딩의 징후를 확인합니다",
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
-  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "hiResCheckLimitedBandwidth": "대역폭이 제한됨",
   "@hiResCheckLimitedBandwidth": {
     "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
   },
-  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "hiResCheckNoEvidence": "업샘플링 또는 패딩이 감지되지 않음",
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "hiResCheckEstimatedCutoff": "추정되는 컷오프 주파수",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
-  "hiResCheckActiveBits": "Active / stored bits",
+  "hiResCheckActiveBits": "활성화된 / 저장된 비트",
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
@@ -6374,8 +6374,8 @@
     "description": "Tooltip for minimizing the now playing screen"
   },
   "nowPlayingUpNext": "다음 곡",
-  "nowPlayingAudioOutput": "Audio Output",
-  "nowPlayingWrittenBy": "Written by: {writers}",
+  "nowPlayingAudioOutput": "오디오 출력",
+  "nowPlayingWrittenBy": "작성자: {writers}",
   "@nowPlayingWrittenBy": {
     "placeholders": {
       "writers": {
@@ -6383,7 +6383,7 @@
       }
     }
   },
-  "nowPlayingLyricsProvider": "Lyrics: {provider}",
+  "nowPlayingLyricsProvider": "가사: {provider}",
   "@nowPlayingLyricsProvider": {
     "placeholders": {
       "provider": {
@@ -6391,14 +6391,14 @@
       }
     }
   },
-  "concertGetTickets": "Get Tickets",
-  "concertSetList": "Concert Set List",
-  "concertSetListButton": "Set List",
-  "concertAddToCalendar": "Add to Calendar",
-  "concertOpenMaps": "Open Maps",
-  "concertDetailsUnavailable": "Concert details are currently unavailable.",
-  "concertCalendarUnavailable": "Unable to open the calendar.",
-  "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
+  "concertGetTickets": "티켓 구매",
+  "concertSetList": "콘서트 셋 리스트",
+  "concertSetListButton": "셋 리스트",
+  "concertAddToCalendar": "캘린더에 추가",
+  "concertOpenMaps": "지도 열기",
+  "concertDetailsUnavailable": "콘서트 세부 정보를 현재 사용할 수 없습니다",
+  "concertCalendarUnavailable": "캘린더를 열 수 없습니다",
+  "nowPlayingAudioOutputUnavailable": "오디오 출력 설정을 열 수 없습니다",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
@@ -6466,18 +6466,18 @@
     "description": "Tab label for the lyrics view"
   },
   "nowPlayingNoLyrics": "이 파일에는 가사가 없음",
-  "nowPlayingInstrumental": "Instrumental",
+  "nowPlayingInstrumental": "연주곡",
   "@nowPlayingInstrumental": {
     "description": "Accessibility label for the three-dot countdown during an instrumental break before lyrics resume"
   },
-  "nowPlayingLyricsLanguageOptions": "Lyrics language options",
+  "nowPlayingLyricsLanguageOptions": "가시 언어 옵션",
   "@nowPlayingLyricsLanguageOptions": {
     "description": "Tooltip for the player menu that shows or hides existing lyric pronunciation and translation"
   },
-  "nowPlayingHidePronunciation": "Hide Pronunciation",
-  "nowPlayingShowPronunciation": "Show Pronunciation",
-  "nowPlayingHideTranslation": "Hide Translation",
-  "nowPlayingShowTranslation": "Show Translation",
+  "nowPlayingHidePronunciation": "발음 숨기기",
+  "nowPlayingShowPronunciation": "발음 표시",
+  "nowPlayingHideTranslation": "번역 숨기기",
+  "nowPlayingShowTranslation": "번역 표시",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },
@@ -6942,9 +6942,9 @@
   "profileRemovePhoto": "사진 삭제",
   "profilePhotoError": "20MB보다 작은 유효한 이미지를 선택하세요",
   "profileSaveError": "프로필을 저장할 수 없습니다. 다시 시도하세요",
-  "artistUpcomingConcerts": "Upcoming Concerts",
-  "artistAllUpcomingConcerts": "All Upcoming Concerts",
-  "artistNoUpcomingConcerts": "No upcoming concerts.",
+  "artistUpcomingConcerts": "예정된 콘서트",
+  "artistAllUpcomingConcerts": "모든 예정된 콘서트",
+  "artistNoUpcomingConcerts": "예정된 콘서트가 없습니다",
   "optionsEmbeddedCoverSizeOriginal": "원본 해상도",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

@@ -5,9 +5,9 @@
   "upgradeIntroThemeMaterialBody": "Привычный интерфейс с элементами Material и вашим акцентным цветом.",
   "upgradeIntroThemeMornyeBody": "Эффект стекла в навигации, обновленная медиатека и плеер с эффектом погружения.",
   "upgradeIntroRustTitle": "Новый движок построенный на Rust.",
-  "upgradeIntroRustBody": "В 5.0 бэкенд приложения переехал из Go to Rust. Это движок, работающий за экранами, которые вы используете каждый день.",
-  "upgradeIntroRustEngineTitle": "Работа за сценой",
-  "upgradeIntroRustEngineBody": "Rust обеспечивает обработку загрузок, аудиометаданных, сканирование библиотек и выполнение расширений на Android и iOS.",
+  "upgradeIntroRustBody": "В 5.0 бэкенд приложения переехал из Go to Rust. Это движок, работающий за экраном, который вы используете каждый день.",
+  "upgradeIntroRustEngineTitle": "Работа за кулисами",
+  "upgradeIntroRustEngineBody": "Rust обеспечивает обработку загрузок, аудиометаданных, сканирование медиатеки и выполнение расширений на Android и iOS.",
   "upgradeIntroRustMemoryTitle": "Больше осторожности с памятью",
   "upgradeIntroRustMemoryBody": "Повторное использование буферов и сокращение количества копий позволяют уменьшить количество временных выделений памяти при обработке графических объектов и данных расширений.",
   "upgradeIntroRustKeepTitle": "Keep your music",
@@ -255,10 +255,10 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "trackRemoveReplayGain": "Remove ReplayGain",
-  "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
+  "trackRemoveReplayGain": "Удалить ReplayGain",
+  "trackRemoveReplayGainSuccess": "Теги ReplayGain удалены",
   "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
-  "replayGainRemoving": "Removing ReplayGain...",
+  "replayGainRemoving": "Удаление ReplayGain...",
   "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
@@ -350,7 +350,7 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsExtensionStore": "Репозиторий расширения",
+  "optionsExtensionStore": "Репозиторий расширений",
   "@optionsExtensionStore": {
     "description": "Show/hide repo tab"
   },
@@ -423,7 +423,7 @@
   "@extensionsUninstall": {
     "description": "Uninstall extension button"
   },
-  "storeTitle": "Репозиторий расширения",
+  "storeTitle": "Репозиторий расширений",
   "@storeTitle": {
     "description": "Repo screen title"
   },
@@ -551,7 +551,7 @@
   "@aboutSquiglyDesc": {
     "description": "Credit for the Squigly resolver"
   },
-  "aboutAppDescription": "Ищите метаданных музыки, управляйте расширениями и организуйте свою библиотеку.",
+  "aboutAppDescription": "Ищите метаданных музыки, управляйте расширениями и организуйте свою медиатеку.",
   "@aboutAppDescription": {
     "description": "App description in header card"
   },
@@ -1004,7 +1004,7 @@
       }
     }
   },
-  "snackbarAlreadyInLibrary": "\"{trackName}\" уже есть в вашей библиотеке",
+  "snackbarAlreadyInLibrary": "\"{trackName}\" уже есть в вашей медиатеке",
   "@snackbarAlreadyInLibrary": {
     "description": "Snackbar - track already exists in local library",
     "placeholders": {
@@ -1074,7 +1074,7 @@
       }
     }
   },
-  "snackbarExtensionUpdated": "{extensionName} Обновлено.",
+  "snackbarExtensionUpdated": "{extensionName} обновлён.",
   "@snackbarExtensionUpdated": {
     "description": "Snackbar - extension updated successfully",
     "placeholders": {
@@ -2293,7 +2293,7 @@
   "@concurrentDownloadsOne": {
     "description": "Concurrent downloads option - sequential"
   },
-  "concurrentDownloadsCount": "До {count} {count, plural, one {трек} few {трека} many {треков} other{треков}} одновременно",
+  "concurrentDownloadsCount": "До {count} {count, plural, one {трек} other{треков}} одновременно",
   "@concurrentDownloadsCount": {
     "description": "Concurrent downloads option - parallel",
     "placeholders": {
@@ -2607,7 +2607,7 @@
   "@libraryScanSettings": {
     "description": "Section header for scan settings"
   },
-  "libraryEnableLocalLibrary": "Включить локальную библиотеку",
+  "libraryEnableLocalLibrary": "Включить локальную медиатеку",
   "@libraryEnableLocalLibrary": {
     "description": "Toggle to enable library scanning"
   },
@@ -2615,7 +2615,7 @@
   "@libraryEnableLocalLibrarySubtitle": {
     "description": "Subtitle for enable toggle"
   },
-  "libraryFolder": "Папка библиотеки",
+  "libraryFolder": "Папка медиатеки",
   "@libraryFolder": {
     "description": "Folder selection setting"
   },
@@ -2623,7 +2623,7 @@
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
-  "libraryAddFolder": "Добавить папку библиотеки",
+  "libraryAddFolder": "Добавить папку медиатеки",
   "@libraryAddFolder": {
     "description": "Action to add another local library source"
   },
@@ -2662,7 +2662,7 @@
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },
-  "libraryRemoveFolder": "Удалить папку библиотеки",
+  "libraryRemoveFolder": "Удалить папку медиатеки",
   "@libraryRemoveFolder": {
     "description": "Action to remove one indexed library source"
   },
@@ -2682,7 +2682,7 @@
   "@libraryAutoScan": {
     "description": "Setting for automatic library scanning"
   },
-  "libraryAutoScanSubtitle": "Автоматически сканировать библиотеку на новые файлы",
+  "libraryAutoScanSubtitle": "Автоматически сканировать медиатеку на новые файлы",
   "@libraryAutoScanSubtitle": {
     "description": "Subtitle for auto scan setting"
   },
@@ -2706,7 +2706,7 @@
   "@libraryActions": {
     "description": "Section header for library actions"
   },
-  "libraryScan": "Сканировать библиотеку",
+  "libraryScan": "Сканировать медиатеку",
   "@libraryScan": {
     "description": "Button to start library scan"
   },
@@ -2726,7 +2726,7 @@
   "@libraryCleanupMissingFilesSubtitle": {
     "description": "Subtitle for cleanup button"
   },
-  "libraryClear": "Очистить библиотеку",
+  "libraryClear": "Очистить медиатеку",
   "@libraryClear": {
     "description": "Button to clear all library entries"
   },
@@ -2734,15 +2734,15 @@
   "@libraryClearSubtitle": {
     "description": "Subtitle for clear button"
   },
-  "libraryClearConfirmTitle": "Очистить библиотеку",
+  "libraryClearConfirmTitle": "Очистить медиатеку",
   "@libraryClearConfirmTitle": {
     "description": "Dialog title for clear confirmation"
   },
-  "libraryClearConfirmMessage": "Это удалит все сканированные треки из вашей библиотеки. Ваши фактические файлы не будут удалены.",
+  "libraryClearConfirmMessage": "Это удалит все сканированные треки из вашей медиатеки. Ваши фактические файлы не будут удалены.",
   "@libraryClearConfirmMessage": {
     "description": "Dialog message for clear confirmation"
   },
-  "libraryAbout": "О локальной библиотеке",
+  "libraryAbout": "О локальной медиатеке",
   "@libraryAbout": {
     "description": "Section header for about info"
   },
@@ -2801,11 +2801,11 @@
       }
     }
   },
-  "libraryInLibrary": "В библиотеке",
+  "libraryInLibrary": "В медиатеке",
   "@libraryInLibrary": {
     "description": "Badge shown on tracks that exist in local library"
   },
-  "libraryRemovedMissingFiles": "Удалено {count} {count, plural, one{отсутствующий файл} few{трека} many{отсутствующих файлов} other{отсутствующих файлов}} в библиотеке",
+  "libraryRemovedMissingFiles": "Удалено {count} {count, plural, one{отсутствующий файл} few{трека} many{отсутствующих файлов} other{отсутствующих файлов}} в медиатеке",
   "@libraryRemovedMissingFiles": {
     "description": "Snackbar after cleanup",
     "placeholders": {
@@ -2822,7 +2822,7 @@
   "@libraryStorageAccessRequired": {
     "description": "Dialog title for storage permission"
   },
-  "libraryStorageAccessMessage": "SpotiFLAC требуется доступ к хранилищу для сканирования вашей библиотеки музыки. Пожалуйста, предоставьте разрешение в настройках.",
+  "libraryStorageAccessMessage": "SpotiFLAC требуется доступ к хранилищу для сканирования вашей медиатеки. Пожалуйста, предоставьте разрешение в настройках.",
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
@@ -3142,7 +3142,7 @@
   "@cacheCoverImageDesc": {
     "description": "Description of what cover image cache contains"
   },
-  "cacheLibraryCover": "Кэш обложек библиотеки",
+  "cacheLibraryCover": "Кэш обложек медиатеки",
   "@cacheLibraryCover": {
     "description": "Cache item title for local library cover art images"
   },
@@ -3182,7 +3182,7 @@
   "@cacheTrackLookupDesc": {
     "description": "Description of what track lookup cache contains"
   },
-  "cacheCleanupUnusedDesc": "Удалить записи из истории загрузок и библиотеки, которые остались без файлов.",
+  "cacheCleanupUnusedDesc": "Удалить записи из истории загрузок и медиатеки, которые остались без файлов.",
   "@cacheCleanupUnusedDesc": {
     "description": "Description of what cleanup unused data does"
   },
@@ -3258,11 +3258,11 @@
   "@cacheCleanupUnused": {
     "description": "Action title for cleaning unused entries"
   },
-  "cacheCleanupUnusedSubtitle": "Удалить историю загрузок, оставшихся без просмотра, и отсутствующие записи в библиотеке",
+  "cacheCleanupUnusedSubtitle": "Удалить историю загрузок, оставшихся без просмотра, и отсутствующие записи в медиатеке",
   "@cacheCleanupUnusedSubtitle": {
     "description": "Subtitle for cleanup unused data action"
   },
-  "cacheCleanupResult": "Очистка завершена: {downloadCount} потерянных загрузок, {libraryCount} отсутствующих записей в библиотеке",
+  "cacheCleanupResult": "Очистка завершена: {downloadCount} потерянных загрузок, {libraryCount} отсутствующих записей в медиатеке",
   "@cacheCleanupResult": {
     "description": "Snackbar after unused data cleanup",
     "placeholders": {
@@ -3937,7 +3937,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmKeepOriginal": "Конвертировать {count} {count, plural, one {трек} few {трека} many {треков} =1{трек} other{треков}} в {format}?\n\nОригинальные файлы будут храниться и преобразовываться как отдельные элементы библиотеки.",
+  "selectionBatchConvertConfirmKeepOriginal": "Конвертировать {count} {count, plural, one {трек} few {трека} many {треков} =1{трек} other{треков}} в {format}?\n\nОригинальные файлы будут храниться и преобразовываться как отдельные элементы медиатеки.",
   "@selectionBatchConvertConfirmKeepOriginal": {
     "description": "Batch conversion confirmation when source files will be preserved",
     "placeholders": {
@@ -4079,7 +4079,7 @@
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
-  "settingsBackupSubtitle": "Переместить свою библиотеку, историю и настройки на новое устройство",
+  "settingsBackupSubtitle": "Переместить свою медиатеку, историю и настройки на новое устройство",
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
@@ -4103,7 +4103,7 @@
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
-  "backupImportSectionDescription": "Выберите файл резервной копии для восстановления данных. Это заменит текущие настройки, историю и библиотеку на этом устройстве.",
+  "backupImportSectionDescription": "Выберите файл резервной копии для восстановления данных. Это заменит текущие настройки, историю и медиатеку на этом устройстве.",
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
@@ -4153,7 +4153,7 @@
   },
   "backupSettingsOnly": "Только настройки",
   "backupSelectHistory": "История загрузок",
-  "backupSelectCollections": "Коллекции библиотеки",
+  "backupSelectCollections": "Коллекции медиатеки",
   "backupSelectCollectionsDescription": "Любимые треки, список желаний, любимые исполнители, плейлисты и обложки плейлистов.",
   "backupSelectExtensions": "Расширения и их настройки",
   "backupSelectedExportDescription": "Сохранить выбранные категории в файл резервной копии. Аудио файлы не включены.",
@@ -4898,7 +4898,7 @@
   "@downloadRedownloadFakeHiRes": {
     "description": "Setting title: automatically replace downloads that measure as fake Hi-Res"
   },
-  "downloadRedownloadFakeHiResSubtitle": "Off by default. Check Hi-Res downloads and replace only when every audio sample is preserved. Keep the original if verification or processing fails",
+  "downloadRedownloadFakeHiResSubtitle": "По умолчанию отключено. Установите флажок «Загрузки в высоком разрешении» и заменяйте файлы только в том случае, если сохранены все аудиосэмплы. Сохраняйте исходный файл, если проверка или обработка завершились неудачно",
   "@downloadRedownloadFakeHiResSubtitle": {
     "description": "Setting subtitle for the fake Hi-Res re-download toggle"
   },
@@ -5191,7 +5191,7 @@
       }
     }
   },
-  "notifAlreadyInLibrary": "Уже в библиотеке",
+  "notifAlreadyInLibrary": "Уже в медиатеке",
   "@notifAlreadyInLibrary": {
     "description": "Notification title when track is already in library"
   },
@@ -5269,7 +5269,7 @@
       }
     }
   },
-  "notifScanningLibrary": "Сканирование локальной библиотеки",
+  "notifScanningLibrary": "Сканирование локальной медиатеки",
   "@notifScanningLibrary": {
     "description": "Notification title while scanning local library"
   },
@@ -5300,7 +5300,7 @@
       }
     }
   },
-  "notifLibraryScanComplete": "Сканирование библиотеки завершено",
+  "notifLibraryScanComplete": "Сканирование медиатеки завершено",
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },
@@ -5331,11 +5331,11 @@
       }
     }
   },
-  "notifLibraryScanFailed": "Ошибка сканирования библиотеки",
+  "notifLibraryScanFailed": "Ошибка сканирования медиатеки",
   "@notifLibraryScanFailed": {
     "description": "Notification title when library scan fails"
   },
-  "notifLibraryScanCancelled": "Сканирование библиотеки отменено",
+  "notifLibraryScanCancelled": "Сканирование медиатеки отменено",
   "@notifLibraryScanCancelled": {
     "description": "Notification title when library scan is cancelled by the user"
   },
@@ -5757,11 +5757,11 @@
   "@settingsFilesSubtitle": {
     "description": "Subtitle for files & folders settings"
   },
-  "settingsMetadata": "Metadata",
+  "settingsMetadata": "Метаданные",
   "@settingsMetadata": {
     "description": "Settings menu item - metadata settings"
   },
-  "settingsMetadataSubtitle": "Cover art, tags, ReplayGain, providers",
+  "settingsMetadataSubtitle": "Обложки, теги, ReplayGain, провайдеры",
   "@settingsMetadataSubtitle": {
     "description": "Subtitle for metadata settings"
   },
@@ -5773,11 +5773,11 @@
   "@settingsLyricsSubtitle": {
     "description": "Subtitle for lyrics settings"
   },
-  "settingsApp": "App",
+  "settingsApp": "Приложение",
   "@settingsApp": {
     "description": "Settings menu item - app settings"
   },
-  "settingsAppSubtitle": "Updates, data, extension repo, debug",
+  "settingsAppSubtitle": "Обновления, данные, репозиторий расширений и отладка",
   "@settingsAppSubtitle": {
     "description": "Subtitle for app settings"
   },
@@ -5829,11 +5829,11 @@
   "@trackOptionDownloadQualityVariant": {
     "description": "Track menu action to download another quality version"
   },
-  "downloadFallbackExtensions": "Fallback Extensions",
+  "downloadFallbackExtensions": "Резервные расширения",
   "@downloadFallbackExtensions": {
     "description": "Settings item for configuring fallback extension providers"
   },
-  "downloadFallbackExtensionsSubtitle": "Choose which extensions can be used as fallback",
+  "downloadFallbackExtensionsSubtitle": "Выберите, какие расширения будут использоваться как резервные",
   "@downloadFallbackExtensionsSubtitle": {
     "description": "Subtitle for fallback extensions item"
   },
@@ -5897,7 +5897,7 @@
   "@libraryFilterMetadataMissingDiscNumber": {
     "description": "Filter option - items missing disc number"
   },
-  "libraryFilterMetadataMissingArtist": "Missing artist",
+  "libraryFilterMetadataMissingArtist": "Отсутствует исполнитель",
   "@libraryFilterMetadataMissingArtist": {
     "description": "Filter option - items missing artist"
   },
@@ -6041,7 +6041,7 @@
       }
     }
   },
-  "storeRequiresVersion": "Requires v{version}+",
+  "storeRequiresVersion": "Требуется v{version}+",
   "@storeRequiresVersion": {
     "description": "Store compatibility badge for minimum app version",
     "placeholders": {
@@ -6693,7 +6693,7 @@
       }
     }
   },
-  "snackbarExtensionUpdatedVersion": "{extensionName} обновлено до v{version}",
+  "snackbarExtensionUpdatedVersion": "{extensionName} обновлён до v{version}",
   "@snackbarExtensionUpdatedVersion": {
     "description": "Snackbar after updating an extension from the repo tab",
     "placeholders": {
@@ -6799,7 +6799,7 @@
   "@extensionVerificationBrowserSubtitleInApp": {
     "description": "Subtitle when in-app browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserExternal": "External",
+  "extensionVerificationBrowserExternal": "Внешний",
   "@extensionVerificationBrowserExternal": {
     "description": "Chip label for external browser verification mode"
   },
@@ -6897,11 +6897,11 @@
   "@trackOptionCopyTrackAndArtist": {
     "description": "Track menu action that copies the track title and artist"
   },
-  "metadataCopyValue": "Copy value",
+  "metadataCopyValue": "Копировать значение",
   "@metadataCopyValue": {
     "description": "Metadata menu action that copies only the selected value"
   },
-  "metadataCopyField": "Copy field and value",
+  "metadataCopyField": "Копировать поле и значение",
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
@@ -6912,7 +6912,7 @@
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
   },
-  "optionsEmbeddedCoverSize": "Embedded Cover Size",
+  "optionsEmbeddedCoverSize": "Размер встраиваемой обложки",
   "@optionsEmbeddedCoverSize": {
     "description": "Metadata setting that limits downloaded artwork resolution before it is embedded"
   },

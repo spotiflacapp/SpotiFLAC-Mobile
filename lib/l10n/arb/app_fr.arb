@@ -6476,8 +6476,8 @@
   },
   "nowPlayingHidePronunciation": "Hide Pronunciation",
   "nowPlayingShowPronunciation": "Show Pronunciation",
-  "nowPlayingHideTranslation": "Hide Translation",
-  "nowPlayingShowTranslation": "Show Translation",
+  "nowPlayingHideTranslation": "Masquer la traduction",
+  "nowPlayingShowTranslation": "Afficher la traduction",
   "@nowPlayingNoLyrics": {
     "description": "Empty state when the playing file has no embedded lyrics"
   },

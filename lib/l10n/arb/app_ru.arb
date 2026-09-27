@@ -6093,7 +6093,7 @@
       }
     }
   },
-  "downloadNativeWorker": "Native download worker",
+  "downloadNativeWorker": "Нативный загрузчик",
   "@downloadNativeWorker": {
     "description": "Setting title for Android native download worker"
   },
@@ -6345,11 +6345,11 @@
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
-  "libraryExternalPlayerSubtitle": "Recommended for listening, best quality, gapless playback, EQ, and wider format support",
+  "libraryExternalPlayerSubtitle": "Рекомендуется для прослушивания, лучшее качество, воспроизведение без пауз, эквалайзер и поддержка более широкого спектра форматов",
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "Built-in preview player",
+  "libraryBuiltInPreviewPlayer": "Встроенный плеер для предпросмотра",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
@@ -6624,7 +6624,7 @@
   "@downloadAlbumArtistMetadataPrimaryOnly": {
     "description": "Status label when album-artist folder filtering uses primary artist only"
   },
-  "downloadAlbumArtistMetadataFull": "Album Artist metadata: Full",
+  "downloadAlbumArtistMetadataFull": "Метаданные исполнителя альбома: Полные",
   "@downloadAlbumArtistMetadataFull": {
     "description": "Status label when album-artist folder filtering uses full metadata"
   },
@@ -6791,11 +6791,11 @@
   "@extensionVerificationBrowserTitle": {
     "description": "Settings option title for extension verification browser preference"
   },
-  "extensionVerificationBrowserSubtitleExternal": "Open challenges in the default browser first",
+  "extensionVerificationBrowserSubtitleExternal": "Открывать верификацию в браузере по умолчанию",
   "@extensionVerificationBrowserSubtitleExternal": {
     "description": "Subtitle when external browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserSubtitleInApp": "Open challenges in the in-app browser first",
+  "extensionVerificationBrowserSubtitleInApp": "Открывать верификацию во внутреннем браузере",
   "@extensionVerificationBrowserSubtitleInApp": {
     "description": "Subtitle when in-app browser is preferred for extension verification"
   },

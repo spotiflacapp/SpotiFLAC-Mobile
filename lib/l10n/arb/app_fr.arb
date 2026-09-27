@@ -259,7 +259,7 @@
   "trackRemoveReplayGainSuccess": "Suppression des balises ReplayGain",
   "trackRemoveReplayGainFailed": "Impossible de supprimer les balises ReplayGain",
   "replayGainRemoving": "Suppression de ReplayGain...",
-  "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
+  "replayGainRemoveConfirmMessage": "Souhaitez-vous supprimer les balises ReplayGain des {count} titres ? Les données audio, les pochettes et les autres métadonnées seront conservées.",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
       "count": {
@@ -276,7 +276,7 @@
       }
     }
   },
-  "replayGainRemoveBatchSuccess": "ReplayGain removed from {success} of {total} tracks",
+  "replayGainRemoveBatchSuccess": "ReplayGain supprimé de {success} sur {total} titres",
   "@replayGainRemoveBatchSuccess": {
     "placeholders": {
       "success": {
@@ -4942,31 +4942,31 @@
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "hiResCheckSummary": "Vérifiez le spectre et la profondeur de bits active pour détecter d'éventuels signes de suréchantillonnage ou de remplissage.",
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
-  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "hiResCheckLimitedBandwidth": "Bande passante limitée",
   "@hiResCheckLimitedBandwidth": {
     "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
   },
-  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "hiResCheckNoEvidence": "Aucun suréchantillonnage ni remplissage détecté",
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "hiResCheckEstimatedCutoff": "Seuil estimé",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
-  "hiResCheckActiveBits": "Active / stored bits",
+  "hiResCheckActiveBits": "Bits actifs / stockés",
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "hiResCheckBandwidthExplanation": "Une fréquence de coupure inférieure peut résulter du mastering. Elle ne prouve pas, en soi, qu'il y a eu suréchantillonnage.",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "hiResCheckSampledExplanation": "Sur la base de {seconds} secondes d'enregistrement audio. Cette analyse ne permet pas de certifier l'authenticité de la source originale.",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -4975,11 +4975,11 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "hiResCheckImagingEvidence": "Le spectre présente des bandes symétriques, ce qui correspond à un suréchantillonnage.",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
-  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "hiResCheckRateEvidence": "Une forte atténuation en proximité de {cutoff} et le niveau de bruit de fond mesuré laissent supposer une source à faible débit.",
   "@hiResCheckRateEvidence": {
     "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
     "placeholders": {
@@ -6392,8 +6392,8 @@
     }
   },
   "concertGetTickets": "Acheter des billets",
-  "concertSetList": "Concert Set List",
-  "concertSetListButton": "Set List",
+  "concertSetList": "Liste des morceaux du concert",
+  "concertSetListButton": "Liste des morceaux",
   "concertAddToCalendar": "Ajouter au calendrier",
   "concertOpenMaps": "Ouvrir Maps",
   "concertDetailsUnavailable": "Les informations concernant le concert ne sont pas disponibles pour le moment.",

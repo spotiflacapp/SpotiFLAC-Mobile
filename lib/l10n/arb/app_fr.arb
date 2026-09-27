@@ -255,10 +255,10 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "trackRemoveReplayGain": "Remove ReplayGain",
-  "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
-  "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
-  "replayGainRemoving": "Removing ReplayGain...",
+  "trackRemoveReplayGain": "Supprimer ReplayGain",
+  "trackRemoveReplayGainSuccess": "Suppression des balises ReplayGain",
+  "trackRemoveReplayGainFailed": "Impossible de supprimer les balises ReplayGain",
+  "replayGainRemoving": "Suppression de ReplayGain...",
   "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
@@ -267,7 +267,7 @@
       }
     }
   },
-  "selectionRemoveReplayGainCount": "Remove RG ({count})",
+  "selectionRemoveReplayGainCount": "Supprimer RG ({count})",
   "@selectionRemoveReplayGainCount": {
     "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
     "placeholders": {
@@ -4988,7 +4988,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "hiResCheckSteadyEnergy": "L'énergie au-dessus de {cutoff} est globalement stable dans le segment analysé et pourrait correspondre à du bruit.",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -6374,8 +6374,8 @@
     "description": "Tooltip for minimizing the now playing screen"
   },
   "nowPlayingUpNext": "À suivre",
-  "nowPlayingAudioOutput": "Audio Output",
-  "nowPlayingWrittenBy": "Written by: {writers}",
+  "nowPlayingAudioOutput": "Sortie audio",
+  "nowPlayingWrittenBy": "Écrit par : {writers}",
   "@nowPlayingWrittenBy": {
     "placeholders": {
       "writers": {
@@ -6383,7 +6383,7 @@
       }
     }
   },
-  "nowPlayingLyricsProvider": "Lyrics: {provider}",
+  "nowPlayingLyricsProvider": "Paroles : {provider}",
   "@nowPlayingLyricsProvider": {
     "placeholders": {
       "provider": {
@@ -6391,14 +6391,14 @@
       }
     }
   },
-  "concertGetTickets": "Get Tickets",
+  "concertGetTickets": "Acheter des billets",
   "concertSetList": "Concert Set List",
   "concertSetListButton": "Set List",
-  "concertAddToCalendar": "Add to Calendar",
-  "concertOpenMaps": "Open Maps",
-  "concertDetailsUnavailable": "Concert details are currently unavailable.",
-  "concertCalendarUnavailable": "Unable to open the calendar.",
-  "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
+  "concertAddToCalendar": "Ajouter au calendrier",
+  "concertOpenMaps": "Ouvrir Maps",
+  "concertDetailsUnavailable": "Les informations concernant le concert ne sont pas disponibles pour le moment.",
+  "concertCalendarUnavailable": "Impossible d'ouvrir le calendrier.",
+  "nowPlayingAudioOutputUnavailable": "Impossible d'ouvrir les paramètres de sortie audio.",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
@@ -6470,12 +6470,12 @@
   "@nowPlayingInstrumental": {
     "description": "Accessibility label for the three-dot countdown during an instrumental break before lyrics resume"
   },
-  "nowPlayingLyricsLanguageOptions": "Lyrics language options",
+  "nowPlayingLyricsLanguageOptions": "Options de langue pour les paroles",
   "@nowPlayingLyricsLanguageOptions": {
     "description": "Tooltip for the player menu that shows or hides existing lyric pronunciation and translation"
   },
-  "nowPlayingHidePronunciation": "Hide Pronunciation",
-  "nowPlayingShowPronunciation": "Show Pronunciation",
+  "nowPlayingHidePronunciation": "Masquer la prononciation",
+  "nowPlayingShowPronunciation": "Afficher la prononciation",
   "nowPlayingHideTranslation": "Masquer la traduction",
   "nowPlayingShowTranslation": "Afficher la traduction",
   "@nowPlayingNoLyrics": {
@@ -6942,9 +6942,9 @@
   "profileRemovePhoto": "Supprimer la photo",
   "profilePhotoError": "Choisissez une image valide dont la taille est inférieure à 20 Mo.",
   "profileSaveError": "Impossible d'enregistrer votre profil. Veuillez réessayer.",
-  "artistUpcomingConcerts": "Upcoming Concerts",
-  "artistAllUpcomingConcerts": "All Upcoming Concerts",
-  "artistNoUpcomingConcerts": "No upcoming concerts.",
+  "artistUpcomingConcerts": "Prochains concerts",
+  "artistAllUpcomingConcerts": "Tous les concerts à venir",
+  "artistNoUpcomingConcerts": "Aucun concert prévu.",
   "optionsEmbeddedCoverSizeOriginal": "Résolution originale",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

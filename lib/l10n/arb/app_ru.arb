@@ -4370,7 +4370,7 @@
   "@downloadFilenameInsertTag": {
     "description": "Label above filename tag chips"
   },
-  "downloadSeparateSinglesEnabled": "Синглы и EP, сохраненные в отдельной папке",
+  "downloadSeparateSinglesEnabled": "Синглы и EP будут в отдельной папке",
   "@downloadSeparateSinglesEnabled": {
     "description": "Subtitle when separate singles folder is on"
   },
@@ -5179,7 +5179,7 @@
   "@notifEmbeddingMetadata": {
     "description": "Notification body while embedding metadata into a downloaded track"
   },
-  "notifAlreadyInLibraryCount": "Уже в библиотеке ({completed}/{total})",
+  "notifAlreadyInLibraryCount": "{completed} Уже в библиотеке ({completed}/{total})",
   "@notifAlreadyInLibraryCount": {
     "description": "Notification title when track is already in library, with count",
     "placeholders": {
@@ -6591,7 +6591,7 @@
   "@aboutPaxsenixSubtitle": {
     "description": "Subtitle for Paxsenix special thanks entry on the about page"
   },
-  "snackbarPlayingNext": "Следующий в очереди",
+  "snackbarPlayingNext": "Следующий",
   "@snackbarPlayingNext": {
     "description": "Snackbar when a track is inserted as the next queue item"
   },

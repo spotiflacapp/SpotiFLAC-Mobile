@@ -10,7 +10,7 @@
   "upgradeIntroRustEngineBody": "Rust обеспечивает обработку загрузок, аудиометаданных, сканирование медиатеки и выполнение расширений на Android и iOS.",
   "upgradeIntroRustMemoryTitle": "Больше осторожности с памятью",
   "upgradeIntroRustMemoryBody": "Повторное использование буферов и сокращение количества копий позволяют уменьшить количество временных выделений памяти при обработке графических объектов и данных расширений.",
-  "upgradeIntroRustKeepTitle": "Keep your music",
+  "upgradeIntroRustKeepTitle": "Вся ваша музыка останется с вами",
   "upgradeIntroRustKeepBody": "Скачивать медиатеку заново не придётся. Ваша музыка и настройки на месте, повторная настройка не нужна.",
   "upgradeIntroWelcomeBody": "Быстро расскажем, что изменилось и где это искать.",
   "upgradeIntroMornyeBody": "Новый облик плеера, экрана текстов песен и навигации.",
@@ -4234,7 +4234,7 @@
       }
     }
   },
-  "tooltipLoveAll": "Love All",
+  "tooltipLoveAll": "Лайкнуть всё",
   "@tooltipLoveAll": {
     "description": "Tooltip for the Love All button on album/playlist screens"
   },
@@ -4478,7 +4478,7 @@
   "@downloadAppleElrcWordSyncEnabled": {
     "description": "Subtitle when Apple Music eLRC word sync is enabled"
   },
-  "downloadAppleElrcWordSyncDisabled": "Safer line-by-line Apple Music lyrics",
+  "downloadAppleElrcWordSyncDisabled": "Более стабильные построчные тексты Apple Music",
   "@downloadAppleElrcWordSyncDisabled": {
     "description": "Subtitle when Apple Music eLRC word sync is disabled"
   },
@@ -4490,7 +4490,7 @@
   "@downloadMusixmatchLanguageAuto": {
     "description": "Subtitle when no language is set"
   },
-  "downloadFilterContributing": "Filter Contributing Artists",
+  "downloadFilterContributing": "Фильтр приглашённых исполнителей",
   "@downloadFilterContributing": {
     "description": "Setting to strip contributing artists from Album Artist folder name"
   },
@@ -4650,7 +4650,7 @@
       }
     }
   },
-  "editMetadataAutoFillNoneSelected": "Select at least one field to auto-fill",
+  "editMetadataAutoFillNoneSelected": "Выберите хотя бы одно поле для автозаполнения",
   "@editMetadataAutoFillNoneSelected": {
     "description": "Snackbar when user taps Fetch without selecting any fields"
   },
@@ -4741,7 +4741,7 @@
       }
     }
   },
-  "queueEmptyAlbums": "No album downloads",
+  "queueEmptyAlbums": "Нет скачанных альбомов",
   "@queueEmptyAlbums": {
     "description": "Empty state title when no album downloads exist"
   },

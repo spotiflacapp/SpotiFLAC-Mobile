@@ -58,7 +58,7 @@
   "upgradeIntroReplay": "What’s new in 5.0",
   "cacheMotionArtwork": "Offline motion covers",
   "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
-  "nowPlayingVolume": "Volume",
+  "nowPlayingVolume": "Ses",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
@@ -3722,7 +3722,7 @@
   "@collectionPlaylist": {
     "description": "Single playlist label"
   },
-  "collectionAddToPlaylist": "Add to playlist",
+  "collectionAddToPlaylist": "Çalma listesine ekle",
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
   },
@@ -5671,7 +5671,7 @@
   "@logIssueTrackNotFoundSuggestion": {
     "description": "Diagnostic badge suggestion when a track is unavailable"
   },
-  "clickableLookingUpArtist": "Looking up artist...",
+  "clickableLookingUpArtist": "Sanatçı aranıyor...",
   "@clickableLookingUpArtist": {
     "description": "Snackbar shown while clickable artist metadata is being resolved"
   },

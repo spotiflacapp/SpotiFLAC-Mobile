@@ -210,7 +210,7 @@
   "@appearanceDynamicColorSubtitle": {
     "description": "Subtitle for dynamic color"
   },
-  "appearanceHistoryView": "Tampilan Histori",
+  "appearanceHistoryView": "Tampilan Koleksi",
   "@appearanceHistoryView": {
     "description": "Layout style for history"
   },

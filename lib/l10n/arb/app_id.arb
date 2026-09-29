@@ -3174,7 +3174,7 @@
   "@cacheCoverImage": {
     "description": "Cache item title for persistent cover images"
   },
-  "cacheCoverImageDesc": "Foto cover album dan lagu yang terdownload. Akan didownload ulang bila dilihat.",
+  "cacheCoverImageDesc": "Foto cover album dan lagu yang didownload. Akan didownload ulang bila dilihat.",
   "@cacheCoverImageDesc": {
     "description": "Description of what cover image cache contains"
   },
@@ -3269,7 +3269,7 @@
   "@cacheClearConfirmTitle": {
     "description": "Dialog title before clearing one cache category"
   },
-  "cacheClearConfirmMessage": "Akan menghapus cache {target}. File musik terdownload tidak akan dihapus.",
+  "cacheClearConfirmMessage": "Akan menghapus cache {target}. Hasil download tidak akan dihapus.",
   "@cacheClearConfirmMessage": {
     "description": "Dialog message before clearing selected cache",
     "placeholders": {
@@ -3282,7 +3282,7 @@
   "@cacheClearAllConfirmTitle": {
     "description": "Dialog title before clearing all caches"
   },
-  "cacheClearAllConfirmMessage": "Akan menghapus semua jenis cache. File musik terdownload tidak akan dihapus.",
+  "cacheClearAllConfirmMessage": "Tindakan ini akan menghapus seluruh cache aplikasi yang ada. Hasil download tidak akan dihapus.",
   "@cacheClearAllConfirmMessage": {
     "description": "Dialog message before clearing all caches"
   },
@@ -4000,7 +4000,7 @@
       }
     }
   },
-  "downloadedAlbumDownloadedCount": "{count} terdownload",
+  "downloadedAlbumDownloadedCount": "{count} didownload",
   "@downloadedAlbumDownloadedCount": {
     "description": "Downloaded tracks count badge",
     "placeholders": {
@@ -4309,7 +4309,7 @@
       }
     }
   },
-  "homeSkipAlreadyDownloaded": "Lewati lagu terdownload",
+  "homeSkipAlreadyDownloaded": "Lewati yang sudah didownload",
   "@homeSkipAlreadyDownloaded": {
     "description": "Checkbox label in import dialog to skip already-downloaded songs"
   },
@@ -4354,7 +4354,7 @@
   "@noTracksFoundForAlbum": {
     "description": "Empty state message when an album has no tracks"
   },
-  "downloadLocationSubtitle": "Pilih lokasi penyimpanan lagu terdownload",
+  "downloadLocationSubtitle": "Pilih lokasi penyimpanan hasil download",
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
@@ -4777,7 +4777,7 @@
       }
     }
   },
-  "queueEmptyAlbums": "Tidak ada album terdownload",
+  "queueEmptyAlbums": "Tidak ada hasil download album",
   "@queueEmptyAlbums": {
     "description": "Empty state title when no album downloads exist"
   },
@@ -4785,11 +4785,11 @@
   "@queueEmptyAlbumsSubtitle": {
     "description": "Empty state subtitle for album downloads"
   },
-  "queueEmptySingles": "Tidak ada single terdownload",
+  "queueEmptySingles": "Tidak ada hasil download single",
   "@queueEmptySingles": {
     "description": "Empty state title when no single track downloads exist"
   },
-  "queueEmptySinglesSubtitle": "Lagu single terdownload akan muncul di sini",
+  "queueEmptySinglesSubtitle": "Hasil download single akan muncul di sini",
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
@@ -4818,7 +4818,7 @@
   "@queueEmptyHistory": {
     "description": "Empty state title when download history is empty"
   },
-  "queueEmptyHistorySubtitle": "Lagu yang terdownload akan muncul di sini",
+  "queueEmptyHistorySubtitle": "Hasil download lagu akan muncul di sini",
   "@queueEmptyHistorySubtitle": {
     "description": "Empty state subtitle for download history"
   },
@@ -5271,7 +5271,7 @@
   "@notifAllDownloadsComplete": {
     "description": "Notification title when all downloads finish successfully"
   },
-  "notifTracksDownloadedSuccess": "{count, plural, =1{1 lagu berhasil terdownload} other{{count} lagu berhasil terdownload}}",
+  "notifTracksDownloadedSuccess": "{count, plural, =1{1 lagu berhasil didownload} other{{count} lagu berhasil didownload}}",
   "@notifTracksDownloadedSuccess": {
     "description": "Notification body for queue complete - how many tracks were downloaded",
     "placeholders": {
@@ -5280,7 +5280,7 @@
       }
     }
   },
-  "notifDownloadsFinishedBody": "{completed, plural, =1{1 lagu terdownload} other{{completed} lagu terdownload}}, {failed, plural, =1{1 gagal} other{{failed} gagal}}",
+  "notifDownloadsFinishedBody": "{completed, plural, =1{1 lagu didownload} other{{completed} lagu didownload}}, {failed, plural, =1{1 gagal} other{{failed} gagal}}",
   "@notifDownloadsFinishedBody": {
     "description": "Notification body when queue finishes with failures",
     "placeholders": {
@@ -5407,7 +5407,7 @@
   "@notifUpdateReady": {
     "description": "Notification title when app update download is complete"
   },
-  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} terdownload. Ketuk untuk instal.",
+  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} didownload. Ketuk untuk instal.",
   "@notifUpdateReadyBody": {
     "description": "Notification body when app update is ready to install",
     "placeholders": {
@@ -5578,11 +5578,11 @@
       }
     }
   },
-  "queueDownloadedFileMissing": "File terdownload hilang",
+  "queueDownloadedFileMissing": "Hasil download hilang",
   "@queueDownloadedFileMissing": {
     "description": "Accessibility label when a downloaded file is missing from disk"
   },
-  "queueCheckingDownloadedFile": "Memeriksa file terdownload...",
+  "queueCheckingDownloadedFile": "Memeriksa hasil download...",
   "@queueCheckingDownloadedFile": {
     "description": "Accessibility label while the app checks whether a just-completed download has appeared at its final path yet. Not about authentication or a download session."
   },
@@ -5837,7 +5837,7 @@
   "@metadataProvidersSubtitle": {
     "description": "Subtitle for metadata provider priority item"
   },
-  "downloadDeduplication": "Lewati Lagu Terdownload",
+  "downloadDeduplication": "Lewati Lagu yang Sudah Ada",
   "@downloadDeduplication": {
     "description": "Setting - skip tracks already in download history"
   },
@@ -6342,7 +6342,7 @@
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
-  "dialogDisableHistoryMessage": "Histori yang sudah ada akan dihapus. File terdownload akan tetap ada.",
+  "dialogDisableHistoryMessage": "Histori yang sudah ada akan dihapus. Hasil download akan tetap ada.",
   "@dialogDisableHistoryMessage": {
     "description": "Confirmation dialog message shown before disabling download history"
   },
@@ -6952,7 +6952,7 @@
   "@optionsEmbeddedCoverSize": {
     "description": "Metadata setting that limits downloaded artwork resolution before it is embedded"
   },
-  "optionsEmbeddedCoverSizeDescription": "Downscale foto cover terdownload sebelum menyematkannya. Foto yang berada di batasnya tidak akan dimodifikasi.",
+  "optionsEmbeddedCoverSizeDescription": "Turunkan kualitas foto cover sebelum menyematkannya. Foto yang berada di batas ukuran tidak akan dimodifikasi.",
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },

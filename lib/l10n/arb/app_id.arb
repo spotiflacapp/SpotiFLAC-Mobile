@@ -45,7 +45,7 @@
   "upgradeIntroRepoSummary": "Pilih sumber musik dan provider Anda melalui ekstensi.",
   "upgradeIntroLibraryTitle": "Mengenal Koleksi Anda.",
   "upgradeIntroLibraryBody": "Di tampilan Mornye, telusuri dengan kategori atau cari album Anda di Baru Ditambahkan.",
-  "upgradeIntroDownloadsBody": "Jeda dan coba lagi dari Download di kanan atas. Lagu yang terdownload akan muncul di Baru Ditambahkan.",
+  "upgradeIntroDownloadsBody": "Jeda dan coba lagi dari Download di kanan atas. Lagu yang didownload akan muncul di Baru Ditambahkan.",
   "upgradeIntroSearchBody": "Telusuri lagu tersimpan di sini. Tab Penelusuran kini dipisah dan ada di kanan Repo.",
   "upgradeIntroPlayerTitle": "Atur\npemutar Anda.",
   "upgradeIntroPlayerBody": "Anda dapat mengatur setelan tema dan pemutaran kapan saja. Atur saja di sini.",
@@ -57,7 +57,7 @@
   "upgradeIntroDone": "Mulai mendengarkan",
   "upgradeIntroReplay": "Yang baru di versi 5.0",
   "cacheMotionArtwork": "Cover bergerak offline",
-  "cacheMotionArtworkDesc": "Video album yang terdownload. Menghapusnya tidak akan menghapus file musik dan cover biasa.",
+  "cacheMotionArtworkDesc": "Video album yang didownload. Menghapusnya tidak akan menghapus file musik dan cover biasa.",
   "nowPlayingVolume": "Volume",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
@@ -259,7 +259,7 @@
   "@optionsEmbedLyrics": {
     "description": "Embed lyrics in audio files"
   },
-  "optionsEmbedLyricsSubtitle": "Simpan lirik berjalan dalam file lagu yang terdownload",
+  "optionsEmbedLyricsSubtitle": "Simpan lirik berjalan dalam file lagu yang didownload",
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
@@ -732,7 +732,7 @@
   "@setupStorageRequired": {
     "description": "Title when storage permission needed"
   },
-  "setupStorageDescription": "SpotiFLAC perlu akses penyimpanan untuk menyimpan file musik terdownload.",
+  "setupStorageDescription": "SpotiFLAC butuh akses penyimpanan untuk menyimpan hasil download Anda.",
   "@setupStorageDescription": {
     "description": "Explanation for storage permission"
   },
@@ -748,7 +748,7 @@
   "@setupFolderChoose": {
     "description": "Button to choose folder"
   },
-  "setupFolderDescription": "Pilih folder untuk menyimpan musik terdownload.",
+  "setupFolderDescription": "Pilih folder untuk menyimpan hasil download Anda.",
   "@setupFolderDescription": {
     "description": "Explanation for folder selection"
   },
@@ -932,7 +932,7 @@
       }
     }
   },
-  "collectionExportM3uNone": "Tidak ada file terdownload untuk diekspor",
+  "collectionExportM3uNone": "Tidak ada hasil download untuk diekspor",
   "@collectionExportM3uNone": {
     "description": "Snackbar when an M3U8 export finds no local files"
   },
@@ -1031,7 +1031,7 @@
       }
     }
   },
-  "snackbarAlreadyDownloaded": "\"{trackName}\" sudah terdownload",
+  "snackbarAlreadyDownloaded": "\"{trackName}\" sudah didownload",
   "@snackbarAlreadyDownloaded": {
     "description": "Snackbar - track already exists",
     "placeholders": {
@@ -1110,7 +1110,7 @@
       }
     }
   },
-  "snackbarExtensionUpdated": "{extensionName} terupdate.",
+  "snackbarExtensionUpdated": "{extensionName} diupdate.",
   "@snackbarExtensionUpdated": {
     "description": "Snackbar - extension updated successfully",
     "placeholders": {
@@ -1313,7 +1313,7 @@
   "@folderOrganizationByArtistAlbum": {
     "description": "Folder option - nested folders"
   },
-  "folderOrganizationDescription": "Atur file terdownload ke dalam folder",
+  "folderOrganizationDescription": "Atur hasil download ke dalam folder",
   "@folderOrganizationDescription": {
     "description": "Folder organization sheet description"
   },
@@ -1742,7 +1742,7 @@
   "@trackCopyright": {
     "description": "Metadata label - copyright information"
   },
-  "trackDownloaded": "Terdownload",
+  "trackDownloaded": "Didownload",
   "@trackDownloaded": {
     "description": "Metadata label - download date"
   },
@@ -1962,7 +1962,7 @@
   "@extensionRemoveButton": {
     "description": "Button to uninstall extension"
   },
-  "extensionUpdated": "Terupdate",
+  "extensionUpdated": "Diupdate",
   "@extensionUpdated": {
     "description": "Extension detail - last update"
   },
@@ -2141,7 +2141,7 @@
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadAutoConvert": "Ubah format setelah terdownload",
+  "downloadAutoConvert": "Ubah format setelah download",
   "@downloadAutoConvert": {
     "description": "Toggle for automatic post-download audio conversion"
   },
@@ -2571,7 +2571,7 @@
       }
     }
   },
-  "discographySkippedDownloaded": "{added} ditambahkan, {skipped} terdownload",
+  "discographySkippedDownloaded": "{added} ditambahkan, {skipped} didownload",
   "@discographySkippedDownloaded": {
     "description": "Snackbar - with skipped tracks count",
     "placeholders": {
@@ -2866,7 +2866,7 @@
   "@libraryFolderNotExist": {
     "description": "Error when folder doesn't exist"
   },
-  "librarySourceDownloaded": "Terdownload",
+  "librarySourceDownloaded": "Didownload",
   "@librarySourceDownloaded": {
     "description": "Badge for tracks downloaded via SpotiFLAC"
   },
@@ -2878,7 +2878,7 @@
   "@libraryFilterAll": {
     "description": "Filter chip - show all library items"
   },
-  "libraryFilterDownloaded": "Terdownload",
+  "libraryFilterDownloaded": "Didownload",
   "@libraryFilterDownloaded": {
     "description": "Filter chip - show only downloaded items"
   },
@@ -3036,7 +3036,7 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "Musik yang terdownload dan terpindai akan muncul di Koleksi Anda.",
+  "tutorialLibraryDesc": "Hasil download dan musik terpindai akan muncul di Koleksi Anda.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
@@ -3133,7 +3133,7 @@
   "@cacheSummaryTitle": {
     "description": "Heading for cache summary card"
   },
-  "cacheSummarySubtitle": "Membersihkan cache tidak menghapus file terdownload.",
+  "cacheSummarySubtitle": "Membersihkan cache tidak menghapus hasil download.",
   "@cacheSummarySubtitle": {
     "description": "Helper text for cache summary card"
   },
@@ -4099,7 +4099,7 @@
   "@safMigrationMessage2": {
     "description": "Second paragraph of SAF migration dialog"
   },
-  "safMigrationSuccess": "Folder download terupdate ke mode SAF",
+  "safMigrationSuccess": "Folder download diupdate ke mode SAF",
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
@@ -5545,7 +5545,7 @@
   "@editMetadataMusicBrainzButton": {
     "description": "Tag editor button that fills genre and album artist from MusicBrainz by ISRC"
   },
-  "editMetadataMusicBrainzFilled": "Terupdate dari MusicBrainz",
+  "editMetadataMusicBrainzFilled": "Diupdate dari MusicBrainz",
   "@editMetadataMusicBrainzFilled": {
     "description": "Snackbar after MusicBrainz suggestions were applied to the tag editor fields"
   },

@@ -984,7 +984,7 @@
       }
     }
   },
-  "duplicatesKeepBestMessage": "Delete {count} lower-quality copies of \"{trackName}\"?",
+  "duplicatesKeepBestMessage": "Видалити копії {count} низької якості \"{trackName}\"?",
   "@duplicatesKeepBestMessage": {
     "description": "Confirmation message for the keep-best action",
     "placeholders": {
@@ -996,7 +996,7 @@
       }
     }
   },
-  "duplicatesDeleteCopyMessage": "Delete this copy of \"{trackName}\"?",
+  "duplicatesDeleteCopyMessage": "Видалити цю копію \"{trackName}\"?",
   "@duplicatesDeleteCopyMessage": {
     "description": "Confirmation message for deleting one duplicate copy",
     "placeholders": {
@@ -1139,7 +1139,7 @@
   "@errorNoTracksFound": {
     "description": "Error - search returned no results"
   },
-  "searchEmptyResultSubtitle": "Try another keyword",
+  "searchEmptyResultSubtitle": "Спробуйте інше ключове слово",
   "@searchEmptyResultSubtitle": {
     "description": "Subtitle shown under the empty search result state on the home screen"
   },
@@ -1357,11 +1357,11 @@
   "@updateNewVersionReady": {
     "description": "Update subtitle"
   },
-  "updateRequiredTitle": "Update required",
+  "updateRequiredTitle": "Потрібне оновлення",
   "@updateRequiredTitle": {
     "description": "Title of the mandatory update dialog shown when the installed version is too old"
   },
-  "updateRequiredNotice": "This version is {count} releases behind and is no longer supported. Update to keep using the app.",
+  "updateRequiredNotice": "Ця версія {count} релізів і більше не підтримується. Оновіть, щоб користуватися додатком.",
   "@updateRequiredNotice": {
     "description": "Subtitle of the mandatory update dialog; explains why the dialog cannot be dismissed",
     "placeholders": {
@@ -1406,7 +1406,7 @@
   "@providerPriorityInfo": {
     "description": "Info tip about fallback behavior"
   },
-  "providerPriorityFallbackExtensionsDescription": "Choose which installed download extensions can be used during automatic fallback.",
+  "providerPriorityFallbackExtensionsDescription": "Виберіть, які встановлені розширення для завантаження можна використовувати як резервні.",
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
@@ -1600,7 +1600,7 @@
   "@settingsAppearanceSubtitle": {
     "description": "Appearance settings description"
   },
-  "settingsDownloadSubtitle": "Service, quality, fallback",
+  "settingsDownloadSubtitle": "Обслуговування, якість, резервний варіант",
   "@settingsDownloadSubtitle": {
     "description": "Download settings description"
   },
@@ -1706,15 +1706,15 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "trackReplayGainTrackGain": "ReplayGain: посилення для треку",
   "@trackReplayGainTrackGain": {
     "description": "Metadata label - ReplayGain track gain"
   },
-  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "trackReplayGainTrackPeak": "Піковий рівень треку ReplayGain",
   "@trackReplayGainTrackPeak": {
     "description": "Metadata label - ReplayGain track peak"
   },
-  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "trackReplayGainAlbumGain": "ReplayGain: посилення для альбому",
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
@@ -1722,7 +1722,7 @@
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
-  "libraryQualityLabelFileFormat": "File format",
+  "libraryQualityLabelFileFormat": "Формат файлу",
   "@libraryQualityLabelFileFormat": {
     "description": "Library audio quality label mode that shows the detected file format"
   },
@@ -2033,7 +2033,7 @@
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} extensions installed successfully",
+  "extensionsInstalledCount": "{count} розширення успішно встановлено",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -2043,7 +2043,7 @@
       }
     }
   },
-  "extensionsInstallPartialSuccess": "Installed {installed} of {attempted} extensions",
+  "extensionsInstallPartialSuccess": "Встановлено {installed} із {attempted} розширень",
   "@extensionsInstallPartialSuccess": {
     "description": "Message when installing multiple extensions partially succeeds",
     "placeholders": {
@@ -2141,39 +2141,39 @@
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
-  "downloadAutoConvert": "Auto-convert after download",
+  "downloadAutoConvert": "Автоматично конвертувати після завантаження",
   "@downloadAutoConvert": {
     "description": "Toggle for automatic post-download audio conversion"
   },
-  "downloadAutoConvertSubtitle": "Convert completed downloads to a smaller lossy format. The original is replaced only after conversion succeeds.",
+  "downloadAutoConvertSubtitle": "Конвертуйте завершені завантаження у компактніший формат із втратою якості. Оригінал замінюється лише після успішного завершення конвертації.",
   "@downloadAutoConvertSubtitle": {
     "description": "Explanation of safe automatic post-download conversion"
   },
-  "downloadAutoConvertFormat": "Output format",
+  "downloadAutoConvertFormat": "Вихідний формат",
   "@downloadAutoConvertFormat": {
     "description": "Automatic conversion output format setting"
   },
-  "downloadAutoConvertFormatSubtitle": "Choose the lossy format used for newly completed downloads.",
+  "downloadAutoConvertFormatSubtitle": "Виберіть формат з втратами, що використовуватиметься для щойно завершених завантажень.",
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
-  "downloadAutoConvertBitrate": "Output quality",
+  "downloadAutoConvertBitrate": "Якість передачі",
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
-  "downloadAutoConvertBitrateSubtitle": "Higher bitrates preserve more detail but create larger files.",
+  "downloadAutoConvertBitrateSubtitle": "Вища якість зберігає більше деталей, але створює більші файли.",
   "@downloadAutoConvertBitrateSubtitle": {
     "description": "Automatic conversion bitrate picker explanation"
   },
-  "downloadAutoConvertMp3Subtitle": "Best compatibility across players and devices",
+  "downloadAutoConvertMp3Subtitle": "Найкраща сумісність із програвачами та пристроями",
   "@downloadAutoConvertMp3Subtitle": {
     "description": "MP3 automatic conversion option description"
   },
-  "downloadAutoConvertM4aSubtitle": "Efficient AAC audio in an M4A container",
+  "downloadAutoConvertM4aSubtitle": "Ефективний звук у форматі AAC у контейнері M4A",
   "@downloadAutoConvertM4aSubtitle": {
     "description": "M4A AAC automatic conversion option description"
   },
-  "downloadAutoConvertOpusSubtitle": "Best efficiency for modern players",
+  "downloadAutoConvertOpusSubtitle": "Найвища ефективність для сучасних програвачів",
   "@downloadAutoConvertOpusSubtitle": {
     "description": "Opus automatic conversion option description"
   },
@@ -2181,7 +2181,7 @@
   "@downloadLossy320Format": {
     "description": "Title of the lossy format picker bottom sheet"
   },
-  "downloadLossy320FormatDesc": "Choose the output format for 320kbps lossy downloads. The original stream will be converted to your selected format when needed.",
+  "downloadLossy320FormatDesc": "Виберіть формат для завантаження з втратою якості 320kbps. За потреби вихідний потік буде конвертовано у вибраний вами формат.",
   "@downloadLossy320FormatDesc": {
     "description": "Description in the lossy format picker"
   },
@@ -2197,7 +2197,7 @@
   "@downloadLossyAac": {
     "description": "Lossy format option - AAC in M4A container at 320kbps"
   },
-  "downloadLossyAacSubtitle": "Best mobile compatibility, M4A container",
+  "downloadLossyAacSubtitle": "Найкраща сумісність із мобільними пристроями, контейнер M4A",
   "@downloadLossyAacSubtitle": {
     "description": "Subtitle for AAC/M4A 320kbps lossy option"
   },
@@ -2233,7 +2233,7 @@
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
-  "albumFolderStructureDescription": "Choose how album folders are structured",
+  "albumFolderStructureDescription": "Вибрати як структуруються теки альбому",
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },
@@ -2269,19 +2269,19 @@
   "@appearanceAmoledDarkSubtitle": {
     "description": "Subtitle for AMOLED dark"
   },
-  "appearanceHeroAnimations": "Hero animations",
+  "appearanceHeroAnimations": "Анімації головного елемента",
   "@appearanceHeroAnimations": {
     "description": "Toggle for shared-element (Hero) transitions"
   },
-  "appearanceHeroAnimationsSubtitle": "Fly covers between screens, e.g. when opening the player",
+  "appearanceHeroAnimationsSubtitle": "Анімація переходу між екранами, наприклад, під час відкриття плеєра",
   "@appearanceHeroAnimationsSubtitle": {
     "description": "Subtitle for the Hero animations toggle"
   },
-  "appearanceForceBlur": "Always use blur effects",
+  "appearanceForceBlur": "Завжди використовуйте ефекти розмиття",
   "@appearanceForceBlur": {
     "description": "Toggle that forces backdrop blur on even when the device profile disabled it"
   },
-  "appearanceForceBlurSubtitle": "Enable the navigation bar blur even on devices where it is off by default. May cost performance.",
+  "appearanceForceBlurSubtitle": "Увімкнути розмиття панелі навігації навіть на пристроях за замовчуванням. Це може вплинути на продуктивність.",
   "@appearanceForceBlurSubtitle": {
     "description": "Subtitle for the force-blur toggle"
   },
@@ -2317,19 +2317,19 @@
   "@settingsDownloadNetworkSubtitle": {
     "description": "Subtitle explaining network preference"
   },
-  "settingsConcurrentDownloads": "Concurrent downloads",
+  "settingsConcurrentDownloads": "Кількість одночасних завантажень",
   "@settingsConcurrentDownloads": {
     "description": "Setting title - how many tracks download at the same time"
   },
-  "settingsConcurrentDownloadsSubtitle": "Downloading several tracks at once is faster, but some providers may rate-limit parallel requests.",
+  "settingsConcurrentDownloadsSubtitle": "Завантаження кількох треків одночасно відбувається швидше, але деякі провайдери можуть обмежувати швидкість паралельних запитів.",
   "@settingsConcurrentDownloadsSubtitle": {
     "description": "Subtitle explaining the concurrent downloads picker"
   },
-  "concurrentDownloadsOne": "1 track at a time",
+  "concurrentDownloadsOne": "1 трек за один раз",
   "@concurrentDownloadsOne": {
     "description": "Concurrent downloads option - sequential"
   },
-  "concurrentDownloadsCount": "Up to {count} tracks at once",
+  "concurrentDownloadsCount": "До {count} треків одночасно",
   "@concurrentDownloadsCount": {
     "description": "Concurrent downloads option - parallel",
     "placeholders": {
@@ -2455,7 +2455,7 @@
   "@recentEmpty": {
     "description": "Empty state text for recent access list"
   },
-  "recentClearAllMessage": "Clear all recent activity? Download history and music files will not be deleted.",
+  "recentClearAllMessage": "Очистити всю нещодавню активність? Історію завантажень і музичні файли не буде видалено.",
   "@recentClearAllMessage": {
     "description": "Confirmation message before clearing all recent activity"
   },
@@ -2659,27 +2659,27 @@
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
-  "libraryAddFolder": "Add library folder",
+  "libraryAddFolder": "Додати теку бібліотеки",
   "@libraryAddFolder": {
     "description": "Action to add another local library source"
   },
-  "libraryAddFolderSubtitle": "Internal storage, SD card, SSD, or another external drive",
+  "libraryAddFolderSubtitle": "Внутрішня пам’ять, SD-карта, SSD або інший зовнішній накопичувач",
   "@libraryAddFolderSubtitle": {
     "description": "Supported storage locations for local library sources"
   },
-  "librarySourceOnline": "Online",
+  "librarySourceOnline": "Онлайн",
   "@librarySourceOnline": {
     "description": "Library source is connected and accessible"
   },
-  "librarySourceOffline": "Offline. Reconnect the storage to restore these tracks",
+  "librarySourceOffline": "Офлайн. Знову приєднайте сховище, щоб відновити ці треки",
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
-  "librarySourceDisabled": "Disabled",
+  "librarySourceDisabled": "Вимкнути",
   "@librarySourceDisabled": {
     "description": "Library source has been disabled by the user"
   },
-  "librarySourceScanCount": "{scanned} of {total} files scanned ({progress}%)",
+  "librarySourceScanCount": "{scanned} Of {total} файлів проскановано ({progress}%)",
   "@librarySourceScanCount": {
     "description": "Live progress for one library folder scan",
     "placeholders": {
@@ -2694,7 +2694,7 @@
       }
     }
   },
-  "libraryExternalStorage": "External storage",
+  "libraryExternalStorage": "Зовнішнє сховище",
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },

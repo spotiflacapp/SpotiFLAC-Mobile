@@ -1,8 +1,8 @@
 {
   "settingsPlaybackSubtitle": "Player, volume, AutoMix, and audio output",
-  "sectionPlayer": "Player",
-  "sectionVolumeAndTransitions": "Volume and transitions",
-  "sectionAudioOutput": "Audio output",
+  "sectionPlayer": "Плеєр",
+  "sectionVolumeAndTransitions": "Обсяг та переходи",
+  "sectionAudioOutput": "Аудіо вихід",
   "usbBitPerfect": "Hi-res and bit-perfect audio",
   "usbBitPerfectDescription": "Preserve source precision on compatible outputs. Choose direct USB or AAudio exclusive below; otherwise Android USB output requires Android 14 or later. Applies from the next track, without AutoMix or normalization. System volume may not control direct USB.",
   "usbHardwareVolume": "DAC hardware volume",

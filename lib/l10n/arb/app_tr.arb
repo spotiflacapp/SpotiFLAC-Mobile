@@ -64,13 +64,13 @@
   },
   "appearanceStyle": "App Style",
   "appearanceAccentRed": "Red (default)",
-  "appearanceAccentOrange": "Orange",
-  "appearanceAccentGreen": "Green",
+  "appearanceAccentOrange": "Turuncu",
+  "appearanceAccentGreen": "Yeşil",
   "appearanceAccentTeal": "Teal",
-  "appearanceAccentBlue": "Blue",
-  "appearanceAccentPurple": "Purple",
-  "appearanceAccentPink": "Pink",
-  "appearanceUseSystemFont": "Use system font",
+  "appearanceAccentBlue": "Mavi",
+  "appearanceAccentPurple": "Mor",
+  "appearanceAccentPink": "Pembe",
+  "appearanceUseSystemFont": "Sistem yazı tipini kullan",
   "appearanceUseSystemFontSubtitle": "Use your device’s default typeface for app text.",
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
@@ -2157,7 +2157,7 @@
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
-  "downloadAutoConvertBitrate": "Output quality",
+  "downloadAutoConvertBitrate": "Çıktı kalitesi",
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
@@ -2694,7 +2694,7 @@
       }
     }
   },
-  "libraryExternalStorage": "External storage",
+  "libraryExternalStorage": "Harici depolama",
   "@libraryExternalStorage": {
     "description": "Label for a removable or external library source"
   },
@@ -2817,7 +2817,7 @@
   "@libraryLastScannedNever": {
     "description": "Shown when library has never been scanned"
   },
-  "libraryScanning": "Scanning...",
+  "libraryScanning": "Taranıyor...",
   "@libraryScanning": {
     "description": "Status during scan"
   },
@@ -2866,7 +2866,7 @@
   "@libraryFolderNotExist": {
     "description": "Error when folder doesn't exist"
   },
-  "librarySourceDownloaded": "Downloaded",
+  "librarySourceDownloaded": "İndirildi",
   "@librarySourceDownloaded": {
     "description": "Badge for tracks downloaded via SpotiFLAC"
   },
@@ -2874,7 +2874,7 @@
   "@librarySourceLocal": {
     "description": "Badge for tracks from local library scan"
   },
-  "libraryFilterAll": "All",
+  "libraryFilterAll": "Tümü",
   "@libraryFilterAll": {
     "description": "Filter chip - show all library items"
   },

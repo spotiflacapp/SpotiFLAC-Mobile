@@ -70,6 +70,23 @@
   "appearanceAccentBlue": "Blue",
   "appearanceAccentPurple": "Purple",
   "appearanceAccentPink": "Pink",
+  "appearanceGlassClarity": "Glass clarity",
+  "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
+  "appearanceGlassTinted": "Tinted",
+  "appearanceGlassClear": "Clear",
+  "appearanceGlassClarityBlurOff": "Glass is opaque on this device. Turn on “{setting}” to adjust clarity.",
+  "@appearanceGlassClarityBlurOff": {
+    "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
+    "placeholders": {
+      "setting": {
+        "type": "String"
+      }
+    }
+  },
+  "appearanceGlassClarityHighContrast": "Glass stays opaque while the system’s high contrast setting is on.",
+  "@appearanceGlassClarityHighContrast": {
+    "description": "Shown under the disabled glass clarity slider while the OS high contrast accessibility setting is on"
+  },
   "appearanceUseSystemFont": "Use system font",
   "appearanceUseSystemFontSubtitle": "Use your device’s default typeface for app text.",
   "@appearanceStyle": {
@@ -385,6 +402,14 @@
   "optionsArtistTagModeSplitVorbisSubtitle": "为 FLAC 和 Opus 的每位艺人各写入一个艺人标签；MP3 和 M4A 保持合并",
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
+  },
+  "optionsArtistTagModePrimary": "Primary artist only",
+  "@optionsArtistTagModePrimary": {
+    "description": "Artist tag mode option that writes only the first credited artist"
+  },
+  "optionsArtistTagModePrimarySubtitle": "Write only the first artist, like \"Artist A\", to Artist and Album Artist in every format, so players list one artist.",
+  "@optionsArtistTagModePrimarySubtitle": {
+    "description": "Subtitle for the primary-artist tag mode. Applies when downloading and re-enriching; manual edits keep what the user typed."
   },
   "optionsExtensionStore": "扩展仓库",
   "@optionsExtensionStore": {
@@ -1544,6 +1569,8 @@
   "@sectionLyrics": {
     "description": "Settings section header"
   },
+  "lyricsKeepScreenOn": "Keep screen on while viewing lyrics",
+  "lyricsKeepScreenOnSubtitle": "Prevent screen timeout while lyrics are open, including when playback is paused.",
   "lyricsMode": "Lyrics Mode",
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
@@ -2824,6 +2851,10 @@
   "libraryScanFinalizing": "Finalizing library...",
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
+  },
+  "libraryScanPaused": "Scan paused",
+  "@libraryScanPaused": {
+    "description": "Status shown while a library scan is paused by the user"
   },
   "libraryScanProgress": "{progress}% of {total} files",
   "@libraryScanProgress": {
@@ -5378,6 +5409,19 @@
   "notifLibraryScanStopped": "Scan stopped before completion.",
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
+  },
+  "notifLibraryScanPaused": "Library scan paused",
+  "@notifLibraryScanPaused": {
+    "description": "Notification title when the user pauses a library scan"
+  },
+  "notifLibraryScanPausedBody": "{count} files scanned. Resume in Local Library settings to continue from here.",
+  "@notifLibraryScanPausedBody": {
+    "description": "Notification body for a paused library scan - files scanned so far",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "notifDownloadingUpdate": "Downloading SpotiFLAC Mobile v{version}",
   "@notifDownloadingUpdate": {

@@ -6965,6 +6965,10 @@
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
+  "libraryFilterMetadataMissingReplayGain": "Missing ReplayGain",
+  "@libraryFilterMetadataMissingReplayGain": {
+    "description": "Filter option for scanned tracks without ReplayGain gain tags"
+  },
   "trackOptionCopyTrackName": "Salin nama lagu",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"

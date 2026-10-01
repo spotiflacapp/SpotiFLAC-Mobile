@@ -70,11 +70,11 @@
   "appearanceAccentBlue": "Bleu",
   "appearanceAccentPurple": "Violet",
   "appearanceAccentPink": "Rose",
-  "appearanceGlassClarity": "Glass clarity",
-  "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
-  "appearanceGlassTinted": "Tinted",
-  "appearanceGlassClear": "Clear",
-  "appearanceGlassClarityBlurOff": "Glass is opaque on this device. Turn on “{setting}” to adjust clarity.",
+  "appearanceGlassClarity": "Transparence du verre",
+  "appearanceGlassClaritySubtitle": "Régler la transparence des menus et de la navigation dans Mornye. Le contraste du texte est conservé.",
+  "appearanceGlassTinted": "Teinté",
+  "appearanceGlassClear": "Effacer",
+  "appearanceGlassClarityBlurOff": "Le verre est opaque sur cet appareil. Activez « {setting} » pour régler la transparence.",
   "@appearanceGlassClarityBlurOff": {
     "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
     "placeholders": {
@@ -83,7 +83,7 @@
       }
     }
   },
-  "appearanceGlassClarityHighContrast": "Glass stays opaque while the system’s high contrast setting is on.",
+  "appearanceGlassClarityHighContrast": "Le verre reste opaque lorsque le réglage « contraste élevé » du système est activé.",
   "@appearanceGlassClarityHighContrast": {
     "description": "Shown under the disabled glass clarity slider while the OS high contrast accessibility setting is on"
   },
@@ -403,11 +403,11 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsArtistTagModePrimary": "Primary artist only",
+  "optionsArtistTagModePrimary": "Artiste principal uniquement",
   "@optionsArtistTagModePrimary": {
     "description": "Artist tag mode option that writes only the first credited artist"
   },
-  "optionsArtistTagModePrimarySubtitle": "Write only the first artist, like \"Artist A\", to Artist and Album Artist in every format, so players list one artist.",
+  "optionsArtistTagModePrimarySubtitle": "Dans tous les formats, indiquez uniquement le premier artiste (par exemple « Artiste A ») dans les champs « Artiste » et « Artiste de l'album », afin que les lecteurs n'affichent qu'un seul artiste.",
   "@optionsArtistTagModePrimarySubtitle": {
     "description": "Subtitle for the primary-artist tag mode. Applies when downloading and re-enriching; manual edits keep what the user typed."
   },
@@ -1569,8 +1569,8 @@
   "@sectionLyrics": {
     "description": "Settings section header"
   },
-  "lyricsKeepScreenOn": "Keep screen on while viewing lyrics",
-  "lyricsKeepScreenOnSubtitle": "Prevent screen timeout while lyrics are open, including when playback is paused.",
+  "lyricsKeepScreenOn": "Garder l'écran allumé pendant l'affichage des paroles",
+  "lyricsKeepScreenOnSubtitle": "Empêcher la mise en veille de l'écran lorsque les paroles sont affichées, y compris lorsque la lecture est en pause.",
   "lyricsMode": "Mode Paroles",
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
@@ -2852,7 +2852,7 @@
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
-  "libraryScanPaused": "Scan paused",
+  "libraryScanPaused": "Numérisation en pause",
   "@libraryScanPaused": {
     "description": "Status shown while a library scan is paused by the user"
   },
@@ -5410,11 +5410,11 @@
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
   },
-  "notifLibraryScanPaused": "Library scan paused",
+  "notifLibraryScanPaused": "La numérisation de la bibliothèque est en pause",
   "@notifLibraryScanPaused": {
     "description": "Notification title when the user pauses a library scan"
   },
-  "notifLibraryScanPausedBody": "{count} files scanned. Resume in Local Library settings to continue from here.",
+  "notifLibraryScanPausedBody": "{count} fichiers analysés. Rendez-vous dans les paramètres de la bibliothèque locale pour reprendre à partir de là.",
   "@notifLibraryScanPausedBody": {
     "description": "Notification body for a paused library scan - files scanned so far",
     "placeholders": {
@@ -6965,7 +6965,7 @@
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
-  "libraryFilterMetadataMissingReplayGain": "Missing ReplayGain",
+  "libraryFilterMetadataMissingReplayGain": "ReplayGain manquant",
   "@libraryFilterMetadataMissingReplayGain": {
     "description": "Filter option for scanned tracks without ReplayGain gain tags"
   },

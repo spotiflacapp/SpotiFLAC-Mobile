@@ -2,13 +2,13 @@
   "settingsPlaybackSubtitle": "Player, volume, AutoMix, and audio output",
   "sectionPlayer": "Player",
   "sectionVolumeAndTransitions": "Volume and transitions",
-  "sectionAudioOutput": "Audio output",
+  "sectionAudioOutput": "Audio-Output",
   "usbBitPerfect": "Hi-res and bit-perfect audio",
   "usbBitPerfectDescription": "Preserve source precision on compatible outputs. Choose direct USB or AAudio exclusive below; otherwise Android USB output requires Android 14 or later. Applies from the next track, without AutoMix or normalization. System volume may not control direct USB.",
   "usbHardwareVolume": "DAC hardware volume",
   "usbVolumeWarningTitle": "Check your listening volume",
   "usbVolumeWarning": "Direct USB audio can be much louder than normal playback, and phone volume buttons may not control it. Lower your DAC or amplifier volume before starting. When supported, SpotiFLAC sets the DAC to at most −40 dB on connection; this does not guarantee a safe listening level on every amplifier or headphone.",
-  "usbVolumeAccept": "I understand",
+  "usbVolumeAccept": "Verstanden",
   "usbVolumeUnavailable": "Playback is paused because this DAC has no verified hardware volume control. Lower the DAC or amplifier volume, then enable fixed-volume output if needed and select the track again.",
   "usbFixedVolume": "Allow fixed-volume USB output",
   "usbFixedVolumeDescription": "For DACs without a volume control accessible to the app. Keep off for USB headsets without their own volume control. Applies from the next track.",
@@ -52,28 +52,28 @@
   "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
   "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
   "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
-  "upgradeIntroSkip": "Skip",
-  "upgradeIntroContinue": "Continue",
+  "upgradeIntroSkip": "Überspringen",
+  "upgradeIntroContinue": "Fortfahren",
   "upgradeIntroDone": "Start listening",
   "upgradeIntroReplay": "What’s new in 5.0",
   "cacheMotionArtwork": "Offline motion covers",
   "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
-  "nowPlayingVolume": "Volume",
+  "nowPlayingVolume": "Lautstärke",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
-  "appearanceStyle": "App Style",
+  "appearanceStyle": "App-Stil",
   "appearanceAccentRed": "Red (default)",
   "appearanceAccentOrange": "Orange",
-  "appearanceAccentGreen": "Green",
-  "appearanceAccentTeal": "Teal",
-  "appearanceAccentBlue": "Blue",
-  "appearanceAccentPurple": "Purple",
+  "appearanceAccentGreen": "Grün",
+  "appearanceAccentTeal": "Türkis",
+  "appearanceAccentBlue": "Blau",
+  "appearanceAccentPurple": "Lila",
   "appearanceAccentPink": "Pink",
   "appearanceGlassClarity": "Glass clarity",
   "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
-  "appearanceGlassTinted": "Tinted",
-  "appearanceGlassClear": "Clear",
+  "appearanceGlassTinted": "Eingefärbt",
+  "appearanceGlassClear": "klar",
   "appearanceGlassClarityBlurOff": "Glass is opaque on this device. Turn on “{setting}” to adjust clarity.",
   "@appearanceGlassClarityBlurOff": {
     "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
@@ -965,7 +965,7 @@
   "@collectionExportM3uFailed": {
     "description": "Snackbar when writing or sharing the M3U8 export fails"
   },
-  "trackOpenOn": "Open on...",
+  "trackOpenOn": "Öffnen in…",
   "@trackOpenOn": {
     "description": "Track option and sheet title listing streaming platforms where the track can be opened"
   },
@@ -981,7 +981,7 @@
   "@libraryReviewDuplicatesSubtitle": {
     "description": "Subtitle for the duplicate review settings row"
   },
-  "duplicatesTitle": "Duplicates",
+  "duplicatesTitle": "Duplikate",
   "@duplicatesTitle": {
     "description": "Title of the duplicate review sheet"
   },
@@ -989,7 +989,7 @@
   "@duplicatesEmpty": {
     "description": "Shown when the duplicate review sheet finds nothing"
   },
-  "duplicatesKeepBest": "Keep best",
+  "duplicatesKeepBest": "Behalte das Beste",
   "@duplicatesKeepBest": {
     "description": "Button that deletes all but the highest-quality copy in a duplicate group"
   },
@@ -1877,7 +1877,7 @@
   "@storeFilterDownload": {
     "description": "Repo filter - download providers"
   },
-  "storeFilterUtility": "Utility",
+  "storeFilterUtility": "Hilfsmittel",
   "@storeFilterUtility": {
     "description": "Repo filter - utility extensions"
   },
@@ -2702,7 +2702,7 @@
   "@librarySourceOffline": {
     "description": "Library source is temporarily disconnected"
   },
-  "librarySourceDisabled": "Disabled",
+  "librarySourceDisabled": "Deaktiviert",
   "@librarySourceDisabled": {
     "description": "Library source has been disabled by the user"
   },
@@ -3397,7 +3397,7 @@
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackReEnrichModeIsrc": "ISRC only",
+  "trackReEnrichModeIsrc": "Nur ISRC",
   "@trackReEnrichModeIsrc": {
     "description": "Batch metadata mode that only writes ISRC"
   },
@@ -4194,7 +4194,7 @@
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
-  "backupRestoreConfirmButton": "Restore",
+  "backupRestoreConfirmButton": "Wiederherstellen",
   "@backupRestoreConfirmButton": {
     "description": "Confirm button to proceed with restore"
   },
@@ -4837,11 +4837,11 @@
   "@queueEmptyPlaylistsSubtitle": {
     "description": "Empty state subtitle for the playlists library view"
   },
-  "libraryDefaultView": "Default view",
+  "libraryDefaultView": "Standardansicht",
   "@libraryDefaultView": {
     "description": "Setting title - which library view opens when switching to the Library tab"
   },
-  "libraryDefaultViewLastUsed": "Last used",
+  "libraryDefaultViewLastUsed": "Zuletzt verwendet",
   "@libraryDefaultViewLastUsed": {
     "description": "Default view option - keep the last used library view"
   },
@@ -4945,7 +4945,7 @@
   "@audioAnalysisSpectralCutoff": {
     "description": "Estimated spectral cutoff metric label"
   },
-  "audioAnalysisCutoffNotDetected": "Not detected",
+  "audioAnalysisCutoffNotDetected": "Nicht erkannt",
   "@audioAnalysisCutoffNotDetected": {
     "description": "Displayed when no reliable broadband spectral cutoff can be detected"
   },
@@ -5068,7 +5068,7 @@
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
   },
-  "hiResCheckRun": "Check",
+  "hiResCheckRun": "Überprüfen",
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
@@ -5577,11 +5577,11 @@
   "@queueDownloadNext": {
     "description": "Tooltip on a queued download row; moves the item to the front of the queue so the next free slot downloads it"
   },
-  "queueMoveUp": "Move up",
+  "queueMoveUp": "Nach oben",
   "@queueMoveUp": {
     "description": "Queue item menu action - move the queued item one position earlier"
   },
-  "queueMoveDown": "Move down",
+  "queueMoveDown": "Nach unten",
   "@queueMoveDown": {
     "description": "Queue item menu action - move the queued item one position later"
   },
@@ -5601,7 +5601,7 @@
   "@editMetadataMusicBrainzNeedsIsrc": {
     "description": "Snackbar when the MusicBrainz lookup is tapped without an ISRC"
   },
-  "nowPlayingRepeatOff": "Repeat off",
+  "nowPlayingRepeatOff": "Wiederholen deaktivieren",
   "@nowPlayingRepeatOff": {
     "description": "Repeat toggle tooltip when repeat is disabled"
   },
@@ -5937,7 +5937,7 @@
   "@editMetadataFieldComment": {
     "description": "Label for comment field in the edit metadata sheet"
   },
-  "trackAlbumType": "Release Type",
+  "trackAlbumType": "Veröffentlichungstyp",
   "@trackAlbumType": {
     "description": "Label for an album or release type metadata value"
   },
@@ -5945,7 +5945,7 @@
   "@editMetadataFieldAlbumTypeHint": {
     "description": "Hint for the release type metadata field"
   },
-  "editMetadataFieldExplicit": "Explicit",
+  "editMetadataFieldExplicit": "Anstößig",
   "@editMetadataFieldExplicit": {
     "description": "Label for the explicit content metadata field"
   },
@@ -5953,7 +5953,7 @@
   "@editMetadataFieldExplicitHint": {
     "description": "Description for the explicit content metadata switch"
   },
-  "metadataExplicitValue": "Explicit",
+  "metadataExplicitValue": "Anstößig",
   "@metadataExplicitValue": {
     "description": "Displayed value when a track is marked explicit"
   },
@@ -5985,7 +5985,7 @@
   "@libraryFilterMetadataIncorrectIsrcFormat": {
     "description": "Filter option - items with an invalid ISRC format"
   },
-  "libraryFilterMetadataMissingIsrc": "Missing ISRC",
+  "libraryFilterMetadataMissingIsrc": "Fehlendes ISRC",
   "@libraryFilterMetadataMissingIsrc": {
     "description": "Filter option - items without any ISRC tag"
   },
@@ -6345,7 +6345,7 @@
   "@storeCategoryDownload": {
     "description": "Store extension category - download"
   },
-  "storeCategoryUtility": "Utility",
+  "storeCategoryUtility": "Hilfsmittel",
   "@storeCategoryUtility": {
     "description": "Store extension category - utility"
   },
@@ -6357,7 +6357,7 @@
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
-  "artistReleases": "Releases",
+  "artistReleases": "Veröffentlichungen",
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },
@@ -6402,11 +6402,11 @@
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
-  "shareSheetNotFound": "Not found",
+  "shareSheetNotFound": "Nicht gefunden",
   "@shareSheetNotFound": {
     "description": "Cross-service share sheet row subtitle when a service has no match"
   },
-  "shareSheetCopyLink": "Copy Link",
+  "shareSheetCopyLink": "Link kopieren",
   "@shareSheetCopyLink": {
     "description": "Tooltip for copying a cross-service link"
   },
@@ -6417,7 +6417,7 @@
       "service": {}
     }
   },
-  "libraryPlayback": "Playback",
+  "libraryPlayback": "Wiedergabe",
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
@@ -6449,12 +6449,12 @@
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
-  "nowPlayingMinimize": "Minimize",
+  "nowPlayingMinimize": "Minimieren",
   "@nowPlayingMinimize": {
     "description": "Tooltip for minimizing the now playing screen"
   },
-  "nowPlayingUpNext": "Up next",
-  "nowPlayingAudioOutput": "Audio Output",
+  "nowPlayingUpNext": "Als Nächstes",
+  "nowPlayingAudioOutput": "Audio-Output",
   "nowPlayingWrittenBy": "Written by: {writers}",
   "@nowPlayingWrittenBy": {
     "placeholders": {
@@ -6475,7 +6475,7 @@
   "concertSetList": "Concert Set List",
   "concertSetListButton": "Set List",
   "concertAddToCalendar": "Add to Calendar",
-  "concertOpenMaps": "Open Maps",
+  "concertOpenMaps": "Karte öffnen",
   "concertDetailsUnavailable": "Concert details are currently unavailable.",
   "concertCalendarUnavailable": "Unable to open the calendar.",
   "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
@@ -6716,7 +6716,7 @@
   "@trackConvertOriginalQuality": {
     "description": "Label when no bit depth or sample rate cap is applied during lossless conversion"
   },
-  "trackConvertLosslessSuffix": "Lossless",
+  "trackConvertLosslessSuffix": "Verlustfrei",
   "@trackConvertLosslessSuffix": {
     "description": "Suffix used in converted lossless quality labels"
   },
@@ -6760,7 +6760,7 @@
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
-  "trackAddToQueue": "Add to queue",
+  "trackAddToQueue": "Zur Warteschlange hinzufügen",
   "@trackAddToQueue": {
     "description": "Menu action to add a track to the playback queue"
   },
@@ -6811,23 +6811,23 @@
   "@releaseTypeSingle": {
     "description": "Badge label for single releases"
   },
-  "trackCoverOnline": "Online cover",
+  "trackCoverOnline": "Online-Cover",
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },
-  "regionCountryUS": "United States",
+  "regionCountryUS": "Vereinigte Staaten",
   "@regionCountryUS": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryGB": "United Kingdom",
+  "regionCountryGB": "Vereinigtes Königreich",
   "@regionCountryGB": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryFR": "France",
+  "regionCountryFR": "Frankreich",
   "@regionCountryFR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryDE": "Germany",
+  "regionCountryDE": "Deutschland",
   "@regionCountryDE": {
     "description": "Country name for SongLink region picker"
   },
@@ -6843,23 +6843,23 @@
   "@regionCountryIN": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryID": "Indonesia",
+  "regionCountryID": "Indonesien",
   "@regionCountryID": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryBR": "Brazil",
+  "regionCountryBR": "Brasilien",
   "@regionCountryBR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryMX": "Mexico",
+  "regionCountryMX": "Mexiko",
   "@regionCountryMX": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryAU": "Australia",
+  "regionCountryAU": "Australien",
   "@regionCountryAU": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryCA": "Canada",
+  "regionCountryCA": "Kanada",
   "@regionCountryCA": {
     "description": "Country name for SongLink region picker"
   },
@@ -6879,11 +6879,11 @@
   "@extensionVerificationBrowserSubtitleInApp": {
     "description": "Subtitle when in-app browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserExternal": "External",
+  "extensionVerificationBrowserExternal": "Extern",
   "@extensionVerificationBrowserExternal": {
     "description": "Chip label for external browser verification mode"
   },
-  "extensionVerificationBrowserInApp": "In-app",
+  "extensionVerificationBrowserInApp": "In-App",
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },
@@ -6916,7 +6916,7 @@
   "@extensionVerificationClose": {
     "description": "Button to dismiss the extension verification help dialog"
   },
-  "extensionVerificationCopyLink": "Copy link",
+  "extensionVerificationCopyLink": "Link kopieren",
   "@extensionVerificationCopyLink": {
     "description": "Button to copy the extension verification URL"
   },
@@ -6924,7 +6924,7 @@
   "@extensionVerificationLinkCopied": {
     "description": "Snackbar after copying the extension verification URL"
   },
-  "extensionVerificationOpenBrowser": "Open browser",
+  "extensionVerificationOpenBrowser": "Browser öffnen",
   "@extensionVerificationOpenBrowser": {
     "description": "Button to open the extension verification URL in a browser"
   },
@@ -6965,6 +6965,10 @@
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
+  "libraryFilterMetadataMissingReplayGain": "Missing ReplayGain",
+  "@libraryFilterMetadataMissingReplayGain": {
+    "description": "Filter option for scanned tracks without ReplayGain gain tags"
+  },
   "trackOptionCopyTrackName": "Copy track name",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
@@ -6985,8 +6989,8 @@
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "mornyeShowTabs": "Show tabs",
-  "mornyeSearch": "Search",
+  "mornyeShowTabs": "Tabs anzeigen",
+  "mornyeSearch": "Suche",
   "mornyeContinuePlaying": "Continue Playing",
   "metadataCopyAll": "Copy all metadata",
   "@metadataCopyAll": {
@@ -7000,12 +7004,12 @@
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "mornyeFavorite": "Favorite",
+  "mornyeFavorite": "Favorit",
   "mornyeGoToArtist": "Go to Artist",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
-  "mornyeFavorited": "Favorited",
+  "mornyeFavorited": "Favorisiert",
   "@mornyeFavorited": {
     "description": "Selected state of the compact favorite action"
   },
@@ -7015,12 +7019,12 @@
   "autoplayOn": "Autoplay on",
   "autoplayOff": "Autoplay off",
   "autoplayFromLibrary": "Autoplay from your Library",
-  "profileTitle": "Profile",
+  "profileTitle": "Profil",
   "profileSetUp": "Set up your profile",
   "profileEdit": "Edit name and photo",
   "backupIncludesProfile": "Includes your profile name and photo",
   "profileName": "Name",
-  "profileNameHint": "Your name",
+  "profileNameHint": "Dein Name",
   "profileChangePhoto": "Choose photo",
   "profileRemovePhoto": "Remove photo",
   "profilePhotoError": "Choose a valid image smaller than 20 MB.",

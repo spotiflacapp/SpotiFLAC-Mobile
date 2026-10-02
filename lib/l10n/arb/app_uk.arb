@@ -3067,19 +3067,19 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "Завантажену та локально засканований музику впорядковано у вашій бібліотеці.",
+  "tutorialLibraryDesc": "Завантажену та локально заскановану музику впорядковано у вашій бібліотеці.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },
-  "tutorialLibraryTip1": "Manage active, pending, and completed downloads from the Library queue",
+  "tutorialLibraryTip1": "Керуйте активними, очікуваними та завершеними завантаженнями в черзі бібліотеки",
   "@tutorialLibraryTip1": {
     "description": "Tutorial library tip 1"
   },
-  "tutorialLibraryTip2": "Tap a track to play it with the built-in player",
+  "tutorialLibraryTip2": "Торкніться треку, щоб відтворити його за допомогою вбудованого програвача",
   "@tutorialLibraryTip2": {
     "description": "Tutorial library tip 2"
   },
-  "tutorialLibraryTip3": "Browse tracks, albums, and playlists in list or grid views",
+  "tutorialLibraryTip3": "Переглядайте треки, альбоми та списки відтворення у списку або в сітках перегляду",
   "@tutorialLibraryTip3": {
     "description": "Tutorial library tip 3"
   },
@@ -3087,7 +3087,7 @@
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
-  "tutorialExtensionsDesc": "Extensions add search, download, metadata, lyrics, and other integrations.",
+  "tutorialExtensionsDesc": "Розширення додають функції пошуку, завантаження, роботи з метаданими, тексти пісень та інші інтеграції.",
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
@@ -3095,11 +3095,11 @@
   "@tutorialExtensionsTip1": {
     "description": "Tutorial extensions tip 1"
   },
-  "tutorialExtensionsTip2": "Choose providers for search, downloads, metadata, and fallbacks",
+  "tutorialExtensionsTip2": "Виберіть провайдерів для пошуку, завантаження, метаданих і резервних варіантів",
   "@tutorialExtensionsTip2": {
     "description": "Tutorial extensions tip 2"
   },
-  "tutorialExtensionsTip3": "Connect accounts when required and keep extensions up to date",
+  "tutorialExtensionsTip3": "Підключайте облікові записи за потреби та підтримуйте розширення в актуальному стані",
   "@tutorialExtensionsTip3": {
     "description": "Tutorial extensions tip 3"
   },
@@ -3107,7 +3107,7 @@
   "@tutorialSettingsTitle": {
     "description": "Tutorial settings page title"
   },
-  "tutorialSettingsDesc": "Fine-tune downloads, playback, Library behavior, appearance, and storage.",
+  "tutorialSettingsDesc": "Налаштуйте параметри завантаження, відтворення, роботи з бібліотекою, зовнішнього вигляду та зберігання.",
   "@tutorialSettingsDesc": {
     "description": "Tutorial settings page description"
   },
@@ -3115,7 +3115,7 @@
   "@tutorialSettingsTip1": {
     "description": "Tutorial settings tip 1"
   },
-  "tutorialSettingsTip2": "Set quality, concurrency, filenames, and conversion preferences",
+  "tutorialSettingsTip2": "Налаштуйте параметри якості, паралельної обробки, імен файлів та конвертації",
   "@tutorialSettingsTip2": {
     "description": "Tutorial settings tip 2"
   },
@@ -3123,7 +3123,7 @@
   "@tutorialSettingsTip3": {
     "description": "Tutorial settings tip 3"
   },
-  "tutorialReadyMessage": "You're ready. Select your extensions, then search or paste a supported link.",
+  "tutorialReadyMessage": "Ви готові. Виберіть розширення, а потім виконайте пошук або вставте підтримуване посилання.",
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
@@ -3217,19 +3217,19 @@
   "@cacheLibraryCoverDesc": {
     "description": "Description of what library cover cache contains"
   },
-  "libraryPlaybackNormalization": "Volume normalization",
+  "libraryPlaybackNormalization": "Нормалізація звуку",
   "@libraryPlaybackNormalization": {
     "description": "Toggle title for ReplayGain playback normalization in the built-in player"
   },
-  "libraryPlaybackNormalizationSubtitle": "Even out loudness between tracks using their ReplayGain or R128 tags, when present",
+  "libraryPlaybackNormalizationSubtitle": "Вирівнюйте гучність між треками, використовуючи теги ReplayGain або R128 за їх наявності",
   "@libraryPlaybackNormalizationSubtitle": {
     "description": "Subtitle explaining playback volume normalization"
   },
-  "cacheAudioAnalysis": "Audio analysis cache",
+  "cacheAudioAnalysis": "Кеш аудіо аналізу",
   "@cacheAudioAnalysis": {
     "description": "Cache item title for saved audio analysis results"
   },
-  "cacheAudioAnalysisDesc": "Saved spectrograms and analysis results. Will re-analyze on next open.",
+  "cacheAudioAnalysisDesc": "Збережено спектрограми та результати аналізу. Повторний аналіз буде виконано під час наступного відкриття.",
   "@cacheAudioAnalysisDesc": {
     "description": "Description of what audio analysis cache contains"
   },
@@ -3365,7 +3365,7 @@
   "@trackReEnrichOnlineSubtitle": {
     "description": "Subtitle for re-enrich metadata action for local items"
   },
-  "trackReEnrichBatchSubtitle": "Choose an online or manual update, then review every change before writing",
+  "trackReEnrichBatchSubtitle": "Виберіть онлайн оновлення або оновлення вручну, а потім перегляньте всі зміни перед записом",
   "@trackReEnrichBatchSubtitle": {
     "description": "Subtitle for batch metadata update choices"
   },
@@ -3397,31 +3397,31 @@
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackReEnrichModeIsrc": "ISRC only",
+  "trackReEnrichModeIsrc": "Тільки ISRC",
   "@trackReEnrichModeIsrc": {
     "description": "Batch metadata mode that only writes ISRC"
   },
-  "trackReEnrichModeIsrcSubtitle": "Find and add the recording identifier without changing other tags",
+  "trackReEnrichModeIsrcSubtitle": "Знайдіть і додайте ідентифікатор запису, не змінюючи інших міток",
   "@trackReEnrichModeIsrcSubtitle": {
     "description": "Explanation for the ISRC-only batch metadata mode"
   },
-  "trackReEnrichModeMissing": "Fill missing tags",
+  "trackReEnrichModeMissing": "Заповнити відсутні теги",
   "@trackReEnrichModeMissing": {
     "description": "Batch metadata mode that fills only empty tags"
   },
-  "trackReEnrichModeMissingSubtitle": "Keep existing values and fill only fields that are empty",
+  "trackReEnrichModeMissingSubtitle": "Зберігати наявні значення та заповнювати тільки поля, які є порожніми",
   "@trackReEnrichModeMissingSubtitle": {
     "description": "Explanation for the fill-missing batch metadata mode"
   },
-  "trackReEnrichModeReplace": "Update selected tags",
+  "trackReEnrichModeReplace": "Оновити вибрані теги",
   "@trackReEnrichModeReplace": {
     "description": "Batch metadata mode that replaces selected tag groups"
   },
-  "trackReEnrichModeReplaceSubtitle": "Choose which existing values may be replaced by online metadata",
+  "trackReEnrichModeReplaceSubtitle": "Виберіть онлайн-оновлення або оновлення вручну, а потім перегляньте всі зміни перед записом",
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
   },
-  "trackReEnrichModeManual": "Set common values",
+  "trackReEnrichModeManual": "Установити загальні значення",
   "@trackReEnrichModeManual": {
     "description": "Batch metadata mode that applies shared values to every selected track"
   },
@@ -3429,23 +3429,23 @@
   "@trackReEnrichModeManualSubtitle": {
     "description": "Explanation for the manual shared-value batch metadata mode"
   },
-  "trackReEnrichManualFieldsTitle": "Values to apply",
+  "trackReEnrichManualFieldsTitle": "Значення для застосування",
   "@trackReEnrichManualFieldsTitle": {
     "description": "Heading above manual batch metadata inputs"
   },
-  "trackReEnrichManualHint": "Leave a field empty to keep its current value. Track titles, numbers, and ISRCs stay unchanged.",
+  "trackReEnrichManualHint": "Залиште поле порожнім, щоб зберегти своє поточне значення. Назва маршруту, цифри та ISRC не змінюються.",
   "@trackReEnrichManualHint": {
     "description": "Safety explanation for manual batch metadata inputs"
   },
-  "trackReEnrichFieldsTitle": "Tags to update",
+  "trackReEnrichFieldsTitle": "Теги для оновлення",
   "@trackReEnrichFieldsTitle": {
     "description": "Heading above batch re-enrich field checkboxes"
   },
-  "trackReEnrichReview": "Review changes",
+  "trackReEnrichReview": "Переглянути зміни",
   "@trackReEnrichReview": {
     "description": "Button that searches metadata and opens the batch change review"
   },
-  "trackReEnrichReviewTitle": "Review metadata changes",
+  "trackReEnrichReviewTitle": "Переглянути зміни метаданих",
   "@trackReEnrichReviewTitle": {
     "description": "Title of the batch metadata review sheet"
   },

@@ -70,11 +70,11 @@
   "appearanceAccentBlue": "Блакитний",
   "appearanceAccentPurple": "Фіолетовий",
   "appearanceAccentPink": "Рожевий",
-  "appearanceGlassClarity": "Glass clarity",
-  "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
-  "appearanceGlassTinted": "Tinted",
-  "appearanceGlassClear": "Clear",
-  "appearanceGlassClarityBlurOff": "Glass is opaque on this device. Turn on “{setting}” to adjust clarity.",
+  "appearanceGlassClarity": "Прозорість скла",
+  "appearanceGlassClaritySubtitle": "Налаштуйте прозорість меню та навігації Mornye. Контрастність тексту зберігається.",
+  "appearanceGlassTinted": "Тонований",
+  "appearanceGlassClear": "Очистити",
+  "appearanceGlassClarityBlurOff": "Скло на цьому пристрої непрозоре. Увімкніть «{setting}», щоб налаштувати прозорість.",
   "@appearanceGlassClarityBlurOff": {
     "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
     "placeholders": {
@@ -83,7 +83,7 @@
       }
     }
   },
-  "appearanceGlassClarityHighContrast": "Glass stays opaque while the system’s high contrast setting is on.",
+  "appearanceGlassClarityHighContrast": "Скло залишається непрозорим, доки в системі ввімкнено режим високої контрастності.",
   "@appearanceGlassClarityHighContrast": {
     "description": "Shown under the disabled glass clarity slider while the OS high contrast accessibility setting is on"
   },
@@ -403,7 +403,7 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsArtistTagModePrimary": "Primary artist only",
+  "optionsArtistTagModePrimary": "Тільки основний виконавець",
   "@optionsArtistTagModePrimary": {
     "description": "Artist tag mode option that writes only the first credited artist"
   },

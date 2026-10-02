@@ -2852,7 +2852,7 @@
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
-  "libraryScanPaused": "스캔 일시 중지됨",
+  "libraryScanPaused": "스캔이 일시 중지됨",
   "@libraryScanPaused": {
     "description": "Status shown while a library scan is paused by the user"
   },
@@ -5410,7 +5410,7 @@
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
   },
-  "notifLibraryScanPaused": "라이브러리 스캔 일시 중지됨",
+  "notifLibraryScanPaused": "라이브러리 스캔이 일시 중지됨",
   "@notifLibraryScanPaused": {
     "description": "Notification title when the user pauses a library scan"
   },

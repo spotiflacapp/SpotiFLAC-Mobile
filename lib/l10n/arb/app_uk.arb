@@ -94,7 +94,7 @@
   },
   "@@locale": "uk",
   "@@last_modified": "2026-04-28",
-  "appName": "",
+  "appName": "SpotiFLAC Mobile",
   "@appName": {
     "description": "App name - DO NOT TRANSLATE"
   },
@@ -122,7 +122,7 @@
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
-  "homeEmptyTitle": "",
+  "homeEmptyTitle": "Поки що немає постачальників послуг пошуку",
   "@homeEmptyTitle": {
     "description": "Title shown on home when no providers are available yet"
   },
@@ -705,7 +705,7 @@
   "@setupUseDefaultFolder": {
     "description": "Dialog title for default folder"
   },
-  "setupNoFolderSelected": "Папку не вибрано. Бажаєте використовувати папку «Музика» за замовчуванням?",
+  "setupNoFolderSelected": "Теку не вибрано. Бажаєте використовувати теку «Музика» за замовчуванням?",
   "@setupNoFolderSelected": {
     "description": "Prompt when no folder selected"
   },
@@ -717,11 +717,11 @@
   "@setupDownloadLocationTitle": {
     "description": "Download location dialog title"
   },
-  "setupDownloadLocationIosMessage": "На iOS завантаження зберігаються в папці «Документи» програми. Ви можете отримати до них доступ через програму «Файли».",
+  "setupDownloadLocationIosMessage": "На iOS завантаження зберігаються в теці «Документи» програми. Ви можете отримати до них доступ через програму «Файли».",
   "@setupDownloadLocationIosMessage": {
     "description": "iOS-specific folder info"
   },
-  "setupAppDocumentsFolder": "Папка з документами програми",
+  "setupAppDocumentsFolder": "Тека з документами програми",
   "@setupAppDocumentsFolder": {
     "description": "iOS documents folder option"
   },
@@ -733,15 +733,15 @@
   "@setupChooseFromFiles": {
     "description": "iOS file picker option"
   },
-  "setupChooseFromFilesSubtitle": "Виберіть iCloud або інше місцезнаходження",
+  "setupChooseFromFilesSubtitle": "Виберіть iCloud або інше місцеперебування",
   "@setupChooseFromFilesSubtitle": {
     "description": "Subtitle for file picker"
   },
-  "setupIosEmptyFolderWarning": "Обмеження iOS: Не можна вибрати порожні папки. Виберіть папку, яка містить принаймні один файл.",
+  "setupIosEmptyFolderWarning": "iOS обмеження: Не можна вибрати порожні теки. Виберіть теку, яка містить принаймні один файл.",
   "@setupIosEmptyFolderWarning": {
     "description": "iOS folder selection warning"
   },
-  "setupIcloudNotSupported": "iCloud Drive не підтримується. Будь ласка, скористайтеся папкою «Документи» програми.",
+  "setupIcloudNotSupported": "iCloud Drive не підтримується. Будь ласка, скористайтеся текою «Документи» програми.",
   "@setupIcloudNotSupported": {
     "description": "Error when user selects iCloud Drive on iOS"
   },
@@ -3449,7 +3449,7 @@
   "@trackReEnrichReviewTitle": {
     "description": "Title of the batch metadata review sheet"
   },
-  "trackReEnrichReviewSubtitle": "{changeCount} proposed changes across {trackCount} tracks",
+  "trackReEnrichReviewSubtitle": "{changeCount} Запропоновані зміни в межах {trackCount} треків",
   "@trackReEnrichReviewSubtitle": {
     "description": "Summary shown above proposed batch metadata changes",
     "placeholders": {
@@ -3461,15 +3461,15 @@
       }
     }
   },
-  "trackReEnrichNoChanges": "No metadata changes were found for the selected tracks.",
+  "trackReEnrichNoChanges": "Для вибраних треків не виявлено змін у метаданих.",
   "@trackReEnrichNoChanges": {
     "description": "Message when batch metadata preview has no proposed changes"
   },
-  "trackReEnrichApplyChanges": "Apply changes",
+  "trackReEnrichApplyChanges": "Застосувати зміни",
   "@trackReEnrichApplyChanges": {
     "description": "Confirmation button in the batch metadata review sheet"
   },
-  "trackReEnrichRefreshOnline": "Refresh from online",
+  "trackReEnrichRefreshOnline": "Оновити з мережі",
   "@trackReEnrichRefreshOnline": {
     "description": "Proposed value when lyrics will be refreshed during re-enrich"
   },
@@ -3507,15 +3507,15 @@
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
   },
-  "trackReEnrichPreparing": "Preparing metadata changes...",
+  "trackReEnrichPreparing": "Переглянути зміни метаданих...",
   "@trackReEnrichPreparing": {
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Метадані повторно збагачені успішно",
-  "trackReEnrichMetadataSaved": "Metadata saved",
-  "trackReEnrichLyricsUpdated": "Lyrics updated",
-  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
-  "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
+  "trackReEnrichMetadataSaved": "Метадані збережені",
+  "trackReEnrichLyricsUpdated": "Текст оновлено",
+  "trackReEnrichLyricsPreserved": "Нові тексти пісень не знайдено; наявні тексти пісень зберігаються",
+  "trackReEnrichLyricsDisabled": "Не оновлені тексти: завантаження текстів у налаштуваннях вимкнено",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
@@ -3577,11 +3577,11 @@
   "@trackConvertBitrate": {
     "description": "Label for bitrate selection"
   },
-  "trackConvertKeepOriginal": "Keep original file",
+  "trackConvertKeepOriginal": "Зберегти оригінальний файл",
   "@trackConvertKeepOriginal": {
     "description": "Toggle to preserve the source file during conversion"
   },
-  "trackConvertKeepOriginalDescription": "Add the converted file as a separate library entry",
+  "trackConvertKeepOriginalDescription": "Додати конвертований файл як окремий запис в бібліотеці",
   "@trackConvertKeepOriginalDescription": {
     "description": "Description for preserving the source file during conversion"
   },
@@ -3616,7 +3616,7 @@
       }
     }
   },
-  "trackConvertConfirmKeepOriginal": "Convert from {sourceFormat} to {targetFormat}?\n\nThe original file will be kept and the converted file will be added as a separate library entry.",
+  "trackConvertConfirmKeepOriginal": "Конвертувати з {sourceFormat} в {targetFormat}?\n\nОригінальний файл буде збережений, а конвертований файл буде додано як окремий запис у бібліотеці.",
   "@trackConvertConfirmKeepOriginal": {
     "description": "Confirmation message when the source file will be preserved",
     "placeholders": {
@@ -3745,7 +3745,7 @@
   "@collectionLoved": {
     "description": "Custom folder for favorite tracks"
   },
-  "collectionFavoriteArtists": "Favorite Artists",
+  "collectionFavoriteArtists": "Улюблені Виконавці",
   "@collectionFavoriteArtists": {
     "description": "Custom folder for favorite artists"
   },
@@ -3774,7 +3774,7 @@
       }
     }
   },
-  "collectionArtistCount": "{count, plural, =1{1 artist} other{{count} artists}}",
+  "collectionArtistCount": "{count, plural, =1{1 виконавець} other{{count} виконавці}}",
   "@collectionArtistCount": {
     "description": "Artist count label for favorite artists",
     "placeholders": {
@@ -3841,7 +3841,7 @@
   "@collectionFavoriteArtistsEmptyTitle": {
     "description": "Favorite artists empty state title"
   },
-  "collectionFavoriteArtistsEmptySubtitle": "Tap the heart on an artist page to keep them here",
+  "collectionFavoriteArtistsEmptySubtitle": "Натисніть на серце на сторінці виконавця, щоб зберегти його тут",
   "@collectionFavoriteArtistsEmptySubtitle": {
     "description": "Favorite artists empty state subtitle"
   },
@@ -3897,7 +3897,7 @@
       }
     }
   },
-  "collectionAddedToFavoriteArtists": "\"{artistName}\" added to Favorite Artists",
+  "collectionAddedToFavoriteArtists": "\"{artistName}\" видалено з улюблених Виконавців",
   "@collectionAddedToFavoriteArtists": {
     "description": "Snackbar after adding artist to favorite artists",
     "placeholders": {
@@ -3931,7 +3931,7 @@
   "@trackOptionRemoveFromWishlist": {
     "description": "Bottom sheet action label - remove track from wishlist"
   },
-  "artistOptionAddToFavorites": "Add to Favorite Artists",
+  "artistOptionAddToFavorites": "Додати до улюблених Виконавців",
   "@artistOptionAddToFavorites": {
     "description": "Action label - add artist to favorite artists"
   },
@@ -4004,7 +4004,7 @@
       }
     }
   },
-  "selectionBatchConvertConfirmKeepOriginal": "Convert {count} {count, plural, =1{track} other{tracks}} to {format}?\n\nOriginal files will be kept and converted files will be added as separate library entries.",
+  "selectionBatchConvertConfirmKeepOriginal": "Конвертувати {count} {count, plural, =1{трек} few{треки} other{треків}} у {format}?\n\nОригінальні файли буде збережено, а конвертовані — додано як окремі записи до медіатеки.",
   "@selectionBatchConvertConfirmKeepOriginal": {
     "description": "Batch conversion confirmation when source files will be preserved",
     "placeholders": {
@@ -4040,15 +4040,15 @@
       }
     }
   },
-  "downloadUseAlbumArtistForFoldersAlbumSubtitle": "Folder named after Album Artist tag",
+  "downloadUseAlbumArtistForFoldersAlbumSubtitle": "Тека з ім'ям виконавця альбому",
   "@downloadUseAlbumArtistForFoldersAlbumSubtitle": {
     "description": "Subtitle when album artist is used for folder names"
   },
-  "downloadUseAlbumArtistForFoldersTrackSubtitle": "Folder named after Track Artist tag",
+  "downloadUseAlbumArtistForFoldersTrackSubtitle": "Тека з іменем виконавця пісні",
   "@downloadUseAlbumArtistForFoldersTrackSubtitle": {
     "description": "Subtitle when track artist is used for folder names"
   },
-  "lyricsProvidersTitle": "Lyrics Provider Priority",
+  "lyricsProvidersTitle": "Пріоритет джерела текстів пісень",
   "@lyricsProvidersTitle": {
     "description": "Settings item title for lyrics provider order"
   },
@@ -4056,7 +4056,7 @@
   "@lyricsProvidersDescription": {
     "description": "Description on the lyrics provider priority page"
   },
-  "lyricsProvidersInfoText": "Extension lyrics providers run before built-in lyrics providers. At least one provider must remain enabled.",
+  "lyricsProvidersInfoText": "Постачальники текстів пісень із розширень працюють перед вбудованими постачальниками. Принаймні один постачальник має залишатися ввімкненим.",
   "@lyricsProvidersInfoText": {
     "description": "Info tip on lyrics provider priority page"
   },
@@ -4106,11 +4106,11 @@
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, direct API)",
+  "lyricsProviderQqMusicDesc": "QQ Music (добре підходить для китайських пісень, прямий API)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
-  "lyricsProviderLyricsPlusDesc": "Word-by-word karaoke lyrics (Apple/Musixmatch/Spotify/QQ, via proxy)",
+  "lyricsProviderLyricsPlusDesc": "Текст пісні для караоке (послідовний показ слів; Apple / Musixmatch / Spotify / QQ, через проксі)",
   "@lyricsProviderLyricsPlusDesc": {
     "description": "Description for LyricsPlus provider"
   },
@@ -4134,93 +4134,93 @@
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
-  "settingsDonate": "Support Development",
+  "settingsDonate": "Підтримати розробника",
   "@settingsDonate": {
     "description": "Settings menu item - donate page"
   },
-  "settingsDonateSubtitle": "Buy the developer a coffee",
+  "settingsDonateSubtitle": "Пригостіть розробника кавою",
   "@settingsDonateSubtitle": {
     "description": "Subtitle for donate menu item"
   },
-  "settingsBackup": "Backup & Restore",
+  "settingsBackup": "Резервування та відновлення",
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
-  "settingsBackupSubtitle": "Move your library, history and settings to a new device",
+  "settingsBackupSubtitle": "Перемістити вашу бібліотеку, історію та налаштування на новий пристрій",
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
-  "backupTitle": "Backup & Restore",
+  "backupTitle": "Резервування та відновлення",
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
-  "backupExportSectionTitle": "Create backup",
+  "backupExportSectionTitle": "Створити резервну копію",
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
-  "backupExportSectionDescription": "Save your settings, download history, liked tracks, wishlist, favorite artists and playlists into a single file you can keep or move to another phone.",
+  "backupExportSectionDescription": "Збережіть свої налаштування, історію завантажень, вподобані треки, список бажань, улюблених виконавців і список треків в один файл, який можна зберегти або перенести на інший телефон.",
   "@backupExportSectionDescription": {
     "description": "Description of what a backup contains"
   },
-  "backupExportButton": "Create backup file",
+  "backupExportButton": "Створити файл резервної копії",
   "@backupExportButton": {
     "description": "Button to create and share a backup file"
   },
-  "backupImportSectionTitle": "Restore backup",
+  "backupImportSectionTitle": "Відновити резервну копію",
   "@backupImportSectionTitle": {
     "description": "Section title for the import/restore card"
   },
-  "backupImportSectionDescription": "Pick a backup file to restore your data. This replaces the current settings, history and library on this device.",
+  "backupImportSectionDescription": "Виберіть файл резервної копії, щоб відновити дані. Це замінить поточні налаштування, історію та бібліотеку на цьому пристрої.",
   "@backupImportSectionDescription": {
     "description": "Description for the restore action"
   },
-  "backupImportButton": "Choose backup file",
+  "backupImportButton": "Виберіть файл резервної копії",
   "@backupImportButton": {
     "description": "Button to pick a backup file to restore"
   },
-  "backupCreated": "Backup created",
+  "backupCreated": "Резервну копію створено",
   "@backupCreated": {
     "description": "Snackbar after a backup file is created"
   },
-  "backupCreateFailed": "Failed to create backup",
+  "backupCreateFailed": "Не вдалося створити резервну копію",
   "@backupCreateFailed": {
     "description": "Snackbar when backup creation fails"
   },
-  "backupRestoreConfirmTitle": "Restore this backup?",
+  "backupRestoreConfirmTitle": "Відновити цю резервну копію?",
   "@backupRestoreConfirmTitle": {
     "description": "Confirmation dialog title before restoring a backup"
   },
-  "backupRestoreConfirmMessage": "This will replace your current settings, download history, liked tracks, wishlist and playlists with the contents of the backup. This cannot be undone.",
+  "backupRestoreConfirmMessage": "Це замінить ваші поточні налаштування, історію завантажень, вподобані треки, список бажань і списки відтворення вмістом резервної копії. Цю дію неможливо скасувати.",
   "@backupRestoreConfirmMessage": {
     "description": "Confirmation dialog message before restoring a backup"
   },
-  "backupRestoreConfirmButton": "Restore",
+  "backupRestoreConfirmButton": "Відновити",
   "@backupRestoreConfirmButton": {
     "description": "Confirm button to proceed with restore"
   },
-  "backupRestored": "Backup restored successfully",
+  "backupRestored": "Резервну копію успішно відновлено",
   "@backupRestored": {
     "description": "Snackbar after a successful restore"
   },
-  "backupRestoreFailed": "Failed to restore backup",
+  "backupRestoreFailed": "Не вдалося відновити резервну копію",
   "@backupRestoreFailed": {
     "description": "Snackbar when restore fails"
   },
-  "backupInvalidFile": "This file is not a valid SpotiFLAC backup",
+  "backupInvalidFile": "Цей файл не є дійсною резервною копією SpotiFLAC",
   "@backupInvalidFile": {
     "description": "Snackbar when the chosen file is not a valid backup"
   },
-  "backupRestoreRestartHint": "Restart the app to make sure every change is applied.",
+  "backupRestoreRestartHint": "Перезапустіть програму, щоб переконатися, що всі зміни застосовано.",
   "@backupRestoreRestartHint": {
     "description": "Hint shown after restoring that an app restart is recommended"
   },
-  "backupContentsTitle": "Backup contents",
+  "backupContentsTitle": "Вміст резервної копії",
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
-  "backupSelectHistory": "Download history",
-  "backupSelectCollections": "Library collections",
+  "backupSettingsOnly": "Тільки налаштування",
+  "backupSelectHistory": "Історія завантажень",
+  "backupSelectCollections": "Колекції бібліотек",
   "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
   "backupSelectExtensions": "Extensions and their settings",
   "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
@@ -4497,7 +4497,7 @@
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
-  "downloadEmbedLyricsDisabled": "Enable metadata embedding first",
+  "downloadEmbedLyricsDisabled": "Увімкнути метаданні спочатку",
   "@downloadEmbedLyricsDisabled": {
     "description": "Subtitle when lyrics embedding is blocked by metadata toggle"
   },
@@ -4505,11 +4505,11 @@
   "@downloadNeteaseIncludeTranslation": {
     "description": "Setting to include translated lyrics from Netease"
   },
-  "downloadNeteaseIncludeTranslationEnabled": "Chinese translation lines included",
+  "downloadNeteaseIncludeTranslationEnabled": "Китайські рядки перекладу включені",
   "@downloadNeteaseIncludeTranslationEnabled": {
     "description": "Subtitle when Netease translation is on"
   },
-  "downloadNeteaseIncludeTranslationDisabled": "Original lyrics only",
+  "downloadNeteaseIncludeTranslationDisabled": "Тільки оригінальні тексти пісень",
   "@downloadNeteaseIncludeTranslationDisabled": {
     "description": "Subtitle when Netease translation is off"
   },
@@ -4517,35 +4517,35 @@
   "@downloadNeteaseIncludeRomanization": {
     "description": "Setting to include romanized lyrics from Netease"
   },
-  "downloadNeteaseIncludeRomanizationEnabled": "Romanization lines included",
+  "downloadNeteaseIncludeRomanizationEnabled": "Включені лінії романізації",
   "@downloadNeteaseIncludeRomanizationEnabled": {
     "description": "Subtitle when Netease romanization is on"
   },
-  "downloadNeteaseIncludeRomanizationDisabled": "No romanization",
+  "downloadNeteaseIncludeRomanizationDisabled": "Без романізації",
   "@downloadNeteaseIncludeRomanizationDisabled": {
     "description": "Subtitle when Netease romanization is off"
   },
-  "downloadAppleQqMultiPerson": "Apple / QQ: Multi-Person Lyrics",
+  "downloadAppleQqMultiPerson": "Apple / Q: Багатокористувацькі тексти",
   "@downloadAppleQqMultiPerson": {
     "description": "Setting for word-by-word multi-person lyrics from Apple Music and QQ Music"
   },
-  "downloadAppleQqMultiPersonEnabled": "Speaker labels included for duets and group tracks",
+  "downloadAppleQqMultiPersonEnabled": "Додано позначення виконавців для дуетів і групових треків",
   "@downloadAppleQqMultiPersonEnabled": {
     "description": "Subtitle when multi-person lyrics is on"
   },
-  "downloadAppleQqMultiPersonDisabled": "Standard lyrics without speaker labels",
+  "downloadAppleQqMultiPersonDisabled": "Стандартний текст пісні без позначення виконавців",
   "@downloadAppleQqMultiPersonDisabled": {
     "description": "Subtitle when multi-person lyrics is off"
   },
-  "downloadAppleElrcWordSync": "Apple Music eLRC Word Sync",
+  "downloadAppleElrcWordSync": "Синхронізація слів eLRC в Apple Music",
   "@downloadAppleElrcWordSync": {
     "description": "Setting for preserving Apple Music word-by-word eLRC timestamps"
   },
-  "downloadAppleElrcWordSyncEnabled": "Raw word-by-word timestamps preserved",
+  "downloadAppleElrcWordSyncEnabled": "Збережено вихідні часові мітки для кожного слова",
   "@downloadAppleElrcWordSyncEnabled": {
     "description": "Subtitle when Apple Music eLRC word sync is enabled"
   },
-  "downloadAppleElrcWordSyncDisabled": "Safer line-by-line Apple Music lyrics",
+  "downloadAppleElrcWordSyncDisabled": "Безпечніше показ тексту пісень в Apple Music рядок за рядком",
   "@downloadAppleElrcWordSyncDisabled": {
     "description": "Subtitle when Apple Music eLRC word sync is disabled"
   },
@@ -4553,7 +4553,7 @@
   "@downloadMusixmatchLanguage": {
     "description": "Setting for Musixmatch lyrics translation language"
   },
-  "downloadMusixmatchLanguageAuto": "Auto (original language)",
+  "downloadMusixmatchLanguageAuto": "Автоматично (мова оригіналу)",
   "@downloadMusixmatchLanguageAuto": {
     "description": "Subtitle when no language is set"
   },

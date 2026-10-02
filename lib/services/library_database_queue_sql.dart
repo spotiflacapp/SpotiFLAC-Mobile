@@ -410,11 +410,13 @@ extension _LibraryDbQueueSql on LibraryDatabase {
       formatExpr: 'h.format',
       qualityExpr: 'h.quality',
       bitDepthExpr: 'h.bit_depth',
+      albumNameExpr: 'h.album_name',
       artistExpr: 'h.artist_name',
       albumArtistExpr: 'h.album_artist',
       releaseDateExpr: 'h.release_date',
       genreExpr: 'h.genre',
       trackNumberExpr: 'h.track_number',
+      totalTracksExpr: 'h.total_tracks',
       discNumberExpr: 'h.disc_number',
       isrcExpr: 'h.isrc',
       labelExpr: 'h.label',
@@ -461,11 +463,13 @@ extension _LibraryDbQueueSql on LibraryDatabase {
       formatExpr: 'l.format',
       qualityExpr: 'NULL',
       bitDepthExpr: 'l.bit_depth',
+      albumNameExpr: 'l.album_name',
       artistExpr: 'l.artist_name',
       albumArtistExpr: 'l.album_artist',
       releaseDateExpr: 'l.release_date',
       genreExpr: 'l.genre',
       trackNumberExpr: 'l.track_number',
+      totalTracksExpr: 'l.total_tracks',
       discNumberExpr: 'l.disc_number',
       isrcExpr: 'l.isrc',
       labelExpr: 'l.label',
@@ -486,11 +490,13 @@ extension _LibraryDbQueueSql on LibraryDatabase {
     required String? formatExpr,
     required String qualityExpr,
     required String bitDepthExpr,
+    required String albumNameExpr,
     required String artistExpr,
     required String albumArtistExpr,
     required String releaseDateExpr,
     required String genreExpr,
     required String trackNumberExpr,
+    required String totalTracksExpr,
     required String discNumberExpr,
     required String isrcExpr,
     required String labelExpr,
@@ -563,6 +569,34 @@ extension _LibraryDbQueueSql on LibraryDatabase {
         break;
       case 'missing-album-artist':
         where.add('NOT ($hasAlbumArtist)');
+        break;
+      case 'missing-tracks':
+        where.add('''
+          (
+            COALESCE($totalTracksExpr, 0) > 0
+            AND (
+              SELECT COUNT(DISTINCT sub.track_number)
+              FROM library AS sub
+              WHERE COALESCE(sub.album_name, '') = COALESCE($albumNameExpr, '')
+                AND COALESCE(sub.album_artist, '') = COALESCE($albumArtistExpr, '')
+            ) < COALESCE($totalTracksExpr, 0)
+          ) OR (
+            COALESCE($trackNumberExpr, 0) > 0
+            AND (
+              SELECT MAX(sub.track_number)
+              FROM library AS sub
+              WHERE COALESCE(sub.album_name, '') = COALESCE($albumNameExpr, '')
+                AND COALESCE(sub.album_artist, '') = COALESCE($albumArtistExpr, '')
+                AND COALESCE(sub.disc_number, 1) = COALESCE($discNumberExpr, 1)
+            ) > (
+              SELECT COUNT(DISTINCT sub.track_number)
+              FROM library AS sub
+              WHERE COALESCE(sub.album_name, '') = COALESCE($albumNameExpr, '')
+                AND COALESCE(sub.album_artist, '') = COALESCE($albumArtistExpr, '')
+                AND COALESCE(sub.disc_number, 1) = COALESCE($discNumberExpr, 1)
+            )
+          )
+        ''');
         break;
       case 'missing-track-number':
         where.add('NOT ($hasTrackNumber)');

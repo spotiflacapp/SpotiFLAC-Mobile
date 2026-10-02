@@ -5547,6 +5547,10 @@
   "@editMetadataAdvanced": {
     "description": "Expandable section label for advanced metadata fields"
   },
+  "libraryFilterMetadataMissingTracks": "Missing tracks in album",
+  "@libraryFilterMetadataMissingTracks": {
+    "description": "Filter option - items missing tracks (not all tracks are in library or some lack track numbers)"
+  },
   "libraryFilterMetadataMissingTrackNumber": "Missing track number",
   "@libraryFilterMetadataMissingTrackNumber": {
     "description": "Filter option - items missing track number"

@@ -79,7 +79,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.zarz.spotiflac"
+        applicationId = "com.zarz.spotiflac.missingtracks"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         minSdk = flutter.minSdkVersion
         targetSdk = 37

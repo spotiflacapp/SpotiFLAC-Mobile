@@ -110,7 +110,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>com.zarz.spotiflac</string>
+			<string>com.zarz.spotiflac.missingtracks</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>spotiflac</string>

@@ -997,6 +997,17 @@ class _QueueTabState extends ConsumerState<QueueTab> {
                                 label: Text(
                                   context
                                       .l10n
+                                      .libraryFilterMetadataMissingTracks,
+                                ),
+                                selected: tempMetadata == 'missing-tracks',
+                                onSelected: (_) => setSheetState(
+                                  () => tempMetadata = 'missing-tracks',
+                                ),
+                              ),
+                              AppChoiceChip(
+                                label: Text(
+                                  context
+                                      .l10n
                                       .libraryFilterMetadataMissingTrackNumber,
                                 ),
                                 selected:

@@ -7,6 +7,6 @@
     android:initialLayout="@layout/widget_player_wide"
     android:previewLayout="@layout/widget_player_wide"
     android:description="@string/player_widget_description"
-    android:configure="com.zarz.spotiflac.PlayerWidgetConfigurationActivity"
+    android:configure="com.zarz.spotiflac.missingtracks.PlayerWidgetConfigurationActivity"
     android:widgetFeatures="reconfigurable|configuration_optional"
     android:widgetCategory="home_screen" />

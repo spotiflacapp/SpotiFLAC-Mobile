@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.zarz.spotiflac">
+    package="com.zarz.spotiflac.missingtracks">
 
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
 

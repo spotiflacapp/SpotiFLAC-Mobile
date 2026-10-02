@@ -70,11 +70,11 @@
   "appearanceAccentBlue": "파란색",
   "appearanceAccentPurple": "보라색",
   "appearanceAccentPink": "분홍색",
-  "appearanceGlassClarity": "유리 투명도",
+  "appearanceGlassClarity": "글래스 투명도",
   "appearanceGlassClaritySubtitle": "Mornye 메뉴와 하단바의 투명도를 조절할 수 있습니다. 텍스트 대비는 유지됩니다",
   "appearanceGlassTinted": "색조",
   "appearanceGlassClear": "투명",
-  "appearanceGlassClarityBlurOff": "이 기기에서는 유리가 불투명하게 표시됩니다. 투명도를 조절하려면 '{setting}'을 켜세요",
+  "appearanceGlassClarityBlurOff": "이 기기에서 글래스 효과가 불투명하게 표시됩니다. 투명도를 조절하려면 '{setting}'을 켜세요",
   "@appearanceGlassClarityBlurOff": {
     "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
     "placeholders": {
@@ -83,7 +83,7 @@
       }
     }
   },
-  "appearanceGlassClarityHighContrast": "시스템의 고대비 설정이 켜져 있는 동안에는 유리가 불투명하게 표시됩니다",
+  "appearanceGlassClarityHighContrast": "시스템의 고대비 설정이 켜져 있는 동안에는 글래스 효과가 불투명하게 표시됩니다",
   "@appearanceGlassClarityHighContrast": {
     "description": "Shown under the disabled glass clarity slider while the OS high contrast accessibility setting is on"
   },

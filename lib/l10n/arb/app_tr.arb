@@ -151,7 +151,7 @@
     "description": "Filter chip - show singles only"
   },
   "libraryRecentlyAdded": "Recently Added",
-  "libraryDownloads": "Downloads",
+  "libraryDownloads": "İndirilenler",
   "libraryNoActiveDownloads": "No active downloads",
   "librarySearchHint": "Search your library",
   "libraryEmptyCollection": "Your music will appear here",
@@ -849,15 +849,15 @@
   "@dialogDownload": {
     "description": "Confirm button in Download All dialog"
   },
-  "previewPlay": "Play preview",
+  "previewPlay": "Ön izlemeyi oynat",
   "@previewPlay": {
     "description": "Tooltip for the button that plays a short track preview snippet"
   },
-  "previewStop": "Stop preview",
+  "previewStop": "Ön izlemeyi durdur",
   "@previewStop": {
     "description": "Tooltip for the button that stops the playing track preview snippet"
   },
-  "previewUnavailable": "Preview unavailable",
+  "previewUnavailable": "Ön izleme mevcut değil",
   "@previewUnavailable": {
     "description": "Snackbar shown when a track preview snippet cannot be played"
   },
@@ -941,7 +941,7 @@
       }
     }
   },
-  "collectionExportM3u": "Export as M3U8",
+  "collectionExportM3u": "M3U8 olarak dışarı aktar",
   "@collectionExportM3u": {
     "description": "Tooltip on the collection screen action that exports the track list as an M3U8 playlist file"
   },
@@ -3373,19 +3373,19 @@
   "@trackReEnrichFieldCover": {
     "description": "Checkbox label for cover art field in re-enrich"
   },
-  "trackReEnrichFieldLyrics": "Lyrics",
+  "trackReEnrichFieldLyrics": "Şarkı Sözleri",
   "@trackReEnrichFieldLyrics": {
     "description": "Checkbox label for lyrics field in re-enrich"
   },
-  "trackReEnrichFieldBasicTags": "Album, Album Artist",
+  "trackReEnrichFieldBasicTags": "Albüm, Albüm Sanatçısı",
   "@trackReEnrichFieldBasicTags": {
     "description": "Checkbox label for basic tags in re-enrich (title/artist are never overwritten)"
   },
-  "trackReEnrichFieldTrackInfo": "Track & Disc Number",
+  "trackReEnrichFieldTrackInfo": "Parça ve Disk Numarası",
   "@trackReEnrichFieldTrackInfo": {
     "description": "Checkbox label for track info in re-enrich"
   },
-  "trackReEnrichFieldReleaseInfo": "Date & ISRC",
+  "trackReEnrichFieldReleaseInfo": "Tarih ve ISRC",
   "@trackReEnrichFieldReleaseInfo": {
     "description": "Checkbox label for release info in re-enrich"
   },
@@ -3397,7 +3397,7 @@
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackReEnrichModeIsrc": "ISRC only",
+  "trackReEnrichModeIsrc": "Sadece ISRC",
   "@trackReEnrichModeIsrc": {
     "description": "Batch metadata mode that only writes ISRC"
   },
@@ -4725,19 +4725,19 @@
   "@editMetadataFieldTitle": {
     "description": "Chip label for title field in auto-fill selector"
   },
-  "editMetadataFieldArtist": "Artist",
+  "editMetadataFieldArtist": "Sanatçı",
   "@editMetadataFieldArtist": {
     "description": "Chip label for artist field in auto-fill selector"
   },
-  "editMetadataFieldAlbum": "Album",
+  "editMetadataFieldAlbum": "Albüm",
   "@editMetadataFieldAlbum": {
     "description": "Chip label for album field in auto-fill selector"
   },
-  "editMetadataFieldAlbumArtist": "Album Artist",
+  "editMetadataFieldAlbumArtist": "Albüm Sanatçısı",
   "@editMetadataFieldAlbumArtist": {
     "description": "Chip label for album artist field in auto-fill selector"
   },
-  "editMetadataFieldDate": "Date",
+  "editMetadataFieldDate": "Tarih",
   "@editMetadataFieldDate": {
     "description": "Chip label for date field in auto-fill selector"
   },
@@ -4749,7 +4749,7 @@
   "@editMetadataFieldDiscNum": {
     "description": "Chip label for disc number field in auto-fill selector"
   },
-  "editMetadataFieldGenre": "Genre",
+  "editMetadataFieldGenre": "Tür",
   "@editMetadataFieldGenre": {
     "description": "Chip label for genre field in auto-fill selector"
   },

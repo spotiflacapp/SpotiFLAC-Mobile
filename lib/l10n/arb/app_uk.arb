@@ -407,7 +407,7 @@
   "@optionsArtistTagModePrimary": {
     "description": "Artist tag mode option that writes only the first credited artist"
   },
-  "optionsArtistTagModePrimarySubtitle": "Write only the first artist, like \"Artist A\", to Artist and Album Artist in every format, so players list one artist.",
+  "optionsArtistTagModePrimarySubtitle": "Вказуйте лише першого виконавця наприклад, «Artist A» у полях «Виконавець» та «Виконавець альбому» для всіх форматів, щоб програвачі показувати лише одного виконавця.",
   "@optionsArtistTagModePrimarySubtitle": {
     "description": "Subtitle for the primary-artist tag mode. Applies when downloading and re-enriching; manual edits keep what the user typed."
   },
@@ -1569,8 +1569,8 @@
   "@sectionLyrics": {
     "description": "Settings section header"
   },
-  "lyricsKeepScreenOn": "Keep screen on while viewing lyrics",
-  "lyricsKeepScreenOnSubtitle": "Prevent screen timeout while lyrics are open, including when playback is paused.",
+  "lyricsKeepScreenOn": "Не вимикати екран під час перегляду тексту пісні",
+  "lyricsKeepScreenOnSubtitle": "Запобігати вимкненню екрана, коли відкрито текст пісні, зокрема й під час паузи у відтворенні.",
   "lyricsMode": "Режим тексту пісні",
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
@@ -2852,7 +2852,7 @@
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
-  "libraryScanPaused": "Scan paused",
+  "libraryScanPaused": "Сканування призупинено",
   "@libraryScanPaused": {
     "description": "Status shown while a library scan is paused by the user"
   },
@@ -3039,7 +3039,7 @@
   "@tutorialWelcomeTip1": {
     "description": "Tutorial welcome tip 1"
   },
-  "tutorialWelcomeTip2": "Choose from the audio qualities offered by your download provider",
+  "tutorialWelcomeTip2": "Оберіть один із варіантів якості аудіо, запропонованих вашим постачальником послуг завантаження",
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
@@ -3059,7 +3059,7 @@
   "@tutorialDownloadTitle": {
     "description": "Tutorial download page title"
   },
-  "tutorialDownloadDesc": "Pick an available quality, start the download, and follow its progress in the queue.",
+  "tutorialDownloadDesc": "Виберіть доступну якість, розпочніть завантаження та стежте за його перебігом у черзі.",
   "@tutorialDownloadDesc": {
     "description": "Tutorial download page description"
   },
@@ -3067,7 +3067,7 @@
   "@tutorialLibraryTitle": {
     "description": "Tutorial library page title"
   },
-  "tutorialLibraryDesc": "Downloaded and locally scanned music is organized in your Library.",
+  "tutorialLibraryDesc": "Завантажену та локально засканований музику впорядковано у вашій бібліотеці.",
   "@tutorialLibraryDesc": {
     "description": "Tutorial library page description"
   },

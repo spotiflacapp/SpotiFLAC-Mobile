@@ -1745,7 +1745,7 @@
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "trackReplayGainAlbumPeak": "Піковий рівень альбому (ReplayGain)",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
@@ -1777,7 +1777,7 @@
   "@trackCopyLyrics": {
     "description": "Action - copy lyrics to clipboard"
   },
-  "trackLyricsSource": "Source: {source}",
+  "trackLyricsSource": "Джерело {source}",
   "@trackLyricsSource": {
     "description": "Label showing the lyrics source/provider",
     "placeholders": {
@@ -2236,7 +2236,7 @@
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
-  "downloadLossyOpus128": "Opus 128 кбіт/с",
+  "downloadLossyOpus128": "Opus 128kbps",
   "@downloadLossyOpus128": {
     "description": "Lossy format option - Opus 128kbps"
   },
@@ -3043,7 +3043,7 @@
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
-  "tutorialWelcomeTip3": "Embed metadata, cover art, lyrics, and release information automatically",
+  "tutorialWelcomeTip3": "Автоматично вбудовуйте метадані, обкладинки, тексти пісень та інформацію про реліз\n",
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },
@@ -3051,7 +3051,7 @@
   "@tutorialSearchTitle": {
     "description": "Tutorial search page title"
   },
-  "tutorialSearchDesc": "Search with your selected extension or paste a supported music link.",
+  "tutorialSearchDesc": "Виконайте пошук за допомогою вибраного розширення або вставте посилання на музику, що підтримується.",
   "@tutorialSearchDesc": {
     "description": "Tutorial search page description"
   },
@@ -3425,7 +3425,7 @@
   "@trackReEnrichModeManual": {
     "description": "Batch metadata mode that applies shared values to every selected track"
   },
-  "trackReEnrichModeManualSubtitle": "Apply the same values to every selected track",
+  "trackReEnrichModeManualSubtitle": "Застосувати одне й те ж значення до кожного обраного маршруту",
   "@trackReEnrichModeManualSubtitle": {
     "description": "Explanation for the manual shared-value batch metadata mode"
   },
@@ -3837,7 +3837,7 @@
   "@collectionLovedEmptySubtitle": {
     "description": "Loved empty state subtitle"
   },
-  "collectionFavoriteArtistsEmptyTitle": "No favorite artists yet",
+  "collectionFavoriteArtistsEmptyTitle": "Немає улюблених виконавців",
   "@collectionFavoriteArtistsEmptyTitle": {
     "description": "Favorite artists empty state title"
   },
@@ -3935,7 +3935,7 @@
   "@artistOptionAddToFavorites": {
     "description": "Action label - add artist to favorite artists"
   },
-  "artistOptionRemoveFromFavorites": "Remove from Favorite Artists",
+  "artistOptionRemoveFromFavorites": "Видалено з улюблених Виконавців",
   "@artistOptionRemoveFromFavorites": {
     "description": "Action label - remove artist from favorite artists"
   },
@@ -4221,12 +4221,12 @@
   "backupSettingsOnly": "Тільки налаштування",
   "backupSelectHistory": "Історія завантажень",
   "backupSelectCollections": "Колекції бібліотек",
-  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
-  "backupSelectExtensions": "Extensions and their settings",
-  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
-  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
-  "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
-  "backupContentsSettings": "App settings",
+  "backupSelectCollectionsDescription": "Вподобані треки, список бажань, улюблені виконавці, списки відтворення та обкладинки списку треків.",
+  "backupSelectExtensions": "Розширення та їх налаштування",
+  "backupSelectedExportDescription": "Зберегти вибрані категорії в файл резервної копії. Аудіофайли не включені.",
+  "backupSelectAtLeastOne": "Виберіть принаймні одну категорію, для створення резервної копії.",
+  "backupSelectedRestoreMessage": "Буде відновлено лише категорії, перелічені нижче. Категорії, не включені до цієї резервної копії, залишаться без змін. Процес відновлення може замінити наявні дані; скасувати цю дію неможливо.",
+  "backupContentsSettings": "Налаштування додатку",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
@@ -4284,7 +4284,7 @@
       }
     }
   },
-  "backupIncludeSecrets": "Include extension credentials",
+  "backupIncludeSecrets": "Додайте облікові дані розширення",
   "@backupIncludeSecrets": {
     "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
   },
@@ -6847,47 +6847,47 @@
   "@regionCountryID": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryBR": "Brazil",
+  "regionCountryBR": "Бразилія",
   "@regionCountryBR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryMX": "Mexico",
+  "regionCountryMX": "Мексика",
   "@regionCountryMX": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryAU": "Australia",
+  "regionCountryAU": "Австралія",
   "@regionCountryAU": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryCA": "Canada",
+  "regionCountryCA": "Канада",
   "@regionCountryCA": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryXK": "Kosovo",
+  "regionCountryXK": "Косово",
   "@regionCountryXK": {
     "description": "Country name for SongLink region picker"
   },
-  "extensionVerificationBrowserTitle": "Verification browser",
+  "extensionVerificationBrowserTitle": "Браузер для перевірки",
   "@extensionVerificationBrowserTitle": {
     "description": "Settings option title for extension verification browser preference"
   },
-  "extensionVerificationBrowserSubtitleExternal": "Open challenges in the default browser first",
+  "extensionVerificationBrowserSubtitleExternal": "Відкрити завдання у браузері за замовчуванням",
   "@extensionVerificationBrowserSubtitleExternal": {
     "description": "Subtitle when external browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserSubtitleInApp": "Open challenges in the in-app browser first",
+  "extensionVerificationBrowserSubtitleInApp": "Відкрити завдання в додатковому браузері",
   "@extensionVerificationBrowserSubtitleInApp": {
     "description": "Subtitle when in-app browser is preferred for extension verification"
   },
-  "extensionVerificationBrowserExternal": "External",
+  "extensionVerificationBrowserExternal": "Компоненти",
   "@extensionVerificationBrowserExternal": {
     "description": "Chip label for external browser verification mode"
   },
-  "extensionVerificationBrowserInApp": "In-app",
+  "extensionVerificationBrowserInApp": "В додатку",
   "@extensionVerificationBrowserInApp": {
     "description": "Chip label for in-app browser verification mode"
   },
-  "extensionVerificationUnavailable": "No verification page is available for {extension}. Retry the download to request a new challenge.",
+  "extensionVerificationUnavailable": "Для {extension} немає доступної сторінки перевірки. Спробуйте завантажити знову, щоб отримати новий запит на перевірку.",
   "@extensionVerificationUnavailable": {
     "description": "Shown when the app cannot retrieve a pending verification challenge",
     "placeholders": {
@@ -6896,43 +6896,43 @@
       }
     }
   },
-  "extensionVerificationHelpTitleManual": "Open verification manually",
+  "extensionVerificationHelpTitleManual": "Відкрити перевірку вручну",
   "@extensionVerificationHelpTitleManual": {
     "description": "Dialog title when automatic browser launch for verification fails"
   },
-  "extensionVerificationHelpTitleWaiting": "Verification still waiting",
+  "extensionVerificationHelpTitleWaiting": "Очікується підтвердження",
   "@extensionVerificationHelpTitleWaiting": {
     "description": "Dialog title when verification is taking longer than expected"
   },
-  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile could not open the browser automatically. Open this link in your browser, or copy it manually.",
+  "extensionVerificationHelpMessageManual": "SpotiFLAC Mobile не вдалося автоматично відкрити браузер. Відкрийте це посилання в браузері або скопіюйте його вручну.",
   "@extensionVerificationHelpMessageManual": {
     "description": "Dialog message when automatic browser launch for verification fails"
   },
-  "extensionVerificationHelpMessageWaiting": "If the browser did not open, or verification finished but did not return to SpotiFLAC Mobile, open this link again or copy it manually.",
+  "extensionVerificationHelpMessageWaiting": "Якщо браузер не відкрився або процес перевірки завершився, але не повернув вас до SpotiFLAC Mobile, відкрийте це посилання знову або скопіюйте його вручну.",
   "@extensionVerificationHelpMessageWaiting": {
     "description": "Dialog message when verification may need manual browser help"
   },
-  "extensionVerificationClose": "Close",
+  "extensionVerificationClose": "Закрити",
   "@extensionVerificationClose": {
     "description": "Button to dismiss the extension verification help dialog"
   },
-  "extensionVerificationCopyLink": "Copy link",
+  "extensionVerificationCopyLink": "Скопіювати посилання",
   "@extensionVerificationCopyLink": {
     "description": "Button to copy the extension verification URL"
   },
-  "extensionVerificationLinkCopied": "Verification link copied",
+  "extensionVerificationLinkCopied": "Посилання для підтвердження скопійовано",
   "@extensionVerificationLinkCopied": {
     "description": "Snackbar after copying the extension verification URL"
   },
-  "extensionVerificationOpenBrowser": "Open browser",
+  "extensionVerificationOpenBrowser": "Відкрити браузер",
   "@extensionVerificationOpenBrowser": {
     "description": "Button to open the extension verification URL in a browser"
   },
-  "settingsSearchHint": "Search settings",
+  "settingsSearchHint": "Пошук налаштувань",
   "@settingsSearchHint": {
     "description": "Placeholder of the search field on the Settings tab"
   },
-  "settingsSearchNoResults": "No settings match \"{query}\"",
+  "settingsSearchNoResults": "Жодні налаштування не відповідають запиту «{query}»",
   "@settingsSearchNoResults": {
     "description": "Shown when a Settings search returns nothing",
     "placeholders": {
@@ -6941,47 +6941,47 @@
       }
     }
   },
-  "settingsGroupInterface": "Extensions & appearance",
+  "settingsGroupInterface": "Розширення та зовнішній вигляд",
   "@settingsGroupInterface": {
     "description": "Settings group covering look and feel"
   },
-  "settingsGroupContent": "Content & metadata",
+  "settingsGroupContent": "Вміст та метадані",
   "@settingsGroupContent": {
     "description": "Settings group covering the library, metadata and lyrics"
   },
-  "settingsGroupDownloads": "Downloads & files",
+  "settingsGroupDownloads": "Завантаження та файли",
   "@settingsGroupDownloads": {
     "description": "Settings group covering download behaviour and storage"
   },
-  "settingsGroupSystem": "System",
+  "settingsGroupSystem": "Система",
   "@settingsGroupSystem": {
     "description": "Settings group covering app-level data, cache and logs"
   },
-  "settingsGroupHelp": "About & support",
+  "settingsGroupHelp": "Про додаток",
   "@settingsGroupHelp": {
     "description": "Settings group covering the about page and donations"
   },
-  "libraryFilterMetadataMissingLyrics": "Missing lyrics",
+  "libraryFilterMetadataMissingLyrics": "Відсутній текст пісні",
   "@libraryFilterMetadataMissingLyrics": {
     "description": "Filter option for tracks without embedded or sidecar lyrics"
   },
-  "libraryFilterMetadataMissingReplayGain": "Missing ReplayGain",
+  "libraryFilterMetadataMissingReplayGain": "Відсутній ReplayGain",
   "@libraryFilterMetadataMissingReplayGain": {
     "description": "Filter option for scanned tracks without ReplayGain gain tags"
   },
-  "trackOptionCopyTrackName": "Copy track name",
+  "trackOptionCopyTrackName": "Копіювати назву треку",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
   },
-  "trackOptionCopyArtist": "Copy artist",
+  "trackOptionCopyArtist": "Копіювати виконавця",
   "@trackOptionCopyArtist": {
     "description": "Track menu action that copies the artist name"
   },
-  "trackOptionCopyTrackAndArtist": "Copy track and artist",
+  "trackOptionCopyTrackAndArtist": "Копіювання пісні та виконавця",
   "@trackOptionCopyTrackAndArtist": {
     "description": "Track menu action that copies the track title and artist"
   },
-  "metadataCopyValue": "Copy value",
+  "metadataCopyValue": "Копіювати значення",
   "@metadataCopyValue": {
     "description": "Metadata menu action that copies only the selected value"
   },
@@ -6989,50 +6989,50 @@
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },
-  "mornyeShowTabs": "Show tabs",
-  "mornyeSearch": "Search",
-  "mornyeContinuePlaying": "Continue Playing",
-  "metadataCopyAll": "Copy all metadata",
+  "mornyeShowTabs": "Показати вкладки",
+  "mornyeSearch": "Пошук",
+  "mornyeContinuePlaying": "Продовжити відтворювання",
+  "metadataCopyAll": "Копіювати всі метадані",
   "@metadataCopyAll": {
     "description": "Metadata menu action that copies every visible key and value"
   },
-  "optionsEmbeddedCoverSize": "Embedded Cover Size",
+  "optionsEmbeddedCoverSize": "Розмір вбудованої обкладинки",
   "@optionsEmbeddedCoverSize": {
     "description": "Metadata setting that limits downloaded artwork resolution before it is embedded"
   },
-  "optionsEmbeddedCoverSizeDescription": "Downscale remotely downloaded cover art before embedding it. Images already within the limit are kept unchanged.",
+  "optionsEmbeddedCoverSizeDescription": "Зменшуйте розмір віддалено завантажених обкладинок перед їх вбудовуванням. Зображення, що вже відповідають обмеженням, залишаються без змін.",
   "@optionsEmbeddedCoverSizeDescription": {
     "description": "Description shown in the embedded cover size picker"
   },
-  "mornyeFavorite": "Favorite",
-  "mornyeGoToArtist": "Go to Artist",
+  "mornyeFavorite": "Обране",
+  "mornyeGoToArtist": "Перейти до виконавця",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
-  "mornyeFavorited": "Favorited",
+  "mornyeFavorited": "Додано до обраного",
   "@mornyeFavorited": {
     "description": "Selected state of the compact favorite action"
   },
-  "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
-  "autoMixOn": "AutoMix on",
-  "autoMixOff": "AutoMix off",
-  "autoplayOn": "Autoplay on",
-  "autoplayOff": "Autoplay off",
-  "autoplayFromLibrary": "Autoplay from your Library",
-  "profileTitle": "Profile",
-  "profileSetUp": "Set up your profile",
-  "profileEdit": "Edit name and photo",
-  "backupIncludesProfile": "Includes your profile name and photo",
-  "profileName": "Name",
-  "profileNameHint": "Your name",
-  "profileChangePhoto": "Choose photo",
-  "profileRemovePhoto": "Remove photo",
-  "profilePhotoError": "Choose a valid image smaller than 20 MB.",
-  "profileSaveError": "Could not save your profile. Please try again.",
-  "artistUpcomingConcerts": "Upcoming Concerts",
-  "artistAllUpcomingConcerts": "All Upcoming Concerts",
-  "artistNoUpcomingConcerts": "No upcoming concerts.",
-  "optionsEmbeddedCoverSizeOriginal": "Original resolution",
+  "autoMixDescription": "Поєднуйте композиції за допомогою синхронізації ритму та зміни темпу зі збереженням висоти тону. Використовує плавний перехід crossfade, якщо синхронізація ритму неможлива.",
+  "autoMixOn": "Автомікс увімкнено",
+  "autoMixOff": "Автомікс вимкнено",
+  "autoplayOn": "Автовідтворення увімкнено",
+  "autoplayOff": "Автовідтворення вимкнено",
+  "autoplayFromLibrary": "Автовідтворення з вашої бібліотеки",
+  "profileTitle": "Профіль",
+  "profileSetUp": "Налаштуйте свій профіль",
+  "profileEdit": "Редагувати ім'я та фотографію",
+  "backupIncludesProfile": "Включає ім'я та фотографію вашого профілю",
+  "profileName": "Ім’я",
+  "profileNameHint": "Ваше ім'я",
+  "profileChangePhoto": "Вибрати фото",
+  "profileRemovePhoto": "Видалити фото",
+  "profilePhotoError": "Виберіть коректне зображення менш як 20 Mb.",
+  "profileSaveError": "Не вдалося зберегти ваш профіль. Будь ласка, спробуйте ще раз.",
+  "artistUpcomingConcerts": "Майбутні концерти",
+  "artistAllUpcomingConcerts": "Всі майбутні концерти",
+  "artistNoUpcomingConcerts": "Немає майбутніх концертів.",
+  "optionsEmbeddedCoverSizeOriginal": "Вихідна роздільна здатність",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"
   }

@@ -195,11 +195,11 @@
   "@downloadSingleFilenameFormat": {
     "description": "Setting for output filename pattern for singles/EPs"
   },
-  "downloadSingleFilenameFormatDescription": "Шаблон назви файлу для синглів та міні-альбомів. Використовує ті самі теги, що й формат альбому.",
+  "downloadSingleFilenameFormatDescription": "Шаблон назви файлу для синглів та мініальбомів. Використовує ті самі теги, що й формат альбому.",
   "@downloadSingleFilenameFormatDescription": {
     "description": "Subtitle description for single filename format setting"
   },
-  "downloadFolderOrganization": "Організація папок",
+  "downloadFolderOrganization": "Організація теки",
   "@downloadFolderOrganization": {
     "description": "Title of the folder organization picker bottom sheet"
   },
@@ -264,7 +264,7 @@
   "@optionsDefaultSearchTabSubtitle": {
     "description": "Subtitle for the preferred default search tab setting"
   },
-  "optionsAutoFallback": "Автоматичний резервний варіант",
+  "optionsAutoFallback": "Авто. резервний варіант",
   "@optionsAutoFallback": {
     "description": "Auto-retry with other services"
   },
@@ -620,7 +620,7 @@
   "@artistAlbums": {
     "description": "Section header for artist albums"
   },
-  "artistSingles": "Сингли та міні-альбоми",
+  "artistSingles": "Сингли та мініальбом",
   "@artistSingles": {
     "description": "Section header for singles/EPs"
   },
@@ -632,7 +632,7 @@
   "@artistPopular": {
     "description": "Section header for popular/top tracks"
   },
-  "artistMonthlyListeners": "{count} слухачів щомісяця",
+  "artistMonthlyListeners": "{count} Слухачів щомісяця",
   "@artistMonthlyListeners": {
     "description": "Monthly listener count display",
     "placeholders": {
@@ -670,7 +670,7 @@
   "@setupStorageAccessRequired": {
     "description": "Title when storage access needed"
   },
-  "setupStorageAccessMessageAndroid11": "Для збереження файлів у вибрану папку завантажень для Android 11+ потрібен дозвіл «Доступ до всіх файлів».",
+  "setupStorageAccessMessageAndroid11": "Для збереження файлів у вибрану теку завантажень для Android 11+ потрібен дозвіл «Доступ до всіх файлів».",
   "@setupStorageAccessMessageAndroid11": {
     "description": "Android 11+ specific explanation"
   },
@@ -701,7 +701,7 @@
       }
     }
   },
-  "setupUseDefaultFolder": "Використати папку за замовчуванням?",
+  "setupUseDefaultFolder": "Використати теку за замовчуванням?",
   "@setupUseDefaultFolder": {
     "description": "Dialog title for default folder"
   },
@@ -2252,11 +2252,11 @@
   "@downloadDirectory": {
     "description": "Setting - download folder"
   },
-  "downloadSeparateSinglesFolder": "Окрема папка для синглів",
+  "downloadSeparateSinglesFolder": "Окрема тека для синглів",
   "@downloadSeparateSinglesFolder": {
     "description": "Setting - separate folder for singles"
   },
-  "downloadAlbumFolderStructure": "Структура папок альбому",
+  "downloadAlbumFolderStructure": "Структура альбому в теці",
   "@downloadAlbumFolderStructure": {
     "description": "Setting - album folder organization"
   },
@@ -2264,19 +2264,19 @@
   "@albumFolderStructureDescription": {
     "description": "Album folder structure picker description"
   },
-  "downloadUseAlbumArtistForFolders": "Використовувати виконавця альбому для папок",
+  "downloadUseAlbumArtistForFolders": "Використовувати виконавця альбому для тек",
   "@downloadUseAlbumArtistForFolders": {
     "description": "Setting - choose whether artist folders use Album Artist or Track Artist"
   },
-  "downloadUsePrimaryArtistOnly": "Тільки основний виконавець для папок",
+  "downloadUsePrimaryArtistOnly": "Тільки основний виконавець для тек",
   "@downloadUsePrimaryArtistOnly": {
     "description": "Setting - strip featured artists from folder name"
   },
-  "downloadUsePrimaryArtistOnlyEnabled": "Вибраних виконавців видалити з назви папки (наприклад, Джастін Бібер, Quavo → Джастін Бібер)",
+  "downloadUsePrimaryArtistOnlyEnabled": "Вибраних виконавців видалити з назви тек (наприклад, Justin Bieber, Quavo → Justin Bieber)",
   "@downloadUsePrimaryArtistOnlyEnabled": {
     "description": "Subtitle when primary artist only is enabled"
   },
-  "downloadUsePrimaryArtistOnlyDisabled": "Повний рядок виконавця, що використовується для назви папки",
+  "downloadUsePrimaryArtistOnlyDisabled": "Повний рядок виконавця, що використовується для назви теки",
   "@downloadUsePrimaryArtistOnlyDisabled": {
     "description": "Subtitle when primary artist only is disabled"
   },
@@ -2288,7 +2288,7 @@
   "@downloadFrom": {
     "description": "Label - download source"
   },
-  "appearanceAmoledDark": "Темний AMOLED",
+  "appearanceAmoledDark": "AMOLED Dark",
   "@appearanceAmoledDark": {
     "description": "Theme option - pure black"
   },
@@ -2369,7 +2369,7 @@
   "@albumFolderArtistAlbum": {
     "description": "Album folder option"
   },
-  "albumFolderArtistAlbumSubtitle": "Альбоми/Ім'я артиста/Назва альбому/",
+  "albumFolderArtistAlbumSubtitle": "Альбоми/Ім'я артиста/Назва Альбому/",
   "@albumFolderArtistAlbumSubtitle": {
     "description": "Folder structure example"
   },
@@ -2401,7 +2401,7 @@
   "@albumFolderArtistAlbumSingles": {
     "description": "Album folder option with singles inside artist"
   },
-  "albumFolderArtistAlbumSinglesSubtitle": "Виконавець/Альбом/ та Виконавець/Сингли/",
+  "albumFolderArtistAlbumSinglesSubtitle": "Виконавець/Альбом/ Та Виконавець/Сингли/",
   "@albumFolderArtistAlbumSinglesSubtitle": {
     "description": "Folder structure example"
   },
@@ -2409,7 +2409,7 @@
   "@albumFolderArtistAlbumFlat": {
     "description": "Album folder option with singles directly in artist folder"
   },
-  "albumFolderArtistAlbumFlatSubtitle": "Виконавець/Альбом/ та Виконавець/пісня.flac",
+  "albumFolderArtistAlbumFlatSubtitle": "Виконавець/Альбом/ Та Виконавець/пісня.flac",
   "@albumFolderArtistAlbumFlatSubtitle": {
     "description": "Folder structure example for flat singles"
   },
@@ -2508,7 +2508,7 @@
   "@discographyDownloadAll": {
     "description": "Option - download entire discography"
   },
-  "discographyDownloadAllSubtitle": "{count} треків з {albumCount} релізів",
+  "discographyDownloadAllSubtitle": "{count} Треків з {albumCount} релізів",
   "@discographyDownloadAllSubtitle": {
     "description": "Subtitle showing total tracks and albums",
     "placeholders": {
@@ -2524,7 +2524,7 @@
   "@discographyAlbumsOnly": {
     "description": "Option - download only albums"
   },
-  "discographyAlbumsOnlySubtitle": "{count} треків з {albumCount} альбомів",
+  "discographyAlbumsOnlySubtitle": "{count} Треків з {albumCount} альбомів",
   "@discographyAlbumsOnlySubtitle": {
     "description": "Subtitle showing album tracks count",
     "placeholders": {
@@ -2536,11 +2536,11 @@
       }
     }
   },
-  "discographySinglesOnly": "Тільки сингли та міні-альбоми",
+  "discographySinglesOnly": "Тільки сингли та мініальбоми",
   "@discographySinglesOnly": {
     "description": "Option - download only singles"
   },
-  "discographySinglesOnlySubtitle": "{count} треків з {albumCount} синглів",
+  "discographySinglesOnlySubtitle": "{count} Треків з {albumCount} синглів",
   "@discographySinglesOnlySubtitle": {
     "description": "Subtitle showing singles tracks count",
     "placeholders": {
@@ -2576,7 +2576,7 @@
       }
     }
   },
-  "discographySelectedCount": "{count} вибрано",
+  "discographySelectedCount": "{count} Вибрано",
   "@discographySelectedCount": {
     "description": "Selection count badge",
     "placeholders": {
@@ -2598,7 +2598,7 @@
       }
     }
   },
-  "discographySkippedDownloaded": "{added} додано, {skipped} вже завантажено",
+  "discographySkippedDownloaded": "{added} Додано, {skipped} вже завантажено",
   "@discographySkippedDownloaded": {
     "description": "Snackbar - with skipped tracks count",
     "placeholders": {
@@ -2626,15 +2626,15 @@
   "@allFilesAccess": {
     "description": "Toggle for MANAGE_EXTERNAL_STORAGE permission"
   },
-  "allFilesAccessEnabledSubtitle": "Можна записувати в будь-яку папку",
+  "allFilesAccessEnabledSubtitle": "Можна записувати в будь-яку теку",
   "@allFilesAccessEnabledSubtitle": {
     "description": "Subtitle when all files access is enabled"
   },
-  "allFilesAccessDisabledSubtitle": "Обмежено лише медіа-папками",
+  "allFilesAccessDisabledSubtitle": "Обмежено лише теками з медіафайлами",
   "@allFilesAccessDisabledSubtitle": {
     "description": "Subtitle when all files access is disabled"
   },
-  "allFilesAccessDescription": "Увімкніть цю опцію, якщо під час збереження у власні папки виникають помилки запису. Android 13+ за замовчуванням обмежує доступ до певних каталогів.",
+  "allFilesAccessDescription": "Увімкніть цю опцію, якщо під час збереження у власній теці виникають помилки запису. Android 13+ за замовчуванням обмежує доступ до певних каталогів.",
   "@allFilesAccessDescription": {
     "description": "Description explaining when to enable all files access"
   },
@@ -2674,15 +2674,15 @@
   "@libraryEnableLocalLibrary": {
     "description": "Toggle to enable library scanning"
   },
-  "libraryEnableLocalLibrarySubtitle": "Скануати та відстежити свою існуючу музику",
+  "libraryEnableLocalLibrarySubtitle": "Скануйте та відстежуйте наявну музику",
   "@libraryEnableLocalLibrarySubtitle": {
     "description": "Subtitle for enable toggle"
   },
-  "libraryFolder": "Папка бібліотеки",
+  "libraryFolder": "Тека бібліотеки",
   "@libraryFolder": {
     "description": "Folder selection setting"
   },
-  "libraryFolderHint": "Натисніть, щоб вибрати папку",
+  "libraryFolderHint": "Натисніть, щоб вибрати теку",
   "@libraryFolderHint": {
     "description": "Placeholder when no folder selected"
   },
@@ -2737,7 +2737,7 @@
   "@libraryShowDuplicateIndicator": {
     "description": "Toggle for duplicate indicator in search"
   },
-  "libraryShowDuplicateIndicatorSubtitle": "Показувати під час пошуку існуючих треків",
+  "libraryShowDuplicateIndicatorSubtitle": "Показувати під час пошуку наявних треків",
   "@libraryShowDuplicateIndicatorSubtitle": {
     "description": "Subtitle for duplicate indicator toggle"
   },
@@ -2777,7 +2777,7 @@
   "@libraryScanSubtitle": {
     "description": "Subtitle for scan button"
   },
-  "libraryScanSelectFolderFirst": "Спочатку виберіть папку",
+  "libraryScanSelectFolderFirst": "Спочатку виберіть теку",
   "@libraryScanSelectFolderFirst": {
     "description": "Message when trying to scan without folder"
   },
@@ -2809,7 +2809,7 @@
   "@libraryAbout": {
     "description": "Section header for about info"
   },
-  "libraryAboutDescription": "Сканує вашу існуючу музичну колекцію для виявлення дублікатів під час завантаження. Підтримує формати FLAC, M4A, MP3, Opus та OGG. Метадані зчитуються з тегів файлів, коли вони доступні.",
+  "libraryAboutDescription": "Сканує наявну музичну колекцію для виявлення дублікатів під час завантаження. Підтримує формати FLAC, ALAC, M4A, MP3, Opus, OGG, WAV, AIFF та APE. Метадані зчитуються з тегів файлів, якщо вони доступні.",
   "@libraryAboutDescription": {
     "description": "Description of local library feature"
   },
@@ -2893,7 +2893,7 @@
   "@libraryStorageAccessMessage": {
     "description": "Dialog message for storage permission"
   },
-  "libraryFolderNotExist": "Вибрана папка не існує",
+  "libraryFolderNotExist": "Вибрана тека не існує",
   "@libraryFolderNotExist": {
     "description": "Error when folder doesn't exist"
   },
@@ -2945,7 +2945,7 @@
   "@libraryFilterQualityCD": {
     "description": "Filter option - CD quality audio"
   },
-  "libraryFilterQualityLossy": "Із втратами (lossy)",
+  "libraryFilterQualityLossy": "Lossy",
   "@libraryFilterQualityLossy": {
     "description": "Filter option - lossy compressed audio"
   },
@@ -2961,7 +2961,7 @@
   "@libraryFilterMetadataComplete": {
     "description": "Filter option - items with complete metadata"
   },
-  "libraryFilterMetadataMissingAny": "будь-які метадані",
+  "libraryFilterMetadataMissingAny": "Відсутні будь-які метадані",
   "@libraryFilterMetadataMissingAny": {
     "description": "Filter option - items missing any tracked metadata field"
   },
@@ -2989,11 +2989,11 @@
   "@libraryFilterSortOldest": {
     "description": "Sort option - oldest first"
   },
-  "libraryFilterSortAlbumAsc": "Альбом (А-Я)",
+  "libraryFilterSortAlbumAsc": "Альбом (A-Z)",
   "@libraryFilterSortAlbumAsc": {
     "description": "Sort option - album ascending"
   },
-  "libraryFilterSortAlbumDesc": "Альбом (Я-А)",
+  "libraryFilterSortAlbumDesc": "Альбом (Z-A)",
   "@libraryFilterSortAlbumDesc": {
     "description": "Sort option - album descending"
   },
@@ -3001,7 +3001,7 @@
   "@libraryFilterSortGenreAsc": {
     "description": "Sort option - genre ascending"
   },
-  "libraryFilterSortGenreDesc": "Жанр (Я-А)",
+  "libraryFilterSortGenreDesc": "Жанр (Z-A)",
   "@libraryFilterSortGenreDesc": {
     "description": "Sort option - genre descending"
   },
@@ -3111,7 +3111,7 @@
   "@tutorialSettingsDesc": {
     "description": "Tutorial settings page description"
   },
-  "tutorialSettingsTip1": "Змініть місце завантаження та організації папок",
+  "tutorialSettingsTip1": "Змініть місце завантаження та об'єднання тек",
   "@tutorialSettingsTip1": {
     "description": "Tutorial settings tip 1"
   },
@@ -3257,7 +3257,7 @@
   "@cacheNoData": {
     "description": "Label when cache category has no data"
   },
-  "cacheSizeWithFiles": "{size} у {count} файлах",
+  "cacheSizeWithFiles": "{size} У {count} файлах",
   "@cacheSizeWithFiles": {
     "description": "Cache size and file count",
     "placeholders": {
@@ -3278,7 +3278,7 @@
       }
     }
   },
-  "cacheEntries": "{count} записів",
+  "cacheEntries": "{count} Записів",
   "@cacheEntries": {
     "description": "Track cache entry count",
     "placeholders": {
@@ -3357,7 +3357,7 @@
   "@trackSaveLyricsProgress": {
     "description": "Snackbar while saving lyrics to file"
   },
-  "trackReEnrich": "Перезбагачувати",
+  "trackReEnrich": "Поліпшувати",
   "@trackReEnrich": {
     "description": "Menu action - re-embed metadata into audio file"
   },
@@ -3389,7 +3389,7 @@
   "@trackReEnrichFieldReleaseInfo": {
     "description": "Checkbox label for release info in re-enrich"
   },
-  "trackReEnrichFieldExtra": "Жанр, Лейбл, Авторське право",
+  "trackReEnrichFieldExtra": "Жанр, Обкладинка, Авторське право",
   "@trackReEnrichFieldExtra": {
     "description": "Checkbox label for extra metadata in re-enrich"
   },
@@ -3527,7 +3527,7 @@
   "@queueFlacAction": {
     "description": "Action/button label for queueing FLAC redownloads for local tracks"
   },
-  "queueFlacConfirmMessage": "Пошук онлайн-збігів для вибраних треків та додавання завантажень FLAC до черги.\n\nІснуючі файли не будуть змінені або видалені.\n\nАвтоматично додаються до черги лише збіги з високою достовірністю.\n\n{count} вибрано",
+  "queueFlacConfirmMessage": "Пошук онлайн-збігів для вибраних треків та додавання завантажень FLAC до черги.\n\nЩо існують файли не будуть змінені або видалені.\n\nАвтоматично додаються до черги лише збіги з високою ймовірністю.\n\n{count} Вибрано",
   "@queueFlacConfirmMessage": {
     "description": "Confirmation dialog body before queueing FLAC redownloads for local tracks",
     "placeholders": {
@@ -3573,7 +3573,7 @@
   "@trackConvertTargetFormat": {
     "description": "Label for format selection"
   },
-  "trackConvertBitrate": "Бітрейт",
+  "trackConvertBitrate": "Bitrate",
   "@trackConvertBitrate": {
     "description": "Label for bitrate selection"
   },
@@ -3589,7 +3589,7 @@
   "@trackConvertConfirmTitle": {
     "description": "Confirmation dialog title"
   },
-  "trackConvertConfirmMessage": "Конвертувати з {sourceFormat} в {targetFormat} із бітрейтом {bitrate}?\n\nОригінальний файл буде видалено після конвертації.",
+  "trackConvertConfirmMessage": "Конвертувати з {sourceFormat} в {targetFormat} зі швидкістю {bitrate}?\n\nОригінальний файл буде видалено після конвертації.",
   "@trackConvertConfirmMessage": {
     "description": "Confirmation dialog message",
     "placeholders": {
@@ -3671,7 +3671,7 @@
       }
     }
   },
-  "cueSplitTrackCount": "{count} треків",
+  "cueSplitTrackCount": "{count} Треків",
   "@cueSplitTrackCount": {
     "description": "Number of tracks in CUE sheet",
     "placeholders": {
@@ -3708,7 +3708,7 @@
       }
     }
   },
-  "cueSplitSuccess": "Розділено на {count} треків успішно",
+  "cueSplitSuccess": "Розділено на {count} треки успішно",
   "@cueSplitSuccess": {
     "description": "Snackbar after successful CUE split",
     "placeholders": {
@@ -3757,7 +3757,7 @@
   "@collectionAddToPlaylist": {
     "description": "Action to add a track to user playlist"
   },
-  "collectionCreatePlaylist": "Створити плейлист",
+  "collectionCreatePlaylist": "Створити список треків",
   "@collectionCreatePlaylist": {
     "description": "Action to create a new playlist"
   },
@@ -3829,7 +3829,7 @@
   "@collectionWishlistEmptySubtitle": {
     "description": "Wishlist empty state subtitle"
   },
-  "collectionLovedEmptyTitle": "Папка \"Улюблені\" порожня",
+  "collectionLovedEmptyTitle": "Тека \"Улюблені\" порожня",
   "@collectionLovedEmptyTitle": {
     "description": "Loved empty state title"
   },
@@ -3857,7 +3857,7 @@
   "@collectionRemoveFromPlaylist": {
     "description": "Tooltip for removing track from playlist"
   },
-  "collectionRemoveFromFolder": "Видалити з папки",
+  "collectionRemoveFromFolder": "Видалити з теки",
   "@collectionRemoveFromFolder": {
     "description": "Tooltip for removing track from wishlist/loved folder"
   },
@@ -3977,7 +3977,7 @@
   "@selectionBatchConvertConfirmTitle": {
     "description": "Confirmation dialog title for batch conversion"
   },
-  "selectionBatchConvertConfirmMessage": "Конвертувати {count} {count, plural, =1{трек} other{треків}} у {format} з бітрейтом {bitrate}?\n\nОригінальні файли будуть видалені після конвертації.",
+  "selectionBatchConvertConfirmMessage": "Конвертувати {count} {count, plural, =1{трек} other{треків}} у {format} з {bitrate}?\n\nОригінальні файли будуть видалені після конвертації.",
   "@selectionBatchConvertConfirmMessage": {
     "description": "Confirmation dialog message for batch conversion",
     "placeholders": {
@@ -4031,7 +4031,7 @@
       }
     }
   },
-  "downloadedAlbumDownloadedCount": "{count} завантажено",
+  "downloadedAlbumDownloadedCount": "{count} Завантажено",
   "@downloadedAlbumDownloadedCount": {
     "description": "Downloaded tracks count badge",
     "placeholders": {
@@ -4126,11 +4126,11 @@
   "@safMigrationMessage1": {
     "description": "First paragraph of SAF migration dialog"
   },
-  "safMigrationMessage2": "Будь ласка, виберіть папку завантажень ще раз, щоб перейти до нової системи зберігання.",
+  "safMigrationMessage2": "Будь ласка, виберіть теку завантажень ще раз, щоб перейти до нової системи зберігання.",
   "@safMigrationMessage2": {
     "description": "Second paragraph of SAF migration dialog"
   },
-  "safMigrationSuccess": "Папку завантажень оновлено до режиму SAF",
+  "safMigrationSuccess": "Тека завантажень оновлено до режиму SAF",
   "@safMigrationSuccess": {
     "description": "Snackbar after successfully migrating to SAF"
   },
@@ -4609,7 +4609,7 @@
   "@cacheRefresh": {
     "description": "Tooltip for refresh button on cache management page"
   },
-  "dialogDownloadPlaylistsMessage": "Завантажити {trackCount} {trackCount, plural, =1{трек} other{треків}} з {playlistCount} {playlistCount, plural, =1{плейлист} other{плейлистів}}?",
+  "dialogDownloadPlaylistsMessage": "Завантажити {trackCount} {trackCount, plural, =1{трек} other{треків}} із {playlistCount} {playlistCount, plural, =1{список треків} other{списки треків}}?",
   "@dialogDownloadPlaylistsMessage": {
     "description": "Dialog message for bulk playlist download confirmation",
     "placeholders": {
@@ -4621,7 +4621,7 @@
       }
     }
   },
-  "bulkDownloadPlaylistsButton": "Завантажити {count} {count, plural, =1{плейлист} other{плейлистів}}",
+  "bulkDownloadPlaylistsButton": "Завантажити {count} {count, plural, =1{список треків} other{списки треків}}",
   "@bulkDownloadPlaylistsButton": {
     "description": "Button label for bulk downloading selected playlists",
     "placeholders": {
@@ -4638,7 +4638,7 @@
   "@snackbarSelectedPlaylistsEmpty": {
     "description": "Snackbar when selected playlists contain no tracks"
   },
-  "playlistsCount": "{count, plural, =1{1 плейлист} other{{count} плейлистів}}",
+  "playlistsCount": "{count, plural, =1{1 список треків} other{{count} списків треків}}",
   "@playlistsCount": {
     "description": "Playlist count display",
     "placeholders": {
@@ -4708,7 +4708,7 @@
   "@editMetadataAutoFillNoResults": {
     "description": "Snackbar when online metadata search returns no results"
   },
-  "editMetadataAutoFillDone": "Заповнено {count} {count, plural, =1{поле} other{полей}} з онлайн-метаданих",
+  "editMetadataAutoFillDone": "Заповнено {count} {count, plural, =1{поле} other{полів}} з онлайн-метаданих",
   "@editMetadataAutoFillDone": {
     "description": "Snackbar confirming how many fields were auto-filled",
     "placeholders": {
@@ -4757,7 +4757,7 @@
   "@editMetadataFieldIsrc": {
     "description": "Chip label for ISRC field in auto-fill selector"
   },
-  "editMetadataFieldLabel": "Лейбл",
+  "editMetadataFieldLabel": "Обкладинка",
   "@editMetadataFieldLabel": {
     "description": "Chip label for label field in auto-fill selector"
   },
@@ -4773,7 +4773,7 @@
   "@editMetadataSelectAll": {
     "description": "Button to select all fields for auto-fill"
   },
-  "editMetadataSelectEmpty": "Порожні (без мета даних)",
+  "editMetadataSelectEmpty": "Тільки порожні",
   "@editMetadataSelectEmpty": {
     "description": "Button to select only fields that are currently empty"
   },
@@ -4905,7 +4905,7 @@
   "@audioAnalysisDuration": {
     "description": "Duration metric label"
   },
-  "audioAnalysisNyquist": "Частота Найквіста",
+  "audioAnalysisNyquist": "Nyquist",
   "@audioAnalysisNyquist": {
     "description": "Nyquist frequency metric label"
   },
@@ -5149,7 +5149,7 @@
   "@extensionsHomeFeedProvider": {
     "description": "Extensions page - label for home feed provider selector"
   },
-  "extensionsHomeFeedDescription": "Виберіть, яке розширення відображатиме домашню стрічку на головному екрані",
+  "extensionsHomeFeedDescription": "Виберіть, яке розширення показуватиме домашню стрічку на головному екрані",
   "@extensionsHomeFeedDescription": {
     "description": "Extensions page - description for home feed provider picker"
   },
@@ -5215,7 +5215,7 @@
   "@metadataSaveFailedStorage": {
     "description": "Snackbar error when writing metadata file back to storage fails"
   },
-  "snackbarFolderPickerFailed": "Не вдалося відкрити засіб вибору папок: {error}",
+  "snackbarFolderPickerFailed": "Не вдалося відкрити засіб вибору тек: {error}",
   "@snackbarFolderPickerFailed": {
     "description": "Snackbar shown when folder picker fails to open",
     "placeholders": {
@@ -5355,7 +5355,7 @@
       }
     }
   },
-  "notifLibraryScanProgressNoTotal": "{scanned} файлів скановано • {percentage}%",
+  "notifLibraryScanProgressNoTotal": "{scanned} Файлів скановано • {percentage}%",
   "@notifLibraryScanProgressNoTotal": {
     "description": "Notification body for library scan progress when total is unknown",
     "placeholders": {
@@ -5371,7 +5371,7 @@
   "@notifLibraryScanComplete": {
     "description": "Notification title when library scan finishes"
   },
-  "notifLibraryScanCompleteBody": "{count} треків індексовано",
+  "notifLibraryScanCompleteBody": "{count} Треків індексовано",
   "@notifLibraryScanCompleteBody": {
     "description": "Notification body for library scan complete - number of indexed tracks",
     "placeholders": {
@@ -5380,7 +5380,7 @@
       }
     }
   },
-  "notifLibraryScanExcluded": "{count} виключені",
+  "notifLibraryScanExcluded": "{count} Виключені",
   "@notifLibraryScanExcluded": {
     "description": "Library scan complete suffix - excluded track count",
     "placeholders": {
@@ -5389,7 +5389,7 @@
       }
     }
   },
-  "notifLibraryScanErrors": "{count} помилок",
+  "notifLibraryScanErrors": "{count} Помилок",
   "@notifLibraryScanErrors": {
     "description": "Library scan complete suffix - error count",
     "placeholders": {

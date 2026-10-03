@@ -932,7 +932,7 @@
     "description": "Dialog title - import CSV playlist"
   },
   "dialogImportPlaylistMessage": "У файлі списку відтворення знайдено {count} треків. Додати їх до черги завантаження?",
-  "csvImportTracks": "{count} треків з CSV",
+  "csvImportTracks": "{count} Треків з CSV",
   "@csvImportTracks": {
     "description": "Label shown in quality picker for CSV import",
     "placeholders": {
@@ -1274,7 +1274,7 @@
   "@searchSortTitleZA": {
     "description": "Sort option - title descending"
   },
-  "searchSortArtistAZ": "Виконавець (А-Я)",
+  "searchSortArtistAZ": "Виконавець (A-Z)",
   "@searchSortArtistAZ": {
     "description": "Sort option - artist ascending"
   },
@@ -1973,7 +1973,7 @@
   "@extensionQualityOptions": {
     "description": "Capability - quality selection"
   },
-  "extensionPostProcessingHooks": "Хуки пост-обробки",
+  "extensionPostProcessingHooks": "Хуки постобробки",
   "@extensionPostProcessingHooks": {
     "description": "Capability - post-processing"
   },
@@ -2005,7 +2005,7 @@
   "@extensionPostProcessing": {
     "description": "Capability - post-download processing"
   },
-  "extensionHooksAvailable": "{count} доступних хуків",
+  "extensionHooksAvailable": "{count} Доступних хуків()",
   "@extensionHooksAvailable": {
     "description": "Post-processing hooks count",
     "placeholders": {
@@ -2136,11 +2136,11 @@
   "@extensionsErrorLoading": {
     "description": "Error message when extension fails to load"
   },
-  "qualityFlacLossless": "FLAC без втрат",
+  "qualityFlacLossless": "FLAC Lossless",
   "@qualityFlacLossless": {
     "description": "Quality option - CD quality FLAC"
   },
-  "qualityFlacLosslessSubtitle": "16 біт / 44,1 кГц",
+  "qualityFlacLosslessSubtitle": "16-bit / 44.1kHz",
   "@qualityFlacLosslessSubtitle": {
     "description": "Technical spec for lossless"
   },
@@ -2997,7 +2997,7 @@
   "@libraryFilterSortAlbumDesc": {
     "description": "Sort option - album descending"
   },
-  "libraryFilterSortGenreAsc": "Жанр (А-Я)",
+  "libraryFilterSortGenreAsc": "Жанр (A-Z)",
   "@libraryFilterSortGenreAsc": {
     "description": "Sort option - genre ascending"
   },
@@ -3733,7 +3733,7 @@
   "@actionCreate": {
     "description": "Generic action button - create"
   },
-  "collectionFoldersTitle": "Мої папки",
+  "collectionFoldersTitle": "Мої теки",
   "@collectionFoldersTitle": {
     "description": "Library section title for custom folders"
   },
@@ -6985,7 +6985,7 @@
   "@metadataCopyValue": {
     "description": "Metadata menu action that copies only the selected value"
   },
-  "metadataCopyField": "Copy field and value",
+  "metadataCopyField": "Копіювати поле та значення",
   "@metadataCopyField": {
     "description": "Metadata menu action that copies the selected key and value"
   },

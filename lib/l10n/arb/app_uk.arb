@@ -769,15 +769,15 @@
   "@setupNotificationEnable": {
     "description": "Button to enable notifications"
   },
-  "setupFolderChoose": "Виберати папку для завантаження",
+  "setupFolderChoose": "Вибрати теку для завантаження",
   "@setupFolderChoose": {
     "description": "Button to choose folder"
   },
-  "setupFolderDescription": "Виберіть папку, де буде збережено завантажену музику.",
+  "setupFolderDescription": "Виберіть теку, де буде збережено завантажену музику.",
   "@setupFolderDescription": {
     "description": "Explanation for folder selection"
   },
-  "setupSelectFolder": "Вибрати папку",
+  "setupSelectFolder": "Вибрати теку",
   "@setupSelectFolder": {
     "description": "Button to select folder"
   },
@@ -1114,7 +1114,7 @@
   "@snackbarFileNotFound": {
     "description": "Snackbar - file doesn't exist"
   },
-  "snackbarSelectExtFile": "Будь ласка, виберіть файл .spotiflac-ext",
+  "snackbarSelectExtFile": "Будь ласка, виберіть файл.spotiflac-ext",
   "@snackbarSelectExtFile": {
     "description": "Snackbar - wrong file type selected"
   },
@@ -1135,7 +1135,7 @@
       }
     }
   },
-  "snackbarExtensionUpdated": "{extensionName} оновлено.",
+  "snackbarExtensionUpdated": "{extensionName} Оновлено.",
   "@snackbarExtensionUpdated": {
     "description": "Snackbar - extension updated successfully",
     "placeholders": {
@@ -1266,11 +1266,11 @@
   "@searchSortDefault": {
     "description": "Sort option - default API order"
   },
-  "searchSortTitleAZ": "Назва (А-Я)",
+  "searchSortTitleAZ": "Назва (A-Z)",
   "@searchSortTitleAZ": {
     "description": "Sort option - title ascending"
   },
-  "searchSortTitleZA": "Назва (Я-А)",
+  "searchSortTitleZA": "Назва (Z-A)",
   "@searchSortTitleZA": {
     "description": "Sort option - title descending"
   },
@@ -1278,7 +1278,7 @@
   "@searchSortArtistAZ": {
     "description": "Sort option - artist ascending"
   },
-  "searchSortArtistZA": "Виконавець (Я-А)",
+  "searchSortArtistZA": "Виконавець (Z-A)",
   "@searchSortArtistZA": {
     "description": "Sort option - artist descending"
   },
@@ -1322,7 +1322,7 @@
   "@folderOrganizationByPlaylist": {
     "description": "Folder option - playlist folders"
   },
-  "folderOrganizationByPlaylistSubtitle": "Окрема папка для кожного списку відтворення",
+  "folderOrganizationByPlaylistSubtitle": "Окрема тека для кожного списку відтворення",
   "@folderOrganizationByPlaylistSubtitle": {
     "description": "Subtitle for playlist folder option"
   },
@@ -1338,23 +1338,23 @@
   "@folderOrganizationByArtistAlbum": {
     "description": "Folder option - nested folders"
   },
-  "folderOrganizationDescription": "Упорядкувати завантажені файли в папки",
+  "folderOrganizationDescription": "Упорядкувати завантажені файли в теці",
   "@folderOrganizationDescription": {
     "description": "Folder organization sheet description"
   },
-  "folderOrganizationNoneSubtitle": "Усі файли в папці завантажень",
+  "folderOrganizationNoneSubtitle": "Усі файли в теці завантажень",
   "@folderOrganizationNoneSubtitle": {
     "description": "Subtitle for no organization option"
   },
-  "folderOrganizationByArtistSubtitle": "Окрема папка для кожного виконавця",
+  "folderOrganizationByArtistSubtitle": "Окрема тека для кожного виконавця",
   "@folderOrganizationByArtistSubtitle": {
     "description": "Subtitle for artist folder option"
   },
-  "folderOrganizationByAlbumSubtitle": "Окрема папка для кожного альбому",
+  "folderOrganizationByAlbumSubtitle": "Окрема тека для кожного альбому",
   "@folderOrganizationByAlbumSubtitle": {
     "description": "Subtitle for album folder option"
   },
-  "folderOrganizationByArtistAlbumSubtitle": "Вкладені папки для виконавця та альбому",
+  "folderOrganizationByArtistAlbumSubtitle": "Вкладені теки для виконавця та альбому",
   "@folderOrganizationByArtistAlbumSubtitle": {
     "description": "Subtitle for nested folder option"
   },
@@ -1499,7 +1499,7 @@
   "@logNoLogsYet": {
     "description": "Empty state title"
   },
-  "logNoLogsYetSubtitle": "Журнали відображатимуться тут під час використання програми",
+  "logNoLogsYetSubtitle": "Тут з’являтимуться записи журналу в міру використання програми",
   "@logNoLogsYetSubtitle": {
     "description": "Empty state subtitle"
   },
@@ -1575,7 +1575,7 @@
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
   },
-  "lyricsModeDescription": "Виберіть, як тексти пісень зберігатимуться разом із завантаженнями пісень.",
+  "lyricsModeDescription": "Виберіть як тексти пісень зберігатимуться разом із завантаженнями пісень",
   "@lyricsModeDescription": {
     "description": "Lyrics mode picker description"
   },
@@ -1761,7 +1761,7 @@
   "@trackGenre": {
     "description": "Metadata label - music genre"
   },
-  "trackLabel": "Лейбл",
+  "trackLabel": "Обкладинка",
   "@trackLabel": {
     "description": "Metadata label - record label"
   },
@@ -1838,7 +1838,7 @@
   "@dateYesterday": {
     "description": "Relative date - yesterday"
   },
-  "dateDaysAgo": "{count} днів тому",
+  "dateDaysAgo": "{count} Днів тому",
   "@dateDaysAgo": {
     "description": "Relative date - days ago",
     "placeholders": {
@@ -1847,7 +1847,7 @@
       }
     }
   },
-  "dateWeeksAgo": "{count} тижнів тому",
+  "dateWeeksAgo": "{count} Тижнів тому",
   "@dateWeeksAgo": {
     "description": "Relative date - weeks ago",
     "placeholders": {
@@ -1856,7 +1856,7 @@
       }
     }
   },
-  "dateMonthsAgo": "{count} місяців тому",
+  "dateMonthsAgo": "{count} Місяців тому",
   "@dateMonthsAgo": {
     "description": "Relative date - months ago",
     "placeholders": {
@@ -2001,7 +2001,7 @@
   "@extensionCustomTrackMatching": {
     "description": "Capability - custom track matching algorithm"
   },
-  "extensionPostProcessing": "Післяобробка",
+  "extensionPostProcessing": "Постобробка",
   "@extensionPostProcessing": {
     "description": "Capability - post-download processing"
   },
@@ -2014,7 +2014,7 @@
       }
     }
   },
-  "extensionPatternsCount": "{count} шаблон(ів)",
+  "extensionPatternsCount": "{count} Шаблон()",
   "@extensionPatternsCount": {
     "description": "URL patterns count",
     "placeholders": {
@@ -2044,7 +2044,7 @@
   "@extensionsNoExtensions": {
     "description": "Empty state - no extensions"
   },
-  "extensionsNoExtensionsSubtitle": "Встановіть файли .spotiflac-ext, щоб додати нових провайдерів",
+  "extensionsNoExtensionsSubtitle": "Встановіть файли.spotiflac-ext, щоб додати нових провайдерів",
   "@extensionsNoExtensionsSubtitle": {
     "description": "Empty state subtitle"
   },
@@ -2060,7 +2060,7 @@
   "@extensionsInstalledSuccess": {
     "description": "Success message after install"
   },
-  "extensionsInstalledCount": "{count} розширення успішно встановлено",
+  "extensionsInstalledCount": "{count} Розширення успішно встановлено",
   "@extensionsInstalledCount": {
     "description": "Success message after installing multiple extensions",
     "placeholders": {
@@ -2144,27 +2144,27 @@
   "@qualityFlacLosslessSubtitle": {
     "description": "Technical spec for lossless"
   },
-  "qualityHiResFlac": "FLAC високої роздільної здатності",
+  "qualityHiResFlac": "Hi-Res FLAC",
   "@qualityHiResFlac": {
     "description": "Quality option - high resolution FLAC"
   },
-  "qualityHiResFlacSubtitle": "24-біт / до 96 кГц",
+  "qualityHiResFlacSubtitle": "24-bit / up to 96kHz",
   "@qualityHiResFlacSubtitle": {
     "description": "Technical spec for hi-res"
   },
-  "qualityHiResFlacMax": "FLAC Max з високою роздільною здатністю",
+  "qualityHiResFlacMax": "Hi-Res FLAC Max",
   "@qualityHiResFlacMax": {
     "description": "Quality option - maximum resolution FLAC"
   },
-  "qualityHiResFlacMaxSubtitle": "24-біт / до 192 кГц",
+  "qualityHiResFlacMaxSubtitle": "24-bit / up to 192kHz",
   "@qualityHiResFlacMaxSubtitle": {
     "description": "Technical spec for hi-res max"
   },
-  "downloadLossy320": "Lossy (із втратами) 320 кбіт/с",
+  "downloadLossy320": "Lossy 320kbps",
   "@downloadLossy320": {
     "description": "Quality option label for lossy 320kbps"
   },
-  "downloadLossyFormat": "Формат із втратами",
+  "downloadLossyFormat": "Формат Lossy",
   "@downloadLossyFormat": {
     "description": "Setting title to pick output format for lossy downloads"
   },
@@ -2216,7 +2216,7 @@
   "@downloadLossyMp3": {
     "description": "Lossy format option - MP3 320kbps"
   },
-  "downloadLossyMp3Subtitle": "Найкраща сумісність, ~10 МБ на доріжку",
+  "downloadLossyMp3Subtitle": "Найкраща сумісність, ~10 Mb на трек",
   "@downloadLossyMp3Subtitle": {
     "description": "Subtitle for MP3 320kbps lossy option"
   },
@@ -2232,7 +2232,7 @@
   "@downloadLossyOpus256": {
     "description": "Lossy format option - Opus 256kbps"
   },
-  "downloadLossyOpus256Subtitle": "Opus найкращої якості, ~8 МБ на трек",
+  "downloadLossyOpus256Subtitle": "Opus найкращої якості, ~8 Mb на трек",
   "@downloadLossyOpus256Subtitle": {
     "description": "Subtitle for Opus 256kbps lossy option"
   },
@@ -2240,7 +2240,7 @@
   "@downloadLossyOpus128": {
     "description": "Lossy format option - Opus 128kbps"
   },
-  "downloadLossyOpus128Subtitle": "Найменший розмір, ~4 МБ на доріжку",
+  "downloadLossyOpus128Subtitle": "Найменший розмір, ~4 Mb на доріжку",
   "@downloadLossyOpus128Subtitle": {
     "description": "Subtitle for Opus 128kbps lossy option"
   },

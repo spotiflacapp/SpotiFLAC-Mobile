@@ -5129,7 +5129,7 @@
       }
     }
   },
-  "hiResCheckReasonDepth": "Declares {declared}-bit but only {effective} bits carry data",
+  "hiResCheckReasonDepth": "Заявлено {declared} біт, але тільки {effective} біти передають дані",
   "@hiResCheckReasonDepth": {
     "description": "Reason for a fake verdict caused by padded bit depth",
     "placeholders": {
@@ -5141,7 +5141,7 @@
       }
     }
   },
-  "audioAnalysisRescanning": "Re-analyzing audio...",
+  "audioAnalysisRescanning": "Повторний аналіз аудіо...",
   "@audioAnalysisRescanning": {
     "description": "Loading text while audio is being re-analyzed after an explicit refresh"
   },
@@ -5161,11 +5161,11 @@
   "@extensionsHomeFeedAutoSubtitle": {
     "description": "Extensions page - subtitle for auto home feed option"
   },
-  "extensionsHomeFeedOff": "Off",
+  "extensionsHomeFeedOff": "Вимкнути",
   "@extensionsHomeFeedOff": {
     "description": "Extensions page - home feed provider option: off"
   },
-  "extensionsHomeFeedOffSubtitle": "Do not show the home feed on the main screen",
+  "extensionsHomeFeedOffSubtitle": "Приховати домашню стрічку на головному екрані",
   "@extensionsHomeFeedOffSubtitle": {
     "description": "Extensions page - subtitle for off home feed option"
   },
@@ -5199,11 +5199,11 @@
   "@cancelDownloadKeep": {
     "description": "Dialog button - keep the active download (do not cancel)"
   },
-  "queueCancelledTitle": "Download cancelled",
+  "queueCancelledTitle": "Завантаження скасоване",
   "@queueCancelledTitle": {
     "description": "Dialog title when opening a cancelled queue item"
   },
-  "queueCancelledMessage": "This download was cancelled. Retry it or remove it from the queue.",
+  "queueCancelledMessage": "Це завантаження було скасовано. Повторіть спробу, або видаліть його з черги.",
   "@queueCancelledMessage": {
     "description": "Dialog body when opening a cancelled queue item"
   },
@@ -5290,11 +5290,11 @@
       }
     }
   },
-  "notifVerificationRequiredTitle": "Verification required",
+  "notifVerificationRequiredTitle": "Потрібна перевірка",
   "@notifVerificationRequiredTitle": {
     "description": "Notification title shown when a download needs the user to complete a verification challenge but the app is in the background"
   },
-  "notifVerificationRequiredBody": "Open the app to complete verification and resume downloads",
+  "notifVerificationRequiredBody": "Відкрийте програму, щоб завершити перевірку та відновити завантаження",
   "@notifVerificationRequiredBody": {
     "description": "Notification body prompting the user to return to the app to solve a verification challenge"
   },
@@ -5302,7 +5302,7 @@
   "@notifAllDownloadsComplete": {
     "description": "Notification title when all downloads finish successfully"
   },
-  "notifTracksDownloadedSuccess": "{count, plural, =1{1 track downloaded successfully} other{{count} tracks downloaded successfully}}",
+  "notifTracksDownloadedSuccess": "{count, plural, =1{1 трек успішно завантажено} other{{count} треки успішно завантажено}}",
   "@notifTracksDownloadedSuccess": {
     "description": "Notification body for queue complete - how many tracks were downloaded",
     "placeholders": {
@@ -5311,7 +5311,7 @@
       }
     }
   },
-  "notifDownloadsFinishedBody": "{completed, plural, =1{1 track downloaded} other{{completed} tracks downloaded}}, {failed, plural, =1{1 failed} other{{failed} failed}}",
+  "notifDownloadsFinishedBody": "{completed, plural, =1{завантажено 1 трек} other{{completed} завантажені треки}}, {failed, plural, =1{1 помилка} other{{failed} помилка}}",
   "@notifDownloadsFinishedBody": {
     "description": "Notification body when queue finishes with failures",
     "placeholders": {
@@ -5323,11 +5323,11 @@
       }
     }
   },
-  "notifDownloadsCanceledTitle": "Downloads canceled",
+  "notifDownloadsCanceledTitle": "Завантаження скасовано",
   "@notifDownloadsCanceledTitle": {
     "description": "Notification title when downloads are canceled by the user"
   },
-  "notifDownloadsCanceledBody": "{count, plural, =1{1 download canceled by user} other{{count} downloads canceled by user}}",
+  "notifDownloadsCanceledBody": "{count, plural, =1{1 завантаження скасовано користувачем} other{{count} завантаження скасовано користувачем}}",
   "@notifDownloadsCanceledBody": {
     "description": "Notification body when downloads are canceled by the user",
     "placeholders": {
@@ -5410,11 +5410,11 @@
   "@notifLibraryScanStopped": {
     "description": "Notification body when library scan is cancelled"
   },
-  "notifLibraryScanPaused": "Library scan paused",
+  "notifLibraryScanPaused": "Сканування бібліотеки призупинено",
   "@notifLibraryScanPaused": {
     "description": "Notification title when the user pauses a library scan"
   },
-  "notifLibraryScanPausedBody": "{count} files scanned. Resume in Local Library settings to continue from here.",
+  "notifLibraryScanPausedBody": "{count} Файли проскановано. Відновіть роботу в налаштуваннях локальної бібліотеки, щоб продовжити з цього місця.",
   "@notifLibraryScanPausedBody": {
     "description": "Notification body for a paused library scan - files scanned so far",
     "placeholders": {
@@ -5423,7 +5423,7 @@
       }
     }
   },
-  "notifDownloadingUpdate": "Downloading SpotiFLAC Mobile v{version}",
+  "notifDownloadingUpdate": "Завантаження SpotiFLAC v{version}",
   "@notifDownloadingUpdate": {
     "description": "Notification title while downloading an app update",
     "placeholders": {
@@ -5451,7 +5451,7 @@
   "@notifUpdateReady": {
     "description": "Notification title when app update download is complete"
   },
-  "notifUpdateReadyBody": "SpotiFLAC Mobile v{version} downloaded. Tap to install.",
+  "notifUpdateReadyBody": "SpotiFLAC v{version} завантажена. Натисніть щоб установити.",
   "@notifUpdateReadyBody": {
     "description": "Notification body when app update is ready to install",
     "placeholders": {
@@ -5468,15 +5468,15 @@
   "@notifUpdateFailedBody": {
     "description": "Notification body when app update download fails"
   },
-  "searchTracks": "Tracks",
+  "searchTracks": "Треки",
   "@searchTracks": {
     "description": "Search filter label - tracks"
   },
-  "homeSearchHintDefault": "Paste supported URL or search...",
+  "homeSearchHintDefault": "Вставте підтримувану URL-адресу або виконайте пошук...",
   "@homeSearchHintDefault": {
     "description": "Default placeholder for the main search field on Home"
   },
-  "homeSearchHintProvider": "Search with {providerName}...",
+  "homeSearchHintProvider": "Пошук за допомогою{providerName}...",
   "@homeSearchHintProvider": {
     "description": "Placeholder for the main search field when a provider is selected",
     "placeholders": {
@@ -5485,111 +5485,111 @@
       }
     }
   },
-  "homeImportCsvTooltip": "Import playlist (CSV, M3U)",
+  "homeImportCsvTooltip": "Імпортувати список відтворення (CSV, M3U)",
   "@homeImportCsvTooltip": {
     "description": "Tooltip for importing a CSV or M3U playlist file into Home search"
   },
-  "homeChangeSearchProviderTooltip": "Change search provider",
+  "homeChangeSearchProviderTooltip": "Змінити пошукову систему",
   "@homeChangeSearchProviderTooltip": {
     "description": "Tooltip for the Home search provider picker"
   },
-  "actionPaste": "Paste",
+  "actionPaste": "Вставити",
   "@actionPaste": {
     "description": "Generic action - paste from clipboard"
   },
-  "tutorialSearchHint": "Paste or search...",
+  "tutorialSearchHint": "Вставити або шукати...",
   "@tutorialSearchHint": {
     "description": "Placeholder shown in the tutorial search demo"
   },
-  "tutorialDownloadCompletedSemantics": "Download completed",
+  "tutorialDownloadCompletedSemantics": "Завантаження завершено",
   "@tutorialDownloadCompletedSemantics": {
     "description": "Accessibility label for completed download state in tutorial demo"
   },
-  "tutorialDownloadInProgressSemantics": "Download in progress",
+  "tutorialDownloadInProgressSemantics": "Завантаження триває",
   "@tutorialDownloadInProgressSemantics": {
     "description": "Accessibility label for active download state in tutorial demo"
   },
-  "tutorialStartDownloadSemantics": "Start download",
+  "tutorialStartDownloadSemantics": "Почати завантаження",
   "@tutorialStartDownloadSemantics": {
     "description": "Accessibility label for idle download button in tutorial demo"
   },
-  "optionsEmbedMetadata": "Embed Metadata",
+  "optionsEmbedMetadata": "Вбудувати метадані",
   "@optionsEmbedMetadata": {
     "description": "Settings toggle title for writing metadata into downloaded files"
   },
-  "optionsEmbedMetadataSubtitleOn": "Write metadata, cover art, and embedded lyrics to files",
+  "optionsEmbedMetadataSubtitleOn": "Записуйте метадані, обкладинки та вбудовані тексти пісень у файли",
   "@optionsEmbedMetadataSubtitleOn": {
     "description": "Subtitle when metadata embedding is enabled"
   },
-  "optionsEmbedMetadataSubtitleOff": "Disabled (advanced): skip all metadata embedding",
+  "optionsEmbedMetadataSubtitleOff": "Вимкнено (розширений режим): пропустити вбудовування всіх метаданих",
   "@optionsEmbedMetadataSubtitleOff": {
     "description": "Subtitle when metadata embedding is disabled"
   },
-  "trackCoverNoEmbeddedArt": "No embedded album art found",
+  "trackCoverNoEmbeddedArt": "Вбудованих обкладинок альбому не знайдено",
   "@trackCoverNoEmbeddedArt": {
     "description": "Message shown when a track file has no embedded cover art"
   },
-  "trackCoverReplace": "Replace Cover",
+  "trackCoverReplace": "Змінити обкладинку",
   "@trackCoverReplace": {
     "description": "Button label for replacing selected cover art"
   },
-  "trackCoverPick": "Pick Cover",
+  "trackCoverPick": "Виберіть обкладинку",
   "@trackCoverPick": {
     "description": "Button label for selecting cover art"
   },
-  "trackCoverClearSelected": "Clear selected cover",
+  "trackCoverClearSelected": "Очистити вибрану обкладинку",
   "@trackCoverClearSelected": {
     "description": "Tooltip for clearing the newly selected cover art"
   },
-  "trackCoverCurrent": "Current cover",
+  "trackCoverCurrent": "Поточна обкладинка",
   "@trackCoverCurrent": {
     "description": "Label for the currently embedded cover preview"
   },
-  "trackCoverSelected": "Selected cover",
+  "trackCoverSelected": "Вибрана обкладинка",
   "@trackCoverSelected": {
     "description": "Label for the newly selected cover preview"
   },
-  "trackCoverReplaceNotice": "The selected cover will replace the current embedded cover when you tap Save.",
+  "trackCoverReplaceNotice": "Вибрана обкладинка замінить поточну вбудовану обкладинку, коли ви натиснете «Зберегти».",
   "@trackCoverReplaceNotice": {
     "description": "Notice shown when a new cover has been selected but not saved yet"
   },
-  "trackCoverResolution": "Cover resolution",
+  "trackCoverResolution": "Розмір обкладинки",
   "@trackCoverResolution": {
     "description": "Label for selecting the embedded cover art resolution"
   },
-  "trackCoverResolutionHint": "Sets the longest edge when saved. Enlarging does not add image detail.",
+  "trackCoverResolutionHint": "Визначає розмір найдовшого краю під час збереження. Збільшення не додає зображенню деталей.",
   "@trackCoverResolutionHint": {
     "description": "Explanation below the embedded cover art resolution selector"
   },
-  "trackCoverResizeFailed": "The cover image could not be resized. Please try another size or image.",
+  "trackCoverResizeFailed": "Не вдалося змінити розмір зображення обкладинки. Будь ласка, спробуйте інший розмір або зображення.",
   "@trackCoverResizeFailed": {
     "description": "Error shown when resizing cover art before saving metadata fails"
   },
-  "actionStop": "Stop",
+  "actionStop": "Стоп",
   "@actionStop": {
     "description": "Generic action - stop"
   },
-  "queueFinalizingDownload": "Finalizing download",
+  "queueFinalizingDownload": "Завершення завантаження",
   "@queueFinalizingDownload": {
     "description": "Accessibility label for a queue item that is finalizing"
   },
-  "queueDownloadNext": "Download next",
+  "queueDownloadNext": "Наступне завантаження",
   "@queueDownloadNext": {
     "description": "Tooltip on a queued download row; moves the item to the front of the queue so the next free slot downloads it"
   },
-  "queueMoveUp": "Move up",
+  "queueMoveUp": "Перемістити вверх",
   "@queueMoveUp": {
     "description": "Queue item menu action - move the queued item one position earlier"
   },
-  "queueMoveDown": "Move down",
+  "queueMoveDown": "Перемістити вниз",
   "@queueMoveDown": {
     "description": "Queue item menu action - move the queued item one position later"
   },
-  "editMetadataMusicBrainzButton": "Fetch from MusicBrainz",
+  "editMetadataMusicBrainzButton": "Отримати з MusicBrainz",
   "@editMetadataMusicBrainzButton": {
     "description": "Tag editor button that fills genre and album artist from MusicBrainz by ISRC"
   },
-  "editMetadataMusicBrainzFilled": "Updated from MusicBrainz",
+  "editMetadataMusicBrainzFilled": "Оновлено з MusicBrainz",
   "@editMetadataMusicBrainzFilled": {
     "description": "Snackbar after MusicBrainz suggestions were applied to the tag editor fields"
   },
@@ -5597,7 +5597,7 @@
   "@editMetadataMusicBrainzNothing": {
     "description": "Snackbar when the MusicBrainz lookup returns no data"
   },
-  "editMetadataMusicBrainzNeedsIsrc": "Requires an ISRC tag",
+  "editMetadataMusicBrainzNeedsIsrc": "Потребує коду ISRC",
   "@editMetadataMusicBrainzNeedsIsrc": {
     "description": "Snackbar when the MusicBrainz lookup is tapped without an ISRC"
   },
@@ -5865,15 +5865,15 @@
   "@sectionMetadataProviders": {
     "description": "Settings section header for metadata providers"
   },
-  "sectionDuplicates": "Duplicates",
+  "sectionDuplicates": "Дублікати",
   "@sectionDuplicates": {
     "description": "Settings section header for deduplication"
   },
-  "sectionLyricsProviderOptions": "Provider Options",
+  "sectionLyricsProviderOptions": "Параметри провайдера",
   "@sectionLyricsProviderOptions": {
     "description": "Settings section header for per-provider lyrics options"
   },
-  "metadataProvidersTitle": "Metadata Provider Priority",
+  "metadataProvidersTitle": "Пріоритет провайдера метаданих",
   "@metadataProvidersTitle": {
     "description": "Settings item title for metadata provider order"
   },

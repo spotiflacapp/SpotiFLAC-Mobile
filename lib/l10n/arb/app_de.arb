@@ -55,7 +55,7 @@
   "upgradeIntroSkip": "Überspringen",
   "upgradeIntroContinue": "Fortfahren",
   "upgradeIntroDone": "Start listening",
-  "upgradeIntroReplay": "What’s new in 5.0",
+  "upgradeIntroReplay": "Was ist in 5.0 neu",
   "cacheMotionArtwork": "Offline motion covers",
   "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
   "nowPlayingVolume": "Lautstärke",
@@ -63,14 +63,14 @@
     "description": "System volume control label in the Mornye player"
   },
   "appearanceStyle": "App-Stil",
-  "appearanceAccentRed": "Red (default)",
+  "appearanceAccentRed": "Rot (Standard)",
   "appearanceAccentOrange": "Orange",
   "appearanceAccentGreen": "Grün",
   "appearanceAccentTeal": "Türkis",
   "appearanceAccentBlue": "Blau",
   "appearanceAccentPurple": "Lila",
   "appearanceAccentPink": "Pink",
-  "appearanceGlassClarity": "Glass clarity",
+  "appearanceGlassClarity": "Glastransparenz",
   "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
   "appearanceGlassTinted": "Eingefärbt",
   "appearanceGlassClear": "klar",
@@ -150,7 +150,7 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "libraryRecentlyAdded": "Recently Added",
+  "libraryRecentlyAdded": "Zuletzt hinzugefügt",
   "libraryDownloads": "Downloads",
   "libraryNoActiveDownloads": "No active downloads",
   "librarySearchHint": "Search your library",
@@ -292,7 +292,7 @@
   "@optionsReplayGainSubtitleOff": {
     "description": "Subtitle when ReplayGain is disabled"
   },
-  "trackReplayGain": "Rescan ReplayGain",
+  "trackReplayGain": "ReplayGain neu scannen",
   "@trackReplayGain": {
     "description": "Three-dot menu option to scan loudness and write ReplayGain tags"
   },
@@ -308,7 +308,7 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "trackRemoveReplayGain": "Remove ReplayGain",
+  "trackRemoveReplayGain": "ReplayGain entfernen",
   "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
   "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
   "replayGainRemoving": "Removing ReplayGain...",
@@ -349,7 +349,7 @@
       }
     }
   },
-  "replayGainBatchConfirmTitle": "Add ReplayGain",
+  "replayGainBatchConfirmTitle": "ReplayGain hinzufügen",
   "@replayGainBatchConfirmTitle": {
     "description": "Title of the batch ReplayGain confirmation dialog"
   },
@@ -391,7 +391,7 @@
   "@optionsArtistTagModeJoined": {
     "description": "Artist tag mode option that joins multiple artists into one value"
   },
-  "optionsArtistTagModeJoinedSubtitle": "Einen Künstler wert wie \"Artist A, Artist B\" für maximale Spieler-Kompatibilität schreiben.",
+  "optionsArtistTagModeJoinedSubtitle": "Einen Künstler wert wie \"Artist A, Artist B\" für maximale Player-Kompatibilität schreiben.",
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
@@ -941,7 +941,7 @@
       }
     }
   },
-  "collectionExportM3u": "Export as M3U8",
+  "collectionExportM3u": "Als M3U8 exportieren",
   "@collectionExportM3u": {
     "description": "Tooltip on the collection screen action that exports the track list as an M3U8 playlist file"
   },
@@ -961,7 +961,7 @@
   "@collectionExportM3uNone": {
     "description": "Snackbar when an M3U8 export finds no local files"
   },
-  "collectionExportM3uFailed": "Export failed",
+  "collectionExportM3uFailed": "Export fehlgeschlagen",
   "@collectionExportM3uFailed": {
     "description": "Snackbar when writing or sharing the M3U8 export fails"
   },
@@ -1701,7 +1701,7 @@
   "@trackOpenInSpotify": {
     "description": "Action - open track in Spotify app"
   },
-  "trackTrackName": "Name des Titels",
+  "trackTrackName": "Titel Name",
   "@trackTrackName": {
     "description": "Metadata label - track title"
   },
@@ -1749,7 +1749,7 @@
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
-  "libraryQualityLabelFileFormat": "File format",
+  "libraryQualityLabelFileFormat": "Datei Format",
   "@libraryQualityLabelFileFormat": {
     "description": "Library audio quality label mode that shows the detected file format"
   },
@@ -2176,7 +2176,7 @@
   "@downloadAutoConvertSubtitle": {
     "description": "Explanation of safe automatic post-download conversion"
   },
-  "downloadAutoConvertFormat": "Output format",
+  "downloadAutoConvertFormat": "Ausgabeformat",
   "@downloadAutoConvertFormat": {
     "description": "Automatic conversion output format setting"
   },
@@ -2184,7 +2184,7 @@
   "@downloadAutoConvertFormatSubtitle": {
     "description": "Automatic conversion format picker explanation"
   },
-  "downloadAutoConvertBitrate": "Output quality",
+  "downloadAutoConvertBitrate": "Ausgabequalität",
   "@downloadAutoConvertBitrate": {
     "description": "Automatic conversion bitrate setting"
   },
@@ -2852,7 +2852,7 @@
   "@libraryScanFinalizing": {
     "description": "Status shown after file scanning finishes but library persistence is still running"
   },
-  "libraryScanPaused": "Scan paused",
+  "libraryScanPaused": "Scan pausiert",
   "@libraryScanPaused": {
     "description": "Status shown while a library scan is paused by the user"
   },
@@ -3465,7 +3465,7 @@
   "@trackReEnrichNoChanges": {
     "description": "Message when batch metadata preview has no proposed changes"
   },
-  "trackReEnrichApplyChanges": "Apply changes",
+  "trackReEnrichApplyChanges": "Änderungen anwenden",
   "@trackReEnrichApplyChanges": {
     "description": "Confirmation button in the batch metadata review sheet"
   },
@@ -4154,7 +4154,7 @@
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
-  "backupExportSectionTitle": "Create backup",
+  "backupExportSectionTitle": "Backup erstellen",
   "@backupExportSectionTitle": {
     "description": "Section title for the export/backup card"
   },
@@ -4218,7 +4218,7 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
+  "backupSettingsOnly": "Nur Einstellungen",
   "backupSelectHistory": "Download history",
   "backupSelectCollections": "Library collections",
   "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
@@ -4577,7 +4577,7 @@
   "@downloadMusixmatchLanguageCode": {
     "description": "Label for Musixmatch language input field"
   },
-  "downloadMusixmatchLanguageHint": "e.g. en, de, ja",
+  "downloadMusixmatchLanguageHint": "z.B. en, de, ja",
   "@downloadMusixmatchLanguageHint": {
     "description": "Placeholder for Musixmatch language input"
   },
@@ -4655,7 +4655,7 @@
   "@editMetadataAutoFillDesc": {
     "description": "Description for the auto-fill section"
   },
-  "editMetadataAutoFillSource": "Metadata source",
+  "editMetadataAutoFillSource": "Metadatenquelle",
   "@editMetadataAutoFillSource": {
     "description": "Label for the metadata extension selector in online auto-fill"
   },
@@ -4663,7 +4663,7 @@
   "@editMetadataAutoFillSourceAutomatic": {
     "description": "Automatic source option that follows configured metadata provider priority"
   },
-  "editMetadataAutoFillFind": "Find metadata",
+  "editMetadataAutoFillFind": "Metadaten finden",
   "@editMetadataAutoFillFind": {
     "description": "Button label for finding an online metadata candidate"
   },
@@ -4989,7 +4989,7 @@
   "@hiResCheckReasonImaging": {
     "description": "Reason: spectral imaging from upsampling detected"
   },
-  "hiResCheckMusicContent": "Musical content",
+  "hiResCheckMusicContent": "Musik-Inhalt",
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
@@ -5100,7 +5100,7 @@
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
-  "hiResCheckBitsInUse": "Bits in use",
+  "hiResCheckBitsInUse": "Verwendete Bits",
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },
@@ -5573,7 +5573,7 @@
   "@queueFinalizingDownload": {
     "description": "Accessibility label for a queue item that is finalizing"
   },
-  "queueDownloadNext": "Download next",
+  "queueDownloadNext": "Nächstes herunterladen",
   "@queueDownloadNext": {
     "description": "Tooltip on a queued download row; moves the item to the front of the queue so the next free slot downloads it"
   },
@@ -5605,11 +5605,11 @@
   "@nowPlayingRepeatOff": {
     "description": "Repeat toggle tooltip when repeat is disabled"
   },
-  "nowPlayingRepeatAll": "Repeat all",
+  "nowPlayingRepeatAll": "Alle wiederholen",
   "@nowPlayingRepeatAll": {
     "description": "Repeat toggle tooltip when the whole queue repeats"
   },
-  "nowPlayingRepeatOne": "Repeat one",
+  "nowPlayingRepeatOne": "1x wiederholen",
   "@nowPlayingRepeatOne": {
     "description": "Repeat toggle tooltip when the current track repeats"
   },
@@ -6421,7 +6421,7 @@
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
-  "libraryExternalPlayer": "External player",
+  "libraryExternalPlayer": "Externer Player",
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
@@ -6471,7 +6471,7 @@
       }
     }
   },
-  "concertGetTickets": "Get Tickets",
+  "concertGetTickets": "Tickets holen",
   "concertSetList": "Concert Set List",
   "concertSetListButton": "Set List",
   "concertAddToCalendar": "Add to Calendar",
@@ -6486,7 +6486,7 @@
   "@nowPlayingPreviousTrack": {
     "description": "Tooltip for the previous-track playback control"
   },
-  "nowPlayingNextTrack": "Next track",
+  "nowPlayingNextTrack": "Nächster Titel",
   "@nowPlayingNextTrack": {
     "description": "Tooltip for the next-track playback control"
   },
@@ -6494,7 +6494,7 @@
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingSleepTimer": "Sleep timer",
+  "nowPlayingSleepTimer": "Schlaf Timer",
   "@nowPlayingSleepTimer": {
     "description": "Menu item and sheet title for the playback sleep timer"
   },
@@ -6574,11 +6574,11 @@
       }
     }
   },
-  "nowPlayingShuffleOn": "Shuffle on",
+  "nowPlayingShuffleOn": "Shuffle an",
   "@nowPlayingShuffleOn": {
     "description": "Tooltip when shuffle mode is enabled"
   },
-  "nowPlayingPlayInOrder": "Play in order",
+  "nowPlayingPlayInOrder": "In Reihenfolge abspielen",
   "@nowPlayingPlayInOrder": {
     "description": "Tooltip when shuffle mode is disabled"
   },
@@ -6752,11 +6752,11 @@
   "@updateSeeReleaseNotes": {
     "description": "Fallback changelog text when release notes cannot be parsed"
   },
-  "unknownTitle": "Unknown title",
+  "unknownTitle": "Unbekannter Titel",
   "@unknownTitle": {
     "description": "Fallback track title when metadata is missing"
   },
-  "trackPlayNext": "Play next",
+  "trackPlayNext": "Als Nächstes spielen",
   "@trackPlayNext": {
     "description": "Menu action to play a track as the next queue item"
   },
@@ -6973,7 +6973,7 @@
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
   },
-  "trackOptionCopyArtist": "Copy artist",
+  "trackOptionCopyArtist": "Künstler kopieren",
   "@trackOptionCopyArtist": {
     "description": "Track menu action that copies the artist name"
   },
@@ -6981,7 +6981,7 @@
   "@trackOptionCopyTrackAndArtist": {
     "description": "Track menu action that copies the track title and artist"
   },
-  "metadataCopyValue": "Copy value",
+  "metadataCopyValue": "Wert kopieren",
   "@metadataCopyValue": {
     "description": "Metadata menu action that copies only the selected value"
   },
@@ -7005,7 +7005,7 @@
     "description": "Description shown in the embedded cover size picker"
   },
   "mornyeFavorite": "Favorit",
-  "mornyeGoToArtist": "Go to Artist",
+  "mornyeGoToArtist": "Zum Künstler",
   "@mornyeFavorite": {
     "description": "Compact context menu action that adds a track to Loved"
   },
@@ -7014,10 +7014,10 @@
     "description": "Selected state of the compact favorite action"
   },
   "autoMixDescription": "Blend songs with beat matching and pitch-preserving tempo adjustment. Uses crossfade when beats cannot be matched.",
-  "autoMixOn": "AutoMix on",
-  "autoMixOff": "AutoMix off",
-  "autoplayOn": "Autoplay on",
-  "autoplayOff": "Autoplay off",
+  "autoMixOn": "AutoMix an",
+  "autoMixOff": "AutoMix aus",
+  "autoplayOn": "Autoplay an",
+  "autoplayOff": "Autoplay aus",
   "autoplayFromLibrary": "Autoplay from your Library",
   "profileTitle": "Profil",
   "profileSetUp": "Set up your profile",
@@ -7025,8 +7025,8 @@
   "backupIncludesProfile": "Includes your profile name and photo",
   "profileName": "Name",
   "profileNameHint": "Dein Name",
-  "profileChangePhoto": "Choose photo",
-  "profileRemovePhoto": "Remove photo",
+  "profileChangePhoto": "Bild wählen",
+  "profileRemovePhoto": "Bild entfernen",
   "profilePhotoError": "Choose a valid image smaller than 20 MB.",
   "profileSaveError": "Could not save your profile. Please try again.",
   "artistUpcomingConcerts": "Upcoming Concerts",

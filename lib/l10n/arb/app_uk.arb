@@ -4266,7 +4266,7 @@
       }
     }
   },
-  "backupContentsArtists": "{count, plural, =1{1 favorite artist} other{{count} favorite artists}}",
+  "backupContentsArtists": "{count, plural, =1{1 улюблений виконавець} other{{count} улюблені виконавці}}",
   "@backupContentsArtists": {
     "description": "Backup contents row for favorite artists count",
     "placeholders": {
@@ -4292,7 +4292,7 @@
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
-  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{extension} other{extensions}} could not be reinstalled. Install them manually from the repo.",
+  "backupExtensionsRestoreFailed": "{count} {count, plural, =1{розширення} other{розширень}} не вдалося перевстановити. Встановіть їх вручну з репозиторію.",
   "@backupExtensionsRestoreFailed": {
     "description": "Snackbar/hint when some extensions failed to reinstall during restore",
     "placeholders": {
@@ -4392,44 +4392,44 @@
   "storageAutomaticFolder": "Автоматична тека",
   "storageAutomaticDownloadFolder": "Використовує теку Завантаженн/SpotiFLAC, якщо вона доступна для запису; в іншому разі — сховище застосунку",
   "storageSafRecommended": "Виберіть теку (рекомендовано)",
-  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
-  "storageModeAppFolder": "App Folder (Recommended)",
+  "storageDownloadFolderHint": "У засобі вибору тек Android відкрийте теку Завантаження і виберіть SpotiFLAC. Якщо її немає, створіть її за допомогою опції «Нова тека», а потім натисніть «Використовувати цю теку», щоб надати доступ.",
+  "storageModeAppFolder": "Виберіть теку (рекомендовано)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
   },
-  "storageModeAppFolderSubtitle": "Saves to Music/SpotiFLAC by default",
+  "storageModeAppFolderSubtitle": "Використовувати Музика/SpotiFLAC за замовчуванням",
   "@storageModeAppFolderSubtitle": {
     "description": "Subtitle for app folder storage mode"
   },
-  "storageModeSaf": "Custom Folder (SAF)",
+  "storageModeSaf": "Користувацька тека (SAF)",
   "@storageModeSaf": {
     "description": "Storage mode option - Storage Access Framework"
   },
-  "storageModeSafSubtitle": "Pick any folder, including SD card",
+  "storageModeSafSubtitle": "Вибрати будь-яку теку, включаючи SD-карту",
   "@storageModeSafSubtitle": {
     "description": "Subtitle for SAF storage mode"
   },
-  "downloadFolderAccessLostTitle": "Download folder access lost",
+  "downloadFolderAccessLostTitle": "Втрачено доступ до теки завантажень",
   "@downloadFolderAccessLostTitle": {
     "description": "Title of the warning banner shown in Files settings when the saved SAF folder grant is no longer valid"
   },
-  "downloadFolderAccessLostSubtitle": "Downloads will fail until you re-select the folder",
+  "downloadFolderAccessLostSubtitle": "Завантаження не вдасться, поки ви не оберете теку",
   "@downloadFolderAccessLostSubtitle": {
     "description": "Subtitle of the warning banner shown when the saved SAF folder grant is no longer valid"
   },
-  "downloadFolderReselect": "Re-select folder",
+  "downloadFolderReselect": "Обрати теку повторно",
   "@downloadFolderReselect": {
     "description": "Button that reopens the folder picker to restore download folder access"
   },
-  "downloadErrorSafPermissionLost": "SAF permission invalid or revoked. Please reconfigure download location in Settings.",
+  "downloadErrorSafPermissionLost": "Доступ до SAF недійсний або відкликаний. Будь ласка, переналаштуйте розташування завантаження в налаштуваннях.",
   "@downloadErrorSafPermissionLost": {
     "description": "Error shown on downloads that failed because the persisted Android SAF folder grant is no longer valid"
   },
-  "downloadErrorFolderAccessLost": "Download folder access lost. Please re-select your download folder in Settings.",
+  "downloadErrorFolderAccessLost": "Втрачено доступ до теки завантажень. Будь ласка, повторно виберіть теку завантажень у налаштуваннях.",
   "@downloadErrorFolderAccessLost": {
     "description": "Error shown on downloads that failed because the iOS download folder bookmark could not be opened"
   },
-  "downloadFilenameDescription": "Use {artist}, {title}, {album}, {track}, {year}, {date}, {disc} as placeholders.",
+  "downloadFilenameDescription": "Використовуйте {artist}, {title}, {album}, {track}, {year}, {date}, {disc} як заповнювачі.",
   "@downloadFilenameDescription": {
     "description": "Description shown in filename format editor"
   },
@@ -4437,11 +4437,11 @@
   "@downloadFilenameInsertTag": {
     "description": "Label above filename tag chips"
   },
-  "downloadSeparateSinglesEnabled": "Singles and EPs saved in a separate folder",
+  "downloadSeparateSinglesEnabled": "Сингли та мініальбоми, збережені в окремій теці",
   "@downloadSeparateSinglesEnabled": {
     "description": "Subtitle when separate singles folder is on"
   },
-  "downloadSeparateSinglesDisabled": "Singles and albums saved in the same folder",
+  "downloadSeparateSinglesDisabled": "Сингли та альбоми, збережені в одній теці",
   "@downloadSeparateSinglesDisabled": {
     "description": "Subtitle when separate singles folder is off"
   },
@@ -4449,15 +4449,15 @@
   "@downloadArtistNameFilters": {
     "description": "Setting title for artist folder filter options"
   },
-  "downloadCreatePlaylistSourceFolder": "Playlist Source Folder",
+  "downloadCreatePlaylistSourceFolder": "Вихідна тека списку відтворення",
   "@downloadCreatePlaylistSourceFolder": {
     "description": "Setting to create a subfolder per playlist source"
   },
-  "downloadCreatePlaylistSourceFolderEnabled": "A subfolder is created for each playlist",
+  "downloadCreatePlaylistSourceFolderEnabled": "Для кожного списку відтворення створюється підтека",
   "@downloadCreatePlaylistSourceFolderEnabled": {
     "description": "Subtitle when playlist folder is enabled"
   },
-  "downloadCreatePlaylistSourceFolderDisabled": "All tracks saved directly to download folder",
+  "downloadCreatePlaylistSourceFolderDisabled": "Усі треки зберігаються безпосередньо в теці завантажень",
   "@downloadCreatePlaylistSourceFolderDisabled": {
     "description": "Subtitle when playlist folder is disabled"
   },

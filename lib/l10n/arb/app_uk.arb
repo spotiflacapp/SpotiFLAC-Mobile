@@ -4461,7 +4461,7 @@
   "@downloadCreatePlaylistSourceFolderDisabled": {
     "description": "Subtitle when playlist folder is disabled"
   },
-  "downloadCreatePlaylistSourceFolderRedundant": "Handled by folder organization setting",
+  "downloadCreatePlaylistSourceFolderRedundant": "Керується налаштуванням організації тек",
   "@downloadCreatePlaylistSourceFolderRedundant": {
     "description": "Subtitle when folder organization is already set to playlist"
   },
@@ -4469,31 +4469,31 @@
   "@downloadSongLinkRegion": {
     "description": "Setting for SongLink region used during fallback resolution"
   },
-  "downloadNetworkCompatibilityMode": "Network Compatibility Mode",
+  "downloadNetworkCompatibilityMode": "Режим сумісності з мережею",
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
-  "downloadNetworkCompatibilityModeEnabled": "Allowing legacy HTTP endpoints; TLS verification remains enabled",
+  "downloadNetworkCompatibilityModeEnabled": "Дозволено використання застарілих HTTP endpoints; перевірку TLS збережено в увімкненому стані",
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },
-  "downloadNetworkCompatibilityModeDisabled": "Using standard network settings",
+  "downloadNetworkCompatibilityModeDisabled": "Використовується стандартні налаштування мережі",
   "@downloadNetworkCompatibilityModeDisabled": {
     "description": "Subtitle when network compatibility mode is off"
   },
-  "downloadAllowLocalNetwork": "Allow Local Network Access",
+  "downloadAllowLocalNetwork": "Дозволити доступ до локальної мережі",
   "@downloadAllowLocalNetwork": {
     "description": "Setting title for allowing requests to private/local network targets"
   },
-  "downloadAllowLocalNetworkEnabled": "Requests to local/private addresses are allowed (for local proxy or custom DNS)",
+  "downloadAllowLocalNetworkEnabled": "Дозволено надсилати запити на локальні або приватні адреси (для локального проксі-сервера чи власного DNS)",
   "@downloadAllowLocalNetworkEnabled": {
     "description": "Subtitle when allow local network access is on"
   },
-  "downloadAllowLocalNetworkDisabled": "Local/private addresses are blocked for security",
+  "downloadAllowLocalNetworkDisabled": "Локальні/приватні Адреси заблоковано з міркувань безпеки",
   "@downloadAllowLocalNetworkDisabled": {
     "description": "Subtitle when allow local network access is off"
   },
-  "downloadSelectServiceToEnable": "Select a provider with quality options to enable this option",
+  "downloadSelectServiceToEnable": "Виберіть провайдера, що пропонує якісні варіанти, щоб увімкнути цю функцію",
   "@downloadSelectServiceToEnable": {
     "description": "Subtitle when quality picker is disabled due to extension service"
   },
@@ -4561,15 +4561,15 @@
   "@downloadFilterContributing": {
     "description": "Setting to strip contributing artists from Album Artist folder name"
   },
-  "downloadFilterContributingEnabled": "Contributing artists removed from Album Artist folder name",
+  "downloadFilterContributingEnabled": "Виконавців, що брали участь у записі, видалено з назви теки виконавця альбому",
   "@downloadFilterContributingEnabled": {
     "description": "Subtitle when contributing artist filter is on"
   },
-  "downloadFilterContributingDisabled": "Full Album Artist string used",
+  "downloadFilterContributingDisabled": "Використано повний тип даних виконавця альбому",
   "@downloadFilterContributingDisabled": {
     "description": "Subtitle when contributing artist filter is off"
   },
-  "downloadProvidersNoneEnabled": "No providers enabled",
+  "downloadProvidersNoneEnabled": "Немає доступних провайдерів",
   "@downloadProvidersNoneEnabled": {
     "description": "Shown when no lyrics providers are active"
   },
@@ -4581,7 +4581,7 @@
   "@downloadMusixmatchLanguageHint": {
     "description": "Placeholder for Musixmatch language input"
   },
-  "downloadMusixmatchLanguageDesc": "Enter a BCP-47 language code (e.g. en, de, ja) to request translated lyrics from Musixmatch.",
+  "downloadMusixmatchLanguageDesc": "Введіть код мови BCP-47 (наприклад, en, de, ja), щоб отримати переклад тексту пісні з Musixmatch.",
   "@downloadMusixmatchLanguageDesc": {
     "description": "Description in Musixmatch language picker"
   },
@@ -4589,15 +4589,15 @@
   "@downloadMusixmatchAuto": {
     "description": "Button to clear Musixmatch language (use auto)"
   },
-  "downloadNetworkAnySubtitle": "Use WiFi or mobile data",
+  "downloadNetworkAnySubtitle": "Використовувати Wi-Fi або мобільні дані",
   "@downloadNetworkAnySubtitle": {
     "description": "Subtitle for any-network option in picker"
   },
-  "downloadNetworkWifiOnlySubtitle": "Downloads pause when on mobile data",
+  "downloadNetworkWifiOnlySubtitle": "Завантаження призупиняються під час використання мобільних даних",
   "@downloadNetworkWifiOnlySubtitle": {
     "description": "Subtitle for WiFi-only option in picker"
   },
-  "downloadSongLinkRegionDesc": "Region used when resolving track links via SongLink. Choose the country where your streaming services are available.",
+  "downloadSongLinkRegionDesc": "Регіон, що використовується для визначення посилань на треки через SongLink. Оберіть країну, в якій доступні ваші стрімінгові сервіси.",
   "@downloadSongLinkRegionDesc": {
     "description": "Description in SongLink region picker"
   },
@@ -4651,23 +4651,23 @@
   "@editMetadataAutoFill": {
     "description": "Section title for selective online metadata auto-fill in the edit metadata sheet"
   },
-  "editMetadataAutoFillDesc": "Choose a metadata extension, select fields, then review its data before applying",
+  "editMetadataAutoFillDesc": "Виберіть розширення метаданих, оберіть поля, а потім перегляньте дані перед застосуванням",
   "@editMetadataAutoFillDesc": {
     "description": "Description for the auto-fill section"
   },
-  "editMetadataAutoFillSource": "Metadata source",
+  "editMetadataAutoFillSource": "Джерело метаданих",
   "@editMetadataAutoFillSource": {
     "description": "Label for the metadata extension selector in online auto-fill"
   },
-  "editMetadataAutoFillSourceAutomatic": "Automatic (provider priority)",
+  "editMetadataAutoFillSourceAutomatic": "Автоматично (пріоритет провайдера)",
   "@editMetadataAutoFillSourceAutomatic": {
     "description": "Automatic source option that follows configured metadata provider priority"
   },
-  "editMetadataAutoFillFind": "Find metadata",
+  "editMetadataAutoFillFind": "Знайти метадані",
   "@editMetadataAutoFillFind": {
     "description": "Button label for finding an online metadata candidate"
   },
-  "editMetadataAutoFillPreview": "Data from {source}",
+  "editMetadataAutoFillPreview": "Дані з {source}",
   "@editMetadataAutoFillPreview": {
     "description": "Title for the online metadata preview",
     "placeholders": {
@@ -4676,15 +4676,15 @@
       }
     }
   },
-  "editMetadataAutoFillCoverAvailable": "Cover artwork available",
+  "editMetadataAutoFillCoverAvailable": "Доступне оформлення обкладинки",
   "@editMetadataAutoFillCoverAvailable": {
     "description": "Preview value when the selected metadata source provides cover artwork"
   },
-  "editMetadataAutoFillApply": "Apply selected data",
+  "editMetadataAutoFillApply": "Застосувати вибрані дані",
   "@editMetadataAutoFillApply": {
     "description": "Button label for applying the previewed metadata"
   },
-  "editMetadataAutoFillDoneFromSource": "Filled {count} {count, plural, =1{field} other{fields}} from {source}",
+  "editMetadataAutoFillDoneFromSource": "Заповнено {count} {count, plural, =1{field} other{fields}} з {source}",
   "@editMetadataAutoFillDoneFromSource": {
     "description": "Snackbar confirming fields applied from a selected metadata source",
     "placeholders": {
@@ -5108,7 +5108,7 @@
   "@hiResCheckDisclaimer": {
     "description": "Caveat shown under a fake Hi-Res verdict"
   },
-  "hiResCheckFailed": "Hi-Res check failed: {error}",
+  "hiResCheckFailed": "Помилка перевірки Hi-Res: {error}",
   "@hiResCheckFailed": {
     "description": "Error shown when the Hi-Res check fails",
     "placeholders": {
@@ -5117,7 +5117,7 @@
       }
     }
   },
-  "hiResCheckReasonRate": "Declares {sampleRate} but content stops at ~{cutoff}",
+  "hiResCheckReasonRate": "Заявлено {sampleRate} але вміст зупиняється на ~{cutoff}",
   "@hiResCheckReasonRate": {
     "description": "Reason for a fake verdict caused by upsampling",
     "placeholders": {

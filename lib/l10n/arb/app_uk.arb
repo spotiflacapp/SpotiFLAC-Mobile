@@ -6038,7 +6038,7 @@
       }
     }
   },
-  "itemCount": "{count} {count, plural, =1{item} other{items}}",
+  "itemCount": "{count} {count, plural, =1{елемент} other{елементи}}",
   "@itemCount": {
     "description": "Generic item count label",
     "placeholders": {
@@ -6047,7 +6047,7 @@
       }
     }
   },
-  "trackReEnrichSuccessWithFailures": "Metadata re-enriched successfully ({successCount}/{total}) - Failed: {failedCount}",
+  "trackReEnrichSuccessWithFailures": "Метадані успішно збагачені ({successCount}/{total}) - Помилка: {failedCount}",
   "@trackReEnrichSuccessWithFailures": {
     "description": "Snackbar summary after batch metadata re-enrichment finishes with failures",
     "placeholders": {
@@ -6062,7 +6062,7 @@
       }
     }
   },
-  "selectionDeleteTracksCount": "Delete {count} {count, plural, =1{track} other{tracks}}",
+  "selectionDeleteTracksCount": "Видалити {count} {count, plural, =1{трек} other{треків}}",
   "@selectionDeleteTracksCount": {
     "description": "Button label for deleting selected tracks",
     "placeholders": {
@@ -6071,7 +6071,7 @@
       }
     }
   },
-  "queueDownloadSpeedStatus": "Downloading - {speed} MB/s",
+  "queueDownloadSpeedStatus": "Завантаження - {speed} MB/s",
   "@queueDownloadSpeedStatus": {
     "description": "Queue status while downloading with speed",
     "placeholders": {
@@ -6080,27 +6080,27 @@
       }
     }
   },
-  "queueDownloadStarting": "Starting...",
-  "queueCheckingDownloadSession": "Checking download session...",
-  "queueResolvingDownloadMetadata": "Resolving track metadata...",
-  "queueResolvingDownloadStream": "Preparing audio stream...",
-  "queueWaitingForVerification": "Waiting for verification...",
-  "queueResumingAfterVerification": "Resuming after verification...",
+  "queueDownloadStarting": "Запуск...",
+  "queueCheckingDownloadSession": "Перевірка сеансу завантаження...",
+  "queueResolvingDownloadMetadata": "Визначення метаданих треку...",
+  "queueResolvingDownloadStream": "Підготовка аудіопотоку...",
+  "queueWaitingForVerification": "Очікування перевірки...",
+  "queueResumingAfterVerification": "Відновлення після перевірки...",
   "@queueDownloadStarting": {
     "description": "Queue status before download progress is available"
   },
   "@queueCheckingDownloadSession": {
     "description": "Queue status while the download provider's session is being checked during preparation (preparationStage 'checking_session'). This is about the provider session, not about locating a finished file."
   },
-  "a11ySelectTrack": "Select track",
+  "a11ySelectTrack": "Вибрати трек",
   "@a11ySelectTrack": {
     "description": "Accessibility label for selecting a track"
   },
-  "a11yDeselectTrack": "Deselect track",
+  "a11yDeselectTrack": "Скасувати вибір треку",
   "@a11yDeselectTrack": {
     "description": "Accessibility label for deselecting a track"
   },
-  "a11yPlayTrackByArtist": "Play {trackName} by {artistName}",
+  "a11yPlayTrackByArtist": "Відтворити {trackName} від {artistName}",
   "@a11yPlayTrackByArtist": {
     "description": "Accessibility label for playing a local library track",
     "placeholders": {
@@ -6112,7 +6112,7 @@
       }
     }
   },
-  "storeExtensionsCount": "{count} {count, plural, =1{extension} other{extensions}}",
+  "storeExtensionsCount": "{count} {count, plural, =1{розширення} other{розширень}}",
   "@storeExtensionsCount": {
     "description": "Store extension result count",
     "placeholders": {
@@ -6835,15 +6835,15 @@
   "@regionCountryJP": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryKR": "South Korea",
+  "regionCountryKR": "Південна Корея",
   "@regionCountryKR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryIN": "India",
+  "regionCountryIN": "Індія",
   "@regionCountryIN": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryID": "Indonesia",
+  "regionCountryID": "Індонезія",
   "@regionCountryID": {
     "description": "Country name for SongLink region picker"
   },

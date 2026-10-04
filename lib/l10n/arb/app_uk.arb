@@ -5877,31 +5877,31 @@
   "@metadataProvidersTitle": {
     "description": "Settings item title for metadata provider order"
   },
-  "metadataProvidersSubtitle": "Drag to set search and metadata source order",
+  "metadataProvidersSubtitle": "Встановити порядок пошуку та джерел метаданих",
   "@metadataProvidersSubtitle": {
     "description": "Subtitle for metadata provider priority item"
   },
-  "downloadDeduplication": "Skip Duplicate Downloads",
+  "downloadDeduplication": "Пропустити повторення завантажень",
   "@downloadDeduplication": {
     "description": "Setting - skip tracks already in download history"
   },
-  "downloadDeduplicationEnabled": "Already-downloaded tracks will be skipped",
+  "downloadDeduplicationEnabled": "Вже завантажені треки буде пропущено",
   "@downloadDeduplicationEnabled": {
     "description": "Subtitle when deduplication is on"
   },
-  "downloadDeduplicationWithQualityVariants": "Existing files at the selected quality will be skipped",
+  "downloadDeduplicationWithQualityVariants": "Наявні файли з вибраною якістю буде пропущено",
   "@downloadDeduplicationWithQualityVariants": {
     "description": "Deduplication subtitle when separate quality versions are allowed"
   },
-  "downloadDeduplicationDisabled": "All tracks will be downloaded regardless of history",
+  "downloadDeduplicationDisabled": "Усі треки буде завантажено незалежно від історії",
   "@downloadDeduplicationDisabled": {
     "description": "Subtitle when deduplication is off"
   },
-  "downloadQualityVariants": "Allow different quality versions",
+  "downloadQualityVariants": "Дозволити версії різної якості",
   "@downloadQualityVariants": {
     "description": "Setting to retain multiple quality versions of the same track"
   },
-  "downloadQualityVariantsDescription": "Keep every quality version; add its measured quality to the filename only when the name is already used",
+  "downloadQualityVariantsDescription": "Зберігайте всі якісні версії; додавайте показник якості до імені файлу лише тоді, коли таке ім’я вже використовується",
   "@downloadQualityVariantsDescription": {
     "description": "Description for retaining multiple quality versions"
   },

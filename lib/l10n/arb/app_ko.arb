@@ -1411,7 +1411,7 @@
   "@updateWhatsNew": {
     "description": "Changelog section title"
   },
-  "updateDownloadInstall": "다운로드 & 설치",
+  "updateDownloadInstall": "다운로드 및 설치",
   "@updateDownloadInstall": {
     "description": "Update button - download and install"
   },
@@ -2108,7 +2108,7 @@
   "@extensionsMetadataPriority": {
     "description": "Setting - metadata provider order"
   },
-  "extensionsMetadataPrioritySubtitle": "검색 & 메타데이터 출처 순서를 설정하세요",
+  "extensionsMetadataPrioritySubtitle": "검색 및 메타데이터 출처 순서를 설정하세요",
   "@extensionsMetadataPrioritySubtitle": {
     "description": "Subtitle for metadata priority"
   },
@@ -2536,7 +2536,7 @@
       }
     }
   },
-  "discographySinglesOnly": "싱글 & EP만",
+  "discographySinglesOnly": "싱글 및 EP만",
   "@discographySinglesOnly": {
     "description": "Option - download only singles"
   },
@@ -2650,11 +2650,11 @@
   "@settingsLocalLibrary": {
     "description": "Settings menu item - local library"
   },
-  "settingsLocalLibrarySubtitle": "음악 스캔 & 중복 감지",
+  "settingsLocalLibrarySubtitle": "음악 스캔 및 중복 감지",
   "@settingsLocalLibrarySubtitle": {
     "description": "Subtitle for local library settings"
   },
-  "settingsCache": "저장소 & 캐시",
+  "settingsCache": "저장소 및 캐시",
   "@settingsCache": {
     "description": "Settings menu item - cache management"
   },
@@ -3156,7 +3156,7 @@
   "@cleanupOrphanedDownloadsNone": {
     "description": "Snackbar when no orphans found"
   },
-  "cacheTitle": "저장소 & 캐시",
+  "cacheTitle": "저장소 및 캐시",
   "@cacheTitle": {
     "description": "Cache management page title"
   },
@@ -3381,11 +3381,11 @@
   "@trackReEnrichFieldBasicTags": {
     "description": "Checkbox label for basic tags in re-enrich (title/artist are never overwritten)"
   },
-  "trackReEnrichFieldTrackInfo": "트랙 & 디스크 번호",
+  "trackReEnrichFieldTrackInfo": "트랙 및 디스크 번호",
   "@trackReEnrichFieldTrackInfo": {
     "description": "Checkbox label for track info in re-enrich"
   },
-  "trackReEnrichFieldReleaseInfo": "데이터 & ISRC",
+  "trackReEnrichFieldReleaseInfo": "데이터 및 ISRC",
   "@trackReEnrichFieldReleaseInfo": {
     "description": "Checkbox label for release info in re-enrich"
   },
@@ -4142,7 +4142,7 @@
   "@settingsDonateSubtitle": {
     "description": "Subtitle for donate menu item"
   },
-  "settingsBackup": "백업 & 복원",
+  "settingsBackup": "백업 및 복원",
   "@settingsBackup": {
     "description": "Settings menu item - backup and restore page"
   },
@@ -4150,7 +4150,7 @@
   "@settingsBackupSubtitle": {
     "description": "Subtitle for backup and restore settings item"
   },
-  "backupTitle": "백업 & 복원",
+  "backupTitle": "백업 및 복원",
   "@backupTitle": {
     "description": "App bar title for the backup and restore page"
   },
@@ -4696,7 +4696,7 @@
       }
     }
   },
-  "editMetadataAutoFillFetch": "가져오기 & 채우기",
+  "editMetadataAutoFillFetch": "가져오기 및 채우기",
   "@editMetadataAutoFillFetch": {
     "description": "Button label to fetch online metadata and fill selected fields"
   },
@@ -5829,7 +5829,7 @@
       }
     }
   },
-  "settingsFiles": "파일 & 폴더",
+  "settingsFiles": "파일 및 폴더",
   "@settingsFiles": {
     "description": "Settings menu item - file and folder settings"
   },

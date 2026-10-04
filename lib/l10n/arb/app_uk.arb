@@ -4257,7 +4257,7 @@
       }
     }
   },
-  "backupContentsPlaylists": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "backupContentsPlaylists": "{count, plural, =1{1 список треків} other{{count} списки треків}}",
   "@backupContentsPlaylists": {
     "description": "Backup contents row for playlist count",
     "placeholders": {
@@ -4288,7 +4288,7 @@
   "@backupIncludeSecrets": {
     "description": "Toggle to include secret extension settings (tokens, API keys) in the backup"
   },
-  "backupIncludeSecretsDescription": "Tokens and API keys from extensions will be saved into the backup file. Keep the file private. When off, you re-enter them after restoring.",
+  "backupIncludeSecretsDescription": "Токени та ключі API з розширень будуть збережені у файлі резервної копії. Зберігайте цей файл у безпечному місці. Якщо цю опцію вимкнено, вам доведеться ввести їх знову після відновлення.",
   "@backupIncludeSecretsDescription": {
     "description": "Explanation for the include-credentials toggle"
   },
@@ -4385,13 +4385,13 @@
   "@noTracksFoundForAlbum": {
     "description": "Empty state message when an album has no tracks"
   },
-  "downloadLocationSubtitle": "Choose where to save your downloaded tracks",
+  "downloadLocationSubtitle": "Виберіть місце для збереження завантажених треків",
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageAutomaticFolder": "Automatic folder",
-  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
-  "storageSafRecommended": "Choose folder (Recommended)",
+  "storageAutomaticFolder": "Автоматична тека",
+  "storageAutomaticDownloadFolder": "Використовує теку Завантаженн/SpotiFLAC, якщо вона доступна для запису; в іншому разі — сховище застосунку",
+  "storageSafRecommended": "Виберіть теку (рекомендовано)",
   "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
   "storageModeAppFolder": "App Folder (Recommended)",
   "@storageModeAppFolder": {

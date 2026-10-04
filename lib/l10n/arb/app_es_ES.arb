@@ -1,80 +1,80 @@
 {
-  "settingsPlaybackSubtitle": "Player, volume, AutoMix, and audio output",
-  "sectionPlayer": "Player",
-  "sectionVolumeAndTransitions": "Volume and transitions",
-  "sectionAudioOutput": "Audio output",
-  "usbBitPerfect": "Hi-res and bit-perfect audio",
-  "usbBitPerfectDescription": "Preserve source precision on compatible outputs. Choose direct USB or AAudio exclusive below; otherwise Android USB output requires Android 14 or later. Applies from the next track, without AutoMix or normalization. System volume may not control direct USB.",
-  "usbHardwareVolume": "DAC hardware volume",
-  "usbVolumeWarningTitle": "Check your listening volume",
-  "usbVolumeWarning": "Direct USB audio can be much louder than normal playback, and phone volume buttons may not control it. Lower your DAC or amplifier volume before starting. When supported, SpotiFLAC sets the DAC to at most −40 dB on connection; this does not guarantee a safe listening level on every amplifier or headphone.",
-  "usbVolumeAccept": "I understand",
-  "usbVolumeUnavailable": "Playback is paused because this DAC has no verified hardware volume control. Lower the DAC or amplifier volume, then enable fixed-volume output if needed and select the track again.",
-  "usbFixedVolume": "Allow fixed-volume USB output",
-  "usbFixedVolumeDescription": "For DACs without a volume control accessible to the app. Keep off for USB headsets without their own volume control. Applies from the next track.",
-  "usbFixedVolumeWarning": "The app cannot lower the volume on this output. Audio may start at full level, and the phone volume slider will not help. Only continue after lowering the volume on your DAC or external amplifier. Do not enable this for a headset without its own volume control.",
-  "dapExclusive": "DAP hi-res (AAudio exclusive)",
-  "dapExclusiveDescription": "Use Oboe/AAudio at the track's original rate and precision for FLAC/WAV PCM. Requires Android 8.1 or later and compatible hardware. Exclusive access is checked; unavailable formats use normal playback. DSD requires the direct USB driver. Applies from the next track.",
-  "dapExclusiveUnavailable": "AAudio exclusive access is unavailable for this track and current output. Using normal playback. For a USB DAC, try the direct USB driver.",
-  "usbDirect": "Direct USB driver",
-  "usbDirectDescription": "Use exclusive USB audio for FLAC/WAV, DSF/DFF and WavPack DSD, with Android USB permission. Native DSD requires a recognized compatible DAC. Other PCM formats use normal playback. Applies from the next track.",
-  "usbDsdOverPcm": "DSD over PCM (DoP)",
-  "usbDsdOverPcmDescription": "Enable only if your DAC explicitly supports DoP. Sends DSF/DFF and WavPack DSD inside a PCM carrier when native DSD is unavailable. An incompatible device may play noise; leave off for ordinary USB headsets.",
-  "usbDsdUnsupported": "This DSD format or connected DAC is not supported. Playback stopped.",
-  "usbPermissionDenied": "USB permission was not granted. Using normal playback.",
-  "usbBitPerfectPending": "Waiting for the next track and a compatible USB output.",
-  "usbBitPerfectNoDevice": "No USB DAC connected. Using normal audio output.",
-  "usbBitPerfectFallback": "This device or audio format does not support bit-perfect output. Using normal playback.",
-  "usbBitPerfectRouteChanged": "The USB audio route changed. Playback paused; select a track to reconnect.",
-  "upgradeIntroWelcome": "Welcome to\nSpotiFLAC-Mobile 5.0",
-  "upgradeIntroThemeTitle": "Make it\nyour own.",
-  "upgradeIntroThemeBody": "Choose a look. Your choice applies immediately, and you can change it later in Appearance.",
-  "upgradeIntroThemeMaterialBody": "The familiar layout, with Material controls and your accent color.",
-  "upgradeIntroThemeMornyeBody": "Glass navigation, a redesigned Library and an immersive player.",
-  "upgradeIntroRustTitle": "A new engine.\nBuilt with Rust.",
-  "upgradeIntroRustBody": "In 5.0, the app’s backend has moved from Go to Rust. It is the engine working behind the screens you use every day.",
-  "upgradeIntroRustEngineTitle": "Working behind the scenes",
-  "upgradeIntroRustEngineBody": "Rust handles downloads, audio metadata, library scanning and the extension runtime on Android and iOS.",
-  "upgradeIntroRustMemoryTitle": "More careful with memory",
-  "upgradeIntroRustMemoryBody": "Reused buffers and fewer copies reduce temporary allocations when processing artwork and extension data.",
-  "upgradeIntroRustKeepTitle": "Keep your music",
-  "upgradeIntroRustKeepBody": "No need to download your collection again. Your saved music and settings stay in place, with no new setup required.",
-  "upgradeIntroWelcomeBody": "A quick look at what has changed, and where to find it.",
-  "upgradeIntroMornyeBody": "A new look for your player, lyrics and navigation.",
-  "upgradeIntroLibrarySummary": "Browse your music by playlist, artist or album.",
-  "upgradeIntroRepoSummary": "Choose your music sources and providers through extensions.",
-  "upgradeIntroLibraryTitle": "Get to know\nyour Library.",
-  "upgradeIntroLibraryBody": "In Mornye, browse by category or find your albums in Recently Added.",
-  "upgradeIntroDownloadsBody": "Pause and retry from Downloads at the top right. Finished music moves to Recently Added.",
-  "upgradeIntroSearchBody": "Search saved music here. The separate Search tab looks through your extensions.",
-  "upgradeIntroPlayerTitle": "Set up\nyour player.",
-  "upgradeIntroPlayerBody": "You can change your theme and playback options at any time. Here is where to find them.",
-  "upgradeIntroAppearanceBody": "Change themes in Settings → Appearance. In Mornye, scroll down for compact navigation; scroll up to expand it.",
-  "upgradeIntroAutoMixBody": "Match tempo and beats between tracks. Enable it in Settings → Local Library → Playback. Off by default.",
-  "upgradeIntroSettingsBody": "In Mornye, tap your profile on Home to open Settings and edit your name and photo.",
-  "upgradeIntroSkip": "Skip",
-  "upgradeIntroContinue": "Continue",
-  "upgradeIntroDone": "Start listening",
-  "upgradeIntroReplay": "What’s new in 5.0",
-  "cacheMotionArtwork": "Offline motion covers",
-  "cacheMotionArtworkDesc": "Album videos saved with downloads. Removing them keeps your music files and static covers.",
-  "nowPlayingVolume": "Volume",
+  "settingsPlaybackSubtitle": "Reproductor, volumen, AutoMix y salida de audio",
+  "sectionPlayer": "Reproductor",
+  "sectionVolumeAndTransitions": "Volumen y transiciones",
+  "sectionAudioOutput": "Salida de audio",
+  "usbBitPerfect": "Audio de alta resolución y sin pérdida de bits",
+  "usbBitPerfectDescription": "Mantén la precisión de la fuente en salidas compatibles. Elige a continuación entre USB directo o AAudio exclusivo; de lo contrario, la salida USB de Android requiere Android 14 o una versión posterior. Se aplica a partir de la siguiente pista, sin AutoMix ni normalización. Es posible que el volumen del sistema no controle la salida USB directa.",
+  "usbHardwareVolume": "Volumen del hardware del DAC",
+  "usbVolumeWarningTitle": "Revisa el volumen de audio",
+  "usbVolumeWarning": "El audio directo por USB puede ser mucho más alto que la reproducción normal, y es posible que los botones de volumen del teléfono no lo controlen. Baja el volumen de tu DAC o amplificador antes de comenzar. Cuando sea compatible, SpotiFLAC configura el DAC a un máximo de −40 dB al conectarse; esto no garantiza un nivel de escucha seguro en todos los amplificadores o audífonos.",
+  "usbVolumeAccept": "Entiendo",
+  "usbVolumeUnavailable": "La reproducción está en pausa porque este DAC no cuenta con un control de volumen de hardware verificado. Baja el volumen del DAC o del amplificador; luego, si es necesario, activa la salida de volumen fijo y vuelve a seleccionar la pista.",
+  "usbFixedVolume": "Permitir salida USB de volumen fijo",
+  "usbFixedVolumeDescription": "Para DAC que no tengan un control de volumen accesible desde la app. Mantén esta opción desactivada para audífonos USB que no cuenten con su propio control de volumen. Se aplica a partir de la siguiente pista.",
+  "usbFixedVolumeWarning": "La aplicación no puede bajar el volumen en esta salida. Es posible que el audio comience al máximo y que el control deslizante de volumen del teléfono no sirva de nada. Solo continúe después de bajar el volumen en su DAC o amplificador externo. No active esta opción para audífonos que no cuenten con su propio control de volumen.",
+  "dapExclusive": "DAP de alta resolución (exclusivo de AAudio)",
+  "dapExclusiveDescription": "Utiliza Oboe/AAudio con la frecuencia y precisión originales de la pista para archivos FLAC/WAV PCM. Requiere Android 8.1 o posterior y hardware compatible. La opción de acceso exclusivo está marcada; los formatos no disponibles se reproducen de manera normal. El formato DSD requiere el controlador USB directo. Se aplica a partir de la siguiente pista.",
+  "dapExclusiveUnavailable": "El acceso exclusivo de AAudio no está disponible para esta pista y la salida actual. Se está utilizando la reproducción normal. Si usas un DAC USB, prueba con el controlador USB directo.",
+  "usbDirect": "Controlador USB directo",
+  "usbDirectDescription": "Utiliza audio USB exclusivo para FLAC/WAV, DSF/DFF y WavPack DSD, con permiso USB de Android. El DSD nativo requiere un DAC compatible y reconocido. Los demás formatos PCM se reproducen de manera normal. Se aplica a partir de la siguiente pista.",
+  "usbDsdOverPcm": "DSD sobre PCM (DoP)",
+  "usbDsdOverPcmDescription": "Actívalo solo si tu DAC es compatible explícitamente con DoP. Envía DSF/DFF y WavPack DSD dentro de una señal portadora PCM cuando no se dispone de DSD nativo. Un dispositivo incompatible podría reproducir ruido; déjalo desactivado para audífonos USB comunes.",
+  "usbDsdUnsupported": "No se admite este formato DSD ni este DAC conectado. Se detuvo la reproducción.",
+  "usbPermissionDenied": "No se concedió el permiso USB. Se está utilizando la reproducción normal.",
+  "usbBitPerfectPending": "A la espera de la próxima pista y de una salida USB compatible.",
+  "usbBitPerfectNoDevice": "No hay ningún DAC USB conectado. Se está utilizando la salida de audio normal.",
+  "usbBitPerfectFallback": "Este dispositivo o formato de audio no admite la salida con fidelidad bit a bit. Se está utilizando la reproducción normal.",
+  "usbBitPerfectRouteChanged": "La conexión de audio USB ha cambiado. La reproducción se ha detenido; selecciona una pista para volver a conectarte.",
+  "upgradeIntroWelcome": "Bienvenido a\nSpotiFLAC-Mobile 5.0",
+  "upgradeIntroThemeTitle": "Hazlo\na tu manera.",
+  "upgradeIntroThemeBody": "Elige un estilo. Tu elección se aplica de inmediato y puedes cambiarla más adelante en «Apariencia».",
+  "upgradeIntroThemeMaterialBody": "El diseño que ya conoces, con controles de Material y tu color de acento.",
+  "upgradeIntroThemeMornyeBody": "Navegación «Glass», una biblioteca rediseñada y un reproductor inmersivo.",
+  "upgradeIntroRustTitle": "Un nuevo motor.\nDesarrollado con Rust.",
+  "upgradeIntroRustBody": "En la versión 5.0, el backend de la app pasó de Go a Rust. Es el motor que funciona detrás de las pantallas que usas todos los días.",
+  "upgradeIntroRustEngineTitle": "Trabajando detrás de escena",
+  "upgradeIntroRustEngineBody": "Rust se encarga de las descargas, los metadatos de audio, el escaneo de bibliotecas y el tiempo de ejecución de las extensiones en Android e iOS.",
+  "upgradeIntroRustMemoryTitle": "Más cuidado con la memoria",
+  "upgradeIntroRustMemoryBody": "El uso de búferes reutilizados y un menor número de copias reduce las asignaciones temporales al procesar material gráfico y datos de extensión.",
+  "upgradeIntroRustKeepTitle": "Guarda tu música",
+  "upgradeIntroRustKeepBody": "No es necesario que vuelvas a descargar tu colección. Tu música guardada y tus configuraciones se mantienen tal como están, sin necesidad de volver a configurarlas.",
+  "upgradeIntroWelcomeBody": "Un vistazo rápido a lo que ha cambiado y dónde encontrarlo.",
+  "upgradeIntroMornyeBody": "Un nuevo diseño para tu reproductor, las letras de las canciones y la navegación.",
+  "upgradeIntroLibrarySummary": "Explora tu música por lista de reproducción, artista o álbum.",
+  "upgradeIntroRepoSummary": "Elige tus fuentes y proveedores de música mediante extensiones.",
+  "upgradeIntroLibraryTitle": "Conoce\ntu biblioteca.",
+  "upgradeIntroLibraryBody": "En Mornye, navega por categoría o busca tus álbumes en «Agregados recientemente».",
+  "upgradeIntroDownloadsBody": "Haz una pausa y vuelve a intentarlo desde la sección «Descargas», en la esquina superior derecha. La música que ya se ha reproducido se mueve a «Agregados recientemente».",
+  "upgradeIntroSearchBody": "Busca aquí la música guardada. La pestaña «Buscar», que se encuentra por separado, revisa tus extensiones.",
+  "upgradeIntroPlayerTitle": "Configura\ntu reproductor.",
+  "upgradeIntroPlayerBody": "Puedes cambiar el tema y las opciones de reproducción en cualquier momento. Aquí te indicamos dónde encontrarlas.",
+  "upgradeIntroAppearanceBody": "Cambia los temas en Configuración → Apariencia. En Mornye, desplázate hacia abajo para ver la navegación compacta; desplázate hacia arriba para expandirla.",
+  "upgradeIntroAutoMixBody": "Sincroniza el tempo y los compases entre las canciones. Actívalo en Configuración → Biblioteca local → Reproducción. Desactivado por defecto.",
+  "upgradeIntroSettingsBody": "En Mornye, toca tu perfil en la pantalla de inicio para abrir Configuración y editar tu nombre y tu foto.",
+  "upgradeIntroSkip": "Saltar",
+  "upgradeIntroContinue": "Continuar",
+  "upgradeIntroDone": "Empieza a escuchar",
+  "upgradeIntroReplay": "Novedades de la versión 5.0",
+  "cacheMotionArtwork": "Cubiertas de movimiento sin conexión",
+  "cacheMotionArtworkDesc": "Los videos de los álbumes se guardan junto con las descargas. Al eliminarlos, se conservan tus archivos de música y las portadas estáticas.",
+  "nowPlayingVolume": "Volúmen",
   "@nowPlayingVolume": {
     "description": "System volume control label in the Mornye player"
   },
-  "appearanceStyle": "App Style",
-  "appearanceAccentRed": "Red (default)",
-  "appearanceAccentOrange": "Orange",
-  "appearanceAccentGreen": "Green",
-  "appearanceAccentTeal": "Teal",
-  "appearanceAccentBlue": "Blue",
-  "appearanceAccentPurple": "Purple",
-  "appearanceAccentPink": "Pink",
-  "appearanceGlassClarity": "Glass clarity",
-  "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
-  "appearanceGlassTinted": "Tinted",
-  "appearanceGlassClear": "Clear",
-  "appearanceGlassClarityBlurOff": "Glass is opaque on this device. Turn on “{setting}” to adjust clarity.",
+  "appearanceStyle": "Estilo de la aplicación",
+  "appearanceAccentRed": "Rojo (predeterminado)",
+  "appearanceAccentOrange": "Naranja",
+  "appearanceAccentGreen": "Verde",
+  "appearanceAccentTeal": "Verde azulado",
+  "appearanceAccentBlue": "Azul",
+  "appearanceAccentPurple": "Morado",
+  "appearanceAccentPink": "Rosado",
+  "appearanceGlassClarity": "Transparencia del vidrio",
+  "appearanceGlassClaritySubtitle": "Ajusta la transparencia en los menús y la navegación de Mornye. Se conserva el contraste del texto.",
+  "appearanceGlassTinted": "Tintado",
+  "appearanceGlassClear": "Borrar",
+  "appearanceGlassClarityBlurOff": "El vidrio se ve opaco en este dispositivo. Activa “{configuración}” para ajustar la claridad.",
   "@appearanceGlassClarityBlurOff": {
     "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
     "placeholders": {
@@ -83,12 +83,12 @@
       }
     }
   },
-  "appearanceGlassClarityHighContrast": "Glass stays opaque while the system’s high contrast setting is on.",
+  "appearanceGlassClarityHighContrast": "El vidrio se mantiene opaco mientras está activada la configuración de alto contraste del sistema.",
   "@appearanceGlassClarityHighContrast": {
     "description": "Shown under the disabled glass clarity slider while the OS high contrast accessibility setting is on"
   },
-  "appearanceUseSystemFont": "Use system font",
-  "appearanceUseSystemFontSubtitle": "Use your device’s default typeface for app text.",
+  "appearanceUseSystemFont": "Usar la fuente del sistema",
+  "appearanceUseSystemFontSubtitle": "Utiliza la fuente predeterminada de tu dispositivo para el texto de la aplicación.",
   "@appearanceStyle": {
     "description": "Appearance section for choosing the app visual style"
   },
@@ -150,11 +150,11 @@
   "@historyFilterSingles": {
     "description": "Filter chip - show singles only"
   },
-  "libraryRecentlyAdded": "Recently Added",
-  "libraryDownloads": "Downloads",
-  "libraryNoActiveDownloads": "No active downloads",
-  "librarySearchHint": "Search your library",
-  "libraryEmptyCollection": "Your music will appear here",
+  "libraryRecentlyAdded": "Agregados recientemente",
+  "libraryDownloads": "Descargas",
+  "libraryNoActiveDownloads": "No hay descargas activas",
+  "librarySearchHint": "Busca en tu biblioteca",
+  "libraryEmptyCollection": "Tu música aparecerá aquí",
   "historySearchHint": "Buscar en historial...",
   "@historySearchHint": {
     "description": "Search bar placeholder in history"
@@ -308,11 +308,11 @@
   "@trackReplayGainFailed": {
     "description": "Snackbar message when ReplayGain scan/write fails"
   },
-  "trackRemoveReplayGain": "Remove ReplayGain",
-  "trackRemoveReplayGainSuccess": "ReplayGain tags removed",
-  "trackRemoveReplayGainFailed": "Failed to remove ReplayGain tags",
-  "replayGainRemoving": "Removing ReplayGain...",
-  "replayGainRemoveConfirmMessage": "Remove track and album ReplayGain tags from {count} track(s)? Audio, artwork, and other metadata will be preserved.",
+  "trackRemoveReplayGain": "Eliminar ReplayGain",
+  "trackRemoveReplayGainSuccess": "Se han eliminado las etiquetas de ReplayGain",
+  "trackRemoveReplayGainFailed": "No se pudieron eliminar las etiquetas de ReplayGain",
+  "replayGainRemoving": "Eliminando ReplayGain...",
+  "replayGainRemoveConfirmMessage": "¿Deseas eliminar las etiquetas ReplayGain de las {count} pistas? Se conservarán el audio, las imágenes y otros metadatos.",
   "@replayGainRemoveConfirmMessage": {
     "placeholders": {
       "count": {
@@ -320,7 +320,7 @@
       }
     }
   },
-  "selectionRemoveReplayGainCount": "Remove RG ({count})",
+  "selectionRemoveReplayGainCount": "Eliminar RG ({count})",
   "@selectionRemoveReplayGainCount": {
     "description": "Compact selection action label. RG abbreviates ReplayGain; keep this short for a two-column toolbar.",
     "placeholders": {
@@ -329,7 +329,7 @@
       }
     }
   },
-  "replayGainRemoveBatchSuccess": "ReplayGain removed from {success} of {total} tracks",
+  "replayGainRemoveBatchSuccess": "Se ha eliminado ReplayGain de {success} de {total} pistas",
   "@replayGainRemoveBatchSuccess": {
     "placeholders": {
       "success": {
@@ -403,11 +403,11 @@
   "@optionsArtistTagModeSplitVorbisSubtitle": {
     "description": "Subtitle for split Vorbis artist tag mode"
   },
-  "optionsArtistTagModePrimary": "Primary artist only",
+  "optionsArtistTagModePrimary": "Solo el artista principal",
   "@optionsArtistTagModePrimary": {
     "description": "Artist tag mode option that writes only the first credited artist"
   },
-  "optionsArtistTagModePrimarySubtitle": "Write only the first artist, like \"Artist A\", to Artist and Album Artist in every format, so players list one artist.",
+  "optionsArtistTagModePrimarySubtitle": "Escribe solo el primer artista, por ejemplo, «Artista A», en los campos «Artista» y «Artista del álbum» en todos los formatos, para que los reproductores muestren un solo artista.",
   "@optionsArtistTagModePrimarySubtitle": {
     "description": "Subtitle for the primary-artist tag mode. Applies when downloading and re-enriching; manual edits keep what the user typed."
   },
@@ -1569,8 +1569,8 @@
   "@sectionLyrics": {
     "description": "Settings section header"
   },
-  "lyricsKeepScreenOn": "Keep screen on while viewing lyrics",
-  "lyricsKeepScreenOnSubtitle": "Prevent screen timeout while lyrics are open, including when playback is paused.",
+  "lyricsKeepScreenOn": "Mantener la pantalla encendida mientras se ven las letras de las canciones",
+  "lyricsKeepScreenOnSubtitle": "Evitar que la pantalla se apague mientras están abiertas las letras de las canciones, incluso cuando la reproducción está en pausa.",
   "lyricsMode": "Modo Letras",
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
@@ -1733,19 +1733,19 @@
   "@trackAudioQuality": {
     "description": "Metadata label - audio quality"
   },
-  "trackReplayGainTrackGain": "ReplayGain Track Gain",
+  "trackReplayGainTrackGain": "ReplayGain - Ganancia de pista",
   "@trackReplayGainTrackGain": {
     "description": "Metadata label - ReplayGain track gain"
   },
-  "trackReplayGainTrackPeak": "ReplayGain Track Peak",
+  "trackReplayGainTrackPeak": "ReplayGain: Pico de pista",
   "@trackReplayGainTrackPeak": {
     "description": "Metadata label - ReplayGain track peak"
   },
-  "trackReplayGainAlbumGain": "ReplayGain Album Gain",
+  "trackReplayGainAlbumGain": "ReplayGain: Ganancia del álbum",
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "ReplayGain Album Peak",
+  "trackReplayGainAlbumPeak": "ReplayGain: Pico del álbum",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },
@@ -3107,7 +3107,7 @@
   "@tutorialSettingsTitle": {
     "description": "Tutorial settings page title"
   },
-  "tutorialSettingsDesc": "Fine-tune downloads, playback, Library behavior, appearance, and storage.",
+  "tutorialSettingsDesc": "Ajusta las descargas, la reproducción, el comportamiento de la biblioteca, la apariencia y el almacenamiento.",
   "@tutorialSettingsDesc": {
     "description": "Tutorial settings page description"
   },
@@ -3115,7 +3115,7 @@
   "@tutorialSettingsTip1": {
     "description": "Tutorial settings tip 1"
   },
-  "tutorialSettingsTip2": "Set quality, concurrency, filenames, and conversion preferences",
+  "tutorialSettingsTip2": "Configurar la calidad, la concurrencia, los nombres de archivo y las preferencias de conversión",
   "@tutorialSettingsTip2": {
     "description": "Tutorial settings tip 2"
   },
@@ -3123,7 +3123,7 @@
   "@tutorialSettingsTip3": {
     "description": "Tutorial settings tip 3"
   },
-  "tutorialReadyMessage": "You're ready. Select your extensions, then search or paste a supported link.",
+  "tutorialReadyMessage": "Ya estás listo. Selecciona tus extensiones y, a continuación, busca o pega un enlace compatible.",
   "@tutorialReadyMessage": {
     "description": "Tutorial completion message"
   },
@@ -3365,7 +3365,7 @@
   "@trackReEnrichOnlineSubtitle": {
     "description": "Subtitle for re-enrich metadata action for local items"
   },
-  "trackReEnrichBatchSubtitle": "Choose an online or manual update, then review every change before writing",
+  "trackReEnrichBatchSubtitle": "Elige entre una actualización en línea o manual, y luego revisa cada cambio antes de escribir",
   "@trackReEnrichBatchSubtitle": {
     "description": "Subtitle for batch metadata update choices"
   },
@@ -3397,59 +3397,59 @@
   "@trackReEnrichSelectAll": {
     "description": "Select all fields checkbox in re-enrich"
   },
-  "trackReEnrichModeIsrc": "ISRC only",
+  "trackReEnrichModeIsrc": "Solo ISRC",
   "@trackReEnrichModeIsrc": {
     "description": "Batch metadata mode that only writes ISRC"
   },
-  "trackReEnrichModeIsrcSubtitle": "Find and add the recording identifier without changing other tags",
+  "trackReEnrichModeIsrcSubtitle": "Busca y agrega el identificador de la grabación sin modificar las demás etiquetas",
   "@trackReEnrichModeIsrcSubtitle": {
     "description": "Explanation for the ISRC-only batch metadata mode"
   },
-  "trackReEnrichModeMissing": "Fill missing tags",
+  "trackReEnrichModeMissing": "Completa las etiquetas que faltan",
   "@trackReEnrichModeMissing": {
     "description": "Batch metadata mode that fills only empty tags"
   },
-  "trackReEnrichModeMissingSubtitle": "Keep existing values and fill only fields that are empty",
+  "trackReEnrichModeMissingSubtitle": "Conserva los valores existentes y llena solo los campos que estén vacíos",
   "@trackReEnrichModeMissingSubtitle": {
     "description": "Explanation for the fill-missing batch metadata mode"
   },
-  "trackReEnrichModeReplace": "Update selected tags",
+  "trackReEnrichModeReplace": "Actualizar las etiquetas seleccionadas",
   "@trackReEnrichModeReplace": {
     "description": "Batch metadata mode that replaces selected tag groups"
   },
-  "trackReEnrichModeReplaceSubtitle": "Choose which existing values may be replaced by online metadata",
+  "trackReEnrichModeReplaceSubtitle": "Elige qué valores existentes pueden ser reemplazados por metadatos en línea",
   "@trackReEnrichModeReplaceSubtitle": {
     "description": "Explanation for the selected-tag batch metadata mode"
   },
-  "trackReEnrichModeManual": "Set common values",
+  "trackReEnrichModeManual": "Establecer valores comunes",
   "@trackReEnrichModeManual": {
     "description": "Batch metadata mode that applies shared values to every selected track"
   },
-  "trackReEnrichModeManualSubtitle": "Apply the same values to every selected track",
+  "trackReEnrichModeManualSubtitle": "Aplica los mismos valores a todas las pistas seleccionadas",
   "@trackReEnrichModeManualSubtitle": {
     "description": "Explanation for the manual shared-value batch metadata mode"
   },
-  "trackReEnrichManualFieldsTitle": "Values to apply",
+  "trackReEnrichManualFieldsTitle": "Valores que se deben aplicar",
   "@trackReEnrichManualFieldsTitle": {
     "description": "Heading above manual batch metadata inputs"
   },
-  "trackReEnrichManualHint": "Leave a field empty to keep its current value. Track titles, numbers, and ISRCs stay unchanged.",
+  "trackReEnrichManualHint": "Deja un campo en blanco para mantener su valor actual. Los títulos de las pistas, los números y los códigos ISRC no se modifican.",
   "@trackReEnrichManualHint": {
     "description": "Safety explanation for manual batch metadata inputs"
   },
-  "trackReEnrichFieldsTitle": "Tags to update",
+  "trackReEnrichFieldsTitle": "Etiquetas para actualizar",
   "@trackReEnrichFieldsTitle": {
     "description": "Heading above batch re-enrich field checkboxes"
   },
-  "trackReEnrichReview": "Review changes",
+  "trackReEnrichReview": "Revisar cambios",
   "@trackReEnrichReview": {
     "description": "Button that searches metadata and opens the batch change review"
   },
-  "trackReEnrichReviewTitle": "Review metadata changes",
+  "trackReEnrichReviewTitle": "Revisar los cambios en los metadatos",
   "@trackReEnrichReviewTitle": {
     "description": "Title of the batch metadata review sheet"
   },
-  "trackReEnrichReviewSubtitle": "{changeCount} proposed changes across {trackCount} tracks",
+  "trackReEnrichReviewSubtitle": "{changeCount} cambios propuestos en {trackCount} pistas",
   "@trackReEnrichReviewSubtitle": {
     "description": "Summary shown above proposed batch metadata changes",
     "placeholders": {
@@ -3461,15 +3461,15 @@
       }
     }
   },
-  "trackReEnrichNoChanges": "No metadata changes were found for the selected tracks.",
+  "trackReEnrichNoChanges": "No se encontraron cambios en los metadatos de las pistas seleccionadas.",
   "@trackReEnrichNoChanges": {
     "description": "Message when batch metadata preview has no proposed changes"
   },
-  "trackReEnrichApplyChanges": "Apply changes",
+  "trackReEnrichApplyChanges": "Aplicar cambios",
   "@trackReEnrichApplyChanges": {
     "description": "Confirmation button in the batch metadata review sheet"
   },
-  "trackReEnrichRefreshOnline": "Refresh from online",
+  "trackReEnrichRefreshOnline": "Actualizar desde Internet",
   "@trackReEnrichRefreshOnline": {
     "description": "Proposed value when lyrics will be refreshed during re-enrich"
   },
@@ -3507,15 +3507,15 @@
   "@trackReEnrichSearching": {
     "description": "Snackbar while searching metadata from internet for local items"
   },
-  "trackReEnrichPreparing": "Preparing metadata changes...",
+  "trackReEnrichPreparing": "Preparando los cambios en los metadatos...",
   "@trackReEnrichPreparing": {
     "description": "Progress message while preparing manual batch metadata changes"
   },
   "trackReEnrichSuccess": "Información ",
-  "trackReEnrichMetadataSaved": "Metadata saved",
-  "trackReEnrichLyricsUpdated": "Lyrics updated",
-  "trackReEnrichLyricsPreserved": "No new lyrics found; existing lyrics kept",
-  "trackReEnrichLyricsDisabled": "Lyrics not updated: lyric downloading is disabled in Settings",
+  "trackReEnrichMetadataSaved": "Metadatos guardados",
+  "trackReEnrichLyricsUpdated": "Letra actualizada",
+  "trackReEnrichLyricsPreserved": "No se encontraron nuevas letras; se mantuvieron las letras existentes",
+  "trackReEnrichLyricsDisabled": "Las letras no se actualizan: la descarga de letras está desactivada en Configuración",
   "@trackReEnrichSuccess": {
     "description": "Snackbar after successful re-enrichment"
   },
@@ -4106,7 +4106,7 @@
   "@lyricsProviderAppleMusicDesc": {
     "description": "Description for Apple Music provider"
   },
-  "lyricsProviderQqMusicDesc": "QQ Music (good for Chinese songs, direct API)",
+  "lyricsProviderQqMusicDesc": "QQ Music (ideal para canciones chinas, API directa)",
   "@lyricsProviderQqMusicDesc": {
     "description": "Description for QQ Music provider"
   },
@@ -4218,14 +4218,14 @@
   "@backupContentsTitle": {
     "description": "Header above the list summarizing what the backup contains"
   },
-  "backupSettingsOnly": "Settings only",
-  "backupSelectHistory": "Download history",
-  "backupSelectCollections": "Library collections",
-  "backupSelectCollectionsDescription": "Liked tracks, wishlist, favorite artists, playlists and playlist covers.",
-  "backupSelectExtensions": "Extensions and their settings",
-  "backupSelectedExportDescription": "Save the selected categories to a backup file. Audio files are not included.",
-  "backupSelectAtLeastOne": "Select at least one category to create a backup.",
-  "backupSelectedRestoreMessage": "Only the categories listed below will be restored. Categories not included in this backup will stay unchanged. Restoring can replace existing data and cannot be undone.",
+  "backupSettingsOnly": "Solo configuraciones",
+  "backupSelectHistory": "Historial de descargas",
+  "backupSelectCollections": "Colecciones de la biblioteca",
+  "backupSelectCollectionsDescription": "Canciones que te gustaron, lista de deseos, artistas favoritos, listas de reproducción y portadas de listas de reproducción.",
+  "backupSelectExtensions": "Extensiones y su configuración",
+  "backupSelectedExportDescription": "Guarda las categorías seleccionadas en un archivo de respaldo. No se incluyen los archivos de audio.",
+  "backupSelectAtLeastOne": "Selecciona al menos una categoría para crear una copia de seguridad.",
+  "backupSelectedRestoreMessage": "Solo se restaurarán las categorías que se enumeran a continuación. Las categorías que no estén incluidas en esta copia de seguridad permanecerán sin cambios. La restauración puede reemplazar los datos existentes y no se puede deshacer.",
   "backupContentsSettings": "Configuración de la aplicación",
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
@@ -4389,10 +4389,10 @@
   "@downloadLocationSubtitle": {
     "description": "Subtitle shown in the download location picker sheet"
   },
-  "storageAutomaticFolder": "Automatic folder",
-  "storageAutomaticDownloadFolder": "Uses Download/SpotiFLAC when writable, otherwise app storage",
-  "storageSafRecommended": "Choose folder (Recommended)",
-  "storageDownloadFolderHint": "In the Android folder picker, open Download and select SpotiFLAC. If it does not exist, create it using New folder, then tap Use this folder to grant access.",
+  "storageAutomaticFolder": "Carpeta automática",
+  "storageAutomaticDownloadFolder": "Utiliza «Descargar/SpotiFLAC» si es un dispositivo grabable; de lo contrario, utiliza el almacenamiento de la aplicación",
+  "storageSafRecommended": "Selecciona una carpeta (recomendado)",
+  "storageDownloadFolderHint": "En el selector de carpetas de Android, abre la carpeta «Descargas» y selecciona «SpotiFLAC». Si no existe, créala con la opción «Nueva carpeta» y, a continuación, toca «Usar esta carpeta» para otorgar acceso.",
   "storageModeAppFolder": "Carpeta de la App (Recomendado)",
   "@storageModeAppFolder": {
     "description": "Storage mode option - app-managed folder"
@@ -4473,7 +4473,7 @@
   "@downloadNetworkCompatibilityMode": {
     "description": "Setting for legacy TLS/network handling"
   },
-  "downloadNetworkCompatibilityModeEnabled": "Allowing legacy HTTP endpoints; TLS verification remains enabled",
+  "downloadNetworkCompatibilityModeEnabled": "Se permiten los puntos finales HTTP heredados; la verificación de TLS sigue habilitada",
   "@downloadNetworkCompatibilityModeEnabled": {
     "description": "Subtitle when network compatibility mode is on"
   },
@@ -4929,27 +4929,27 @@
   "@audioAnalysisLufs": {
     "description": "Integrated loudness metric label"
   },
-  "audioAnalysisTruePeak": "True Peak",
+  "audioAnalysisTruePeak": "Pico real",
   "@audioAnalysisTruePeak": {
     "description": "True peak metric label"
   },
-  "audioAnalysisClipping": "Clipping",
+  "audioAnalysisClipping": "Recorte",
   "@audioAnalysisClipping": {
     "description": "Clipping metric label"
   },
-  "audioAnalysisNoClipping": "No clipping",
+  "audioAnalysisNoClipping": "Sin recortes",
   "@audioAnalysisNoClipping": {
     "description": "Displayed when no clipped samples were detected"
   },
-  "audioAnalysisSpectralCutoff": "Spectral Cutoff",
+  "audioAnalysisSpectralCutoff": "Corte espectral",
   "@audioAnalysisSpectralCutoff": {
     "description": "Estimated spectral cutoff metric label"
   },
-  "audioAnalysisCutoffNotDetected": "Not detected",
+  "audioAnalysisCutoffNotDetected": "No se detectó",
   "@audioAnalysisCutoffNotDetected": {
     "description": "Displayed when no reliable broadband spectral cutoff can be detected"
   },
-  "audioAnalysisChannelStats": "Per-channel Stats",
+  "audioAnalysisChannelStats": "Estadísticas por canal",
   "@audioAnalysisChannelStats": {
     "description": "Per-channel audio analysis section label"
   },
@@ -4961,39 +4961,39 @@
   "@audioAnalysisRescan": {
     "description": "Tooltip/label for the button that re-runs the audio analysis, discarding cached results"
   },
-  "downloadRedownloadFakeHiRes": "Re-download fake Hi-Res",
+  "downloadRedownloadFakeHiRes": "Volver a descargar archivos falsos de alta resolución",
   "@downloadRedownloadFakeHiRes": {
     "description": "Setting title: automatically replace downloads that measure as fake Hi-Res"
   },
-  "downloadRedownloadFakeHiResSubtitle": "Off by default. Check Hi-Res downloads and replace only when every audio sample is preserved. Keep the original if verification or processing fails",
+  "downloadRedownloadFakeHiResSubtitle": "Desactivado por defecto. Marca la opción «Descargas de alta resolución» y reemplaza solo cuando se conserven todas las muestras de audio. Conserva el original si falla la verificación o el procesamiento",
   "@downloadRedownloadFakeHiResSubtitle": {
     "description": "Setting subtitle for the fake Hi-Res re-download toggle"
   },
-  "hiResCheckVerdictFakeCertain": "Fake Hi-Res",
+  "hiResCheckVerdictFakeCertain": "Falsa alta resolución",
   "@hiResCheckVerdictFakeCertain": {
     "description": "Verdict: an exact fingerprint (padded bits or upsampling pattern) proves the file is not real Hi-Res"
   },
-  "hiResCheckVerdictFakeSuspect": "Possibly a filtered master",
+  "hiResCheckVerdictFakeSuspect": "Posiblemente una pista maestra filtrada",
   "@hiResCheckVerdictFakeSuspect": {
     "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
   },
-  "hiResCheckReasonSampleHold": "Every sample is repeated: upsampled by duplication",
+  "hiResCheckReasonSampleHold": "Cada muestra se repite: se aumenta su resolución mediante duplicación",
   "@hiResCheckReasonSampleHold": {
     "description": "Reason: sample-and-hold upsampling detected"
   },
-  "hiResCheckReasonInterpolation": "In-between samples are linearly interpolated",
+  "hiResCheckReasonInterpolation": "Las muestras intermedias se interpolan linealmente",
   "@hiResCheckReasonInterpolation": {
     "description": "Reason: linear-interpolation upsampling detected"
   },
-  "hiResCheckReasonImaging": "Content above 22 kHz mirrors the audible band",
+  "hiResCheckReasonImaging": "El contenido por encima de los 22 kHz refleja la banda audible",
   "@hiResCheckReasonImaging": {
     "description": "Reason: spectral imaging from upsampling detected"
   },
-  "hiResCheckMusicContent": "Musical content",
+  "hiResCheckMusicContent": "Contenido musical",
   "@hiResCheckMusicContent": {
     "description": "Label for the highest frequency that still moves with the music"
   },
-  "hiResCheckUltrasonicNoise": "Above {cutoff} only steady noise (typical of DSD or analog tape transfers): a {rate} file would hold all the music",
+  "hiResCheckUltrasonicNoise": "Por encima de {cutoff} solo se escucha ruido constante (típico del DSD o de las transferencias de cinta analógica): un archivo de {rate} contendría toda la música",
   "@hiResCheckUltrasonicNoise": {
     "description": "Shown when the ultrasonic content of a Hi-Res file is noise rather than music",
     "placeholders": {
@@ -5005,35 +5005,35 @@
       }
     }
   },
-  "hiResCheckTitle": "Hi-Res Authenticity",
+  "hiResCheckTitle": "Autenticidad en alta resolución",
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "hiResCheckSummary": "Revisa el espectro y la profundidad de bits activa para detectar indicios de sobremuestreo o relleno.",
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
-  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "hiResCheckLimitedBandwidth": "Ancho de banda limitado",
   "@hiResCheckLimitedBandwidth": {
     "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
   },
-  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "hiResCheckNoEvidence": "No se detectó ningún remuestreo ni relleno",
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "hiResCheckEstimatedCutoff": "Puntuación de corte estimada",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
-  "hiResCheckActiveBits": "Active / stored bits",
+  "hiResCheckActiveBits": "Bits activos / almacenados",
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "hiResCheckBandwidthExplanation": "Un umbral más bajo puede deberse a la masterización. Esto, por sí solo, no prueba que se haya realizado un sobremuestreo.",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "hiResCheckSampledExplanation": "Basado en {segundos} segundos de audio. Este análisis no puede certificar la grabación original.",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -5042,11 +5042,11 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "hiResCheckImagingEvidence": "El espectro contiene bandas reflejadas que concuerdan con el sobremuestreo.",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
-  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "hiResCheckRateEvidence": "Una caída brusca cerca de {cutoff} y el nivel de ruido de fondo medido sugieren que se trata de una fuente de baja frecuencia.",
   "@hiResCheckRateEvidence": {
     "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
     "placeholders": {
@@ -5055,7 +5055,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "hiResCheckSteadyEnergy": "La energía por encima de {cutoff} se mantiene prácticamente constante en el segmento analizado y podría tratarse de ruido.",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -5064,43 +5064,43 @@
       }
     }
   },
-  "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
+  "hiResCheckDescription": "Detecta archivos falsos de alta resolución que han sido remuestreados o a los que se les han agregado bits",
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
   },
-  "hiResCheckRun": "Check",
+  "hiResCheckRun": "Verificar",
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Checking Hi-Res authenticity...",
+  "hiResCheckChecking": "Verificando la autenticidad de la alta resolución...",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },
-  "hiResCheckVerdictFake": "Likely fake Hi-Res",
+  "hiResCheckVerdictFake": "Probablemente sea una imagen falsa en alta resolución",
   "@hiResCheckVerdictFake": {
     "description": "Verdict: the file claims Hi-Res but does not measure as it"
   },
-  "hiResCheckVerdictGenuine": "Measures as genuine Hi-Res",
+  "hiResCheckVerdictGenuine": "Se reproduce con auténtica alta resolución",
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Standard definition, nothing to flag",
+  "hiResCheckVerdictStandard": "Definición estándar, nada que destacar",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
-  "hiResCheckVerdictInconclusive": "Inconclusive: the analyzed segment is too quiet or short",
+  "hiResCheckVerdictInconclusive": "No concluyente: el segmento analizado es demasiado silencioso o demasiado corto",
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
-  "hiResCheckUnsupported": "Only FLAC and WAV files can be checked",
+  "hiResCheckUnsupported": "Solo se pueden revisar archivos FLAC y WAV",
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
-  "hiResCheckCutoff": "Content cutoff",
+  "hiResCheckCutoff": "Corte de contenido",
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
-  "hiResCheckBitsInUse": "Bits in use",
+  "hiResCheckBitsInUse": "Bits en uso",
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },

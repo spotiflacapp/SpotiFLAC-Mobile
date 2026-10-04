@@ -152,7 +152,7 @@
   },
   "libraryRecentlyAdded": "최근 추가됨",
   "libraryDownloads": "다운로드",
-  "libraryNoActiveDownloads": "활성화된 다운로드가 없음",
+  "libraryNoActiveDownloads": "진행 중인 다운로드가 없습니다",
   "librarySearchHint": "라이브러리 검색",
   "libraryEmptyCollection": "음악이 여기에 표시됩니다",
   "historySearchHint": "기록 검색...",
@@ -6941,15 +6941,15 @@
       }
     }
   },
-  "settingsGroupInterface": "확장 기능 & 디자인",
+  "settingsGroupInterface": "확장 기능 및 디자인",
   "@settingsGroupInterface": {
     "description": "Settings group covering look and feel"
   },
-  "settingsGroupContent": "콘텐츠 & 메타데이터",
+  "settingsGroupContent": "콘텐츠 및 메타데이터",
   "@settingsGroupContent": {
     "description": "Settings group covering the library, metadata and lyrics"
   },
-  "settingsGroupDownloads": "다운로드 & 파일",
+  "settingsGroupDownloads": "다운로드 및 파일",
   "@settingsGroupDownloads": {
     "description": "Settings group covering download behaviour and storage"
   },
@@ -6957,7 +6957,7 @@
   "@settingsGroupSystem": {
     "description": "Settings group covering app-level data, cache and logs"
   },
-  "settingsGroupHelp": "정보 & 후원",
+  "settingsGroupHelp": "정보 및 후원",
   "@settingsGroupHelp": {
     "description": "Settings group covering the about page and donations"
   },

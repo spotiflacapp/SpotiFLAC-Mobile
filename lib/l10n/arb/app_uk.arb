@@ -5009,31 +5009,31 @@
   "@hiResCheckTitle": {
     "description": "Title of the fake Hi-Res check card"
   },
-  "hiResCheckSummary": "Inspect the spectrum and active bit depth for signs of upsampling or padding.",
+  "hiResCheckSummary": "Перевірте спектр та активну розрядність на наявність ознак підвищення частоти дискретизації або простір між вмістом елемента та його рамкою/межами.",
   "@hiResCheckSummary": {
     "description": "Introductory text for the sampled Hi-Res analysis"
   },
-  "hiResCheckLimitedBandwidth": "Limited bandwidth",
+  "hiResCheckLimitedBandwidth": "Обмежена пропускна здатність",
   "@hiResCheckLimitedBandwidth": {
     "description": "Neutral finding: a limited spectrum alone does not prove upsampling"
   },
-  "hiResCheckNoEvidence": "No upsampling or padding detected",
+  "hiResCheckNoEvidence": "Підвищення частоти дискретизації або доповнення не виявлено",
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Estimated cutoff",
+  "hiResCheckEstimatedCutoff": "Орієнтовне обмеження",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
-  "hiResCheckActiveBits": "Active / stored bits",
+  "hiResCheckActiveBits": "Активні / збережені біти",
   "@hiResCheckActiveBits": {
     "description": "Active integer bit depth versus the container depth in the sampled segment"
   },
-  "hiResCheckBandwidthExplanation": "A lower cutoff can come from mastering. It does not, by itself, prove upsampling.",
+  "hiResCheckBandwidthExplanation": "Нижча межа відсікання може бути обумовлена освоєнням. Саме по собі це не доводить наявність підвищеної частоти дискретизації.",
   "@hiResCheckBandwidthExplanation": {
     "description": "Explains why the limited-bandwidth finding is neutral"
   },
-  "hiResCheckSampledExplanation": "Based on {seconds} seconds of audio. This analysis cannot certify the original master.",
+  "hiResCheckSampledExplanation": "На основі {seconds} секунд аудіозапису. Цей аналіз не може підтвердити автентичність оригіналу.",
   "@hiResCheckSampledExplanation": {
     "description": "Limits of the sampled Hi-Res analysis; seconds is a formatted duration",
     "placeholders": {
@@ -5042,11 +5042,11 @@
       }
     }
   },
-  "hiResCheckImagingEvidence": "The spectrum contains mirrored bands consistent with upsampling.",
+  "hiResCheckImagingEvidence": "Спектр містить дзеркальні смуги, характерні для підвищення частоти дискретизації.",
   "@hiResCheckImagingEvidence": {
     "description": "Spectral imaging is suggestive evidence rather than proof"
   },
-  "hiResCheckRateEvidence": "A sharp roll-off near {cutoff} and the measured noise floor suggest a lower-rate source.",
+  "hiResCheckRateEvidence": "Різкий спад поблизу {cutoff} і виміряний рівень шуму вказують на джерело з нижчою частотою дискретизації.",
   "@hiResCheckRateEvidence": {
     "description": "Heuristic evidence from both a brickwall and a 16-bit-like noise floor",
     "placeholders": {
@@ -5055,7 +5055,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Energy above {cutoff} is mostly steady in the analyzed segment and may be noise.",
+  "hiResCheckSteadyEnergy": "Енергія вище рівня відсікання {cutoff} в аналізованому сегменті здебільшого стабільна і може бути зумовлена ​​шумом.",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -5064,43 +5064,43 @@
       }
     }
   },
-  "hiResCheckDescription": "Detect upsampled or bit-padded fake Hi-Res files",
+  "hiResCheckDescription": "Виявляйте підроблені файли високої роздільної здатності Hi-Re, отримані шляхом підвищення частоти дискретизації або доповнення бітами",
   "@hiResCheckDescription": {
     "description": "Explains what the Hi-Res authenticity check does"
   },
-  "hiResCheckRun": "Check",
+  "hiResCheckRun": "Перевірити",
   "@hiResCheckRun": {
     "description": "Button that starts the Hi-Res authenticity check"
   },
-  "hiResCheckChecking": "Checking Hi-Res authenticity...",
+  "hiResCheckChecking": "Перевірка автентичності Hi-Res...",
   "@hiResCheckChecking": {
     "description": "Loading text while the Hi-Res check runs"
   },
-  "hiResCheckVerdictFake": "Likely fake Hi-Res",
+  "hiResCheckVerdictFake": "Ймовірно підробка Hi-Res",
   "@hiResCheckVerdictFake": {
     "description": "Verdict: the file claims Hi-Res but does not measure as it"
   },
-  "hiResCheckVerdictGenuine": "Measures as genuine Hi-Res",
+  "hiResCheckVerdictGenuine": "Відповідає стандартам справжнього Hi-Res",
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Standard definition, nothing to flag",
+  "hiResCheckVerdictStandard": "Стандартне визначення, немає підстав для позначення",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },
-  "hiResCheckVerdictInconclusive": "Inconclusive: the analyzed segment is too quiet or short",
+  "hiResCheckVerdictInconclusive": "Невизначений результат: проаналізований фрагмент занадто тихий або короткий",
   "@hiResCheckVerdictInconclusive": {
     "description": "Verdict: analysis could not reach a reliable conclusion"
   },
-  "hiResCheckUnsupported": "Only FLAC and WAV files can be checked",
+  "hiResCheckUnsupported": "Можна перевірити лише файли у форматах FLAC і WAV",
   "@hiResCheckUnsupported": {
     "description": "Shown when the file format cannot be decoded by the Hi-Res check"
   },
-  "hiResCheckCutoff": "Content cutoff",
+  "hiResCheckCutoff": "Контент відключено",
   "@hiResCheckCutoff": {
     "description": "Label for the highest frequency with real content"
   },
-  "hiResCheckBitsInUse": "Bits in use",
+  "hiResCheckBitsInUse": "Використовувані біти",
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },

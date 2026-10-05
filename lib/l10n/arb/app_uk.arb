@@ -4275,7 +4275,7 @@
       }
     }
   },
-  "backupContentsExtensions": "{count, plural, =1{1 extension} other{{count} extensions}}",
+  "backupContentsExtensions": "{count, plural, =1{1 розширення} other{{count} розширення}}",
   "@backupContentsExtensions": {
     "description": "Backup contents row for installed extensions count",
     "placeholders": {
@@ -4824,7 +4824,7 @@
   "@queueEmptySinglesSubtitle": {
     "description": "Empty state subtitle for single track downloads"
   },
-  "queuePlaylistCount": "{count, plural, =1{1 playlist} other{{count} playlists}}",
+  "queuePlaylistCount": "{count, plural, =1{1 список треків} other{{count} списки треків}}",
   "@queuePlaylistCount": {
     "description": "Playlist count label with plural support",
     "placeholders": {
@@ -4833,15 +4833,15 @@
       }
     }
   },
-  "queueEmptyPlaylistsSubtitle": "Create a playlist to organize your tracks",
+  "queueEmptyPlaylistsSubtitle": "Створіть списки треків, щоб упорядкувати свої треки",
   "@queueEmptyPlaylistsSubtitle": {
     "description": "Empty state subtitle for the playlists library view"
   },
-  "libraryDefaultView": "Default view",
+  "libraryDefaultView": "Вигляд за замовчуванням",
   "@libraryDefaultView": {
     "description": "Setting title - which library view opens when switching to the Library tab"
   },
-  "libraryDefaultViewLastUsed": "Last used",
+  "libraryDefaultViewLastUsed": "Останнє використання",
   "@libraryDefaultViewLastUsed": {
     "description": "Default view option - keep the last used library view"
   },
@@ -4881,15 +4881,15 @@
   "@audioAnalysisSampleRate": {
     "description": "Sample rate metric label"
   },
-  "audioAnalysisCodec": "Codec",
+  "audioAnalysisCodec": "Кодек",
   "@audioAnalysisCodec": {
     "description": "Audio codec metric label"
   },
-  "audioAnalysisContainer": "Container",
+  "audioAnalysisContainer": "Контейнер",
   "@audioAnalysisContainer": {
     "description": "Audio container metric label"
   },
-  "audioAnalysisDecodedFormat": "Decoded Format",
+  "audioAnalysisDecodedFormat": "Декодований формат",
   "@audioAnalysisDecodedFormat": {
     "description": "Decoded sample format metric label"
   },

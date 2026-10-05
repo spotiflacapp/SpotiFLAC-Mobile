@@ -5104,7 +5104,7 @@
   "@hiResCheckBitsInUse": {
     "description": "Label for effective vs declared bit depth"
   },
-  "hiResCheckDisclaimer": "The spectrum stops early, but nothing proves it was upsampled: it may be a genuine master low-pass filtered in mastering. It is not replaced automatically.",
+  "hiResCheckDisclaimer": "Спектр обривається завчасно, але немає доказів того, що було застосовано підвищену частоту дискретизації: це може бути оригінальна фінальна версія треку, до якого на фінальному етапі обробки треку було застосовано фільтр низьких частот. Автоматичній заміні він не підлягає.",
   "@hiResCheckDisclaimer": {
     "description": "Caveat shown under a fake Hi-Res verdict"
   },
@@ -5857,11 +5857,11 @@
   "@settingsApp": {
     "description": "Settings menu item - app settings"
   },
-  "settingsAppSubtitle": "Updates, data, extension repo, debug",
+  "settingsAppSubtitle": "Оновлення, дані, репозиторій розширень, налагодження",
   "@settingsAppSubtitle": {
     "description": "Subtitle for app settings"
   },
-  "sectionMetadataProviders": "Providers",
+  "sectionMetadataProviders": "Провайдери",
   "@sectionMetadataProviders": {
     "description": "Settings section header for metadata providers"
   },
@@ -6121,7 +6121,7 @@
       }
     }
   },
-  "storeRequiresVersion": "Requires v{version}+",
+  "storeRequiresVersion": "Потрібна версія v{version} або новіша",
   "@storeRequiresVersion": {
     "description": "Store compatibility badge for minimum app version",
     "placeholders": {
@@ -6130,15 +6130,15 @@
       }
     }
   },
-  "actionGo": "Go",
+  "actionGo": "Вперед",
   "@actionGo": {
     "description": "Generic action button label"
   },
-  "logIssueSummary": "Issue Summary",
+  "logIssueSummary": "Короткий опис",
   "@logIssueSummary": {
     "description": "Header for log issue analysis summary"
   },
-  "logTotalErrors": "Total errors: {count}",
+  "logTotalErrors": "Загальна кількість помилок: {count}",
   "@logTotalErrors": {
     "description": "Total error count in log issue analysis",
     "placeholders": {
@@ -6147,7 +6147,7 @@
       }
     }
   },
-  "logAffectedDomains": "Affected: {domains}",
+  "logAffectedDomains": "Змінені домени: {domains}",
   "@logAffectedDomains": {
     "description": "Affected domains in log issue analysis",
     "placeholders": {
@@ -6156,15 +6156,15 @@
       }
     }
   },
-  "libraryScanCancelled": "Scan cancelled",
+  "libraryScanCancelled": "Сканування скасовано",
   "@libraryScanCancelled": {
     "description": "Library scan status when a scan was cancelled"
   },
-  "libraryScanCancelledSubtitle": "You can retry the scan when ready.",
+  "libraryScanCancelledSubtitle": "Ви можете повторити сканування, коли будете готові.",
   "@libraryScanCancelledSubtitle": {
     "description": "Library scan status subtitle after cancellation"
   },
-  "libraryDownloadsHistoryExcluded": "{count} from Downloads history (excluded from list)",
+  "libraryDownloadsHistoryExcluded": "{count} З історії завантажень (виключено зі списку)",
   "@libraryDownloadsHistoryExcluded": {
     "description": "Library count note for downloaded history items excluded from the local list",
     "placeholders": {
@@ -6173,23 +6173,23 @@
       }
     }
   },
-  "downloadNativeWorker": "Native download worker",
+  "downloadNativeWorker": "Вбудований фоновий процес завантаження",
   "@downloadNativeWorker": {
     "description": "Setting title for Android native download worker"
   },
-  "downloadNativeWorkerSubtitle": "Android background service for extension downloads",
+  "downloadNativeWorkerSubtitle": "Фонова служба Android для завантаження розширень",
   "@downloadNativeWorkerSubtitle": {
     "description": "Setting subtitle for Android native download worker"
   },
-  "extensionServiceStatus": "Service Status",
+  "extensionServiceStatus": "Статус служби",
   "@extensionServiceStatus": {
     "description": "Extension detail section header for service status"
   },
-  "extensionServiceHealth": "Service health",
+  "extensionServiceHealth": "Стан служби",
   "@extensionServiceHealth": {
     "description": "Extension capability label for service health checks"
   },
-  "extensionHealthChecksConfigured": "{count} {count, plural, =1{check} other{checks}} configured",
+  "extensionHealthChecksConfigured": "{count} {count, plural, =1{перевірка} other{перевірок}} налаштований",
   "@extensionHealthChecksConfigured": {
     "description": "Extension service health check count",
     "placeholders": {
@@ -6198,11 +6198,11 @@
       }
     }
   },
-  "extensionOauthConnectHint": "Tap Connect to Spotify to fill this field.",
+  "extensionOauthConnectHint": "Натисніть «Під'єднатися до Spotify», щоб заповнити це поле.",
   "@extensionOauthConnectHint": {
     "description": "Hint for an OAuth login link field before connecting Spotify"
   },
-  "extensionLastChecked": "Last checked {time}",
+  "extensionLastChecked": "Востаннє перевірено {time}",
   "@extensionLastChecked": {
     "description": "Timestamp for the latest extension service health check",
     "placeholders": {
@@ -6211,23 +6211,23 @@
       }
     }
   },
-  "extensionRefreshStatus": "Refresh status",
+  "extensionRefreshStatus": "Оновити статус",
   "@extensionRefreshStatus": {
     "description": "Tooltip for refreshing extension service health status"
   },
-  "extensionCustomUrlHandling": "Custom URL Handling",
+  "extensionCustomUrlHandling": "Обробка спеціальних URL-адрес",
   "@extensionCustomUrlHandling": {
     "description": "Extension detail section title for custom URL handling"
   },
-  "extensionCustomUrlHandlingSubtitle": "This extension can handle links from these sites",
+  "extensionCustomUrlHandlingSubtitle": "Це розширення може обробляти посилання з цих сайтів",
   "@extensionCustomUrlHandlingSubtitle": {
     "description": "Extension detail subtitle for custom URL handling"
   },
-  "extensionCustomUrlHandlingShareHint": "Share links from these sites to SpotiFLAC Mobile and this extension will handle them.",
+  "extensionCustomUrlHandlingShareHint": "Поділіться посиланнями з цих сайтів із SpotiFLAC Mobile, і це розширення їх обробить.",
   "@extensionCustomUrlHandlingShareHint": {
     "description": "Extension detail hint explaining share-to-app URL handling"
   },
-  "extensionSettingsCount": "{count} {count, plural, =1{setting} other{settings}}",
+  "extensionSettingsCount": "{count} {count, plural, =1{налаштування} other{налаштувань}}",
   "@extensionSettingsCount": {
     "description": "Count of settings exposed by an extension quality option",
     "placeholders": {
@@ -6236,67 +6236,67 @@
       }
     }
   },
-  "extensionHealthOnline": "Online",
+  "extensionHealthOnline": "Онлайн",
   "@extensionHealthOnline": {
     "description": "Extension service health status - online"
   },
-  "extensionHealthDegraded": "Degraded",
+  "extensionHealthDegraded": "Знижена робота",
   "@extensionHealthDegraded": {
     "description": "Extension service health status - degraded"
   },
-  "extensionHealthOffline": "Offline",
+  "extensionHealthOffline": "Офлайн",
   "@extensionHealthOffline": {
     "description": "Extension service health status - offline"
   },
-  "extensionHealthNotConfigured": "Not configured",
+  "extensionHealthNotConfigured": "Не налаштовано",
   "@extensionHealthNotConfigured": {
     "description": "Extension service health status - not configured"
   },
-  "extensionHealthUnknown": "Unknown",
+  "extensionHealthUnknown": "Невідомо",
   "@extensionHealthUnknown": {
     "description": "Extension service health status - unknown"
   },
-  "extensionHealthRequired": "required",
+  "extensionHealthRequired": "обов’язково",
   "@extensionHealthRequired": {
     "description": "Label for a required extension service health check"
   },
-  "extensionSettingNotSet": "Not set",
+  "extensionSettingNotSet": "Не встановлено",
   "@extensionSettingNotSet": {
     "description": "Value shown when an extension setting has no value"
   },
-  "extensionActionFailed": "Action failed",
+  "extensionActionFailed": "Дія не вдалася",
   "@extensionActionFailed": {
     "description": "Fallback error when an extension action fails without details"
   },
-  "extensionEnterValue": "Enter value",
+  "extensionEnterValue": "Введіть значення",
   "@extensionEnterValue": {
     "description": "Hint for editing an extension setting value"
   },
-  "extensionHealthServiceOnline": "Service online",
+  "extensionHealthServiceOnline": "Сервіс онлайн",
   "@extensionHealthServiceOnline": {
     "description": "Tooltip for online extension service"
   },
-  "extensionHealthServiceDegraded": "Service degraded",
+  "extensionHealthServiceDegraded": "Службу відключено",
   "@extensionHealthServiceDegraded": {
     "description": "Tooltip for degraded extension service"
   },
-  "extensionHealthServiceOffline": "Service offline",
+  "extensionHealthServiceOffline": "Сервіс офлайн",
   "@extensionHealthServiceOffline": {
     "description": "Tooltip for offline extension service"
   },
-  "extensionHealthServiceUnknown": "Service status unknown",
+  "extensionHealthServiceUnknown": "Невідомий статус служби",
   "@extensionHealthServiceUnknown": {
     "description": "Tooltip for unknown extension service health"
   },
-  "audioAnalysisStereo": "Stereo",
+  "audioAnalysisStereo": "Стерео",
   "@audioAnalysisStereo": {
     "description": "Audio channel layout label - stereo"
   },
-  "audioAnalysisMono": "Mono",
+  "audioAnalysisMono": "Моно",
   "@audioAnalysisMono": {
     "description": "Audio channel layout label - mono"
   },
-  "trackOpenInService": "Open in {serviceName}",
+  "trackOpenInService": "Відкрити в {serviceName}",
   "@trackOpenInService": {
     "description": "Button label to open a track in a named music service",
     "placeholders": {
@@ -6305,51 +6305,51 @@
       }
     }
   },
-  "trackLyricsEmbeddedSource": "Embedded",
+  "trackLyricsEmbeddedSource": "Вбудовано",
   "@trackLyricsEmbeddedSource": {
     "description": "Lyrics source label for embedded lyrics"
   },
-  "unknownAlbum": "Unknown Album",
+  "unknownAlbum": "Невідомий альбом",
   "@unknownAlbum": {
     "description": "Fallback album name when metadata is missing"
   },
-  "unknownArtist": "Unknown Artist",
+  "unknownArtist": "Невідомий виконавець",
   "@unknownArtist": {
     "description": "Fallback artist name when metadata is missing"
   },
-  "permissionAudio": "Audio",
+  "permissionAudio": "Аудіо",
   "@permissionAudio": {
     "description": "Audio permission type label"
   },
-  "permissionStorage": "Storage",
+  "permissionStorage": "Пам'ять",
   "@permissionStorage": {
     "description": "Storage permission type label"
   },
-  "permissionNotification": "Notification",
+  "permissionNotification": "Сповіщення",
   "@permissionNotification": {
     "description": "Notification permission type label"
   },
-  "errorInvalidFolderSelected": "Invalid folder selected",
+  "errorInvalidFolderSelected": "Вибрана неправильна тека",
   "@errorInvalidFolderSelected": {
     "description": "Error when the selected folder is invalid"
   },
-  "storeAnyVersion": "Any",
+  "storeAnyVersion": "Будь-яке",
   "@storeAnyVersion": {
     "description": "Store detail value when any app version is accepted"
   },
-  "storeCategoryMetadata": "Metadata",
+  "storeCategoryMetadata": "Метадані",
   "@storeCategoryMetadata": {
     "description": "Store extension category - metadata"
   },
-  "storeCategoryDownload": "Download",
+  "storeCategoryDownload": "Завантажити",
   "@storeCategoryDownload": {
     "description": "Store extension category - download"
   },
-  "storeCategoryUtility": "Utility",
+  "storeCategoryUtility": "Утиліта",
   "@storeCategoryUtility": {
     "description": "Store extension category - utility"
   },
-  "storeCategoryLyrics": "Lyrics",
+  "storeCategoryLyrics": "Тексти пісень",
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
@@ -6827,11 +6827,11 @@
   "@regionCountryFR": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryDE": "Germany",
+  "regionCountryDE": "Німеччина",
   "@regionCountryDE": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryJP": "Japan",
+  "regionCountryJP": "Японія",
   "@regionCountryJP": {
     "description": "Country name for SongLink region picker"
   },

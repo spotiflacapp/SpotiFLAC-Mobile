@@ -1957,7 +1957,7 @@
   "@extensionMetadataProvider": {
     "description": "Capability - provides metadata"
   },
-  "extensionDownloadProvider": "Постачальник завантажень",
+  "extensionDownloadProvider": "Провайдер завантажень",
   "@extensionDownloadProvider": {
     "description": "Capability - provides downloads"
   },
@@ -2822,7 +2822,7 @@
       }
     }
   },
-  "libraryFilesUnit": "{count, plural, =1{file} other{файлів}}",
+  "libraryFilesUnit": "{count, plural, =1{файл} other{файлів}}",
   "@libraryFilesUnit": {
     "description": "Unit label for files count during library scanning",
     "placeholders": {
@@ -3009,7 +3009,7 @@
   "@timeJustNow": {
     "description": "Relative time - less than a minute ago"
   },
-  "timeMinutesAgo": "{count, plural, =1{1 minute ago} other{{count} хвилин тому}}",
+  "timeMinutesAgo": "{count, plural, =1{1 хвилину тому} other{{count} хвилин тому}}",
   "@timeMinutesAgo": {
     "description": "Relative time - minutes ago",
     "placeholders": {
@@ -3018,7 +3018,7 @@
       }
     }
   },
-  "timeHoursAgo": "{count, plural, =1{1 hour ago} other{{count} годин тому}}",
+  "timeHoursAgo": "{count, plural, =1{1 годину тому} other{{count} годин тому}}",
   "@timeHoursAgo": {
     "description": "Relative time - hours ago",
     "placeholders": {
@@ -3043,7 +3043,7 @@
   "@tutorialWelcomeTip2": {
     "description": "Tutorial welcome tip 2"
   },
-  "tutorialWelcomeTip3": "Автоматично вбудовуйте метадані, обкладинки, тексти пісень та інформацію про реліз\n",
+  "tutorialWelcomeTip3": "Автоматично вбудовуйте метадані, обкладинки, тексти пісень та інформацію про реліз",
   "@tutorialWelcomeTip3": {
     "description": "Tutorial welcome tip 3"
   },
@@ -3087,7 +3087,7 @@
   "@tutorialExtensionsTitle": {
     "description": "Tutorial extensions page title"
   },
-  "tutorialExtensionsDesc": "Розширення додають функції пошуку, завантаження, роботи з метаданими, тексти пісень та інші інтеграції.",
+  "tutorialExtensionsDesc": "Розширення додають функції пошуку, завантаження, роботи з метаданими, метаданих і резервних варіантів.",
   "@tutorialExtensionsDesc": {
     "description": "Tutorial extensions page description"
   },
@@ -4230,7 +4230,7 @@
   "@backupContentsSettings": {
     "description": "Backup contents row label for settings"
   },
-  "backupContentsHistory": "{count} history {count, plural, =1{item} other{items}}",
+  "backupContentsHistory": "{count} історію {count, plural, =1{елемент} other{елементи}}",
   "@backupContentsHistory": {
     "description": "Backup contents row for history count",
     "placeholders": {
@@ -4239,7 +4239,7 @@
       }
     }
   },
-  "backupContentsLiked": "{count} liked {count, plural, =1{track} other{tracks}}",
+  "backupContentsLiked": "{count} вподобали {count, plural, =1{трек} other{треків}}",
   "@backupContentsLiked": {
     "description": "Backup contents row for liked tracks count",
     "placeholders": {
@@ -4248,7 +4248,7 @@
       }
     }
   },
-  "backupContentsWishlist": "{count} wishlist {count, plural, =1{track} other{tracks}}",
+  "backupContentsWishlist": "{count} список бажань {count, plural, =1{трек} other{треків}}",
   "@backupContentsWishlist": {
     "description": "Backup contents row for wishlist tracks count",
     "placeholders": {
@@ -4557,7 +4557,7 @@
   "@downloadMusixmatchLanguageAuto": {
     "description": "Subtitle when no language is set"
   },
-  "downloadFilterContributing": "Filter Contributing Artists",
+  "downloadFilterContributing": "Поки що немає постачальників послуг пошуку",
   "@downloadFilterContributing": {
     "description": "Setting to strip contributing artists from Album Artist folder name"
   },
@@ -4684,7 +4684,7 @@
   "@editMetadataAutoFillApply": {
     "description": "Button label for applying the previewed metadata"
   },
-  "editMetadataAutoFillDoneFromSource": "Заповнено {count} {count, plural, =1{field} other{fields}} з {source}",
+  "editMetadataAutoFillDoneFromSource": "Заповнено {count} {count, plural, =1{поле} other{поля}} з {source}",
   "@editMetadataAutoFillDoneFromSource": {
     "description": "Snackbar confirming fields applied from a selected metadata source",
     "placeholders": {
@@ -4977,7 +4977,7 @@
   "@hiResCheckVerdictFakeSuspect": {
     "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
   },
-  "hiResCheckReasonSampleHold": "Every sample is repeated: upsampled by duplication",
+  "hiResCheckReasonSampleHold": "Кожен відлік повторюється: підвищення частоти дискретизації шляхом \n",
   "@hiResCheckReasonSampleHold": {
     "description": "Reason: sample-and-hold upsampling detected"
   },
@@ -5327,7 +5327,7 @@
   "@notifDownloadsCanceledTitle": {
     "description": "Notification title when downloads are canceled by the user"
   },
-  "notifDownloadsCanceledBody": "{count, plural, =1{1 завантаження скасовано користувачем} other{{count} завантаження скасовано користувачем}}",
+  "notifDownloadsCanceledBody": "{count, plural, =1{1 завантаження скасовано} other{{count} завантаження скасовано}}",
   "@notifDownloadsCanceledBody": {
     "description": "Notification body when downloads are canceled by the user",
     "placeholders": {
@@ -5593,7 +5593,7 @@
   "@editMetadataMusicBrainzFilled": {
     "description": "Snackbar after MusicBrainz suggestions were applied to the tag editor fields"
   },
-  "editMetadataMusicBrainzNothing": "Nothing found on MusicBrainz",
+  "editMetadataMusicBrainzNothing": "На MusicBrainz нічого не знайдено",
   "@editMetadataMusicBrainzNothing": {
     "description": "Snackbar when the MusicBrainz lookup returns no data"
   },
@@ -6353,7 +6353,7 @@
   "@storeCategoryLyrics": {
     "description": "Store extension category - lyrics"
   },
-  "storeCategoryIntegration": "Integration",
+  "storeCategoryIntegration": "Інтеграція",
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
@@ -6815,15 +6815,15 @@
   "@trackCoverOnline": {
     "description": "Label shown when metadata autofill downloaded cover art from the internet"
   },
-  "regionCountryUS": "United States",
+  "regionCountryUS": "Сполучені Штати Америки",
   "@regionCountryUS": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryGB": "United Kingdom",
+  "regionCountryGB": "Великобританія",
   "@regionCountryGB": {
     "description": "Country name for SongLink region picker"
   },
-  "regionCountryFR": "France",
+  "regionCountryFR": "Франція",
   "@regionCountryFR": {
     "description": "Country name for SongLink region picker"
   },

@@ -997,7 +997,7 @@
   "@duplicatesKeepBestAll": {
     "description": "Button that keeps the highest-quality copy in every duplicate group and deletes the rest"
   },
-  "duplicatesKeepBestAllMessage": "Зберегти найкращу копію з-поміж {groupCount} {groupCount, plural, =1{track} other{tracks}} і видалити  {count}гіршої якості {count, plural, =1{copy} other{copies}}? Видалені файли будуть усунені зі сховища.      ",
+  "duplicatesKeepBestAllMessage": "Зберегти найкращу копію {groupCount} {groupCount, plural, =1{треку} other{треків}}і видалити {count} гіршої якості {count, plural, =1{копію} other{копій}}?\n\nВидалені файли буде усунуто зі сховища.",
   "@duplicatesKeepBestAllMessage": {
     "description": "Confirmation message for keeping the best copy across every duplicate group",
     "placeholders": {
@@ -1745,7 +1745,7 @@
   "@trackReplayGainAlbumGain": {
     "description": "Metadata label - ReplayGain album gain"
   },
-  "trackReplayGainAlbumPeak": "Піковий рівень альбому (ReplayGain)",
+  "trackReplayGainAlbumPeak": "Піковий рівень альбому ReplayGain",
   "@trackReplayGainAlbumPeak": {
     "description": "Metadata label - ReplayGain album peak"
   },

@@ -4977,7 +4977,7 @@
   "@hiResCheckVerdictFakeSuspect": {
     "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
   },
-  "hiResCheckReasonSampleHold": "Кожен відлік повторюється: підвищення частоти дискретизації шляхом \n",
+  "hiResCheckReasonSampleHold": "Кожен відлік повторюється: підвищення частоти дискретизації шляхом дублювання\n",
   "@hiResCheckReasonSampleHold": {
     "description": "Reason: sample-and-hold upsampling detected"
   },

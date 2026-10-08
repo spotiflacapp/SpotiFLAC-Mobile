@@ -62,18 +62,69 @@ exact Flutter version declared in `.fvmrc` and replace `fvm flutter` with
    fvm flutter run --dart-define="GIT_COMMIT=$(git rev-parse --short=8 HEAD)"
    ```
 
-For iOS, run `bash scripts/build_ios.sh` on macOS, then `(cd ios && pod install)`
-before opening `ios/Runner.xcworkspace`. The application uses the Rust backend.
-
 The About footer shows the short commit supplied through `GIT_COMMIT` at
 compile time. The Android build script and iOS release workflow supply it
 automatically. Include the same `--dart-define` when running Flutter build
 commands directly; without it, the footer shows only the copyright.
 
-Android release builds also require the pinned Discord Social SDK. See
-[Discord build setup](DISCORD.md) for local staging and the CI decryption secret.
-`bash scripts/build_android.sh` verifies that every release APK contains the
-native integration; debug builds can run without the SDK.
+## Building the App
+
+### Android APKs
+
+For production releases, stage the official Discord Social SDK with
+`bash scripts/setup_discord_sdk.sh /path/to/discord_social_sdk`, then build:
+
+```bash
+bash scripts/build_android.sh --production
+```
+
+Production mode requires the staged SDK and rejects `--lite`. Release CI uses
+this mode and requires Discord on both Android and iOS. Fresh hosted runners
+must prepare the SDK before the release checks can pass. See
+[Discord build setup](third_party/spotiflac_discord/README.md#build-setup) for
+local staging and the CI decryption secret. Unencrypted SDK files are not
+committed to the repository.
+
+For development release APKs, use `bash scripts/build_android.sh`. Full builds
+remain the default; add `--lite` to omit the optional Discord SDK while keeping
+playback and downloads. Debug builds can also run without the SDK.
+
+To build only ARM64, set `SPOTIFLAC_RUST_ANDROID_ABIS=arm64-v8a`. The script uses
+the Flutter version in `.fvmrc` and audits the selected split APKs and universal
+APK. Android Gradle builds the Rust native artifacts automatically.
+
+### iOS Builds
+
+On macOS, run `bash scripts/build_ios.sh`, then `(cd ios && pod install)` before
+opening `ios/Runner.xcworkspace`. The application uses the Rust backend.
+
+For iOS Lite, run CocoaPods and the app build with `SPOTIFLAC_DISCORD_SDK=0`.
+An existing Pods installation must be regenerated with that setting. Production
+release CI requires the staged Discord SDK on iOS as well.
+
+For native iOS codec checks, see the
+[FFmpeg capability probe](scripts/README_ios_ffmpeg_capabilities.md).
+
+### Android Crash Symbols
+
+Android release builds, including plain `flutter build apk --release`, keep Dart
+debug data in `build/symbols/android/app.<architecture>.symbols` to reduce APK
+size. The release script also uses `--obfuscate` to shorten internal Dart names;
+when building directly, add `--obfuscate --split-debug-info=build/symbols/android`
+for the smaller APK. An explicit `--split-debug-info` path overrides the default;
+plain `--analyze-size` builds retain Flutter's normal behavior.
+
+Keep these symbols with the matching APK before another local build replaces
+them. Decode a trace with:
+
+```bash
+fvm flutter symbolize --debug-info=<symbols-file> --input=crash.txt
+```
+
+CI and release jobs retain an `android-symbols-…` artifact with the commit, APK
+SHA-256 hashes, Dart symbols, and R8 mapping, identified by run and attempt.
+Archive it before its 90-day retention expires and match the reported APK hash
+when choosing symbols; equal version numbers do not guarantee a match.
 
 ## Project Boundaries
 

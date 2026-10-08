@@ -4,12 +4,12 @@
   "networkDownloadSelected": "Selected download destination",
   "networkUseLocalDownloads": "Use local download folder",
   "networkDownloadAccessFailed": "Could not write to this folder.",
-  "networkUploading": "Uploading to network storage",
+  "networkUploading": "Завантаження до мережевого сховища",
   "networkDownloadDescription": "Prepare songs on this device, then upload them to your NAS. Keep the app open until the upload finishes. Retry reuses prepared audio. Existing files are kept; new downloads with the same name get a numbered suffix.",
   "networkAddToLibrary": "Add folder to Library",
   "networkLibraryAdded": "Folder added to Library",
   "networkLibraryDescription": "Scan this folder and its subfolders. Music stays on your server; metadata and artwork are saved on this device. Manage or rescan it in Local Library settings.",
-  "networkStorage": "Network storage",
+  "networkStorage": "Мережеве сховище",
   "networkErrorUnreachable": "The server could not be reached. Check that this phone can access its network and that the file-sharing service is running. For SMB, port 445 must be reachable.",
   "networkErrorTimeout": "The server did not respond in time. Check the connection and try again.",
   "networkErrorAuthentication": "The server rejected the sign-in. Check the username, password and domain. Leave the domain blank unless your server requires one.",
@@ -21,8 +21,8 @@
   "networkServer": "Server",
   "networkCredentials": "Sign in (optional)",
   "networkRefresh": "Refresh",
-  "networkStorageDescription": "Connect to your NAS or music server and browse its folders. Your sign-in details are stored securely on this device.",
-  "networkAddConnection": "Add connection",
+  "networkStorageDescription": "Під'єднатися до вашого NAS або музичного сервера та перегляньте його теки. Дані для входу зберігаються надійно на цьому пристрої.",
+  "networkAddConnection": "Додати з'єднання",
   "networkEditConnection": "Edit connection",
   "networkConnectionName": "Name",
   "networkAddress": "Server or audio URL",
@@ -42,8 +42,8 @@
   "extensionAccountRestartLogin": "Restart account login to continue.",
   "extensionAccountRequiredValue": "Enter a value.",
   "extensionAccountInvalidNumber": "Enter a valid number.",
-  "settingsPlaybackSubtitle": "Плеєр, гучність, автомікшування та аудіовихід",
-  "sectionPlayer": "Плеєр",
+  "settingsPlaybackSubtitle": "Програвач, гучність, автомікшування та аудіовихід",
+  "sectionPlayer": "Програвач",
   "sectionVolumeAndTransitions": "Гучність та переходи",
   "sectionAudioOutput": "Аудіо вихід",
   "usbBitPerfect": "Hi-res та якісне аудіо",
@@ -73,7 +73,7 @@
   "upgradeIntroThemeTitle": "Зробіть це самостійно.",
   "upgradeIntroThemeBody": "Виберіть вигляд. Ваш вибір застосовується негайно, і ви можете змінити його пізніше у розділі \"Зовнішній вигляд\".",
   "upgradeIntroThemeMaterialBody": "Звичний макет з елементами керування матеріалами та вашим акцентним кольором.",
-  "upgradeIntroThemeMornyeBody": "Навігація Glass, перероблена Бібліотека та імерсивний плеєр.",
+  "upgradeIntroThemeMornyeBody": "Навігація Glass, перероблена Бібліотека та імерсивний програвач.",
   "upgradeIntroRustTitle": "Новий рушій.\nЗроблено за допомогою Rust.",
   "upgradeIntroRustBody": "У версії 5.0 серверна частина програми перемістилася з Go на Rust. Це рушій, що працює за екранами, якими ви користуєтеся щодня.",
   "upgradeIntroRustEngineTitle": "Робота за лаштунками",
@@ -83,14 +83,14 @@
   "upgradeIntroRustKeepTitle": "Зберегти свою музику",
   "upgradeIntroRustKeepBody": "Немає потреби завантажувати свою колекцію знову. Ваша збережена музика та налаштування залишаються незмінними, без потреби в новому налаштуванні.",
   "upgradeIntroWelcomeBody": "Короткий огляд того, що змінилося та де це знайти.",
-  "upgradeIntroMornyeBody": "Новий вигляд вашого плеєра, текстів пісень та навігації.",
+  "upgradeIntroMornyeBody": "Новий вигляд вашого програвача, текстів пісень та навігації.",
   "upgradeIntroLibrarySummary": "Переглядайте музику за списком відтворення, виконавцем або альбомом.",
   "upgradeIntroRepoSummary": "Вибирайте джерела та постачальників музики за допомогою розширень.",
   "upgradeIntroLibraryTitle": "Дізнатися про вашу бібліотеку.",
   "upgradeIntroLibraryBody": "У Mornye переглядайте альбоми за категоріями або знаходьте їх у розділі «Нещодавно додані».",
   "upgradeIntroDownloadsBody": "Зупиніть та повторіть спробу з розділу «Завантаження» у верхньому правому куті. Відтворена музика переміщується до розділу «Нещодавно додані».",
   "upgradeIntroSearchBody": "Шукайте збережену музику тут. Окрема вкладка «Пошук» перегляне ваші розширення.",
-  "upgradeIntroPlayerTitle": "Налаштуйте свій плеєр.",
+  "upgradeIntroPlayerTitle": "Налаштуйте свій програвач.",
   "upgradeIntroPlayerBody": "Ви можете змінити тему та параметри відтворення будь-коли. Ось де їх знайти.",
   "upgradeIntroAppearanceBody": "Змініть теми в Налаштуваннях → Зовнішній вигляд. У Mornye прокрутіть униз для компактної навігації; прокрутіть угору, щоб розгорнути її.",
   "upgradeIntroAutoMixBody": "Узгоджувати темп і ритми між треками. Увімкніть цю функцію в Налаштуваннях → Локальна бібліотека → Відтворення. Вимкнено за замовчуванням.",
@@ -271,7 +271,7 @@
   "@appearanceDynamicColorSubtitle": {
     "description": "Subtitle for dynamic color"
   },
-  "appearanceHistoryView": "Історія переглядів",
+  "appearanceHistoryView": "Перегляд історії",
   "@appearanceHistoryView": {
     "description": "Layout style for history"
   },
@@ -435,7 +435,7 @@
   "@optionsArtistTagModeJoined": {
     "description": "Artist tag mode option that joins multiple artists into one value"
   },
-  "optionsArtistTagModeJoinedSubtitle": "Для максимальної сумісності програвача напишіть одне значення ARTIST, наприклад, «Виконавець A, Виконавець B».",
+  "optionsArtistTagModeJoinedSubtitle": "Для максимальної сумісності програвача напишіть одне значення ВИКОНАВЕЦЬ, наприклад, «Виконавець A, Виконавець B».",
   "@optionsArtistTagModeJoinedSubtitle": {
     "description": "Subtitle for joined artist tag mode"
   },
@@ -451,7 +451,7 @@
   "@optionsArtistTagModePrimary": {
     "description": "Artist tag mode option that writes only the first credited artist"
   },
-  "optionsArtistTagModePrimarySubtitle": "Вказуйте лише першого виконавця наприклад, «Artist A» у полях «Виконавець» та «Виконавець альбому» для всіх форматів, щоб програвачі показувати лише одного виконавця.",
+  "optionsArtistTagModePrimarySubtitle": "Вказуйте лише першого виконавця наприклад, «Виконавець A» у полях «Виконавець» та «Виконавець альбому» для всіх форматів, щоб програвачі показували лише одного виконавця.",
   "@optionsArtistTagModePrimarySubtitle": {
     "description": "Subtitle for the primary-artist tag mode. Applies when downloading and re-enriching; manual edits keep what the user typed."
   },
@@ -532,7 +532,7 @@
   "@storeTitle": {
     "description": "Repo screen title"
   },
-  "storeSearch": "Розширення пошуку...",
+  "storeSearch": "Пошук розширення...",
   "@storeSearch": {
     "description": "Repo search placeholder"
   },
@@ -857,7 +857,7 @@
   "@setupLanguageDescription": {
     "description": "Description for the language selection step in setup"
   },
-  "setupLanguageSystemDefault": "Система за замовчуванням",
+  "setupLanguageSystemDefault": "За замовчуванням",
   "@setupLanguageSystemDefault": {
     "description": "Option to use the system language"
   },
@@ -1467,7 +1467,7 @@
   "@providerPriorityTitle": {
     "description": "Provider priority page title"
   },
-  "providerPriorityDescription": "Перетягніть, щоб змінити порядок постачальників завантажень. Під час завантаження треків програма використовуватиме постачальників зверху вниз.",
+  "providerPriorityDescription": "Перетягніть, щоб змінити порядок провайдерів завантажень. Під час завантаження треків програма використовуватиме провайдерів зверху вниз.",
   "@providerPriorityDescription": {
     "description": "Provider priority page description"
   },
@@ -1614,7 +1614,7 @@
     "description": "Settings section header"
   },
   "lyricsKeepScreenOn": "Не вимикати екран під час перегляду тексту пісні",
-  "lyricsKeepScreenOnSubtitle": "Запобігати вимкненню екрана, коли відкрито текст пісні, зокрема й під час паузи у відтворенні.",
+  "lyricsKeepScreenOnSubtitle": "Запобігати вимкненню екрана, коли відкрито текст пісні, зокрема й під час паузи та відтворення.",
   "lyricsMode": "Режим тексту пісні",
   "@lyricsMode": {
     "description": "Setting - how to save lyrics"
@@ -1635,7 +1635,7 @@
   "@lyricsModeExternal": {
     "description": "Lyrics mode option - separate LRC file"
   },
-  "lyricsModeExternalSubtitle": "Окремий файл .lrc для плеєрів, таких як Samsung Music",
+  "lyricsModeExternalSubtitle": "Окремий файл .lrc для програвачів, таких як Samsung Music",
   "@lyricsModeExternalSubtitle": {
     "description": "Subtitle for external option"
   },
@@ -2344,15 +2344,15 @@
   "@appearanceAmoledDarkSubtitle": {
     "description": "Subtitle for AMOLED dark"
   },
-  "appearanceHeroAnimations": "Анімації головного елемента",
+  "appearanceHeroAnimations": "Основні анімації",
   "@appearanceHeroAnimations": {
     "description": "Toggle for shared-element (Hero) transitions"
   },
-  "appearanceHeroAnimationsSubtitle": "Анімація переходу між екранами, наприклад, під час відкриття плеєра",
+  "appearanceHeroAnimationsSubtitle": "Анімація переходу між екранами, наприклад, під час відкриття програвача",
   "@appearanceHeroAnimationsSubtitle": {
     "description": "Subtitle for the Hero animations toggle"
   },
-  "appearanceForceBlur": "Завжди використовуйте ефекти розмиття",
+  "appearanceForceBlur": "Використання ефектів розмиття",
   "@appearanceForceBlur": {
     "description": "Toggle that forces backdrop blur on even when the device profile disabled it"
   },
@@ -2483,7 +2483,7 @@
       }
     }
   },
-  "downloadedAlbumTapToSelect": "Натисніть на треки, щоб вибрати",
+  "downloadedAlbumTapToSelect": "Натисніть на трек, щоб вибрати",
   "@downloadedAlbumTapToSelect": {
     "description": "Selection hint"
   },
@@ -4100,11 +4100,11 @@
   "@lyricsProvidersTitle": {
     "description": "Settings item title for lyrics provider order"
   },
-  "lyricsProvidersDescription": "Увімкнення, вимкнення та зміна порядку джерел текстів пісень. Постачальники перевірятимуть зверху вниз, доки не буде знайдено текст пісні.",
+  "lyricsProvidersDescription": "Увімкнення, вимкнення та зміна порядку джерел текстів пісень. Провайдери перевірятимуть зверху вниз, доки не буде знайдено текст пісні.",
   "@lyricsProvidersDescription": {
     "description": "Description on the lyrics provider priority page"
   },
-  "lyricsProvidersInfoText": "Постачальники текстів пісень із розширень працюють перед вбудованими постачальниками. Принаймні один постачальник має залишатися ввімкненим.",
+  "lyricsProvidersInfoText": "Провайдери текстів пісень із розширень працюють перед вбудованими провайдерами. Принаймні один провайдер має залишатися ввімкненим.",
   "@lyricsProvidersInfoText": {
     "description": "Info tip on lyrics provider priority page"
   },
@@ -6465,15 +6465,15 @@
       "service": {}
     }
   },
-  "libraryPlayback": "Playback",
+  "libraryPlayback": "Відтворення",
   "@libraryPlayback": {
     "description": "Section header for playback settings in library settings"
   },
-  "libraryExternalPlayer": "External player",
+  "libraryExternalPlayer": "Зовнішній програвач",
   "@libraryExternalPlayer": {
     "description": "Setting option to use an external music player"
   },
-  "libraryExternalPlayerSubtitle": "Recommended for listening, best quality, gapless playback, EQ, and wider format support",
+  "libraryExternalPlayerSubtitle": "Рекомендовано для прослуховування: найкраща якість, відтворення без пауз, еквалайзер і підтримка ширшого спектра форматів",
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
@@ -6485,7 +6485,7 @@
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
-  "libraryBuiltInPlayerInfo": "The built-in player is a preview tool for checking local tracks quickly. Use an external music player for actual listening.",
+  "libraryBuiltInPlayerInfo": "Вбудований програвач призначений лише для швидкого прослуховування локальних треків. Для звичайного прослуховування використовуйте зовнішній програвач.",
   "@libraryBuiltInPlayerInfo": {
     "description": "Info note explaining the built-in player is for previews only"
   },
@@ -6581,7 +6581,7 @@
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },
-  "nowPlayingOpenInExternalPlayer": "Open in external player",
+  "nowPlayingOpenInExternalPlayer": "Відкрити в зовнішньому програвачі",
   "@nowPlayingOpenInExternalPlayer": {
     "description": "Menu item to open the current track in an external player"
   },
@@ -7088,7 +7088,7 @@
   "@mornyeFavorited": {
     "description": "Selected state of the compact favorite action"
   },
-  "autoMixDescription": "Поєднуйте композиції за допомогою синхронізації ритму та зміни темпу зі збереженням висоти тону. Використовує плавний перехід crossfade, якщо синхронізація ритму неможлива.",
+  "autoMixDescription": "Поєднуйте композиції за допомогою синхронізації ритму та зміни темпу зі збереженням висоти тону. Використовує плавний перехід, якщо синхронізація ритму неможлива.",
   "autoMixOn": "Автомікс увімкнено",
   "autoMixOff": "Автомікс вимкнено",
   "autoplayOn": "Автовідтворення увімкнено",
@@ -7167,26 +7167,26 @@
   "discordPresenceActive": "Sharing current track",
   "discordPresenceUnavailable": "Discord is unavailable. Retrying during playback.",
   "discordPresenceBuildUnavailable": "Discord SDK is not available in this build.",
-  "discordPresenceAndroidHelp": "Install Discord and sign in on this phone. Allow activity sharing in Discord. External players are not supported.",
+  "discordPresenceAndroidHelp": "Встановіть Discord і увійдіть у свій обліковий запис на цьому телефоні. Дозвольте поширення статусу активності в Discord. Зовнішні програвачі не підтримуються.",
   "discordPresenceIosHelp": "Link your account through Discord and allow activity sharing. Tap to link again if authorization fails.",
   "discordPresenceDisconnect": "Disconnect and forget account",
-  "autoMixSettingsTitle": "Mix transitions",
-  "autoMixAutomaticDuration": "Automatic duration",
-  "autoMixDuration": "Mix duration",
-  "autoMixEffect": "Transition effect",
-  "autoMixEffectAuto": "Auto",
-  "autoMixEffectCrossfade": "Crossfade",
-  "autoMixEffectMuffled": "Muffled",
-  "autoMixEffectEcho": "Echo",
-  "autoMixEffectPitch": "Pitch",
-  "autoMixEffectCustom": "Custom",
-  "autoMixEffectsHelp": "Effects apply to the end of the outgoing song during the mix. Short songs use a shorter overlap.",
-  "autoMixSpeed": "Speed",
-  "autoMixPitch": "Pitch (semitones)",
-  "autoMixEcho": "Echo",
-  "autoMixLowPass": "Muffled filter",
-  "autoMixMixing": "Mixing",
-  "autoMixCrossfading": "Crossfade",
+  "autoMixSettingsTitle": "Поєднання переходів",
+  "autoMixAutomaticDuration": "Автоматична тривалість",
+  "autoMixDuration": "Тривалість змішування",
+  "autoMixEffect": "Ефект переходу",
+  "autoMixEffectAuto": "Авто",
+  "autoMixEffectCrossfade": "Плавний перехід",
+  "autoMixEffectMuffled": "Приглушений",
+  "autoMixEffectEcho": "Ехо",
+  "autoMixEffectPitch": "Висота",
+  "autoMixEffectCustom": "Власний",
+  "autoMixEffectsHelp": "Ефекти застосовуються до завершальної частини попередньої композиції під час зведення. Для коротких композицій використовується коротший інтервал накладання.",
+  "autoMixSpeed": "Швидкість",
+  "autoMixPitch": "Висота тону (в півтонах)",
+  "autoMixEcho": "Ехо",
+  "autoMixLowPass": "Заглушений фільтр",
+  "autoMixMixing": "Змішування",
+  "autoMixCrossfading": "Плавний перехід",
   "playbackAutomation": "Automatic playback",
   "playbackPauseOnMute": "Pause when muted",
   "snackbarPlaybackMuted": "Media volume is zero. Playback paused. Press play again to continue.",

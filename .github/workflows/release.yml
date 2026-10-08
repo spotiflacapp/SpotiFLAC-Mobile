@@ -345,8 +345,15 @@ jobs:
 
       - name: Audit Rust iOS archive before packaging
         run: |
-          test -f ios/build/Runner.xcarchive/Products/Applications/Runner.app/Frameworks/discord_partner_sdk.framework/discord_partner_sdk
-          test -f ios/build/Runner.xcarchive/Products/Applications/Runner.app/Discord-License-Notices.txt
+          app="ios/build/Runner.xcarchive/Products/Applications/Runner.app"
+          for required in \
+            Frameworks/discord_partner_sdk.framework/discord_partner_sdk \
+            Frameworks/spotiflac_discord.framework/Discord-License-Notices.txt; do
+            test -s "$app/$required" || {
+              echo "Required Discord file missing or empty: $app/$required" >&2
+              exit 1
+            }
+          done
           python3 -m unittest discover -s scripts -p 'test_check_backend_ios.py'
           python3 scripts/check_backend_ios.py \
             ios/build/Runner.xcarchive/Products/Applications/Runner.app \

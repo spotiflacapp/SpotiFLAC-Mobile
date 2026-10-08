@@ -1,6 +1,6 @@
 {
-  "networkDownloadDestination": "Network download destination",
-  "networkUseForDownloads": "Download to this folder",
+  "networkDownloadDestination": "Місце збереження мережевих завантажень",
+  "networkUseForDownloads": "Завантажити в цю теку",
   "networkDownloadSelected": "Selected download destination",
   "networkUseLocalDownloads": "Use local download folder",
   "networkDownloadAccessFailed": "Could not write to this folder.",
@@ -75,7 +75,7 @@
   "upgradeIntroThemeMaterialBody": "Звичний макет з елементами керування матеріалами та вашим акцентним кольором.",
   "upgradeIntroThemeMornyeBody": "Навігація Glass, перероблена Бібліотека та імерсивний програвач.",
   "upgradeIntroRustTitle": "Новий рушій.\nЗроблено за допомогою Rust.",
-  "upgradeIntroRustBody": "У версії 5.0 серверна частина програми перемістилася з Go на Rust. Це рушій, що працює за екранами, якими ви користуєтеся щодня.",
+  "upgradeIntroRustBody": "У версії 5.0 серверна частина програми перемістилася з Go на Rust. Саме цей рушій забезпечує обробку логіки за інтерфейсами, з якими ви взаємодієте щодня.",
   "upgradeIntroRustEngineTitle": "Робота за лаштунками",
   "upgradeIntroRustEngineBody": "Rust обробляє завантаження, аудіометадані, сканування бібліотек та середовище виконання розширень на Android та iOS.",
   "upgradeIntroRustMemoryTitle": "Обережніше з пам'яттю",
@@ -99,7 +99,7 @@
   "upgradeIntroContinue": "Продовжити",
   "upgradeIntroDone": "Початок прослуховування",
   "upgradeIntroReplay": "Що нового у версії 5.0",
-  "cacheMotionArtwork": "Рухомі обкладинки Offline",
+  "cacheMotionArtwork": "Рухомі обкладинки Офлайн",
   "cacheMotionArtworkDesc": "Відеоальбоми зберігаються разом із завантаженнями. Після їх видалення ваші музичні файли та статичні обкладинки залишаться.",
   "nowPlayingVolume": "Гучність",
   "@nowPlayingVolume": {
@@ -166,7 +166,7 @@
   "@homeSubtitle": {
     "description": "Subtitle shown below search box"
   },
-  "homeEmptyTitle": "Поки що немає постачальників послуг пошуку",
+  "homeEmptyTitle": "Поки що немає провайдерів послуг пошуку",
   "@homeEmptyTitle": {
     "description": "Title shown on home when no providers are available yet"
   },
@@ -283,7 +283,7 @@
   "@appearanceHistoryViewGrid": {
     "description": "Grid layout option"
   },
-  "optionsPrimaryProvider": "Основний постачальник",
+  "optionsPrimaryProvider": "Основний провайдер",
   "@optionsPrimaryProvider": {
     "description": "Main search provider setting"
   },
@@ -1479,7 +1479,7 @@
   "@providerPriorityFallbackExtensionsDescription": {
     "description": "Section description for extension fallback selection"
   },
-  "providerPriorityFallbackExtensionsHint": "Тут перелічені лише ввімкнені розширення з можливістю завантаження через постачальника послуг.",
+  "providerPriorityFallbackExtensionsHint": "Тут перелічені лише ввімкнені розширення з можливістю завантаження через провайдера послуг.",
   "@providerPriorityFallbackExtensionsHint": {
     "description": "Hint below the extension fallback selection list"
   },
@@ -4917,7 +4917,7 @@
   "@audioAnalysisTitle": {
     "description": "Title for audio analysis section"
   },
-  "audioAnalysisDescription": "Перевірити якість без втрат за допомогою спектрального аналізу",
+  "audioAnalysisDescription": "Перевірити якість lossless за допомогою спектрального аналізу",
   "@audioAnalysisDescription": {
     "description": "Description for audio analysis tap-to-analyze prompt"
   },
@@ -5069,7 +5069,7 @@
   "@hiResCheckNoEvidence": {
     "description": "No evidence was detected; this does not certify the master"
   },
-  "hiResCheckEstimatedCutoff": "Орієнтовне обмеження",
+  "hiResCheckEstimatedCutoff": "Орієнтовна частота зрізу",
   "@hiResCheckEstimatedCutoff": {
     "description": "Estimated upper spectral edge at the analysis threshold"
   },
@@ -6405,7 +6405,7 @@
   "@storeCategoryIntegration": {
     "description": "Store extension category - integration"
   },
-  "artistReleases": "Releases",
+  "artistReleases": "Релізи",
   "@artistReleases": {
     "description": "Section header for all artist releases"
   },
@@ -6422,11 +6422,11 @@
       }
     }
   },
-  "settingsSaveDownloadHistory": "Save download history",
+  "settingsSaveDownloadHistory": "Зберігати історію завантажень",
   "@settingsSaveDownloadHistory": {
     "description": "Settings switch title for storing completed downloads in history"
   },
-  "settingsSaveDownloadHistorySubtitle": "Keep completed downloads in history and library views",
+  "settingsSaveDownloadHistorySubtitle": "Зберігати завершені завантаження в історії та бібліотеці",
   "@settingsSaveDownloadHistorySubtitle": {
     "description": "Settings switch subtitle for storing completed downloads in history"
   },
@@ -6477,11 +6477,11 @@
   "@libraryExternalPlayerSubtitle": {
     "description": "Subtitle for external player option"
   },
-  "libraryBuiltInPreviewPlayer": "Built-in preview player",
+  "libraryBuiltInPreviewPlayer": "Вбудований програвач попереднього прослуховування",
   "@libraryBuiltInPreviewPlayer": {
     "description": "Setting option to use the built-in preview player"
   },
-  "libraryBuiltInPreviewPlayerSubtitle": "Quick local previews inside SpotiFLAC Mobile",
+  "libraryBuiltInPreviewPlayerSubtitle": "Швидке прослуховування локальних треків у SpotiFLAC Mobile",
   "@libraryBuiltInPreviewPlayerSubtitle": {
     "description": "Subtitle for built-in preview player option"
   },
@@ -7021,7 +7021,7 @@
   "@libraryFilterMetadataHasReplayGain": {
     "description": "Filter option for tracks with indexed ReplayGain track or album gain tags"
   },
-  "libraryFilterIncompleteAlbums": "Incomplete albums",
+  "libraryFilterIncompleteAlbums": "Неповні альбоми",
   "@libraryFilterIncompleteAlbums": {
     "description": "Library filter for albums with confirmed missing track positions"
   },
@@ -7145,16 +7145,16 @@
   "listeningStatsPreviousYear": "Previous year",
   "listeningStatsNextYear": "Next year",
   "listeningStatsActivity": "Recent listening days · minutes",
-  "listeningStatsTopArtists": "Top artists",
+  "listeningStatsTopArtists": "Топ виконавці",
   "listeningStatsTopTracks": "Top tracks",
   "listeningStatsLoadError": "Could not load listening statistics",
   "listeningStatsClear": "Clear listening statistics",
   "listeningStatsClearError": "Could not clear listening statistics. Please try again.",
   "listeningStatsClearDescription": "Delete all listening statistics on this device? Your music and playlists will be kept.",
   "weeklyReleases": "New releases",
-  "weeklyReleasesDescription": "Recent albums and singles from your favorite artists, supplied by installed metadata extensions.",
-  "weeklyReleasesEmpty": "No dated releases found in this period. Add favorite artists or try a longer period.",
-  "weeklyReleasesUnavailable": "Some artists could not be checked. Their saved results are kept. Providers may not supply artist catalogs or exact release dates.",
+  "weeklyReleasesDescription": "Нещодавні альбоми та сингли від ваших улюблених виконавців, надані встановленими розширеннями метаданих.",
+  "weeklyReleasesEmpty": "Не знайдено жодного релізу за цей час. Додайте своїх улюблених артистів або спробуйте збільшити період пошуку.",
+  "weeklyReleasesUnavailable": "Не вдалося перевірити деяких виконавців, тому їхні збережені результати залишено. Провайдери можуть не надавати каталоги виконавців або точні дати релізів.",
   "weeklyReleasesLoadError": "Could not check new releases. Pull to refresh.",
   "motionArtworkDescription": "Loop video covers supplied by metadata providers. Turn off to use still artwork and reduce battery use.",
   "libraryLoading": "Loading Library…",

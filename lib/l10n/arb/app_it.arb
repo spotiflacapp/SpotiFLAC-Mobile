@@ -1,4 +1,47 @@
 {
+  "networkDownloadDestination": "Network download destination",
+  "networkUseForDownloads": "Download to this folder",
+  "networkDownloadSelected": "Selected download destination",
+  "networkUseLocalDownloads": "Use local download folder",
+  "networkDownloadAccessFailed": "Could not write to this folder.",
+  "networkUploading": "Uploading to network storage",
+  "networkDownloadDescription": "Prepare songs on this device, then upload them to your NAS. Keep the app open until the upload finishes. Retry reuses prepared audio. Existing files are kept; new downloads with the same name get a numbered suffix.",
+  "networkAddToLibrary": "Add folder to Library",
+  "networkLibraryAdded": "Folder added to Library",
+  "networkLibraryDescription": "Scan this folder and its subfolders. Music stays on your server; metadata and artwork are saved on this device. Manage or rescan it in Local Library settings.",
+  "networkStorage": "Network storage",
+  "networkErrorUnreachable": "The server could not be reached. Check that this phone can access its network and that the file-sharing service is running. For SMB, port 445 must be reachable.",
+  "networkErrorTimeout": "The server did not respond in time. Check the connection and try again.",
+  "networkErrorAuthentication": "The server rejected the sign-in. Check the username, password and domain. Leave the domain blank unless your server requires one.",
+  "networkErrorPermission": "This account is not allowed to open this share or folder. Check its read permissions on the server.",
+  "networkErrorShare": "The share or folder was not found. For SMB, use the server's shared folder name after its address, such as smb://server/Music/.",
+  "networkErrorProtocol": "The server and this SMB client could not agree on a supported protocol. Enable SMB2 or SMB3 on the server. SMB1 is not supported.",
+  "networkErrorAddress": "Check the server address. Use smb://server/share/ for SMB, or an http:// or https:// address for WebDAV and HTTP.",
+  "networkConnections": "Saved connections",
+  "networkServer": "Server",
+  "networkCredentials": "Sign in (optional)",
+  "networkRefresh": "Refresh",
+  "networkStorageDescription": "Connect to your NAS or music server and browse its folders. Your sign-in details are stored securely on this device.",
+  "networkAddConnection": "Add connection",
+  "networkEditConnection": "Edit connection",
+  "networkConnectionName": "Name",
+  "networkAddress": "Server or audio URL",
+  "networkProtocol": "Protocol",
+  "networkUsername": "Username (optional)",
+  "networkPassword": "Password (optional)",
+  "networkDomain": "Domain (optional)",
+  "networkConnectSave": "Connect and save",
+  "networkErrorCertificate": "The server's HTTPS certificate could not be verified. Edit this connection to review and trust its certificate, or check the server's HTTPS configuration.",
+  "networkCertificatePrompt": "This server uses an untrusted HTTPS certificate. Routers and NAS devices often use self-signed certificates. Verify the server address and SHA-256 fingerprint before trusting it. Trust applies only to this certificate on this server; a changed certificate requires approval again.",
+  "networkTrustCertificate": "Trust certificate and retry",
+  "networkRemoveConnection": "Remove connection",
+  "networkNoFiles": "No supported music files or folders found.",
+  "networkConnectionError": "Could not access the network source. Check the server address, credentials, and connection, then retry.",
+  "extensionAccountTitle": "Extension account",
+  "extensionAccountInvalidForm": "The extension returned an invalid account form.",
+  "extensionAccountRestartLogin": "Restart account login to continue.",
+  "extensionAccountRequiredValue": "Enter a value.",
+  "extensionAccountInvalidNumber": "Enter a valid number.",
   "settingsPlaybackSubtitle": "Player, volume, AutoMix, and audio output",
   "sectionPlayer": "Player",
   "sectionVolumeAndTransitions": "Volume and transitions",
@@ -74,6 +117,7 @@
   "appearanceGlassClaritySubtitle": "Adjust transparency in Mornye menus and navigation. Text contrast is preserved.",
   "appearanceGlassTinted": "Tinted",
   "appearanceGlassClear": "Clear",
+  "appearanceGlassClearPerformance": "Very clear glass may use more power and feel less smooth on older devices. Lower clarity if needed.",
   "appearanceGlassClarityBlurOff": "Glass is opaque on this device. Turn on “{setting}” to adjust clarity.",
   "@appearanceGlassClarityBlurOff": {
     "description": "Shown under the disabled glass clarity slider when the device renders Mornye glass without blur. The placeholder is the name of the force-blur toggle.",
@@ -1692,6 +1736,10 @@
   "trackFileNotFound": "File non trovato",
   "@trackFileNotFound": {
     "description": "Error - file doesn't exist"
+  },
+  "trackFileUnavailable": "File is currently unavailable. Check storage access and try again.",
+  "@trackFileUnavailable": {
+    "description": "File access failed; this does not mean the file was deleted"
   },
   "trackOpenInDeezer": "Apri su Deezer",
   "@trackOpenInDeezer": {
@@ -6969,6 +7017,33 @@
   "@libraryFilterMetadataMissingReplayGain": {
     "description": "Filter option for scanned tracks without ReplayGain gain tags"
   },
+  "libraryFilterMetadataHasReplayGain": "Has ReplayGain",
+  "@libraryFilterMetadataHasReplayGain": {
+    "description": "Filter option for tracks with indexed ReplayGain track or album gain tags"
+  },
+  "libraryFilterIncompleteAlbums": "Incomplete albums",
+  "@libraryFilterIncompleteAlbums": {
+    "description": "Library filter for albums with confirmed missing track positions"
+  },
+  "libraryAlbumCompletenessUnknown": "Album completeness unknown",
+  "@libraryAlbumCompletenessUnknown": {
+    "description": "Library filter and status for missing, conflicting or ambiguous album track counts"
+  },
+  "libraryAlbumMissingTracks": "{present}/{expected} tracks · {missing} missing",
+  "@libraryAlbumMissingTracks": {
+    "description": "Album completeness badge tooltip",
+    "placeholders": {
+      "present": {
+        "type": "int"
+      },
+      "expected": {
+        "type": "int"
+      },
+      "missing": {
+        "type": "int"
+      }
+    }
+  },
   "trackOptionCopyTrackName": "Copy track name",
   "@trackOptionCopyTrackName": {
     "description": "Track menu action that copies the track title"
@@ -7032,6 +7107,95 @@
   "artistUpcomingConcerts": "Upcoming Concerts",
   "artistAllUpcomingConcerts": "All Upcoming Concerts",
   "artistNoUpcomingConcerts": "No upcoming concerts.",
+  "motionArtwork": "Animated artwork",
+  "listeningStats": "Listening statistics",
+  "listeningStatsRecord": "Record listening",
+  "listeningStatsDescription": "Stored only on this device, starting now. Records the built-in player only; pauses, buffering and seeking add no listening time. A play counts after 30 seconds.",
+  "listeningStatsEmpty": "Play music with the built-in player to start your listening recap. Earlier listening cannot be recovered.",
+  "listeningStatsDays": "{days} days",
+  "@listeningStatsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "listeningStatsMinutes": "{minutes} min",
+  "@listeningStatsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "listeningStatsTotals": "{plays, plural, =1{1 play} other{{plays} plays}} · {tracks, plural, =1{1 track} other{{tracks} tracks}} · {days, plural, =1{1 active day} other{{days} active days}}",
+  "@listeningStatsTotals": {
+    "placeholders": {
+      "plays": {
+        "type": "int"
+      },
+      "tracks": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "listeningStatsPreviousYear": "Previous year",
+  "listeningStatsNextYear": "Next year",
+  "listeningStatsActivity": "Recent listening days · minutes",
+  "listeningStatsTopArtists": "Top artists",
+  "listeningStatsTopTracks": "Top tracks",
+  "listeningStatsLoadError": "Could not load listening statistics",
+  "listeningStatsClear": "Clear listening statistics",
+  "listeningStatsClearError": "Could not clear listening statistics. Please try again.",
+  "listeningStatsClearDescription": "Delete all listening statistics on this device? Your music and playlists will be kept.",
+  "weeklyReleases": "New releases",
+  "weeklyReleasesDescription": "Recent albums and singles from your favorite artists, supplied by installed metadata extensions.",
+  "weeklyReleasesEmpty": "No dated releases found in this period. Add favorite artists or try a longer period.",
+  "weeklyReleasesUnavailable": "Some artists could not be checked. Their saved results are kept. Providers may not supply artist catalogs or exact release dates.",
+  "weeklyReleasesLoadError": "Could not check new releases. Pull to refresh.",
+  "motionArtworkDescription": "Loop video covers supplied by metadata providers. Turn off to use still artwork and reduce battery use.",
+  "libraryLoading": "Loading Library…",
+  "libraryLoadFailed": "Library could not be loaded. Retry to load the saved folders and track index.",
+  "discordPresenceDescription": "Share the title, artist, album and progress of music played in the built-in player on your Discord profile. Local audio and artwork files are never uploaded. Clears when playback pauses or stops.",
+  "discordPresenceDisabled": "Disabled",
+  "discordPresenceLink": "Link Discord account",
+  "discordPresenceConnecting": "Connecting to Discord…",
+  "discordPresenceReady": "Ready when music plays",
+  "discordPresenceActive": "Sharing current track",
+  "discordPresenceUnavailable": "Discord is unavailable. Retrying during playback.",
+  "discordPresenceBuildUnavailable": "Discord SDK is not available in this build.",
+  "discordPresenceAndroidHelp": "Install Discord and sign in on this phone. Allow activity sharing in Discord. External players are not supported.",
+  "discordPresenceIosHelp": "Link your account through Discord and allow activity sharing. Tap to link again if authorization fails.",
+  "discordPresenceDisconnect": "Disconnect and forget account",
+  "autoMixSettingsTitle": "Mix transitions",
+  "autoMixAutomaticDuration": "Automatic duration",
+  "autoMixDuration": "Mix duration",
+  "autoMixEffect": "Transition effect",
+  "autoMixEffectAuto": "Auto",
+  "autoMixEffectCrossfade": "Crossfade",
+  "autoMixEffectMuffled": "Muffled",
+  "autoMixEffectEcho": "Echo",
+  "autoMixEffectPitch": "Pitch",
+  "autoMixEffectCustom": "Custom",
+  "autoMixEffectsHelp": "Effects apply to the end of the outgoing song during the mix. Short songs use a shorter overlap.",
+  "autoMixSpeed": "Speed",
+  "autoMixPitch": "Pitch (semitones)",
+  "autoMixEcho": "Echo",
+  "autoMixLowPass": "Muffled filter",
+  "autoMixMixing": "Mixing",
+  "autoMixCrossfading": "Crossfade",
+  "playbackAutomation": "Automatic playback",
+  "playbackPauseOnMute": "Pause when muted",
+  "snackbarPlaybackMuted": "Media volume is zero. Playback paused. Press play again to continue.",
+  "@snackbarPlaybackMuted": {
+    "description": "Shown after mute automation pauses playback; another explicit play request can override the pause."
+  },
+  "playbackPauseOnMuteDescription": "Pause at zero media volume and resume when raised. Manual pauses stay paused. Standard audio output only.",
+  "playbackOnHeadphonesConnected": "Play when headphones connect",
+  "playbackOnHeadphonesConnectedDescription": "Resume the current song when wired or Bluetooth headphones connect. Disconnecting pauses playback. Built-in player only.",
   "optionsEmbeddedCoverSizeOriginal": "Original resolution",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

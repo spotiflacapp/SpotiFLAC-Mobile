@@ -324,7 +324,7 @@
   "@optionsEmbedLyricsSubtitle": {
     "description": "Subtitle for embed lyrics"
   },
-  "optionsReplayGain": "Нормалізація звуку",
+  "optionsReplayGain": "Вирівнювання гучності",
   "@optionsReplayGain": {
     "description": "Title for ReplayGain setting toggle"
   },
@@ -2985,7 +2985,7 @@
   "@libraryFilterQuality": {
     "description": "Filter section - audio quality"
   },
-  "libraryFilterQualityHiRes": "Висока роздільна здатність (24 біти)",
+  "libraryFilterQualityHiRes": "Висока роздільна здатність (24bit)",
   "@libraryFilterQualityHiRes": {
     "description": "Filter option - high resolution audio"
   },
@@ -3405,7 +3405,7 @@
   "@trackSaveLyricsProgress": {
     "description": "Snackbar while saving lyrics to file"
   },
-  "trackReEnrich": "Поліпшувати",
+  "trackReEnrich": "Оновити метадані",
   "@trackReEnrich": {
     "description": "Menu action - re-embed metadata into audio file"
   },
@@ -5103,7 +5103,7 @@
       }
     }
   },
-  "hiResCheckSteadyEnergy": "Енергія вище рівня відсікання {cutoff} в аналізованому сегменті здебільшого стабільна і може бути зумовлена ​​шумом.",
+  "hiResCheckSteadyEnergy": "Енергія вище рівня {cutoff} в аналізованому сегменті здебільшого стабільна і може бути зумовлена ​​шумом.",
   "@hiResCheckSteadyEnergy": {
     "description": "An observation about ultrasonic energy, not proof that removing it is safe",
     "placeholders": {
@@ -7017,7 +7017,7 @@
   "@libraryFilterMetadataMissingReplayGain": {
     "description": "Filter option for scanned tracks without ReplayGain gain tags"
   },
-  "libraryFilterMetadataHasReplayGain": "Has ReplayGain",
+  "libraryFilterMetadataHasReplayGain": "Вирівнювання гучності",
   "@libraryFilterMetadataHasReplayGain": {
     "description": "Filter option for tracks with indexed ReplayGain track or album gain tags"
   },
@@ -7025,11 +7025,11 @@
   "@libraryFilterIncompleteAlbums": {
     "description": "Library filter for albums with confirmed missing track positions"
   },
-  "libraryAlbumCompletenessUnknown": "Album completeness unknown",
+  "libraryAlbumCompletenessUnknown": "Невідомо, чи альбом повний",
   "@libraryAlbumCompletenessUnknown": {
     "description": "Library filter and status for missing, conflicting or ambiguous album track counts"
   },
-  "libraryAlbumMissingTracks": "{present}/{expected} tracks · {missing} missing",
+  "libraryAlbumMissingTracks": "{present}/{expected} треки · {missing} відсутні",
   "@libraryAlbumMissingTracks": {
     "description": "Album completeness badge tooltip",
     "placeholders": {

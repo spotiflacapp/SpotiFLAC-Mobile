@@ -30,7 +30,15 @@ impl SignedSessionClient {
             };
             if let Some(error) = error {
                 drop(state);
-                let url = self.bootstrap(&check)?;
+                let url = match self.bootstrap(&check) {
+                    Ok(url) => url,
+                    Err(_) => {
+                        return on_mint_failure(
+                            || self.check(&check),
+                            || self.verification_required(String::new()),
+                        );
+                    }
+                };
                 return if url.is_empty() {
                     Err(error.into())
                 } else {
@@ -39,15 +47,24 @@ impl SignedSessionClient {
             }
             if state.blocked(&record) {
                 drop(state);
-                let url = self.bootstrap(&check)?;
+                let url = match self.bootstrap(&check) {
+                    Ok(url) => url,
+                    Err(_) => {
+                        return on_mint_failure(
+                            || self.check(&check),
+                            || self.verification_required(String::new()),
+                        );
+                    }
+                };
                 if !url.is_empty() {
                     return Ok(self.verification_required(url));
                 }
                 let state = self.scope.lock().expect("signed session coordinator lock");
                 record = self.load()?;
                 if !record.usable(self.registry.auth.now()) || state.blocked(&record) {
-                    return Err(
-                        "verification_required: signed-session generation is blocked".into(),
+                    return on_mint_failure(
+                        || self.check(&check),
+                        || self.verification_required(String::new()),
                     );
                 }
             }
@@ -137,5 +154,30 @@ impl SignedSessionClient {
             }
             return Ok(protocol::response_value(response, self.registry.auth.now()));
         }
+    }
+}
+
+fn on_mint_failure<T>(
+    recheck: impl FnOnce() -> Result<(), String>,
+    verification: impl FnOnce() -> T,
+) -> Result<T, String> {
+    recheck()?;
+    Ok(verification())
+}
+
+#[cfg(test)]
+mod signed_session_mint_tests {
+    use super::on_mint_failure;
+
+    #[test]
+    fn mint_failure_becomes_verification_required() {
+        let out = on_mint_failure(|| Ok(()), || serde_json::json!({"needsVerification": true}));
+        assert_eq!(out.unwrap()["needsVerification"], true);
+    }
+
+    #[test]
+    fn mint_failure_propagates_cancellation() {
+        let out = on_mint_failure(|| Err("download cancelled".to_string()), || 1);
+        assert_eq!(out.unwrap_err(), "download cancelled");
     }
 }

@@ -217,6 +217,7 @@ jobs:
         env:
           VERSION: ${{ needs.get-version.outputs.version }}
         run: |
+          python3 -m unittest discover -s scripts -p 'test_check_backend_apk.py'
           apk_dir=build/app/outputs/flutter-apk
           python3 scripts/check_backend_apk.py "$apk_dir/SpotiFLAC-${VERSION}-arm64.apk" \
             --backend rust --abis arm64-v8a --discord-sdk
@@ -226,6 +227,7 @@ jobs:
             "$ANDROID_HOME/build-tools/37.0.0/zipalign" -c -P 16 4 \
               "$apk_dir/SpotiFLAC-${VERSION}-${abi}.apk"
           done
+          (cd "$apk_dir" && sha256sum SpotiFLAC-*.apk > SHA256SUMS.txt)
 
       - name: Record Android symbol provenance
         run: |
@@ -249,9 +251,11 @@ jobs:
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: android-apk
+          if-no-files-found: error
           path: |
             build/app/outputs/flutter-apk/SpotiFLAC-*.apk
             build/app/outputs/flutter-apk/SpotiFLAC-*.apk.idsig
+            build/app/outputs/flutter-apk/SHA256SUMS.txt
 
   build-ios:
     runs-on: macos-15
@@ -426,6 +430,11 @@ jobs:
         with:
           name: ios-ipa
           path: ./release
+
+      - name: Verify downloaded Android artifacts
+        run: |
+          cd release
+          sha256sum --check SHA256SUMS.txt
 
       - name: Prepare release body
         env:

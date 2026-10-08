@@ -40,6 +40,46 @@ class BackendApkAuditTest(unittest.TestCase):
                             if not name.startswith("lib/") or name.startswith(f"lib/{abi}/")}
             self.assertEqual(len(self.audit((abi,))), 64)
 
+    def test_compressed_assets_pass(self):
+        self.entries["assets/flutter_assets/test.txt"] = b"resource contents" * 1024
+        with zipfile.ZipFile(self.apk, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+            for name, data in self.entries.items():
+                zf.writestr(name, data)
+        self.assertEqual(
+            len(checker.audit(self.apk, "rust", tuple(checker.ABI_LAYOUT))), 64
+        )
+
+    def entry_data_offset(self, name):
+        with zipfile.ZipFile(self.apk) as zf:
+            info = zf.getinfo(name)
+        with self.apk.open("rb") as stream:
+            stream.seek(info.header_offset + 26)
+            name_length, extra_length = struct.unpack("<HH", stream.read(4))
+        return info.header_offset + 30 + name_length + extra_length
+
+    def test_corrupt_deflate_asset_fails_with_entry_name(self):
+        self.audit()
+        path = "assets/flutter_assets/test.txt"
+        with zipfile.ZipFile(self.apk, "a", compression=zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr(path, b"resource contents" * 1024)
+        offset = self.entry_data_offset(path)
+        with self.apk.open("r+b") as stream:
+            stream.seek(offset)
+            stream.write(b"\x07")  # Reserved DEFLATE block type.
+        with self.assertRaisesRegex(checker.AuditError, "corrupt APK entry " + path):
+            checker.audit(self.apk, "rust", tuple(checker.ABI_LAYOUT))
+
+    def test_corrupt_library_past_valid_elf_header_fails(self):
+        path = "lib/arm64-v8a/libapp.so"
+        self.entries[path] += b"native library contents" * 1024
+        self.audit()
+        offset = self.entry_data_offset(path)
+        with self.apk.open("r+b") as stream:
+            stream.seek(offset + 1024)
+            stream.write(b"\xff")
+        with self.assertRaisesRegex(checker.AuditError, "corrupt APK entry " + path):
+            checker.audit(self.apk, "rust", tuple(checker.ABI_LAYOUT))
+
     def test_missing_backend_in_either_abi_fails(self):
         for abi in checker.ABI_LAYOUT:
             for library in ("libspotiflac_mobile.so", "libjnidispatch.so"):

@@ -6,6 +6,7 @@ import hashlib
 import struct
 import sys
 import zipfile
+import zlib
 from pathlib import Path
 from typing import Iterable, Sequence, Tuple
 
@@ -65,6 +66,22 @@ def check_abi_directories(names: Iterable[str], expected: Sequence[str]) -> None
         raise AuditError("unexpected lib ABI directory(s): " + ", ".join(unexpected))
 
 
+def check_archive_integrity(
+    zf: zipfile.ZipFile, infos: Sequence[zipfile.ZipInfo]
+) -> None:
+    # Reading to EOF checks both decompression and CRC, including resources and
+    # bytes beyond the ELF headers inspected by the native payload audit.
+    for info in infos:
+        if info.is_dir():
+            continue
+        try:
+            with zf.open(info, "r") as stream:
+                while stream.read(1024 * 1024):
+                    pass
+        except (zipfile.BadZipFile, zlib.error, EOFError) as exc:
+            raise AuditError(f"corrupt APK entry {info.filename}: {exc}") from exc
+
+
 def check_elf(data: bytes, path: str, abi: str) -> None:
     expected_class, expected_machine = ABI_LAYOUT[abi]
     if len(data) < 20 or data[:4] != b"\x7fELF":
@@ -114,6 +131,7 @@ def audit(path: Path, backend: str, abis: Sequence[str], discord_sdk: bool = Fal
     try:
         with zipfile.ZipFile(path, "r") as zf:
             infos = zf.infolist()
+            check_archive_integrity(zf, infos)
             names = [info.filename for info in infos]
             for name in names:
                 if not discord_sdk and name.rsplit("/", 1)[-1] == "libdiscord_partner_sdk.so":

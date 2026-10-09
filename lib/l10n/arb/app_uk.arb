@@ -1,9 +1,9 @@
 {
   "networkDownloadDestination": "Місце збереження мережевих завантажень",
   "networkUseForDownloads": "Завантажити в цю теку",
-  "networkDownloadSelected": "Selected download destination",
-  "networkUseLocalDownloads": "Use local download folder",
-  "networkDownloadAccessFailed": "Could not write to this folder.",
+  "networkDownloadSelected": "Вибране місце для завантаження",
+  "networkUseLocalDownloads": "Використовуйте локальну теку для завантажень",
+  "networkDownloadAccessFailed": "Не вдалося записати в цю теку.",
   "networkUploading": "Завантаження до мережевого сховища",
   "networkDownloadDescription": "Prepare songs on this device, then upload them to your NAS. Keep the app open until the upload finishes. Retry reuses prepared audio. Existing files are kept; new downloads with the same name get a numbered suffix.",
   "networkAddToLibrary": "Add folder to Library",

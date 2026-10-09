@@ -6430,35 +6430,35 @@
   "@settingsSaveDownloadHistorySubtitle": {
     "description": "Settings switch subtitle for storing completed downloads in history"
   },
-  "dialogDisableHistoryTitle": "Turn off download history?",
+  "dialogDisableHistoryTitle": "Вимкнути історію завантажень?",
   "@dialogDisableHistoryTitle": {
     "description": "Confirmation dialog title shown before disabling download history"
   },
-  "dialogDisableHistoryMessage": "Existing history will be cleared. Downloaded files will not be deleted.",
+  "dialogDisableHistoryMessage": "Наявну історію буде очищено. Завантажені файли видалено не буде.",
   "@dialogDisableHistoryMessage": {
     "description": "Confirmation dialog message shown before disabling download history"
   },
-  "dialogDisableAndClear": "Turn off and clear",
+  "dialogDisableAndClear": "Вимкнути та очистити",
   "@dialogDisableAndClear": {
     "description": "Confirmation action to disable download history and clear existing entries"
   },
-  "openInOtherServices": "Open in Other Services",
+  "openInOtherServices": "Відкрити в інших сервісах",
   "@openInOtherServices": {
     "description": "Title and tooltip for finding the current collection in other services"
   },
-  "shareSheetNoExtensions": "No other compatible services",
+  "shareSheetNoExtensions": "Немає інших сумісних сервісів",
   "@shareSheetNoExtensions": {
     "description": "Empty state when no extensions can be searched for cross-service links"
   },
-  "shareSheetNotFound": "Not found",
+  "shareSheetNotFound": "Не знайдено",
   "@shareSheetNotFound": {
     "description": "Cross-service share sheet row subtitle when a service has no match"
   },
-  "shareSheetCopyLink": "Copy Link",
+  "shareSheetCopyLink": "Скопіювати посилання",
   "@shareSheetCopyLink": {
     "description": "Tooltip for copying a cross-service link"
   },
-  "shareSheetLinkCopied": "{service} link copied",
+  "shareSheetLinkCopied": "Посилання на {service} скопійовано",
   "@shareSheetLinkCopied": {
     "description": "Snackbar after copying a cross-service link",
     "placeholders": {
@@ -6489,21 +6489,21 @@
   "@libraryBuiltInPlayerInfo": {
     "description": "Info note explaining the built-in player is for previews only"
   },
-  "nowPlayingTitle": "Now Playing",
+  "nowPlayingTitle": "Зараз відтворюється",
   "@nowPlayingTitle": {
     "description": "Title for the now playing screen"
   },
-  "nowPlayingNothingPlaying": "Nothing is playing",
+  "nowPlayingNothingPlaying": "Нічого не відтворюється",
   "@nowPlayingNothingPlaying": {
     "description": "Empty state when no track is currently playing"
   },
-  "nowPlayingMinimize": "Minimize",
+  "nowPlayingMinimize": "Згорнути",
   "@nowPlayingMinimize": {
     "description": "Tooltip for minimizing the now playing screen"
   },
-  "nowPlayingUpNext": "Up next",
-  "nowPlayingAudioOutput": "Audio Output",
-  "nowPlayingWrittenBy": "Written by: {writers}",
+  "nowPlayingUpNext": "Далі",
+  "nowPlayingAudioOutput": "Аудіовихід",
+  "nowPlayingWrittenBy": "Написано: {writers}",
   "@nowPlayingWrittenBy": {
     "placeholders": {
       "writers": {
@@ -6511,7 +6511,7 @@
       }
     }
   },
-  "nowPlayingLyricsProvider": "Lyrics: {provider}",
+  "nowPlayingLyricsProvider": "Текст пісні: {provider}",
   "@nowPlayingLyricsProvider": {
     "placeholders": {
       "provider": {
@@ -6519,34 +6519,34 @@
       }
     }
   },
-  "concertGetTickets": "Get Tickets",
-  "concertSetList": "Concert Set List",
-  "concertSetListButton": "Set List",
-  "concertAddToCalendar": "Add to Calendar",
-  "concertOpenMaps": "Open Maps",
-  "concertDetailsUnavailable": "Concert details are currently unavailable.",
-  "concertCalendarUnavailable": "Unable to open the calendar.",
-  "nowPlayingAudioOutputUnavailable": "Unable to open audio output settings.",
+  "concertGetTickets": "Купити квитки",
+  "concertSetList": "Список пісень",
+  "concertSetListButton": "Перелік композицій",
+  "concertAddToCalendar": "Додати в календар",
+  "concertOpenMaps": "Відкрити карту",
+  "concertDetailsUnavailable": "Деталі концерту наразі недоступні.",
+  "concertCalendarUnavailable": "Неможливо відкрити календар.",
+  "nowPlayingAudioOutputUnavailable": "Не вдалося відкрити налаштування аудіовиходу.",
   "@nowPlayingUpNext": {
     "description": "Title for the playback queue sheet"
   },
-  "nowPlayingPreviousTrack": "Previous track",
+  "nowPlayingPreviousTrack": "Попередній трек",
   "@nowPlayingPreviousTrack": {
     "description": "Tooltip for the previous-track playback control"
   },
-  "nowPlayingNextTrack": "Next track",
+  "nowPlayingNextTrack": "Наступний трек",
   "@nowPlayingNextTrack": {
     "description": "Tooltip for the next-track playback control"
   },
-  "nowPlayingDetails": "Details",
+  "nowPlayingDetails": "Деталі",
   "@nowPlayingDetails": {
     "description": "Menu item and section title for track metadata details"
   },
-  "nowPlayingSleepTimer": "Sleep timer",
+  "nowPlayingSleepTimer": "Таймер сну",
   "@nowPlayingSleepTimer": {
     "description": "Menu item and sheet title for the playback sleep timer"
   },
-  "nowPlayingSleepTimerActive": "Ends at {time}",
+  "nowPlayingSleepTimerActive": "Вимкнення в {time}",
   "@nowPlayingSleepTimerActive": {
     "description": "Active sleep timer deadline shown in the player menu",
     "placeholders": {
@@ -6555,7 +6555,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 minute} other{{minutes} minutes}}",
+  "nowPlayingSleepTimerMinutes": "{minutes, plural, =1{1 хвилина} other{{minutes} хвилини}}",
   "@nowPlayingSleepTimerMinutes": {
     "description": "Duration choice for the playback sleep timer",
     "placeholders": {
@@ -6564,11 +6564,11 @@
       }
     }
   },
-  "nowPlayingSleepTimerOff": "Turn off sleep timer",
+  "nowPlayingSleepTimerOff": "Вимкнути Таймер сну",
   "@nowPlayingSleepTimerOff": {
     "description": "Action to cancel the active playback sleep timer"
   },
-  "nowPlayingSleepTimerSet": "Sleep timer set for {duration}",
+  "nowPlayingSleepTimerSet": "Таймер сну встановлено на {duration}",
   "@nowPlayingSleepTimerSet": {
     "description": "Confirmation after setting the playback sleep timer",
     "placeholders": {
@@ -6577,7 +6577,7 @@
       }
     }
   },
-  "nowPlayingSleepTimerCancelled": "Sleep timer turned off",
+  "nowPlayingSleepTimerCancelled": "Таймер сну вимкнено",
   "@nowPlayingSleepTimerCancelled": {
     "description": "Confirmation after cancelling the playback sleep timer"
   },
@@ -6585,11 +6585,11 @@
   "@nowPlayingOpenInExternalPlayer": {
     "description": "Menu item to open the current track in an external player"
   },
-  "nowPlayingTabPlayer": "Player",
+  "nowPlayingTabPlayer": "Програвач",
   "@nowPlayingTabPlayer": {
     "description": "Tab label for the player view"
   },
-  "nowPlayingTabLyrics": "Lyrics",
+  "nowPlayingTabLyrics": "Тексти пісень",
   "@nowPlayingTabLyrics": {
     "description": "Tab label for the lyrics view"
   },
@@ -7107,12 +7107,12 @@
   "artistUpcomingConcerts": "Майбутні концерти",
   "artistAllUpcomingConcerts": "Всі майбутні концерти",
   "artistNoUpcomingConcerts": "Немає майбутніх концертів.",
-  "motionArtwork": "Animated artwork",
-  "listeningStats": "Listening statistics",
-  "listeningStatsRecord": "Record listening",
-  "listeningStatsDescription": "Stored only on this device, starting now. Records the built-in player only; pauses, buffering and seeking add no listening time. A play counts after 30 seconds.",
-  "listeningStatsEmpty": "Play music with the built-in player to start your listening recap. Earlier listening cannot be recovered.",
-  "listeningStatsDays": "{days} days",
+  "motionArtwork": "Анімована обкладинка",
+  "listeningStats": "Статистика прослуховувань",
+  "listeningStatsRecord": "Запис прослуховувань",
+  "listeningStatsDescription": "Зберігається лише на цьому пристрої, починаючи відтепер. Враховується лише вбудований програвач; паузи, буферизація та перемотування не додають часу прослуховування. Прослуховування зараховується після 30 секунд.",
+  "listeningStatsEmpty": "Увімкніть музику у вбудованому програвачі, щоб розпочати підсумок вашого прослуховування. Попередні прослуховування відновити неможливо.",
+  "listeningStatsDays": "{days} Дні",
   "@listeningStatsDays": {
     "placeholders": {
       "days": {
@@ -7120,7 +7120,7 @@
       }
     }
   },
-  "listeningStatsMinutes": "{minutes} min",
+  "listeningStatsMinutes": "{minutes} Хв",
   "@listeningStatsMinutes": {
     "placeholders": {
       "minutes": {
@@ -7128,7 +7128,7 @@
       }
     }
   },
-  "listeningStatsTotals": "{plays, plural, =1{1 play} other{{plays} plays}} · {tracks, plural, =1{1 track} other{{tracks} tracks}} · {days, plural, =1{1 active day} other{{days} active days}}",
+  "listeningStatsTotals": "{plays, plural, =1{1 раз} other{{plays} разів}} · {tracks, plural, =1{1 трек} other{{tracks} треків}} · {days, plural, =1{1 діючий день} other{{days} діючі дні}}",
   "@listeningStatsTotals": {
     "placeholders": {
       "plays": {

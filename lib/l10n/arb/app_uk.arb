@@ -5132,7 +5132,7 @@
   "@hiResCheckVerdictGenuine": {
     "description": "Verdict: no upsampling or padded bit depth found"
   },
-  "hiResCheckVerdictStandard": "Стандартне визначення, немає підстав для позначення",
+  "hiResCheckVerdictStandard": "Стандартна якість, зауважень немає",
   "@hiResCheckVerdictStandard": {
     "description": "Verdict: neither sample rate nor bit depth claims Hi-Res"
   },

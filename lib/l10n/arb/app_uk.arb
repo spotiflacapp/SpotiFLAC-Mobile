@@ -32,7 +32,7 @@
   "networkDomain": "Домен (необов'язково)",
   "networkConnectSave": "З’єднати та зберегти",
   "networkErrorCertificate": "Не вдалося перевірити HTTPS-сертифікат сервера. Відредагуйте це підключення, щоб переглянути сертифікат і додати його до довірених, або перевірте конфігурацію HTTPS на сервері.",
-  "networkCertificatePrompt": "This server uses an untrusted HTTPS certificate. Routers and NAS devices often use self-signed certificates. Verify the server address and SHA-256 fingerprint before trusting it. Trust applies only to this certificate on this server; a changed certificate requires approval again.",
+  "networkCertificatePrompt": "Цей сервер використовує ненадійний сертифікат HTTPS. Роутери та мережевий накопичувач NAS часто використовують із власним підписом сертифікати. Перевірте адресу сервера та відбиток SHA-256, перш ніж довіряти йому. Довіра поширюється лише на цей сертифікат на цьому сервері; змінений сертифікат потребуватиме повторного підтвердження.",
   "networkTrustCertificate": "Сертифікат безпеки та повторна спроба",
   "networkRemoveConnection": "Видалити підключення",
   "networkNoFiles": "Не знайдено підтримуваних музичних файлів або тек.",
@@ -1491,7 +1491,7 @@
   "@metadataProviderPriorityTitle": {
     "description": "Metadata priority page title"
   },
-  "metadataProviderPriorityDescription": "Перетягніть, щоб змінити порядок постачальників метаданих. Додаток шукатиме постачальників зверху вниз під час пошуку треків та отримання метаданих.",
+  "metadataProviderPriorityDescription": "Перетягніть, щоб змінити порядок провайдерів метаданих. Додаток шукатиме провайдерів зверху вниз під час пошуку треків та отримання метаданих.",
   "@metadataProviderPriorityDescription": {
     "description": "Metadata priority page description"
   },
@@ -5025,7 +5025,7 @@
   "@hiResCheckVerdictFakeSuspect": {
     "description": "Verdict: fails the cutoff test but may be a genuine master low-pass filtered in mastering"
   },
-  "hiResCheckReasonSampleHold": "Кожен відлік повторюється: підвищення частоти дискретизації шляхом дублювання\n",
+  "hiResCheckReasonSampleHold": "Кожен відлік повторюється: підвищення частоти дискретизації шляхом дублювання",
   "@hiResCheckReasonSampleHold": {
     "description": "Reason: sample-and-hold upsampling detected"
   },
@@ -5820,7 +5820,7 @@
       }
     }
   },
-  "a11yOpenItemCount": "Відтворити {title}, {count} {count, plural, =1{item} other{items}}",
+  "a11yOpenItemCount": "Відтворити {title}, {count} {count, plural, =1{елемент} other{елементи}}",
   "@a11yOpenItemCount": {
     "description": "Accessibility label for opening a grouped item with count",
     "placeholders": {
@@ -7168,8 +7168,8 @@
   "discordPresenceUnavailable": "Discord зараз недоступний. Спробуємо під'єднатися знову під час відтворення.",
   "discordPresenceBuildUnavailable": "Discord SDK недоступний у цій версії програми.",
   "discordPresenceAndroidHelp": "Встановіть Discord і увійдіть у свій обліковий запис на цьому телефоні. Дозвольте поширення статусу активності в Discord. Зовнішні програвачі не підтримуються.",
-  "discordPresenceIosHelp": "Link your account through Discord and allow activity sharing. Tap to link again if authorization fails.",
-  "discordPresenceDisconnect": "Disconnect and forget account",
+  "discordPresenceIosHelp": "Прив’яжіть свій обліковий запис через Discord і дозвольте поширення статусів активності. Якщо не вдалося пройти авторизацію, торкніться, щоб спробувати знову.",
+  "discordPresenceDisconnect": "Від’єднати та видалити обліковий запис",
   "autoMixSettingsTitle": "Поєднання переходів",
   "autoMixAutomaticDuration": "Автоматична тривалість",
   "autoMixDuration": "Тривалість змішування",
@@ -7187,15 +7187,15 @@
   "autoMixLowPass": "Заглушений фільтр",
   "autoMixMixing": "Змішування",
   "autoMixCrossfading": "Плавний перехід",
-  "playbackAutomation": "Automatic playback",
-  "playbackPauseOnMute": "Pause when muted",
-  "snackbarPlaybackMuted": "Media volume is zero. Playback paused. Press play again to continue.",
+  "playbackAutomation": "Автовідтворення",
+  "playbackPauseOnMute": "Ставити на паузу, коли звук вимкнено",
+  "snackbarPlaybackMuted": "Гучність мультимедіа дорівнює нулю. Відтворення зупинено. Натисніть «Відтворити» знову, щоб продовжити.",
   "@snackbarPlaybackMuted": {
     "description": "Shown after mute automation pauses playback; another explicit play request can override the pause."
   },
-  "playbackPauseOnMuteDescription": "Pause at zero media volume and resume when raised. Manual pauses stay paused. Standard audio output only.",
-  "playbackOnHeadphonesConnected": "Play when headphones connect",
-  "playbackOnHeadphonesConnectedDescription": "Resume the current song when wired or Bluetooth headphones connect. Disconnecting pauses playback. Built-in player only.",
+  "playbackPauseOnMuteDescription": "Призупиняти при нульовій гучності медіа та відновлювати при її збільшенні. Ручні паузи зберігаються. Тільки стандартний аудіовихід.",
+  "playbackOnHeadphonesConnected": "Відтворювати після підключення навушників",
+  "playbackOnHeadphonesConnectedDescription": "Відновлювати відтворення поточної пісні під час підключення дротових або Bluetooth-навушників. Відключення призупиняє відтворення. Тільки для вбудованого програвача.",
   "optionsEmbeddedCoverSizeOriginal": "Вихідна роздільна здатність",
   "@optionsEmbeddedCoverSizeOriginal": {
     "description": "Option that preserves the provider artwork at its original resolution"

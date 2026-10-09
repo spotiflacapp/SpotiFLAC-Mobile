@@ -4881,7 +4881,7 @@
       }
     }
   },
-  "queueEmptyPlaylistsSubtitle": "Створіть списки треків, щоб упорядкувати свої треки",
+  "queueEmptyPlaylistsSubtitle": "Створіть список відтворення, щоб упорядкувати свої треки",
   "@queueEmptyPlaylistsSubtitle": {
     "description": "Empty state subtitle for the playlists library view"
   },

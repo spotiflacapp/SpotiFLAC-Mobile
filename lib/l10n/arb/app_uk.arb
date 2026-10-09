@@ -4017,7 +4017,7 @@
       }
     }
   },
-  "selectionConvertNoConvertible": "Трансформованих треків не вибрано",
+  "selectionConvertNoConvertible": "Не вибрано жодного треку для конвертації",
   "@selectionConvertNoConvertible": {
     "description": "Snackbar when no selected tracks support conversion"
   },
